@@ -5,7 +5,7 @@
 
 /usersfiles
 /vendor/*
-/.htaccess
+#.htaccess
 *.clpprj
 Thumbs.db
 /app/config/database.php
