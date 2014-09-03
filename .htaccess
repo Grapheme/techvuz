@@ -1,0 +1,13 @@
+AddDefaultCharset utf-8
+Options +FollowSymLinks
+Options -Indexes
+
+php_value upload_max_filesize 20M
+php_value post_max_size 20M
+php_value max_execution_time 500
+php_value max_input_time 500
+
+<IfModule mod_rewrite.c>
+    RewriteEngine on
+	RewriteRule (.*) /public/$1 [L]
+</IfModule>
