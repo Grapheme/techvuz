@@ -8,7 +8,7 @@ return array(
     'remote'            => 'origin',
     'branch'            => 'master',
     'repository_name'   => 'technical-college',
-    'repository_id'     => 21561647,
+    'repository_id'     => 23617622,
     'user_group'        => 'www-data',
     'user_name'         => 'www-data',
     'set_log'           => TRUE,
