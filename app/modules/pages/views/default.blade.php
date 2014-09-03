@@ -1,0 +1,1 @@
+@extends($module['gtpl'].'demo')
