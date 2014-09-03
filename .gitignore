@@ -1,11 +1,2 @@
 .idea
-/psd
-/public/static/psd
-/public/static/node_modules
-
-/usersfiles
-/vendor/*
-#.htaccess
-*.clpprj
-Thumbs.db
-/!info
+/vendor

@@ -9,5 +9,6 @@ php_value max_input_time 500
 
 <IfModule mod_rewrite.c>
     RewriteEngine on
+	RewriteCond %{REQUEST_URI} !static/
 	RewriteRule (.*) /public/$1 [L]
 </IfModule>
