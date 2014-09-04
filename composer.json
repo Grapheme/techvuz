@@ -5,8 +5,8 @@
 	"license": "MIT",
 	"require": {
 		"laravel/framework": "4.2.*",
-		"way/generators": "*",
-		"intervention/image": "dev-master",
+		"way/generators": "~2.0",
+		"intervention/image": "2.*",
         "doctrine/dbal": "2.*",
 		"barryvdh/laravel-ide-helper": "1.*",
 		"barryvdh/laravel-debugbar": "dev-master",
