@@ -5,29 +5,25 @@ use Illuminate\Database\Schema\Blueprint;
 
 class CreateDirectionsTable extends Migration {
 
-	/**
-	 * Run the migrations.
-	 *
-	 * @return void
-	 */
-	public function up()
-	{
-		Schema::create('directions', function(Blueprint $table)
-		{
-			$table->increments('id');
-			$table->timestamps();
-		});
-	}
+    public function up(){
+        if (!Schema::hasTable('directions')) {
+            Schema::create('directions', function(Blueprint $table) {
+                $table->increments('id');
+                $table->integer('sort')->default(0)->unsigned()->nullable();
+                $table->string('code',10)->nullable();
+                $table->string('title',255)->nullable();
+                $table->text('description')->nullable();
+                $table->timestamps();
+            });
+            echo(' + ' . 'directions' . PHP_EOL);
+        } else {
+            echo('...' . 'directions' . PHP_EOL);
+        }
+    }
 
-
-	/**
-	 * Reverse the migrations.
-	 *
-	 * @return void
-	 */
-	public function down()
-	{
-		Schema::drop('directions');
-	}
+    public function down(){
+        Schema::dropIfExists('directions');
+        echo(' - ' . 'directions' . PHP_EOL);
+    }
 
 }

@@ -1,7 +1,22 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Vladimir
- * Date: 04.09.14
- * Time: 18:46
- */ 
+
+class Directions extends BaseModel {
+
+    protected $guarded = array();
+
+    protected $table = 'directions';
+
+    protected $fillable = array('sort','code','title','description');
+
+    public static $order_by = "sort";
+
+    public static $rules = array(
+        'code' => 'required',
+        'title' => 'required',
+    );
+
+    public function courses() {
+        return $this->hasMany('Courses', 'direction_id', 'id');
+    }
+
+}
