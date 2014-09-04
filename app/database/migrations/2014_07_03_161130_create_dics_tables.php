@@ -16,7 +16,7 @@ class CreateDicsTables extends Migration {
     			$table->boolean('entity')->unsigned()->nullable()->index();
                 $table->string('icon_class')->nullable();
     			$table->boolean('hide_slug')->unsigned()->nullable();
-    			$table->boolean('hide_name')->unsigned()->nullable();
+    			$table->string('name_title')->nullable();
                 $table->integer('order')->unsigned()->nullable()->index();
             });
             echo(' + ' . $this->table . PHP_EOL);

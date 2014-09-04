@@ -322,6 +322,7 @@ class PublicPagesController extends BaseController {
         return View::make($this->module['gtpl'].$page->template, compact('page'));
 
 	}
+    
 
 	public static function content_render($page_content, $page_data = NULL){
 

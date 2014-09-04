@@ -15,6 +15,10 @@ class NewsMeta extends BaseModel {
         'content',
         'photo_id',
         'gallery_id',
+
+        'source_title',
+        'source_url',
+        'video_id',
     );
 
     public static $order_by = 'created_at DESC,updated_at DESC';

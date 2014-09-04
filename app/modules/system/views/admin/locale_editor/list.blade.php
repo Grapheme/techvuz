@@ -76,6 +76,7 @@ $buttons = preg_replace("~[\r\n]~is", '', $buttons);
 #Helper::d("ALL_FILES");
 #Helper::d($all_files);
 $need_set_rights = false;
+#Helper::d($locales);
 foreach ($files as $dir => $dir_files) {
     if (!is_dir($dir) || !is_writable($dir)) {
         $need_set_rights = true;
@@ -83,9 +84,10 @@ foreach ($files as $dir => $dir_files) {
     } else {
         foreach ($all_files as $file => $null) {
             $full_filename = $dir . '/' . $file;
-            if (!file_exists($full_filename) || !is_writable($full_filename)) {
+            #Helper::d($full_filename);
+            if (@$locales[$dir] && (!file_exists($full_filename) || !is_writable($full_filename))) {
                 $need_set_rights = true;
-                break(2);
+                #break(2);
             }
         }
     }
@@ -98,7 +100,8 @@ foreach ($files as $dir => $dir_files) {
         <div class="alert alert-warning fade in">
             <i class="fa-fw fa fa-warning"></i>
             <strong>Внимание!</strong> Необходимо выставить права на запись всем файлам и директориям внутри папки /lang.<br/>
-            Для этого подключитесь к серверу по SSH и из корня приложения выполните команду: chmod -R 777 app/lang/
+            Для этого подключитесь к серверу по SSH и из корня приложения выполните команду: chmod -R 777 app/lang/<br/>
+            Также проверьте, чтобы существовали все директории с языковыми версиями, которые указаны в конфигурации.
         </div>
         @else
 
@@ -107,12 +110,16 @@ foreach ($files as $dir => $dir_files) {
 
                 {{ Form::open(array('url' => URL::action($module['class'].'@postSaveLocales'), 'class' => 'smart-form2', 'id' => 'locale-form', 'role' => 'form', 'method' => 'POST')) }}
 
+                {{ Helper::d_($locales); }}
+                {{ Helper::d_($dirs); }}
+
                 <table class="table tbl_header" style="margin-bottom: 0; z-index:999">
                     <thead>
                     <tr class="" style="width:100%;">
                         <th class="text-center" style="width:250px;" rowspan="1">#</th>
                         @foreach ($dirs as $dir)
-                        <th class="text-center locale_row" style="width:*">
+                        {{ @$locales[$dir] }}
+                        <th class="text-center locale_row {{ @$locales[basename($dir)] ? 'success' : 'danger' }}" style="width:*">
                             {{--
                             is_writable($dir)
                             ? '<i class="fa fa-check" title="Dir is writable"></i>'

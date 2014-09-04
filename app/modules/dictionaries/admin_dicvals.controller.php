@@ -195,7 +195,7 @@ class AdminDicvalsController extends BaseController {
         #return Response::json($json_request,200);
 
         $json_request = array('status' => FALSE, 'responseText' => '', 'responseErrorText' => '', 'redirect' => FALSE);
-		$validator = Validator::make($input, array('name' => 'required'));
+		$validator = Validator::make($input, array());
 		if($validator->passes()) {
 
             $redirect = false;

@@ -37,7 +37,7 @@ if (
                             || (Request::segment(2) != '' && Request::segment(3) != '' && Request::segment(2)."/".Request::segment(3) == $child_module['link'])
                             || strpos($_SERVER['REQUEST_URI'], $child_module['link'])
                         )
-                        ? ' active"'
+                        ? ' active'
                         : ''
                         }}">
 						<a href="{{ URL::to(link::auth($child_module['link'])) }}" title="{{{ $child_module['title'] }}}">

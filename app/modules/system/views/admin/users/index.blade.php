@@ -39,13 +39,13 @@
     					</td>
     					<td class="text-center" style="white-space:nowrap;">
 
-        					@if(Allow::action('users', 'edit'))
+        					@if(Allow::action('system', 'users'))
     						<a class="btn btn-success margin-right-10" href="{{ action($module['class'].'@getEdit', array('user_id' => $user->id)) }}">
     							Изменить
     						</a>
         					@endif
 
-        					@if(Allow::action('users', 'delete'))
+        					@if(Allow::action('system', 'users'))
     						<form method="POST" action="{{ action($module['class'].'@deleteDestroy', array('user_id' => $user->id)) }}" style="display:inline-block">
     							<button type="submit" class="btn btn-danger remove-user"<? if($user->id == 1){ echo " disabled='disabled'"; }?>>
     								Удалить

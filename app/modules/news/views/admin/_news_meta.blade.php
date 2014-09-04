@@ -50,6 +50,27 @@ foreach ($element->metas as $tmp) {
     </section>
     @endif
 
+    <section>
+        <label class="label">Источник (название)</label>
+        <label class="input">
+            {{ Form::text('locales['.$locale_sign.'][source_title]', $element_meta->source_title) }}
+        </label>
+    </section>
+
+    <section>
+        <label class="label">Источник (ссылка)</label>
+        <label class="input">
+            {{ Form::text('locales['.$locale_sign.'][source_url]', $element_meta->source_url) }}
+        </label>
+    </section>
+
+    <section>
+        <label class="label">Видео</label>
+        <label class="input">
+            {{ ExtForm::video('locales['.$locale_sign.'][video_id]', $element_meta->video_id) }}
+        </label>
+    </section>
+
 </fieldset>
 
 <span><!-- .smart-form fieldset + fieldset border-top 1px fix --></span>

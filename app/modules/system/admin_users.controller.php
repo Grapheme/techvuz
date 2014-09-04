@@ -59,7 +59,7 @@ class AdminUsersController extends BaseController {
 
 	public function getIndex(){
 
-        Allow::permission($this->module['name'], 'view');
+        Allow::permission($this->module['group'], 'users');
 
         ## Фильтр юзеров по группе
         $group = false;
@@ -89,7 +89,7 @@ class AdminUsersController extends BaseController {
 
 	public function getCreate(){
 
-        Allow::permission($this->module['name'], 'create');
+        Allow::permission($this->module['group'], 'users');
 
 		$groups = Group::all();
         $groups_data = array('' => 'Выберите группу');
@@ -101,7 +101,7 @@ class AdminUsersController extends BaseController {
 
 	public function postStore(){
 
-        Allow::permission($this->module['name'], 'create');
+        Allow::permission($this->module['group'], 'users');
 
 		$json_request = array('status'=>FALSE, 'responseText'=>'', 'responseErrorText'=>'', 'redirect'=>FALSE);
 
@@ -135,7 +135,7 @@ class AdminUsersController extends BaseController {
 
 	public function getEdit($id){
 
-        Allow::permission($this->module['name'], 'edit');
+        Allow::permission($this->module['group'], 'users');
 
 		$groups = Group::all();
         $groups_data = array('' => 'Выберите группу');
@@ -149,7 +149,7 @@ class AdminUsersController extends BaseController {
 
 	public function postUpdate($id){
 
-        Allow::permission($this->module['name'], 'edit');
+        Allow::permission($this->module['group'], 'users');
 
 		$json_request = array('status'=>FALSE, 'responseText'=>'', 'responseErrorText'=>'', 'redirect'=>FALSE);
 		if(!Request::ajax())
@@ -194,7 +194,7 @@ class AdminUsersController extends BaseController {
 
 	public function postChangepass($id){
 
-        Allow::permission($this->module['name'], 'edit');
+        Allow::permission($this->module['group'], 'users');
 
 		$json_request = array('status'=>FALSE, 'responseText'=>'', 'responseErrorText'=>'', 'redirect'=>FALSE);
 		if(!Request::ajax())
@@ -238,10 +238,10 @@ class AdminUsersController extends BaseController {
 
 	public function deleteDestroy($id){
 
-        Allow::permission($this->module['name'], 'delete');
+        Allow::permission($this->module['group'], 'users');
 
 		if(!Request::ajax())
-            return App::abort(404);
+            App::abort(404);
 
 		$json_request = array('status'=>FALSE, 'responseText'=>'');
 	    $deleted = User::find($id)->delete();

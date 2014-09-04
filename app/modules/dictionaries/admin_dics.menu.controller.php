@@ -26,6 +26,7 @@ class AdminDicsMenuController extends BaseController {
             'delete' => 'Удаление словарей',
 
             'dicval' => 'Работа с содержимым словарей',
+            'entity' => 'Выносить словари в отдельную сущность',
         );
     }
 

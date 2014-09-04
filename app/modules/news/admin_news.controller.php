@@ -209,6 +209,7 @@ class AdminNewsController extends BaseController {
 
                     ## Withdraw gallery_id
                     $gallery_data = Helper::withdraw($locale_settings, 'gallery_id');
+                    $video_data = Helper::withdraw($locale_settings, 'video_id');
 
                     #$locale_settings['template'] = $locale_settings['template'] ? $locale_settings['template'] : NULL;
                     $news_meta = $this->news_meta->where('news_id', $element->id)->where('language', $locale_sign)->first();
@@ -220,7 +221,11 @@ class AdminNewsController extends BaseController {
                         $news_meta = $this->news_meta->create($locale_settings);
                     }
 
-                    ## NEWS_META GALLERY
+                    $locale_settings['video_id'] = ExtForm::process('video', $video_data);
+                    if ($locale_settings['video_id'] != $news_meta->video_id)
+                        $json_request['new_video_id'] = $locale_settings['video_id'];
+
+                    ## NEWS_META VIDEO
                     if (isset($gallery_data)) {
 
                         ###############################

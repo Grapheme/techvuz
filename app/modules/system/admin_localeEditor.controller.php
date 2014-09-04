@@ -45,7 +45,18 @@ class AdminLocaleEditorController extends BaseController {
     public function getIndex() {
 
         $locales = Config::get('app.locales');
-        return View::make($this->module['tpl'].'index', compact('locales'));
+        $dirs = glob(app_path('lang/*'), GLOB_ONLYDIR);
+
+        $all_locales = array_keys($locales);
+        foreach ($dirs as $d => $dir) {
+            $dirs[$d] = basename($dir);
+            $all_locales[] = $dirs[$d];
+        }
+        $all_locales = array_unique($all_locales);
+        sort($all_locales);
+        #Helper::dd($all_locales);
+
+        return View::make($this->module['tpl'].'index', compact('locales', 'dirs', 'all_locales'));
     }
 
     public function getList() {

@@ -79,6 +79,9 @@ class AdminVideoController extends BaseController {
                 $module = isset($params['module']) ? $params['module'] : NULL;
                 $unit_id = isset($params['unit_id']) ? $params['unit_id'] : NULL;
 
+                if (!$embed && !$video_id && !$image_file && !$delete_image)
+                    return NULL;
+
                 ## Find record
                 $element = false;
                 if (is_numeric($video_id))

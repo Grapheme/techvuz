@@ -14,30 +14,26 @@
 
             <p>Языковые версии из конфигурации:</p>
 
-            @if (count($locales))
+            @if (count($all_locales))
             <table class="table table-striped table-bordered min-table">
                 <thead>
                 <tr>
                     <th class="text-center" style="width:0px">#</th>
-                    <th style="width:100%;"class="text-center">Название</th>
-                    <th class="width-250 text-center">Действия</th>
+                    <th style="width:50%;" class="text-center">Конфигурация</th>
+                    <th style="width:50%;" class="text-center">Наличие директории</th>
                 </tr>
                 </thead>
                 <tbody>
-                    @foreach($locales as $locale_sign => $locale_name)
-                    <tr>
+                    @foreach($all_locales as $locale_sign)
+                    <tr class="text-center">
                         <td>
                             {{ $locale_sign }}
                         </td>
-                        <td>
-                            {{ $locale_name }}
+                        <td class="{{ @$locales[$locale_sign] ? 'success' : 'danger' }}">
+                            {{ @$locales[$locale_sign] }}
                         </td>
-                        <td class="text-center" style="white-space:nowrap;">
-                            {{--
-                            <a class="btn btn-success margin-right-10" href="{{ URL::action($module['class'].'@getEdit', $locale_sign) }}">
-                                Изменить
-                            </a>
-                            --}}
+                        <td class="{{ @in_array($locale_sign, $dirs) ? 'success' : 'danger' }}">
+
                         </td>
                     </tr>
                     @endforeach

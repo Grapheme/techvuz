@@ -15,11 +15,11 @@ class Dictionary extends BaseModel {
         'entity',
         'icon_class',
         'hide_slug',
-        'hide_name',
+        'name_title',
     );
 
 	public static $rules = array(
-		#'name' => 'required',
+		'name' => 'required',
 	);
 
     #public static function rules() {
@@ -52,6 +52,12 @@ class Dictionary extends BaseModel {
         return $this->with(array('value' => function($query) use ($slug) {
                     $query->whereSlug($slug);
                 }))->first()->value;
+    }
+
+    public static function valuesBySlug($slug) {
+        $return = Dic::where('slug', $slug)->with('values')->first()->values;
+        #return self::firstOrNew(array('slug' => $slug))->values;
+        return $return;
     }
 
     ## Work cool

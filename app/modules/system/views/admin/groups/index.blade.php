@@ -26,19 +26,19 @@
                         </td>
     					<td class="text-center" style="white-space:nowrap;">
 
-        					@if(Allow::action('groups', 'view'))
+        					@if(Allow::action('system', 'groups'))
     						<a class="btn btn-info margin-right-10" href="{{ mb_substr(action('AdminUsersController@getIndex'), 0, -6) }}?group={{ $group->name }}">
     							Участники
     						</a>
                     		@endif
 
-        					@if(Allow::action('groups', 'edit'))
+        					@if(Allow::action('system', 'groups'))
 							<a class="btn btn-success margin-right-10" href="{{ action($module['class'].'@getEdit', array('group_id' => $group->id)) }}"<? if($group->id == 1){ echo " disabled='disabled'"; }?>>
 								Изменить
 							</a>
                     		@endif
 
-        					@if(Allow::action('groups', 'delete'))
+        					@if(Allow::action('system', 'groups'))
 							<form method="POST" action="{{ action($module['class'].'@deleteDestroy', array('group_id' => $group->id)) }}" style="display:inline-block">
 								<button type="submit" class="btn btn-danger remove-group"<? if($group->id == 1){ echo " disabled='disabled'"; }?>>
 									Удалить

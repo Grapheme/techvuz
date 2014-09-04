@@ -61,7 +61,7 @@
     	</section>
 
 
-        @if (Allow::module('system'))
+        @if (Allow::action($module['group'], 'entity'))
         <section class="col col-6">
             <div class="well">
                 <header>Отдельная сущность</header>
@@ -91,10 +91,9 @@
                     </section>
 
                     <section>
-                        <label class="checkbox">
-                            {{ Form::checkbox('hide_name', 1) }}
-                            <i></i>
-                            Скрыть поле для ввода названия (name)
+                        <label class="label">Заголовок поля name</label>
+                        <label class="input">
+                            {{ Form::text('name_title') }}
                         </label>
                     </section>
 
