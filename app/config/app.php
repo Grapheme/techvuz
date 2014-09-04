@@ -9,7 +9,7 @@ return array(
 	'use_css_local' => FALSE,
 	'use_scripts_local' => FALSE,
 	
-	'default_page_title' => 'Quest Zenit',
+	'default_page_title' => 'ТехВУЗ',
 	'template' => 'default',
     'welcome_page_tpl' => 'templates.site.index', #'guests.welcome',
 
@@ -17,7 +17,7 @@ return array(
 	'manifest' => storage_path('meta'),
 
 	'debug' => TRUE,
-	'url' => 'http://test.grapheme.ru/quest-zenit/public',
+	'url' => 'http://technical-college.dev.grapheme.ru/',
 	'timezone' => 'UTC',
 
     'locales' => array(
