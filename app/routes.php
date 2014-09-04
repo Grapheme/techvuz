@@ -18,7 +18,6 @@ Route::post('redactor/upload','DownloadsController@redactorUploadImage');
 
 Route::group(array('before'=>'auth', 'prefix'=>$prefix), function(){
 	Route::controller('downloads', 'DownloadsController');
-	Route::controller('articles', 'ArticlesController');
 });
 
 	/*
