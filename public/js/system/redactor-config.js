@@ -190,6 +190,7 @@ $(function(){
 		alignment: 'Выравнивание',filename: 'Название (необязательно)',edit: 'Ред.'
 	};
 	$(".redactor-no-filter").redactor(ImperaviRedactor.config);
+	ImperaviRedactor.config['convertDivs'] = true;
 	ImperaviRedactor.config['linebreaks'] = false;
 	ImperaviRedactor.config['paragraphy'] = true;
 	$(".redactor").redactor(ImperaviRedactor.config);

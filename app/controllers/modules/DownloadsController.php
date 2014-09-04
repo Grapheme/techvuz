@@ -67,7 +67,7 @@ class DownloadsController extends BaseController {
 		if($listDir = scandir($uploadPath)):
 			$index = 0;
 			foreach($listDir as $number => $file):
-				if(is_file($uploadPath.'/'.$file)):
+				if(is_file($uploadPath.'/'.$file) && is_image($uploadPath.'/'.$file)):
 					$thumbnail = $uploadPath.'/thumbnail/thumb_'.$file;
 					if(file_exists($thumbnail) && is_file($thumbnail)):
 						$fileList['thumb'] = url('uploads/thumbnail/thumb_'.$file);

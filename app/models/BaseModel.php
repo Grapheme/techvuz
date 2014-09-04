@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * BaseModel
+ *
+ */
 class BaseModel extends Eloquent {
 	
 	public static $errors = array();

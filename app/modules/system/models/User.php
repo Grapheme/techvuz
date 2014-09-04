@@ -3,6 +3,40 @@
 use Illuminate\Auth\UserInterface;
 use Illuminate\Auth\Reminders\RemindableInterface;
 
+/**
+ * User
+ *
+ * @property integer $id
+ * @property integer $group_id
+ * @property string $name
+ * @property string $surname
+ * @property string $email
+ * @property integer $active
+ * @property string $password
+ * @property string $photo
+ * @property string $thumbnail
+ * @property string $temporary_code
+ * @property integer $code_life
+ * @property string $remember_token
+ * @property \Carbon\Carbon $created_at
+ * @property \Carbon\Carbon $updated_at
+ * @property-read \Group $group
+ * @property-read \Illuminate\Database\Eloquent\Collection|\Group[] $groups
+ * @method static \Illuminate\Database\Query\Builder|\User whereId($value)
+ * @method static \Illuminate\Database\Query\Builder|\User whereGroupId($value)
+ * @method static \Illuminate\Database\Query\Builder|\User whereName($value)
+ * @method static \Illuminate\Database\Query\Builder|\User whereSurname($value)
+ * @method static \Illuminate\Database\Query\Builder|\User whereEmail($value)
+ * @method static \Illuminate\Database\Query\Builder|\User whereActive($value)
+ * @method static \Illuminate\Database\Query\Builder|\User wherePassword($value)
+ * @method static \Illuminate\Database\Query\Builder|\User wherePhoto($value)
+ * @method static \Illuminate\Database\Query\Builder|\User whereThumbnail($value)
+ * @method static \Illuminate\Database\Query\Builder|\User whereTemporaryCode($value)
+ * @method static \Illuminate\Database\Query\Builder|\User whereCodeLife($value)
+ * @method static \Illuminate\Database\Query\Builder|\User whereRememberToken($value)
+ * @method static \Illuminate\Database\Query\Builder|\User whereCreatedAt($value)
+ * @method static \Illuminate\Database\Query\Builder|\User whereUpdatedAt($value)
+ */
 class User extends Eloquent implements UserInterface, RemindableInterface {
 
 	protected $table = 'users';

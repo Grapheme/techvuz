@@ -1,5 +1,24 @@
 <?php
 
+/**
+ * DicVal
+ *
+ * @property integer $id
+ * @property integer $dic_id
+ * @property string $slug
+ * @property string $name
+ * @property integer $order
+ * @property-read \Dictionary $dic
+ * @property-read \Illuminate\Database\Eloquent\Collection|\DicValMeta[] $metas
+ * @property-read \DicValMeta $meta
+ * @property-read \Illuminate\Database\Eloquent\Collection|\DicFieldVal[] $allfields
+ * @property-read \Illuminate\Database\Eloquent\Collection|\DicFieldVal[] $fields
+ * @method static \Illuminate\Database\Query\Builder|\DicVal whereId($value) 
+ * @method static \Illuminate\Database\Query\Builder|\DicVal whereDicId($value) 
+ * @method static \Illuminate\Database\Query\Builder|\DicVal whereSlug($value) 
+ * @method static \Illuminate\Database\Query\Builder|\DicVal whereName($value) 
+ * @method static \Illuminate\Database\Query\Builder|\DicVal whereOrder($value) 
+ */
 class DicVal extends BaseModel {
 
 	protected $guarded = array();
