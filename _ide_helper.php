@@ -1675,10 +1675,11 @@ namespace {
          * Set the event dispatcher instance.
          *
          * @param \Illuminate\Events\Dispatcher
+         * @return void 
          * @static 
          */
         public static function setDispatcher($events){
-            return \Illuminate\Auth\Guard::setDispatcher($events);
+            \Illuminate\Auth\Guard::setDispatcher($events);
         }
         
         /**
@@ -7347,6 +7348,17 @@ namespace {
         }
         
         /**
+         * Get the default locale.
+         *
+         * @return string 
+         * @static 
+         */
+        public static function getDefaultLocale(){
+            //Method inherited from \Symfony\Component\HttpFoundation\Request            
+            return \Illuminate\Http\Request::getDefaultLocale();
+        }
+        
+        /**
          * Sets the locale.
          *
          * @param string $locale
@@ -9935,6 +9947,17 @@ namespace {
         public static function setDefaultLocale($locale){
             //Method inherited from \Symfony\Component\HttpFoundation\Request            
             return \Illuminate\Http\Request::setDefaultLocale($locale);
+        }
+        
+        /**
+         * Get the default locale.
+         *
+         * @return string 
+         * @static 
+         */
+        public static function getDefaultLocale(){
+            //Method inherited from \Symfony\Component\HttpFoundation\Request            
+            return \Illuminate\Http\Request::getDefaultLocale();
         }
         
         /**

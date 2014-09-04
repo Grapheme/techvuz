@@ -373,8 +373,8 @@ class AdminGalleriesController extends BaseController {
 	    }
 
         ## Check upload & thumb dir
-		$uploadPath = Config::get('app-default.galleries_photo_dir');
-		$thumbsPath = Config::get('app-default.galleries_thumb_dir');
+		$uploadPath = Config::get('site.galleries_photo_dir');
+		$thumbsPath = Config::get('site.galleries_thumb_dir');
 
 		if(!File::exists($uploadPath))
 			File::makeDirectory($uploadPath, 0777, TRUE);
@@ -385,8 +385,8 @@ class AdminGalleriesController extends BaseController {
 		$fileName = time() . "_" . rand(1000, 1999) . '.' . $file->getClientOriginalExtension();
 
         ## Get images resize parameters from config
-		$thumb_size = Config::get('app-default.galleries_thumb_size');
-		$photo_size = Config::get('app-default.galleries_photo_size');
+		$thumb_size = Config::get('site.galleries_thumb_size');
+		$photo_size = Config::get('site.galleries_photo_size');
 
         ## Get image width & height
         $image = ImageManipulation::make($file->getRealPath());
@@ -453,8 +453,8 @@ class AdminGalleriesController extends BaseController {
 		    $db_delete = $model->delete();
 
 		if(@$db_delete) {
-			$file_delete = File::delete(Config::get('app-default.galleries_photo_dir').'/'.$model->name);
-			$thumb_delete = File::delete(Config::get('app-default.galleries_thumb_dir').'/'.$model->name);
+			$file_delete = File::delete(Config::get('site.galleries_photo_dir').'/'.$model->name);
+			$thumb_delete = File::delete(Config::get('site.galleries_thumb_dir').'/'.$model->name);
 		}
 
 		#if(@$db_delete && @$file_delete && @$thumb_delete) {

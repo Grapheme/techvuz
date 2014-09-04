@@ -9,7 +9,7 @@ class DownloadsController extends BaseController {
 	
 	public function getIndex(){
 		
-		$dir = public_path().Config::get('app-default.upload_dir')."/";
+		$dir = public_path().Config::get('site.upload_dir')."/";
 
 		if (!file_exists($dir) or !is_dir($dir)):
 			mkdir($dir);
@@ -32,7 +32,7 @@ class DownloadsController extends BaseController {
 		}
 		foreach($files_array as $file)
 		{
-			$url = URL::to(Config::get('app-default.upload_dir').$req_path."/".basename($file));
+			$url = URL::to(Config::get('site.upload_dir').$req_path."/".basename($file));
 			$files[$url] = array('name' => basename($file), 'size' => round(File::size($file)/1024, 2));
 		}
 
@@ -44,7 +44,7 @@ class DownloadsController extends BaseController {
 		$file = Input::file('file');
 		$path = Input::get('path');
  
-		$destinationPath = public_path().Config::get('app-default.upload_dir').$path;
+		$destinationPath = public_path().Config::get('site.upload_dir').$path;
 		$extension =$file->getClientOriginalExtension();
 		$filename = time()."_".str_random(40).".".$extension; 
 		$upload_success = Input::file('file')->move($destinationPath, $filename);

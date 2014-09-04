@@ -1,3 +1,4 @@
+    {{HTML::script('js/plugin/pace/pace.min.js');}}
 @if(Config::get('app.use_scripts_local'))
 	{{HTML::script('js/vendor/jquery.min.js');}}
 	{{HTML::script('js/vendor/jquery-ui.min.js');}}
