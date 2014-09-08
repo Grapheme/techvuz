@@ -1,11 +1,11 @@
 <?php
 
-class AdminEducationDirectionsController extends BaseController {
+class AdminEducationChaptersController extends BaseController {
 
-    public static $name = 'directions';
+    public static $name = 'chapters';
     public static $group = 'education';
-    public static $entity = 'directions';
-    public static $entity_name = 'Направление обучения';
+    public static $entity = 'chapters';
+    public static $entity_name = 'Главы';
 
     /****************************************************************************/
 
@@ -13,11 +13,10 @@ class AdminEducationDirectionsController extends BaseController {
     public static function returnRoutes($prefix = null) {
         $class = __CLASS__;
         Route::group(array('before' => 'auth', 'prefix' => $prefix), function() use ($class) {
-            Route::resource($class::$group."/".self::$name, $class,
+            Route::resource(AdminEducationDirectionsController::$group.'/'.AdminEducationDirectionsController::$name.'/{direction}/'.AdminEducationCoursesController::$name.'/{course}/'.$class::$name, $class,
                 array(
-                    'except' => array('show'),
+                    'except' => array('show','index'),
                     'names' => array(
-                        'index'   => self::$entity.'.index',
                         'create'  => self::$entity.'.create',
                         'store'   => self::$entity.'.store',
                         'edit'    => self::$entity.'.edit',
@@ -27,7 +26,6 @@ class AdminEducationDirectionsController extends BaseController {
                 )
             );
         });
-
     }
 
     public static function returnShortCodes() {
@@ -38,12 +36,10 @@ class AdminEducationDirectionsController extends BaseController {
         return NULL;
     }
 
-    ## Info about module (now only for admin dashboard & menu)
     public static function returnInfo() {
         return NULL;
     }
 
-    ## Menu elements of the module
     public static function returnMenu() {
         return NULL;
     }
@@ -51,16 +47,20 @@ class AdminEducationDirectionsController extends BaseController {
     /****************************************************************************/
 
     protected $direction;
+    protected $course;
+    protected $chapter;
 
-    public function __construct(Directions $direction){
+    public function __construct(Directions $direction, Courses $course, Chapter $chapter){
 
-        $this->direction = $direction;
+        $this->direction = Directions::where('id',Request::segment(4))->with('courses')->first();
+        $this->course = Courses::where('id',Request::segment(6))->with('chapters.lectures')->first();
+        $this->chapter = $chapter;
 
         $this->module = array(
             'name' => self::$name,
             'group' => self::$group,
             'rest' => self::$group,
-            'tpl' => static::returnTpl('admin.directions'),
+            'tpl' => static::returnTpl('admin.chapters'),
             'gtpl' => static::returnTpl(),
             'class' => __CLASS__,
 
@@ -70,26 +70,12 @@ class AdminEducationDirectionsController extends BaseController {
         View::share('module', $this->module);
     }
 
-    public function index() {
-
-        Allow::permission($this->module['group'], 'view');
-        $directions = Directions::with('courses')->orderBy('order')->with('courses')->get();
-        return View::make($this->module['tpl'].'index', compact('directions'));
-    }
-
     public function create() {
+
         Allow::permission($this->module['group'], 'create');
-        return View::make($this->module['tpl'].'create');
-    }
-
-    public function edit($id){
-
-        Allow::permission($this->module['group'], 'edit');
-        if($direction = $this->direction->where('id',$id)->first()):
-            return View::make($this->module['tpl'].'edit', compact('direction'));
-        else:
-            App::abort(404);
-        endif;
+        $direction = $this->direction;
+        $course = $this->course;
+        return View::make($this->module['tpl'].'create',compact('direction','course'));
     }
 
     public function store(){
@@ -97,11 +83,11 @@ class AdminEducationDirectionsController extends BaseController {
         if(!Request::ajax()) return App::abort(404);
         Allow::permission($this->module['group'], 'create');
         $json_request = array('status'=>FALSE, 'responseText'=>'', 'responseErrorText'=>'', 'redirect'=>FALSE, 'gallery'=>0);
-        $validation = Validator::make(Input::all(), Directions::$rules);
+        $validation = Validator::make(Input::all(), Chapter::$rules);
         if($validation->passes()):
-            $this->direction->create(Input::all());
-            $json_request['responseText'] = self::$entity_name." добавлено";
-            $json_request['redirect'] = URL::route('directions.index');
+            $this->chapter->create(Input::all());
+            $json_request['responseText'] = self::$entity_name." добавлена";
+            $json_request['redirect'] = URL::route('modules.index',array('directions'=>$this->direction->id,'course'=>$this->course->id));
             $json_request['status'] = TRUE;
         else:
             $json_request['responseText'] = 'Неверно заполнены поля';
@@ -110,17 +96,29 @@ class AdminEducationDirectionsController extends BaseController {
         return Response::json($json_request, 200);
     }
 
-    public function update($id){
+    public function edit($direction_id,$course_id,$chapter_id){
+
+        Allow::permission($this->module['group'], 'edit');
+        if($chapter = Chapter::where('id',$chapter_id)->first()):
+            $direction = $this->direction;
+            $course = $this->course;
+            return View::make($this->module['tpl'].'edit', compact('direction','course','chapter'));
+        else:
+            App::abort(404);
+        endif;
+    }
+
+    public function update($direction_id,$course_id,$chapter_id){
 
         if(!Request::ajax()) return App::abort(404);
         Allow::permission($this->module['group'], 'edit');
         $json_request = array('status'=>FALSE, 'responseText'=>'', 'responseErrorText'=>'', 'redirect'=>FALSE, 'gallery'=>0);
-        $validation = Validator::make(Input::all(), Directions::$rules);
+        $validation = Validator::make(Input::all(), Chapter::$rules);
         if($validation->passes()):
-            if($direction = $this->direction->where('id',$id)->first()):
-                $direction->update(Input::all());
-                $json_request['responseText'] = self::$entity_name." сохранен";
-                $json_request['redirect'] = URL::route('directions.index');
+            if($chapter = $this->chapter->where('id',$chapter_id)->first()):
+                $chapter->update(Input::all());
+                $json_request['responseText'] = self::$entity_name." сохранена";
+                $json_request['redirect'] = URL::route('modules.index',array('directions'=>$this->direction->id,'course'=>$this->course->id));
                 $json_request['status'] = TRUE;
             endif;
         else:
@@ -130,16 +128,14 @@ class AdminEducationDirectionsController extends BaseController {
         return Response::json($json_request, 200);
     }
 
-    public function destroy($id){
+    public function destroy($direction_id,$course_id,$chapter_id){
 
         Allow::permission($this->module['group'], 'delete');
         if(!Request::ajax()) return App::abort(404);
         $json_request = array('status'=>FALSE, 'responseText'=>'');
-        Directions::find($id)->courses()->delete();
-        Directions::find($id)->delete();
-        $json_request['responseText'] = self::$entity_name.' удален';
+        Chapter::find($chapter_id)->delete();
+        $json_request['responseText'] = self::$entity_name.' удалена';
         $json_request['status'] = TRUE;
         return Response::json($json_request, 200);
     }
-
 }

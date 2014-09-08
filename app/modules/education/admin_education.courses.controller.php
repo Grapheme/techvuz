@@ -50,7 +50,7 @@ class AdminEducationCoursesController extends BaseController {
     protected $direction;
     protected $course;
 
-    public function __construct(Directions $direction, Courses $course){
+    public function __construct(Courses $course){
 
         $this->direction = Directions::where('id',Request::segment(4))->with('courses')->first();
         $this->course = $course;
@@ -73,7 +73,8 @@ class AdminEducationCoursesController extends BaseController {
 
         Allow::permission($this->module['group'], 'view');
         $direction = $this->direction;
-        return View::make($this->module['tpl'].'index', compact('direction'));
+        $courses = Courses::where('direction_id',$direction->id)->orderBy('order')->with('lectures')->get();
+        return View::make($this->module['tpl'].'index', compact('direction','courses'));
     }
 
     public function create() {

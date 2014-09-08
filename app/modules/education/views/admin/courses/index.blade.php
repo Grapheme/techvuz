@@ -5,11 +5,14 @@
     <div class="row">
     	<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 margin-bottom-25 margin-top-10">
     		<div class="pull-left margin-right-10">
+    		    <a class="btn btn-default" href="{{ URL::route('directions.index') }}">Направления обучения</a>
+    		</div>
+    		<div class="pull-left margin-right-10">
     		@if(Allow::action($module['group'],'create'))
     			<a class="btn btn-primary" href="{{ URL::route('courses.create',array('directions'=>$direction->id)) }}">Добавить курс</a>
     		@endif
     		</div>
-            <div class="btn-group pull-left margin-right-10">
+            <div class="btn-group pull-right margin-right-10">
                 <a class="btn btn-default" href="{{ URL::route('courses.index',array('directions'=>$direction->id)) }}">
                     {{ $direction->title }} ({{ $direction->courses->count() }})
                 </a>
@@ -26,33 +29,35 @@
             </div>
     	</div>
     </div>
-    @if($direction->courses->count())
+    @if($courses->count())
     <div class="row">
-    	<div class="col-xs-12 col-sm-12 col-md-12 col-lg-8">
+    	<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
     		<table class="table table-striped table-bordered">
     			<thead>
     				<tr>
     					<th class="col-lg-1 text-center" style="white-space:nowrap;">Код</th>
-    					<th class="col-lg-7 text-center" style="white-space:nowrap;">Название</th>
+    					<th class="col-lg-6 text-center" style="white-space:nowrap;">Название</th>
     					<th class="col-lg-1 text-center" style="white-space:nowrap;">Цена</th>
     					<th class="col-lg-1 text-center" style="white-space:nowrap;">Часы</th>
-    					<th class="col-lg-2 text-center">Действия</th>
+    					<th class="col-lg-1 text-center"></th>
+    					<th class="col-lg-2 text-center"></th>
     				</tr>
     			</thead>
     			<tbody>
-    			@foreach($direction->courses as $course)
+    			@foreach($courses as $course)
     				<tr class="vertical-middle">
     					<td>{{ $course->code }}</td>
     					<td>{{ $course->title }}</td>
     					<td>{{ $course->price }} руб.</td>
     					<td>{{ $course->hours }}</td>
+    					<td><a href="{{ URL::route('modules.index',array('direction'=>$direction->id,'course'=>$course->id)) }}" class="btn btn-link margin-right-10">Модули ({{ $course->lectures->count() }})</a></td>
     					<td class="text-center" style="white-space:nowrap;">
         					@if(Allow::action($module['group'], 'edit'))
                             <a href="{{ URL::route('courses.edit',array('directions'=>$direction->id,'course'=>$course->id)) }}" class="btn btn-success margin-right-10">Изменить</a>
                             @endif
                             @if(Allow::action($module['group'], 'delete'))
                             <form method="DELETE" action="{{ URL::route('courses.destroy',array('directions'=>$direction->id,'course'=>$course->id)) }}" style="display:inline-block">
-                                <button type="submit" class="btn btn-danger remove-course">
+                                <button type="submit" {{ $course->lectures->count() ? 'disabled' : '' }} class="btn btn-danger remove-course">
                                     Удалить
                                 </button>
                             </form>

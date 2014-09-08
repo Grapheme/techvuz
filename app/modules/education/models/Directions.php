@@ -25,9 +25,9 @@ class Directions extends BaseModel {
 
     protected $table = 'directions';
 
-    protected $fillable = array('sort','code','title','description');
+    protected $fillable = array('order','code','title','description');
 
-    public static $order_by = "sort";
+    public static $order_by = "order";
 
     public static $rules = array(
         'code' => 'required',

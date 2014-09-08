@@ -37,9 +37,9 @@ class Courses extends BaseModel {
 
     protected $table = 'courses';
 
-    protected $fillable = array('direction_id','sort','code','title','description','price','hours','libraries','curriculum','metodical');
+    protected $fillable = array('direction_id','order','code','title','description','price','hours','libraries','curriculum','metodical');
 
-    public static $order_by = "sort";
+    public static $order_by = "order";
 
     public static $rules = array(
         'direction_id' => 'required',
@@ -61,5 +61,12 @@ class Courses extends BaseModel {
 
     public function metodical(){
         return $this->hasOne('Upload','id','metodical');
+    }
+
+    public function chapters(){
+        return $this->hasMany('Chapter','course_id');
+    }
+    public function lectures(){
+        return $this->hasMany('Lectures','course_id');
     }
 }
