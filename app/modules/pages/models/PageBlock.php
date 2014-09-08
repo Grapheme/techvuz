@@ -1,29 +1,5 @@
 <?php
 
-/**
- * PageBlock
- *
- * @property integer $id
- * @property integer $page_id
- * @property string $name
- * @property string $slug
- * @property string $desc
- * @property string $template
- * @property integer $order
- * @property \Carbon\Carbon $created_at
- * @property \Carbon\Carbon $updated_at
- * @property-read \Illuminate\Database\Eloquent\Collection|\PageBlockMeta[] $metas
- * @property-read \PageBlockMeta $meta
- * @method static \Illuminate\Database\Query\Builder|\PageBlock whereId($value) 
- * @method static \Illuminate\Database\Query\Builder|\PageBlock wherePageId($value) 
- * @method static \Illuminate\Database\Query\Builder|\PageBlock whereName($value) 
- * @method static \Illuminate\Database\Query\Builder|\PageBlock whereSlug($value) 
- * @method static \Illuminate\Database\Query\Builder|\PageBlock whereDesc($value) 
- * @method static \Illuminate\Database\Query\Builder|\PageBlock whereTemplate($value) 
- * @method static \Illuminate\Database\Query\Builder|\PageBlock whereOrder($value) 
- * @method static \Illuminate\Database\Query\Builder|\PageBlock whereCreatedAt($value) 
- * @method static \Illuminate\Database\Query\Builder|\PageBlock whereUpdatedAt($value) 
- */
 class PageBlock extends BaseModel {
 
 	protected $guarded = array();

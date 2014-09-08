@@ -4,7 +4,6 @@ $prefix = 'guest';
 if(Auth::check()):
 	$prefix = AuthAccount::getStartPage();
 endif;
-
 	/*
 	| Общие роуты, независящие от условий
 	*/

@@ -8,7 +8,7 @@ class Allow {
     private static function init() {
         if (!self::$modules) {
             self::$modules = array();
-            $temp = Module::where('on', '1')->with('actions')->get();
+            $temp = Module::with('actions')->orderBy('order', 'ASC')->orderBy('name', 'ASC')->get();
             foreach ($temp as $tmp) {
                 $actions = array();
                 foreach ($tmp->actions as $action) {
@@ -46,7 +46,7 @@ class Allow {
             #Helper::dd(@self::$modules);
             #Helper::d(@self::$modules[$module_name]);
 
-            if (!$check_module_enabled || isset(self::$modules[$module_name]) || @self::$modules[$module_name]['system']) {
+            if (!$check_module_enabled || (isset(self::$modules[$module_name]) && self::$modules[$module_name]->on == 1) || @self::$modules[$module_name]['system']) {
 
                 /**
                  * @todo Полные права на действия админа, т.к. новые имена модулей не совпадают со старыми ролями ( news != admin_news ). Нужно во всех модулях поменять valid_action_permission на Action
@@ -137,6 +137,10 @@ class Allow {
      */
     public static function superuser() {
         return self::action('undefined_module', 'undefined_action', false, true);
+    }
+
+    public static function modules(){
+        return self::$modules;
     }
 
     /**

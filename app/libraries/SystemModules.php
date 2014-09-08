@@ -36,7 +36,10 @@ class SystemModules {
 
         ## If exists menu elements...
         if (isset($mod_menu) && is_array($mod_menu) && count($mod_menu)) {
-            foreach( $mod_menu as $mod_name => $menu_elements ) {
+            #foreach( $mod_menu as $mod_name => $menu_elements ) {
+            foreach( Allow::modules() as $mod_name => $module ) {
+
+                $menu_elements = $mod_menu[$mod_name];
 
                 if( is_array($menu_elements) && count($menu_elements) ) {
 
@@ -62,54 +65,6 @@ class SystemModules {
             }
         }
         #Helper::dd($menu);
-        #die();
-
-        ## System permissions
-        ## Migrated to /app/modules/system/...
-        if (0) {
-
-            $menu_child = array();
-
-            if (Allow::action('system', 'modules', false, true))
-                $menu_child[] = array(
-                    'title' => 'Модули',
-                    'link' => 'system/modules',
-                    'class' => 'fa-gears',
-                );
-
-            if (Allow::action('system', 'groups', false, true))
-                $menu_child[] = array(
-                    'title' => 'Группы',
-                    'link' => 'system/groups',
-                    'class' => 'fa-group',
-                );
-
-            if (Allow::action('system', 'users', false, true))
-                $menu_child[] = array(
-                    'title' => 'Пользователи',
-                    'link' => 'system/users',
-                    'class' => 'fa-user',
-                );
-
-            if (Allow::action('system', 'locale_editor', false, true))
-                $menu_child[] = array(
-                    'title' => 'Редактор языков',
-                    'link' => 'system/locale_editor',
-                    'class' => 'fa-language',
-                );
-
-            if (count($menu_child))
-                $menu[] = array(
-                    'title' => 'Настройки',
-                    'link' => '#',
-                    'class' => 'fa-gear',
-                    'system' => 1,
-                    'menu_child' => $menu_child,
-                );
-        }
-        
-        #Helper::d($menu);
-
         return $menu;
 	}
 

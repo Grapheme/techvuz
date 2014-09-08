@@ -9,7 +9,7 @@ class CreateDirectionsTable extends Migration {
         if (!Schema::hasTable('directions')) {
             Schema::create('directions', function(Blueprint $table) {
                 $table->increments('id');
-                $table->integer('sort')->default(0)->unsigned()->nullable();
+                $table->integer('order')->unsigned()->nullable();
                 $table->string('code',10)->nullable();
                 $table->string('title',255)->nullable();
                 $table->text('description')->nullable();

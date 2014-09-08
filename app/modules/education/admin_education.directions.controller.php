@@ -13,44 +13,39 @@ class AdminEducationDirectionsController extends BaseController {
     public static function returnRoutes($prefix = null) {
         $class = __CLASS__;
         Route::group(array('before' => 'auth', 'prefix' => $prefix), function() use ($class) {
-            Route::resource($class::$group . "/" . self::$name, $class);
+            Route::resource($class::$group."/".self::$name, $class,
+                array(
+                    'except' => array('show'),
+                    'names' => array(
+                        'index'   => self::$entity.'.index',
+                        'create'  => self::$entity.'.create',
+                        'store'   => self::$entity.'.store',
+                        'edit'    => self::$entity.'.edit',
+                        'update'  => self::$entity.'.update',
+                        'destroy' => self::$entity.'.destroy',
+                    )
+                )
+            );
         });
 
     }
 
     public static function returnShortCodes() {
-
+        return NULL;
     }
 
     public static function returnActions() {
-        return array(
-            'view'   => 'Просмотр',
-            'create' => 'Создание',
-            'edit'   => 'Редактирование',
-            'delete' => 'Удаление',
-        );
+        return NULL;
     }
 
     ## Info about module (now only for admin dashboard & menu)
     public static function returnInfo() {
-        return array(
-            'name' => self::$name,
-            'group' => self::$group,
-            'title' => 'Направление обучения',
-            'visible' => 1,
-        );
+        return NULL;
     }
 
     ## Menu elements of the module
     public static function returnMenu() {
-        return array(
-            array(
-                'title' => 'Направления и курсы',
-                'link' => self::$group.'/'.self::$name,
-                'class' => 'fa-book',
-                'permit' => 'view',
-            ),
-        );
+        return NULL;
     }
 
     /****************************************************************************/
@@ -60,13 +55,12 @@ class AdminEducationDirectionsController extends BaseController {
     public function __construct(Directions $direction){
 
         $this->direction = $direction;
-        $this->locales = Config::get('app.locales');
 
         $this->module = array(
             'name' => self::$name,
             'group' => self::$group,
             'rest' => self::$group,
-            'tpl' => static::returnTpl('admin'),
+            'tpl' => static::returnTpl('admin.directions'),
             'gtpl' => static::returnTpl(),
             'class' => __CLASS__,
 
@@ -79,196 +73,73 @@ class AdminEducationDirectionsController extends BaseController {
     public function index() {
 
         Allow::permission($this->module['group'], 'view');
-
-        print_r('direction YES');
-        exit;
-
-        return View::make($this->module['tpl'].'index', compact('news', 'locales'));
+        $directions = Directions::with('courses')->with('courses')->get();
+        return View::make($this->module['tpl'].'index', compact('directions'));
     }
 
     public function create() {
-
         Allow::permission($this->module['group'], 'create');
-
-        $element = new $this->news;
-        $locales = $this->locales;
-        $templates = array();
-        foreach ($this->templates(__DIR__) as $template)
-            @$templates[$template] = $template;
-
-        return View::make($this->module['tpl'].'edit', compact('element', 'locales', 'templates'));
+        return View::make($this->module['tpl'].'create');
     }
 
     public function edit($id){
 
         Allow::permission($this->module['group'], 'edit');
-
-        $element = $this->essence->where('id', $id)
-            ->with('metas.seo')
-            #->with('seo') ## nope again.
-            #->with('type')
-            ->first();
-
-        #Helper::tad($element);
-
-        if (!is_object($element))
-            return Redirect::route($this->module['entity'] . '.index');
-
-        $locales = $this->locales;
-        $templates = array();
-        foreach ($this->templates(__DIR__) as $template)
-            @$templates[$template] = $template;
-
-        #Helper::dd($locales);
-
-        return View::make($this->module['tpl'].'edit', compact('element', 'locales', 'templates'));
+        if($direction = $this->direction->where('id',$id)->first()):
+            return View::make($this->module['tpl'].'edit', compact('direction'));
+        else:
+            App::abort(404);
+        endif;
     }
 
     public function store(){
 
-        return $this->postSave();
+        if(!Request::ajax()) return App::abort(404);
+        Allow::permission($this->module['group'], 'create');
+        $json_request = array('status'=>FALSE, 'responseText'=>'', 'responseErrorText'=>'', 'redirect'=>FALSE, 'gallery'=>0);
+        $validation = Validator::make(Input::all(), Directions::$rules);
+        if($validation->passes()):
+            $this->direction->create(Input::all());
+            $json_request['responseText'] = self::$entity_name." добавлено";
+            $json_request['redirect'] = URL::route('directions.index');
+            $json_request['status'] = TRUE;
+        else:
+            $json_request['responseText'] = 'Неверно заполнены поля';
+            $json_request['responseErrorText'] = implode($validation->messages()->all(),'<br />');
+        endif;
+        return Response::json($json_request, 200);
     }
 
     public function update($id){
 
-        return $this->postSave($id);
-    }
-
-    public function postSave($id = false){
-
-        Allow::permission($this->module['group'], 'create');
-
-        if(!Request::ajax())
-            return App::abort(404);
-
-        $json_request = array('status'=>FALSE,'responseText'=>'','responseErrorText'=>'','redirect'=>FALSE);
-
-        $input = Input::all();
-        $locales = Helper::withdraw($input, 'locales');
-        $seo = Helper::withdraw($input, 'seo');
-        $input['template'] = @$input['template'] ? $input['template'] : NULL;
-        $input['slug'] = @$input['slug'] ? $input['slug'] : @$locales[Config::get('app.locale')]['title'];
-        $input['slug'] = Helper::translit($input['slug']);
-        $input['published_at'] = @$input['published_at'] ? date('Y-m-d', strtotime($input['published_at'])) : NULL;
-
-        $json_request['responseText'] = "<pre>" . print_r(Input::all(), 1) . "</pre>";
-        #$json_request['responseText'] = "<pre>" . print_r($input, 1) . print_r($locales, 1) . print_r($seo, 1) . "</pre>";
-        #return Response::json($json_request,200);
-
-        $json_request = array('status'=>FALSE, 'responseText'=>'', 'responseErrorText'=>'', 'redirect'=>FALSE);
-        $validator = Validator::make($input, $this->essence->rules());
-        if($validator->passes()) {
-
-            $redirect = false;
-
-            ## NEWS
-            if ($id != false && $id > 0 && $this->essence->find($id)->exists()) {
-
-                $element = $this->essence->find($id);
-                $element->update($input);
-
-            } else {
-
-                $element = $this->essence->create($input);
-                $id = $element->id;
-
-                $redirect = URL::route($this->module['entity'].'.edit', array('news_id' => $id));
-            }
-
-            ## NEWS_META
-            if (count($locales)) {
-
-                foreach ($locales as $locale_sign => $locale_settings) {
-
-                    ## Withdraw gallery_id
-                    $gallery_data = Helper::withdraw($locale_settings, 'gallery_id');
-                    $video_data = Helper::withdraw($locale_settings, 'video_id');
-
-                    #$locale_settings['template'] = $locale_settings['template'] ? $locale_settings['template'] : NULL;
-                    $news_meta = $this->news_meta->where('news_id', $element->id)->where('language', $locale_sign)->first();
-                    if (is_object($news_meta)) {
-                        $news_meta->update($locale_settings);
-                    } else {
-                        $locale_settings['news_id'] = $id;
-                        $locale_settings['language'] = $locale_sign;
-                        $news_meta = $this->news_meta->create($locale_settings);
-                    }
-
-                    $locale_settings['video_id'] = ExtForm::process('video', $video_data);
-                    if ($locale_settings['video_id'] != $news_meta->video_id)
-                        $json_request['new_video_id'] = $locale_settings['video_id'];
-
-                    ## NEWS_META VIDEO
-                    if (isset($gallery_data)) {
-
-                        ###############################
-                        ## Process GALLERY
-                        ###############################
-                        $gallery_id = ExtForm::process('gallery', array(
-                            'module'  => 'news_meta',
-                            'unit_id' => $news_meta->id,
-                            'gallery' => $gallery_data,
-                            'single'  => true,
-                        ));
-                        ###############################
-                        $locale_settings['gallery_id'] = $gallery_id;
-                        $news_meta->update($locale_settings);
-                    }
-
-                    ## NEWS_META SEO
-                    if (isset($seo[$locale_sign])) {
-
-                        ###############################
-                        ## Process SEO
-                        ###############################
-                        $seo_result = ExtForm::process('seo', array(
-                            'module'  => 'news_meta',
-                            'unit_id' => $news_meta->id,
-                            'data'    => $seo[$locale_sign],
-                        ));
-                        #Helper::tad($seo_result);
-                        ###############################
-                    }
-
-                }
-            }
-
-            $json_request['responseText'] = 'Сохранено';
-            if (@$redirect)
-                $json_request['redirect'] = $redirect;
-            $json_request['status'] = TRUE;
-        } else {
+        if(!Request::ajax()) return App::abort(404);
+        Allow::permission($this->module['group'], 'edit');
+        $json_request = array('status'=>FALSE, 'responseText'=>'', 'responseErrorText'=>'', 'redirect'=>FALSE, 'gallery'=>0);
+        $validation = Validator::make(Input::all(), Directions::$rules);
+        if($validation->passes()):
+            if($direction = $this->direction->where('id',$id)->first()):
+                $direction->update(Input::all());
+                $json_request['responseText'] = self::$entity_name." сохранен";
+                $json_request['redirect'] = URL::route('directions.index');
+                $json_request['status'] = TRUE;
+            endif;
+        else:
             $json_request['responseText'] = 'Неверно заполнены поля';
-            $json_request['responseErrorText'] = $validator->messages()->all();
-        }
+            $json_request['responseErrorText'] = implode($validation->messages()->all(),'<br />');
+        endif;
         return Response::json($json_request, 200);
     }
 
-
     public function destroy($id){
 
-        if(!Request::ajax())
-            App::abort(404);
-
         Allow::permission($this->module['group'], 'delete');
-
+        if(!Request::ajax()) return App::abort(404);
         $json_request = array('status'=>FALSE, 'responseText'=>'');
-
-        $element = $this->essence->find($id);
-        if (is_object($element)) {
-
-            $metas = $this->news_meta->where('news_id', $id)->get();
-            if (count($metas)) {
-                foreach ($metas as $meta)
-                    $meta->delete();
-            }
-        }
-        $element->delete();
-
-        $json_request['responseText'] = 'Удалено';
+        Directions::find($id)->courses()->delete();
+        Directions::find($id)->delete();
+        $json_request['responseText'] = self::$entity_name.' удален';
         $json_request['status'] = TRUE;
-
-        return Response::json($json_request,200);
+        return Response::json($json_request, 200);
     }
 
 }

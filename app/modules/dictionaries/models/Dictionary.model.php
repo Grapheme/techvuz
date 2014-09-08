@@ -1,33 +1,11 @@
 <?php
 
-/**
- * Dictionary
- *
- * @property integer $id
- * @property string $slug
- * @property string $name
- * @property boolean $entity
- * @property string $icon_class
- * @property boolean $hide_slug
- * @property string $name_title
- * @property integer $order
- * @property-read \Illuminate\Database\Eloquent\Collection|\DicVal[] $values
- * @property-read \DicVal $value
- * @method static \Illuminate\Database\Query\Builder|\Dictionary whereId($value) 
- * @method static \Illuminate\Database\Query\Builder|\Dictionary whereSlug($value) 
- * @method static \Illuminate\Database\Query\Builder|\Dictionary whereName($value) 
- * @method static \Illuminate\Database\Query\Builder|\Dictionary whereEntity($value) 
- * @method static \Illuminate\Database\Query\Builder|\Dictionary whereIconClass($value) 
- * @method static \Illuminate\Database\Query\Builder|\Dictionary whereHideSlug($value) 
- * @method static \Illuminate\Database\Query\Builder|\Dictionary whereNameTitle($value) 
- * @method static \Illuminate\Database\Query\Builder|\Dictionary whereOrder($value) 
- */
 class Dictionary extends BaseModel {
 
 	protected $guarded = array();
 
     public $table = 'dictionary';
-    public $timestamps = false;
+    #public $timestamps = false;
 
 	public static $order_by = "name ASC";
 

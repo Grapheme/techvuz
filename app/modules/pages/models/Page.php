@@ -1,34 +1,5 @@
 <?php
 
-/**
- * Page
- *
- * @property integer $id
- * @property string $name
- * @property string $slug
- * @property string $template
- * @property integer $type_id
- * @property boolean $publication
- * @property boolean $start_page
- * @property boolean $in_menu
- * @property integer $order
- * @property \Carbon\Carbon $created_at
- * @property \Carbon\Carbon $updated_at
- * @property-read \Illuminate\Database\Eloquent\Collection|\PageBlock[] $blocks
- * @property-read \Illuminate\Database\Eloquent\Collection|\PageMeta[] $metas
- * @property-read \PageMeta $meta
- * @method static \Illuminate\Database\Query\Builder|\Page whereId($value) 
- * @method static \Illuminate\Database\Query\Builder|\Page whereName($value) 
- * @method static \Illuminate\Database\Query\Builder|\Page whereSlug($value) 
- * @method static \Illuminate\Database\Query\Builder|\Page whereTemplate($value) 
- * @method static \Illuminate\Database\Query\Builder|\Page whereTypeId($value) 
- * @method static \Illuminate\Database\Query\Builder|\Page wherePublication($value) 
- * @method static \Illuminate\Database\Query\Builder|\Page whereStartPage($value) 
- * @method static \Illuminate\Database\Query\Builder|\Page whereInMenu($value) 
- * @method static \Illuminate\Database\Query\Builder|\Page whereOrder($value) 
- * @method static \Illuminate\Database\Query\Builder|\Page whereCreatedAt($value) 
- * @method static \Illuminate\Database\Query\Builder|\Page whereUpdatedAt($value) 
- */
 class Page extends BaseModel {
 
 	protected $guarded = array();

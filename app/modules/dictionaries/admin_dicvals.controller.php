@@ -147,7 +147,7 @@ class AdminDicvalsController extends BaseController {
             #->with('meta')
             ->with('allfields')
             ->first()
-            #->extract()
+            #->extract(1)
         ;
 
         #Helper::tad($element);

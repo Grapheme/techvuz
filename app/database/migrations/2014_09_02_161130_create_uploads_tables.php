@@ -13,6 +13,10 @@ class CreateUploadsTables extends Migration {
                 $table->increments('id');
                 $table->string('path')->nullable();
                 $table->string('original_name')->nullable();
+                $table->string('filesize')->nullable();
+                $table->string('mimetype')->nullable();
+                $table->string('mime1')->nullable()->index();
+                $table->string('mime2')->nullable()->index();
                 $table->string('module', 32)->nullable()->index();
                 $table->integer('unit_id')->unsigned()->nullable()->index();
                 $table->timestamps();

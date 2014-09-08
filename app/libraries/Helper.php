@@ -398,6 +398,10 @@ HTML;
             case 'video':
                 $return = ExtForm::video($name, $value, $others_array);
                 break;
+            case 'select':
+                $values = $array['values'];
+                $return = Form::select($name, $values, $value, $others_array);
+                break;
         }
         return $return;
     }
@@ -492,6 +496,9 @@ HTML;
         $return = $path;
 
         $start = AuthAccount::getStartPage();
+        if (!$start):
+            return $return;
+        endif;
         $auth_acc_pos = mb_strpos($return, $start, 7);
 
         if ($auth_acc_pos) {
@@ -503,5 +510,15 @@ HTML;
         return $return;
     }
 
+
+    public static function smartFilesize($number) {
+
+        $len = strlen ($number);
+        if ($len < 4){ return sprintf("%d b", $number); }
+        if ($len>= 4 && $len <=6){ return sprintf("%0.2f Kb", $number/1024); }
+        if ($len>= 7 && $len <=9){ return sprintf("%0.2f Mb", $number/1024/1024); }
+        return sprintf("%0.2f Gb", $number/1024/1024/1024);
+
+    }
 }
 

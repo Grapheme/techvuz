@@ -10,15 +10,15 @@ class CreateCoursesTable extends Migration {
             Schema::create('courses', function(Blueprint $table) {
                 $table->increments('id');
                 $table->integer('direction_id')->unsigned()->nullable()->index();
-                $table->integer('sort')->default(0)->unsigned()->nullable();
+                $table->integer('order')->unsigned()->nullable();
                 $table->string('code',10)->nullable();
                 $table->string('title',255)->nullable();
                 $table->text('description')->nullable();
                 $table->float('price')->default(0)->unsigned()->nullable();
                 $table->integer('hours')->default(0)->unsigned()->nullable();
-                $table->string('libraries',100)->nullable();
-                $table->string('curriculum',100)->nullable();
-                $table->string('metodical',100)->nullable();
+                $table->integer('libraries')->default(0)->unsigned()->nullable();
+                $table->integer('curriculum')->default(0)->unsigned()->nullable();
+                $table->integer('metodical')->default(0)->unsigned()->nullable();
                 $table->timestamps();
             });
             echo(' + ' . 'courses' . PHP_EOL);

@@ -52,8 +52,8 @@ class PublicNewsController extends BaseController {
 
                 ## Параметры по-умолчанию
                 $default = array(
-                    'tpl' => Config::get('site.news_template', 'default'),
-                    'limit' => Config::get('site.news_count_on_page', 3),
+                    'tpl' => Config::get('app-default.news_template', 'default'),
+                    'limit' => Config::get('app-default.news_count_on_page', 3),
                     'order' => Helper::stringToArray(News::$order_by),
                     'pagination' => 1,
                 );

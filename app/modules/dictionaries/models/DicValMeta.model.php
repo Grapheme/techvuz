@@ -1,24 +1,11 @@
 <?php
 
-/**
- * DicValMeta
- *
- * @property integer $id
- * @property integer $dicval_id
- * @property string $language
- * @property string $name
- * @property-read \DicVal $dicval
- * @method static \Illuminate\Database\Query\Builder|\DicValMeta whereId($value) 
- * @method static \Illuminate\Database\Query\Builder|\DicValMeta whereDicvalId($value) 
- * @method static \Illuminate\Database\Query\Builder|\DicValMeta whereLanguage($value) 
- * @method static \Illuminate\Database\Query\Builder|\DicValMeta whereName($value) 
- */
 class DicValMeta extends BaseModel {
 
 	protected $guarded = array();
 
 	public $table = 'dictionary_values_meta';
-    public $timestamps = false;
+    #public $timestamps = false;
 
 	public static $order_by = "name ASC";
 

@@ -1,22 +1,23 @@
 @extends(Helper::acclayout())
-
-
 @section('style')
-    <link rel="stylesheet" href="{{ link::path('css/redactor.css') }}" />
+{{ HTML::style('css/redactor.css') }}
 @stop
-
-
 @section('content')
-
-    <h1>Информационные блоки: Новый элемент</h1>
-
-{{ Form::open(array('url'=>link::auth($module['rest'].'/store'), 'role'=>'form', 'class'=>'smart-form', 'id'=>'channel-form', 'method'=>'post', 'files'=>true)) }}
+    <h1>Направления и курсы: Добавление курса</h1>
+    <h4>Направление обучения &laquo;{{ $direction->title }}&raquo;</h4>
+{{ Form::open(array('url'=>URL::route('courses.update',array('directions'=>$direction->id)), 'role'=>'form', 'class'=>'smart-form', 'id'=>'course-form', 'method'=>'post','files'=>TRUE)) }}
+	{{ Form::hidden('direction_id',$direction->id) }}
 	<div class="row margin-top-10">
 		<section class="col col-6">
 			<div class="well">
-				<header>Для создания нового элемента заполните форму:</header>
+				<header>Для добавление нового курса заполните форму:</header>
 				<fieldset>
-
+					<section>
+						<label class="label">Код</label>
+						<label class="input">
+							{{ Form::text('code', '') }}
+						</label>
+					</section>
 					<section>
 						<label class="label">Название</label>
 						<label class="input">
@@ -24,92 +25,39 @@
 						</label>
 					</section>
                     <section>
-						<label class="label">Ссылка</label>
-						<label class="input">
-							{{ Form::text('link', '') }}
+						<label class="label">Описание</label>
+						<label class="textarea">
+							{{ Form::textarea('description', '',array('class'=>'redactor')) }}
 						</label>
-                        <div class="note">Относительная ссылка если в предалах сайта или полная если это другой сайт</div>
 					</section>
-
 					<section>
-						<label class="label">Категория</label>
-						<label class="select">
-							{{ Form::select('category_id', $categories, ($cat > 0 ? $cat : '' ) ) }}
-						</label>
-					</section>
-
-                    <?php
-                       $products = array();
-                       if($all_products = Product::with('meta')->get()):
-                           foreach($all_products as $product):
-                               $products[$product->id] = $product->meta->first()->title;
-                           endforeach;
-                       endif;
-                    ?>
-                    <section>
-                        <label class="label">Связан с продуктом</label>
-                        <label class="select">
-                            <select name="product_id" class="customSelect selectModel">
-                                <option value="0">Без модели</option>
-                            @foreach($products as $product_id => $product_title)
-                                <option value="{{ $product_id }}">{{ $product_title }}</option>
-                            @endforeach
-                            </select>
-                        </label>
-                    </section>
-                     <section>
                         <label class="label">Цена</label>
                         <label class="input">
                             {{ Form::text('price', '') }}
                         </label>
                     </section>
                     <section>
-                        <label class="label">Год выпуска</label>
+                        <label class="label">Количество часов</label>
                         <label class="input">
-                            {{ Form::text('year', '') }}
+                            {{ Form::text('hours', '') }}
                         </label>
                     </section>
-                    @if(Allow::module('templates') || 1)
                     <section>
-                        <label class="label">Шаблон:</label>
-                        <label class="select col-5">
-                            {{ Form::select('template', $templates,'default', array('class'=>'template-change','autocomplete'=>'off')) }} <i></i>
-                        </label>
-                    </section>
-                    @endif
-
-                    @if (Allow::module('galleries'))
-                    <section>
-                        <label class="label">Изображение</label>
+                        <label class="label">Литература</label>
                         <label class="input">
-                            {{ ExtForm::image('image', '') }}
+                            {{ ExtForm::upload('libraries') }}
                         </label>
                     </section>
                     <section>
-                        <label class="label">Галерея</label>
+                        <label class="label">Учебный план</label>
                         <label class="input">
-                            {{ ExtForm::gallery('gallery','',array('id'=>'gallery-input-id')) }}
+                            {{ ExtForm::upload('curriculum') }}
                         </label>
                     </section>
-                    @endif
-
-					<section>
-						<label class="label">Краткое описание</label>
-						<label class="textarea">
-							{{ Form::textarea('short', '',array('class'=>'redactor redactor_150')) }}
-						</label>
-					</section>
                     <section>
-						<label class="label">Описание</label>
-						<label class="textarea">
-							{{ Form::textarea('desc', '',array('class'=>'redactor')) }}
-						</label>
-					</section>
-
-                    <section>
-                        <label class="label">Файл</label>
-                        <label class="input input-file" for="file">
-                            <div class="button"><input type="file" onchange="this.parentNode.nextSibling.value = this.value" name="file">Выбрать</div><input type="text" readonly="">
+                        <label class="label">Методические материалы</label>
+                        <label class="input">
+                            {{ ExtForm::upload('metodical') }}
                         </label>
                     </section>
                 </fieldset>
@@ -126,39 +74,30 @@
 	</div>
 {{ Form::close() }}
 @stop
-
-
 @section('scripts')
-    <script>
-    var essence = 'channel';
-    var essence_name = 'элемент';
-	var validation_rules = {
-		title: { required: true },
-		category_id: { required: true, min: 1 },
-		//desc: { required: true },
-		//image: { required: true },
-	};
-	var validation_messages = {
-		title: { required: 'Укажите название' },
-		category_id: { required: 'Укажите категорию', min: 'Укажите категорию' },
-		//desc: { required: 'Укажите описание' },
-		//image: { required: 'Загрузите изображение' },
-	};
-    </script>
-
-    {{ HTML::script('js/modules/standard.js') }}
-
-	<script type="text/javascript">
-		if(typeof pageSetUp === 'function'){pageSetUp();}
-		if(typeof runFormValidation === 'function'){
-			loadScript("{{ asset('js/vendor/jquery-form.min.js') }}", runFormValidation);
-		}else{
-			loadScript("{{ asset('js/vendor/jquery-form.min.js') }}");
-		}
-	</script>
-
-    {{ HTML::script('js/modules/gallery.js') }}
-    {{ HTML::script('js/vendor/redactor.min.js') }}
-    {{ HTML::script('js/system/redactor-config.js') }}
-
+<script>
+var essence = 'course';
+var essence_name = 'курс';
+var validation_rules = {
+    direction_id: { required: true },
+    code: { required: true },
+    title: { required: true },
+};
+var validation_messages = {
+    direction_id: { required: 'Укажите направление обучения' },
+    code: { required: 'Укажите код' },
+    title: { required: 'Укажите название' },
+};
+</script>
+{{ HTML::script('js/modules/standard.js') }}
+<script type="text/javascript">
+    if(typeof pageSetUp === 'function'){pageSetUp();}
+    if(typeof runFormValidation === 'function'){
+        loadScript("{{ asset('js/vendor/jquery-form.min.js') }}", runFormValidation);
+    }else{
+        loadScript("{{ asset('js/vendor/jquery-form.min.js') }}");
+    }
+</script>
+{{ HTML::script('js/vendor/redactor.min.js') }}
+{{ HTML::script('js/system/redactor-config.js') }}
 @stop
