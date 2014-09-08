@@ -48,6 +48,11 @@ class ModulesTableSeeder extends Seeder{
 			'order'=> 0
 		));
 
+        Module::create(array(
+            'name' => 'education',
+            'on' => 1,
+            'order'=> 0
+        ));
 	}
 
 }
