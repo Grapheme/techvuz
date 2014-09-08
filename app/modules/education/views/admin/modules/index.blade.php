@@ -49,7 +49,7 @@
                         @endif
                         @if(Allow::action($module['group'], 'delete'))
                         <form method="DELETE" action="{{ URL::route('lectures.destroy',array('directions'=>$direction->id,'course'=>$course->id,'chapter'=>$chapter->id,'lecture'=>$lecture->id)) }}" style="display:inline-block">
-                            <button type="submit" class="btn btn-danger remove-lecture">
+                            <button type="submit" target="reload" class="btn btn-danger remove-lecture">
                                 Удалить
                             </button>
                         </form>
