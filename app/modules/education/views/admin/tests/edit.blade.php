@@ -3,18 +3,21 @@
 {{ HTML::style('css/redactor.css') }}
 @stop
 @section('content')
-    <h1>Направления и курсы: Редактирование лекции</h1>
+    <h1>Направления и курсы: Редактирование курса</h1>
     <h4>Направление обучения &laquo;{{ $direction->title }}&raquo;</h4>
-    <h4>Курс &laquo;{{ $course->title }}&raquo;</h4>
-    <h4>Глава &laquo;{{ $chapter->title }}&raquo;</h4>
-{{ Form::model($lecture, array('url'=>URL::route('lectures.update',array('directions'=>$direction->id,'course'=>$course->id,'chapter'=>$chapter->id,'lecture'=>$lecture->id)), 'class'=>'smart-form', 'id'=>'lecture-form', 'role'=>'form', 'method'=>'PUT', 'files'=>true)) }}
-	{{ Form::hidden('course_id',$course->id) }}
-	{{ Form::hidden('chapter_id',$chapter->id) }}
+{{ Form::model($course, array('url'=>URL::route('courses.update',array('directions'=>$direction->id,'course'=>$course->id)), 'class'=>'smart-form', 'id'=>'course-form', 'role'=>'form', 'method'=>'PUT','files'=>true)) }}
+	{{ Form::hidden('direction_id',$direction->id) }}
 	<div class="row margin-top-10">
 		<section class="col col-6">
 			<div class="well">
-				<header>Для изменения лекции отредактируйте форму:</header>
+				<header>Для изменения элемента отредактируйте форму:</header>
 				<fieldset>
+                    <section>
+                        <label class="label">Код</label>
+                        <label class="input">
+                            {{ Form::text('code') }}
+                        </label>
+                    </section>
                     <section>
                         <label class="label">Название</label>
                         <label class="input">
@@ -28,9 +31,33 @@
                         </label>
                     </section>
                     <section>
-                        <label class="label">Документ</label>
+                        <label class="label">Цена</label>
                         <label class="input">
-                            {{ ExtForm::upload('document', $lecture->document) }}
+                            {{ Form::text('price') }}
+                        </label>
+                    </section>
+                    <section>
+                        <label class="label">Количество часов</label>
+                        <label class="input">
+                            {{ Form::text('hours') }}
+                        </label>
+                    </section>
+                    <section>
+                        <label class="label">Литература</label>
+                        <label class="input">
+                            {{ ExtForm::upload('libraries') }}
+                        </label>
+                    </section>
+                    <section>
+                        <label class="label">Учебный план</label>
+                        <label class="input">
+                            {{ ExtForm::upload('curriculum') }}
+                        </label>
+                    </section>
+                    <section>
+                        <label class="label">Методические материалы</label>
+                        <label class="input">
+                            {{ ExtForm::upload('metodical') }}
                         </label>
                     </section>
                 </fieldset>
@@ -49,16 +76,16 @@
 @stop
 @section('scripts')
 <script>
-var essence = 'lecture';
-var essence_name = 'лекция';
+var essence = 'course';
+var essence_name = 'курс';
 var validation_rules = {
-    course_id: { required: true },
-    chapter_id: { required: true },
+    direction_id: { required: true },
+    code: { required: true },
     title: { required: true },
 };
 var validation_messages = {
-    course_id: { required: 'Укажите курс' },
-    chapter_id: { required: 'Укажите главу' },
+    direction_id: { required: 'Укажите направление обучения' },
+    code: { required: 'Укажите код' },
     title: { required: 'Укажите название' },
 };
 </script>

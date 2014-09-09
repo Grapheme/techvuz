@@ -175,15 +175,9 @@ class AdminEducationCoursesController extends BaseController {
         $input['price'] = Input::get('price');
         $input['hours'] = Input::get('hours');
 
-        if(Input::hasFile('libraries.file')):
-            $input['libraries'] = ExtForm::process('upload', Input::file('libraries'));
-        endif;
-        if(Input::hasFile('curriculum.file')):
-            $input['curriculum'] = ExtForm::process('upload', Input::file('curriculum'));
-        endif;
-        if(Input::hasFile('metodical.file')):
-            $input['metodical'] = ExtForm::process('upload', Input::file('metodical'));
-        endif;
+        $input['libraries'] = ExtForm::process('upload', @Input::all()['libraries']);
+        $input['curriculum'] = ExtForm::process('upload', @Input::all()['curriculum']);
+        $input['metodical'] = ExtForm::process('upload', @Input::all()['metodical']);
         return $input;
     }
 }

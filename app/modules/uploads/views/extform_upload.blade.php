@@ -13,5 +13,7 @@
 
         {{ Form::hidden($name . '[upload_id]', $value->id) }}
     </p>
+    @else
+        {{ Form::hidden($name . '[upload_id]', 0) }}
     @endif
     {{ Form::file($name . '[file]', $params) }}

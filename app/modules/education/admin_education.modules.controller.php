@@ -53,7 +53,8 @@ class AdminEducationModulesController extends BaseController {
             $query->with(array('lectures'=>function($query_lecture){
                 $query_lecture->orderBy('order');
             }));
-        }))->first();
+            $query->with('test');
+        }))->with('test')->first();
 
         $this->module = array(
             'name' => self::$name,

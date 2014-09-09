@@ -42,7 +42,7 @@
                 @foreach($chapter->lectures as $lecture)
                 <tr class="vertical-middle">
                     <td class="col-lg-1 text-center">{{ $lecture->order }}</td>
-                    <td class="col-lg-9">{{ $course->title }}</td>
+                    <td class="col-lg-9">{{ $lecture->title }}</td>
                     <td class="col-lg-2 text-center" style="white-space:nowrap;">
                         @if(Allow::action($module['group'], 'edit'))
                         <a href="{{ URL::route('lectures.edit',array('directions'=>$direction->id,'course'=>$course->id,'chapter'=>$chapter->id,'lecture'=>$lecture->id)) }}" class="btn btn-success margin-right-10">Изменить</a>
@@ -66,7 +66,7 @@
                     <td class="col-lg-10">
                     @if(Allow::action($module['group'], 'edit'))
                         <a class="btn btn-success" href="{{ URL::route('lectures.create',array('directions'=>$direction->id,'course'=>$course->id,'chapter'=>$chapter->id)) }}">Добавить лекцию</a>
-                        <a class="btn btn-info" {{ $course->chapters->count() ? '' : 'disabled' }} href="{{ URL::route('directions.index') }}">Промежуточное тестирование</a>
+                        <a class="btn btn-info{{ empty($chapter->test) ? ' create-intermediate-test' : '' }}" {{ $chapter->lectures->count() ? '' : 'disabled' }} href="{{ URL::route('testing.index',array('directions'=>$direction->id,'course'=>$course->id,'chapter'=>$chapter->id)) }}">Промежуточное тестирование</a>
                     @endif
                     </td>
                     <td class="col-lg-2 text-center"> </td>
@@ -79,7 +79,7 @@
     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 margin-bottom-25 margin-top-10">
         <div class="pull-left margin-right-10">
             <a class="btn btn-success" href="{{ URL::route('chapters.create',array('directions'=>$direction->id,'course'=>$course->id)) }}">Новая глава</a>
-            <a class="btn btn-info" {{ $course->chapters->count() ? '' : 'disabled' }} href="{{ URL::route('directions.index') }}">Итоговое тестирование</a>
+            <a class="btn btn-info{{ empty($course->test) ? ' create-final-test' : '' }}" {{ $course->chapters->count() ? '' : 'disabled' }} href="{{ URL::route('testing.index',array('directions'=>$direction->id,'course'=>$course->id,'chapter'=>0)) }}">Итоговое тестирование</a>
         </div>
     </div>
 </div>
@@ -90,8 +90,11 @@
     var essence_name = 'главу';
     var validation_rules = {};
     var validation_messages = {};
+
+    var essence_lecture = 'lecture';
+    var essence_lecture_name = 'лекцию';
 </script>
-<script src="{{ url('js/modules/standard.js') }}"></script>
+<script src="{{ url('theme/js/standard.js') }}"></script>
 <script type="text/javascript">
     if(typeof pageSetUp === 'function'){pageSetUp();}
     if(typeof runFormValidation === 'function'){

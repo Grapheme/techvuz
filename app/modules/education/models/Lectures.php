@@ -46,6 +46,9 @@ class Lectures extends BaseModel {
     }
 
     public function chapter(){
-        return $this->belongsTo('Courses','chapter_id');
+        return $this->belongsTo('Chapter','chapter_id');
+    }
+    public function document(){
+        return $this->hasOne('Upload','id','document');
     }
 }

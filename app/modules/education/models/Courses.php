@@ -66,7 +66,11 @@ class Courses extends BaseModel {
     public function chapters(){
         return $this->hasMany('Chapter','course_id');
     }
+
     public function lectures(){
         return $this->hasMany('Lectures','course_id');
+    }
+    public function test(){
+        return $this->hasOne('CoursesTests','course_id')->where('chapter_id',0);
     }
 }

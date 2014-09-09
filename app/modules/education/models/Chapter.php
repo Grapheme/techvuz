@@ -43,4 +43,9 @@ class Chapter extends BaseModel {
     public function lectures(){
         return $this->hasMany('Lectures','chapter_id');
     }
+
+    public function test(){
+        return $this->hasOne('CoursesTests','chapter_id');
+    }
+
 }

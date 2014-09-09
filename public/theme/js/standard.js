@@ -1,7 +1,3 @@
-/** 
- * Author: Zelenskiy Alexander
- */
-
 $(function(){
 	
 	$(".remove-" + essence).click(function() {
@@ -34,6 +30,69 @@ $(function(){
 						showMessage.smallError();
 					}
 				});
+			}
+		});
+		return false;
+	});
+
+    $(".remove-" + essence_lecture).click(function() {
+		var $this = this;
+		$.SmartMessageBox({
+			title : "Удалить " + essence_lecture_name + "?",
+			content : "",
+			buttons : '[Нет][Да]'
+		},function(ButtonPressed) {
+			if(ButtonPressed == "Да") {
+				$.ajax({
+					url: $($this).parent('form').attr('action'),
+					type: 'DELETE',
+                    dataType: 'json',
+					beforeSend: function(){$($this).elementDisabled(true);},
+					success: function(response, textStatus, xhr){
+						if(response.status == true){
+							showMessage.constructor('Удалить ' + essence_lecture_name, response.responseText);
+							showMessage.smallSuccess();
+							$($this).parents('tr').fadeOut(500,function(){$(this).remove();});
+						} else {
+							$($this).elementDisabled(false);
+							showMessage.constructor('Удалить ' + essence_lecture_name, 'Возникла ошибка. Обновите страницу и повторите снова.');
+							showMessage.smallError();
+						}
+					},
+					error: function(xhr, textStatus, errorThrown){
+						$($this).elementDisabled(false);
+						showMessage.constructor('Удалить ' + essence_lecture_name, 'Возникла ошибка. Повторите снова.');
+						showMessage.smallError();
+					}
+				});
+			}
+		});
+		return false;
+	});
+
+    $(".create-intermediate-test").click(function() {
+        var $this = this;
+        $.SmartMessageBox({
+			title : "Добавить промежуточный тест?",
+			content : "",
+			buttons : '[Нет][Да]'
+		},function(ButtonPressed) {
+			if(ButtonPressed == "Да") {
+                window.location = $($this).attr('href');
+			}
+		});
+		return false;
+	});
+
+    $(".create-final-test").click(function() {
+        var $this = this;
+        $.SmartMessageBox({
+			title : "Добавить итоговый тест?",
+			content : "",
+			buttons : '[Нет][Да]'
+		},function(ButtonPressed) {
+			if(ButtonPressed == "Да") {
+                window.location = $($this).attr('href');
 			}
 		});
 		return false;

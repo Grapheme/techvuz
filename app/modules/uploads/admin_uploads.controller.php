@@ -94,6 +94,8 @@ class AdminUploadsController extends BaseController {
                 $module = isset($params['module']) ? $params['module'] : NULL;
                 $unit_id = isset($params['unit_id']) ? $params['unit_id'] : NULL;
 
+                #Helper::dd($upload_id);
+
                 ## Find file
                 $upload = false;
                 if (is_numeric($upload_id))

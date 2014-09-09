@@ -100,27 +100,29 @@ class AdminEducationLecturesController extends BaseController {
         return Response::json($json_request, 200);
     }
 
-    public function edit($direction_id,$course_id,$chapter_id){
+    public function edit($direction_id,$course_id,$chapter_id,$lecture_id){
 
         Allow::permission($this->module['group'], 'edit');
-        if($chapter = Chapter::where('id',$chapter_id)->first()):
+        if($lecture = Lectures::find($lecture_id)):
             $direction = $this->direction;
             $course = $this->course;
-            return View::make($this->module['tpl'].'edit', compact('direction','course','chapter'));
+            $chapter = $this->chapter;
+            return View::make($this->module['tpl'].'edit', compact('direction','course','chapter','lecture'));
         else:
             App::abort(404);
         endif;
     }
 
-    public function update($direction_id,$course_id,$chapter_id){
+    public function update($direction_id,$course_id,$chapter_id,$lecture_id){
 
         if(!Request::ajax()) return App::abort(404);
         Allow::permission($this->module['group'], 'edit');
         $json_request = array('status'=>FALSE, 'responseText'=>'', 'responseErrorText'=>'', 'redirect'=>FALSE, 'gallery'=>0);
         $validation = Validator::make(Input::all(), Chapter::$rules);
         if($validation->passes()):
-            if($chapter = $this->chapter->where('id',$chapter_id)->first()):
-                $chapter->update(Input::all());
+            if($lecture = $this->lecture->find($lecture_id)):
+                $input = self::lectureFiles();
+                $lecture->update($input);
                 $json_request['responseText'] = self::$entity_name." сохранена";
                 $json_request['redirect'] = URL::route('modules.index',array('directions'=>$this->direction->id,'course'=>$this->course->id));
                 $json_request['status'] = TRUE;
@@ -132,12 +134,17 @@ class AdminEducationLecturesController extends BaseController {
         return Response::json($json_request, 200);
     }
 
-    public function destroy($direction_id,$course_id,$chapter_id){
+    public function destroy($direction_id,$course_id,$chapter_id,$lecture_id){
 
         Allow::permission($this->module['group'], 'delete');
         if(!Request::ajax()) return App::abort(404);
         $json_request = array('status'=>FALSE, 'responseText'=>'');
-        Chapter::find($chapter_id)->delete();
+        $file = $this->lecture->where('id',$lecture_id)->first()->document()->first();
+        if (!empty($file) && File::exists(public_path($file->path))):
+            File::delete(public_path($file->path));
+            Upload::find($file->id)->delete();
+        endif;
+        $this->lecture->find($lecture_id)->delete();
         $json_request['responseText'] = self::$entity_name.' удалена';
         $json_request['status'] = TRUE;
         return Response::json($json_request, 200);
@@ -150,10 +157,7 @@ class AdminEducationLecturesController extends BaseController {
         $input['order'] = Input::get('order');
         $input['title'] = Input::get('title');
         $input['description'] = Input::get('description');
-
-        if(Input::hasFile('document.file')):
-            $input['document'] = ExtForm::process('upload', Input::file('document'));
-        endif;
+        $input['document'] = ExtForm::process('upload', @Input::all()['document']);
         return $input;
     }
 }
