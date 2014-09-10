@@ -7,10 +7,12 @@
 <h4>Направление обучения &laquo;{{ $direction->title }}&raquo;</h4>
 @if(!is_null($chapter))
 <h4>Глава &laquo;{{ $chapter->title }}&raquo;. {{ $test->title }}</h4>
+<?php $chapter_id = $chapter->id?>
 @else
 <h4>{{ $test->title }}</h4>
+<?php $chapter_id = 0; ?>
 @endif
-{{ Form::open(array('url'=>URL::route('questions.store',array('directions'=>$direction->id,'course'=>$course->id,'chapter'=>$chapter->id,'test'=>$test->id)), 'role'=>'form', 'class'=>'smart-form', 'id'=>'question-form', 'method'=>'post')) }}
+{{ Form::open(array('url'=>URL::route('questions.store',array('directions'=>$direction->id,'course'=>$course->id,'chapter'=>$chapter_id,'test'=>$test->id)), 'role'=>'form', 'class'=>'smart-form', 'id'=>'question-form', 'method'=>'post')) }}
 	{{ Form::hidden('test_id',$test->id) }}
 	{{ Form::hidden('title','Вопрос №') }}
 	<div class="row margin-top-10">
