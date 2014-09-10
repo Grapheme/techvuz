@@ -16,7 +16,7 @@ return array(
 
 	'manifest' => storage_path('meta'),
 
-	'debug' => TRUE,
+	'debug' => FALSE,
 	'url' => 'http://techvuz.dev.grapheme.ru/',
 	'timezone' => 'UTC',
 

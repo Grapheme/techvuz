@@ -4,7 +4,7 @@ return array(
 	'connections' => array(
 		'mysql' => array(
 			'host'      => 'localhost',
-			'database'  => 'technical_collage',
+			'database'  => 'techvuz',
 			'username'  => 'root',
 			'password'  => '',
 		),
