@@ -13,7 +13,7 @@ class AdminEducationTestsAnswersController extends BaseController {
     public static function returnRoutes($prefix = null) {
         $class = __CLASS__;
         Route::group(array('before' => 'auth', 'prefix' => $prefix), function() use ($class) {
-            Route::resource(AdminEducationDirectionsController::$group.'/'.AdminEducationDirectionsController::$name.'/{direction}/'.AdminEducationCoursesController::$name.'/{course}/'.AdminEducationTestingController::$name.'/{test}/'.$class::$name, $class,
+            Route::resource(AdminEducationDirectionsController::$group.'/'.AdminEducationDirectionsController::$name.'/{direction}/'.AdminEducationCoursesController::$name.'/{course}/'.AdminEducationChaptersController::$name.'/{chapter}/'.AdminEducationTestingController::$name.'/{tests}/'.AdminEducationTestsQuestionsController::$name.'/{question}/'.$class::$name, $class,
                 array(
                     'except' => array('show','index'),
                     'names' => array(
@@ -50,6 +50,7 @@ class AdminEducationTestsAnswersController extends BaseController {
     protected $course;
     protected $chapter;
     protected $test;
+    protected $question;
     protected $answer;
 
     public function __construct(CoursesTestsAnswers $answer){
@@ -58,13 +59,14 @@ class AdminEducationTestsAnswersController extends BaseController {
         $this->course = Courses::findOrFail(Request::segment(6));
         $this->chapter = Chapter::find(Request::segment(8));
         $this->test = CoursesTests::findOrFail(Request::segment(10));
+        $this->question = CoursesTestsQuestions::findOrFail(Request::segment(12));
         $this->answer = $answer;
 
         $this->module = array(
             'name' => self::$name,
             'group' => self::$group,
             'rest' => self::$group,
-            'tpl' => static::returnTpl('admin.tests'),
+            'tpl' => static::returnTpl('admin.tests.answers'),
             'gtpl' => static::returnTpl(),
             'class' => __CLASS__,
 
@@ -74,39 +76,80 @@ class AdminEducationTestsAnswersController extends BaseController {
         View::share('module', $this->module);
     }
 
-    public function index($direction_id,$course_id,$chapter_id){
+    public function create($direction_id,$course_id,$chapter_id,$test_id,$question_id) {
 
-        Allow::permission($this->module['group'], 'view');
+        Allow::permission($this->module['group'], 'create');
         $direction = $this->direction;
         $course = $this->course;
         $chapter = $this->chapter;
-
-        if ($chapter_id == 0):
-            if (!$test = $this->course->test()->first()):
-                $input = array('course_id'=>$course_id,'chapter_id'=>$chapter_id,'order'=>0,'title'=>'Итоговое тестирование по курсу "'.$this->course->title.'"','description'=>'','active'=>1);
-                $test = CoursesTests::create($input);
-            endif;
-        else:
-            if (!$test = $this->chapter->test()->first()):
-                $input = array('course_id'=>$course_id,'chapter_id'=>$chapter_id,'order'=>0,'title'=>'Промежуточное тестирование','description'=>'','active'=>1);
-                $test = CoursesTests::create($input);
-            endif;
-        endif;
-        return View::make($this->module['tpl'].'index', compact('direction','course','chapter','test'));
+        $test = $this->test;
+        $question = $this->question;
+        return View::make($this->module['tpl'].'create',compact('direction','course','chapter','test','question'));
     }
 
-    public function destroy($direction_id,$course_id,$chapter_id,$lecture_id){
+    public function store($direction_id,$course_id,$chapter_id,$test_id,$question_id){
+
+        if(!Request::ajax()) return App::abort(404);
+        Allow::permission($this->module['group'], 'create');
+        $json_request = array('status'=>FALSE, 'responseText'=>'', 'responseErrorText'=>'', 'redirect'=>FALSE, 'gallery'=>0);
+        $validation = Validator::make(Input::all(), CoursesTestsAnswers::$rules);
+        if($validation->passes()):
+            $this->answer->create(Input::all());
+            $json_request['responseText'] = self::$entity_name." добавлен";
+            $json_request['redirect'] = URL::route('testing.index',array('directions'=>$this->direction->id,'course'=>$this->course->id,'chapter'=>$this->chapter->id));
+            $json_request['status'] = TRUE;
+        else:
+            $json_request['responseText'] = 'Неверно заполнены поля';
+            $json_request['responseErrorText'] = implode($validation->messages()->all(),'<br />');
+        endif;
+        return Response::json($json_request, 200);
+    }
+
+    public function edit($direction_id,$course_id,$chapter_id,$test_id,$question_id,$answer_id){
+
+        Allow::permission($this->module['group'], 'edit');
+        if($answer = $this->answer->findOrFail($answer_id)):
+            $direction = $this->direction;
+            $course = $this->course;
+            $chapter = $this->chapter;
+            $test = $this->test;
+            $question = $this->question;
+            return View::make($this->module['tpl'].'edit', compact('direction','course','chapter','test','question','answer'));
+        else:
+            App::abort(404);
+        endif;
+    }
+
+    public function update($direction_id,$course_id,$chapter_id,$test_id,$question_id,$answer_id){
+
+        if(!Request::ajax()) return App::abort(404);
+        Allow::permission($this->module['group'], 'edit');
+        $json_request = array('status'=>FALSE, 'responseText'=>'', 'responseErrorText'=>'', 'redirect'=>FALSE, 'gallery'=>0);
+        $validation = Validator::make(Input::all(), CoursesTestsAnswers::$rules);
+        if($validation->passes()):
+            if($answer = $this->answer->where('id',$answer_id)->first()):
+                $input = Input::all();
+                $input['correct'] = (int) Input::get('correct');
+                $answer->update($input);
+                $json_request['responseText'] = self::$entity_name." сохранен";
+                $json_request['redirect'] = URL::route('testing.index',array('directions'=>$this->direction->id,'course'=>$this->course->id,'chapter'=>$this->chapter->id));
+                $json_request['status'] = TRUE;
+            endif;
+        else:
+            $json_request['responseText'] = 'Неверно заполнены поля';
+            $json_request['responseErrorText'] = implode($validation->messages()->all(),'<br />');
+        endif;
+        return Response::json($json_request, 200);
+    }
+
+    public function destroy($direction_id,$course_id,$chapter_id,$test_id,$question_id,$answer_id){
 
         Allow::permission($this->module['group'], 'delete');
         if(!Request::ajax()) return App::abort(404);
         $json_request = array('status'=>FALSE, 'responseText'=>'');
-        $file = $this->lecture->where('id',$lecture_id)->first()->document()->first();
-        if (!empty($file) && File::exists(public_path($file->path))):
-            File::delete(public_path($file->path));
-            Upload::find($file->id)->delete();
-        endif;
-        $this->lecture->find($lecture_id)->delete();
-        $json_request['responseText'] = self::$entity_name.' удалена';
+        $this->question->find($question_id)->answers()->delete();
+        $this->question->find($question_id)->delete();
+        $json_request['responseText'] = self::$entity_name.' удален';
         $json_request['status'] = TRUE;
         return Response::json($json_request, 200);
     }

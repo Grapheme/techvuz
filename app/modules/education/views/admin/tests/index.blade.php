@@ -26,11 +26,11 @@
 
 @if($test->questions->count())
     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-    @foreach($test->questions as $index => $question)
+    @foreach($test->questions as $question_index => $question)
         <table class="table table-striped table-bordered">
             <tbody>
                 <tr class="vertical-middle">
-                    <td class="col-lg-1">{{ $question->order }} {{ $question->title }}{{ $index+1 }}</td>
+                    <td class="col-lg-1">{{ $question->order }} {{ $question->title }}{{ $question_index+1 }}</td>
                     <td class="col-lg-9">{{ $question->description }}</td>
                     <td class="col-lg-2 text-center">
                         @if(Allow::action($module['group'], 'edit'))
@@ -48,13 +48,14 @@
         @if($question->answers->count())
         <table class="table table-striped table-bordered">
             <tbody>
-                @foreach($question->answers as $index => $answer)
+                @foreach($question->answers as $answer_index => $answer)
                 <tr class="vertical-middle">
-                    <td class="col-lg-1 text-center">{{ $answer->order }} {{ $answer->title }}{{ $index+1 }}</td>
-                    <td class="col-lg-9">{{ $lecture->title }}</td>
+                    <td class="col-lg-1 text-center">{{ $answer->order }} {{ $answer->title }}{{ $answer_index+1 }}</td>
+                    <td class="col-lg-8">{{ $answer->description }}</td>
+                    <td class="col-lg-1 text-center">{{ $answer->correct ? 'верный' : 'неверный' }}</td>
                     <td class="col-lg-2 text-center" style="white-space:nowrap;">
                         @if(Allow::action($module['group'], 'edit'))
-                        <a href="{{ URL::route('answers.edit',array('directions'=>$direction->id,'course'=>$course->id,'chapter'=>$chapter_id,'test'=>$test->id,'answer'=>$answer->id)) }}" class="btn btn-success margin-right-10">Изменить</a>
+                        <a href="{{ URL::route('answers.edit',array('directions'=>$direction->id,'course'=>$course->id,'chapter'=>$chapter_id,'test'=>$test->id,'question'=>$question->id,'answer'=>$answer->id)) }}" class="btn btn-success margin-right-10">Изменить</a>
                         @endif
                         @if(Allow::action($module['group'], 'delete'))
                         <form method="DELETE" action="{{ URL::route('answers.destroy',array('directions'=>$direction->id,'course'=>$course->id,'chapter'=>$chapter_id,'test'=>$test->id,'answer'=>$answer->id)) }}" style="display:inline-block">
@@ -72,7 +73,7 @@
                 <tr class="vertical-middle">
                     <td class="col-lg-10">
                     @if(Allow::action($module['group'], 'edit'))
-                        <a href="{{ URL::route('answers.create',array('directions'=>$direction->id,'course'=>$course->id,'chapter'=>$chapter_id,'test'=>$test->id)) }}" class="btn btn-success margin-right-10">Добавить ответ</a>
+                        <a href="{{ URL::route('answers.create',array('directions'=>$direction->id,'course'=>$course->id,'chapter'=>$chapter_id,'test'=>$test->id,'question'=>$question->id)) }}" class="btn btn-success margin-right-10">Добавить ответ</a>
                     @endif
                     </td>
                     <td class="col-lg-2 text-center"> </td>
