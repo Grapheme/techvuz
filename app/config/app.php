@@ -13,10 +13,9 @@ return array(
 	'template' => 'default',
     'welcome_page_tpl' => 'templates.site.index', #'guests.welcome',
 
-
 	'manifest' => storage_path('meta'),
 
-	'debug' => true,
+	'debug' => FALSE,
 	'url' => 'http://techvuz.dev.grapheme.ru/',
 	'timezone' => 'UTC',
 
