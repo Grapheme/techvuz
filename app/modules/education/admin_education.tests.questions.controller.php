@@ -92,7 +92,12 @@ class AdminEducationTestsQuestionsController extends BaseController {
         if($validation->passes()):
             $this->question->create(Input::all());
             $json_request['responseText'] = self::$entity_name." добавлен";
-            $json_request['redirect'] = URL::route('testing.index',array('directions'=>$this->direction->id,'course'=>$this->course->id,'chapter'=>$this->chapter->id));
+            if(is_null($this->chapter)):
+                $chapter_id = 0;
+            else:
+                $chapter_id = $this->chapter->id;
+            endif;
+            $json_request['redirect'] = URL::route('testing.index',array('directions'=>$this->direction->id,'course'=>$this->course->id,'chapter'=>$chapter_id));
             $json_request['status'] = TRUE;
         else:
             $json_request['responseText'] = 'Неверно заполнены поля';
@@ -125,7 +130,12 @@ class AdminEducationTestsQuestionsController extends BaseController {
             if($question = $this->question->where('id',$question_id)->first()):
                 $question->update(Input::all());
                 $json_request['responseText'] = self::$entity_name." сохранен";
-                $json_request['redirect'] = URL::route('testing.index',array('directions'=>$this->direction->id,'course'=>$this->course->id,'chapter'=>$this->chapter->id));
+                if(is_null($this->chapter)):
+                    $chapter_id = 0;
+                else:
+                    $chapter_id = $this->chapter->id;
+                endif;
+                $json_request['redirect'] = URL::route('testing.index',array('directions'=>$this->direction->id,'course'=>$this->course->id,'chapter'=>$chapter_id));
                 $json_request['status'] = TRUE;
             endif;
         else:

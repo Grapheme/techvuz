@@ -7,12 +7,14 @@
 <h4>Направление обучения &laquo;{{ $direction->title }}&raquo;</h4>
 @if(!is_null($chapter))
 <h4>Глава &laquo;{{ $chapter->title }}&raquo;. {{ $test->title }}</h4>
+<?php $chapter_id = $chapter->id?>
 @else
 <h4>{{ $test->title }}</h4>
+<?php $chapter_id = 0; ?>
 @endif
 <p>Вопрос №{{ $question->order }}</p>
 <p>{{ $question->description }}</p>
-{{ Form::open(array('url'=>URL::route('answers.store',array('directions'=>$direction->id,'course'=>$course->id,'chapter'=>$chapter->id,'test'=>$test->id,'question'=>$question->id)), 'role'=>'form', 'class'=>'smart-form', 'id'=>'answer-form', 'method'=>'post')) }}
+{{ Form::open(array('url'=>URL::route('answers.store',array('directions'=>$direction->id,'course'=>$course->id,'chapter'=>$chapter_id,'test'=>$test->id,'question'=>$question->id)), 'role'=>'form', 'class'=>'smart-form', 'id'=>'answer-form', 'method'=>'post')) }}
 	{{ Form::hidden('test_id',$test->id) }}
 	{{ Form::hidden('test_question_id',$question->id) }}
 	{{ Form::hidden('title','Ответ №') }}
