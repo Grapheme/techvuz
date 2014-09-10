@@ -17,7 +17,7 @@ return array(
 	'manifest' => storage_path('meta'),
 
 	'debug' => TRUE,
-	'url' => 'http://technical-college.dev.grapheme.ru/',
+	'url' => 'http://techvuz.dev.grapheme.ru/',
 	'timezone' => 'UTC',
 
     'locales' => array(
