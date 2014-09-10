@@ -1,19 +1,18 @@
 <?php
 
-class AdminEducationChaptersController extends BaseController {
+class AdminEducationTestsQuestionsController extends BaseController {
 
-    public static $name = 'chapters';
+    public static $name = 'questions';
     public static $group = 'education';
-    public static $entity = 'chapters';
-    public static $entity_name = 'Главы';
+    public static $entity = 'questions';
+    public static $entity_name = 'Тестирование. Вопрос';
 
     /****************************************************************************/
 
-    ## Routing rules of module
     public static function returnRoutes($prefix = null) {
         $class = __CLASS__;
         Route::group(array('before' => 'auth', 'prefix' => $prefix), function() use ($class) {
-            Route::resource(AdminEducationDirectionsController::$group.'/'.AdminEducationDirectionsController::$name.'/{direction}/'.AdminEducationCoursesController::$name.'/{course}/'.$class::$name, $class,
+            Route::resource(AdminEducationDirectionsController::$group.'/'.AdminEducationDirectionsController::$name.'/{direction}/'.AdminEducationCoursesController::$name.'/{course}/'.AdminEducationChaptersController::$name.'/{chapter}/'.AdminEducationTestingController::$name.'/{tests}/'.$class::$name, $class,
                 array(
                     'except' => array('show','index'),
                     'names' => array(
@@ -49,18 +48,22 @@ class AdminEducationChaptersController extends BaseController {
     protected $direction;
     protected $course;
     protected $chapter;
+    protected $test;
+    protected $question;
 
-    public function __construct(Directions $direction, Courses $course, Chapter $chapter){
+    public function __construct(CoursesTestsQuestions $question){
 
-        $this->direction = Directions::where('id',Request::segment(4))->with('courses')->first();
-        $this->course = Courses::where('id',Request::segment(6))->with('chapters.lectures')->first();
-        $this->chapter = $chapter;
+        $this->direction = Directions::findOrFail(Request::segment(4));
+        $this->course = Courses::findOrFail(Request::segment(6));
+        $this->chapter = Chapter::find(Request::segment(8));
+        $this->test = CoursesTests::findOrFail(Request::segment(10));
+        $this->question = $question;
 
         $this->module = array(
             'name' => self::$name,
             'group' => self::$group,
             'rest' => self::$group,
-            'tpl' => static::returnTpl('admin.chapters'),
+            'tpl' => static::returnTpl('admin.tests.questions'),
             'gtpl' => static::returnTpl(),
             'class' => __CLASS__,
 
@@ -70,24 +73,26 @@ class AdminEducationChaptersController extends BaseController {
         View::share('module', $this->module);
     }
 
-    public function create() {
+    public function create($direction_id,$course_id,$chapter_id,$test_id) {
 
         Allow::permission($this->module['group'], 'create');
         $direction = $this->direction;
         $course = $this->course;
-        return View::make($this->module['tpl'].'create',compact('direction','course'));
+        $chapter = $this->chapter;
+        $test = $this->test;
+        return View::make($this->module['tpl'].'create',compact('direction','course','chapter','test'));
     }
 
-    public function store(){
+    public function store($direction_id,$course_id,$chapter_id,$test_id){
 
         if(!Request::ajax()) return App::abort(404);
         Allow::permission($this->module['group'], 'create');
         $json_request = array('status'=>FALSE, 'responseText'=>'', 'responseErrorText'=>'', 'redirect'=>FALSE, 'gallery'=>0);
-        $validation = Validator::make(Input::all(), Chapter::$rules);
+        $validation = Validator::make(Input::all(), CoursesTestsQuestions::$rules);
         if($validation->passes()):
-            $this->chapter->create(Input::all());
-            $json_request['responseText'] = self::$entity_name." добавлена";
-            $json_request['redirect'] = URL::route('modules.index',array('directions'=>$this->direction->id,'course'=>$this->course->id));
+            $this->question->create(Input::all());
+            $json_request['responseText'] = self::$entity_name." добавлен";
+            $json_request['redirect'] = URL::route('testing.index',array('directions'=>$this->direction->id,'course'=>$this->course->id,'chapter'=>$this->chapter->id));
             $json_request['status'] = TRUE;
         else:
             $json_request['responseText'] = 'Неверно заполнены поля';
@@ -96,29 +101,31 @@ class AdminEducationChaptersController extends BaseController {
         return Response::json($json_request, 200);
     }
 
-    public function edit($direction_id,$course_id,$chapter_id){
+    public function edit($direction_id,$course_id,$chapter_id,$test_id,$question_id){
 
         Allow::permission($this->module['group'], 'edit');
-        if($chapter = Chapter::where('id',$chapter_id)->first()):
+        if($question = $this->question->findOrFail($question_id)):
             $direction = $this->direction;
             $course = $this->course;
-            return View::make($this->module['tpl'].'edit', compact('direction','course','chapter'));
+            $chapter = $this->chapter;
+            $test = $this->test;
+            return View::make($this->module['tpl'].'edit', compact('direction','course','chapter','test','question'));
         else:
             App::abort(404);
         endif;
     }
 
-    public function update($direction_id,$course_id,$chapter_id){
+    public function update($direction_id,$course_id,$chapter_id,$test_id,$question_id){
 
         if(!Request::ajax()) return App::abort(404);
         Allow::permission($this->module['group'], 'edit');
         $json_request = array('status'=>FALSE, 'responseText'=>'', 'responseErrorText'=>'', 'redirect'=>FALSE, 'gallery'=>0);
-        $validation = Validator::make(Input::all(), Chapter::$rules);
+        $validation = Validator::make(Input::all(), CoursesTestsQuestions::$rules);
         if($validation->passes()):
-            if($chapter = $this->chapter->where('id',$chapter_id)->first()):
-                $chapter->update(Input::all());
-                $json_request['responseText'] = self::$entity_name." сохранена";
-                $json_request['redirect'] = URL::route('modules.index',array('directions'=>$this->direction->id,'course'=>$this->course->id));
+            if($question = $this->question->where('id',$question_id)->first()):
+                $question->update(Input::all());
+                $json_request['responseText'] = self::$entity_name." сохранен";
+                $json_request['redirect'] = URL::route('testing.index',array('directions'=>$this->direction->id,'course'=>$this->course->id,'chapter'=>$this->chapter->id));
                 $json_request['status'] = TRUE;
             endif;
         else:
@@ -128,16 +135,14 @@ class AdminEducationChaptersController extends BaseController {
         return Response::json($json_request, 200);
     }
 
-    public function destroy($direction_id,$course_id,$chapter_id){
+    public function destroy($direction_id,$course_id,$chapter_id,$test_id,$question_id){
 
         Allow::permission($this->module['group'], 'delete');
         if(!Request::ajax()) return App::abort(404);
         $json_request = array('status'=>FALSE, 'responseText'=>'');
-        Chapter::find($chapter_id)->test()->first()->answers()->delete();
-        Chapter::find($chapter_id)->test()->first()->questions()->delete();
-        Chapter::find($chapter_id)->test()->delete();
-        Chapter::find($chapter_id)->delete();
-        $json_request['responseText'] = self::$entity_name.' удалена';
+        $this->question->find($question_id)->answers()->delete();
+        $this->question->find($question_id)->delete();
+        $json_request['responseText'] = self::$entity_name.' удален';
         $json_request['status'] = TRUE;
         return Response::json($json_request, 200);
     }

@@ -57,7 +57,7 @@ Route::get('logout', array('before'=>'auth', 'as'=>'logout', 'uses'=>'GlobalCont
 /******************** ЗАГРУЗКА РЕСУРСОВ ИЗ МОДУЛЕЙ *********************/
 /***********************************************************************/
 ## For debug
-$load_debug = 0;
+$load_debug = FALSE;
 ## Reserved methods for return resourses of controller
 $returnRoutes = "returnRoutes";
 $returnActions = "returnActions";

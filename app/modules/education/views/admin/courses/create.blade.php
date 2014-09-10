@@ -5,7 +5,7 @@
 @section('content')
     <h1>Направления и курсы: Добавление курса</h1>
     <h4>Направление обучения &laquo;{{ $direction->title }}&raquo;</h4>
-{{ Form::open(array('url'=>URL::route('courses.update',array('directions'=>$direction->id)), 'role'=>'form', 'class'=>'smart-form', 'id'=>'course-form', 'method'=>'post','files'=>TRUE)) }}
+{{ Form::open(array('url'=>URL::route('courses.store',array('directions'=>$direction->id)), 'role'=>'form', 'class'=>'smart-form', 'id'=>'course-form', 'method'=>'post','files'=>TRUE)) }}
 	{{ Form::hidden('direction_id',$direction->id) }}
 	<div class="row margin-top-10">
 		<section class="col col-6">

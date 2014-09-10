@@ -1,11 +1,11 @@
 <?php
 
-class AdminEducationTestingController extends BaseController {
+class AdminEducationTestsAnswersController extends BaseController {
 
-    public static $name = 'testing';
+    public static $name = 'answers';
     public static $group = 'education';
-    public static $entity = 'testing';
-    public static $entity_name = 'Тест';
+    public static $entity = 'answers';
+    public static $entity_name = 'Тестирование. Ответ';
 
     /****************************************************************************/
 
@@ -13,11 +13,14 @@ class AdminEducationTestingController extends BaseController {
     public static function returnRoutes($prefix = null) {
         $class = __CLASS__;
         Route::group(array('before' => 'auth', 'prefix' => $prefix), function() use ($class) {
-            Route::resource(AdminEducationDirectionsController::$group.'/'.AdminEducationDirectionsController::$name.'/{direction}/'.AdminEducationCoursesController::$name.'/{course}/'.AdminEducationChaptersController::$name.'/{chapter}/'.$class::$name, $class,
+            Route::resource(AdminEducationDirectionsController::$group.'/'.AdminEducationDirectionsController::$name.'/{direction}/'.AdminEducationCoursesController::$name.'/{course}/'.AdminEducationTestingController::$name.'/{test}/'.$class::$name, $class,
                 array(
-                    'except' => array('show','create','store','edit','update'),
+                    'except' => array('show','index'),
                     'names' => array(
-                        'index'   => self::$entity.'.index',
+                        'create'  => self::$entity.'.create',
+                        'store'   => self::$entity.'.store',
+                        'edit'    => self::$entity.'.edit',
+                        'update'  => self::$entity.'.update',
                         'destroy' => self::$entity.'.destroy',
                     )
                 )
@@ -47,13 +50,15 @@ class AdminEducationTestingController extends BaseController {
     protected $course;
     protected $chapter;
     protected $test;
+    protected $answer;
 
-    public function __construct(CoursesTests $test){
+    public function __construct(CoursesTestsAnswers $answer){
 
         $this->direction = Directions::findOrFail(Request::segment(4));
         $this->course = Courses::findOrFail(Request::segment(6));
         $this->chapter = Chapter::find(Request::segment(8));
-        $this->test = $test;
+        $this->test = CoursesTests::findOrFail(Request::segment(10));
+        $this->answer = $answer;
 
         $this->module = array(
             'name' => self::$name,
@@ -87,25 +92,21 @@ class AdminEducationTestingController extends BaseController {
                 $test = CoursesTests::create($input);
             endif;
         endif;
-        $test = $this->test->where('id',$test->id)->with(array('questions'=>function($question_query){
-            $question_query->orderBy('order');
-            $question_query->with(array('answers'=>function($answer_query){
-                $answer_query->orderBy('order');
-            }));
-        }))->first();
         return View::make($this->module['tpl'].'index', compact('direction','course','chapter','test'));
     }
 
-    public function destroy($direction_id,$course_id,$chapter_id,$test_id){
+    public function destroy($direction_id,$course_id,$chapter_id,$lecture_id){
 
         Allow::permission($this->module['group'], 'delete');
         if(!Request::ajax()) return App::abort(404);
-        $json_request = array('status'=>FALSE, 'responseText'=>'','redirect'=>FALSE);
-        $this->test->find($test_id)->answers()->delete();
-        $this->test->find($test_id)->questions()->delete();
-        $this->test->find($test_id)->delete();
-        $json_request['redirect'] = URL::route('modules.index',array('direction'=>$this->direction->id,'course'=>$this->course->id));
-        $json_request['responseText'] = self::$entity_name.' удален';
+        $json_request = array('status'=>FALSE, 'responseText'=>'');
+        $file = $this->lecture->where('id',$lecture_id)->first()->document()->first();
+        if (!empty($file) && File::exists(public_path($file->path))):
+            File::delete(public_path($file->path));
+            Upload::find($file->id)->delete();
+        endif;
+        $this->lecture->find($lecture_id)->delete();
+        $json_request['responseText'] = self::$entity_name.' удалена';
         $json_request['status'] = TRUE;
         return Response::json($json_request, 200);
     }

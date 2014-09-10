@@ -48,4 +48,12 @@ class CoursesTests extends BaseModel {
     public function chapter(){
         return $this->belongsTo('Chapter','chapter_id');
     }
+
+    public function questions(){
+        return $this->hasMany('CoursesTestsQuestions','test_id');
+    }
+
+    public function answers(){
+        return $this->hasMany('CoursesTestsAnswers','test_id');
+    }
 }

@@ -37,4 +37,7 @@ class CoursesTestsQuestions extends BaseModel {
     public function test(){
         return $this->belongsTo('CoursesTests','test_id');
     }
+    public function answers(){
+        return $this->hasMany('CoursesTestsAnswers','test_question_id');
+    }
 }

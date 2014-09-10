@@ -44,4 +44,5 @@ class UsersTests extends BaseModel {
     public function test(){
         return $this->belongsTo('CoursesTests','test_id');
     }
+
 }
