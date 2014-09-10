@@ -7,7 +7,7 @@ return array(
     'git_path'          => '/usr/bin/',
     'remote'            => 'origin',
     'branch'            => 'master',
-    'repository_name'   => 'technical-college',
+    'repository_name'   => 'techvuz',
     'repository_id'     => 23617622,
     'user_group'        => 'www-data',
     'user_name'         => 'www-data',
