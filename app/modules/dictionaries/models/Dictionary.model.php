@@ -30,6 +30,7 @@ class Dictionary extends BaseModel {
         return $this->hasMany('DicVal', 'dic_id', 'id')
             ->with('meta', 'fields')
             ->orderBy('order', 'ASC')
+            ->orderBy('created_at', 'DESC')
             ->orderBy('slug', 'ASC')
             ->orderBy('name', 'ASC')
             ->orderBy('id', 'ASC');
