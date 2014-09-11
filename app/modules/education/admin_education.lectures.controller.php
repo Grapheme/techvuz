@@ -89,10 +89,11 @@ class AdminEducationLecturesController extends BaseController {
         $validation = Validator::make(Input::all(), Lectures::$rules);
         if($validation->passes()):
             $input = self::lectureFiles();
-            $this->lecture->create($input);
+            $lecture = $this->lecture->create($input);
             $json_request['responseText'] = self::$entity_name." добавлена";
             $json_request['redirect'] = URL::route('modules.index',array('directions'=>$this->direction->id,'course'=>$this->course->id));
             $json_request['status'] = TRUE;
+            Event::fire(Route::currentRouteName(), array(array('title'=>$lecture->title.'. Курс: '.$this->course->title)));
         else:
             $json_request['responseText'] = 'Неверно заполнены поля';
             $json_request['responseErrorText'] = implode($validation->messages()->all(),'<br />');
@@ -126,6 +127,7 @@ class AdminEducationLecturesController extends BaseController {
                 $json_request['responseText'] = self::$entity_name." сохранена";
                 $json_request['redirect'] = URL::route('modules.index',array('directions'=>$this->direction->id,'course'=>$this->course->id));
                 $json_request['status'] = TRUE;
+                Event::fire(Route::currentRouteName(), array(array('title'=>$lecture->title.'. Курс: '.$this->course->title)));
             endif;
         else:
             $json_request['responseText'] = 'Неверно заполнены поля';
@@ -144,7 +146,9 @@ class AdminEducationLecturesController extends BaseController {
             File::delete(public_path($file->path));
             Upload::find($file->id)->delete();
         endif;
-        $this->lecture->find($lecture_id)->delete();
+        $lecture = $this->lecture->find($lecture_id);
+        Event::fire(Route::currentRouteName(), array(array('title'=>$lecture->title.'. Курс: '.$this->course->title)));
+        $lecture->delete();
         $json_request['responseText'] = self::$entity_name.' удалена';
         $json_request['status'] = TRUE;
         return Response::json($json_request, 200);

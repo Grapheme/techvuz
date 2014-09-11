@@ -55,7 +55,6 @@ class AdminEducationDirectionsController extends BaseController {
     public function __construct(Directions $direction){
 
         $this->direction = $direction;
-
         $this->module = array(
             'name' => self::$name,
             'group' => self::$group,
@@ -93,16 +92,16 @@ class AdminEducationDirectionsController extends BaseController {
     }
 
     public function store(){
-
         if(!Request::ajax()) return App::abort(404);
         Allow::permission($this->module['group'], 'create');
         $json_request = array('status'=>FALSE, 'responseText'=>'', 'responseErrorText'=>'', 'redirect'=>FALSE, 'gallery'=>0);
         $validation = Validator::make(Input::all(), Directions::$rules);
         if($validation->passes()):
-            $this->direction->create(Input::all());
+            $direction = $this->direction->create(Input::all());
             $json_request['responseText'] = self::$entity_name." добавлено";
             $json_request['redirect'] = URL::route('directions.index');
             $json_request['status'] = TRUE;
+            Event::fire(Route::currentRouteName(), array(array('title'=>$direction->title)));
         else:
             $json_request['responseText'] = 'Неверно заполнены поля';
             $json_request['responseErrorText'] = implode($validation->messages()->all(),'<br />');
@@ -122,6 +121,7 @@ class AdminEducationDirectionsController extends BaseController {
                 $json_request['responseText'] = self::$entity_name." сохранен";
                 $json_request['redirect'] = URL::route('directions.index');
                 $json_request['status'] = TRUE;
+                Event::fire(Route::currentRouteName(), array(array('title'=>$direction->title)));
             endif;
         else:
             $json_request['responseText'] = 'Неверно заполнены поля';
@@ -135,8 +135,10 @@ class AdminEducationDirectionsController extends BaseController {
         Allow::permission($this->module['group'], 'delete');
         if(!Request::ajax()) return App::abort(404);
         $json_request = array('status'=>FALSE, 'responseText'=>'');
-        Directions::find($id)->courses()->delete();
-        Directions::find($id)->delete();
+        Directions::findOrFail($id)->courses()->delete();
+        $direction = Directions::findOrFail($id);
+        Event::fire(Route::currentRouteName(), array(array('title'=>$direction->title)));
+        $direction->delete();
         $json_request['responseText'] = self::$entity_name.' удален';
         $json_request['status'] = TRUE;
         return Response::json($json_request, 200);

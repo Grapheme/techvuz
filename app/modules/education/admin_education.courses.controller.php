@@ -92,10 +92,11 @@ class AdminEducationCoursesController extends BaseController {
         $validation = Validator::make(Input::all(), Courses::$rules);
         if($validation->passes()):
             $input = self::coursesFiles();
-            $this->course->create($input);
+            $course = $this->course->create($input);
             $json_request['responseText'] = self::$entity_name." добавлен";
             $json_request['redirect'] = URL::route('courses.index',array('directions'=>$this->direction->id));
             $json_request['status'] = TRUE;
+            Event::fire(Route::currentRouteName(), array(array('title'=>$course->title)));
         else:
             $json_request['responseText'] = 'Неверно заполнены поля';
             $json_request['responseErrorText'] = implode($validation->messages()->all(),'<br />');
@@ -127,6 +128,7 @@ class AdminEducationCoursesController extends BaseController {
                 $json_request['responseText'] = self::$entity_name." сохранен";
                 $json_request['redirect'] = URL::route('courses.index',array('directions'=>$this->direction->id));
                 $json_request['status'] = TRUE;
+                Event::fire(Route::currentRouteName(), array(array('title'=>$course->title)));
             endif;
         else:
             $json_request['responseText'] = 'Неверно заполнены поля';
@@ -158,8 +160,9 @@ class AdminEducationCoursesController extends BaseController {
             Upload::find($metodical->id)->delete();
         endif;
 
-        Courses::find($course_id)->delete();
-
+        $course = Courses::findOrFail($course_id);
+        Event::fire(Route::currentRouteName(), array(array('title'=>$course->title)));
+        $course->delete();
         $json_request['responseText'] = self::$entity_name.' удален';
         $json_request['status'] = TRUE;
         return Response::json($json_request, 200);

@@ -17,7 +17,8 @@ $(function(){
 						if(response.status == true){
 							showMessage.constructor('Удалить ' + essence_name, response.responseText);
 							showMessage.smallSuccess();
-							$($this).parents('tr').fadeOut(500,function(){$(this).remove();});
+//							$($this).parents('tr').fadeOut(500,function(){$(this).remove();});
+                            location.reload(true);
 						} else {
 							$($this).elementDisabled(false);
 							showMessage.constructor('Удалить ' + essence_name, 'Возникла ошибка. Обновите страницу и повторите снова.');

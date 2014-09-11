@@ -180,8 +180,35 @@ Config::set('mod_menu', $mod_menu);
 
 /***********************************************************************/
 
-
-	#Route::controller('/admin/videogid/dic/{learning_forms}', 'AdminVideogidDicsController');
-    #Route::resource('/admin/videogid/dic', 'AdminVideogidDicsController');
-    #Route::controller('', 'PublicVideogidController');
-    #Route::controller('', 'PublicVideogidController');
+if (Auth::check() && Allow::module('dictionaries')):
+    if(Dictionary::where('slug','actions_types')->exists()):
+        if($routeActions = Dictionary::where('slug','actions_types')->first()->values()->get()):
+            foreach ($routeActions as $action):
+                $action_id = $action->id;
+                $action_slug = $action->slug;
+                Event::listen($action_slug, function ($data) use ($action_id,$action_slug) {
+                    $actionDate = date("Y-m-d H:i:s");
+                    $nickname = 'Событие за '.myDateTime::SwapDotDateWithTime($actionDate);
+                    $link = NULL;
+                    if (isset($data['title'])):
+                        $nickname =  $data['title'];
+                    endif;
+                    if (isset($data['link'])):
+                        $link =  $data['link'];
+                    endif;
+                    DicVal::inject('actions_history', array(
+                        'slug' => $action_slug.'.'.$actionDate,
+                        'name' => $nickname,
+                        'fields' => array(
+                            'user_id' => Auth::user()->id,
+                            'action_id' => $action_id,
+                            'title' => $nickname,
+                            'link' => $link,
+                            'created_time' => $actionDate,
+                        )
+                    ));
+                });
+            endforeach;
+        endif;
+    endif;
+endif;

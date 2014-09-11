@@ -51,17 +51,31 @@ return array(
 
     'fields' => array(
 
-        'quests' => array(
+        'actions_history' => array(
 
             'general' => array(
 
-                'short' => array(
-                    'title' => 'Краткое описание',
-                    'type' => 'textarea_redactor',
+                'user_id' => array(
+                    'title' => 'ID пользователя',
+                    'type' => 'text',
                 ),
-
-                'date_start' => array(
-                    'title' => 'Дата начала сбора',
+                'action_id' => array(
+                    'title' => 'Событие',
+                    'type' => 'select',
+                    'values' => function(){
+                        return Dic::valuesBySlug('actions_types')->lists('name','id');
+                    }
+                ),
+                'title' => array(
+                    'title' => 'Название',
+                    'type' => 'text',
+                ),
+                'link' => array(
+                    'title' => 'Ссылка на событие',
+                    'type' => 'text',
+                ),
+                'created_time' => array(
+                    'title' => 'Дата создания',
                     'type' => 'date',
                     'others' => array(
                         'class' => 'text-center',
@@ -74,174 +88,9 @@ return array(
                     'value_modifier' => function($value) {
                             return $value ? @date('d.m.Y', strtotime($value)) : $value;
                         },
-                ),
-                'date_stop' => array(
-                    'title' => 'Дата окончания сбора',
-                    'type' => 'date',
-                    'others' => array(
-                        'class' => 'text-center',
-                        'style' => 'width: 221px',
-                        'placeholder' => 'Нажмите для выбора'
-                    ),
-                    'handler' => function($value) {
-                            return $value ? @date('Y-m-d', strtotime($value)) : $value;
-                        },
-                    'value_modifier' => function($value) {
-                            return $value ? @date('d.m.Y', strtotime($value)) : $value;
-                        },
-                ),
-                'date_quest' => array(
-                    'title' => 'Дата проведения квеста',
-                    'type' => 'date',
-                    'others' => array(
-                        'class' => 'text-center',
-                        'style' => 'width: 221px',
-                        'placeholder' => 'Нажмите для выбора'
-                    ),
-                    'handler' => function($value) {
-                            return $value ? @date('Y-m-d', strtotime($value)) : $value;
-                        },
-                    'value_modifier' => function($value) {
-                            return $value ? @date('d.m.Y', strtotime($value)) : $value;
-                        },
-                ),
-
-                'target_amount' => array(
-                    'title' => 'Целевая сумма сбора',
-                    'type' => 'text',
-                ),
-                'current_amount' => array(
-                    'title' => 'Собранно на данный момент',
-                    'type' => 'text',
-                ),
-                'count_members' => array(
-                    'title' => 'Количество участников',
-                    'type' => 'text',
-                ),
-
-                array('content' => '<hr/>'),
-
-                'link_to_file_print' => array(
-                    'title' => 'Файл принта',
-                    'type' => 'upload',
-                    'accept' => '*', # .exe,image/*,video/*,audio/*
-                    'label_class' => 'input-file',
-                    'handler' => function($value, $element = false) {
-                            if (@is_object($element) && @is_array($value)) {
-                                $value['module'] = 'dicval';
-                                $value['unit_id'] = $element->id;
-                            }
-                            return ExtForm::process('upload', $value);
-                        },
-                ),
-
-                array('content' => '<hr/>'),
-
-                'link_to_buy_shirt' => array(
-                    'title' => 'УРЛ для покупки футболки',
-                    'type' => 'text',
-                    'others' => array(
-                        'placeholder' => 'http://'
-                    ),
-                ),
-                'photo' => array(
-                    'title' => 'Фото',
-                    'type' => 'image',
-                ),
-
-                array('content' => '<hr/>'),
-
-                'video' => array(
-                    'title' => 'Видео',
-                    'type' => 'video',
-                    'handler' => function($value, $element = false) {
-                            if (@is_object($element) && @is_array($value)) {
-                                $value['module'] = 'dicval';
-                                $value['unit_id'] = $element->id;
-                            }
-                            return ExtForm::process('video', $value);
-                        },
-                ),
-
-                array('content' => '<hr/>'),
-
-                'description' => array(
-                    'title' => 'Полное описание',
-                    'type' => 'textarea_redactor',
-                ),
-
-            ),
-        ),
-
-        'members' => array(
-
-            'general' => array(
-
-                'fio' => array(
-                    'title' => 'Фамилия Имя',
-                    'type' => 'text',
-                    'others' => array(
-                        #'disabled',
-                    ),
-                ),
-                'payment_date' => array(
-                    'title' => 'Дата платежа',
-                    'type' => 'text',
-                    'others' => array(
-                        'disabled',
-                    ),
-                ),
-                'payment_amount' => array(
-                    'title' => 'Сумма платежа',
-                    'type' => 'text',
-                    'others' => array(
-                        'disabled',
-                    ),
-                ),
-                'payment_method' => array(
-                    'title' => 'Интерфейс платежа',
-                    'type' => 'text',
-                    'others' => array(
-                        'disabled',
-                    ),
                 ),
             ),
         ),
 
-        /*
-            array(
-                'price' => array(
-                    'title' => 'Текстовое поле',
-                    'type' => 'text',
-                ),
-                'short' => array(
-                    'title' => 'textarea обычная',
-                    'type' => 'textarea',
-                ),
-                'description' => array(
-                    'title' => 'textarea html-разметкой',
-                    'type' => 'textarea_redactor',
-                ),
-
-                'gallery' => array(
-                    'title' => 'Галерея',
-                    'type' => 'gallery',
-                    'handler' => function($array, $element) {
-                            return ExtForm::process('gallery', array(
-                                'module'  => 'dicval_meta',
-                                'unit_id' => $element->id,
-                                'gallery' => $array,
-                                'single'  => true,
-                            ));
-                        }
-                ),
-            ),
-
-        */
-
-    ),
-
-    'seo' => array(
-        'number_type' => 0,
     ),
 );

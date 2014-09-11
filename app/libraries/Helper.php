@@ -399,7 +399,11 @@ HTML;
                 $return = ExtForm::video($name, $value, $others_array);
                 break;
             case 'select':
-                $values = $array['values'];
+                if (is_callable($array['values'])):
+                    $values = $array['values']();
+                else:
+                    $values = $array['values'];
+                endif;
                 $return = Form::select($name, $values, $value, $others_array);
                 break;
         }
@@ -509,7 +513,6 @@ HTML;
 
         return $return;
     }
-
 
     public static function smartFilesize($number) {
 

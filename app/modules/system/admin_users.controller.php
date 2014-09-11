@@ -120,7 +120,7 @@ class AdminUsersController extends BaseController {
 
 			$json_request['responseText'] = "Пользователь добавлен";
 			#$json_request['responseText'] = print_r(Input::get('actions'), 1);
-			$json_request['redirect'] = link::auth($this->module['rest'].'/edit/'.$user->id);
+			$json_request['redirect'] = link::auth($this->module['group'].'/'.$this->module['rest']);
 			$json_request['status'] = TRUE;
 
 		} else {
@@ -181,7 +181,7 @@ class AdminUsersController extends BaseController {
 			$json_request['responseText'] = 'Данные пользователя изменены';
 			#$json_request['responseText'] = "<pre>" . print_r($_POST, 1) . "</pre>";
 			#$json_request['responseText'] = "<pre>" . print_r($input, 1) . "</pre>";
-			#$json_request['redirect'] = link::auth('groups');
+			$json_request['redirect'] = link::auth($this->module['group'].'/'.$this->module['rest']);
 			$json_request['status'] = TRUE;
 		else:
 			$json_request['responseText'] = 'Неверно заполнены поля';

@@ -97,8 +97,8 @@ class DicVal extends BaseModel {
      */
     public static function inject($dic_slug, $array) {
 
-        Helper::d($dic_slug);
-        Helper::d($array);
+//        Helper::d($dic_slug);
+//        Helper::d($array);
 
         ## Find DIC
         $dic = Dic::where('slug', $dic_slug)->first();

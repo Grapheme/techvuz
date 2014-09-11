@@ -85,10 +85,11 @@ class AdminEducationChaptersController extends BaseController {
         $json_request = array('status'=>FALSE, 'responseText'=>'', 'responseErrorText'=>'', 'redirect'=>FALSE, 'gallery'=>0);
         $validation = Validator::make(Input::all(), Chapter::$rules);
         if($validation->passes()):
-            $this->chapter->create(Input::all());
+            $chapter = $this->chapter->create(Input::all());
             $json_request['responseText'] = self::$entity_name." добавлена";
             $json_request['redirect'] = URL::route('modules.index',array('directions'=>$this->direction->id,'course'=>$this->course->id));
             $json_request['status'] = TRUE;
+            Event::fire(Route::currentRouteName(), array(array('title'=>$chapter->title.'. Курс: '.$this->course->title)));
         else:
             $json_request['responseText'] = 'Неверно заполнены поля';
             $json_request['responseErrorText'] = implode($validation->messages()->all(),'<br />');
@@ -120,6 +121,7 @@ class AdminEducationChaptersController extends BaseController {
                 $json_request['responseText'] = self::$entity_name." сохранена";
                 $json_request['redirect'] = URL::route('modules.index',array('directions'=>$this->direction->id,'course'=>$this->course->id));
                 $json_request['status'] = TRUE;
+                Event::fire(Route::currentRouteName(), array(array('title'=>$chapter->title.'. Курс: '.$this->course->title)));
             endif;
         else:
             $json_request['responseText'] = 'Неверно заполнены поля';
@@ -133,10 +135,14 @@ class AdminEducationChaptersController extends BaseController {
         Allow::permission($this->module['group'], 'delete');
         if(!Request::ajax()) return App::abort(404);
         $json_request = array('status'=>FALSE, 'responseText'=>'');
-        Chapter::find($chapter_id)->test()->first()->answers()->delete();
-        Chapter::find($chapter_id)->test()->first()->questions()->delete();
-        Chapter::find($chapter_id)->test()->delete();
-        Chapter::find($chapter_id)->delete();
+        if(Chapter::find($chapter_id)->test()->exists()):
+            Chapter::find($chapter_id)->test()->first()->answers()->delete();
+            Chapter::find($chapter_id)->test()->first()->questions()->delete();
+            Chapter::find($chapter_id)->test()->delete();
+        endif;
+        $chapter = Chapter::findOrFail($chapter_id);
+        Event::fire(Route::currentRouteName(), array(array('title'=>$chapter->title.'. Курс: '.$this->course->title)));
+        $chapter->delete();
         $json_request['responseText'] = self::$entity_name.' удалена';
         $json_request['status'] = TRUE;
         return Response::json($json_request, 200);
