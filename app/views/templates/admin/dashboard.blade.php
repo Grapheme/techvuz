@@ -12,7 +12,7 @@
 	<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
 		<div class="margin-top-10">
     @if (Allow::module('dictionaries'))
-         @if(Dictionary::where('slug','actions_history')->exists())
+         @if(Dictionary::where('slug','actions_history')->->values()->exists())
             <?php $actionsDictionary = Dictionary::whereSlugValues('actions_types')->values()->lists('name','id');?>
             @foreach(User::whereIn('group_id',array(1,3))->select('name','surname','id')->get() as $user)
                 <?php $moderators[$user->id] = $user->name.' '.$user->surname; ?>
