@@ -12,12 +12,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/barryvdh/laravel-debugbar.git",
-                "reference": "ab1afe09d35d59fb81d470e21c91a21b846e9c32"
+                "reference": "1559bfcb6e244802f9f3fa3c8ea9b21e5699cc5d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/barryvdh/laravel-debugbar/zipball/ab1afe09d35d59fb81d470e21c91a21b846e9c32",
-                "reference": "ab1afe09d35d59fb81d470e21c91a21b846e9c32",
+                "url": "https://api.github.com/repos/barryvdh/laravel-debugbar/zipball/1559bfcb6e244802f9f3fa3c8ea9b21e5699cc5d",
+                "reference": "1559bfcb6e244802f9f3fa3c8ea9b21e5699cc5d",
                 "shasum": ""
             },
             "require": {
@@ -58,7 +58,7 @@
                 "profiler",
                 "webprofiler"
             ],
-            "time": "2014-09-05 15:08:45"
+            "time": "2014-09-08 19:15:48"
         },
         {
             "name": "barryvdh/laravel-ide-helper",
@@ -66,12 +66,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/barryvdh/laravel-ide-helper.git",
-                "reference": "f2de8d3c656a9b96049b6e62d50bcf9db1402778"
+                "reference": "f94743fda5464422806caad73db38161d94808e3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/barryvdh/laravel-ide-helper/zipball/f2de8d3c656a9b96049b6e62d50bcf9db1402778",
-                "reference": "f2de8d3c656a9b96049b6e62d50bcf9db1402778",
+                "url": "https://api.github.com/repos/barryvdh/laravel-ide-helper/zipball/f94743fda5464422806caad73db38161d94808e3",
+                "reference": "f94743fda5464422806caad73db38161d94808e3",
                 "shasum": ""
             },
             "require": {
@@ -121,7 +121,7 @@
                 "phpstorm",
                 "sublime"
             ],
-            "time": "2014-09-03 06:57:31"
+            "time": "2014-09-10 07:43:00"
         },
         {
             "name": "bugsnag/bugsnag",
@@ -599,12 +599,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/dbal.git",
-                "reference": "85fd6247cbec0bd4d7904c2e99087c88c1c1c2a2"
+                "reference": "c8b58d97e856abb5b9d08cca3997a265b0c254da"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/dbal/zipball/85fd6247cbec0bd4d7904c2e99087c88c1c1c2a2",
-                "reference": "85fd6247cbec0bd4d7904c2e99087c88c1c1c2a2",
+                "url": "https://api.github.com/repos/doctrine/dbal/zipball/c8b58d97e856abb5b9d08cca3997a265b0c254da",
+                "reference": "c8b58d97e856abb5b9d08cca3997a265b0c254da",
                 "shasum": ""
             },
             "require": {
@@ -662,7 +662,7 @@
                 "persistence",
                 "queryobject"
             ],
-            "time": "2014-09-03 17:29:21"
+            "time": "2014-09-10 17:36:07"
         },
         {
             "name": "doctrine/inflector",
@@ -742,12 +742,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/lexer.git",
-                "reference": "db77c80d33d72e33a62b80581e9d150af85de556"
+                "reference": "83893c552fd2045dd78aef794c31e694c37c0b8c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/lexer/zipball/db77c80d33d72e33a62b80581e9d150af85de556",
-                "reference": "db77c80d33d72e33a62b80581e9d150af85de556",
+                "url": "https://api.github.com/repos/doctrine/lexer/zipball/83893c552fd2045dd78aef794c31e694c37c0b8c",
+                "reference": "83893c552fd2045dd78aef794c31e694c37c0b8c",
                 "shasum": ""
             },
             "require": {
@@ -770,19 +770,16 @@
             ],
             "authors": [
                 {
-                    "name": "Guilherme Blanco",
-                    "email": "guilhermeblanco@gmail.com",
-                    "homepage": "http://www.instaclick.com"
-                },
-                {
                     "name": "Roman Borschel",
                     "email": "roman@code-factory.org"
                 },
                 {
+                    "name": "Guilherme Blanco",
+                    "email": "guilhermeblanco@gmail.com"
+                },
+                {
                     "name": "Johannes Schmitt",
-                    "email": "schmittjoh@gmail.com",
-                    "homepage": "https://github.com/schmittjoh",
-                    "role": "Developer of wrapped JMSSerializerBundle"
+                    "email": "schmittjoh@gmail.com"
                 }
             ],
             "description": "Base library for a lexer that can be used in Top-Down, Recursive Descent Parsers.",
@@ -791,7 +788,7 @@
                 "lexer",
                 "parser"
             ],
-            "time": "2014-06-11 23:09:27"
+            "time": "2014-09-09 13:34:57"
         },
         {
             "name": "filp/whoops",
@@ -948,16 +945,16 @@
         },
         {
             "name": "intervention/image",
-            "version": "2.0.8",
+            "version": "2.0.9",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Intervention/image.git",
-                "reference": "28f156432e774b31a53c5fe08d164edd111f9482"
+                "reference": "88b625394a2428e9ea1202289f1d5435c687c24a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Intervention/image/zipball/28f156432e774b31a53c5fe08d164edd111f9482",
-                "reference": "28f156432e774b31a53c5fe08d164edd111f9482",
+                "url": "https://api.github.com/repos/Intervention/image/zipball/88b625394a2428e9ea1202289f1d5435c687c24a",
+                "reference": "88b625394a2428e9ea1202289f1d5435c687c24a",
                 "shasum": ""
             },
             "require": {
@@ -965,7 +962,7 @@
                 "php": ">=5.3.0"
             },
             "require-dev": {
-                "mockery/mockery": "0.9.*",
+                "mockery/mockery": "~0.9.2",
                 "phpunit/phpunit": "3.*"
             },
             "suggest": {
@@ -990,7 +987,7 @@
                     "homepage": "http://olivervogel.net/"
                 }
             ],
-            "description": "Image handling and manipulation library with support for Laravel 4 integration",
+            "description": "Image handling and manipulation library with support for Laravel integration",
             "homepage": "http://image.intervention.io/",
             "keywords": [
                 "gd",
@@ -1000,7 +997,7 @@
                 "thumbnail",
                 "watermark"
             ],
-            "time": "2014-08-23 15:47:12"
+            "time": "2014-09-06 08:11:17"
         },
         {
             "name": "ircmaxell/password-compat",
@@ -1095,12 +1092,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/framework.git",
-                "reference": "def2787c9cc6a5821b16ecaec902c775da1cd569"
+                "reference": "619690d7f13d9faf85efd1fa29ec199bb15ff6a1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/framework/zipball/def2787c9cc6a5821b16ecaec902c775da1cd569",
-                "reference": "def2787c9cc6a5821b16ecaec902c775da1cd569",
+                "url": "https://api.github.com/repos/laravel/framework/zipball/619690d7f13d9faf85efd1fa29ec199bb15ff6a1",
+                "reference": "619690d7f13d9faf85efd1fa29ec199bb15ff6a1",
                 "shasum": ""
             },
             "require": {
@@ -1202,7 +1199,7 @@
                 "framework",
                 "laravel"
             ],
-            "time": "2014-09-08 03:15:03"
+            "time": "2014-09-11 14:10:29"
         },
         {
             "name": "maximebf/debugbar",
@@ -1265,12 +1262,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Seldaek/monolog.git",
-                "reference": "12545cda2f7a0bd82a110f742ef455fe735e60cf"
+                "reference": "b3f039339d7a8173c7b441dbaa572ccacb712b54"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Seldaek/monolog/zipball/12545cda2f7a0bd82a110f742ef455fe735e60cf",
-                "reference": "12545cda2f7a0bd82a110f742ef455fe735e60cf",
+                "url": "https://api.github.com/repos/Seldaek/monolog/zipball/b3f039339d7a8173c7b441dbaa572ccacb712b54",
+                "reference": "b3f039339d7a8173c7b441dbaa572ccacb712b54",
                 "shasum": ""
             },
             "require": {
@@ -1329,20 +1326,20 @@
                 "logging",
                 "psr-3"
             ],
-            "time": "2014-07-31 22:12:22"
+            "time": "2014-09-10 15:41:01"
         },
         {
             "name": "nesbot/carbon",
-            "version": "1.11.0",
+            "version": "1.12.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/briannesbitt/Carbon.git",
-                "reference": "2b60366be6dcb9f9cd3e244ab25eb98eaea99551"
+                "reference": "cde7a00d1410a17fb6d61b993cb017a78be1137c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/briannesbitt/Carbon/zipball/2b60366be6dcb9f9cd3e244ab25eb98eaea99551",
-                "reference": "2b60366be6dcb9f9cd3e244ab25eb98eaea99551",
+                "url": "https://api.github.com/repos/briannesbitt/Carbon/zipball/cde7a00d1410a17fb6d61b993cb017a78be1137c",
+                "reference": "cde7a00d1410a17fb6d61b993cb017a78be1137c",
                 "shasum": ""
             },
             "require": {
@@ -1375,7 +1372,7 @@
                 "datetime",
                 "time"
             ],
-            "time": "2014-08-26 03:18:44"
+            "time": "2014-09-10 03:26:33"
         },
         {
             "name": "nikic/php-parser",
@@ -1533,12 +1530,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpseclib/phpseclib.git",
-                "reference": "f2cab55fd542cf481ef2514c83ef864138edcbd3"
+                "reference": "3f3b9b90fbfc691aa91122c4073f169f1ae7f19f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpseclib/phpseclib/zipball/f2cab55fd542cf481ef2514c83ef864138edcbd3",
-                "reference": "f2cab55fd542cf481ef2514c83ef864138edcbd3",
+                "url": "https://api.github.com/repos/phpseclib/phpseclib/zipball/3f3b9b90fbfc691aa91122c4073f169f1ae7f19f",
+                "reference": "3f3b9b90fbfc691aa91122c4073f169f1ae7f19f",
                 "shasum": ""
             },
             "require": {
@@ -1623,7 +1620,7 @@
                 "x.509",
                 "x509"
             ],
-            "time": "2014-09-07 10:43:22"
+            "time": "2014-09-09 14:41:58"
         },
         {
             "name": "predis/predis",
