@@ -20,5 +20,20 @@ class GroupsTableSeeder extends Seeder{
 			'desc' => 'Модераторы',
 			'dashboard' => 'admin'
 		));
+        Group::create(array(
+            'name' => 'organization',
+            'desc' => 'Юридическое лицо',
+            'dashboard' => 'organization'
+        ));
+        Group::create(array(
+            'name' => 'listener',
+            'desc' => 'Сотрудник организации',
+            'dashboard' => 'listener'
+        ));
+        Group::create(array(
+            'name' => 'individual',
+            'desc' => 'Индивидуальный слушатель',
+            'dashboard' => 'individual-listener'
+        ));
 	}
 }

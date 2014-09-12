@@ -16,6 +16,14 @@
 
 <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
 
-{{ HTML::stylemod('css/main.css') }}
+@if(Config::get('app.use_css_local'))
+	{{ HTML::style('css/bootstrap.min.css') }}
+@else
+	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap.min.css">
+@endif
+	{{ HTML::style('css/font-awesome.min.css') }}
+	{{ HTML::style('css/production_unminified.css') }}
+
+{{ HTML::stylemod('theme/css/main.css') }}
 <link href='http://fonts.googleapis.com/css?family=Open+Sans:300,400,600&subset=latin,cyrillic' rel='stylesheet' type='text/css'>
 {{ HTML::scriptmod('js/vendor/modernizr-2.6.2.min.js') }}

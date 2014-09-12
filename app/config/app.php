@@ -10,8 +10,8 @@ return array(
 	'use_scripts_local' => FALSE,
 	
 	'default_page_title' => 'ТехВУЗ',
-	'template' => 'default',
-    'welcome_page_tpl' => 'templates.site.index', #'guests.welcome',
+	'template' => 'guest',
+    'welcome_page_tpl' => 'templates.default.index', #'guests.welcome',
 
 	'manifest' => storage_path('meta'),
 

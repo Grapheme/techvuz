@@ -1,7 +1,7 @@
 @extends(Helper::acclayout())
 @section('style')
 {{ HTML::style('css/redactor.css') }}
-@stop
+ @stop
 @section('content')
     <h1>Направления и курсы: Добавление лекции</h1>
     <h4>Направление обучения &laquo;{{ $direction->title }}&raquo;</h4>
