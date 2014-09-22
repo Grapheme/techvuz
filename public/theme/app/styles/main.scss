@@ -99,13 +99,20 @@ textarea {
    Author's custom styles
    ========================================================================== */
 
+@import 'static/fonts';
 @import 'partials/colors';
 @import 'vars';
+@import 'partials/btns';
 
 @import 'partials/header';
 @import 'partials/aside';
 @import 'app';
 @import 'partials/footer';
+
+@import 'sections/benefits';
+@import 'sections/directions';
+@import 'sections/news';
+@import 'sections/reviews';
 
 /* ==========================================================================
    Helper classes

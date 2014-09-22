@@ -44,21 +44,24 @@ gulp.task('html', ['styles', 'scripts'], function () {
 
 gulp.task('images', function () {
     return gulp.src('app/images/**/*')
-        .pipe($.cache($.imagemin({
+        .pipe($.imagemin({
             optimizationLevel: 3,
             progressive: true,
             interlaced: true
-        })))
+        }))
         .pipe(gulp.dest('dist/images'))
         .pipe($.size());
 });
 
 gulp.task('fonts', function () {
-    return $.bowerFiles()
-        .pipe($.filter('**/*.{eot,svg,ttf,woff}'))
-        .pipe($.flatten())
-        .pipe(gulp.dest('dist/fonts'))
-        .pipe($.size());
+    return gulp.src('app/fonts/**/*')
+        .pipe(gulp.dest('dist/fonts'));
+
+    // return $.bowerFiles()
+    //     .pipe($.filter('**/*.{eot,svg,ttf,woff}'))
+    //     .pipe($.flatten())
+    //     .pipe(gulp.dest('dist/fonts'))
+    //     .pipe($.size());
 });
 
 gulp.task('extras', function () {

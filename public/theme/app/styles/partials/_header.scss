@@ -38,9 +38,40 @@
 
 	.contact {
 		float: left;
+		margin: 17rem / $hfs 0 0 0;
+
+		.phone {
+			font-size: 1.2em;
+			line-height: 1.9em;
+			font-weight: 400;
+		}
+		.phone-desc {
+			font-size: 12em / $hfs;
+			line-height: (14.4em / 12);
+		}
+
 	}
+
 	.auth {
 		float: right;
+		margin: 24rem / $hfs 0 0;
+
+		.login-link {
+			font-size: 12px;
+			text-transform: uppercase;
+			text-decoration: none;
+
+			&:hover {
+				text-decoration: underline;
+			}
+		}
+		.or-span {
+			margin: 0 8rem / $hfs;
+			font-size: 14px;
+			color: #7dcaee;
+			color: rgba(255, 255, 255, .5);
+			text-transform: uppercase;
+		}
 	}
 
 }

@@ -1,0 +1,70 @@
+.reviews-ul {
+	@extend .list-unstyled;
+
+	.reviews-li {
+		margin: 0 0 55rem / $hfs;
+	}
+
+	.reviews-author {
+		margin: 0 0 22rem / $hfs;
+		font-family: 'Open Sans';
+		font-size: 14em / $hfs;
+		line-height: 1.7em;
+	}
+	.reviews-author-ava {
+		float: left;
+		width: 70rem / $hfs;
+		text-align: center;
+	}
+	.reviews-author-name {
+		margin: 0 0 0 70rem / $hfs;
+		font-weight: 600;
+	}
+	.reviews-author-spec {
+		margin: 0 0 0 70rem / $hfs;
+	}
+
+	.reviews-li {
+		&:nth-child(6n+1) {
+			.reviews-text {
+				border-color: $clr-num-1;
+			}			
+		}
+		&:nth-child(6n+2) {
+			.reviews-text {
+				border-color: $clr-num-2;
+			}					
+		}
+		&:nth-child(6n+3) {
+			.reviews-text {
+				border-color: $clr-num-3;
+			}			
+		}
+		&:nth-child(6n+4) {
+			.reviews-text {
+				border-color: $clr-num-4;
+			}			
+		}
+		&:nth-child(6n+5) {
+			.reviews-text {
+				border-color: $clr-num-5;
+			}			
+		}
+		&:nth-child(6n+6) {
+			.reviews-text {
+				border-color: $clr-num-6;
+			}			
+		}
+	}
+
+	.reviews-text {
+		margin: 0 0 0 55rem / $hfs;
+		padding: 0 33rem / $hfs 0 12rem / $hfs;
+		border-left: 5px solid $clr-num-2;
+
+		font-size: 18em / $hfs;
+		line-height: (27em / 18);
+		font-weight: 400;		
+	}
+
+}

@@ -1,0 +1,27 @@
+.news {
+	margin: 0;
+}
+
+.news-ul {
+	@extend .list-unstyled;
+	margin: 0 0 15rem / $hfs;
+
+	.news-li {
+		display: inline-block;
+		vertical-align: top;
+		width: (100% / 3);
+		padding: 0 48rem / $hfs 0 0;
+		margin: 0 0 55rem / $hfs;
+	}
+	.news-date {
+		margin: 0 0 14rem / $hfs;
+		font-size: 12em / $hfs;
+		line-height: (18em / 12);
+		font-weight: 400;
+	}
+	.news-text {
+		font-size: 14em / $hfs;
+		line-height: (20em / 14);
+		font-weight: 400;
+	}
+}
