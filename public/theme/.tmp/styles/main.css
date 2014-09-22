@@ -658,7 +658,7 @@ a[href^="tel"] {
   text-decoration: none;
 }
 
-.list-unstyled, .main-aside .nav-ul, .benefits-ul, .directions-ul, .news-ul, .reviews-ul {
+.list-unstyled, .main-aside .nav-ul, .benefits-ul, .directions-ul, .news-ul, .reviews-ul, .htw-ul {
   margin: 0;
   padding: 0;
   list-style: none;
@@ -956,6 +956,11 @@ a[href^="tel"] {
   margin: 0 0 1.325rem;
   font-size: 1.125em;
   line-height: 38.57 / 18;
+}
+.main-aside .nav-li.active a {
+  border: none;
+  color: black;
+  cursor: default;
 }
 .main-aside .nav-li a {
   -webkit-transition: border-color .4s ease;
@@ -1318,6 +1323,83 @@ section h3 {
   font-size: 1.125em;
   line-height: 1.5em;
   font-weight: 400;
+}
+
+.htw-ul {
+  counter-reset: ol-counter;
+}
+.htw-ul .htw-li {
+  position: relative;
+  margin: 0 0 4.75rem 4.375rem;
+}
+.htw-ul .htw-li:before {
+  content: counter(ol-counter);
+  counter-increment: ol-counter;
+  position: absolute;
+  top: 0;
+  left: -4.375rem;
+  width: 1.8125rem;
+  height: 100%;
+  border-right: 5px solid;
+  font-size: 2.5em;
+  line-height: .8em;
+}
+.htw-ul .htw-li:nth-child(6n+1):before,
+.htw-ul .htw-li .htw-num-1:before {
+  color: #bb252d;
+  border-color: #bb252d;
+}
+.htw-ul .htw-li:nth-child(6n+2):before,
+.htw-ul .htw-li .htw-num-2:before {
+  color: #78a725;
+  border-color: #78a725;
+}
+.htw-ul .htw-li:nth-child(6n+3):before,
+.htw-ul .htw-li .htw-num-3:before {
+  color: #e4b51e;
+  border-color: #e4b51e;
+}
+.htw-ul .htw-li:nth-child(6n+4):before,
+.htw-ul .htw-li .htw-num-4:before {
+  color: #5e52ac;
+  border-color: #5e52ac;
+}
+.htw-ul .htw-li:nth-child(6n+5):before {
+  color: #db7336;
+  border-color: #db7336;
+}
+.htw-ul .htw-li:nth-child(6n+6):before {
+  color: #4bc8bb;
+  border-color: #4bc8bb;
+}
+.htw-ul .htw-li a {
+  -webkit-transition: all .4s ease;
+  transition: all .4s ease;
+  color: #33ace4;
+  text-decoration: none;
+  border-bottom: 1px solid;
+}
+.htw-ul .htw-li a:hover {
+  border-color: transparent;
+}
+.htw-ul .htw-head {
+  margin: 0 0 1.375rem;
+  font-size: 1.5em;
+  line-height: 1.2em;
+  font-weight: 500;
+}
+.htw-ul .htw-text {
+  font-size: 1.125em;
+  line-height: 1.5555555556em;
+  font-weight: 400;
+}
+.htw-ul .htw-text ol {
+  margin: 0;
+  padding: 0;
+  list-style-position: inside;
+}
+.htw-ul .htw-text ol li:after {
+  content: ";";
 }
 
 .print-link {
