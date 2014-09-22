@@ -1,0 +1,19 @@
+html, body {
+	background: $clr-main-bg;
+}
+
+h1, h2, h3 {
+	margin: 0;
+}
+
+.main-wrapper {
+	max-width: 1140rem / $hfs;
+	margin: 0 auto;
+}
+
+main {
+	margin: 0 0 0 286rem / $hfs;
+	padding: 0 33rem / $hfs;
+
+	background: $clr-white;
+}

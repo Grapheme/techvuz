@@ -1,0 +1,46 @@
+.top-dec {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+}
+
+.top-dec-part {
+	float: left;
+	width: (100% / 6);
+	height: 5rem / $hfs;
+
+	&.part-1 {
+		background: $clr-num-1;
+	}
+	&.part-2 {
+		background: $clr-num-2;
+	}
+	&.part-3 {
+		background: $clr-num-3;
+	}
+	&.part-4 {
+		background: $clr-num-4;
+	}
+	&.part-5 {
+		background: $clr-num-5;
+	}
+	&.part-6 {
+		background: $clr-num-6;
+	}
+}
+
+.main-header {
+	height: 92rem / $hfs;
+	margin: 5rem / $hfs 0 0 0;
+
+	color: $clr-white;
+
+	.contact {
+		float: left;
+	}
+	.auth {
+		float: right;
+	}
+
+}
