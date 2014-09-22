@@ -103,6 +103,8 @@ textarea {
 @import 'partials/colors';
 @import 'vars';
 @import 'partials/btns';
+@import 'partials/banner';
+@import 'partials/accordion';
 
 @import 'partials/header';
 @import 'partials/aside';
@@ -113,6 +115,8 @@ textarea {
 @import 'sections/directions';
 @import 'sections/news';
 @import 'sections/reviews';
+
+@import 'pages/catalog';
 
 /* ==========================================================================
    Helper classes

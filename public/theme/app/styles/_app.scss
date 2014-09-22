@@ -17,6 +17,7 @@ a {
 }
 
 main {
+	position: relative;
 	margin: 0 0 0 286rem / $hfs;
 	padding: 0 33rem / $hfs;
 	border-bottom: 1px solid $clr-white;
@@ -39,8 +40,41 @@ main {
 		padding: 0 32rem / $hfs 0 0;
 
 		font-size: 18em / $hfs;
-		line-height: 28em / 18;
+		line-height: (28em / 18);
 		font-weight: 400;
+	}
+
+	&:before {
+		content: '';
+		position: absolute;
+		top: 0;
+		right: 0;
+		width: 0;
+		height: 0;
+		border-style: solid;
+		border-width: 44rem / $hfs 0 0 44rem / $hfs;
+		border-color: transparent transparent transparent $clr-gray;
+	}
+
+	&:after {
+		content: '';
+		position: absolute;
+		top: 0;
+		right: 0;
+		width: 0;
+		height: 0;
+		border-style: solid;
+		border-width: 0 44rem / $hfs 44rem / $hfs 0;
+		border-color: transparent $clr-main-bg transparent transparent;
+	}
+
+	&.catalog {
+		padding-bottom: 63rem / $hfs;
+
+		.desc {
+			margin: 0 0 18rem / $hfs;
+		}
+
 	}
 }
 

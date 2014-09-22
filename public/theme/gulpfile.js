@@ -2,6 +2,7 @@
 // generated on 2014-09-19 using generator-gulp-webapp 0.1.0
 
 var gulp = require('gulp');
+var plumber = require('gulp-plumber');
 
 // load plugins
 var $ = require('gulp-load-plugins')();
@@ -29,7 +30,10 @@ gulp.task('html', ['styles', 'scripts'], function () {
     var cssFilter = $.filter('**/*.css');
 
     return gulp.src('app/*.html')
-        .pipe($.useref.assets({searchPath: '{.tmp,app}'}))
+        .pipe(plumber())
+        .pipe($.useref.assets({searchPath: '{.tmp,app}'})).on('error', function (err) {
+            console.log(err);
+        })
         .pipe(jsFilter)
         .pipe($.uglify())
         .pipe(jsFilter.restore())
