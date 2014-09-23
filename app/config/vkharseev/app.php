@@ -11,4 +11,6 @@ return array(
 
 	'debug' => TRUE,
 
+    'theme_path' => 'theme/dist',
+
 );

@@ -2,6 +2,8 @@
 
 return array(
 
+    'theme_path' => 'theme',
+
     'paginate_limit' => 30,
 
     'news_count_on_page' => 5,
@@ -10,7 +12,6 @@ return array(
     'articles_template' => 'articles-list',
     'catalog_count_on_page' => 20,
     'catalog_template' => 'catalog',
-
 
     'upload_dir' => '/uploads',
 
