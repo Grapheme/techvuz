@@ -1,0 +1,49 @@
+.ui-tabs {
+
+	.ui-tabs-nav {
+		@extend .list-unstyled;
+
+		width: 524rem / $hfs;
+		height: 64rem / $hfs;
+		margin: 0 0 78rem / $hfs;
+		border: 3px solid $clr-main-bg;
+
+		.ui-tabs-active {
+			background: $clr-main-bg;
+
+			.ui-tabs-anchor {
+				color: $clr-white;
+				cursor: default;
+			}
+		}
+
+		li {
+			position: relative;
+			float: left;
+			display: block;
+			width: 50%;
+			height: 100%;
+
+			line-height: 58rem / $hfs;
+			text-align: center;
+		}
+
+		.ui-tabs-anchor {
+			@extend .full-abs;
+			transition: all .4s ease;
+
+			font-size: 14em / $hfs;
+			text-transform: uppercase;
+			text-decoration: none;
+			outline: none;
+
+			color: $clr-main-bg;
+
+			&:hover {
+				background: $clr-main-bg;
+				color: $clr-white;
+			}
+		}
+	}
+
+}

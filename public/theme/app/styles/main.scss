@@ -105,6 +105,9 @@ textarea {
 @import 'partials/btns';
 @import 'partials/banner';
 @import 'partials/accordion';
+@import 'partials/radios';
+@import 'partials/tabs';
+@import 'partials/select';
 
 @import 'partials/header';
 @import 'partials/aside';
@@ -118,6 +121,7 @@ textarea {
 @import 'sections/htw';
 
 @import 'pages/catalog';
+@import 'pages/registration';
 
 /* ==========================================================================
    Helper classes

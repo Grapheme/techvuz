@@ -1,4 +1,5 @@
 .btn {
+	transition: all .4s ease;
 	display: inline-block;
 	padding: 0 16rem / $hfs;
 
@@ -12,5 +13,14 @@
 
 	&.btn--bordered {
 		border: 2px solid;
+	}
+	&.btn--blue {
+		color: $clr-main-bg;
+		border-color: $clr-main-bg;
+
+		&:hover {
+			color: $clr-white;
+			background: $clr-main-bg;
+		}
 	}
 }
