@@ -1,0 +1,77 @@
+.registration-form {
+
+	.reg-form-alert {
+		margin: 0 0 43rem / $hfs;
+		font-size: 19em / $hfs;
+		line-height: (29em / 19);
+	}
+
+	.form-element {
+		position: relative;
+		clear: both;
+		width: 528rem / $hfs;
+		margin: 0 0 25rem / $hfs;
+
+		&.state-error {
+
+			input {
+				border-color: $clr-danger;
+				box-shadow: inset 0 0 0 2px $clr-danger;
+				color: $clr-danger;
+			}
+			.error-text {
+				opacity: 1;
+			}
+
+		}
+	}
+
+	.error-text {
+		position: absolute;
+		top: 100%;
+		right: 2px;
+
+		font-size: 12em / $hfs;
+		line-height: (25em / 12);
+		font-weight: 400;
+		color: $clr-danger;
+	}
+
+	label {
+		display: inline-block;
+		vertical-align: middle;
+		width: 188rem / $hfs;
+
+		font-size: 14em / $hfs;
+		line-height: (20em / 14);
+		font-weight: 400;
+
+		color: $clr-dark-gray;
+	}
+
+	input {
+		transition: all .4s ease;
+		width: 337rem / $hfs;
+		height: 43rem / $hfs;
+		padding: 0 10rem / $hfs;
+		border: 1px solid $clr-dark-gray;
+
+		box-shadow: inset 0 0 0 0 $clr-white;
+
+		font-family: 'Geometria';
+		font-size: 14em / $hfs;
+		font-weight: 500;
+		color: $clr-dark-gray;
+
+		&:focus {
+			border-color: $clr-main-bg;
+			box-shadow: inset 0 0 0 2px $clr-main-bg;
+		}
+	}
+
+	.btn {
+		margin: 15rem / $hfs 0 0 188rem / $hfs;
+		background: $clr-white;
+	}
+
+}

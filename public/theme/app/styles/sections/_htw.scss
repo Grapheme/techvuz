@@ -1,0 +1,100 @@
+.htw-ul {
+	@extend .list-unstyled;
+    counter-reset: ol-counter;
+
+	.htw-li {
+		position: relative;
+		margin: 0 0 76rem / $hfs 70rem / $hfs;
+
+		&:before {
+			content: counter(ol-counter);
+    		counter-increment: ol-counter;
+    		position: absolute;
+    		top: 0;
+    		left: -70rem / $hfs;
+    		width: 29rem / $hfs;
+    		height: 100%;
+
+    		border-right: 5px solid;
+
+    		font-size: 40em / $hfs;
+    		line-height: .8em;
+		}
+
+		&:nth-child(6n+1),
+		.htw-num-1 {
+			&:before {
+				color: $clr-num-1;
+				border-color: $clr-num-1;
+			}
+		}
+		&:nth-child(6n+2),
+		.htw-num-2 {
+			&:before {
+				color: $clr-num-2;
+				border-color: $clr-num-2;
+			}
+		}
+		&:nth-child(6n+3),
+		.htw-num-3 {
+			&:before {
+				color: $clr-num-3;
+				border-color: $clr-num-3;
+			}
+		}
+		&:nth-child(6n+4),
+		.htw-num-4 {
+			&:before {
+				color: $clr-num-4;
+				border-color: $clr-num-4;
+			}
+		}
+		&:nth-child(6n+5) {
+			&:before {
+				color: $clr-num-5;
+				border-color: $clr-num-5;
+			}
+		}
+		&:nth-child(6n+6) {
+			&:before {
+				color: $clr-num-6;
+				border-color: $clr-num-6;
+			}
+		}
+
+		a {
+			transition: all .4s ease;
+			color: $clr-main-bg;
+			text-decoration: none;
+			border-bottom: 1px solid;
+
+			&:hover {
+				border-color: transparent;
+			}
+		}
+	}
+
+	.htw-head {
+		margin: 0 0 22rem / $hfs;
+		font-size: 24em / $hfs;
+		line-height: (28.8em / 24);
+		font-weight: 500;
+	}
+
+	.htw-text {
+		font-size: 18em / $hfs;
+		line-height: (28em / 18);
+		font-weight: 400;
+
+		ol {
+			margin: 0;
+			padding: 0;
+			list-style-position: inside;
+
+			li:after {
+				content: ';'
+			}
+		}
+	}
+
+}

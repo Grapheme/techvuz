@@ -3,3 +3,8 @@
 /.htaccess
 /public/uploads/galleries/*.jpg
 /public/uploads/galleries/thumbs/*.jpg
+/app/storage
+/public/theme/psd
+/public/theme/.sass-cache
+/public/theme/app/bower_components
+/public/theme/node_modules

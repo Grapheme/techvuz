@@ -1,0 +1,82 @@
+.ui-menu {
+	@extend .list-unstyled;
+
+	position: relative;
+	top: -2px;
+	height: 0;
+
+	&[aria-hidden="false"] {
+		display: block;
+	}
+	&[aria-hidden="true"] {
+		display: none;
+	}
+}
+
+.ui-selectmenu-menu {
+	width: 337rem / $hfs;
+}
+
+.ui-selectmenu-button {
+	position: relative;
+	display: inline-block;
+	width: 337rem / $hfs;
+	height: 43rem / $hfs;
+	padding: 0 10rem / $hfs;
+	border: 1px solid $clr-dark-gray;
+
+	line-height: 40rem / $hfs;
+	font-family: 'Geometria';
+	font-size: 14em / $hfs;
+	font-weight: 500;
+	color: $clr-dark-gray;
+
+	cursor: pointer;
+
+	&.ui-corner-top {
+		.ui-icon {
+			&:before {
+				content: '\e802';
+			}
+		}
+	}
+
+	.ui-icon {
+		&:before {
+			content: '\e803';
+			font-family: 'fontello';
+			font-size: 1.5em;
+
+			position: absolute;
+			top: 0;
+			right: 10rem / $hfs;
+		}
+	}
+}
+
+.ui-menu-item {
+	transition: all .4s ease;
+	width: 337rem / $hfs;
+	height: 43rem / $hfs;
+	padding: 0 10rem / $hfs;
+	border: 1px solid $clr-dark-gray;
+	border-top: none;
+
+	background: $clr-white;
+
+	line-height: 40rem / $hfs;
+	font-family: 'Geometria';
+	font-size: 14em / $hfs;
+	font-weight: 500;
+	color: $clr-dark-gray;
+
+	cursor: pointer;
+
+	&:hover {
+		background: $clr-gray;
+	}
+
+	&:first-child {
+		border-top: 1px solid;
+	}
+}

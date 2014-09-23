@@ -1,0 +1,28 @@
+$hfs: 16;
+
+* {
+	box-sizing: border-box;
+}
+
+a {
+	outline: none;
+}
+
+a[href^="tel"] {
+	color: inherit;
+	text-decoration: none;
+}
+
+.list-unstyled {
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+
+.full-abs {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+}

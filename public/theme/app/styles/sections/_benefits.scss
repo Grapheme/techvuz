@@ -1,0 +1,32 @@
+.benefits-ul {
+	@extend .list-unstyled;
+
+	.benefits-li {
+		float: left;
+		width: 23%;
+		padding: 1rem 0 0;
+		margin: 0 2% 0 0;
+		border-top: 5px solid;
+
+		font-size: 1em;
+		line-height: (24em / 16);
+		font-weight: 400;
+
+		strong {
+			font-weight: 500;
+		}
+
+		&.benefit-num-1 {
+			border-color: $clr-num-1;
+		}
+		&.benefit-num-2 {
+			border-color: $clr-num-2;			
+		}
+		&.benefit-num-3 {
+			border-color: $clr-num-3;			
+		}
+		&.benefit-num-4 {
+			border-color: $clr-num-4;			
+		}
+	}
+}
