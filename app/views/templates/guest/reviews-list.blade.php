@@ -1,6 +1,5 @@
 <?php
 $reviews = Dictionary::whereSlugValues('reviews');
-print_r($reviews);exit;
 $images_ids = array();
 foreach($reviews as $index => $review):
     $review['fields'] = modifyKeys($review['fields'],'key');

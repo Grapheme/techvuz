@@ -7,10 +7,11 @@ class DatabaseSeeder extends Seeder {
 		
 		$this->call('UserTableSeeder');
 		$this->call('GroupsTableSeeder');
-		$this->call('TablesSeeder');
 		$this->call('ModulesTableSeeder');
 		$this->call('UserActionsHistoryTableSeeder');
 		$this->call('AccountTypesTableSeeder');
+
+        $this->call('TablesSeeder');
 	}
 
 }
