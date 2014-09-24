@@ -1,5 +1,6 @@
 <?php
 $reviews = Dictionary::whereSlugValues('reviews');
+print_r($reviews);exit;
 $images_ids = array();
 foreach($reviews as $index => $review):
     $review['fields'] = modifyKeys($review['fields'],'key');
@@ -15,6 +16,7 @@ else:
 endif;
 
 ?>
+@if($reviews->count())
 <section class="reviews">
     <h3>Отзывы</h3>
     <ul class="reviews-ul">
@@ -45,3 +47,4 @@ endif;
     @endforeach
     </ul>
 </section>
+@endif
