@@ -7,7 +7,7 @@ foreach($reviews as $index => $review):
         $images_ids[] = $review->fields['user_avatar']->value;
     endif;
 endforeach;
-if(!empty($images_ids):
+if(!empty($images_ids)):
     $images = Photo::whereIn('id',$images_ids)->get();
     $images = modifyKeys($images,'id',true);
 else:
