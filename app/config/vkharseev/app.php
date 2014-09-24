@@ -10,7 +10,4 @@ return array(
     'use_scripts_local' => TRUE,
 
 	'debug' => TRUE,
-
-    'theme_path' => 'theme/dist',
-
 );

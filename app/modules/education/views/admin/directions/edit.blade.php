@@ -28,6 +28,12 @@
 							{{ Form::textarea('description',NULL,array('class'=>'redactor')) }}
 						</label>
 					</section>
+					<section>
+                        <label class="label">Логотип</label>
+                        <label class="input">
+                            {{ ExtForm::image('photo_id') }}
+                        </label>
+                    </section>
 				</fieldset>
 				<footer>
 					<a class="btn btn-default no-margin regular-10 uppercase pull-left btn-spinner" href="{{ URL::previous() }}">
@@ -66,6 +72,7 @@ var validation_messages = {
         loadScript("{{ asset('js/vendor/jquery-form.min.js') }}");
     }
 </script>
+{{ HTML::script('js/modules/gallery.js') }}
 {{ HTML::script('js/vendor/redactor.min.js') }}
 {{ HTML::script('js/system/redactor-config.js') }}
 @stop

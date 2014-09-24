@@ -6,24 +6,17 @@
 
 	<div class="col-xs-12 col-sm-12 col-md-12 col-lg-5">
 
-		<form action="{{ URL::route('modules.change') }}" class="smart-form">
-			<fieldset>
+        <h1>Модули</h1>
 
-                <h1>Модули</h1>
+		<form action="{{ URL::route('modules.change') }}" class="smart-form">
                 {{--<label class="label">Список доступных модулей:</label>--}}
 
-            </fieldset>
-
-            <span></span>
-
-            <fieldset>
-
-                <table class="table table-bordered table-striped">
+                <table class="table table-bordered table-striped white-bg">
                     <?
                     #Helper::d(SystemModules::getModules());
-                    #Helper::tad(Allow::modules());
-                    $modules_info = SystemModules::getModules();
+                    $modules_info = Config::get('mod_info');
                     $modules = Allow::modules();
+                    #Helper::dd($modules);
                     ?>
                     <tbody class="sortable">
                         @foreach($modules as $name => $module)
@@ -35,7 +28,7 @@
                                     @if(Allow::module($module->name))
                                         <?php $checked = ' checked="checked"'; ?>
                                     @endif
-                                    <input type="checkbox"{{ $checked }} class="module-checkbox" data-name="{{ @$module->name }}">
+                                    <input type="checkbox"{{ $checked }} class="module-checkbox" data-name="{{ $module->name }}">
                                     <i data-swchon-text="вкл" data-swchoff-text="выкл"></i>
                                 </label>
                             </td>
@@ -43,7 +36,7 @@
                         @endforeach
                     </tbody>
 				</table>
-			</fieldset>
+
 		</form>
 	</div>
 

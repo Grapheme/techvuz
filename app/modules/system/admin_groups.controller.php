@@ -26,12 +26,6 @@ class AdminGroupsController extends BaseController {
 
     ## Info about module (now only for admin dashboard & menu)
     public static function returnInfo() {
-        return array(
-        	'name' => self::$name,
-        	'group' => self::$group,
-        	'title' => 'Группы', 
-            'visible' => 0,
-        );
     }
     
     /****************************************************************************/

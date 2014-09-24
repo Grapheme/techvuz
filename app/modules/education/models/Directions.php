@@ -25,7 +25,7 @@ class Directions extends BaseModel {
 
     protected $table = 'directions';
 
-    protected $fillable = array('order','code','title','description');
+    protected $fillable = array('order','code','title','description','photo_id');
 
     public static $order_by = "order";
 
@@ -36,6 +36,10 @@ class Directions extends BaseModel {
 
     public function courses() {
         return $this->hasMany('Courses', 'direction_id', 'id');
+    }
+
+    public function photo() {
+        return $this->hasOne('Photo', 'id', 'photo_id');
     }
 
 }

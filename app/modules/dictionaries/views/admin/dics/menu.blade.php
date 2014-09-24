@@ -27,6 +27,13 @@
             'class' => 'btn btn-primary'
         );
     }
+    if (Allow::action($module['group'], 'import') && @$dic_id) {
+        $menus[] = array(
+            'link' => action('dic.import', array('dic_id' => $dic_id)),
+            'title' => 'Импорт',
+            'class' => 'btn btn-primary'
+        );
+    }
 ?>
     
     <h1>Словари</h1>

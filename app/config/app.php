@@ -9,7 +9,7 @@ return array(
 	'use_css_local' => FALSE,
 	'use_scripts_local' => FALSE,
 	
-	'default_page_title' => 'ТехВУЗ',
+	'default_page_title' => 'Техвуз.рф',
 	'template' => 'guest',
     'welcome_page_tpl' => 'templates.default.index', #'guests.welcome',
 

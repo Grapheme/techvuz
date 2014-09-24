@@ -1,4 +1,3 @@
-    {{HTML::script('js/plugin/pace/pace.min.js');}}
 @if(Config::get('app.use_scripts_local'))
 	{{HTML::script('js/vendor/jquery.min.js');}}
 	{{HTML::script('js/vendor/jquery-ui.min.js');}}
@@ -18,5 +17,9 @@
 	{{HTML::script('js/system/app.js');}}
 	{{HTML::script('js/system/messages.js');}}
 
+    <!-- PACE LOADER - turn this on if you want ajax loading to show (caution: uses lots of memory on iDevices)-->
+    {{ HTML::script('js/plugin/pace/pace.min.js', array('data-pace-options' => '{ "restartOnRequestAfter": true }')) }}
+
 	{{HTML::script('js/vendor/dropzone.min.js');}}
 	{{--{{HTML::script('js/system/dropzone-functions.js');}}--}}
+    {{ HTML::script(URL::route('collectors.js')) }}

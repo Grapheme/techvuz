@@ -12,7 +12,9 @@
 @endif
 	{{ HTML::style('css/font-awesome.min.css') }}
 	{{ HTML::style('css/production_unminified.css') }}
-	{{ HTML::style('css/skins.css') }}
+	{{ HTML::style('css/smartadmin-skins.min.css') }}
+	{{ HTML::style('css/your_style.css') }}
+
 	<link rel="shortcut icon" href="{{asset('img/favicon/favicon.png')}}" type="image/x-icon">
 	<link rel="icon" href="{{asset('img/favicon/favicon.png')}}" type="image/x-icon">
 @if(Config::get('app.use_googlefonts'))
@@ -21,5 +23,5 @@
 @endif
 
     <script>
-    var base_url = '<?=URL::to('')?>';
+    var base_url = '{{ URL::to('') }}';
     </script>

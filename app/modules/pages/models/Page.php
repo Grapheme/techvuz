@@ -49,14 +49,24 @@ class Page extends BaseModel {
         return $this;
     }
 
-    public function block($slug = false) {
+    public function block($slug = false, $variables = array(), $force_compile = true) {
 
         if (!$slug || !@count($this->blocks) || !@is_object($this->blocks[$slug]) || !@is_object($this->blocks[$slug]->meta))
             return false;
 
+        #Helper::dd($this->blocks[$slug]->meta->content);
+        ## Without blade syntax compile
         #return $this->blocks[$slug]->meta->content;
 
-        return DbView::make($this->blocks[$slug]->meta)->field('content')->with(array())->render();
+        ## Force template compile
+        if ($force_compile)
+            $this->blocks[$slug]->meta->updated_at = date('Y-m-d H:i:s');
+
+        ## Without updated_at - COMPILE ONLY ONCE!
+        #unset($this->blocks[$slug]->meta->updated_at);
+
+        ## Return compiled field of the model
+        return DbView::make($this->blocks[$slug]->meta)->field('content')->with($variables)->render();
     }
 
 }

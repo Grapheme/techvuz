@@ -61,10 +61,10 @@
     	</section>
 
 
-        @if (Allow::action($module['group'], 'entity'))
+        @if (Allow::action($module['group'], 'settings'))
         <section class="col col-6">
             <div class="well">
-                <header>Отдельная сущность</header>
+                <header>Настройки словаря</header>
                 <fieldset>
 
                     <section>
@@ -82,11 +82,20 @@
                         </label>
                     </section>
 
+                </fieldset>
+                <fieldset>
+
                     <section>
                         <label class="checkbox">
                             {{ Form::checkbox('hide_slug', 1) }}
                             <i></i>
                             Скрыть поле для ввода системного имени (slug)
+                        </label>
+
+                        <label class="checkbox">
+                            {{ Form::checkbox('make_slug_from_name', 1) }}
+                            <i></i>
+                            Если не задано Системное имя - <abbr title="Транслит от названия">генерировать автоматически</abbr>
                         </label>
                     </section>
 
@@ -94,6 +103,58 @@
                         <label class="label">Заголовок поля name</label>
                         <label class="input">
                             {{ Form::text('name_title') }}
+                        </label>
+                    </section>
+
+                    <section>
+                        <label class="label">Кто может видеть этот словарь:</label>
+                        <label class="radio">
+                            {{ Form::radio('view_access', 0, $element->id ? NULL : true) }}
+                            <i></i> Все, у кого есть доступ к словарям
+                        </label>
+                        <label class="radio">
+                            {{ Form::radio('view_access', '2') }}
+                            <i></i> Только те, кто может видеть скрытые словари
+                        </label>
+                        <label class="radio">
+                            {{ Form::radio('view_access', '1') }}
+                            <i></i> Только Администраторы
+                        </label>
+                    </section>
+
+                </fieldset>
+                <fieldset>
+
+                    <section class="clearfix">
+                        <label class="label">Кол-во элементов на страницу (0 - пагинация отключена)</label>
+                        <label class="input" style="width:100px">
+                            {{ Form::text('pagination', $element->id ? NULL : 0) }}
+                        </label>
+                    </section>
+
+                    <section class="clearfix">
+                        <label class="label">Сортировать содержимое по полю</label>
+                        <label class="select margin-bottom-5">
+                            {{ Form::select('sort_by', array('order' => 'По умолчанию', 'name' => 'Название', 'slug' => 'Системное имя', 'created_at' => 'Время создания', 'updated_at' => 'Время последнего изменения')) }}
+                        </label>
+                        <label class="radio pull-left margin-right-10">
+                            {{ Form::radio('sort_order_reverse', '0', $element->id ? NULL : true) }}
+                            <i></i> По возрастанию
+                        </label>
+                        <label class="radio pull-left margin-right-10">
+                            {{ Form::radio('sort_order_reverse', '1') }}
+                            <i></i> По убыванию
+                        </label>
+                    </section>
+
+                    <section>
+                        <label class="note">
+                            Следующая возможность будет работать только если отключена пагинация и сортировка осуществляется по умолчанию (по полю order)
+                        </label>
+                        <label class="checkbox">
+                            {{ Form::checkbox('sortable', 1, $element->id ? NULL : true) }}
+                            <i></i>
+                            Возможность менять порядок элементов перетаскиванием
                         </label>
                     </section>
 

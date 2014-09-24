@@ -42,15 +42,14 @@ $(function(){
 
 
 function runFormValidation() {
-	
-	var _form_ = $("#" + essence + "-form").validate({
-		rules: validation_rules ? validation_rules : {},
+
+	var validation = $("#" + essence + "-form").validate({
+        rules: validation_rules ? validation_rules : {},
 		messages: validation_messages ? validation_messages : {},
-		errorPlacement : function(error, element){element.addClass('error');},
+		errorPlacement : function(error, element){error.insertAfter(element.parent());},
 		submitHandler: function(form) {
 			var options = {target:null, dataType:'json', type:'post'};
 			options.beforeSubmit = function(formData,jqForm,options){
-                $('error').remove();
 				$(form).find('.btn-form-submit').elementDisabled(true);
 			},
 			options.success = function(response, status, xhr, jqForm){
@@ -59,24 +58,28 @@ function runFormValidation() {
 					if(response.redirect !== false){
 						BASIC.RedirectTO(response.redirect);
 					}
-                    if(response.gallery && $(".dropzone[data-name='gallery']").length > 0){
-                        $(".dropzone[data-name='gallery']").attr('data-gallery_id',response.gallery);
-                        $("#gallery-input-id").val(response.gallery);
-                    }
-					if($(form).attr('data-target') !== undefined){
-                        $(form).replaceWith(response.responseText);
-                    }else{
-                        showMessage.constructor(response.responseText, '');
-                        showMessage.smallSuccess();
-                    }
+					showMessage.constructor(response.responseText, '');
+					showMessage.smallSuccess();
 				}else{
-                    if($(form).attr('data-target') !== undefined){
-                        $(form).before('<p>'+response.responseErrorText+'</p>');
-                    }else{
-                        showMessage.constructor(response.responseText, response.responseErrorText);
-                        showMessage.smallError();
-                    }
+					showMessage.constructor(response.responseText, response.responseErrorText);
+					showMessage.smallError();
 				}
+
+                if(typeof response.form_values != 'undefined' && response.form_values.length) {
+                    $(response.form_values).each(function(i) {
+                        //alert(i + ' > ' + data[i] + " | ");
+                        $.each(response.form_values, function(i, val) {
+                            $(i).val(val).text(val);
+                        });
+                    });
+                }
+
+                //alert(typeof(onsuccess_function));
+                //alert(onsuccess_function);
+                if (typeof onsuccess_function == 'function') {
+                    setTimeout(onsuccess_function(response), 100);
+                }
+
 			}
 			options.error = function(xhr, textStatus, errorThrown){
                 if (typeof(xhr.responseJSON) != 'undefined') {

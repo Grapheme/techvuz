@@ -1,63 +1,52 @@
 <?php
 
-$prefix = 'guest';
-if(Auth::check()):
-	$prefix = AuthAccount::getStartPage();
-endif;
-	/*
-	| Общие роуты, независящие от условий
-	*/
+$prefix = Auth::check() ? AuthAccount::getStartPage() : 'guest';
 
-Route::get('redactor/get-uploaded-images', 'DownloadsController@redactorUploadedImages');
-Route::post('redactor/upload','DownloadsController@redactorUploadImage');
-
-	/*
-	| Роуты, доступные для всех групп авторизованных пользователей
-	*/
-
-Route::group(array('before'=>'auth', 'prefix'=>$prefix), function(){
-	Route::controller('downloads', 'DownloadsController');
-});
-
-	/*
-	| Роуты, доступные для группы Администраторы
-	*/
-
-Route::group(array('before'=>'auth', 'prefix'=>'admin'), function(){
-
-	Route::get('/', 'BaseController@dashboard');
-});
-
-	/*
-	| Роуты, доступные для группы Пользователи
-	*/
 /*
-Route::group(array('before'=>'user.auth', 'prefix'=>'dashboard'), function(){
-	Route::get('/', 'UserCabinetController@mainPage');
-});
+| Общие роуты, независящие от условий
 */
-	/*
-	| Роуты, доступные только для неавторизованных пользователей
-	*/
+//Route::get('image/{image_group}/{id}', 'ImageController@showImage')->where('id','\d+');
+Route::get('redactor/get-uploaded-images', 'DownloadsController@redactorUploadedImages');
+Route::post('redactor/upload', 'DownloadsController@redactorUploadImage');
 
-Route::group(array('before'=>'guest', 'prefix'=>Config::get('app.local')), function(){
-	Route::post('signin', array('as'=>'signin', 'uses'=>'GlobalController@signin'));
-	Route::post('signup', array('as'=>'signup', 'uses'=>'GlobalController@signup'));
-	Route::get('activation', array('as'=>'activation', 'uses'=>'GlobalController@activation'));
+#################################################################
+## Все, что ниже - можно вынести в модуль system - Пользователи.
+## Но, возможно, придется следить за порядком загрузки модулей...
+#################################################################
+
+## В случае, если неавторизованный пользователь зайдет на /admin, то он будет переадресован на /login.
+Route::get('admin', array('before' => 'auth2login', 'uses' => 'BaseController@redirectToLogin'));
+/*
+| Роуты, доступные для всех авторизованных пользователей - dashboard
+*/
+Route::group(array('before' => 'auth', 'prefix' => $prefix), function(){
+    Route::get('/', 'BaseController@dashboard');
 });
 
-	/*
-	| Роуты, доступные для гостей и авторизованных пользователей
-	*/
-##Route::post('request-to-access', array('as'=>'request-to-access', 'uses'=>'GlobalController@postRequestToAccess'));
-Route::get('login', array('before'=>'login', 'as'=>'login', 'uses'=>'GlobalController@loginPage'));
-Route::get('logout', array('before'=>'auth', 'as'=>'logout', 'uses'=>'GlobalController@logout'));
+/*
+| Роуты, доступные только для неавторизованных пользователей
+*/
+Route::group(array('before' => 'guest', 'prefix' => ''), function(){
+	Route::post('signin', array('as' => 'signin', 'uses' => 'GlobalController@signin'));
+	Route::post('signup', array('as' => 'signup', 'uses' => 'GlobalController@signup'));
+	Route::get('activation', array('as' => 'activation', 'uses' => 'GlobalController@activation'));
+});
+
+/*
+| Роуты, доступные для гостей и авторизованных пользователей
+*/
+Route::get('login', array('before' => 'login', 'as' => 'login', 'uses' => 'GlobalController@loginPage'));
+Route::get('logout', array('before' => 'auth', 'as' => 'logout', 'uses' => 'GlobalController@logout'));
+
+#################################################################
+
+
 
 /***********************************************************************/
 /******************** ЗАГРУЗКА РЕСУРСОВ ИЗ МОДУЛЕЙ *********************/
 /***********************************************************************/
 ## For debug
-$load_debug = FALSE;
+$load_debug = 0;
 ## Reserved methods for return resourses of controller
 $returnRoutes = "returnRoutes";
 $returnActions = "returnActions";
@@ -74,6 +63,7 @@ $files = glob($mod_path);
 $mod_actions = array();
 $mod_info = array();
 $mod_menu = array();
+$mod_new = array();
 $default_actions = Config::get('actions');
 foreach ($files as $file) {
 
@@ -128,8 +118,23 @@ foreach ($files as $file) {
 
         ## Load module info...
         if (method_exists($module_fullname, $returnInfo)) {
+
             if ($load_debug) echo " [ load info... ] ";
-            $mod_info[$module_name] = $module_fullname::$returnInfo();
+            #$mod_info[$module_name] = $module_fullname::$returnInfo();
+
+            $module_info = $module_fullname::$returnInfo();
+            if (!$module_info)
+                continue;
+
+            $mod_info[$module_name] = $module_info;
+
+            $module = new Module;
+            $module->name = $module_info['name'];
+            $module->on = 0;
+            $module->order = NULL;
+
+            $mod_new[$module_name] = $module;
+
         }
         
         ## Load module actions...
@@ -149,13 +154,15 @@ foreach ($files as $file) {
 
     } else {
 
-        if ($load_debug) echo " CLASS NOT FOUND: {$module_fullname} | composer dump-autoload OR file name start with DIGIT!";
+        if ($load_debug) echo " CLASS NOT FOUND: {$module_fullname} | composer dump-autoload OR php-file has unusual codepage OR file name start with DIGIT!";
         
     }
     
     if ($load_debug) echo "<br/>\n";
 }
 #Helper::dd($mod_actions);
+#Helper::dd($mod_info);
+#Helper::dd($mod_menu);
 
 /*
 foreach ($mod_actions as $module_name => $actions) {
@@ -175,40 +182,14 @@ foreach ($mod_actions as $module_name => $actions) {
 Config::set('mod_info', $mod_info);
 Config::set('mod_actions', $mod_actions);
 Config::set('mod_menu', $mod_menu);
+Config::set('mod_new', $mod_new);
 #View::share('mod_actions', $mod_actions);
 #print_r($app);
 
 /***********************************************************************/
 
-if (Auth::check() && Allow::module('dictionaries')):
-    if(Dictionary::where('slug','actions_types')->exists()):
-        if($routeActions = Dictionary::where('slug','actions_types')->first()->values()->get()):
-            foreach ($routeActions as $action):
-                $action_id = $action->id;
-                $action_slug = $action->slug;
-                Event::listen($action_slug, function ($data) use ($action_id,$action_slug) {
-                    $actionDate = date("Y-m-d H:i:s");
-                    $nickname = 'Событие за '.myDateTime::SwapDotDateWithTime($actionDate);
-                    $link = NULL;
-                    if (isset($data['title'])):
-                        $nickname =  $data['title'];
-                    endif;
-                    if (isset($data['link'])):
-                        $link =  $data['link'];
-                    endif;
-                    DicVal::inject('actions_history', array(
-                        'slug' => $action_slug.'.'.$actionDate,
-                        'name' => $nickname,
-                        'fields' => array(
-                            'user_id' => Auth::user()->id,
-                            'action_id' => $action_id,
-                            'title' => $nickname,
-                            'link' => $link,
-                            'created_time' => $actionDate,
-                        )
-                    ));
-                });
-            endforeach;
-        endif;
-    endif;
-endif;
+
+	#Route::controller('/admin/videogid/dic/{learning_forms}', 'AdminVideogidDicsController');
+    #Route::resource('/admin/videogid/dic', 'AdminVideogidDicsController');
+    #Route::controller('', 'PublicVideogidController');
+    #Route::controller('', 'PublicVideogidController');

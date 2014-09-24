@@ -221,7 +221,9 @@
             photo:             { required: "Загрузите фотографию", minlength: "Загрузите фотографию" },
             date:              { required: "Выберите дату", minlength: "Выберите дату", maxlength: "Выберите дату" }
         };
-        var onsuccess_function = 'update_blocks()';
+        var onsuccess_function = function() {
+            update_blocks();
+        };
     </script>
 
     <script>
@@ -308,7 +310,10 @@
                 }).done(function(data){
                     //console.log(data);
                     $('#blockEditModal').html(data).modal('show');
-                    $('#blockEditModal .redactor').redactor(ImperaviRedactor.config || {});
+                    //$('#blockEditModal .redactor').redactor(imperavi_config || {});
+                    //$('#blockEditModal .redactor-no-filter').redactor(imperavi_config_no_filter || {});
+                    //console.log(imperavi_config_no_filter);
+                    //console.log($('#blockEditModal').redactor('getEditor'));
                     return false;
                 }).fail(function(data){
                     console.log(data);Z

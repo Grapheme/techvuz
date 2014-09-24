@@ -68,12 +68,12 @@ class PublicPagesController extends BaseController {
             ## Генерим роуты только для текущего языка
             $locale_sign = Config::get('app.locale');
             ## ...генерим роуты с префиксом (первый сегмент), который будет указывать на текущую локаль
-            Route::group(array('before' => 'i18n_url', 'prefix' => $locale_sign), function() use ($default_locale_mainpage) {
+            Route::group(array('before' => 'i18n_url', 'prefix' => $locale_sign), function() use ($class, $default_locale_mainpage) {
 
                 ## Regular page
                 Route::any('/{url}', array(
                     'as' => 'page',
-                    'uses' => __CLASS__.'@showPage',
+                    'uses' => $class.'@showPage',
                     #function($url) {
                     #    Helper::dd($url);
                     #}
@@ -84,7 +84,7 @@ class PublicPagesController extends BaseController {
                     Route::any('/', array(
                         'as' => 'mainpage',
                         'before' => 'i18n_url',
-                        'uses' => __CLASS__.'@showPage'
+                        'uses' => $class.'@showPage'
                     ));
 
             });
@@ -94,24 +94,24 @@ class PublicPagesController extends BaseController {
                 Route::any('/', array(
                     'as' => 'mainpage',
                     'before' => '',
-                    'uses' => __CLASS__.'@showPage'
+                    'uses' => $class.'@showPage'
                 ));
 
         } else {
 
             ## Генерим роуты без языкового префикса
-            Route::group(array('before' => 'pages_right_url'), function(){
+            Route::group(array('before' => 'pages_right_url'), function() use ($class) {
 
                 ## Regular page
                 Route::any('/{url}', array(
                     'as' => 'page',
-                    'uses' => __CLASS__.'@showPage'
+                    'uses' => $class.'@showPage'
                 ));
 
                 ## Main page
                 Route::any('/', array(
                     'as' => 'mainpage',
-                    'uses' => __CLASS__.'@showPage'
+                    'uses' => $class.'@showPage'
                 ));
             });
 

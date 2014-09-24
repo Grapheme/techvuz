@@ -10,6 +10,7 @@ class Seo extends BaseModel {
     protected $fillable = array(
         'module',
         'unit_id',
+        'language',
         'title',
         'description',
         'keywords',

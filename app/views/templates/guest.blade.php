@@ -10,22 +10,23 @@
 @section('description'){{ $seo->description }}@stop
 @section('keywords'){{ $seo->keywords }}@stop
 @endif
-<!DOCTYPE html>
-    <!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
-    <!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
-    <!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
-    <!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+<!doctype html>
+<html class="no-js">
     <head>
 	@include(Helper::layout('head'))
 	@yield('style')
     </head>
 <body>
-    <!--[if lt IE 7]>
+    <!--[if lt IE 10]>
         <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
     <![endif]-->
+    <div class="main-wrapper">
     @include(Helper::layout('header'))
-    @yield('content', @$content)
-    @include(Helper::layout('footer'))
+    @include(Helper::layout('aside'))
+    <main>
+        @yield('content', @$content)
+    </main>
+    </div>
     @include(Helper::layout('scripts'))
     @yield('overlays')
     @yield('scripts')

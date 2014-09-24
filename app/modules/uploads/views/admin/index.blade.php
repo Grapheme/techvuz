@@ -8,7 +8,7 @@
 	@if($count = @count($elements))
 	<div class="row">
 		<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-			<table class="table table-striped2 table-bordered min-table">
+			<table class="table table-striped2 table-bordered min-table white-bg">
 				<thead>
 					<tr>
 						<th class="text-center" style="width:40px">#</th>
@@ -28,14 +28,17 @@
                                 <strong>{{ $element->module }}{{ $element->unit_id ? ' / '.$element->unit_id : '' }} /</strong>
                             @endif
 
-                            {{ $element->original_name }}
+                            {{ mb_substr($element->original_name, 0, 100) }}
 
-                            <br/>
-                            <span class="note">
+                            <div class="note hidden">
                                 {{ $element->path }}
-                            </span>
+                            </div>
+
                             <div class="note">
-                                {{ Helper::smartFilesize($element->filesize) }}
+                                <span class="margin-right-10">
+                                    <i class="fa fa-clock-o"></i> {{ $element->created_at->format("d.m.Y, H:i") }}
+                                </span>
+                                <i class="fa fa-download"></i> {{ Helper::smartFilesize($element->filesize) }}
                             </div>
 
                             @if ($element->mime1 == 'image')
@@ -47,8 +50,12 @@
 						</td>
 						<td class="text-center" style="vertical-align:middle; white-space:nowrap;">
 
-                            <a href="{{ URL::to($element->path) }}" target="_blank" download class="btn btn-success margin-right-10">
-                                <i class="fa fa-download"></i> Скачать
+                            <span class="btn btn-warning copy-button" title="Скопировать путь до файла" data-clipboard-text="{{ $element->path  }}">
+                                <i class="fa fa-copy"></i>
+                            </span>
+
+                            <a href="{{ URL::to($element->path) }}" target="_blank" download="{{ $element->original_name }}" class="btn btn-success" title="Скачать">
+                                <i class="fa fa-download"></i>
                             </a>
 
         					@if(Allow::action($module['group'], 'delete'))
@@ -106,6 +113,36 @@
 			loadScript("{{ asset('js/vendor/jquery-form.min.js'); }}");
 		}
 	</script>
+
+    {{ HTML::script("js/plugin/zeroclipboard/ZeroClipboard.min.js") }}
+
+	<script type="text/javascript">
+    function activate_clipboard() {
+
+        ZeroClipboard.config({
+            forceHandCursor: true
+        });
+        $('.copy-button').each(function() {
+            var $this = $(this);
+            //var text = $($this).attr('data-path');
+            //$(this).attr('data-clipboard-text', text);
+            var client = new ZeroClipboard($this);
+            client.on( "ready", function(readyEvent) {
+                client.on("aftercopy", function(event) {
+                    // `this` === `client`
+                    // `event.target` === the element that was clicked
+                    //alert("Copied text to clipboard: " + event.data["text/plain"] );
+                    $(event.target).find('i').attr('class', 'fa fa-check')
+                    setTimeout(function () {
+                        $(event.target).find('i').attr('class', 'fa fa-copy')
+                    }, 1500);
+                    return false;
+                });
+            });
+        });
+    }
+    activate_clipboard();
+    </script>
 
 @stop
 

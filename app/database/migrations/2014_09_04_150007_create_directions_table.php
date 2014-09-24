@@ -12,6 +12,7 @@ class CreateDirectionsTable extends Migration {
                 $table->integer('order')->unsigned()->nullable();
                 $table->string('code',10)->nullable();
                 $table->string('title',255)->nullable();
+                $table->integer('photo_id')->unsigned()->nullable();
                 $table->text('description')->nullable();
                 $table->timestamps();
             });

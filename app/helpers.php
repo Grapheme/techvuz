@@ -11,3 +11,16 @@ function is_image($filename){
         return true;
     endif;
 }
+
+function modifyKeys($collection, $key = 'slug',$unset = false) {
+    $array = array();
+    foreach ($collection as $c => $col):
+        if (isset($col->$key)):
+            $array[$col->$key] = $col;
+            if ($unset):
+                unset($array[$col->$key][$key]);
+            endif;
+        endif;
+    endforeach;
+    return $array;
+}

@@ -48,7 +48,7 @@ if (@is_object($element->metas) && $element->metas->count())
                     break;
                 }
             }
-            $form_field = Helper::formField('fields_i18n[' . $locale_sign . '][' . $field_name . ']', $field, @$field_meta->value);
+            $form_field = Helper::formField('fields_i18n[' . $locale_sign . '][' . $field_name . ']', $field, @$field_meta->value, $element);
             if (!$form_field)
                 continue;
 ?>

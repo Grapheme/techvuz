@@ -20,8 +20,8 @@ class SphinxsearchController extends \BaseController {
     public static function returnRoutes($prefix = null) {
 
         $class = __CLASS__;
-        Route::post('search/request',$class.'@headerSearch');
-        Route::post('search/request/{text}',$class.'@headerSearch');
+        Route::post('search/request', array('as' => 'search_request', 'uses' => $class . '@headerSearch'));
+        Route::post('search/request/{text}', array('as' => 'search_request_text', 'uses' => $class . '@headerSearch'));
     }
 
     public static function returnExtFormElements() {

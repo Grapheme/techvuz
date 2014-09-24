@@ -178,7 +178,7 @@ class AdminNewsController extends BaseController {
         $input['slug'] = Helper::translit($input['slug']);
         $input['published_at'] = @$input['published_at'] ? date('Y-m-d', strtotime($input['published_at'])) : NULL;
 
-        $json_request['responseText'] = "<pre>" . print_r(Input::all(), 1) . "</pre>";
+        #$json_request['responseText'] = "<pre>" . print_r(Input::all(), 1) . "</pre>";
         #$json_request['responseText'] = "<pre>" . print_r($input, 1) . print_r($locales, 1) . print_r($seo, 1) . "</pre>";
         #return Response::json($json_request,200);
 
@@ -193,12 +193,12 @@ class AdminNewsController extends BaseController {
 
                 $element = $this->essence->find($id);
                 $element->update($input);
-
+                Event::fire('otredaktirovana-novost', array(array('title'=>$element->title)));
             } else {
 
                 $element = $this->essence->create($input);
                 $id = $element->id;
-
+                Event::fire('dobavlena-novost', array(array('title'=>$element->title)));
                 $redirect = URL::route($this->module['entity'].'.edit', array('news_id' => $id));
             }
 
@@ -209,7 +209,6 @@ class AdminNewsController extends BaseController {
 
                     ## Withdraw gallery_id
                     $gallery_data = Helper::withdraw($locale_settings, 'gallery_id');
-                    $video_data = Helper::withdraw($locale_settings, 'video_id');
 
                     #$locale_settings['template'] = $locale_settings['template'] ? $locale_settings['template'] : NULL;
                     $news_meta = $this->news_meta->where('news_id', $element->id)->where('language', $locale_sign)->first();
@@ -221,11 +220,7 @@ class AdminNewsController extends BaseController {
                         $news_meta = $this->news_meta->create($locale_settings);
                     }
 
-                    $locale_settings['video_id'] = ExtForm::process('video', $video_data);
-                    if ($locale_settings['video_id'] != $news_meta->video_id)
-                        $json_request['new_video_id'] = $locale_settings['video_id'];
-
-                    ## NEWS_META VIDEO
+                    ## NEWS_META GALLERY
                     if (isset($gallery_data)) {
 
                         ###############################
@@ -271,7 +266,6 @@ class AdminNewsController extends BaseController {
         return Response::json($json_request, 200);
 	}
 
-
     public function destroy($id){
 
         if(!Request::ajax())
@@ -290,6 +284,7 @@ class AdminNewsController extends BaseController {
                     $meta->delete();
             }
         }
+        Event::fire('udalena-novost', array(array('title'=>$element->title)));
         $element->delete();
 
         $json_request['responseText'] = 'Удалено';

@@ -15,7 +15,14 @@ class Dictionary extends BaseModel {
         'entity',
         'icon_class',
         'hide_slug',
+        'make_slug_from_name',
         'name_title',
+        'pagination',
+        'view_access',
+        'sort_by',
+        'sort_order_reverse',
+        'sortable',
+        'order',
     );
 
 	public static $rules = array(
@@ -30,7 +37,6 @@ class Dictionary extends BaseModel {
         return $this->hasMany('DicVal', 'dic_id', 'id')
             ->with('meta', 'fields')
             ->orderBy('order', 'ASC')
-            ->orderBy('created_at', 'DESC')
             ->orderBy('slug', 'ASC')
             ->orderBy('name', 'ASC')
             ->orderBy('id', 'ASC');
@@ -38,6 +44,10 @@ class Dictionary extends BaseModel {
 
     public function values_count() {
         return DicVal::where('dic_id', $this->id)->count();
+    }
+
+    public function values_count2() {
+        return $this->hasMany('DicVal', 'dic_id', 'id'); #->select(DB::raw('COUNT(*) as count'));
     }
 
     public function value() {
@@ -48,15 +58,88 @@ class Dictionary extends BaseModel {
         return self::firstOrNew(array('slug' => $slug))->values;
     }
 
+
+    /**
+     * В функцию передается коллекция объектов, полученная из Eloguent методом ->get(),
+     * а также название поля, значение которого будет установлено в качестве ключа для каждого элемента коллекции.
+     *
+     * @param object $collection - Eloquent Collection
+     * @param string $key
+     * @return object
+     *
+     * @author Alexander Zelensky
+     */
+    public static function modifyKeys($collection, $key = 'slug') {
+        $array = array();
+        foreach ($collection as $c => $col):
+            if (isset($col->$key)):
+                $array[$col->$key] = $col;
+//                unset($array[$col->$key][$key]);
+            endif;
+        endforeach;
+        return $array;
+    }
+
+    /**
+     * В функцию передается коллекция объектов, полученная из Eloguent методом ->get(),
+     * которая имеет в себе некоторую коллекцию прочих объектов, полученную через связь hasMany (с помощью ->with('...')).
+     * Пример: словарь со значениями - Dic::where('slug', 'dicname')->with('values')->get();
+     * Функция возвращает массив, ключами которого являются исходные ключи родительской коллекции, а в значение заносится
+     * массив, генерирующийся по принципу метода ->lists('name', 'id'), но без дополнительных запросов к БД.
+     * Если $listed_key = false, то вместо вложенной коллекции будет перебираться родительская, на предмет поиска соответствий.
+     *
+     * @param object $collection - Eloquent Collection
+     * @param string $listed_key - Key of the child collection, may be false
+     * @param string $value
+     * @param string $key
+     * @return array
+     *
+     * @author Alexander Zelensky
+     */
+    public static function makeLists($collection, $listed_key = 'values', $value, $key = '') {
+        #Helper::ta($collection);
+        $lists = array();
+        foreach ($collection as $c => $col) {
+            if (!$listed_key) {
+
+                if ($key != '')
+                    $lists[$col->$key] = $col->$value;
+                else
+                    $lists[] = $col->$value;
+
+            } else {
+
+                $list = array();
+                if (isset($col->$listed_key) && count($col->$listed_key))
+                    foreach ($col->$listed_key as $e => $el) {
+                        if ($key != '')
+                            $list[$el->$key] = $el->$value;
+                        else
+                            $list[] = $el->$value;
+                    }
+                $lists[$c] = $list;
+            }
+            #Helper::ta($col);
+        }
+        #Helper::dd($lists);
+        return $lists;
+    }
+
+
     ## Need to check
     public function valueBySlug($slug) {
         return $this->with(array('value' => function($query) use ($slug) {
-                    $query->whereSlug($slug);
-                }))->first()->value;
+                $query->whereSlug($slug);
+            }))->first()->value;
     }
 
     public static function valuesBySlug($slug) {
-        $return = Dic::where('slug', $slug)->with('values')->first()->values;
+        #Helper::dd($slug);
+        $return = Dic::where('slug', $slug)->with('values')->first();
+        if (is_object($return))
+            $return = $return->values;
+        else
+            $return = Dic::firstOrNew(array('slug' => $slug))->with('values')->first()->values;
         #return self::firstOrNew(array('slug' => $slug))->values;
         return $return;
     }

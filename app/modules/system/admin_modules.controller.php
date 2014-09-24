@@ -26,12 +26,6 @@ class AdminModulesController extends BaseController {
 
     ## Info about module (now only for admin dashboard & menu)
     public static function returnInfo() {
-        return array(
-        	'name' => self::$name,
-        	'group' => self::$group,
-        	'title' => 'Модули',
-            'visible' => 0,
-        );
     }
 
     /****************************************************************************/
@@ -52,9 +46,10 @@ class AdminModulesController extends BaseController {
 		
 		$settings = Setting::retArray();
 		#$languages = Language::retArray();
-		return View::make($this->module['tpl'].'index', compact('settings','languages'));
+		return View::make($this->module['tpl'].'index', compact('settings','languages'))->render();
 	}
 
+    /*
 	public function postAdminlanguagechange(){
 		
 		$id = Input::get('id');
@@ -62,6 +57,7 @@ class AdminModulesController extends BaseController {
 		$model->value = language::find($id)->code;
 		$model->save();
 	}
+    */
 
 	public function postModule(){
 		

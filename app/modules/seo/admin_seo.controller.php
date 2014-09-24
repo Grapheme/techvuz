@@ -66,6 +66,7 @@ class AdminSeoController extends BaseController {
                 $module  = isset($params['module']) ? $params['module'] : false;
                 $unit_id = isset($params['unit_id']) ? $params['unit_id'] : false;
                 $data    = isset($params['data']) ? $params['data'] : false;
+                $locale  = isset($params['locale']) ? $params['locale'] : NULL;
 
                 if (!$module || !$unit_id)
                     return false;
@@ -75,7 +76,7 @@ class AdminSeoController extends BaseController {
                 #$data['unit_id'] = $unit_id;
                 #Helper::dd($data);
 
-                $seo = Seo::firstOrCreate(array('module' => $module, 'unit_id' => $unit_id));
+                $seo = Seo::firstOrCreate(array('module' => $module, 'unit_id' => $unit_id, 'language' => $locale));
                 $seo->update($data);
 
                 return $seo;
