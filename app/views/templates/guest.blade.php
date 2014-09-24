@@ -23,9 +23,7 @@
     <div class="main-wrapper">
     @include(Helper::layout('header'))
     @include(Helper::layout('aside'))
-    <main>
-        @yield('content', @$content)
-    </main>
+    @yield('content', @$content)
     </div>
     @include(Helper::layout('scripts'))
     @yield('overlays')

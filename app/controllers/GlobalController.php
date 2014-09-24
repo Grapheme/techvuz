@@ -7,7 +7,6 @@ class GlobalController extends \BaseController {
 		return View::make('guests.login');
 	} // страница авторизации пользователей
 
-
 	public function signin() {
 
 		$json_request = array('status'=>FALSE,'responseText'=>'','responseErrorText'=>'','redirect'=>FALSE);
@@ -35,7 +34,6 @@ class GlobalController extends \BaseController {
 		endif;
 		return Response::json($json_request,200);
 	} // функция авторизации пользователя
-
 
 	public function signup(){
 
@@ -74,13 +72,11 @@ class GlobalController extends \BaseController {
 		return Response::json($json_request,200);
 	} // функция регистрации пользователя
 
-
 	public function logout(){
 
 		Auth::logout();
 		return Redirect::to('/');
 	} // функция завершения сеанса пользователя
-
 
 	public function activation(){
 
@@ -98,7 +94,6 @@ class GlobalController extends \BaseController {
 			return App::abort(404);
 		endif;
 	}
-
 
 	private function getRegisterAccount($post = NULL){
 
@@ -120,5 +115,17 @@ class GlobalController extends \BaseController {
 		endif;
 		return FALSE;
 	}
+
+    /*******************************************************************************/
+
+    public function signupUL(){
+
+        Helper::dd(Input::all());
+    }
+
+    public function signupFL(){
+
+        Helper::dd(Input::all());
+    }
 
 }

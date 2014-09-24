@@ -2,7 +2,7 @@
     @if (Request::is('/'))
     <h1 class="logo">Техвуз.рф</h1>
     @else
-    <div class="logo"><a class="logo-link" href="{{ URL::route('mainpage') }}"></a></div>
+    <div class="logo"><a class="logo-link" href="{{ URL::route('mainpage') }}">Техвуз.рф</a></div>
     @endif
     <div class="logo-desc">
         Образовательный портал

@@ -16,7 +16,7 @@
         </div>
     </div>
     <div class="auth">
-        <a class="btn btn--bordered" href="{{ URL::route('page', 'register') }}">Оформить заявку</a>
+        <a class="btn btn--bordered" href="{{ URL::route('page', 'registration') }}">Оформить заявку</a>
         <span class="or-span">или</span>
         <a class="login-link" href="#">Войти</a>
     </div>
