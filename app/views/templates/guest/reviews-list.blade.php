@@ -15,14 +15,11 @@ else:
 endif;
 
 ?>
-
 <section class="reviews">
     <h3>Отзывы</h3>
     <ul class="reviews-ul">
     @foreach($reviews as $review)
-    <?php
-        $review['fields'] = modifyKeys($review['fields'],'key');
-    ?>
+    <?php $review['fields'] = modifyKeys($review['fields'],'key'); ?>
         <li class="reviews-li">
             <div class="reviews-author">
                 @if(isset($review->fields['user_avatar']->value) && isset($images[$review->fields['user_avatar']->value]))
@@ -34,11 +31,15 @@ endif;
                     {{ $review->name }}
                 </div>
                 <div class="reviews-author-spec">
+                @if(isset($review->fields['user_avatar']->value))
                     {{ $review->fields['user_position']->value }}
+                @endif
                 </div>
             </div>
             <div class="reviews-text">
+            @if(isset($review->fields['description']->value))
                 {{ $review->fields['description']->value }}
+             @endif
             </div>
         </li>
     @endforeach
