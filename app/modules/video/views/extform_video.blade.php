@@ -1,6 +1,5 @@
 
     <!-- Don't forget add to form: ['files' => true] -->
-    {{ Helper::ta_($value) }}
 
     Embed-код:
     <label class="textarea">
