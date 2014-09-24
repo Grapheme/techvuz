@@ -9,7 +9,7 @@
     @section('title')
 {{{ $page->meta->title }}}@stop
     @section('description')
-{{{ striptags($page->meta->preview) }}}@stop
+{{{ stri_ptags($page->meta->preview) }}}@stop
 @endif
 
 @section('style')

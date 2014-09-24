@@ -15,6 +15,12 @@ class CreateSeoTable extends Migration {
 
                 $table->string('module', 32)->nullable()->index();
                 $table->integer('unit_id')->unsigned()->nullable()->index();
+                $table->string('language', 16)->nullable()->index();
+
+                /*
+                ALTER TABLE `seo` ADD `language` VARCHAR( 16 ) NULL AFTER `unit_id`;
+                ALTER TABLE `seo` ADD INDEX ( `language` );
+                */
 
                 $table->string('title', 256)->nullable();
                 $table->text('description')->nullable();
