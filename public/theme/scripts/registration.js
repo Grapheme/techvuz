@@ -1,6 +1,6 @@
 var validation_rules_ul = {
     group_id: { required: true },
-    organization: { required: true },
+    title: { required: true },
     fio_manager: { required: true },
     manager: { required: true },
     statutory: { required: true },
@@ -17,7 +17,7 @@ var validation_rules_ul = {
 };
 var validation_messages_ul = {
     group_id: { required: 'Укажите группу' },
-    organization: { required: 'Укажите название' },
+    title: { required: 'Укажите название' },
     fio_manager: { required: 'Укажите фамилию, имя и отчество руководителя' },
     manager: { required: 'Укажите должность' },
     statutory: { required: 'Укажите уставной документ' },

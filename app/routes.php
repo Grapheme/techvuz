@@ -29,10 +29,6 @@ Route::group(array('before' => 'auth', 'prefix' => $prefix), function(){
 Route::group(array('before' => 'guest', 'prefix' => ''), function(){
 	Route::post('signin', array('as' => 'signin', 'uses' => 'GlobalController@signin'));
 	Route::post('signup', array('as' => 'signup', 'uses' => 'GlobalController@signup'));
-
-    Route::post('registration/ul', array('as' => 'signup-ul', 'uses' => 'GlobalController@signupUL'));
-    Route::post('registration/fl', array('as' => 'signup-fl', 'uses' => 'GlobalController@signupFL'));
-
 	Route::get('activation', array('as' => 'activation', 'uses' => 'GlobalController@activation'));
 });
 

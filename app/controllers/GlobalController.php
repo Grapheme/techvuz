@@ -116,16 +116,4 @@ class GlobalController extends \BaseController {
 		return FALSE;
 	}
 
-    /*******************************************************************************/
-
-    public function signupUL(){
-
-        Helper::dd(Input::all());
-    }
-
-    public function signupFL(){
-
-        Helper::dd(Input::all());
-    }
-
 }
