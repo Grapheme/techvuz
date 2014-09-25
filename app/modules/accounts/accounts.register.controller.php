@@ -16,7 +16,7 @@ class AccountsRegisterController extends BaseController {
             Route::post('registration/fl', array('as' => 'signup-fl', 'uses' => $class.'@signupFL'));
         });
         Route::group(array('before' => 'guest', 'prefix' => ''), function() use ($class) {
-            Route::get('registration/activation/{user_id}/{activate_code}', array('as' => 'signup-activation', 'uses' => $class.'@activation'));
+            Route::get('registration/activation/{activate_code}', array('as' => 'signup-activation', 'uses' => $class.'@activation'));
         });
 
     }
@@ -67,7 +67,7 @@ class AccountsRegisterController extends BaseController {
                     Config::set('temp.account_password', Str::random(12));
                     if($account = self::getRegisterULAccount(Input::all())):
                         Mail::send('emails.auth.signup',array('account'=>$account),function($message){
-                            $message->from('support@grapheme.ru','ТехВуз.рф');
+                            $message->from('dah-sl@yandex.ru','ТехВуз.рф');
                             $message->to(Input::get('email'))->subject('ТехВуз.рф - регистрация');
                         });
                         Auth::login(User::find($account->id));
@@ -101,7 +101,7 @@ class AccountsRegisterController extends BaseController {
                     Config::set('temp.account_password', Str::random(12));
                     if($account = self::getRegisterFLAccount(Input::all())):
                         Mail::send('emails.auth.signup',array('account'=>$account),function($message){
-                            $message->from('support@grapheme.ru','ТехВуз.рф');
+                            $message->from('dah-sl@yandex.ru','ТехВуз.рф');
                             $message->to(Input::get('email'))->subject('ТехВуз.рф - регистрация');
                         });
                         Auth::login(User::find($account->id));
@@ -123,6 +123,21 @@ class AccountsRegisterController extends BaseController {
             return App::abort(404);
         endif;
         return Response::json($json_request,200);
+    }
+
+    public function activation($temporary_key = ''){
+
+        if ($account = User::whereIn('active',array(1,2))->where('temporary_code',$temporary_key)->where('code_life','>=',time())->first()):
+            $account->code_life = 0;
+            $account->temporary_code = '';
+            $account->active = 1;
+            $account->save();
+            $account->touch();
+            Auth::login($account);
+            return Redirect::to(AuthAccount::getStartPage());
+        else:
+            return App::abort(404);
+        endif;
     }
 
     /**************************************************************************/

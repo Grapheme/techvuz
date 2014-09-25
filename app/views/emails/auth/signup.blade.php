@@ -7,7 +7,7 @@
 	<div>
 		<p>
 			Добро пожаловать в {{ HTML::link('','ТехВУЗ.рф') }}.<br>
-			Активируйте свой аккаунт, перейдя по <a href="{{ URL::route('signup-activation',array('user_id'=>$account->id,'activate_code'=>$account->temporary_codes)) }}">ссылке</a>.<br>
+			Активируйте свой аккаунт, перейдя по <a href="{{ URL::route('signup-activation',array('activate_code'=>User::find($account->id)->temporary_code)) }}">ссылке</a>.<br>
 			Не откладывайте, ссылка действует 5 дней.<br>
 		</p>
 		<p>
