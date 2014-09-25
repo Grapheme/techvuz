@@ -8,6 +8,7 @@
     <div class="desc">
     {{ $page->block('top_desc') }}
     </div>
+    @if(Auth::guest())
     <div class="tabs">
         <ul>
             <li><a href="#tabs-1">Юридическое лицо</a></li>
@@ -20,6 +21,9 @@
             @include('accounts.views.registration.signup-individual')
         </div>
     </div>
+    @else
+        <p>Авторизованные пользователи не могут оформлять заявки на регистрацию</p>
+    @endif
 </main>
 @stop
 @section('overlays')

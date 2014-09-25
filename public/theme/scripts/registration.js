@@ -65,6 +65,7 @@ function runFormValidation() {
         submitHandler: function(form) {
             var options = {target:null, dataType:'json', type:'post'};
             options.beforeSubmit = function(formData,jqForm,options){
+                $("#error").remove();
                 $(form).find('.btn-form-submit').elementDisabled(true);
             },
                 options.success = function(response, status, xhr, jqForm){
@@ -75,6 +76,8 @@ function runFormValidation() {
                         }else{
                             $(form).replaceWith(response.responseText);
                         }
+                    }else{
+                        $(form).find('.btn-form-submit').before("<p id='error'>"+response.responseText+"</p>");
                     }
                 }
             options.error = function(xhr, textStatus, errorThrown){
@@ -101,6 +104,7 @@ function runFormValidation() {
         submitHandler: function(form) {
             var options = {target:null, dataType:'json', type:'post'};
             options.beforeSubmit = function(formData,jqForm,options){
+                $("#error").remove();
                 $(form).find('.btn-form-submit').elementDisabled(true);
             },
                 options.success = function(response, status, xhr, jqForm){
@@ -111,6 +115,8 @@ function runFormValidation() {
                         }else{
                             $(form).replaceWith(response.responseText);
                         }
+                    }else{
+                        $(form).find('.btn-form-submit').before("<p id='error'>"+response.responseText+"</p>");
                     }
                 }
             options.error = function(xhr, textStatus, errorThrown){

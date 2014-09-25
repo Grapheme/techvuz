@@ -93,26 +93,30 @@ class AccountsRegisterController extends BaseController {
 
     public function signupFL(){
 
-        Helper::tad(Input::all());
-
         $json_request = array('status'=>FALSE,'responseText'=>'','responseErrorText'=>'','redirect'=>FALSE);
         if(Request::ajax()):
-            $validator = Validator::make(Input::all(),Organization::$rules);
+            $validator = Validator::make(Input::all(),Individual::$rules);
             if($validator->passes()):
                 if(User::where('email',Input::get('email'))->exists() == FALSE):
-                    if($account = self::getRegisterULAccount(Input::all())):
+                    Config::set('temp.account_password', Str::random(12));
+                    if($account = self::getRegisterFLAccount(Input::all())):
                         Mail::send('emails.auth.signup',array('account'=>$account),function($message){
-                            $message->from('uspensky.pk@gmail.com','Monety.pro');
-                            $message->to(Input::get('email'))->subject('Monety.pro - регистрация');
+                            $message->from('support@grapheme.ru','ТехВуз.рф');
+                            $message->to(Input::get('email'))->subject('ТехВуз.рф - регистрация');
                         });
-                        $json_request['responseText'] = Lang::get('SIGNUP.success');
+                        Auth::login(User::find($account->id));
+                        if (Auth::check()):
+                            $json_request['responseText'] = Lang::get('interface.SIGNUP.success_login');
+                        else:
+                            $json_request['responseText'] = Lang::get('interface.SIGNUP.success');
+                        endif;
                         $json_request['status'] = TRUE;
                     endif;
                 else:
-                    $json_request['responseText'] = Lang::get('SIGNUP.email_exist');
+                    $json_request['responseText'] = Lang::get('interface.SIGNUP.email_exist');
                 endif;
             else:
-                $json_request['responseText'] = Lang::get('SIGNUP.fail');
+                $json_request['responseText'] = Lang::get('interface.SIGNUP.fail');
                 $json_request['responseErrorText'] = $validator->messages()->all();
             endif;
         else:
@@ -164,4 +168,39 @@ class AccountsRegisterController extends BaseController {
         endif;
         return FALSE;
     }
+
+    private function getRegisterFLAccount($post = NULL){
+
+        $user = new User;
+        $individual = new Individual;
+
+        if(!is_null($post)):
+            $fio = explode(' ',$post['fio']);
+            $user->group_id = $post['group_id'];
+            $user->name = (isset($fio[1]))?$fio[1]:'';
+            $user->surname = (isset($fio[0]))?$fio[0]:'';
+            $user->email = $post['email'];
+            $user->active = 2;
+            $user->password = Hash::make(Config::get('temp.account_password'));
+            $user->photo = '';
+            $user->thumbnail = '';
+            $user->temporary_code = Str::random(24);
+            $user->code_life = myDateTime::getFutureDays(5);
+            $user->save();
+            $user->touch();
+
+            $individual->user_id = $user->id;
+            $individual->fio = $post['fio'];
+            $individual->position = $post['position'];
+            $individual->inn = $post['inn'];
+            $individual->postaddress = $post['postaddress'];
+            $individual->phone = $post['phone'];
+            $individual->save();
+            $individual->touch();
+
+            return User_individual::where('id',$user->id)->first();
+        endif;
+        return FALSE;
+    }
+
 }
