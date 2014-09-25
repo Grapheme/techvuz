@@ -17,7 +17,7 @@
             <label>Почтовый адрес</label>{{ Form::text('postaddress', '') }}
         </div>
         <div class="form-element">
-            <label>E-mail</label>{{ Form::text('email', '',array('class'=>'email')) }}
+            <label>E-mail</label>{{ Form::text('email', '') }}
         </div>
         <div class="form-element">
             <label>Номер телефона</label>{{ Form::text('phone', '',array('class'=>'phone')) }}

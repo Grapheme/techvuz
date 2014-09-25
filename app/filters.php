@@ -82,6 +82,15 @@ Route::filter('guest', function(){
 	endif;
 });
 
+Route::filter('guest.register', function(){
+    if(Auth::check()):
+        return Redirect::to('/');
+    endif;
+    if (Session::token() != Input::get('_token')):
+        throw new Illuminate\Session\TokenMismatchException;
+    endif;
+});
+
 /*
 |--------------------------------------------------------------------------
 | CSRF Protection Filter

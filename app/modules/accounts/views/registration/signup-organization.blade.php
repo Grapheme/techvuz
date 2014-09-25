@@ -41,7 +41,7 @@
     <fieldset>
         <header>Контактные данные</header>
         <div class="form-element">
-            <label>E-mail</label>{{ Form::text('email', '',array('class'=>'email')) }}
+            <label>E-mail</label>{{ Form::text('email', '') }}
         </div>
         <div class="form-element">
             <label>Контактное лицо</label>{{ Form::text('name', '') }}
