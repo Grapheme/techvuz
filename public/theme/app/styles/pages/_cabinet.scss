@@ -1,0 +1,24 @@
+.cabinet {
+
+	h3 {
+		margin: 0 0 21rem / $hfs;
+
+		font-family: 'Open Sans', sans-serif;
+		font-weight: 600;
+		font-size: 24em / $hfs;
+		line-height: (78em / 24);
+	}
+
+	.btn-top-margin {
+		margin: 21rem / $hfs 0 0;
+	}
+
+	.progress-bar {
+		width: 99rem / $hfs;
+		height: 17rem / $hfs;
+		margin: 0 34rem / $hfs 0 23rem / $hfs;
+
+		border: 1px solid $clr-mid-gray;
+	}
+
+}

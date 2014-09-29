@@ -19,6 +19,14 @@ a[href^="tel"] {
 	list-style: none;
 }
 
+.pull-right {
+	float: right;
+}
+
+.pull-left {
+	float: left;	
+}
+
 .full-abs {
 	position: absolute;
 	top: 0;

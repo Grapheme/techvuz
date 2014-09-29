@@ -108,6 +108,8 @@ textarea {
 @import 'partials/radios';
 @import 'partials/tabs';
 @import 'partials/select';
+@import 'partials/orders';
+@import 'partials/table';
 
 @import 'partials/header';
 @import 'partials/aside';
@@ -122,6 +124,8 @@ textarea {
 
 @import 'pages/catalog';
 @import 'pages/registration';
+@import 'pages/cabinet';
+@import 'pages/employees';
 
 /* ==========================================================================
    Helper classes

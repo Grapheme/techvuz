@@ -1,1 +1,2 @@
-console.log('\'Allo \'Allo!');
+$('.tabs').tabs();
+$('.select').selectmenu();

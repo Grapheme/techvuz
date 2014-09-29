@@ -11,6 +11,8 @@
 	outline: none;
 	text-decoration: none;
 
+	cursor: pointer;
+
 	&.btn--bordered {
 		border: 2px solid;
 	}
@@ -21,6 +23,15 @@
 		&:hover {
 			color: $clr-white;
 			background: $clr-main-bg;
+		}
+	}
+	&.btn--danger {
+		color: $clr-danger;
+		border-color: $clr-danger;
+
+		&:hover {
+			color: $clr-white;
+			background: $clr-danger;
 		}
 	}
 }

@@ -1,0 +1,31 @@
+.table {
+	border: 1px solid $clr-mid-gray;
+	font-family: 'Open Sans', sans-serif;
+
+	th {
+		height: 60rem / $hfs;
+		padding: 0 0 0 34rem / $hfs;
+		text-align: left;
+	}
+
+	td {
+		font-size: 14em / $hfs;
+		line-height: (20em / 14);
+		padding: 14rem / $hfs 0 14rem / $hfs 34rem / $hfs;
+
+		&.td-status-bar {
+			vertical-align: top;
+		}
+	}
+
+	a {
+		transition: all .4s ease;
+		color: $clr-main-bg;
+		text-decoration: none;
+		border-bottom: 1px solid;
+
+		&:hover {
+			border-color: transparent;
+		}
+	}
+}
