@@ -61,8 +61,29 @@ jQuery.fn.notifications = function() {
 
 //Модуль popup
 var Popup = (function(){
+	'use strict';
+
 	var $overlay = $('.overlay');
 	var $popup = $('.popup');
+	var $close = $('.js-popup-close');
+	var $forgot = $('.js-forgot-pass');
+	var $login = $('.js-login');
+
+	$close.click( function(){
+		Popup.close();
+	});
+	$forgot.click( function(){
+		Popup.show('restore');
+	});
+	$login.click( function(){
+		Popup.show('login');
+	});
+	$popup.click( function(e){
+		e.stopPropagation();
+	});
+	$overlay.click( function(){
+		Popup.close();
+	});
 
 	return {
 

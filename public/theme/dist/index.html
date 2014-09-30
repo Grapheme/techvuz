@@ -41,7 +41,7 @@
                 <div class="auth">
                     <a class="btn btn--bordered" href="#">Начать обучение</a>
                     <span class="or-span">или</span>
-                    <a class="login-link" href="#">Войти</a>
+                    <a class="login-link js-login" href="#">Войти</a>
                 </div>
 
             </header>
@@ -356,10 +356,46 @@
             </main>
             <div class="overlay">
                 <div class="popup popup-login" data-popup="login">
-                    
+                    <div class="popup-close js-popup-close">
+                        <span class="icon icon-cancel"></span>
+                    </div>
+                    <div class="popup-head">
+                        Авторизуйтесь
+                    </div>
+                    <div class="popup-body">
+                        <form class="auth-form registration-form">
+                            <div class="form-element">
+                                <label>Email</label><input type="text">
+                            </div>
+                            <div class="form-element">
+                                <label>Пароль</label><input type="text">
+                                <div class="forgot-pass">
+                                    <a class="js-forgot-pass">Забыли пароль?</a>
+                                </div>
+                            </div>
+                            <button class="btn btn--bordered btn--blue pull-right">
+                                Войти
+                            </button>
+                        </form>
+                    </div>
                 </div>
                 <div class="popup popup-restore" data-popup="restore">
-                    
+                    <div class="popup-close js-popup-close">
+                        <span class="icon icon-cancel"></span>
+                    </div>
+                    <div class="popup-head">
+                        Восстановление пароля
+                    </div>
+                    <div class="popup-body">
+                        <form class="auth-form registration-form">
+                            <div class="form-element">
+                                <label>Email</label><input type="text">
+                            </div>
+                            <button class="btn btn--bordered btn--blue pull-right">
+                                Восстановить
+                            </button>
+                        </form>
+                    </div>
                 </div>
             </div>
 

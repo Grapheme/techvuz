@@ -71,4 +71,32 @@
 		background: $clr-white;
 	}
 
+	&.auth-form {
+
+		label {
+			width: 72rem / $hfs;
+		}
+		input {
+			width: 333rem / $hfs;
+			border-color: $clr-mid-gray;
+		}
+		.forgot-pass {
+			position: absolute;
+			top: 100%;
+			left: 72rem / $hfs;
+
+			font-size: 12em / $hfs;
+			line-height: (30em / 12);
+
+			a {
+				color: $clr-main-bg;
+				cursor: pointer;
+
+				&:hover {
+					text-decoration: underline;
+				}
+			}
+		}
+	}
+
 }
