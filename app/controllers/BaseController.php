@@ -50,14 +50,20 @@ class BaseController extends Controller {
         return static::$group.".views." . ($postfix ? $postfix."." : "");
     }
 
-    public function dashboard() {
+    public static function dashboard($prefix) {
+
+        $page_data = array();
+        if (!empty($prefix)):
+            if (class_exists('AccountGroupsController') && method_exists('AccountGroupsController',$prefix)):
+                $page_data = AccountGroupsController::$prefix();
+            endif;
+        endif;
 
         $parts = array();
         $parts[] = 'templates';
         $parts[] = AuthAccount::getStartPage();
         $parts[] = 'dashboard';
-
-        return View::make(implode('.', $parts));
+        echo View::make(implode('.', $parts),array('page'=>$page_data));
     }
 
     public function templates($path = '', $post_path = '/views') {
@@ -75,4 +81,6 @@ class BaseController extends Controller {
         }
         return $templates;
     }
+
+    /************************************************************************/
 }

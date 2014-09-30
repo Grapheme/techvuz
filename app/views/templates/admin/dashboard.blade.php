@@ -1,6 +1,3 @@
-<?php
-#Helper::dd(AuthAccount::getStartPage());
-?>
 @extends('templates.'.AuthAccount::getStartPage())
 
 

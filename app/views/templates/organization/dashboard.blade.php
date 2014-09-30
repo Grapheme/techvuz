@@ -2,6 +2,11 @@
 @section('style') @stop
 @section('content')
 <main class="cabinet">
+    @if(@$page['active_status']['status'] === FALSE)
+    <div class="banner banner--red">
+        <span>{{ @$page['active_status']['message'] }}</span>
+    </div>
+    @endif
     <h2>{{ User_organization::where('id',Auth::user()->id)->first()->title }}</h2>
     <div class="tabs cabinet-tabs">
         <ul>
@@ -11,9 +16,7 @@
             <li><a href="#tabs-4"><span class="icon icon-yved"></span> Уведомления</a></li>
         </ul>
         <div id="tabs-1">
-            <div class="btn btn-top-margin btn--bordered btn--blue pull-right">
-                Новый заказ
-            </div>
+            <a href="{{ URL::route('page','catalog') }}" class="btn btn-top-margin btn--bordered btn--blue pull-right">Новый заказ</a>
             <h3>Заказы</h3>
             <div class="tabs usual-tabs">
                 <ul>

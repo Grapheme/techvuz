@@ -2,8 +2,8 @@
 
 class AuthAccount {
 	
-	public static function getStartPage($url = NULL){
-		
+    public static function getStartPage($url = NULL){
+
 		$StartPage = '';
 		if(Auth::check()):
 			#$StartPage = Auth::user()->groups()->first()->dashboard;
@@ -28,6 +28,15 @@ class AuthAccount {
 			return FALSE;
 		endif;
 	}
+
+    public static function getGroupName(){
+
+        if(Auth::check()):
+            return Auth::user()->group->name;
+        else:
+            return '';
+        endif;
+    }
 
 	public static function getGroupStartUrl(){
 

@@ -1,6 +1,6 @@
 <?php
 
-$prefix = Auth::check() ? AuthAccount::getStartPage() : 'guest';
+$prefix = AuthAccount::getGroupName();
 
 /*
 | Общие роуты, независящие от условий
@@ -19,8 +19,10 @@ Route::get('admin', array('before' => 'auth2login', 'uses' => 'BaseController@re
 /*
 | Роуты, доступные для всех авторизованных пользователей - dashboard
 */
-Route::group(array('before' => 'auth', 'prefix' => $prefix), function(){
-    Route::get('/', 'BaseController@dashboard');
+Route::group(array('before' => 'auth', 'prefix' => $prefix), function() use ($prefix){
+    Route::get('/', function() use ($prefix){
+        BaseController::dashboard($prefix);
+    });
 });
 
 /*
