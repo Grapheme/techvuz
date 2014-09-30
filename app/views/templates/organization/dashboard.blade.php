@@ -708,19 +708,15 @@
                     </ul>
                 </div>
             </div>
-
         </div>
         <div id="tabs-2" class="employees">
             <h3>Сотрудники</h3>
             <form class="employee-search">
-
                 <fieldset>
                     <input type="text" placeholder="Укажите ФИО сотрудника, название компании или курса">
                     <button type="submit"><span class="icon icon-search"></span></button>
                 </fieldset>
-
             </form>
-
             <div class="count-add">
                 <div class="container-fluid">
                     <div class="row">
@@ -742,9 +738,7 @@
                     </div>
                 </div>
             </div>
-
             <h3>Курсы</h3>
-
             <div class="count-add">
                 <div class="container-fluid">
                     <div class="row">
@@ -766,9 +760,7 @@
                     </div>
                 </div>
             </div>
-
             <h3>Заказы</h3>
-
             <ul class="orders-ul">
                 <li class="orders-li new-order">
                     <div class="orders-li-head">
@@ -852,7 +844,6 @@
                         </div>
                     </div>
             </ul>
-
             <h3>Ход обучения</h3>
             <ul class="learning-ul container-fluid">
                 <li class="row">
@@ -936,9 +927,7 @@
                     </div>
                 </li>
             </ul>
-
             <h3>Уведомления</h3>
-
             <div class="notifications">
                 <div class="notifications-nav">
                     <span class="icon icon-angle-left js-notif-left"></span>
@@ -1125,7 +1114,6 @@
                     </li>
                 </ul>
             </div>
-
             <table class="table sortable">
                 <tr>
                     <th class="sort sort--asc">Ф.И.О. <span class="sort--icon"></span> </th>
