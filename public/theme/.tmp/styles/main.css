@@ -2689,6 +2689,16 @@ section h3 {
   line-height: 28.8em / 22;
 }
 
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: #33ace4;
+  background: rgba(0, 174, 228, 0.68);
+}
+
 .benefits-ul .benefits-li {
   float: left;
   width: 23%;
@@ -2949,10 +2959,7 @@ section h3 {
   box-shadow: inset 0 0 0 2px #c11c18;
   color: #c11c18;
 }
-.registration-form .form-element.state-error .error-text {
-  opacity: 1;
-}
-.registration-form .error-text {
+.registration-form em {
   position: absolute;
   top: 100%;
   right: 2px;

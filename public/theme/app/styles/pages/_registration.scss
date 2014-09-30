@@ -19,14 +19,11 @@
 				box-shadow: inset 0 0 0 2px $clr-danger;
 				color: $clr-danger;
 			}
-			.error-text {
-				opacity: 1;
-			}
 
 		}
 	}
 
-	.error-text {
+	em {
 		position: absolute;
 		top: 100%;
 		right: 2px;

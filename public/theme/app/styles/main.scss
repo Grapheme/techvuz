@@ -105,10 +105,14 @@ textarea {
 @import 'vars';
 @import 'partials/btns';
 @import 'partials/banner';
-@import 'partials/accordion';
-@import 'partials/radios';
-@import 'partials/tabs';
-@import 'partials/select';
+
+@import 'partials/ui/accordion';
+@import 'partials/ui/tabs';
+
+@import 'partials/form/radios';
+@import 'partials/form/select';
+
+
 @import 'partials/orders';
 @import 'partials/table';
 @import 'partials/count-add';
@@ -116,10 +120,11 @@ textarea {
 @import 'partials/progress-bar';
 @import 'partials/notifications';
 
-@import 'partials/header';
-@import 'partials/aside';
+@import 'partials/page-parts/header';
+@import 'partials/page-parts/aside';
 @import 'app';
-@import 'partials/footer';
+@import 'partials/page-parts/footer';
+@import 'partials/page-parts/overlay';
 
 @import 'sections/benefits';
 @import 'sections/directions';

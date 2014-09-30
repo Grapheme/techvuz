@@ -59,4 +59,26 @@ jQuery.fn.notifications = function() {
 
 };
 
+//Модуль popup
+var Popup = (function(){
+	var $overlay = $('.overlay');
+	var $popup = $('.popup');
+
+	return {
+
+		show: function(id){
+			$overlay.addClass('active');
+			$popup.removeClass('active');
+			$('[data-popup="' + id + '"]').addClass('active');
+		},
+
+		close: function(){
+			$overlay.removeClass('active');
+			$popup.removeClass('active');
+		}
+
+	};
+
+})();
+
 $('.notifications').notifications();
