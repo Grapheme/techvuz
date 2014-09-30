@@ -1801,6 +1801,14 @@ a[href^="tel"] {
   background: #dddddd;
   cursor: pointer;
 }
+.accordion .accordion-header .accordion-img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 11.1875rem;
+  height: 100%;
+  background: no-repeat 2.0625rem center;
+}
 .accordion .accordion-header h3 {
   padding: 2.875rem 0 0.5rem;
   line-height: 0.8572727273em;
@@ -1814,53 +1822,26 @@ a[href^="tel"] {
   font-family: 'Open Sans', sans-serif;
   font-weight: normal;
 }
-.accordion .accordion-header:before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 11.1875rem;
-  height: 100%;
-  background: no-repeat 2.0625rem center;
-}
 .accordion .accordion-header.ui-accordion-header-active {
   color: white;
 }
-.accordion .accordion-header.acc-build.ui-accordion-header-active {
+.accordion .accordion-header:nth-child(6n+1).ui-accordion-header-active {
   background-color: #bb252d;
 }
-.accordion .accordion-header.acc-build:before {
-  background-image: url(../images/directions/01.png);
-}
-.accordion .accordion-header.acc-proj.ui-accordion-header-active {
+.accordion .accordion-header:nth-child(6n+2).ui-accordion-header-active {
   background-color: #78a725;
 }
-.accordion .accordion-header.acc-proj:before {
-  background-image: url(../images/directions/02.png);
-}
-.accordion .accordion-header.acc-eng.ui-accordion-header-active {
+.accordion .accordion-header:nth-child(6n+3).ui-accordion-header-active {
   background-color: #e4b51e;
 }
-.accordion .accordion-header.acc-eng:before {
-  background-image: url(../images/directions/03.png);
-}
-.accordion .accordion-header.acc-fire.ui-accordion-header-active {
+.accordion .accordion-header:nth-child(6n+4).ui-accordion-header-active {
   background-color: #5e52ac;
 }
-.accordion .accordion-header.acc-fire:before {
-  background-image: url(../images/directions/04.png);
-}
-.accordion .accordion-header.acc-prov.ui-accordion-header-active {
+.accordion .accordion-header:nth-child(6n+5).ui-accordion-header-active {
   background-color: #db7336;
 }
-.accordion .accordion-header.acc-prov:before {
-  background-image: url(../images/directions/05.png);
-}
-.accordion .accordion-header.acc-constr.ui-accordion-header-active {
+.accordion .accordion-header:nth-child(6n+6).ui-accordion-header-active {
   background-color: #4bc8bb;
-}
-.accordion .accordion-header.acc-constr:before {
-  background-image: url(../images/directions/06.png);
 }
 .accordion .accordion-body table {
   font-family: 'Open Sans', sans-serif;
@@ -2747,8 +2728,7 @@ section h3 {
   bottom: 2.0625rem;
   right: 2.0625rem;
 }
-.directions-ul .directions-li:after {
-  content: '';
+.directions-ul .directions-li .directions-img {
   position: absolute;
   bottom: 2.0625rem;
   right: 2.0625rem;
@@ -2770,54 +2750,6 @@ section h3 {
 }
 .directions-ul .directions-li:nth-child(6n+6) {
   background-color: #4bc8bb;
-}
-.directions-ul .directions-li.dir-build {
-  background: #bb252d;
-}
-.directions-ul .directions-li.dir-build:after {
-  width: 5.875rem;
-  height: 4.4375rem;
-  background: url(../images/directions/01.png) no-repeat 0 0/100% 100%;
-}
-.directions-ul .directions-li.dir-proj {
-  background: #78a725;
-}
-.directions-ul .directions-li.dir-proj:after {
-  width: 4.875rem;
-  height: 3.25rem;
-  background: url(../images/directions/02.png) no-repeat 0 0/100% 100%;
-}
-.directions-ul .directions-li.dir-eng {
-  background: #e4b51e;
-}
-.directions-ul .directions-li.dir-eng:after {
-  width: 4.9375rem;
-  height: 4.375rem;
-  background: url(../images/directions/03.png) no-repeat 0 0/100% 100%;
-}
-.directions-ul .directions-li.dir-fire {
-  background: #5e52ac;
-}
-.directions-ul .directions-li.dir-fire:after {
-  width: 5rem;
-  height: 5rem;
-  background: url(../images/directions/04.png) no-repeat 0 0/100% 100%;
-}
-.directions-ul .directions-li.dir-prov {
-  background: #db7336;
-}
-.directions-ul .directions-li.dir-prov:after {
-  width: 6.0625rem;
-  height: 4rem;
-  background: url(../images/directions/05.png) no-repeat 0 0/100% 100%;
-}
-.directions-ul .directions-li.dir-constr {
-  background: #4bc8bb;
-}
-.directions-ul .directions-li.dir-constr:after {
-  width: 4.875rem;
-  height: 4.8125rem;
-  background: url(../images/directions/06.png) no-repeat 0 0/100% 100%;
 }
 .directions-ul .direction-name {
   margin: 0 0 1.3rem;
