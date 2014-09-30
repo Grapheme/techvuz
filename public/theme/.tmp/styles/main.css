@@ -2254,7 +2254,7 @@ a[href^="tel"] {
 }
 
 .table {
-  border: 1px solid #a8a8a8;
+  outline: 1px solid #a8a8a8;
   font-family: 'Open Sans', sans-serif;
 }
 .table tr:nth-child(2n+1) {
@@ -2281,16 +2281,22 @@ a[href^="tel"] {
   padding: 0 0 0 2.125rem;
   text-align: left;
   background: #dddddd;
-  border-top: 1px solid #a8a8a8;
-  border-right: 1px solid white;
+  border-right: 2px solid white;
+}
+.table th:last-child {
+  border-right: none;
 }
 .table td {
   font-size: 0.875em;
   line-height: 1.4285714286em;
   padding: 0.875rem 0 0.875rem 2.125rem;
+  border-right: 2px solid white;
 }
 .table td.td-status-bar {
   vertical-align: top;
+}
+.table td:last-child {
+  border: none;
 }
 .table a {
   -webkit-transition: all .4s ease;
@@ -2735,6 +2741,11 @@ section h3 {
   height: 20.125rem;
   padding: 1.5rem 2.0625rem 0 2.0625rem;
   color: white;
+}
+.directions-ul .directions-li img {
+  position: absolute;
+  bottom: 2.0625rem;
+  right: 2.0625rem;
 }
 .directions-ul .directions-li:after {
   content: '';

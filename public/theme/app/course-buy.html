@@ -7,11 +7,19 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
 
-        <link rel="stylesheet" href="styles/vendor.css">
+        <!-- build:css styles/vendor.css -->
+        <!-- bower:css -->
+        <!-- endbower -->
+        <!-- endbuild -->
 
+        <!-- build:css styles/main.css -->
+        <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400,600&subset=latin,cyrillic' rel='stylesheet' type='text/css'>
         <link rel="stylesheet" href="styles/main.css">
+        <!-- endbuild -->
 
-        <script src="scripts/vendor/modernizr.js"></script>
+        <!-- build:js scripts/vendor/modernizr.js -->
+        <script src="bower_components/modernizr/modernizr.js"></script>
+        <!-- endbuild -->
     </head>
     <body>
         <!--[if lt IE 10]>
@@ -61,10 +69,10 @@
                        <li class="nav-li">
                            <a href="#">О портале</a>
                        </li>
-                       <li class="nav-li">
+                       <li class="nav-li active">
                            <a href="catalog.html">Каталог курсов</a>
                        </li>
-                       <li class="nav-li active">
+                       <li class="nav-li">
                            <a href="how-it-works.html">Как это работает</a>
                        </li>
                        <li class="nav-li">
@@ -98,65 +106,13 @@
 
             </aside>
 
-            <main class="how-it-works">
+            <main class="catalog">
                 
                 <h2>
-                    Как это работает
-                </h2>              
-
-                <div class="desc">
-
-                    <p>
-                        Для того чтобы начать обучение вам нужно выбрать юридическое или физическое<br>
-                        лицо и пройти регистрацию, заполнив все поля.  
-                    </p>
-
-                </div>
-
-                <section class="htw">
-                    <ul class="htw-ul">
-                        <li class="htw-li htw-num-1">
-                            <h3 class="htw-head">
-                                Оформление заявки
-                            </h3>
-                            <div class="htw-text">
-                                <ol>
-                                    <li><a href="#">Зарегистрируйте</a> заказчика (для юр. лиц)</li>
-                                    <li>Выберите <a href="#">курсы</a></li>
-                                    <li>Зарегистрируйте слушатеей</li>
-                                    <li>Получите счет и договор</li>
-                                </ol>
-                            </div> 
-                        </li>
-                        <li class="htw-li htw-num-2">
-                            <h3 class="htw-head">
-                                Оплата
-                            </h3>
-                            <div class="htw-text">
-                                Счет Вы получите автоматически по завершении оформления заявки.
-                                Совершить оплату Вы можете в любом банке. Доступ к лекциям открывается
-                                в течение 1-2 дней после оплаты.
-                            </div> 
-                        </li>
-                        <li class="htw-li htw-num-3">
-                            <h3 class="htw-head">
-                                Обучение
-                            </h3>
-                            <div class="htw-text">
-                                Слушатели обучаются в своих <a href="#">личных кабинетах</a>
-                                на сайте. Для завершения обучения слушатели выполняют итоговое тестирование.
-                            </div> 
-                        </li>
-                        <li class="htw-li htw-num-4">
-                            <h3 class="htw-head">
-                                Получение удостоверения
-                            </h3>
-                            <div class="htw-text">
-                                Как только слушатели успешно завершают обучение, мы выдаем удостоверения о повышении квалификации. Документы можно получить лично либо высылаются по месту нахождения заказчика курьерской службой, бесплатно!
-                            </div>
-                        </li>
-                    </ul>
-                </section>
+                    Покупка курсов
+                </h2>
+                
+                
 
             </main>
 
@@ -172,8 +128,24 @@
             ga('create','UA-XXXXX-X');ga('send','pageview');
         </script>
 
-        <script src="scripts/vendor.js"></script>
+        <!-- build:js scripts/vendor.js -->
+        <!-- bower:js -->
+        <script src="bower_components/jquery/dist/jquery.js"></script>
+        <script src="bower_components/jquery-ui/ui/core.js"></script>
+        <script src="bower_components/jquery-ui/ui/widget.js"></script>
+        <script src="bower_components/jquery-ui/ui/accordion.js"></script>
+        <script>
+            $('.accordion').accordion({
+                header: '.accordion-header',
+                heightStyle: 'content',
+                collapsible: true
+            });
+        </script>
+        <!-- endbower -->
+        <!-- endbuild -->
 
+        <!-- build:js scripts/main.js -->
         <script src="scripts/main.js"></script>
+        <!-- endbuild -->
 </body>
 </html>

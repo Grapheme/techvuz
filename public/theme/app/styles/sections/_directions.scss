@@ -9,6 +9,12 @@
 		padding: 24rem / $hfs 33rem / $hfs 0 33rem / $hfs;
 		color: $clr-white;
 
+		img {
+			position: absolute;
+			bottom: 33rem / $hfs;
+			right: 33rem / $hfs;
+		}
+
 		.direction-link {
 			@extend .full-abs;
 		}
