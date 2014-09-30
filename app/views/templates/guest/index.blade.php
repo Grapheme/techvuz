@@ -12,7 +12,7 @@
         @foreach(Directions::with('photo')->with('courses')->get() as $direction)
             <li class="directions-li">
             @if(!empty($direction->photo->name))
-            {{ HTML::image(Config::get('site.galleries_photo_public_dir').'/'.$direction->photo->name,$direction->title) }}
+            {{ HTML::image(Config::get('site.galleries_photo_public_dir').'/'.$direction->photo->name,$direction->title,array('class'=>'directions-img')) }}
             @endif
                 <a class="direction-link" href="#"></a>
                 <div class="direction-name">
