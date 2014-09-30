@@ -8,6 +8,16 @@
 
 		cursor: pointer;
 
+		.accordion-img {
+			position: absolute;
+			top: 0;
+			left: 0;
+			width: 179rem / $hfs;
+			height: 100%;
+
+			background: no-repeat 33rem / $hfs center;
+		}
+
 		h3 {
 			padding: 46rem / $hfs 0 8rem / $hfs;
 			line-height: (18.86em / 22);
@@ -23,68 +33,39 @@
 			font-weight: normal;
 		}
 
-		&:before {
-			content: '';
-			position: absolute;
-			top: 0;
-			left: 0;
-			width: 179rem / $hfs;
-			height: 100%;
-
-			background: no-repeat 33rem / $hfs center;
-		}
-
 		&.ui-accordion-header-active {
 			color: $clr-white;
 		}
 
-		&.acc-build {
+		&:nth-child(6n+1) {
 			&.ui-accordion-header-active {
 				background-color: $clr-num-1;
 			}
-			&:before {
-				background-image: url(../images/directions/01.png);
-			}					
 		}
-		&.acc-proj {
+		&:nth-child(6n+2) {
 			&.ui-accordion-header-active {
 				background-color: $clr-num-2;
 			}
-			&:before {
-				background-image: url(../images/directions/02.png);
-			}		
 		}
-		&.acc-eng {
+		&:nth-child(6n+3) {
 			&.ui-accordion-header-active {
 				background-color: $clr-num-3;
 			}
-			&:before {
-				background-image: url(../images/directions/03.png);
-			}		
 		}
-		&.acc-fire {
+		&:nth-child(6n+4) {
 			&.ui-accordion-header-active {
 				background-color: $clr-num-4;
 			}
-			&:before {
-				background-image: url(../images/directions/04.png);
-			}		
 		}
-		&.acc-prov {
+		&:nth-child(6n+5) {
 			&.ui-accordion-header-active {
 				background-color: $clr-num-5;
 			}
-			&:before {
-				background-image: url(../images/directions/05.png);
-			}		
 		}
-		&.acc-constr {
+		&:nth-child(6n+6) {
 			&.ui-accordion-header-active {
 				background-color: $clr-num-6;
 			}
-			&:before {
-				background-image: url(../images/directions/06.png);
-			}		
 		}
 	}
 

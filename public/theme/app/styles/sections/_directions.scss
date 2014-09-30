@@ -19,8 +19,7 @@
 			@extend .full-abs;
 		}
 
-		&:after {
-			content: '';
+		.directions-img {
 			position: absolute;
 			bottom: 33rem / $hfs;
 			right: 33rem / $hfs;
@@ -43,68 +42,6 @@
 		}
 		&:nth-child(6n+6) {
 			background-color: $clr-num-6;
-		}
-
-		//IE 8 Callback
-		&.dir-build {
-			background: $clr-num-1;
-
-			&:after {
-				width: 94rem / $hfs;
-				height: 71rem / $hfs;
-
-				background: url(../images/directions/01.png) no-repeat 0 0 / 100% 100%;
-			}
-		}
-		&.dir-proj {
-			background: $clr-num-2;
-
-			&:after {
-				width: 78rem / $hfs;
-				height: 52rem / $hfs;
-
-				background: url(../images/directions/02.png) no-repeat 0 0 / 100% 100%;
-			}
-		}
-		&.dir-eng {
-			background: $clr-num-3;
-
-			&:after {
-				width: 79rem / $hfs;
-				height: 70rem / $hfs;
-
-				background: url(../images/directions/03.png) no-repeat 0 0 / 100% 100%;
-			}
-		}
-		&.dir-fire {
-			background: $clr-num-4;
-
-			&:after {
-				width: 80rem / $hfs;
-				height: 80rem / $hfs;
-
-				background: url(../images/directions/04.png) no-repeat 0 0 / 100% 100%;
-			}
-		}
-		&.dir-prov {
-			background: $clr-num-5;
-
-			&:after {
-				width: 97rem / $hfs;
-				height: 64rem / $hfs;
-
-				background: url(../images/directions/05.png) no-repeat 0 0 / 100% 100%;
-			}
-		}
-		&.dir-constr {
-			background: $clr-num-6;
-
-			&:after {
-				width: 78rem / $hfs;
-				height: 77rem / $hfs;
-
-				background: url(../images/directions/06.png) no-repeat 0 0 / 100% 100%;
-			}			
 		}
 	}
 
