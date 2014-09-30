@@ -1,0 +1,71 @@
+.notifications {
+	margin: 0 0 80rem / $hfs;
+
+	.notifications-nav {
+		width: 100%;
+		height: 60rem / $hfs;
+		padding: 0 33rem / $hfs;
+
+		line-height: 60rem / $hfs;
+		color: $clr-white;
+
+		background: $clr-main-bg;
+
+		.icon {
+			margin: 0;
+			cursor: pointer;
+		}
+		.notifications-count {
+			margin: 0 .25rem;
+		}
+	}
+
+	.notifications-ul {
+		@extend .list-unstyled;
+
+		font-family: 'Open Sans', sans-serif;
+	}
+
+	.notifications-li {
+		display: none;
+		padding: 20rem / $hfs 33rem / $hfs 35rem / $hfs 33rem / $hfs;
+		border: 1px solid $clr-mid-gray;
+		border-top: none;
+
+		&.active {
+			display: block;
+		}
+
+		.notif-type {
+			margin: 0 0 16rem / $hfs;
+
+			font-size: 1em;
+			font-weight: 600;
+			line-height: (22.4em / 16);
+		}
+		.notif-cont {
+			margin: 0 0 28rem / $hfs;
+		}
+		.notif-date {
+			text-align: right;
+		}
+		.notif-delete {
+			transition: all .4s ease;
+			float: right;
+			margin: 80rem / $hfs 0 0;
+			border-bottom: 1px solid;
+
+			font-size: 14em / $hfs;
+			line-height: (16.8em / 14);
+			color: $clr-danger;
+
+			cursor: pointer;
+
+			&:hover {
+				border-color: transparent;
+			}
+		}
+
+	}
+
+}

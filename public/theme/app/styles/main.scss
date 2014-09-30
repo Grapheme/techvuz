@@ -100,6 +100,7 @@ textarea {
    ========================================================================== */
 
 @import 'static/fonts';
+@import 'static/grid';
 @import 'partials/colors';
 @import 'vars';
 @import 'partials/btns';
@@ -110,6 +111,10 @@ textarea {
 @import 'partials/select';
 @import 'partials/orders';
 @import 'partials/table';
+@import 'partials/count-add';
+@import 'partials/learning-ul';
+@import 'partials/progress-bar';
+@import 'partials/notifications';
 
 @import 'partials/header';
 @import 'partials/aside';

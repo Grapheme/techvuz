@@ -1,0 +1,20 @@
+.count-add {
+	margin: 0 0 2rem / $hfs;
+
+	.count-add-sign {
+		float: left;
+		margin: 0 4rem / $hfs 0 0;
+	}
+	.count-add-num {
+		float: right;
+		margin: 0 0 0 4rem / $hfs;
+	}
+	.count-add-dots {
+		overflow: hidden;
+		display: block;
+		height: 1em;
+
+		background: url(../images/dot-bg.png) repeat-x 0 bottom;
+	}
+
+}

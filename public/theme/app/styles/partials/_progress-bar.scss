@@ -1,0 +1,48 @@
+.progress-bar {
+
+	&.completed-1 {
+
+		.bar-part-1 {
+			background: $clr-gray;
+		}
+		
+	}
+
+	&.completed-2 {
+
+		.bar-part-1 {
+			background: $clr-gray;
+		}
+		.bar-part-2 {
+			background: $clr-gray;
+		}
+
+	}
+	
+	&.completed-3 {
+
+		.bar-part-1 {
+			background: $clr-gray;
+		}
+		.bar-part-2 {
+			background: $clr-gray;
+		}
+		.bar-part-3 {
+			background: $clr-gray;
+		}
+
+	}
+
+	.bar-part {
+		float: left;
+		width: 33.333%;
+		height: 100%;
+	}
+	.bar-part-1 {
+		border-right: 1px solid $clr-mid-gray;
+	}
+	.bar-part-2 {
+		border-right: 1px solid $clr-mid-gray;
+	}
+
+}

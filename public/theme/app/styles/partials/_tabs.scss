@@ -62,6 +62,26 @@
 
 	&.cabinet-tabs {
 
+		.icon {
+			display: inline-block;
+			vertical-align: inherit;
+
+			margin: 0 .5em 0 0;
+			line-height: .75;
+		}
+		.icon-zakaz {
+			font-size: 1em;
+		}
+		.icon-slysh {
+			font-size: 1.2em;
+		}
+        .icon-obych {
+			font-size: 1.1em;
+        }
+        .icon-yved {
+			font-size: .9em;
+        }
+
 		.ui-tabs-nav {
 			width: 100%;
 			height: auto;

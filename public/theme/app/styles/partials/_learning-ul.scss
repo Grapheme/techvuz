@@ -1,0 +1,28 @@
+.learning-ul {
+	@extend .list-unstyled;
+	font-weight: 400;
+
+	li {
+		margin: 0 0 40rem / $hfs;
+	}
+
+	.name {
+		margin: 0 0 14rem / $hfs;
+
+		a {
+			transition: all .4s ease;
+			text-decoration: none;
+			color: $clr-main-bg;
+			border-bottom: 1px solid transparent;
+
+			&:hover {
+				border-color: $clr-main-bg;
+			}
+		}
+
+	}
+	.status {
+		margin: 0 0 18rem / $hfs;
+	}
+
+}
