@@ -1,5 +1,7 @@
 .overlay {
+	opacity: 0;
 	position: fixed;
+	z-index: -1;
 	top: 0;
 	left: 0;
 	width: 100%;
@@ -7,4 +9,49 @@
 
 	background: $clr-main-bg;
 	background: rgba(0, 174, 228, .68);
+
+	&.active {
+		opacity: 1;
+		z-index: 1000;
+	}
+}
+.popup {
+	display: none;
+	position: absolute;
+	top: 25%;
+	left: 50%;
+	width: 524rem / $hfs;
+	margin-left: -262rem / $hfs;
+	padding: 50rem / $hfs 60rem / $hfs 0;
+
+	background: $clr-white;
+
+	&.active {
+		display: block;
+	}
+
+	&.popup-login {
+		height: 350rem / $hfs;
+	}
+	&.popup-restore {
+		height: 275rem / $hfs;
+	}
+
+	.popup-close {
+		position: absolute;
+		top: 20rem / $hfs;
+		right: 20rem / $hfs;
+		line-height: .75;
+		font-size: 2em;
+
+		cursor: pointer;
+	}
+	.popup-head {
+		margin: 0 0 30rem / $hfs;
+
+		font-size: 19em / $hfs;
+		line-height: (28em / 19);
+		color: #000;
+	}
+
 }
