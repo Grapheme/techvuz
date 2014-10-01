@@ -5,29 +5,22 @@ use Illuminate\Database\Migrations\Migration;
 
 class CreatePasswordRemindersTable extends Migration {
 
-	/**
-	 * Run the migrations.
-	 *
-	 * @return void
-	 */
-	public function up()
-	{
-		Schema::create('password_reminders', function(Blueprint $table)
-		{
-			$table->string('email')->index();
-			$table->string('token')->index();
-			$table->timestamp('created_at');
-		});
+	public function up(){
+
+        if (!Schema::hasTable('password_reminders')) {
+            Schema::create('password_reminders', function(Blueprint $table) {
+                $table->string('email')->index();
+                $table->string('token')->index();
+                $table->timestamp('created_at');
+            });
+            echo(' + ' . 'password_reminders' . PHP_EOL);
+        } else {
+            echo('...' . 'password_reminders' . PHP_EOL);
+        }
 	}
 
-	/**
-	 * Reverse the migrations.
-	 *
-	 * @return void
-	 */
-	public function down()
-	{
-		Schema::drop('password_reminders');
-	}
-
+    public function down(){
+        Schema::dropIfExists('password_reminders');
+        echo(' - ' . 'password_reminders' . PHP_EOL);
+    }
 }
