@@ -75,11 +75,6 @@ jQuery.fn.accordionPurch = function() {
 	});
 };
 
-//Модуль приложения
-var App = (function(){
-	
-})();
-
 //Модуль popup
 var Popup = (function(){
 	'use strict';
@@ -123,21 +118,21 @@ var Popup = (function(){
 
 })();
 
-var Chosen = (function(){
-
+(function(){
+	'use strict';
 	var $select = $('.chosen-select');
 
 	$select.chosen({
-        no_results_text: 'Ничего не найдено'
+		no_results_text: 'Ничего не найдено'
     });
 
     $select.each( function(){
-    	countPrice( $(this) );
+		countPrice( $(this) );
     });
 
     function countPrice(elem) {
 
-    	//Bounded description termin
+		//Bounded description termin
         var $boundDt = elem.parent().prev();
         //Price-container
         var $price = $boundDt.find('.purchase-price');
@@ -145,8 +140,6 @@ var Chosen = (function(){
         var $priceCount = $price.data('price');
         //Listener container
         var $listeners = $boundDt.find('.purchase-listeners');
-        //Listener container text
-        var $listenersCount = parseInt( $listeners.text() );
         //Length of active listeners
         var $listenersLength = elem.find('option:selected').length;
         
@@ -155,7 +148,7 @@ var Chosen = (function(){
         $listeners.text( $listenersLength );
         //2. Set price
         $price.text( ($listenersLength * $priceCount) ? ($listenersLength * $priceCount) + '.-' : $priceCount + '.-' );
-    };
+    }
 
     $('.chosen-select').on('change', function() {
 
