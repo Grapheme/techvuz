@@ -761,97 +761,83 @@
                             <div class="count-add-dots"></div>
                         </div>
                         <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 no-gutter">
-                            <div class="btn btn--bordered btn--blue pull-right js-btn-add-emp">
+                            <a href="{{ URL::route('page','catalog') }}" class="btn btn--bordered btn--blue pull-right js-btn-add-emp">
                                 <span class="icon icon-kurs_dob"></span> Купить курс
-                            </div>
+                            </a>
                         </div>
                     </div>
                 </div>
             </div>
-            <h3>Заказы</h3>
-            <ul class="orders-ul">
-                <li class="orders-li new-order">
-                    <div class="orders-li-head">
-                        <h4>
-                            Заказ №432
-                        </h4>
-                        <div class="orders-status">
-                            Ожидает оплаты
-                        </div>
-                    </div>
-                    <div class="orders-li-body">
-                        <div class="orders-price">
-                            <span class="start-price">0.-</span> | <span class="end-price">12 000.-</span>
-                        </div>
-                        <div class="orders-date">
-                            Заказ создан:
-                            <div>
-                                29.09.14 в 10:15
-                            </div>
-                        </div>
-                        <div class="orders-package">
-                            <div>В заказе <a href="#">12 курсов</a></div>
-                            <div>для <a href="#">4 слушателей</a></div>
-                        </div>
-                        <div class="orders-docs">
-                            Посмотреть <a href="#">документы</a>
-                        </div>
-                    </div>
-                <li class="orders-li active-order">
-                    <div class="orders-li-head">
-                        <h4>
-                            Заказ №432
-                        </h4>
-                        <div class="orders-status">
-                            Ожидает оплаты
-                        </div>
-                    </div>
-                    <div class="orders-li-body">
-                        <div class="orders-price">
-                            <span class="start-price">0.-</span> | <span class="end-price">12 000.-</span>
-                        </div>
-                        <div class="orders-date">
-                            Заказ создан:
-                            <div>
-                                29.09.14 в 10:15
-                            </div>
-                        </div>
-                        <div class="orders-package">
-                            <div>В заказе <a href="#">12 курсов</a></div>
-                            <div>для <a href="#">4 слушателей</a></div>
-                        </div>
-                        <div class="orders-docs">
-                            Посмотреть <a href="#">документы</a>
-                        </div>
-                    </div>
-                <li class="orders-li active-order">
-                    <div class="orders-li-head">
-                        <h4>
-                            Заказ №432
-                        </h4>
-                        <div class="orders-status">
-                            Ожидает оплаты
-                        </div>
-                    </div>
-                    <div class="orders-li-body">
-                        <div class="orders-price">
-                            <span class="start-price">0.-</span> | <span class="end-price">12 000.-</span>
-                        </div>
-                        <div class="orders-date">
-                            Заказ создан:
-                            <div>
-                                29.09.14 в 10:15
-                            </div>
-                        </div>
-                        <div class="orders-package">
-                            <div>В заказе <a href="#">12 курсов</a></div>
-                            <div>для <a href="#">4 слушателей</a></div>
-                        </div>
-                        <div class="orders-docs">
-                            Посмотреть <a href="#">документы</a>
-                        </div>
-                    </div>
-            </ul>
+            <table class="table sortable">
+                            <tr>
+                                <th class="sort sort--asc">Ф.И.О. <span class="sort--icon"></span> </th>
+                                <th class="sort sort--asc">Название курса <span class="sort--icon"></span> </th>
+                                <th class="sort sort--asc">Прогресс <span class="sort--icon"></span> </th>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <a href="#">Васильев Валерий Михайлович</a>
+                                </td>
+                                <td>
+                                    Не самое длинное название одного из курсов системы
+                                    <a class="more-courses" href="#">показать еще 2 курса</a>
+                                </td>
+                                <td class="td-status-bar">
+                                    <div class="progress-bar bar-1 completed-1 clearfix">
+                                        <div class="bar-part bar-part-1"></div>
+                                        <div class="bar-part bar-part-2"></div>
+                                        <div class="bar-part bar-part-3"></div>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <a href="#">Ильичева Анна Михайловна</a>
+                                </td>
+                                <td>
+                                    Это тоже не самое длинное название одного из курсов системы
+                                </td>
+                                <td class="td-status-bar">
+                                    <div class="progress-bar bar-2 completed-2 clearfix">
+                                        <div class="bar-part bar-part-1"></div>
+                                        <div class="bar-part bar-part-2"></div>
+                                        <div class="bar-part bar-part-3"></div>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <a href="#">Семенова Ирина Олеговна</a>
+                                </td>
+                                <td>
+                                    <span class="no-courses">Для этого сотрудника курсы не покупались</span>
+                                </td>
+                                <td class="td-status-bar">
+                                    <div class="progress-bar bar-0 completed-3 clearfix">
+                                        <div class="bar-part bar-part-1"></div>
+                                        <div class="bar-part bar-part-2"></div>
+                                        <div class="bar-part bar-part-3"></div>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <a href="#">Гвоздь Александр Бедросович</a>
+                                </td>
+                                <td>
+                                    <span class="no-courses">Для этого сотрудника курсы не покупались</span>
+                                </td>
+                                <td class="td-status-bar">
+                                    <div class="progress-bar bar-3 clearfix">
+                                        <div class="bar-part bar-part-1"></div>
+                                        <div class="bar-part bar-part-2"></div>
+                                        <div class="bar-part bar-part-3"></div>
+                                    </div>
+                                </td>
+                            </tr>
+                        </table>
+        </div>
+        <div id="tabs-3">
             <h3>Ход обучения</h3>
             <ul class="learning-ul container-fluid">
                 <li class="row">
@@ -935,6 +921,8 @@
                     </div>
                 </li>
             </ul>
+        </div>
+        <div id="tabs-4">
             <h3>Уведомления</h3>
             <div class="notifications">
                 <div class="notifications-nav">
@@ -1122,80 +1110,6 @@
                     </li>
                 </ul>
             </div>
-            <table class="table sortable">
-                <tr>
-                    <th class="sort sort--asc">Ф.И.О. <span class="sort--icon"></span> </th>
-                    <th class="sort sort--asc">Название курса <span class="sort--icon"></span> </th>
-                    <th class="sort sort--asc">Прогресс <span class="sort--icon"></span> </th>
-                </tr>
-                <tr>
-                    <td>
-                        <a href="#">Васильев Валерий Михайлович</a>
-                    </td>
-                    <td>
-                        Не самое длинное название одного из курсов системы
-                        <a class="more-courses" href="#">показать еще 2 курса</a>
-                    </td>
-                    <td class="td-status-bar">
-                        <div class="progress-bar bar-1 completed-1 clearfix">
-                            <div class="bar-part bar-part-1"></div>
-                            <div class="bar-part bar-part-2"></div>
-                            <div class="bar-part bar-part-3"></div>
-                        </div>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <a href="#">Ильичева Анна Михайловна</a>
-                    </td>
-                    <td>
-                        Это тоже не самое длинное название одного из курсов системы
-                    </td>
-                    <td class="td-status-bar">
-                        <div class="progress-bar bar-2 completed-2 clearfix">
-                            <div class="bar-part bar-part-1"></div>
-                            <div class="bar-part bar-part-2"></div>
-                            <div class="bar-part bar-part-3"></div>
-                        </div>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <a href="#">Семенова Ирина Олеговна</a>
-                    </td>
-                    <td>
-                        <span class="no-courses">Для этого сотрудника курсы не покупались</span>
-                    </td>
-                    <td class="td-status-bar">
-                        <div class="progress-bar bar-0 completed-3 clearfix">
-                            <div class="bar-part bar-part-1"></div>
-                            <div class="bar-part bar-part-2"></div>
-                            <div class="bar-part bar-part-3"></div>
-                        </div>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <a href="#">Гвоздь Александр Бедросович</a>
-                    </td>
-                    <td>
-                        <span class="no-courses">Для этого сотрудника курсы не покупались</span>
-                    </td>
-                    <td class="td-status-bar">
-                        <div class="progress-bar bar-3 clearfix">
-                            <div class="bar-part bar-part-1"></div>
-                            <div class="bar-part bar-part-2"></div>
-                            <div class="bar-part bar-part-3"></div>
-                        </div>
-                    </td>
-                </tr>
-            </table>
-        </div>
-        <div id="tabs-3">
-
-        </div>
-        <div id="tabs-4">
-
         </div>
     </div>
 </main>
