@@ -50,12 +50,13 @@ class BaseController extends Controller {
         return static::$group.".views." . ($postfix ? $postfix."." : "");
     }
 
-    public static function dashboard($prefix) {
+    public function dashboard($prefix) {
 
         $page_data = array();
         if (!empty($prefix)):
             if (class_exists('AccountGroupsController') && method_exists('AccountGroupsController',$prefix)):
-                $page_data = AccountGroupsController::$prefix();
+                $controller = new AccountGroupsController;
+                $page_data = $controller->$prefix();
             endif;
         endif;
 

@@ -19,9 +19,10 @@ Route::get('admin', array('before' => 'auth2login', 'uses' => 'BaseController@re
 /*
 | Роуты, доступные для всех авторизованных пользователей - dashboard
 */
-Route::group(array('before' => 'auth', 'prefix' => $prefix), function() use ($prefix){
+Route::group(array('before' => 'auth.status', 'prefix' => $prefix), function() use ($prefix){
     Route::get('/', function() use ($prefix){
-        BaseController::dashboard($prefix);
+        $controller = new BaseController;
+        $controller->dashboard($prefix);
     });
 });
 

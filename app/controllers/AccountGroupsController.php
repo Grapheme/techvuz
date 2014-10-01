@@ -6,9 +6,10 @@ class AccountGroupsController extends \BaseController {
 
     }
 
-    public static function organization(){
+    public function organization(){
 
         $page_data['active_status'] = self::validActiveUserAccount();
+
         return $page_data;
     }
 

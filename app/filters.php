@@ -12,26 +12,15 @@ App::error(function(Exception $exception, $code){
 
 	switch($code):
 		case 403: return 'Access denied!';
-        /*
-		case 404:
-			#if(Page::where('seo_url','404')->exists()):
-			#	return spage::show('404',array('message'=>$exception->getMessage()));
-			#else:
-			#	return View::make('error404', array('message'=>$exception->getMessage()), 404);
-			#endif;
-        */
 	endswitch;
 });
 
 App::missing(function ($exception) {
 
-    #Helper::classInfo('Route');
-    #Helper::dd(get_declared_classes());
     return Response::view('error404', array('message'=>$exception->getMessage()), 404);
 });
 
 Route::filter('auth', function(){
-
 	if(Auth::guest()):
 		return App::abort(404);
 	endif;
@@ -91,6 +80,15 @@ Route::filter('guest.register', function(){
     endif;
 });
 
+Route::filter('auth.status', function(){
+
+    if(Auth::guest()):
+        return Redirect::to('/');
+    elseif(Auth::check() && Auth::user()->active == 2 && Auth::user()->code_life < time()):
+        return View::make(Helper::layout('account-blocked'));
+    endif;
+});
+
 /*
 |--------------------------------------------------------------------------
 | CSRF Protection Filter
@@ -118,8 +116,6 @@ Route::filter('i18n_url', function(){
     $locales = Config::get('app.locales');
     if ( @!$locales[Request::segment(1)] ) {
         if (Request::path() != '/') {
-            ## Если не главная страница - подставим дефолтную локаль и сделаем редирект
-            #Helper::dd(Config::get('app.locale') . '/' . Request::path());
             Redirect(URL::to(Config::get('app.locale') . '/' . Request::path()));
         }
     }
