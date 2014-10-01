@@ -29,4 +29,8 @@ return array(
         'fail_token' => 'Неверный Token!',
     ),
 
+    'REPEATED_SENDING_LETTER' => array(
+        'success' => 'Письмо успешно отправлено.',
+    ),
+
 );

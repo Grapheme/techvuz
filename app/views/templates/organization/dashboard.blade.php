@@ -4,7 +4,12 @@
 <main class="cabinet">
     @if(@$page['active_status']['status'] === FALSE)
     <div class="banner banner--red">
+        @if(Session::get('message'))
+        <span>{{ Session::get('message') }}</span>
+        @else
         <span>{{ @$page['active_status']['message'] }}</span>
+        <div>Для повторной отправки активационных данных нажмите на <a href="{{ URL::route('activation-repeated-sending-letter') }}">ссылку</a>.</div>
+        @endif
     </div>
     @endif
     <h2>{{ User_organization::where('id',Auth::user()->id)->first()->title }}</h2>
