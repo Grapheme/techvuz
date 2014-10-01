@@ -21,12 +21,18 @@
         <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
     <![endif]-->
     <div class="main-wrapper">
-    @include(Helper::layout('header'))
-    @include(Helper::layout('aside'))
-    @yield('content', @$content)
+        @include(Helper::layout('header'))
+        @include(Helper::layout('aside'))
+        @yield('content', @$content)
+        <div class="overlay">
+            @yield('overlays')
+            @if(Auth::guest())
+                @include(Helper::layout('forms.login'))
+                @include(Helper::layout('forms.restore-password'))
+            @endif
+        </div>
     </div>
     @include(Helper::layout('scripts'))
-    @yield('overlays')
     @yield('scripts')
 </body>
 </html>

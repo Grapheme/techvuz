@@ -67,7 +67,7 @@ class AccountsRegisterController extends BaseController {
                     Config::set('temp.account_password', Str::random(12));
                     if($account = self::getRegisterULAccount(Input::all())):
                         Mail::send('emails.auth.signup',array('account'=>$account),function($message){
-                            $message->from('dah-sl@yandex.ru','ТехВуз.рф');
+                            $message->from(Config::get('mail.from.address'),Config::get('mail.from.name'));
                             $message->to(Input::get('email'))->subject('ТехВуз.рф - регистрация');
                         });
                         Auth::login(User::find($account->id));
@@ -101,7 +101,7 @@ class AccountsRegisterController extends BaseController {
                     Config::set('temp.account_password', Str::random(12));
                     if($account = self::getRegisterFLAccount(Input::all())):
                         Mail::send('emails.auth.signup',array('account'=>$account),function($message){
-                            $message->from('dah-sl@yandex.ru','ТехВуз.рф');
+                            $message->from(Config::get('mail.from.address'),Config::get('mail.from.name'));
                             $message->to(Input::get('email'))->subject('ТехВуз.рф - регистрация');
                         });
                         Auth::login(User::find($account->id));

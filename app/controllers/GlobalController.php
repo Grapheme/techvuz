@@ -11,16 +11,19 @@ class GlobalController extends \BaseController {
 
 		$json_request = array('status'=>FALSE,'responseText'=>'','responseErrorText'=>'','redirect'=>FALSE);
 		if(Request::ajax()):
-			$rules = array('login'=>'required','password'=>'required|alpha_num|between:6,50');
+			$rules = array('login'=>'required|email','password'=>'required');
 			$validator = Validator::make(Input::all(),$rules);
 			if($validator->passes()):
-				if(Auth::attempt(array('email'=>Input::get('login'),'password'=>Input::get('password'),'active'=>1),(bool)Input::get('remember'))):
-					if(Auth::check()):
-						#$json_request['redirect'] = link::auth(AuthAccount::getStartPage());
-                        #$redirect = link::auth();
-                        $redirect = AuthAccount::getGroupStartUrl();
-						$json_request['redirect'] = $redirect;
-						$json_request['status'] = TRUE;
+				if(Auth::attempt(array('email'=>Input::get('login'),'password'=>Input::get('password')),(bool)Input::get('remember'))):
+                    if(Auth::check()):
+                        if (Auth::user()->active >= 1):
+                            $redirect = AuthAccount::getGroupStartUrl();
+                            $json_request['redirect'] = $redirect;
+                            $json_request['status'] = TRUE;
+                        else:
+                            Auth::logout();
+                            $json_request['responseText'] = 'Аккаунт заблокирован';
+                        endif;
 					endif;
 				else:
 					$json_request['responseText'] = 'Неверное имя пользователя или пароль';

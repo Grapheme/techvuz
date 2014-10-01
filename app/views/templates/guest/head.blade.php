@@ -15,4 +15,5 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 {{ HTML::style(Config::get('site.theme_path').'/styles/vendor.css') }}
 {{ HTML::style(Config::get('site.theme_path').'/styles/main.css') }}
+{{ HTML::style('css/font-awesome.min.css') }}
 {{ HTML::script(Config::get('site.theme_path').'/scripts/vendor/modernizr.js') }}

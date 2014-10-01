@@ -32,6 +32,18 @@ Route::group(array('before' => 'guest', 'prefix' => ''), function(){
 	Route::post('signin', array('as' => 'signin', 'uses' => 'GlobalController@signin'));
 	Route::post('signup', array('as' => 'signup', 'uses' => 'GlobalController@signup'));
 	Route::get('activation', array('as' => 'activation', 'uses' => 'GlobalController@activation'));
+    Route::resource('restore-password','RemindersController',
+        array(
+            'only'=>array('index','store','show','update'),
+            'names' => array(
+                'index'  => 'password-reset.create',
+                'store'  => 'password-reset.store',
+                'show'   => 'password-reset.show',
+                'update' => 'password-reset.update',
+            )
+        )
+    );
+
 });
 
 /*
