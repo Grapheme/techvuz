@@ -2,6 +2,35 @@
 	outline: 1px solid $clr-mid-gray;
 	font-family: 'Open Sans', sans-serif;
 
+	&.purchase-table {
+
+		th {
+			text-align: center;
+			padding: 0 10rem / $hfs;
+
+			&:first-child {
+				padding: 0 0 0 34rem / $hfs;
+				text-align: left;
+			}
+		}
+
+		td {
+			text-align: center;
+			padding: 0 10rem / $hfs;
+
+			&:first-child {
+				padding: 14rem / $hfs 0 14rem / $hfs 34rem / $hfs;
+				text-align: left;
+			}
+		}
+		
+		.purchase-price {
+			font-size: 22em / $hfs;
+			font-weight: 600;
+		}
+
+	}
+
 	tr {
 		&:nth-child(2n+1) {
 			background: $clr-light-gray;

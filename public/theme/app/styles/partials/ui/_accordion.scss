@@ -154,3 +154,51 @@
 		}
 	}
 }
+//styles if form is active(user is in auth)
+
+.accordion-form {
+
+	.btn {
+		display: none;
+	}
+
+}
+
+.authenticated {
+
+	.btn {
+		margin: 38rem / $hfs 0;
+		display: block;
+	}
+
+	.accordion {
+
+		.accordion-body {
+
+			th {
+				position: relative;
+
+				&:first-child {
+					padding-left: 33rem / $hfs;
+				}
+			}
+
+			td {
+				position: relative;
+
+				&:first-child {
+					padding-left: 33rem / $hfs;
+				}
+			}
+
+			.checkbox-container {
+				position: absolute;
+				top: 20rem / $hfs;
+				left: 8rem / $hfs;
+			}
+
+		}
+
+	}
+
+}
