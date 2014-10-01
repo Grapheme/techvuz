@@ -58,6 +58,27 @@ jQuery.fn.notifications = function() {
 	element.trigger('set-count');
 
 };
+jQuery.fn.accordionPurch = function() {
+	'use strict';
+
+	var element = $(this);
+	var $mainCheckbox = element.find('.main-checkbox');
+
+	$mainCheckbox.on('change', function(){
+
+		if( $(this).prop('checked') ) {
+			$(this).parents('.accordion-body').find('.secondary-checkbox').prop('checked', true);
+		} else {
+			$(this).parents('.accordion-body').find('.secondary-checkbox').prop('checked', false);
+		}
+
+	});
+};
+
+//Модуль приложения
+var App = (function(){
+	
+})();
 
 //Модуль popup
 var Popup = (function(){
@@ -102,4 +123,46 @@ var Popup = (function(){
 
 })();
 
+var Chosen = (function(){
+
+	var $select = $('.chosen-select');
+
+	$select.chosen({
+        no_results_text: 'Ничего не найдено'
+    });
+
+    $select.each( function(){
+    	countPrice( $(this) );
+    });
+
+    function countPrice(elem) {
+
+    	//Bounded description termin
+        var $boundDt = elem.parent().prev();
+        //Price-container
+        var $price = $boundDt.find('.purchase-price');
+        //Price-container text
+        var $priceCount = $price.data('price');
+        //Listener container
+        var $listeners = $boundDt.find('.purchase-listeners');
+        //Listener container text
+        var $listenersCount = parseInt( $listeners.text() );
+        //Length of active listeners
+        var $listenersLength = elem.find('option:selected').length;
+        
+        //Function actions
+        //1. Fill active listeners
+        $listeners.text( $listenersLength );
+        //2. Set price
+        $price.text( ($listenersLength * $priceCount) ? ($listenersLength * $priceCount) + '.-' : $priceCount + '.-' );
+    };
+
+    $('.chosen-select').on('change', function() {
+
+        countPrice( $(this) );
+
+    });
+})();
+
 $('.notifications').notifications();
+$('.accordion').accordionPurch();
