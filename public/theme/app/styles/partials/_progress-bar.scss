@@ -1,5 +1,11 @@
 .progress-bar {
 
+	width: 99rem / $hfs;
+	height: 17rem / $hfs;
+	margin: 0 34rem / $hfs 0 23rem / $hfs;
+
+	border: 1px solid $clr-mid-gray;
+
 	&.completed-1 {
 
 		.bar-part-1 {

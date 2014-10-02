@@ -162,12 +162,20 @@
 		display: none;
 	}
 
+	.checkbox-container {
+		display: none;
+	}
+
 }
 
 .authenticated {
 
 	.btn {
 		margin: 38rem / $hfs 0;
+		display: block;
+	}
+
+	.checkbox-container {
 		display: block;
 	}
 
@@ -189,7 +197,7 @@
 				&:first-child {
 					padding-left: 33rem / $hfs;
 				}
-			}
+			} 
 
 			.checkbox-container {
 				position: absolute;

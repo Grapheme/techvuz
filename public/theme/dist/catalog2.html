@@ -4,14 +4,22 @@
         <meta charset="utf-8">
         <title>theme</title>
         <meta name="description" content="">
-        <meta name="viewport" content="width=device-width,initial-scale=1">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
         <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
 
+        <!-- build:css styles/vendor.css -->
+        <!-- bower:css -->
+        <!-- endbower -->
+        <!-- endbuild -->
 
-
+        <!-- build:css styles/main.css -->
+        <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400,600&subset=latin,cyrillic' rel='stylesheet' type='text/css'>
         <link rel="stylesheet" href="styles/main.css">
+        <!-- endbuild -->
 
-        <script src="scripts/vendor/modernizr.js"></script>
+        <!-- build:js scripts/vendor/modernizr.js -->
+        <script src="bower_components/modernizr/modernizr.js"></script>
+        <!-- endbuild -->
     </head>
     <body>
         <!--[if lt IE 10]>
@@ -129,7 +137,7 @@
                 <form class="authenticated accordion-form clearfix">
                     <div class="accordion">
                         <div class="accordion-header acc-build">
-                            <div class="accordion-img" style="background-image: url(images/directions/01.png)"></div>
+                            <div class="accordion-img" style="background-image: url(images/directions/01.png);"></div>
                             <h3>Строительство</h3>
                             <div class="acc-courses">
                                 8 курсов
@@ -203,7 +211,7 @@
                         </div>
 
                         <div class="accordion-header acc-proj">
-                            <div class="accordion-img" style="background-image: url(images/directions/02.png)"></div>
+                            <div class="accordion-img" style="background-image: url(images/directions/02.png);"></div>
                             <h3>Проектирование</h3>
                             <div class="acc-courses">
                                 43 курса
@@ -277,7 +285,7 @@
                         </div>
 
                         <div class="accordion-header acc-eng">
-                            <div class="accordion-img" style="background-image: url(images/directions/03.png)"></div>
+                            <div class="accordion-img" style="background-image: url(images/directions/03.png);"></div>
                             <h3>Инженерные изыскания</h3>
                             <div class="acc-courses">
                                 21 курс
@@ -351,7 +359,7 @@
                         </div>
 
                         <div class="accordion-header acc-fire">
-                            <div class="accordion-img" style="background-image: url(images/directions/04.png)"></div>
+                            <div class="accordion-img" style="background-image: url(images/directions/04.png);"></div>
                             <h3>Пожарная безопасность</h3>
                             <div class="acc-courses">
                                 8 курсов
@@ -425,7 +433,7 @@
                         </div>
 
                         <div class="accordion-header acc-prov">
-                            <div class="accordion-img" style="background-image: url(images/directions/05.png)"></div>
+                            <div class="accordion-img" style="background-image: url(images/directions/05.png);"></div>
                             <h3>Инженерное обеспечение</h3>
                             <div class="acc-courses">
                                 43 курса
@@ -499,7 +507,7 @@
                         </div>
 
                         <div class="accordion-header acc-constr">
-                            <div class="accordion-img" style="background-image: url(images/directions/06.png)"></div>
+                            <div class="accordion-img" style="background-image: url(images/directions/06.png);"></div>
                             <h3>Конструкции гражданских зданий</h3>
                             <div class="acc-courses">
                                 21 курс
@@ -614,7 +622,7 @@
                             </table>
                         </dt>
                         <dd class="purchase-course-dd">
-                            <select data-placeholder="Выберите пользователей" style="width:450px" multiple="multiple" class="chosen-select">
+                            <select data-placeholder="Выберите пользователей" style="width:450px;" multiple class="chosen-select">
                                 <option value="1">Романов Николай Павлович</option>
                                 <option value="2">Романова Мария Федоровна</option>
                                 <option value="3">Романова Анна Петровна</option>
@@ -654,7 +662,7 @@
                             </table>
                         </dt>
                         <dd class="purchase-course-dd">
-                            <select data-placeholder="Выберите пользователей" style="width:450px" multiple="multiple" class="chosen-select">
+                            <select data-placeholder="Выберите пользователей" style="width:450px;" multiple class="chosen-select">
                                 <option value="1">Романов Николай Павлович</option>
                                 <option value="2">Романова Мария Федоровна</option>
                                 <option value="3">Романова Анна Петровна</option>
@@ -694,7 +702,7 @@
                             </table>
                         </dt>
                         <dd class="purchase-course-dd">
-                            <select data-placeholder="Выберите пользователей" style="width:450px" multiple="multiple" class="chosen-select">
+                            <select data-placeholder="Выберите пользователей" style="width:450px;" multiple class="chosen-select">
                                 <option value="1">Романов Николай Павлович</option>
                                 <option value="2">Романова Мария Федоровна</option>
                                 <option value="3">Романова Анна Петровна</option>
@@ -732,8 +740,29 @@
             ga('create','UA-XXXXX-X');ga('send','pageview');
         </script>
 
-        <script src="scripts/vendor.js"></script>
+        <!-- build:js scripts/vendor.js -->
+        <!-- bower:js -->
+        <script src="bower_components/jquery/dist/jquery.js"></script>
+        <script src="bower_components/jquery-ui/ui/core.js"></script>
+        <script src="bower_components/jquery-ui/ui/widget.js"></script>
+        <script src="bower_components/jquery-ui/ui/accordion.js"></script>
+        <script src="bower_components/jquery-ui/ui/tabs.js"></script>
+        <script src="bower_components/jquery-ui/ui/menu.js"></script>
+        <script src="bower_components/jquery-ui/ui/position.js"></script>
+        <script src="bower_components/jquery-ui/ui/selectmenu.js"></script>
+        <script src="bower_components/chosen/chosen.jquery.min.js"></script>
+        <script>
+            $('.accordion').accordion({
+                header: '.accordion-header',
+                heightStyle: 'content',
+                collapsible: true
+            });
+        </script>
+        <!-- endbower -->
+        <!-- endbuild -->
 
+        <!-- build:js scripts/main.js -->
         <script src="scripts/main.js"></script>
+        <!-- endbuild -->
 </body>
 </html>

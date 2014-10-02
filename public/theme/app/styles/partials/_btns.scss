@@ -36,3 +36,13 @@
 		}
 	}
 }
+
+.icon--blue {
+	transition: all .4s ease;
+	color: $clr-main-bg;
+	cursor: pointer;
+
+	&:hover {
+		opacity: .7;
+	}
+}
