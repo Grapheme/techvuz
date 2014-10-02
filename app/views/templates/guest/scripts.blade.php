@@ -1,7 +1,9 @@
 @if(Config::get('app.debug'))
     {{ HTML::script('js/plugin/pace/pace.min.js')}}
 @endif
-{{ HTML::script(Config::get('site.theme_path').'/js/vendor.js') }}
+@if(File::exists(public_path('js/vendor.js')))
+{{ HTML::style(Config::get('site.theme_path').'/js/vendor.js') }}
+@endif
 {{ HTML::script(Config::get('site.theme_path').'/js/main.js') }}
 
 {{ HTML::script('js/vendor/jquery-form.min.js') }}
