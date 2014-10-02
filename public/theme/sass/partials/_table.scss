@@ -1,4 +1,4 @@
-.table {
+.tech-table {
 	outline: 1px solid $clr-mid-gray;
 	font-family: 'Open Sans', sans-serif;
 
@@ -28,6 +28,17 @@
 		.purchase-price {
 			font-size: 22em / $hfs;
 			font-weight: 600;
+		}
+
+		.finished-course {
+			td {
+				opacity: .5;
+			}
+		}
+
+		.self-status {
+			font-style: italic;
+			font-weight: bold;
 		}
 
 	}
