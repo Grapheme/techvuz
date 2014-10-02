@@ -15,6 +15,9 @@ class AccountsOperationController extends BaseController {
             Route::group(array('before' => 'guest.status', 'prefix' => Auth::user()->group()->pluck('name')), function() use ($class) {
                 Route::get('repeated-send-mail/activation', array('as'=>'activation-repeated-sending-letter', 'uses' => $class.'@ActivationRepeatedSendingLetter'));
             });
+            Route::group(array('before' => 'guest.status', 'prefix' => 'organization'), function() use ($class) {
+                Route::get('registration/listener', array('as' => 'signup-listener', 'uses' => $class . '@signupListener'));
+            });
         endif;
     }
 
@@ -67,6 +70,15 @@ class AccountsOperationController extends BaseController {
        return Redirect::to(AuthAccount::getGroupStartUrl())->with('message',Lang::get('interface.REPEATED_SENDING_LETTER.success'));
     }
 
+    public function signupListener(){
+
+        $page_data = array(
+            'page_title'=> Lang::get('seo.REGISTER_LISTENER.title'),
+            'page_description'=> Lang::get('seo.REGISTER_LISTENER.description'),
+            'page_keywords'=> Lang::get('seo.REGISTER_LISTENER.keywords'),
+        );
+        return View::make(Helper::acclayout('listener-registration'),$page_data);
+    }
     /**************************************************************************/
 
 }

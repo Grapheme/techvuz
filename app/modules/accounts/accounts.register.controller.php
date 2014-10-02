@@ -12,13 +12,16 @@ class AccountsRegisterController extends BaseController {
     public static function returnRoutes($prefix = null) {
         $class = __CLASS__;
         Route::group(array('before' => 'guest.register', 'prefix' => ''), function() use ($class) {
-            Route::post('registration/ul', array('as' => 'signup-ul', 'uses' => $class.'@signupUL'));
-            Route::post('registration/fl', array('as' => 'signup-fl', 'uses' => $class.'@signupFL'));
+            Route::post('registration/ul', array('before' => 'csrf', 'as' => 'signup-ul', 'uses' => $class . '@signupUL'));
+            Route::post('registration/fl', array('before' => 'csrf', 'as' => 'signup-fl', 'uses' => $class . '@signupFL'));
         });
         Route::group(array('before' => 'guest', 'prefix' => ''), function() use ($class) {
-            Route::get('registration/activation/{activate_code}', array('as' => 'signup-activation', 'uses' => $class.'@activation'));
+            Route::get('registration/activation/{activate_code}', array('as' => 'signup-activation', 'uses' => $class . '@activation'));
         });
 
+        Route::group(array('before' => 'guest.status', 'prefix' => 'organization'), function() use ($class) {
+            Route::post('registration/listener', array('before' => 'csrf', 'as' => 'insert-listener', 'uses' => $class . '@signupListener'));
+        });
     }
 
     public static function returnShortCodes() {
@@ -92,6 +95,40 @@ class AccountsRegisterController extends BaseController {
     }
 
     public function signupFL(){
+
+        $json_request = array('status'=>FALSE,'responseText'=>'','responseErrorText'=>'','redirect'=>FALSE);
+        if(Request::ajax()):
+            $validator = Validator::make(Input::all(),Individual::$rules);
+            if($validator->passes()):
+                if(User::where('email',Input::get('email'))->exists() == FALSE):
+                    Config::set('temp.account_password', Str::random(12));
+                    if($account = self::getRegisterFLAccount(Input::all())):
+                        Mail::send('emails.auth.signup',array('account'=>$account),function($message){
+                            $message->from(Config::get('mail.from.address'),Config::get('mail.from.name'));
+                            $message->to(Input::get('email'))->subject('ТехВуз.рф - регистрация');
+                        });
+                        Auth::login(User::find($account->id));
+                        if (Auth::check()):
+                            $json_request['responseText'] = Lang::get('interface.SIGNUP.success_login');
+                        else:
+                            $json_request['responseText'] = Lang::get('interface.SIGNUP.success');
+                        endif;
+                        $json_request['status'] = TRUE;
+                    endif;
+                else:
+                    $json_request['responseText'] = Lang::get('interface.SIGNUP.email_exist');
+                endif;
+            else:
+                $json_request['responseText'] = Lang::get('interface.SIGNUP.fail');
+                $json_request['responseErrorText'] = $validator->messages()->all();
+            endif;
+        else:
+            return App::abort(404);
+        endif;
+        return Response::json($json_request,200);
+    }
+
+    public function signupListener(){
 
         $json_request = array('status'=>FALSE,'responseText'=>'','responseErrorText'=>'','redirect'=>FALSE);
         if(Request::ajax()):

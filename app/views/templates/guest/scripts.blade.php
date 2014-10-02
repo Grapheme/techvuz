@@ -1,10 +1,12 @@
 @if(Config::get('app.debug'))
     {{ HTML::script('js/plugin/pace/pace.min.js')}}
 @endif
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+<script>window.jQuery || document.write('<script src="js/vendor/jquery-1.10.2.min.js"><\/script>')</script>
 @if(File::exists(public_path('js/vendor.js')))
 {{ HTML::style(Config::get('site.theme_path').'/js/vendor.js') }}
 @endif
-{{ HTML::script(Config::get('site.theme_path').'/js/main.js') }}
+{{ HTML::script(Config::get('site.theme_path').'/js/index.js') }}
 
 {{ HTML::script('js/vendor/jquery-form.min.js') }}
 {{ HTML::script('js/vendor/jquery.validate.min.js') }}

@@ -14,8 +14,8 @@ class AccountsOrderingController extends BaseController {
         $class = __CLASS__;
         if (isOrganizationORIndividual()):
             Route::group(array('before' => 'guest.status', 'prefix' => Auth::user()->group()->pluck('name')), function() use ($class) {
-                Route::post('ordering/courses-store', array('before'=>'csrf','as'=>'ordering-courses-store', 'uses' => $class.'@OrderingCoursesStore'));
-                Route::get('ordering/select-listeners', array('as'=>'ordering-select-listeners', 'uses' => $class.'@OrderingSelectListeners'));
+                Route::post('ordering/courses-store', array('before' => 'csrf', 'as' => 'ordering-courses-store', 'uses' => $class . '@OrderingCoursesStore'));
+                Route::get('ordering/select-listeners', array('as' => 'ordering-select-listeners', 'uses' => $class . '@OrderingSelectListeners'));
             });
         endif;
     }
@@ -59,8 +59,7 @@ class AccountsOrderingController extends BaseController {
     public function OrderingCoursesStore(){
 
         $validator = Validator::make(Input::all(),array('courses'=>'required'));
-        if($validator->passes()):
-            Session::set('ordering',json_encode(Input::only('courses')));
+        if($validator->passes() && hasCookieData('ordering')):
             return Redirect::route('ordering-select-listeners');
         else:
            return Redirect::route('page','catalog')->with('message','Не выбраны курсы для покупки');
@@ -69,13 +68,15 @@ class AccountsOrderingController extends BaseController {
 
     public function OrderingSelectListeners(){
 
-        if (Session::get('ordering') === FALSE):
+        if (!hasCookieData('ordering')):
             return Redirect::route('page','catalog')->with('message','Не выбраны курсы для покупки');
         else:
             $page_data = array(
-
+                'page_title'=> Lang::get('seo.ORDERING.select_listeners.title'),
+                'page_description'=> Lang::get('seo.ORDERING.select_listeners.description'),
+                'page_keywords'=> Lang::get('seo.ORDERING.select_listeners.keywords'),
             );
-            echo View::make(Helper::acclayout('ordering.courses-selected'),array('page'=>$page_data));
+            return View::make(Helper::acclayout('ordering.courses-selected'),$page_data);
         endif;
     }
 }

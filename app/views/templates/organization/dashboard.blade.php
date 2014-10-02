@@ -1,5 +1,6 @@
 @extends(Helper::acclayout())
-@section('style') @stop
+@section('style')
+@stop
 @section('content')
 <main class="cabinet">
     @if(@$page['active_status']['status'] === FALSE)
@@ -739,9 +740,9 @@
                             <div class="count-add-dots"></div>
                         </div>
                         <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 no-gutter">
-                            <div class="btn btn--bordered btn--blue pull-right js-btn-add-emp">
+                            <a href="{{ URL::route('signup-listener') }}" class="btn btn--bordered btn--blue pull-right js-btn-add-emp">
                                 <span class="icon icon-slysh_dob"></span> Добавить
-                            </div>
+                            </a>
                         </div>
                     </div>
                 </div>

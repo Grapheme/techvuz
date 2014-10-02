@@ -36,3 +36,21 @@ function isOrganizationORIndividual(){
     endif;
     return FALSE;
 }
+
+function hasCookieData($name = null){
+    if (!is_null($name)):
+        if (isset($_COOKIE[$name]) && !empty($_COOKIE[$name])):
+            return TRUE;
+        endif;
+    endif;
+    return FALSE;
+}
+
+function getJsonCookieData($name = null){
+    if (!is_null($name)):
+        if (isset($_COOKIE[$name]) && !empty($_COOKIE[$name])):
+            return json_decode($_COOKIE[$name],TRUE);
+        endif;
+    endif;
+    return array();
+}
