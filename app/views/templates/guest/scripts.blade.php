@@ -1,15 +1,15 @@
 @if(Config::get('app.debug'))
     {{ HTML::script('js/plugin/pace/pace.min.js')}}
 @endif
-{{ HTML::script(Config::get('site.theme_path').'/scripts/vendor.js') }}
-{{ HTML::script(Config::get('site.theme_path').'/scripts/main.js') }}
+{{ HTML::script(Config::get('site.theme_path').'/js/vendor.js') }}
+{{ HTML::script(Config::get('site.theme_path').'/js/main.js') }}
 
 {{ HTML::script('js/vendor/jquery-form.min.js') }}
 {{ HTML::script('js/vendor/jquery.validate.min.js') }}
 {{ HTML::script('js/vendor/jquery.mask.js') }}
 {{ HTML::script('js/system/main.js') }}
 @if(Auth::guest())
-{{ HTML::script('theme/scripts/guests.js') }}
+{{ HTML::script('theme/js/guests.js') }}
 <script type="text/javascript">guestFormValidation();</script>
 @endif
 <script>

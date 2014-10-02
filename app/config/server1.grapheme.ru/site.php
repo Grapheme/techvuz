@@ -1,6 +1,3 @@
 <?php
 
-return array(
-
-    'theme_path' => 'theme/dist',
-);
+return array();
