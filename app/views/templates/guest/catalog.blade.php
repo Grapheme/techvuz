@@ -23,7 +23,7 @@
         <span>В августе месяце скидка 30%<br>на курсы по охране труда.</span>
     </div>
     @if(@$valid_order)
-        {{ Form::open() }}
+        {{ Form::open(array('route'=>'signin','role'=>'form','class'=>'auth-form registration-form','id'=>'signin-form')) }}
     @else
     <form class="accordion-form clearfix">
     @endif
