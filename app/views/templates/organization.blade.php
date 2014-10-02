@@ -1,4 +1,8 @@
-
+@if (isset($page) && !empty($page) && is_array($page))
+    @section('title'){{ $page['title'] ? $page['title'] : 'Кабинет компании' }}@stop
+    @section('description'){{ $page['description'] ? $page['description'] : '' }}@stop
+    @section('keywords'){{ $page['keywords'] ? $page['keywords'] : '' }}@stop
+@endif
 <!doctype html>
 <html class="no-js">
     <head>
