@@ -1,5 +1,5 @@
 @if(Config::get('app.use_scripts_local'))
-	{{HTML::script('js/vendor/jquery.min.js');}}
+	{{HTML::script('js/vendor/jquery-1.10.2.min.js');}}
 	{{HTML::script('js/vendor/jquery-ui.min.js');}}
 @else
 	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
