@@ -2,16 +2,7 @@
 @section('style')
 @stop
 @section('content')
-@if(Auth::check())
-    @if(in_array(Auth::user()->group()->pluck('name'),array('admin','moderator')))
-        <?php $valid_order = FALSE;?>
-    @else
-        <?php $valid_order = TRUE;?>
-    @endif
-@else
-    <?php $valid_order = FALSE;?>
-@endif
-<main class="registration">
+<main class="catalog">
     {{ $page->block('top_h2') }}
     <div class="print-link">
         <a href="#">Распечатать каталог</a> <span class="icon icon-print"></span>
@@ -22,8 +13,13 @@
     <div class="banner banner--red">
         <span>В августе месяце скидка 30%<br>на курсы по охране труда.</span>
     </div>
-    @if(@$valid_order)
-        {{ Form::open(array('route'=>'signin','role'=>'form','class'=>'auth-form registration-form','id'=>'signin-form')) }}
+    @if(Session::get('message'))
+    <div class="banner banner--red">
+        <span>{{ Session::get('message') }}</span>
+    </div>
+    @endif
+    @if(isOrganizationORIndividual())
+        {{ Form::open(array('route'=>'ordering-courses-store','class'=>'authenticated accordion-form clearfix')) }}
     @else
     <form class="accordion-form clearfix">
     @endif
@@ -44,7 +40,7 @@
                     <tr>
                         <th>
                             <div class="checkbox-container">
-                                <input type="checkbox" class="main-checkbox">
+                                <input type="checkbox" autocomplete="off" class="main-checkbox">
                             </div>
                             Название
                         </th>
@@ -56,7 +52,7 @@
                     <tr>
                         <td>
                             <div class="checkbox-container">
-                                <input type="checkbox" value="01" class="secondary-checkbox">
+                                <input type="checkbox" name="courses[]" autocomplete="off" value="{{ $course->id }}" class="secondary-checkbox">
                             </div>
                             {{ $course->title }}
                         </td>
@@ -75,8 +71,9 @@
             </div>
             @endif
         @endforeach
-        <button class="btn btn--bordered btn--blue pull-right">Далее</button>
-    @if(@$valid_order)
+        </div>
+        <button type="submit" class="btn btn--bordered btn--blue pull-right">Далее</button>
+    @if(isOrganizationORIndividual())
         {{ Form::close() }}
     @else
     </form>

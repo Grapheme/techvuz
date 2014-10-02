@@ -100,7 +100,6 @@ Route::filter('csrf', function(){
 		throw new Illuminate\Session\TokenMismatchException;
 	endif;
 });
-
 /*
 |--------------------------------------------------------------------------
 | Internationalization-in-url filter (I18N)

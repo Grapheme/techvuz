@@ -24,3 +24,15 @@ function modifyKeys($collection, $key = 'slug',$unset = false) {
     endforeach;
     return $array;
 }
+
+/* ********************************************* */
+
+function isOrganizationORIndividual(){
+
+    if (Auth::check()):
+        if(in_array(Auth::user()->group()->pluck('name'),array('organization','individual'))):
+            return TRUE;
+        endif;
+    endif;
+    return FALSE;
+}

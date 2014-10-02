@@ -1,4 +1,4 @@
-@extends('templates.organization')
+@extends(Helper::acclayout())
 @section('style') @stop
 @section('content')
 <main class="cabinet">
@@ -769,73 +769,73 @@
                 </div>
             </div>
             <table class="table sortable">
-                            <tr>
-                                <th class="sort sort--asc">Ф.И.О. <span class="sort--icon"></span> </th>
-                                <th class="sort sort--asc">Название курса <span class="sort--icon"></span> </th>
-                                <th class="sort sort--asc">Прогресс <span class="sort--icon"></span> </th>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <a href="#">Васильев Валерий Михайлович</a>
-                                </td>
-                                <td>
-                                    Не самое длинное название одного из курсов системы
-                                    <a class="more-courses" href="#">показать еще 2 курса</a>
-                                </td>
-                                <td class="td-status-bar">
-                                    <div class="progress-bar bar-1 completed-1 clearfix">
-                                        <div class="bar-part bar-part-1"></div>
-                                        <div class="bar-part bar-part-2"></div>
-                                        <div class="bar-part bar-part-3"></div>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <a href="#">Ильичева Анна Михайловна</a>
-                                </td>
-                                <td>
-                                    Это тоже не самое длинное название одного из курсов системы
-                                </td>
-                                <td class="td-status-bar">
-                                    <div class="progress-bar bar-2 completed-2 clearfix">
-                                        <div class="bar-part bar-part-1"></div>
-                                        <div class="bar-part bar-part-2"></div>
-                                        <div class="bar-part bar-part-3"></div>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <a href="#">Семенова Ирина Олеговна</a>
-                                </td>
-                                <td>
-                                    <span class="no-courses">Для этого сотрудника курсы не покупались</span>
-                                </td>
-                                <td class="td-status-bar">
-                                    <div class="progress-bar bar-0 completed-3 clearfix">
-                                        <div class="bar-part bar-part-1"></div>
-                                        <div class="bar-part bar-part-2"></div>
-                                        <div class="bar-part bar-part-3"></div>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <a href="#">Гвоздь Александр Бедросович</a>
-                                </td>
-                                <td>
-                                    <span class="no-courses">Для этого сотрудника курсы не покупались</span>
-                                </td>
-                                <td class="td-status-bar">
-                                    <div class="progress-bar bar-3 clearfix">
-                                        <div class="bar-part bar-part-1"></div>
-                                        <div class="bar-part bar-part-2"></div>
-                                        <div class="bar-part bar-part-3"></div>
-                                    </div>
-                                </td>
-                            </tr>
-                        </table>
+                <tr>
+                      <th class="sort sort--asc">Ф.И.О. <span class="sort--icon"></span> </th>
+                      <th class="sort sort--asc">Название курса <span class="sort--icon"></span> </th>
+                      <th class="sort sort--asc">Прогресс <span class="sort--icon"></span> </th>
+                  </tr>
+                <tr>
+                  <td>
+                      <a href="#">Васильев Валерий Михайлович</a>
+                  </td>
+                  <td>
+                      Не самое длинное название одного из курсов системы
+                      <a class="more-courses" href="#">показать еще 2 курса</a>
+                  </td>
+                  <td class="td-status-bar">
+                      <div class="progress-bar bar-1 completed-1 clearfix">
+                          <div class="bar-part bar-part-1"></div>
+                          <div class="bar-part bar-part-2"></div>
+                          <div class="bar-part bar-part-3"></div>
+                      </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                      <a href="#">Ильичева Анна Михайловна</a>
+                  </td>
+                  <td>
+                      Это тоже не самое длинное название одного из курсов системы
+                  </td>
+                  <td class="td-status-bar">
+                      <div class="progress-bar bar-2 completed-2 clearfix">
+                          <div class="bar-part bar-part-1"></div>
+                          <div class="bar-part bar-part-2"></div>
+                          <div class="bar-part bar-part-3"></div>
+                      </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                      <a href="#">Семенова Ирина Олеговна</a>
+                  </td>
+                  <td>
+                      <span class="no-courses">Для этого сотрудника курсы не покупались</span>
+                  </td>
+                  <td class="td-status-bar">
+                      <div class="progress-bar bar-0 completed-3 clearfix">
+                          <div class="bar-part bar-part-1"></div>
+                          <div class="bar-part bar-part-2"></div>
+                          <div class="bar-part bar-part-3"></div>
+                      </div>
+                  </td>
+                </tr>
+                <tr>
+                    <td>
+                      <a href="#">Гвоздь Александр Бедросович</a>
+                    </td>
+                    <td>
+                      <span class="no-courses">Для этого сотрудника курсы не покупались</span>
+                    </td>
+                    <td class="td-status-bar">
+                        <div class="progress-bar bar-3 clearfix">
+                          <div class="bar-part bar-part-1"></div>
+                          <div class="bar-part bar-part-2"></div>
+                          <div class="bar-part bar-part-3"></div>
+                        </div>
+                    </td>
+                </tr>
+            </table>
         </div>
         <div id="tabs-3">
             <h3>Ход обучения</h3>
