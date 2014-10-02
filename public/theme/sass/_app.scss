@@ -25,6 +25,7 @@ main {
 	background: $clr-white;
 
 	h2 {
+		&.padding-h,
 		&:first-child {
 			padding: 76rem / $hfs 0 16rem / $hfs;
 			font-size: 40em / $hfs;
@@ -73,6 +74,12 @@ main {
 
 		.desc {
 			margin: 0 0 18rem / $hfs;
+		}
+
+		.btn {
+			&:first-child {
+				margin-top: 76rem / $hfs;
+			}
 		}
 
 	}

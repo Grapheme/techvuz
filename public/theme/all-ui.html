@@ -132,7 +132,7 @@
 
                     </form>
 
-                    <table class="table sortable">
+                    <table class="tech-table sortable">
                         <tr>
                             <th class="sort sort--asc">Ф.И.О. <span class="sort--icon"></span> </th>
                             <th class="sort sort--asc">Название курса <span class="sort--icon"></span> </th>
@@ -147,7 +147,7 @@
                                 <a class="more-courses" href="#">показать еще 2 курса</a>
                             </td>
                             <td class="td-status-bar">
-                                <div class="progress-bar bar-1 completed-1 clearfix">
+                                <div class="ui-progress-bar bar-1 completed-1 clearfix">
                                     <div class="bar-part bar-part-1"></div>
                                     <div class="bar-part bar-part-2"></div>
                                     <div class="bar-part bar-part-3"></div>
@@ -162,7 +162,7 @@
                                 Это тоже не самое длинное название одного из курсов системы
                             </td>
                             <td class="td-status-bar">
-                                <div class="progress-bar bar-2 completed-2 clearfix">
+                                <div class="ui-progress-bar bar-2 completed-2 clearfix">
                                     <div class="bar-part bar-part-1"></div>
                                     <div class="bar-part bar-part-2"></div>
                                     <div class="bar-part bar-part-3"></div>
@@ -177,7 +177,7 @@
                                 <span class="no-courses">Для этого сотрудника курсы не покупались</span>
                             </td>
                             <td class="td-status-bar">
-                                <div class="progress-bar bar-0 completed-3 clearfix">
+                                <div class="ui-progress-bar bar-0 completed-3 clearfix">
                                     <div class="bar-part bar-part-1"></div>
                                     <div class="bar-part bar-part-2"></div>
                                     <div class="bar-part bar-part-3"></div>
@@ -192,7 +192,7 @@
                                 <span class="no-courses">Для этого сотрудника курсы не покупались</span>
                             </td>
                             <td class="td-status-bar">
-                                <div class="progress-bar bar-3 clearfix">
+                                <div class="ui-progress-bar bar-3 clearfix">
                                     <div class="bar-part bar-part-1"></div>
                                     <div class="bar-part bar-part-2"></div>
                                     <div class="bar-part bar-part-3"></div>
@@ -216,7 +216,7 @@
                     </div>
                     
 
-                    <table class="table sortable purchase-table">
+                    <table class="tech-table sortable purchase-table">
                         <tr>
                             <th class="sort sort--asc">Название курса <span class="sort--icon"></span> </th>
                             <th class="sort sort--asc">Статус <span class="sort--icon"></span> </th>
@@ -233,7 +233,7 @@
                                 Обучается
                             </td>
                             <td>
-                                <div class="progress-bar bar-1 completed-1 clearfix">
+                                <div class="ui-progress-bar bar-1 completed-1 clearfix">
                                     <div class="bar-part bar-part-1"></div>
                                     <div class="bar-part bar-part-2"></div>
                                     <div class="bar-part bar-part-3"></div>
@@ -262,7 +262,7 @@
                                 Завершено
                             </td>
                             <td>
-                                <div class="progress-bar bar-1 completed-1 clearfix">
+                                <div class="ui-progress-bar bar-1 completed-1 clearfix">
                                     <div class="bar-part bar-part-1"></div>
                                     <div class="bar-part bar-part-2"></div>
                                     <div class="bar-part bar-part-3"></div>
@@ -291,7 +291,7 @@
                                 Завершено
                             </td>
                             <td>
-                                <div class="progress-bar bar-1 completed-1 clearfix">
+                                <div class="ui-progress-bar bar-1 completed-1 clearfix">
                                     <div class="bar-part bar-part-1"></div>
                                     <div class="bar-part bar-part-2"></div>
                                     <div class="bar-part bar-part-3"></div>
@@ -316,19 +316,103 @@
 
                 </div>
 
-                <div class="employer-anket">
+                <div class="employer-anket margin-bottom-40">
 
-                    <h3>Анкета сотрудника</h3>
+                    <h3 class="margin-bottom-30">Анкета сотрудника</h3>
 
-                    <div class="row">
-                        <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8">
-                            
+                    <div class="row margin-bottom-10">
+                        <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+                            <span class="font-sm">Ф.И.О.</span>
                         </div>
-                        <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
-
+                        <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9">
+                            Авазаров Михаил Юрьевич
+                        </div>
+                    </div>
+                    <div class="row margin-bottom-10">
+                        <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+                            <span class="font-sm">Должность</span>
+                        </div>
+                        <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9">
+                            Старший механик
+                        </div>
+                    </div>
+                    <div class="row margin-bottom-10">
+                        <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+                            <span class="font-sm">Email</span>
+                        </div>
+                        <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9">
+                            avazarov@company.com
+                        </div>
+                    </div>
+                    <div class="row margin-bottom-10">
+                        <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+                            <span class="font-sm">Адрес</span>
+                        </div>
+                        <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9">
+                            г. Батайск, ул. Ленина, 35, офис 120
+                        </div>
+                    </div>
+                    <div class="row margin-bottom-10">
+                        <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+                            <span class="font-sm">Телефон</span>
+                        </div>
+                        <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9">
+                            +7 (910) 432 - 10 - 45
+                        </div>
+                    </div>
+                    <div class="row margin-bottom-10">
+                        <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+                            <span class="font-sm">Образование</span>
+                        </div>
+                        <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9">
+                            Высшее профессиональное
+                        </div>
+                    </div>
+                    <div class="row margin-bottom-10">
+                        <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+                            <span class="font-sm">Место работы</span>
+                        </div>
+                        <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9">
+                            ГОУ ВПО "БТИ-РГУ"
+                        </div>
+                    </div>
+                    <div class="row margin-bottom-10">
+                        <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+                            <span class="font-sm">Год обучения</span>
+                        </div>
+                        <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9">
+                            2010
+                        </div>
+                    </div>
+                    <div class="row margin-bottom-10">
+                        <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+                            <span class="font-sm">Специальность</span>
+                        </div>
+                        <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9">
+                            Специалист по ликвидации безработицы
                         </div>
                     </div>
 
+                </div>
+
+                <div class="edit-employee-anket">
+                    <h3 class="margin-bottom-30">Редактировать анкету</h3>
+                    <form class="registration-form">
+                        <div class="form-element">
+                            <label>Наименование учреждения</label><input type="text">
+                        </div>
+                        <div class="form-element">
+                            <label>Ф.И.О. ответственного лица</label><input type="text">
+                        </div>
+                        <div class="form-element">
+                            <label>Должность</label><input type="text">
+                        </div>
+                        <div class="form-element">
+                            <button class="btn btn--bordered btn--blue">
+                                Сохранить
+                            </button>
+                        </div>
+                    </form>
                 </div>
 
             </main>
