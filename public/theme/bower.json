@@ -1,8 +1,0 @@
-{
-  "name": "newtech",
-  "private": true,
-  "dependencies": {
-    "modernizr": "~2.8.2",
-    "jquery-ui": "~1.11.1"
-  }
-}
