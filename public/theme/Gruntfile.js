@@ -5,6 +5,7 @@ module.exports = function(grunt) {
         // the files to concatenate
         src: [
           'js/vendor/jquery-ui.min.js',
+          'js/vendor/jquery.cookie.js',
           'js/main.js',
           'js/plugins.js'
         ],

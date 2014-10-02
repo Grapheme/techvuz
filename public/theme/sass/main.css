@@ -8237,6 +8237,10 @@ main.catalog .btn:first-child {
   margin-top: 4.75rem;
 }
 
+.container-fluid {
+  overflow: hidden;
+}
+
 section {
   margin: 0 0 4.375rem;
 }
