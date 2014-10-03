@@ -5,7 +5,7 @@ var Courses = (function(){
 
 	//Загружаем чекнутые боксы on document ready
 	$( function(){
-		var activeOrders = $.cookie('activeOrders').split(',');
+		var activeOrders = $.cookie('activeOrders') ? $.cookie('activeOrders').split(',') : '';
 
 		//Сбрасываем чекбоксы, которые запомнил браузер
 		$secondaryCheckbox.prop('checked', false);

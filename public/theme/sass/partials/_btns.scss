@@ -47,3 +47,12 @@
 		opacity: .7;
 	}
 }
+.icon--danger {
+	transition: all .4s ease;
+	color: $clr-danger;
+	cursor: pointer;
+
+	&:hover {
+		opacity: .7;
+	}
+}
