@@ -118,6 +118,10 @@
 		padding: 0 0 0 20rem / $hfs;
 	}
 
+	.logo-sign {
+		cursor: default;
+	}
+
 	&:before {
 		content: '';
 		box-sizing: border-box;

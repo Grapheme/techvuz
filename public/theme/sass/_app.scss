@@ -9,6 +9,15 @@ h1, h2, h3 {
 
 a {
 	color: inherit;
+
+	&:hover {
+		outline: none;
+		color: inherit;
+	}
+	&:focus {
+		outline: none;
+		color: inherit;		
+	}
 }
 
 .main-wrapper {

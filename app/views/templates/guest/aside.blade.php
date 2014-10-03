@@ -1,6 +1,6 @@
 <aside class="main-aside">
     @if (Request::is('/'))
-    <h1 class="logo">Техвуз.рф</h1>
+    <h1 class="logo"><div class="logo-sign">Техвуз.рф</div></h1>
     @else
     <div class="logo"><a class="logo-link" href="{{ URL::route('mainpage') }}">Техвуз.рф</a></div>
     @endif
