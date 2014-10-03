@@ -6927,6 +6927,7 @@ a[href^="tel"] {
   line-height: 2.4375rem;
   color: white;
   text-transform: uppercase;
+  border-radius: 0 !important;
   outline: none;
   text-decoration: none;
   cursor: pointer;

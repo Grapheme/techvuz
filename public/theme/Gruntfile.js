@@ -6,8 +6,10 @@ module.exports = function(grunt) {
         src: [
           'js/vendor/jquery-ui.min.js',
           'js/vendor/jquery.cookie.js',
+          'js/vendor/jquery.chosen.js',
           'js/main.js',
-          'js/plugins.js'
+          'js/plugins.js',
+          'js/vendor/app/courses.js'
         ],
         // the location of the resulting JS file
         dest: 'js/index.js'
