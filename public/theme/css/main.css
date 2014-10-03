@@ -7057,6 +7057,16 @@ a[href^="tel"] {
   opacity: .7;
 }
 
+.icon--danger {
+  -webkit-transition: all .4s ease;
+          transition: all .4s ease;
+  color: #c11c18;
+  cursor: pointer;
+}
+.icon--danger:hover {
+  opacity: .7;
+}
+
 .banner {
   position: relative;
   display: table;

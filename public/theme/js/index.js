@@ -244,6 +244,17 @@ var Popup = (function(){
 (function(){
 	'use strict';
 	var $select = $('.chosen-select');
+	//Кнопка конечной покупки курса
+	var $finishBtn = $('.js-coursebuy-finish');
+
+	//Получим из куков массив курсов
+	var $coursesArr = $.cookie('activeOrders').split(',');
+
+	//Собираем объект курсы - слушатели
+	var $courseObj = {};
+	for( var i=0 ; i < $coursesArr.length ; i++ ) {
+		$courseObj[ $coursesArr[i] ] = '';
+	}
 
 	$select.chosen({
 		no_results_text: 'Ничего не найдено'
@@ -252,6 +263,52 @@ var Popup = (function(){
     $select.each( function(){
 		countPrice( $(this) );
     });
+
+    //Также нам нужна функция, которая восстановит данные о курсах и пользователях при загрузке
+    $( function(){
+		//Достанем JSON из функции
+		var orderingObj = $.cookie('ordering') ? JSON.parse( $.cookie('ordering') ) : '';
+		var $workTable = '';
+		var $workSelect = '';
+
+		//Сбросим все селекты
+		$select.find('option:selected').prop('selected', false);
+
+		//И заполним их данными этого объекта
+		for (var key in orderingObj) {
+
+			//Находим текущую таблицу
+			$workTable = $('.tech-table').filter('[data-courseid="' + key + '"]');
+
+			//И заполняем соседние селекты
+			for (var i=0 ; i < orderingObj[key].length ; i++ ){
+				
+				$workSelect = $workTable.parent().next().find('.chosen-select');
+				$workSelect.find('option[value="' + orderingObj[key][i] + '"]').prop('selected', true);
+			}
+
+		}
+
+		console.log( orderingObj );
+    });
+
+    function makeCoursesJson(elem) {
+		//Отправляем данные в объект
+		//Получим выбранные идентификаторы слушателей
+		var $listeners = elem.find('option:selected');
+		var $listenersArr = [];
+		$listeners.each( function(){
+			$listenersArr.push( $(this).val() );
+		});
+		//Получим ключ курса
+		var $parentIndex = elem.parent().prev().find('.tech-table').data('courseid');
+
+		//Заполним объект так: ключ --> массив пользователей
+		$courseObj[ $parentIndex ] = $listenersArr;
+
+		$.cookie('ordering', JSON.stringify($courseObj));
+		console.log( $.cookie('ordering') );
+    }
 
     function countPrice(elem) {
 
@@ -273,11 +330,38 @@ var Popup = (function(){
         $price.text( ($listenersLength * $priceCount) ? ($listenersLength * $priceCount) + '.-' : $priceCount + '.-' );
     }
 
+    function returnError(text) {
+		$('.purchase-course-dl').after('<p class="error" style="font-size: 14px; color: #bb252d; font-weight: 400;">' + text + '</p>');
+
+		setTimeout( function(){ $('p.error').remove(); }, 3000 );
+	}
+
     $('.chosen-select').on('change', function() {
 
         countPrice( $(this) );
+        makeCoursesJson( $(this) );
 
     });
+
+    $finishBtn.click( function(e){
+		e.preventDefault();
+		//Достанем JSON из функции
+		var orderingObj = $.cookie('ordering') ? JSON.parse( $.cookie('ordering') ) : '';
+		var finishFlag = true;
+
+		for (var key in orderingObj) {
+			if (orderingObj[key].length === 0) {
+				finishFlag = false;
+			}
+		}
+
+		if (!finishFlag) {
+			returnError('Слушатели выбраны не для всех курсов в списке');
+			return;
+		}
+
+    });
+
 })();
 
 $('.notifications').notifications();
@@ -314,15 +398,14 @@ var Courses = (function(){
 
 	//Загружаем чекнутые боксы on document ready
 	$( function(){
-		var activeOrders = $.cookie('activeOrders').split(',');
+		var activeOrders = $.cookie('activeOrders') ? $.cookie('activeOrders').split(',') : '';
 
+		//Сбрасываем чекбоксы, которые запомнил браузер
 		$secondaryCheckbox.prop('checked', false);
-		
+
 		for ( var i=0 ; i < activeOrders.length ; i++ ) {
 			$secondaryCheckbox.filter('[value="' + activeOrders[i] + '"]').prop('checked', true);
 		}
-
-		console.log( activeOrders );
 	});
 
 	//для каждого клика на чекбокс мы должны обновлять массив заказанных курсов
@@ -339,6 +422,8 @@ var Courses = (function(){
 		$.cookie('activeOrders', renderArr);
 	}
 
+	//События, которые срабатывают при клике на чекбокс
+	
 	$mainCheckbox.on('change', function(){
 		if( $(this).prop('checked') ) {
 			$(this).parents('.accordion-body').find('.secondary-checkbox').prop('checked', true);
