@@ -42,4 +42,12 @@ function getJsonCookieData($name = null){
     endif;
     return array();
 }
+function getArrayCookieStringData($name = null){
+    if (!is_null($name)):
+        if (isset($_COOKIE[$name]) && !empty($_COOKIE[$name])):
+            return explode(',',$_COOKIE[$name]);
+        endif;
+    endif;
+    return array();
+}
 

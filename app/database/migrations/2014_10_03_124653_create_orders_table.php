@@ -27,25 +27,13 @@ class CreateOrdersTable extends Migration {
             echo('...' . 'orders' . PHP_EOL);
         }
 
-        if (!Schema::hasTable('order_courses')) {
-            Schema::create('order_courses', function(Blueprint $table) {
-                $table->increments('id');
-                $table->integer('order_id')->default(0)->nullable()->unsigned()->index();
-                $table->integer('course_id')->default(0)->nullable()->unsigned()->index();
-                $table->float('price')->default(0)->unsigned()->nullable();
-                $table->timestamps();
-            });
-
-            echo(' + ' . 'order_courses' . PHP_EOL);
-        } else {
-            echo('...' . 'order_courses' . PHP_EOL);
-        }
-
         if (!Schema::hasTable('order_listeners')) {
             Schema::create('order_listeners', function(Blueprint $table) {
                 $table->increments('id');
-                $table->integer('order_courses_id')->default(0)->nullable()->unsigned()->index();
+                $table->integer('order_id')->default(0)->nullable()->unsigned()->index();
+                $table->integer('course_id')->default(0)->nullable()->unsigned()->index();
                 $table->integer('user_id')->default(0)->nullable()->unsigned()->index();
+                $table->float('price')->default(0)->unsigned()->nullable();
                 $table->boolean('start_status')->default(0)->nullable()->unsigned();
                 $table->boolean('over_status')->default(0)->nullable()->unsigned();
                 $table->timestamp('start_date');
@@ -78,12 +66,10 @@ class CreateOrdersTable extends Migration {
 
     public function down(){
         Schema::dropIfExists('orders');
-        Schema::dropIfExists('order_courses');
         Schema::dropIfExists('order_listeners');
         Schema::dropIfExists('order_listener_tests');
         echo(' - ' . 'orders' . PHP_EOL);
         echo(' - ' . 'order_courses' . PHP_EOL);
-        echo(' - ' . 'order_listeners' . PHP_EOL);
         echo(' - ' . 'order_listener_tests' . PHP_EOL);
     }
 

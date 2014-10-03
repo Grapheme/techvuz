@@ -60,7 +60,7 @@ class AccountsOrderingController extends BaseController {
     public function OrderingCoursesStore(){
 
         $validator = Validator::make(Input::all(),array('courses'=>'required'));
-        if($validator->passes() && hasCookieData('ordering')):
+        if($validator->passes() && hasCookieData('activeOrders')):
             return Redirect::route('ordering-select-listeners');
         else:
            return Redirect::route('page','catalog')->with('message','Не выбраны курсы для покупки');
@@ -69,7 +69,7 @@ class AccountsOrderingController extends BaseController {
 
     public function OrderingSelectListeners(){
 
-        if (!hasCookieData('ordering')):
+        if (!hasCookieData('activeOrders')):
             return Redirect::route('page','catalog')->with('message','Не выбраны курсы для покупки');
         else:
             $page_data = array(
@@ -83,7 +83,41 @@ class AccountsOrderingController extends BaseController {
 
     public function OrderingListenersStore(){
 
-        print_r(Input::all());
-        exit;
+        if (!hasCookieData('activeOrders')):
+            return Redirect::route('page','catalog')->with('message','Не выбраны курсы для покупки');
+        endif;
+        if (!hasCookieData('ordering')):
+            return Redirect::route('ordering-select-listeners')->with('message','Не выбраны сотрудники');
+        endif;
+
+        $validator = Validator::make(Input::all(),array('courses'=>'required','listeners'=>'required','completed'=>'required'));
+        if($validator->passes()):
+            $listeners = Input::get('listeners');
+            foreach(Input::get('courses') as $course_id):
+                if (!isset($listeners[$course_id]) || empty($listeners[$course_id])):
+                    return Redirect::route('ordering-select-listeners')->with('message','Сотрудники выбраны не для всех курсов в списке');
+                endif;
+            endforeach;
+            $lastOrderNumber = Orders::where('completed',1)->orderBy('number')->pluck('number');
+            if($order = Orders::create(array('user_id'=>Auth::user()->id,'number'=>$lastOrderNumber+1,'completed'=>Input::get('completed')))):
+                foreach(Courses::whereIn('id',Input::get('courses'))->get() as $course):
+                    foreach(Input::get('listeners') as $course_id => $listeners):
+                        if ($course->id == $course_id):
+                            foreach($listeners as $listener_id):
+                                OrderListeners::create(array('order_id'=>$order->id,'course_id'=>$course_id,'user_id'=>$listener_id,'price'=>$course->price));
+                            endforeach;
+                        endif;
+                    endforeach;
+                endforeach;
+                setcookie("activeOrders", "", time() - 3600);
+                setcookie("ordering", "", time() - 3600);
+                return Redirect::to(AuthAccount::getStartPage())->with('message','Заказ №'.$order->number.' оформлен!');
+            endif;
+        else:
+            return Redirect::route('page','catalog')->with('message','Не выбраны курсы для покупки');
+        endif;
+
+
+
     }
 }

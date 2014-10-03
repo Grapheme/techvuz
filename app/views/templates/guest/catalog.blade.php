@@ -18,12 +18,8 @@
         <span>{{ Session::get('message') }}</span>
     </div>
     @endif
-    <?php $coursesIDs = array();?>
     @if(isOrganizationORIndividual())
         {{ Form::open(array('route'=>'ordering-courses-store','class'=>'authenticated accordion-form clearfix')) }}
-        @if(hasCookieData('ordering'))
-            <?php $coursesIDs = getJsonCookieData('ordering');?>
-        @endif
     @else
     <form class="accordion-form clearfix">
     @endif
@@ -56,7 +52,7 @@
                     <tr>
                         <td>
                             <div class="checkbox-container">
-                                <input type="checkbox" name="courses[]" {{ (array_key_exists($course->id,$coursesIDs)) ? 'checked' :  '' }} autocomplete="off" value="{{ $course->id }}" class="secondary-checkbox">
+                                <input type="checkbox" name="courses[]" autocomplete="off" value="{{ $course->id }}" class="secondary-checkbox">
                             </div>
                             {{ $course->title }}
                         </td>
