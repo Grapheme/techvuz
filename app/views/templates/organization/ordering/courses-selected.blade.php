@@ -21,7 +21,7 @@
            <span class="icon icon-kurs_dob"></span> Добавить сотрудника
         </a>
     </div>
-    {{ Form::open(array('route'=>'ordering-courses-store','class'=>'purchase-form clearfix')) }}
+    {{ Form::open(array('route'=>'ordering-listeners-store','class'=>'purchase-form clearfix')) }}
         <dl class="purchase-course-dl">
         @foreach(Courses::whereIn('id',$coursesIDs)->with('direction')->get() as $course)
             <dt class="purchase-course-dt">
@@ -44,14 +44,15 @@
             </dt>
             <dd class="purchase-course-dd">
                 <select data-placeholder="Выберите пользователей" name="course[{{ $course->id }}][]" style="width:450px" multiple="multiple" class="chosen-select">
-                @foreach($listeners as $listener)
-                    <option value="{{ $listener->id }}">{{ $listener->fio }}</option>
+                @foreach($listeners as $listener_id => $listener_fio)
+                    <option value="{{ $listener_id }}">{{ $listener_fio }}</option>
                 @endforeach
                 </select>
             </dd>
         @endforeach
         </dl>
-        <button type="submit" class="btn btn--bordered btn--blue pull-right">Далее</button>
+        {{ Form::hidden('completed',1) }}
+        <button type="submit" class="btn btn--bordered btn--blue pull-right">Завершить</button>
     {{ Form::close() }}
 @endif
 </main>

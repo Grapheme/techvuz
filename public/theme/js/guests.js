@@ -54,7 +54,6 @@ var validation_signup_fl = {
     inn: { required: true },
     postaddress: { required: true },
     email: { required: true, email: true },
-    name: { required: true },
     phone: { required: true },
     consent: { required: true }
 };
@@ -65,7 +64,6 @@ var validation_signup_messages_fl = {
     inn: { required: 'Укажите ИНН' },
     postaddress: { required: 'Укажите почтовый адрес' },
     email: { required: 'Укажите контактный E-mail','email': 'Неверно указан формат данных' },
-    name: { required: 'Укажите контактное лицо' },
     phone: { required: 'Укажите контактный номер' },
     consent: { required: '' }
 };

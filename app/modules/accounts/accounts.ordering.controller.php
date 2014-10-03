@@ -15,6 +15,7 @@ class AccountsOrderingController extends BaseController {
         if (isOrganizationORIndividual()):
             Route::group(array('before' => 'guest.status', 'prefix' => Auth::user()->group()->pluck('name')), function() use ($class) {
                 Route::post('ordering/courses-store', array('before' => 'csrf', 'as' => 'ordering-courses-store', 'uses' => $class . '@OrderingCoursesStore'));
+                Route::post('ordering/listeners-store', array('before' => 'csrf', 'as' => 'ordering-listeners-store', 'uses' => $class . '@OrderingListenersStore'));
                 Route::get('ordering/select-listeners', array('as' => 'ordering-select-listeners', 'uses' => $class . '@OrderingSelectListeners'));
             });
         endif;
@@ -78,5 +79,11 @@ class AccountsOrderingController extends BaseController {
             );
             return View::make(Helper::acclayout('ordering.courses-selected'),$page_data);
         endif;
+    }
+
+    public function OrderingListenersStore(){
+
+        print_r(Input::all());
+        exit;
     }
 }

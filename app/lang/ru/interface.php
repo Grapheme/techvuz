@@ -9,6 +9,15 @@ return array(
         'email_exist' => 'Email уже зарегистрирован',
         'fail' => 'Неверно заполнены поля'
     ),
+    'SIGNUP_LISTENER' => array(
+        'success' => 'Сотрудник зарегистрирован. Мы отправили на email сотрудника ссылку для активации его аккаунта.',
+        'next_operation_title' => '<p>Выбирите следующие действия:</p>',
+        'next_operation_1' => '<a href="'.URL::route('signup-listener').'">Добавить нового сотрудника</a>',
+        'next_operation_2' => '<a href="'.URL::to(AuthAccount::getStartPage()).'">Вернуться на главную страницу личного кабинета</a>',
+        'next_operation_3' => '<a href="'.URL::route('ordering-select-listeners').'">Продолжить покупку курсов</a>',
+        'email_exist' => 'Email уже зарегистрирован',
+        'fail' => 'Неверно заполнены поля'
+    ),
 
     'ACCOUNT_STATUS' => array(
 

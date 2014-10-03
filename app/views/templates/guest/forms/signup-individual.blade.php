@@ -1,5 +1,5 @@
-{{ Form::open(array('url'=>URL::route('signup-fl'), 'role'=>'form', 'class'=>'registration-form', 'id'=>'signup-fl-form', 'method'=>'post')) }}
-    {{ Form::hidden('group_id',@Group::where('name','individual')->first()->id) }}
+{{ Form::open(array('url'=>URL::route('signup-fl'), 'class'=>'registration-form', 'id'=>'signup-fl-form', 'method'=>'post')) }}
+    {{ Form::hidden('group_id',@Group::where('name','individual')->pluck('id')) }}
     <div class="reg-form-alert">
         Все поля являются обязательными для заполнения!
     </div>
@@ -17,7 +17,7 @@
             <label>Почтовый адрес</label>{{ Form::text('postaddress', '') }}
         </div>
         <div class="form-element">
-            <label>E-mail</label>{{ Form::text('email', '') }}
+            <label>E-mail</label>{{ Form::email('email', '') }}
         </div>
         <div class="form-element">
             <label>Номер телефона</label>{{ Form::text('phone', '',array('class'=>'phone')) }}

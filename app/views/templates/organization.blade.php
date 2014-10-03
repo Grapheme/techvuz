@@ -13,8 +13,8 @@
     @include(Helper::layout('aside'))
     @yield('content', @$content)
     </div>
-    @include(Helper::layout('scripts'))
     @yield('overlays')
+    @include(Helper::layout('scripts'))
     @yield('scripts')
 </body>
 </html>

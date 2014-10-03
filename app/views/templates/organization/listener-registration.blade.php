@@ -1,48 +1,29 @@
-@extends(Helper::layout())
+@extends(Helper::acclayout())
 @section('style')
 @stop
 @section('content')
 <main>
     <div class="edit-employee-anket">
-        <h3 class="margin-bottom-30">Добавить сотрудника</h3>
-        <form class="registration-form">
-            <div class="form-element">
-                <label>Ф.И.О.</label><input type="text">
-            </div>
-            <div class="form-element">
-                <label>Должность</label><input type="text">
-            </div>
-            <div class="form-element">
-                <label>Email</label><input type="text">
-            </div>
-            <div class="form-element">
-                <label>Адрес</label><input type="text">
-            </div>
-            <div class="form-element">
-                <label>Телефон</label><input type="text">
-            </div>
-            <div class="form-element">
-                <label>Образование</label><input type="text">
-            </div>
-            <div class="form-element">
-                <label>Место работы</label><input type="text">
-            </div>
-            <div class="form-element">
-                <label>Год обучения</label><input type="text">
-            </div>
-            <div class="form-element">
-                <label>Специальность</label><input type="text">
-            </div>
-            <div class="form-element">
-                <button class="btn btn--bordered btn--blue">
-                    Добавить
-                </button>
-            </div>
-        </form>
+        <h2 class="margin-bottom-30">Добавить сотрудника</h2>
+        <a class="btn btn--bordered btn--blue" href="{{ URL::previous() }}">Вернуться назад</a>
+        @include(Helper::acclayout('forms.signup-listener'))
     </div>
 </main>
 @stop
 @section('overlays')
 @stop
 @section('scripts')
+{{ HTML::script('js/vendor/jquery-form.min.js') }}
+{{ HTML::script('js/vendor/jquery.validate.min.js') }}
+{{ HTML::script('js/vendor/jquery.mask.js') }}
+{{ HTML::script('js/system/main.js') }}
+
+{{ HTML::script('theme/js/organization.js') }}
+<script type="text/javascript">organizationFormValidation();</script>
+<script>
+     $(document).ready(function(){
+         $(".phone").inputmask("mask", {"mask": "[+7] (999) 999 99 99","placeholder": "X"});
+         $(".year").inputmask("mask", {"mask": "9999","placeholder": "X"});
+     });
+ </script>
 @stop

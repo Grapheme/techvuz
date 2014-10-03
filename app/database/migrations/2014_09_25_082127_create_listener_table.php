@@ -15,10 +15,14 @@ class CreateListenerTable extends Migration {
                 $table->string('position',100)->nullable();
                 $table->string('postaddress',255)->nullable();
                 $table->string('phone',40)->nullable();
+                $table->string('education ',100)->nullable();
+                $table->string('place_work ',100)->nullable();
+                $table->string('year_study ',4)->nullable();
+                $table->string('specialty ',100)->nullable();
                 $table->timestamps();
             });
 
-            DB::statement("CREATE VIEW users_listeners AS SELECT users.id, users.email, users.active, users.created_at,listeners.id as listener_id, listeners.organization_id, listeners.fio, listeners.position, listeners.postaddress, listeners.phone FROM listeners LEFT JOIN users ON users.id = listeners.user_id INNER JOIN organizations ON listeners.organization_id = organizations.id WHERE users.group_id = 5");
+            DB::statement("CREATE VIEW users_listeners AS SELECT users.id, users.email, users.active, users.created_at,listeners.id as listener_id, listeners.organization_id, listeners.fio, listeners.position, listeners.postaddress, listeners.phone, listeners.education, listeners.place_work, listeners.year_study, listeners.specialty FROM listeners LEFT JOIN users ON users.id = listeners.user_id WHERE users.group_id = 5");
 
             echo(' + ' . 'listeners' . PHP_EOL);
         } else {

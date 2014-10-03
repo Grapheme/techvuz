@@ -35,8 +35,12 @@ class Listener extends BaseModel {
         'email' => 'required|email',
         'phone' => 'required',
         'position' => 'required',
-        'address' => 'required',
+        'postaddress' => 'required',
         'phone' => 'required',
+        'education' => 'required',
+        'place_work' => 'required',
+        'year_study' => 'required|integer',
+        'specialty' => 'required',
     );
 
 }

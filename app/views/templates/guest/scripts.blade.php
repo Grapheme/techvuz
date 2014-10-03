@@ -7,15 +7,13 @@
 {{ HTML::style(Config::get('site.theme_path').'/js/vendor.js') }}
 @endif
 {{ HTML::script(Config::get('site.theme_path').'/js/index.js') }}
-
+@if(Auth::guest())
 {{ HTML::script('js/vendor/jquery-form.min.js') }}
 {{ HTML::script('js/vendor/jquery.validate.min.js') }}
 {{ HTML::script('js/vendor/jquery.mask.js') }}
 {{ HTML::script('js/system/main.js') }}
-@if(Auth::guest())
 {{ HTML::script('theme/js/guests.js') }}
 <script type="text/javascript">guestFormValidation();</script>
-@endif
 <script>
      $(document).ready(function(){
          $(".phone").inputmask("mask", {"mask": "[+7] (999) 999 99 99","placeholder": "X"});
@@ -36,3 +34,4 @@
          });
      });
  </script>
+ @endif

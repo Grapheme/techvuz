@@ -20,7 +20,7 @@ class AccountsRegisterController extends BaseController {
         });
 
         Route::group(array('before' => 'guest.status', 'prefix' => 'organization'), function() use ($class) {
-            Route::post('registration/listener', array('before' => 'csrf', 'as' => 'insert-listener', 'uses' => $class . '@signupListener'));
+            Route::post('registration/listener', array('before' => 'csrf', 'as' => 'signup-listener', 'uses' => $class . '@signupListener'));
         });
     }
 
@@ -131,29 +131,32 @@ class AccountsRegisterController extends BaseController {
     public function signupListener(){
 
         $json_request = array('status'=>FALSE,'responseText'=>'','responseErrorText'=>'','redirect'=>FALSE);
-        if(Request::ajax()):
-            $validator = Validator::make(Input::all(),Individual::$rules);
+        if(Request::ajax() && isOrganization()):
+            $validator = Validator::make(Input::all(),Listener::$rules);
             if($validator->passes()):
                 if(User::where('email',Input::get('email'))->exists() == FALSE):
                     Config::set('temp.account_password', Str::random(12));
-                    if($account = self::getRegisterFLAccount(Input::all())):
+                    if($account = self::getRegisterListenerAccount(Input::all())):
                         Mail::send('emails.auth.signup',array('account'=>$account),function($message){
                             $message->from(Config::get('mail.from.address'),Config::get('mail.from.name'));
                             $message->to(Input::get('email'))->subject('ТехВуз.рф - регистрация');
                         });
-                        Auth::login(User::find($account->id));
-                        if (Auth::check()):
-                            $json_request['responseText'] = Lang::get('interface.SIGNUP.success_login');
-                        else:
-                            $json_request['responseText'] = Lang::get('interface.SIGNUP.success');
+                        $json_request['responseText'] = Lang::get('interface.SIGNUP_LISTENER.success');
+                        $json_request['responseText'] .= '<div>'.Lang::get('interface.SIGNUP_LISTENER.next_operation_title').'</div>';
+                        $json_request['responseText'] .= '<ul>';
+                        $json_request['responseText'] .= '<li>'.Lang::get('interface.SIGNUP_LISTENER.next_operation_1').'</li>';
+                        $json_request['responseText'] .= '<li>'.Lang::get('interface.SIGNUP_LISTENER.next_operation_2').'</li>';
+                        if (hasCookieData('ordering')):
+                            $json_request['responseText'] .= '<li>'.Lang::get('interface.SIGNUP_LISTENER.next_operation_3').'</li>';
                         endif;
+                        $json_request['responseText'] .= '</ul>';
                         $json_request['status'] = TRUE;
                     endif;
                 else:
-                    $json_request['responseText'] = Lang::get('interface.SIGNUP.email_exist');
+                    $json_request['responseText'] = Lang::get('interface.SIGNUP_LISTENER.email_exist');
                 endif;
             else:
-                $json_request['responseText'] = Lang::get('interface.SIGNUP.fail');
+                $json_request['responseText'] = Lang::get('interface.SIGNUP_LISTENER.fail');
                 $json_request['responseErrorText'] = $validator->messages()->all();
             endif;
         else:
@@ -186,7 +189,7 @@ class AccountsRegisterController extends BaseController {
 
         if(!is_null($post)):
             $fio = explode(' ',$post['name']);
-            $user->group_id = $post['group_id'];
+            $user->group_id = Group::where('name','organization')->pluck('id');
             $user->name = (isset($fio[1]))?$fio[1]:'';
             $user->surname = (isset($fio[0]))?$fio[0]:'';
             $user->email = $post['email'];
@@ -228,7 +231,7 @@ class AccountsRegisterController extends BaseController {
 
         if(!is_null($post)):
             $fio = explode(' ',$post['fio']);
-            $user->group_id = $post['group_id'];
+            $user->group_id = Group::where('name','individual')->pluck('id');
             $user->name = (isset($fio[1]))?$fio[1]:'';
             $user->surname = (isset($fio[0]))?$fio[0]:'';
             $user->email = $post['email'];
@@ -251,6 +254,44 @@ class AccountsRegisterController extends BaseController {
             $individual->touch();
 
             return User_individual::where('id',$user->id)->first();
+        endif;
+        return FALSE;
+    }
+
+    private function getRegisterListenerAccount($post = NULL){
+
+        $user = new User;
+        $listener = new Listener;
+
+        if(!is_null($post)):
+            $fio = explode(' ',$post['fio']);
+            $user->group_id = Group::where('name','listener')->pluck('id');
+            $user->name = (isset($fio[1]))?$fio[1]:'';
+            $user->surname = (isset($fio[0]))?$fio[0]:'';
+            $user->email = $post['email'];
+            $user->active = 1;
+            $user->password = Hash::make(Config::get('temp.account_password'));
+            $user->photo = '';
+            $user->thumbnail = '';
+            $user->temporary_code = Str::random(24);
+            $user->code_life = myDateTime::getFutureDays(5);
+            $user->save();
+            $user->touch();
+
+            $listener->user_id = $user->id;
+            $listener->organization_id = Auth::user()->id;
+            $listener->fio = $post['fio'];
+            $listener->position = $post['position'];
+            $listener->postaddress = $post['postaddress'];
+            $listener->phone = $post['phone'];
+            $listener->education = $post['education'];
+            $listener->place_work = $post['place_work'];
+            $listener->year_study = $post['year_study'];
+            $listener->specialty = $post['specialty'];
+            $listener->save();
+            $listener->touch();
+
+            return User_listener::where('id',$user->id)->first();
         endif;
         return FALSE;
     }
