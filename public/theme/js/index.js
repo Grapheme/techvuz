@@ -253,7 +253,7 @@ var Popup = (function(){
 	//Собираем объект курсы - слушатели
 	var $courseObj = {};
 	for( var i=0 ; i < $coursesArr.length ; i++ ) {
-		$courseObj[ $coursesArr[i] ] = '';
+		$courseObj[ $coursesArr[i] ] = [];
 	}
 
 	$select.chosen({
@@ -355,7 +355,7 @@ var Popup = (function(){
 			}
 		}
 
-		if (!finishFlag) {
+		if ( !finishFlag || !$.cookie('ordering') ) {
 			returnError('Слушатели выбраны не для всех курсов в списке');
 			return;
 		}
