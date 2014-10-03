@@ -25,18 +25,6 @@ function modifyKeys($collection, $key = 'slug',$unset = false) {
     return $array;
 }
 
-/* ********************************************* */
-
-function isOrganizationORIndividual(){
-
-    if (Auth::check()):
-        if(in_array(Auth::user()->group()->pluck('name'),array('organization','individual'))):
-            return TRUE;
-        endif;
-    endif;
-    return FALSE;
-}
-
 function hasCookieData($name = null){
     if (!is_null($name)):
         if (isset($_COOKIE[$name]) && !empty($_COOKIE[$name])):
@@ -54,3 +42,4 @@ function getJsonCookieData($name = null){
     endif;
     return array();
 }
+

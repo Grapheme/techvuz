@@ -8,9 +8,10 @@
         <span>{{ Session::get('message') }}</span>
     </div>
     @endif
-@if(isOrganizationORIndividual() && hasCookieData('ordering'))
+@if(isOrganization() && hasCookieData('ordering'))
     <?php $courses = getJsonCookieData('ordering');?>
     <?php $coursesIDs = !empty($courses) ? array_keys($courses) : array();?>
+    <?php $listeners = User_listener::where('organization_id',Auth::user()->id)->where('active',1)->lists('fio','id'); ?>
     <h2>Покупка курсов</h2>
     <div>
         <a href="{{ URL::route('page','catalog') }}" class="btn btn--bordered btn--blue ">
@@ -42,22 +43,10 @@
                 </table>
             </dt>
             <dd class="purchase-course-dd">
-                <select data-placeholder="Выберите пользователей" style="width:450px" multiple="multiple" class="chosen-select">
-                    <option value="1">Романов Николай Павлович</option>
-                    <option value="2">Романова Мария Федоровна</option>
-                    <option value="3">Романова Анна Петровна</option>
-                    <option value="4">Романов Константин Николаевич</option>
-                    <option value="5">Романов Николай Константинович</option>
-                    <option value="6">Романов Николай Павлович</option>
-                    <option value="7">Романова Мария Федоровна</option>
-                    <option value="8">Романова Анна Петровна</option>
-                    <option value="9">Романов Константин Николаевич</option>
-                    <option value="10">Романов Николай Константинович</option>
-                    <option value="11">Романов Николай Павлович</option>
-                    <option value="12">Романова Мария Федоровна</option>
-                    <option value="13">Романова Анна Петровна</option>
-                    <option value="14">Романов Константин Николаевич</option>
-                    <option value="15">Романов Николай Константинович</option>
+                <select data-placeholder="Выберите пользователей" name="course[{{ $course->id }}][]" style="width:450px" multiple="multiple" class="chosen-select">
+                @foreach($listeners as $listener)
+                    <option value="{{ $listener->id }}">{{ $listener->fio }}</option>
+                @endforeach
                 </select>
             </dd>
         @endforeach
