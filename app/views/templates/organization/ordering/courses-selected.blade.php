@@ -25,7 +25,7 @@
         <dl class="purchase-course-dl">
         @foreach(Courses::whereIn('id',$coursesIDs)->with('direction')->get() as $course)
             <dt class="purchase-course-dt">
-                <table class="table purchase-table">
+                <table class="table purchase-table" data-courseid="{{ $course->id }}">
                     <tr>
                         <th>Название</th>
                         <th>Код</th>
