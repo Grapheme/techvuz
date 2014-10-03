@@ -197,22 +197,6 @@ jQuery.fn.notifications = function() {
 	element.trigger('set-count');
 
 };
-jQuery.fn.accordionPurch = function() {
-	'use strict';
-
-	var element = $(this);
-	var $mainCheckbox = element.find('.main-checkbox');
-
-	$mainCheckbox.on('change', function(){
-
-		if( $(this).prop('checked') ) {
-			$(this).parents('.accordion-body').find('.secondary-checkbox').prop('checked', true);
-		} else {
-			$(this).parents('.accordion-body').find('.secondary-checkbox').prop('checked', false);
-		}
-
-	});
-};
 
 //Модуль popup
 var Popup = (function(){
@@ -297,7 +281,6 @@ var Popup = (function(){
 })();
 
 $('.notifications').notifications();
-$('.accordion').accordionPurch();
 
 // Avoid `console` errors in browsers that lack a console.
 (function() {
@@ -323,3 +306,54 @@ $('.accordion').accordionPurch();
 }());
 
 // Place any jQuery/helper plugins in here.
+
+var Courses = (function(){
+	var $parent = $('.accordion');
+	var $secondaryCheckbox = $parent.find('.secondary-checkbox');
+	var $mainCheckbox = $parent.find('.main-checkbox');
+
+	//Загружаем чекнутые боксы on document ready
+	$( function(){
+		var activeOrders = $.cookie('activeOrders').split(',');
+
+		$secondaryCheckbox.prop('checked', false);
+		
+		for ( var i=0 ; i < activeOrders.length ; i++ ) {
+			$secondaryCheckbox.filter('[value="' + activeOrders[i] + '"]').prop('checked', true);
+		}
+
+		console.log( activeOrders );
+	});
+
+	//для каждого клика на чекбокс мы должны обновлять массив заказанных курсов
+
+	function renderBuyers(){
+		var $parent = $('.accordion-form');
+		var $checked = $parent.find('.secondary-checkbox:checked');
+		var renderArr = [];
+
+		$checked.each( function(){
+			renderArr.push( $(this).val() );
+		});
+
+		$.cookie('activeOrders', renderArr);
+	}
+
+	$mainCheckbox.on('change', function(){
+		if( $(this).prop('checked') ) {
+			$(this).parents('.accordion-body').find('.secondary-checkbox').prop('checked', true);
+		} else {
+			$(this).parents('.accordion-body').find('.secondary-checkbox').prop('checked', false);
+		}
+		renderBuyers();
+	});
+
+	$secondaryCheckbox.on('change', function(){
+		renderBuyers();
+	});
+
+	return {
+
+	};
+
+})();
