@@ -115,7 +115,7 @@ var Popup = (function(){
 	var $finishBtn = $('.js-coursebuy-finish');
 
 	//Получим из куков массив курсов
-	var activeOrders = $.cookie('activeOrders') ? $.cookie('activeOrders').split(',') : '';
+	var $coursesArr = $.cookie('activeOrders').split(',');
 
 	//Собираем объект курсы - слушатели
 	var $courseObj = {};
