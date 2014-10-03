@@ -12,6 +12,7 @@ $app = new Illuminate\Foundation\Application;
 
 $env = $app->detectEnvironment(array(
 	'vkharseev' => array('DNS'),
+	'artem' => array('MacBook-Pro-Tommy.local'),
 	'server1.grapheme.ru' => array('www.grapheme.ru'),
 	'server2.grapheme.ru' => array('grapheme'),
 ));
