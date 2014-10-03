@@ -2,6 +2,7 @@
 @section('style')
 @stop
 @section('content')
+
 <main class="cabinet">
     @if(@$page['active_status']['status'] === FALSE)
     <div class="banner banner--red">
@@ -41,291 +42,48 @@
                 </ul>
                 <div id="tabs-11">
                     <ul class="orders-ul">
+                    @foreach(Orders::where('payment_status',1)->orderBy('created_at','DESC')->with('payment')->with('listeners')->get() as $new_order)
+{{--                        {{ Helper::dd($new_order) }}--}}
                         <li class="orders-li new-order">
                             <div class="orders-li-head">
-                                <h4>
-                                    Заказ №432
-                                </h4>
+                                <h4>Заказ №{{ $new_order->number }}</h4>
                                 <div class="orders-status">
-                                    Не оформлен
+                                    {{ $new_order->payment->title }}
                                 </div>
                             </div>
                             <div class="orders-li-body">
+                                @if($new_order->listeners->count())
                                 <div class="orders-price">
-                                    <span class="start-price">0.-</span> | <span class="end-price">12 000.-</span>
+                                    <?php $price = 0.00; ?>
+                                    @foreach($new_order->listeners as $listener)
+                                        <?php $price += $listener->price; ?>
+                                    @endforeach
+                                    <span class="start-price">0.-</span> | <span class="end-price">{{ number_format($price,0,'.',' ')  }}.–</span>
                                 </div>
+                                @endif
                                 <div class="orders-date">
                                     Заказ создан:
                                     <div>
-                                        29.09.14 в 10:15
+                                        {{ myDateTime::SwapDotDateWithTime($new_order->created_at) }}
                                     </div>
                                 </div>
                                 <div class="orders-package">
                                     <div>В заказе <a href="#">12 курсов</a></div>
-                                    <div>для <a href="#">4 слушателей</a></div>
+                                    <div>для <a href="#">{{ $new_order->listeners->count() }} {{ Lang::choice('слушателя|слушателей|слушателей',$new_order->listeners->count()); }}</a></div>
                                 </div>
                                 <div class="orders-actions">
-                                    <div class="btn btn--bordered btn--blue">Оформить заказ</div>
-                                    <div class="orders-delete js-delete-order" title="Удалить заказ">
-                                        <span class="icon icon-korzina"></span>
-                                    </div>
-                                </div>
-                            </div>
-                        <li class="orders-li new-order">
-                            <div class="orders-li-head">
-                                <h4>
-                                    Заказ №432
-                                </h4>
-                                <div class="orders-status">
-                                    Не оформлен
-                                </div>
-                            </div>
-                            <div class="orders-li-body">
-                                <div class="orders-price">
-                                    <span class="start-price">0.-</span> | <span class="end-price">12 000.-</span>
-                                </div>
-                                <div class="orders-date">
-                                    Заказ создан:
-                                    <div>
-                                        29.09.14 в 10:15
-                                    </div>
-                                </div>
-                                <div class="orders-package">
-                                    <div>В заказе <a href="#">12 курсов</a></div>
-                                    <div>для <a href="#">4 слушателей</a></div>
-                                </div>
-                                <div class="orders-actions">
-                                    <div class="btn btn--bordered btn--blue">Оформить заказ</div>
-                                    <div class="orders-delete js-delete-order" title="Удалить заказ">
-                                        <span class="icon icon-korzina"></span>
-                                    </div>
-                                </div>
-                            </div>
-                        <li class="orders-li new-order">
-                            <div class="orders-li-head">
-                                <h4>
-                                    Заказ №432
-                                </h4>
-                                <div class="orders-status">
-                                    Не оформлен
-                                </div>
-                            </div>
-                            <div class="orders-li-body">
-                                <div class="orders-price">
-                                    <span class="start-price">0.-</span> | <span class="end-price">12 000.-</span>
-                                </div>
-                                <div class="orders-date">
-                                    Заказ создан:
-                                    <div>
-                                        29.09.14 в 10:15
-                                    </div>
-                                </div>
-                                <div class="orders-package">
-                                    <div>В заказе <a href="#">12 курсов</a></div>
-                                    <div>для <a href="#">4 слушателей</a></div>
-                                </div>
-                                <div class="orders-actions">
-                                    <div class="btn btn--bordered btn--blue">Оформить заказ</div>
                                     <div class="orders-delete js-delete-order" title="Удалить заказ">
                                         <span class="icon icon-korzina"></span>
                                     </div>
                                 </div>
                             </div>
                         </li>
+                    @endforeach
                     </ul>
                 </div>
                 <div id="tabs-12">
                     <ul class="orders-ul">
-                        <li class="orders-li active-order">
-                            <div class="orders-li-head">
-                                <h4>
-                                    Заказ №432
-                                </h4>
-                                <div class="orders-status">
-                                    Ожидает оплаты
-                                </div>
-                            </div>
-                            <div class="orders-li-body">
-                                <div class="orders-price">
-                                    <span class="start-price">0.-</span> | <span class="end-price">12 000.-</span>
-                                </div>
-                                <div class="orders-date">
-                                    Заказ создан:
-                                    <div>
-                                        29.09.14 в 10:15
-                                    </div>
-                                </div>
-                                <div class="orders-package">
-                                    <div>В заказе <a href="#">12 курсов</a></div>
-                                    <div>для <a href="#">4 слушателей</a></div>
-                                </div>
-                                <div class="orders-docs">
-                                    Посмотреть <a href="#">документы</a>
-                                </div>
-                            </div>
-                        <li class="orders-li active-order">
-                            <div class="orders-li-head">
-                                <h4>
-                                    Заказ №432
-                                </h4>
-                                <div class="orders-status">
-                                    Ожидает оплаты
-                                </div>
-                            </div>
-                            <div class="orders-li-body">
-                                <div class="orders-price">
-                                    <span class="start-price">0.-</span> | <span class="end-price">12 000.-</span>
-                                </div>
-                                <div class="orders-date">
-                                    Заказ создан:
-                                    <div>
-                                        29.09.14 в 10:15
-                                    </div>
-                                </div>
-                                <div class="orders-package">
-                                    <div>В заказе <a href="#">12 курсов</a></div>
-                                    <div>для <a href="#">4 слушателей</a></div>
-                                </div>
-                                <div class="orders-docs">
-                                    Посмотреть <a href="#">документы</a>
-                                </div>
-                            </div>
-                        <li class="orders-li active-order">
-                            <div class="orders-li-head">
-                                <h4>
-                                    Заказ №432
-                                </h4>
-                                <div class="orders-status">
-                                    Ожидает оплаты
-                                </div>
-                            </div>
-                            <div class="orders-li-body">
-                                <div class="orders-price">
-                                    <span class="start-price">0.-</span> | <span class="end-price">12 000.-</span>
-                                </div>
-                                <div class="orders-date">
-                                    Заказ создан:
-                                    <div>
-                                        29.09.14 в 10:15
-                                    </div>
-                                </div>
-                                <div class="orders-package">
-                                    <div>В заказе <a href="#">12 курсов</a></div>
-                                    <div>для <a href="#">4 слушателей</a></div>
-                                </div>
-                                <div class="orders-docs">
-                                    Посмотреть <a href="#">документы</a>
-                                </div>
-                            </div>
-                        <li class="orders-li active-order">
-                            <div class="orders-li-head">
-                                <h4>
-                                    Заказ №432
-                                </h4>
-                                <div class="orders-status">
-                                    Ожидает оплаты
-                                </div>
-                            </div>
-                            <div class="orders-li-body">
-                                <div class="orders-price">
-                                    <span class="start-price">0.-</span> | <span class="end-price">12 000.-</span>
-                                </div>
-                                <div class="orders-date">
-                                    Заказ создан:
-                                    <div>
-                                        29.09.14 в 10:15
-                                    </div>
-                                </div>
-                                <div class="orders-package">
-                                    <div>В заказе <a href="#">12 курсов</a></div>
-                                    <div>для <a href="#">4 слушателей</a></div>
-                                </div>
-                                <div class="orders-docs">
-                                    Посмотреть <a href="#">документы</a>
-                                </div>
-                            </div>
-                        <li class="orders-li active-order">
-                            <div class="orders-li-head">
-                                <h4>
-                                    Заказ №432
-                                </h4>
-                                <div class="orders-status">
-                                    Ожидает оплаты
-                                </div>
-                            </div>
-                            <div class="orders-li-body">
-                                <div class="orders-price">
-                                    <span class="start-price">0.-</span> | <span class="end-price">12 000.-</span>
-                                </div>
-                                <div class="orders-date">
-                                    Заказ создан:
-                                    <div>
-                                        29.09.14 в 10:15
-                                    </div>
-                                </div>
-                                <div class="orders-package">
-                                    <div>В заказе <a href="#">12 курсов</a></div>
-                                    <div>для <a href="#">4 слушателей</a></div>
-                                </div>
-                                <div class="orders-docs">
-                                    Посмотреть <a href="#">документы</a>
-                                </div>
-                            </div>
-                        <li class="orders-li active-order">
-                            <div class="orders-li-head">
-                                <h4>
-                                    Заказ №432
-                                </h4>
-                                <div class="orders-status">
-                                    Ожидает оплаты
-                                </div>
-                            </div>
-                            <div class="orders-li-body">
-                                <div class="orders-price">
-                                    <span class="start-price">0.-</span> | <span class="end-price">12 000.-</span>
-                                </div>
-                                <div class="orders-date">
-                                    Заказ создан:
-                                    <div>
-                                        29.09.14 в 10:15
-                                    </div>
-                                </div>
-                                <div class="orders-package">
-                                    <div>В заказе <a href="#">12 курсов</a></div>
-                                    <div>для <a href="#">4 слушателей</a></div>
-                                </div>
-                                <div class="orders-docs">
-                                    Посмотреть <a href="#">документы</a>
-                                </div>
-                            </div>
-                        <li class="orders-li active-order">
-                            <div class="orders-li-head">
-                                <h4>
-                                    Заказ №432
-                                </h4>
-                                <div class="orders-status">
-                                    Ожидает оплаты
-                                </div>
-                            </div>
-                            <div class="orders-li-body">
-                                <div class="orders-price">
-                                    <span class="start-price">0.-</span> | <span class="end-price">12 000.-</span>
-                                </div>
-                                <div class="orders-date">
-                                    Заказ создан:
-                                    <div>
-                                        29.09.14 в 10:15
-                                    </div>
-                                </div>
-                                <div class="orders-package">
-                                    <div>В заказе <a href="#">12 курсов</a></div>
-                                    <div>для <a href="#">4 слушателей</a></div>
-                                </div>
-                                <div class="orders-docs">
-                                    Посмотреть <a href="#">документы</a>
-                                </div>
-                            </div>
-                        </li>
+
                     </ul>
                 </div>
                 <div id="tabs-13">

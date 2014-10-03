@@ -4,8 +4,10 @@
  * OrdersListenersTests
  *
  * @property integer $id
- * @property integer $order_courses_id
+ * @property integer $order_id
+ * @property integer $course_id
  * @property integer $user_id
+ * @property float $price
  * @property boolean $start_status
  * @property boolean $over_status
  * @property string $start_date
@@ -15,8 +17,10 @@
  * @property-read \Chapter $chapter
  * @property-read \CoursesTests $test
  * @method static \Illuminate\Database\Query\Builder|\OrdersListenersTests whereId($value)
- * @method static \Illuminate\Database\Query\Builder|\OrdersListenersTests whereOrderCoursesId($value)
+ * @method static \Illuminate\Database\Query\Builder|\OrdersListenersTests whereOrderId($value)
+ * @method static \Illuminate\Database\Query\Builder|\OrdersListenersTests whereCourseId($value)
  * @method static \Illuminate\Database\Query\Builder|\OrdersListenersTests whereUserId($value)
+ * @method static \Illuminate\Database\Query\Builder|\OrdersListenersTests wherePrice($value)
  * @method static \Illuminate\Database\Query\Builder|\OrdersListenersTests whereStartStatus($value)
  * @method static \Illuminate\Database\Query\Builder|\OrdersListenersTests whereOverStatus($value)
  * @method static \Illuminate\Database\Query\Builder|\OrdersListenersTests whereStartDate($value)

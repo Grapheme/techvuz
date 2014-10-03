@@ -98,7 +98,7 @@ class AccountsOrderingController extends BaseController {
                     return Redirect::route('ordering-select-listeners')->with('message','Сотрудники выбраны не для всех курсов в списке');
                 endif;
             endforeach;
-            $lastOrderNumber = Orders::where('completed',1)->orderBy('number')->pluck('number');
+            $lastOrderNumber = Orders::where('completed',1)->orderBy('number','DESC')->pluck('number');
             if($order = Orders::create(array('user_id'=>Auth::user()->id,'number'=>$lastOrderNumber+1,'completed'=>Input::get('completed')))):
                 foreach(Courses::whereIn('id',Input::get('courses'))->get() as $course):
                     foreach(Input::get('listeners') as $course_id => $listeners):
@@ -109,7 +109,7 @@ class AccountsOrderingController extends BaseController {
                         endif;
                     endforeach;
                 endforeach;
-                setcookie("activeOrders", "", time() - 3600);
+                setcookie("activeOrders", "", time() - 3600,'/');
                 setcookie("ordering", "", time() - 3600);
                 return Redirect::to(AuthAccount::getStartPage())->with('message','Заказ №'.$order->number.' оформлен!');
             endif;

@@ -7,7 +7,7 @@
  * @property integer $user_id
  * @property integer $number
  * @property boolean $completed
- * @property boolean $payment_status
+ * @property \PaymentStatus $payment_status
  * @property string $payment_date
  * @property string $payment_date_real
  * @property integer $payment_discount
@@ -17,7 +17,7 @@
  * @property \Carbon\Carbon $created_at
  * @property \Carbon\Carbon $updated_at
  * @property-read \User $user
- * @property-read \Illuminate\Database\Eloquent\Collection|\OrderCourses[] $courses
+ * @property-read \Illuminate\Database\Eloquent\Collection|\OrderListeners[] $listeners
  * @method static \Illuminate\Database\Query\Builder|\Orders whereId($value)
  * @method static \Illuminate\Database\Query\Builder|\Orders whereUserId($value)
  * @method static \Illuminate\Database\Query\Builder|\Orders whereNumber($value)
@@ -48,8 +48,12 @@ class Orders extends BaseModel {
         return $this->belongsTo('User', 'user_id');
     }
 
-    public function courses() {
-        return $this->hasMany('OrderCourses', 'order_id');
+    public function listeners() {
+        return $this->hasMany('OrderListeners', 'order_id');
     }
 
+    public function payment(){
+
+        return $this->hasOne('PaymentStatus','id','payment_status');
+    }
 }
