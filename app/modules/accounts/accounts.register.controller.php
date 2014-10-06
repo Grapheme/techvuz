@@ -137,7 +137,7 @@ class AccountsRegisterController extends BaseController {
                 if(User::where('email',Input::get('email'))->exists() == FALSE):
                     Config::set('temp.account_password', Str::random(12));
                     if($account = self::getRegisterListenerAccount(Input::all())):
-                        Mail::send('emails.auth.signup',array('account'=>$account),function($message){
+                        Mail::send('emails.auth.signup-listener',array('account'=>$account),function($message){
                             $message->from(Config::get('mail.from.address'),Config::get('mail.from.name'));
                             $message->to(Input::get('email'))->subject('ТехВуз.рф - регистрация');
                         });
