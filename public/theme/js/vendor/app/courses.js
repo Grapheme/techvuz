@@ -28,6 +28,12 @@ var Courses = (function(){
 		});
 
 		$.cookie('ordering', JSON.stringify(renderArr));
+
+		if( jQuery.isEmptyObject(orderingObj) || !orderingObj ) {
+			console.log('empty');
+		} else {
+			console.log('not empty');
+		}
 	}
 
 	//События, которые срабатывают при клике на чекбокс
@@ -43,14 +49,6 @@ var Courses = (function(){
 
 	$secondaryCheckbox.on('change', function(){
 		renderBuyers();
-
-		//Показываем кнопку "Далее" при активных заказах
-        var orderingObj = $.cookie('ordering') ? JSON.parse( $.cookie('ordering') ) : '';
-        if( jQuery.isEmptyObject(orderingObj) || !orderingObj ) {
-			console.log('empty');
-		} else {
-			console.log('not empty');
-		}
 	});
 
 })();
