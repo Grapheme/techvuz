@@ -72,7 +72,7 @@
             @endif
         @endforeach
         </div>
-        <button type="submit" class="btn btn--bordered btn--blue pull-right">Далее</button>
+        <button type="submit" class="btn btn--bordered btn--blue pull-right btn-catalog js-btn-accordion">Далее</button>
     @if(isOrganizationORIndividual())
         {{ Form::close() }}
     @else

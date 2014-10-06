@@ -119,6 +119,7 @@ var Popup = (function(){
 (function(){
 	'use strict';
 	var $select = $('.chosen-select');
+	var $accBtn = $('.js-btn-acc');
 	//Кнопка конечной покупки курса
 	var $finishBtn = $('.js-coursebuy-finish');
 
@@ -209,6 +210,9 @@ var Popup = (function(){
 
         countPrice( $(this) );
         makeCoursesJson( $(this) );
+
+        var orderingObj = $.cookie('ordering') ? JSON.parse( $.cookie('ordering') ) : '';
+        if( !$.isEmptyObject( orderingObj ) ) $accBtn.show();
 
     });
 

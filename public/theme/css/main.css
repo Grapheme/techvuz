@@ -7279,7 +7279,6 @@ a[href^="tel"] {
 
 .authenticated .btn {
   margin: 2.375rem 0;
-  display: block;
 }
 .authenticated .checkbox-container {
   display: block;
