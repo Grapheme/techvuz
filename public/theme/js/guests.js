@@ -216,7 +216,7 @@ function guestFormValidation() {
                         if(response.redirect !== false){
                             BASIC.RedirectTO(response.redirect);
                         }else{
-                            $(form).replaceWith(response.responseText);
+                            $(form).replaceWith('<p class="response">' + response.responseText + '</p>');
                         }
                     }else{
                         $(form).find('.btn-form-submit').before("<p id='error'>"+response.responseText+"</p>");
