@@ -2,7 +2,6 @@
 @section('style')
 @stop
 @section('content')
-
 <main class="cabinet">
     @if(@$page['active_status']['status'] === FALSE)
     <div class="banner banner--red">

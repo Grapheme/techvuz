@@ -60,7 +60,8 @@ class GlobalController extends \BaseController {
 							$message->to(Input::get('email'))->subject('Monety.pro - регистрация');
 						});
 						$json_request['responseText'] = 'Вы зарегистрированы. Мы отправили на email cсылку для активации аккаунта.';
-						$json_request['status'] = TRUE;
+						$json_request['redirect'] = AuthAccount::getStartPage();
+                        $json_request['status'] = TRUE;
 					endif;
 				else:
 

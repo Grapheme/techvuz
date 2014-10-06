@@ -29,7 +29,7 @@ Route::group(array('before' => 'auth.status', 'prefix' => $prefix), function() u
 /*
 | Роуты, доступные только для неавторизованных пользователей
 */
-Route::group(array('before' => 'guest', 'prefix' => ''), function(){
+Route::group(array('before' => 'guest.auth', 'prefix' => ''), function(){
 	Route::post('signin', array('as' => 'signin', 'uses' => 'GlobalController@signin'));
 	Route::post('signup', array('as' => 'signup', 'uses' => 'GlobalController@signup'));
 	Route::get('activation', array('as' => 'activation', 'uses' => 'GlobalController@activation'));

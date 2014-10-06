@@ -71,6 +71,12 @@ Route::filter('guest', function(){
 	endif;
 });
 
+Route::filter('guest.auth', function(){
+	if(Auth::check()):
+		Auth::logout();
+	endif;
+});
+
 Route::filter('guest.register', function(){
     if(Auth::check()):
         return Redirect::to('/');

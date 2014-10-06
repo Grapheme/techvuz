@@ -182,6 +182,16 @@ class AccountsOperationController extends BaseController {
         return View::make(Helper::acclayout('listeners-lists'),$page_data);
     }
 
+    public function CompanyStudyProgressList(){
+
+        $page_data = array(
+            'page_title'=> Lang::get('seo.COMPANY_STUDY_PROGRESS_LIST.title'),
+            'page_description'=> Lang::get('seo.COMPANY_STUDY_PROGRESS_LIST.description'),
+            'page_keywords'=> Lang::get('seo.COMPANY_STUDY_PROGRESS_LIST.keywords'),
+        );
+        return View::make(Helper::acclayout('listeners-lists'),$page_data);
+    }
+
     public function ActivationRepeatedSendingLetter(){
 
         $user = Auth::user();

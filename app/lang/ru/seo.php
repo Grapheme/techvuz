@@ -37,6 +37,12 @@ return array(
         'title' => 'Личный кабинет компании. Список слушателейы.',
         'description' => '',
         'keywords' => ''
+    ),
+
+    'COMPANY_STUDY_PROGRESS_LIST' => array(
+        'title' => 'Личный кабинет компании. Список слушателейы.',
+        'description' => '',
+        'keywords' => ''
     )
 
 );
