@@ -15,19 +15,14 @@
     </div>
     @endif
     <?php
-    $orders = Orders::orderBy('payment_status')->orderBy('created_at','DESC')->with('payment')->with(array('listeners'=>function($query){
+    $orders = Orders::whereUserId(Auth::user()->id)->orderBy('payment_status')->orderBy('created_at','DESC')->with('payment')->with(array('listeners'=>function($query){
         $query->with('listener');
         $query->with('course');
     }))->get();
     ?>
     <h2>{{ User_organization::where('id',Auth::user()->id)->first()->title }}</h2>
     <div class="cabinet-tabs">
-        <ul>
-            <li><a href="{{ URL::route('company-orders') }}"><span class="icon icon-zakaz"></span> Заказы</a></li>
-            <li><a href="{{ URL::route('company-listeners') }}"><span class="icon icon-slysh"></span> Сотрудники</a></li>
-            <li><a href="{{ URL::route('company-study') }}"><span class="icon icon-obych"></span> Обучение</a></li>
-            <li><a href="{{ URL::route('company-notifications') }}"><span class="icon icon-yved"></span> Уведомления</a></li>
-        </ul>
+        @include(Helper::acclayout('menu'))
          <div class="employees">
             <h3>Сотрудники</h3>
             <div class="count-add">

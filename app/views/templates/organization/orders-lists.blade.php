@@ -5,19 +5,14 @@
 
 <main class="cabinet">
     <?php
-    $orders = Orders::orderBy('payment_status')->orderBy('created_at','DESC')->with('payment')->with(array('listeners'=>function($query){
+    $orders = Orders::whereUserId(Auth::user()->id)->orderBy('payment_status')->orderBy('created_at','DESC')->with('payment')->with(array('listeners'=>function($query){
         $query->with('listener');
         $query->with('course');
     }))->get();
     ?>
     <h2>{{ User_organization::where('id',Auth::user()->id)->first()->title }}</h2>
     <div class="cabinet-tabs">
-        <ul>
-            <li><a href="{{ URL::route('company-orders') }}"><span class="icon icon-zakaz"></span> Заказы</a></li>
-            <li><a href="{{ URL::route('company-listeners') }}"><span class="icon icon-slysh"></span> Сотрудники</a></li>
-            <li><a href="{{ URL::route('company-study') }}"><span class="icon icon-obych"></span> Обучение</a></li>
-            <li><a href="{{ URL::route('company-notifications') }}"><span class="icon icon-yved"></span> Уведомления</a></li>
-        </ul>
+        @include(Helper::acclayout('menu'))
         <div>
             <a href="{{ URL::route('page','catalog') }}" class="btn btn-top-margin btn--bordered btn--blue pull-right">Новый заказ</a>
             <h3>Заказы</h3>

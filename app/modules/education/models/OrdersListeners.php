@@ -39,7 +39,7 @@ class OrderListeners extends BaseModel {
     public static $rules = array();
 
     public function order() {
-        return $this->belongsTo('Order', 'order_id');
+        return $this->belongsTo('Orders', 'order_id');
     }
 
     public function course() {

@@ -9,6 +9,12 @@ return array(
             'keywords' => ''
         ),
     ),
+    'COMPANY_PROFILE' => array(
+        'title' => 'Личный кабинет компании. Профиль.',
+        'description' => '',
+        'keywords' => ''
+    ),
+
     'REGISTER_LISTENER' => array(
         'title' => 'Личный кабинет компании. Регистрация сотрудника.',
         'description' => '',

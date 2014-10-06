@@ -2,10 +2,10 @@
 @section('style')
 @stop
 @section('content')
-<main>
+<main class="cabinet">
     <div class="edit-employee-anket">
         <h2 class="margin-bottom-30">Добавить сотрудника</h2>
-        <a class="btn btn--bordered btn--blue" href="{{ URL::previous() }}">Вернуться назад</a>
+        @include(Helper::acclayout('menu'))
         @include(Helper::acclayout('forms.signup-listener'))
     </div>
 </main>

@@ -17,6 +17,10 @@ class AccountsOperationController extends BaseController {
             });
             Route::group(array('before' => 'auth.status', 'prefix' => 'organization'), function() use ($class) {
                 Route::get('registration/listener', array('as' => 'signup-listener', 'uses' => $class . '@signupListener'));
+
+                Route::get('profile', array('as' => 'company-profile', 'uses' => $class . '@CompanyProfile'));
+                Route::get('listeners/profile/{listener_id}', array('as' => 'company-listener-profile', 'uses' => $class . '@CompanyListenerProfile'));
+
                 Route::get('orders', array('as' => 'company-orders', 'uses' => $class . '@CompanyOrdersList'));
                 Route::get('listeners', array('as' => 'company-listeners', 'uses' => $class . '@CompanyListenersList'));
                 Route::get('study', array('as' => 'company-study', 'uses' => $class . '@CompanyStudyProgressList'));
@@ -62,6 +66,27 @@ class AccountsOperationController extends BaseController {
     /****************************************************************************/
     /********************************* COMPANY **********************************/
     /****************************************************************************/
+
+    public function CompanyProfile(){
+
+        $page_data = array(
+            'page_title'=> Lang::get('seo.COMPANY_PROFILE.title'),
+            'page_description'=> Lang::get('seo.COMPANY_PROFILE.description'),
+            'page_keywords'=> Lang::get('seo.COMPANY_PROFILE.keywords'),
+        );
+        return View::make(Helper::acclayout('profile'),$page_data);
+    }
+
+    public function CompanyListenerProfile($listener_id){
+
+        Helper::dd($listener_id);
+        $page_data = array(
+            'page_title'=> Lang::get('seo.COMPANY_PROFILE.title'),
+            'page_description'=> Lang::get('seo.COMPANY_PROFILE.description'),
+            'page_keywords'=> Lang::get('seo.COMPANY_PROFILE.keywords'),
+        );
+        return View::make(Helper::acclayout('profile'),$page_data);
+    }
 
     public function CompanyOrdersList(){
 

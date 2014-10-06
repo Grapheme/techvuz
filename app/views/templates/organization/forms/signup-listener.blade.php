@@ -35,5 +35,6 @@
         <button type="submit" autocomplete="off" class="btn btn--bordered btn--blue btn-form-submit">
             <i class="fa fa-spinner fa-spin hidden"></i> <span class="btn-response-text">Готово</span>
         </button>
+        <a class="btn btn--bordered btn--blue" href="{{ URL::previous() }}">Вернуться назад</a>
     </div>
 {{ Form::close() }}
