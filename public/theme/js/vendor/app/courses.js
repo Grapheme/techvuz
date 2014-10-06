@@ -46,7 +46,7 @@ var Courses = (function(){
 
 		//Показываем кнопку "Далее" при активных заказах
         var orderingObj = $.cookie('ordering') ? JSON.parse( $.cookie('ordering') ) : '';
-        if( orderingObj ) $accBtn.show();
+        if( !jQuery.isEmptyObject(orderingObj) ) $accBtn.show();
 	});
 
 })();
