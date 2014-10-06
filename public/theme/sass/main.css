@@ -8215,6 +8215,7 @@ main {
   position: relative;
   margin: 0 0 0 17.875rem;
   padding: 0 2.0625rem;
+  border-top: 1px solid white;
   border-bottom: 1px solid white;
   background: white;
 }
@@ -8314,12 +8315,16 @@ section h3 {
   height: 17.1875rem;
 }
 .popup .popup-close {
+  transition: all .4s ease;
   position: absolute;
   top: 1.25rem;
   right: 1.25rem;
   line-height: .75;
   font-size: 2em;
   cursor: pointer;
+}
+.popup .popup-close:hover {
+  opacity: .7;
 }
 .popup .popup-head {
   margin: 0 0 1.875rem;
@@ -8624,16 +8629,19 @@ section h3 {
   background: white;
 }
 .registration-form.auth-form label {
-  width: 4.5rem;
+  width: 5.5rem;
 }
 .registration-form.auth-form input {
-  width: 20.8125rem;
+  width: 19.813rem;
   border-color: #a8a8a8;
+}
+.registration-form.auth-form .form-element {
+  width: 25.5rem;
 }
 .registration-form.auth-form .forgot-pass {
   position: absolute;
   top: 100%;
-  left: 4.5rem;
+  left: 5.5rem;
   font-size: 0.75em;
   line-height: 2.5em;
 }

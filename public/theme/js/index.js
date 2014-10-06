@@ -224,6 +224,11 @@ var Popup = (function(){
 		Popup.close();
 	});
 
+	function removeErrors(){
+		$('.state-error').removeClass('state-error');
+		$('em.invalid').remove();
+	}
+
 	return {
 
 		show: function(id){
@@ -235,6 +240,9 @@ var Popup = (function(){
 		close: function(){
 			$overlay.removeClass('active');
 			$popup.removeClass('active');
+
+			//Remove errors from all popup forms
+			removeErrors();
 		}
 
 	};

@@ -85,8 +85,9 @@ function guestFormValidation() {
 
     var signin = $("#signin-form").validate({
         rules: validation_signin ? validation_signin : {},
+        onfocusout: false,
         messages: validation_signin_messages ? validation_signin_messages : {},
-        errorPlacement : function(error, element){error.insertAfter(element.parent());},
+        errorPlacement : function(error, element){error.insertAfter(element);},
         submitHandler: function(form) {
             var options = {target:null, dataType:'json', type:'post'};
             options.beforeSubmit = function(formData,jqForm,options){
@@ -124,8 +125,9 @@ function guestFormValidation() {
     });
     var restore_pass = $("#restore-password-form").validate({
         rules: validation_restore_pass ? validation_restore_pass : {},
+        onfocusout: false,
         messages: validation_restore_pass_messages ? validation_restore_pass_messages : {},
-        errorPlacement : function(error, element){error.insertAfter(element.parent());},
+        errorPlacement : function(error, element){error.insertAfter(element);},
         submitHandler: function(form) {
             var options = {target:null, dataType:'json', type:'post'};
             options.beforeSubmit = function(formData,jqForm,options){
@@ -159,8 +161,9 @@ function guestFormValidation() {
     });
     var reset_pass = $("#reset-password-form").validate({
         rules: validation_reset_password ? validation_reset_password : {},
+        onfocusout: false,
         messages: validation_reset_password_messages ? validation_reset_password_messages : {},
-        errorPlacement : function(error, element){error.insertAfter(element.parent());},
+        errorPlacement : function(error, element){error.insertAfter(element);},
         submitHandler: function(form) {
             var options = {target:null, dataType:'json', type:'post'};
             options.beforeSubmit = function(formData,jqForm,options){
@@ -196,11 +199,11 @@ function guestFormValidation() {
             $(form).ajaxSubmit(options);
         }
     });
-
     var signupUL = $("#signup-ul-form").validate({
         rules: validation_signup_ul ? validation_signup_ul : {},
+        onfocusout: false,
         messages: validation_signup_messages_ul ? validation_signup_messages_ul : {},
-        errorPlacement : function(error, element){error.insertAfter(element.parent());},
+        errorPlacement : function(error, element){error.insertAfter(element);},
         submitHandler: function(form) {
             var options = {target:null, dataType:'json', type:'post'};
             options.beforeSubmit = function(formData,jqForm,options){
@@ -238,8 +241,9 @@ function guestFormValidation() {
     });
     var signupFL = $("#signup-fl-form").validate({
         rules: validation_signup_fl ? validation_signup_fl : {},
+        onfocusout: false,
         messages: validation_signup_messages_fl ? validation_signup_messages_fl : {},
-        errorPlacement : function(error, element){error.insertAfter(element.parent());},
+        errorPlacement : function(error, element){error.insertAfter(element);},
         submitHandler: function(form) {
             var options = {target:null, dataType:'json', type:'post'};
             options.beforeSubmit = function(formData,jqForm,options){

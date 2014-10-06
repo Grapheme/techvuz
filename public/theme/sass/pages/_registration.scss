@@ -73,16 +73,19 @@
 	&.auth-form {
 
 		label {
-			width: 72rem / $hfs;
+			width: 5.5rem;
 		}
 		input {
-			width: 333rem / $hfs;
+			width: 19.813rem;
 			border-color: $clr-mid-gray;
+		}
+		.form-element {
+			width: 25.5rem;
 		}
 		.forgot-pass {
 			position: absolute;
 			top: 100%;
-			left: 72rem / $hfs;
+			left: 5.5rem;
 
 			font-size: 12em / $hfs;
 			line-height: (30em / 12);
