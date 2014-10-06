@@ -37,7 +37,7 @@ function hasCookieData($name = null){
 function getJsonCookieData($name = null){
     if (!is_null($name)):
         if (isset($_COOKIE[$name]) && !empty($_COOKIE[$name])):
-            return json_decode($_COOKIE[$name],TRUE);
+            return array_keys(json_decode($_COOKIE[$name],TRUE));
         endif;
     endif;
     return array();

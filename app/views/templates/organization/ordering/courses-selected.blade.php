@@ -21,7 +21,7 @@
     </div>
     {{ Form::open(array('route'=>'ordering-listeners-store','class'=>'purchase-form clearfix')) }}
         <dl class="purchase-course-dl">
-        @foreach(Courses::whereIn('id',getArrayCookieStringData('activeOrders'))->with('direction')->get() as $course)
+        @foreach(Courses::whereIn('id',getJsonCookieData('ordering'))->with('direction')->get() as $course)
             {{ Form::hidden('courses[]',$course->id) }}
             <dt class="purchase-course-dt">
                 <table class="tech-table purchase-table" data-courseid="{{ $course->id }}">

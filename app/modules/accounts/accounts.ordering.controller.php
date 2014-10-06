@@ -60,7 +60,7 @@ class AccountsOrderingController extends BaseController {
     public function OrderingCoursesStore(){
 
         $validator = Validator::make(Input::all(),array('courses'=>'required'));
-        if($validator->passes() && hasCookieData('activeOrders')):
+        if($validator->passes() && hasCookieData('ordering')):
             return Redirect::route('ordering-select-listeners');
         else:
            return Redirect::route('page','catalog')->with('message','Не выбраны курсы для покупки');
@@ -83,9 +83,6 @@ class AccountsOrderingController extends BaseController {
 
     public function OrderingListenersStore(){
 
-        if (!hasCookieData('activeOrders')):
-            return Redirect::route('page','catalog')->with('message','Не выбраны курсы для покупки');
-        endif;
         if (!hasCookieData('ordering')):
             return Redirect::route('ordering-select-listeners')->with('message','Не выбраны сотрудники');
         endif;
