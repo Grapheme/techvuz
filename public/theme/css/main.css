@@ -8331,7 +8331,7 @@ main {
   position: relative;
   margin: 0 0 0 17.875rem;
   padding: 0 2.0625rem;
-  border-top: 1px solid white;
+  border-top: 1px solid transparent;
   border-bottom: 1px solid white;
   background: white;
 }
