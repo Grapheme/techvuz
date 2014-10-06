@@ -425,9 +425,9 @@ var Courses = (function(){
 		$.cookie('ordering', JSON.stringify(renderArr));
 
 		if( jQuery.isEmptyObject( renderArr ) || !renderArr ) {
-			console.log('empty');
+			$accBtn.hide();
 		} else {
-			console.log('not empty');
+			$accBtn.show();
 		}
 	}
 
