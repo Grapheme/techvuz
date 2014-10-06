@@ -30,7 +30,7 @@
                     <th class="sort sort--asc">Документы <span class="sort--icon"></span> </th>
                 </tr>
                 @foreach($profile->study as $study)
-                <tr>
+                <tr {{ ($study->start_status == 1 && $study->over_status == 1) ? 'class="finished-course"' : '' }}>
                     <td>{{ $study->course->title }}</td>
                     <td class="self-status">
                     @if($study->start_status == 0 && $study->over_status == 0)
@@ -63,9 +63,9 @@
                         @if($study->start_status == 0 && $study->over_status == 0)
 
                         @elseif($study->start_status == 1 && $study->over_status == 1)
-                            {{ myDateTime::SwapDotDateWithOutTime($study->order->over_date) }}
+                            {{ myDateTime::SwapDotDateWithTime($study->over_date) }}
                         @else
-                            {{ myDateTime::SwapDotDateWithOutTime($study->order->start_date) }}
+                            {{ myDateTime::SwapDotDateWithTime($study->start_date) }}
                         @endif
                         </div>
                     </td>

@@ -5,8 +5,9 @@
 
 <main class="cabinet">
     <?php
+
     $listeners = User_listener::where('organization_id',Auth::user()->id)->where('active',1)->orderBy('created_at','DESC')->with(array('study'=>function($query){
-        $query->where('start_status',0);
+        $query->where('start_status',1);
         $query->where('over_status',0);
         $query->orderBy('start_date','DESC');
         $query->with('order');
@@ -29,6 +30,7 @@
                         <th class="sort sort--asc">Прогресс <span class="sort--icon"></span> </th>
                     </tr>
                 @foreach($listeners as $listener)
+
                     @if($listener->study->count())
                         @foreach($listener->study as $index => $study)
                             <tr data-index="{{ $listener->id }}" {{ $index >= 1 ? 'class="hidden"' : '' }}>
@@ -52,14 +54,6 @@
                                 </td>
                             </tr>
                         @endforeach
-                    @else
-                    <tr>
-                        <td>
-                            <a href="{{ URL::route('company-listener-profile',$listener->id) }}">{{ $listener->fio }}</a>
-                        </td>
-                        <td>Курсов нет</td>
-                        <td>Прогресса нет</td>
-                    </tr>
                     @endif
                 @endforeach
                 </tbody>

@@ -60,8 +60,14 @@
                         <td>
                             <a href="{{ URL::route('company-listener-profile',$listener->id) }}">{{ $listener->fio }}</a>
                         </td>
-                        <td>Курсов нет</td>
-                        <td>Прогресса нет</td>
+                        <td><span class="no-courses">Для этого сотрудника курсы не покупались</span></td>
+                        <td class="td-status-bar">
+                            <div class="ui-progress-bar bar-1 clearfix">
+                                <div class="bar-part bar-part-1"></div>
+                                <div class="bar-part bar-part-2"></div>
+                                <div class="bar-part bar-part-3"></div>
+                            </div>
+                        </td>
                     </tr>
                     @endif
                 @endforeach
