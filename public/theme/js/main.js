@@ -114,15 +114,6 @@ var Popup = (function(){
 	//Кнопка конечной покупки курса
 	var $finishBtn = $('.js-coursebuy-finish');
 
-	//Получим из куков массив курсов
-	var $coursesArr = $.cookie('activeOrders').split(',');
-
-	//Собираем объект курсы - слушатели
-	var $courseObj = {};
-	for( var i=0 ; i < $coursesArr.length ; i++ ) {
-		$courseObj[ $coursesArr[i] ] = '';
-	}
-
 	$select.chosen({
 		no_results_text: 'Ничего не найдено'
     });
@@ -137,6 +128,8 @@ var Popup = (function(){
 		var orderingObj = $.cookie('ordering') ? JSON.parse( $.cookie('ordering') ) : '';
 		var $workTable = '';
 		var $workSelect = '';
+
+		console.log( orderingObj );
 
 		//Сбросим все селекты
 		$select.find('option:selected').prop('selected', false);
@@ -160,10 +153,12 @@ var Popup = (function(){
     });
 
     function makeCoursesJson(elem) {
+		var orderingObj = $.cookie('ordering') ? JSON.parse( $.cookie('ordering') ) : '';
 		//Отправляем данные в объект
 		//Получим выбранные идентификаторы слушателей
 		var $listeners = elem.find('option:selected');
 		var $listenersArr = [];
+
 		$listeners.each( function(){
 			$listenersArr.push( $(this).val() );
 		});
@@ -171,9 +166,9 @@ var Popup = (function(){
 		var $parentIndex = elem.parent().prev().find('.tech-table').data('courseid');
 
 		//Заполним объект так: ключ --> массив пользователей
-		$courseObj[ $parentIndex ] = $listenersArr;
+		orderingObj[ $parentIndex ] = $listenersArr;
 
-		$.cookie('ordering', JSON.stringify($courseObj));
+		$.cookie('ordering', JSON.stringify(orderingObj));
 		console.log( $.cookie('ordering') );
     }
 
