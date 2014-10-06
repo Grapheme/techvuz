@@ -8,7 +8,7 @@
         <span>{{ Session::get('message') }}</span>
     </div>
     @endif
-@if(isOrganization() && hasCookieData('activeOrders'))
+@if(isOrganization() && hasCookieData('ordering'))
     <?php $listeners = User_listener::where('organization_id',Auth::user()->id)->where('active',1)->lists('fio','id'); ?>
     <h2>Покупка курсов</h2>
     <div>

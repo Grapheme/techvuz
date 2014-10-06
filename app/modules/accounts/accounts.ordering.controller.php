@@ -69,7 +69,7 @@ class AccountsOrderingController extends BaseController {
 
     public function OrderingSelectListeners(){
 
-        if (!hasCookieData('activeOrders')):
+        if (!hasCookieData('ordering')):
             return Redirect::route('page','catalog')->with('message','Не выбраны курсы для покупки');
         else:
             $page_data = array(
@@ -106,7 +106,6 @@ class AccountsOrderingController extends BaseController {
                         endif;
                     endforeach;
                 endforeach;
-                setcookie("activeOrders", "", time() - 3600,'/');
                 setcookie("ordering", "", time() - 3600);
                 return Redirect::to(AuthAccount::getStartPage())->with('message','Заказ №'.$order->number.' оформлен!');
             endif;
