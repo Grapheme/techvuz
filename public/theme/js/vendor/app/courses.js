@@ -2,6 +2,7 @@ var Courses = (function(){
 	var $parent = $('.accordion');
 	var $secondaryCheckbox = $parent.find('.secondary-checkbox');
 	var $mainCheckbox = $parent.find('.main-checkbox');
+	var $accBtn = $('.js-btn-acc');
 
 	//Загружаем чекнутые боксы on document ready
 	$( function(){
@@ -42,6 +43,10 @@ var Courses = (function(){
 
 	$secondaryCheckbox.on('change', function(){
 		renderBuyers();
+
+		//Показываем кнопку "Далее" при активных заказах
+        var orderingObj = $.cookie('ordering') ? JSON.parse( $.cookie('ordering') ) : {};
+        if( !$.isEmptyObject( orderingObj ) ) $accBtn.show();
 	});
 
 })();
