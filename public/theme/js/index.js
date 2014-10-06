@@ -440,8 +440,12 @@ var Courses = (function(){
 		renderBuyers();
 
 		//Показываем кнопку "Далее" при активных заказах
-        var orderingObj = $.cookie('ordering') ? JSON.parse( $.cookie('ordering') ) : {};
-        if( !$.isEmptyObject( orderingObj ) ) $accBtn.show();
+        var orderingObj = $.cookie('ordering') ? JSON.parse( $.cookie('ordering') ) : '';
+        if( jQuery.isEmptyObject(orderingObj) || !orderingObj ) {
+			console.log('empty');
+		} else {
+			console.log('not empty');
+		}
 	});
 
 })();
