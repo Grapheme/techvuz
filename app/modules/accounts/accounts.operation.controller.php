@@ -12,10 +12,10 @@ class AccountsOperationController extends BaseController {
     public static function returnRoutes($prefix = null) {
         $class = __CLASS__;
         if (Auth::check()):
-            Route::group(array('before' => 'guest.status', 'prefix' => Auth::user()->group()->pluck('name')), function() use ($class) {
+            Route::group(array('before' => 'auth.status', 'prefix' => Auth::user()->group()->pluck('name')), function() use ($class) {
                 Route::get('repeated-send-mail/activation', array('as'=>'activation-repeated-sending-letter', 'uses' => $class.'@ActivationRepeatedSendingLetter'));
             });
-            Route::group(array('before' => 'guest.status', 'prefix' => 'organization'), function() use ($class) {
+            Route::group(array('before' => 'auth.status', 'prefix' => 'organization'), function() use ($class) {
                 Route::get('registration/listener', array('as' => 'signup-listener', 'uses' => $class . '@signupListener'));
             });
         endif;

@@ -19,7 +19,7 @@ class AccountsRegisterController extends BaseController {
             Route::get('registration/activation/{activate_code}', array('as' => 'signup-activation', 'uses' => $class . '@activation'));
         });
 
-        Route::group(array('before' => 'guest.status', 'prefix' => 'organization'), function() use ($class) {
+        Route::group(array('before' => 'auth.status', 'prefix' => 'organization'), function() use ($class) {
             Route::post('registration/listener', array('before' => 'csrf', 'as' => 'signup-listener', 'uses' => $class . '@signupListener'));
         });
     }
