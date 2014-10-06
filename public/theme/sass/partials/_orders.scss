@@ -1,128 +1,127 @@
 .orders-ul {
 	@extend .list-unstyled;
 	margin: 0 0 47rem / $hfs;
+}
+.orders-li {
+	position: relative;
+	display: inline-block;
+	vertical-align: top;
+	width: 32%;
+	margin: 0 2% 3% 0;
+	border: 1px solid $clr-mid-gray;
+	border-top: none;
 
-	.orders-li {
-		position: relative;
-		display: inline-block;
-		vertical-align: top;
-		width: 32%;
-		margin: 0 2% 3% 0;
-		border: 1px solid $clr-mid-gray;
-		border-top: none;
-
-		&.new-order {
-
-			&:before {
-				background: $clr-num-2;
-			}
-
-		}
-		&.active-order {
-
-			&:before {
-				background: $clr-num-5;
-			}
-
-		}
-
-		&:nth-child(3n+3) {
-			margin: 0 0 3%;
-		}
+	&.new-order {
 
 		&:before {
-			content: '';
-			position: absolute;
-			top: -5rem / $hfs;
-			left: -1px;
-			right: -1px;
-			height: 5rem / $hfs;
+			background: $clr-num-2;
 		}
 
-		a {
-			transition: all .4s ease;
-			color: $clr-main-bg;
-			text-decoration: none;
-			border-bottom: 1px solid;
-
-			&:hover {
-				border-color: transparent;
-			}
-		}
 	}
+	&.active-order {
 
-	.orders-li-head {
-		height: 108rem / $hfs;
-		padding: 27rem / $hfs 0 34rem / $hfs 32rem / $hfs;
-		border-bottom: 1px solid $clr-gray;
-		
-		h4 {
-			margin: 0 0 14rem / $hfs 0;
-			line-height: .75;
-			font-size: 22em / $hfs;
-			font-family: 'Open Sans', sans-serif;
-		}
-
-		.orders-status {
-			font: italic 600 (14em / $hfs) 'Open Sans', sans-serif;
+		&:before {
+			background: $clr-num-5;
 		}
 
 	}
 
-	.orders-li-body {
-		padding: 19rem / $hfs 0 0 0;
+	&:nth-child(3n+3) {
+		margin: 0 0 3%;
 	}
 
-	.orders-price {
-		margin: 0 0 14rem / $hfs;
-		padding: 0 0 0 32rem / $hfs;
-		font-size: 22em / $hfs;
+	&:before {
+		content: '';
+		position: absolute;
+		top: -5rem / $hfs;
+		left: -1px;
+		right: -1px;
+		height: 5rem / $hfs;
+	}
+
+	a {
+		transition: all .4s ease;
+		color: $clr-main-bg;
+		text-decoration: none;
+		border-bottom: 1px solid;
+
+		&:hover {
+			border-color: transparent;
+		}
+	}
+}
+
+.orders-li-head {
+	height: 108rem / $hfs;
+	padding: 27rem / $hfs 0 34rem / $hfs 32rem / $hfs;
+	border-bottom: 1px solid $clr-gray;
+	
+	h4 {
+		margin: 0 0 14rem / $hfs 0;
 		line-height: .75;
-
-		.start-price {
-
-		}
-		.end-price {
-			color: $clr-gray;
-			font-family: 'Open Sans';
-		}
+		font-size: 22em / $hfs;
+		font-family: 'Open Sans', sans-serif;
 	}
 
-	.orders-date {
-		margin: 0 0 28rem / $hfs;
-		padding: 0 0 0 32rem / $hfs;
-
-		font-weight: 400;
-		font-size: 14em / $hfs;
-		line-height: (20em / 14);
+	.orders-status {
+		font: italic 600 (14em / $hfs) 'Open Sans', sans-serif;
 	}
-	.orders-package {
-		margin: 0 0 28rem / $hfs;
-		padding: 0 0 0 32rem / $hfs;
 
-		font-weight: 400;
-		font-size: 14em / $hfs;
-		line-height: (20em / 14);
-	}
-	.orders-docs {
-		margin: 0 0 28rem / $hfs;
-		padding: 0 0 0 32rem / $hfs;
+}
 
-		font-weight: 400;
-		font-size: 14em / $hfs;
-		line-height: (20em / 14);
-	}
-	.orders-actions {
-		margin: 0 0 28rem / $hfs;
+.orders-li-body {
+	padding: 19rem / $hfs 0 0 0;
+}
 
-		text-align: center;
+.orders-price {
+	margin: 0 0 14rem / $hfs;
+	padding: 0 0 0 32rem / $hfs;
+	font-size: 22em / $hfs;
+	line-height: .75;
 
-		.btn {
-			margin: 0 0 12rem / $hfs;
-		}
+	.start-price {
+
 	}
-	.orders-delete {
-		color: $clr-danger;
-		cursor: pointer;
+	.end-price {
+		color: $clr-gray;
+		font-family: 'Open Sans';
 	}
+}
+
+.orders-date {
+	margin: 0 0 28rem / $hfs;
+	padding: 0 0 0 32rem / $hfs;
+
+	font-weight: 400;
+	font-size: 14em / $hfs;
+	line-height: (20em / 14);
+}
+.orders-package {
+	margin: 0 0 28rem / $hfs;
+	padding: 0 0 0 32rem / $hfs;
+
+	font-weight: 400;
+	font-size: 14em / $hfs;
+	line-height: (20em / 14);
+}
+.orders-docs {
+	margin: 0 0 28rem / $hfs;
+	padding: 0 0 0 32rem / $hfs;
+
+	font-weight: 400;
+	font-size: 14em / $hfs;
+	line-height: (20em / 14);
+}
+.orders-actions {
+	margin: 0 0 28rem / $hfs;
+
+	text-align: center;
+
+	.btn {
+		margin: 0 0 12rem / $hfs;
+	}
+}
+.orders-delete {
+	color: $clr-danger;
+	cursor: pointer;
 }
