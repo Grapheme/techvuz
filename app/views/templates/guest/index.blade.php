@@ -29,9 +29,9 @@
         {{ $page->block('benefits_title') }}
         {{ $page->block('benefits_list') }}
     </section>
+    @include(Helper::layout('reviews-list'))
+    @include(Helper::layout('news-list'))
 </main>
-@include(Helper::layout('reviews-list'))
-@include(Helper::layout('news-list'))
 @stop
 @section('overlays')
 @stop

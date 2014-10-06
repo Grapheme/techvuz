@@ -189,7 +189,7 @@ class AccountsOperationController extends BaseController {
             'page_description'=> Lang::get('seo.COMPANY_STUDY_PROGRESS_LIST.description'),
             'page_keywords'=> Lang::get('seo.COMPANY_STUDY_PROGRESS_LIST.keywords'),
         );
-        return View::make(Helper::acclayout('listeners-lists'),$page_data);
+        return View::make(Helper::acclayout('listeners-study-progress'),$page_data);
     }
 
     public function ActivationRepeatedSendingLetter(){
