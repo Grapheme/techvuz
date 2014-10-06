@@ -46,7 +46,11 @@ var Courses = (function(){
 
 		//Показываем кнопку "Далее" при активных заказах
         var orderingObj = $.cookie('ordering') ? JSON.parse( $.cookie('ordering') ) : '';
-        if( !jQuery.isEmptyObject(orderingObj) ) $accBtn.show();
+        if( jQuery.isEmptyObject(orderingObj) || !orderingObj ) {
+			console.log('empty');
+		} else {
+			console.log('not empty');
+		}
 	});
 
 })();
