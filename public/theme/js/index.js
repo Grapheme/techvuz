@@ -281,8 +281,6 @@ var Popup = (function(){
 			}
 
 		}
-
-		console.log( orderingObj );
     });
 
     function makeCoursesJson(elem) {
@@ -302,6 +300,7 @@ var Popup = (function(){
 		orderingObj[ $parentIndex ] = $listenersArr;
 
 		$.cookie('ordering', JSON.stringify(orderingObj));
+		
 		console.log( $.cookie('ordering') );
     }
 
