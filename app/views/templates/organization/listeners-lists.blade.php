@@ -32,7 +32,6 @@
                         <th class="sort sort--asc">Прогресс <span class="sort--icon"></span> </th>
                     </tr>
                 @foreach($listeners as $listener)
-{{--                    {{ Helper::ta($listener); }}--}}
                     @if($listener->study->count())
                         @foreach($listener->study as $index => $study)
                             <tr data-index="{{ $listener->id }}" {{ $index >= 1 ? 'class="hidden"' : '' }}>

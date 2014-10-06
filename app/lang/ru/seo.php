@@ -15,6 +15,12 @@ return array(
         'keywords' => ''
     ),
 
+    'COMPANY_LISTENER_PROFILE' => array(
+        'title' => 'Личный кабинет компании. Профиль сотрудника.',
+        'description' => '',
+        'keywords' => ''
+    ),
+
     'REGISTER_LISTENER' => array(
         'title' => 'Личный кабинет компании. Регистрация сотрудника.',
         'description' => '',

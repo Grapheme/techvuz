@@ -144,10 +144,10 @@ class AccountsRegisterController extends BaseController {
                         $json_request['responseText'] = Lang::get('interface.SIGNUP_LISTENER.success');
                         $json_request['responseText'] .= '<div>'.Lang::get('interface.SIGNUP_LISTENER.next_operation_title').'</div>';
                         $json_request['responseText'] .= '<ul>';
-                        $json_request['responseText'] .= '<li>'.Lang::get('interface.SIGNUP_LISTENER.next_operation_1').'</li>';
-                        $json_request['responseText'] .= '<li>'.Lang::get('interface.SIGNUP_LISTENER.next_operation_2').'</li>';
+                        $json_request['responseText'] .= '<li><a href="'.URL::route('signup-listener').'">'.Lang::get('interface.SIGNUP_LISTENER.next_operation_1').'</a></li>';
+                        $json_request['responseText'] .= '<li><a href="'.URL::to(AuthAccount::getStartPage()).'">'.Lang::get('interface.SIGNUP_LISTENER.next_operation_2').'</a></li>';
                         if (hasCookieData('ordering')):
-                            $json_request['responseText'] .= '<li>'.Lang::get('interface.SIGNUP_LISTENER.next_operation_3').'</li>';
+                            $json_request['responseText'] .= '<li><a href="'.URL::route('ordering-select-listeners').'">'.Lang::get('interface.SIGNUP_LISTENER.next_operation_3').'</a></li>';
                         endif;
                         $json_request['responseText'] .= '</ul>';
                         $json_request['status'] = TRUE;

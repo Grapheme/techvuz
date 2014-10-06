@@ -43,4 +43,16 @@ class Listener extends BaseModel {
         'specialty' => 'required',
     );
 
+    public static $update_rules = array(
+        'fio' => 'required',
+        'phone' => 'required',
+        'position' => 'required',
+        'postaddress' => 'required',
+        'phone' => 'required',
+        'education' => 'required',
+        'place_work' => 'required',
+        'year_study' => 'required|integer',
+        'specialty' => 'required',
+    );
+
 }

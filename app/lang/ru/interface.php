@@ -11,11 +11,16 @@ return array(
     ),
     'SIGNUP_LISTENER' => array(
         'success' => 'Сотрудник зарегистрирован. Мы отправили на email сотрудника ссылку для активации его аккаунта.',
-        'next_operation_title' => '<p>Выбирите следующие действия:</p>',
-        'next_operation_1' => '<a href="'.URL::route('signup-listener').'">Добавить нового сотрудника</a>',
-        'next_operation_2' => '<a href="'.URL::to(AuthAccount::getStartPage()).'">Вернуться на главную страницу личного кабинета</a>',
-        'next_operation_3' => '<a href="'.URL::route('ordering-select-listeners').'">Продолжить покупку курсов</a>',
+        'next_operation_title' => 'Выбирите следующие действия:',
+        'next_operation_1' => 'Добавить нового сотрудника',
+        'next_operation_2' => 'Вернуться на главную страницу личного кабинета',
+        'next_operation_3' => 'Продолжить покупку курсов',
         'email_exist' => 'Email уже зарегистрирован',
+        'fail' => 'Неверно заполнены поля'
+    ),
+
+    'UPDATE_PROFILE_LISTENER' => array(
+        'success' => 'Сохранено',
         'fail' => 'Неверно заполнены поля'
     ),
 
