@@ -136,7 +136,7 @@
                 </ul>
             </div>
         </div>
-        <div id="tabs-1">
+        <div>
             <a href="{{ URL::route('page','catalog') }}" class="btn btn-top-margin btn--bordered btn--blue pull-right">Новый заказ</a>
             <h3>Заказы</h3>
             <ul class="orders-ul">

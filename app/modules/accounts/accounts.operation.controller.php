@@ -60,6 +60,28 @@ class AccountsOperationController extends BaseController {
     }
 
     /****************************************************************************/
+    /********************************* COMPANY **********************************/
+    /****************************************************************************/
+
+    public function CompanyOrdersList(){
+
+        $page_data = array(
+            'page_title'=> Lang::get('seo.COMPANY_ORDERS_LIST.title'),
+            'page_description'=> Lang::get('seo.COMPANY_ORDERS_LIST.description'),
+            'page_keywords'=> Lang::get('seo.COMPANY_ORDERS_LIST.keywords'),
+        );
+        return View::make(Helper::acclayout('orders-lists'),$page_data);
+    }
+
+    public function CompanyListenersList(){
+
+        $page_data = array(
+            'page_title'=> Lang::get('seo.COMPANY_LISTENERS_LIST.title'),
+            'page_description'=> Lang::get('seo.COMPANY_LISTENERS_LIST.description'),
+            'page_keywords'=> Lang::get('seo.COMPANY_LISTENERS_LIST.keywords'),
+        );
+        return View::make(Helper::acclayout('listeners-lists'),$page_data);
+    }
 
     public function ActivationRepeatedSendingLetter(){
 
