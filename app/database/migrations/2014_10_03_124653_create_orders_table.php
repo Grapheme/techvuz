@@ -37,6 +37,7 @@ class CreateOrdersTable extends Migration {
                 $table->boolean('start_status')->default(0)->nullable()->unsigned();
                 $table->boolean('over_status')->default(0)->nullable()->unsigned();
                 $table->timestamp('start_date');
+                $table->timestamp('over_date');
                 $table->timestamps();
             });
 

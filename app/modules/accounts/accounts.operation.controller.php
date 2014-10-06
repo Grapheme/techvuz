@@ -86,7 +86,7 @@ class AccountsOperationController extends BaseController {
             'page_description'=> Lang::get('seo.COMPANY_LISTENER_PROFILE.description'),
             'page_keywords'=> Lang::get('seo.COMPANY_LISTENER_PROFILE.keywords'),
         );
-        $page_data['profile'] = User_listener::whereId($listener_id)
+        $page_data['profile'] = User_listener::where('id',$listener_id)
                 ->where('organization_id',Auth::user()->id)
                 ->where('active',1)
                 ->with(array('study'=>function($query){
@@ -94,7 +94,6 @@ class AccountsOperationController extends BaseController {
                     $query->with('course');
                 }))
                 ->firstOrFail();
-//        Helper::dd($page_data['profile']);
         return View::make(Helper::acclayout('listeners-profile'),$page_data);
     }
 
@@ -105,7 +104,7 @@ class AccountsOperationController extends BaseController {
             'page_description'=> Lang::get('seo.COMPANY_LISTENER_PROFILE.description'),
             'page_keywords'=> Lang::get('seo.COMPANY_LISTENER_PROFILE.keywords'),
         );
-        $page_data['profile'] = User_listener::whereId($listener_id)
+        $page_data['profile'] = User_listener::where('id',$listener_id)
                 ->where('organization_id',Auth::user()->id)
                 ->where('active',1)
                 ->firstOrFail();
@@ -137,7 +136,7 @@ class AccountsOperationController extends BaseController {
 
     private function ListenerAccountUpdate($listener_id,$post){
 
-        if($user = User::whereId($listener_id)->where('active',1)->first()):
+        if($user = User::where('id',$listener_id)->where('active',1)->first()):
             if($listener = Listener::where('user_id',$user->id)->where('organization_id',Auth::user()->id)->first()):
                 $fio = explode(' ',$post['fio']);
                 $user->name = (isset($fio[1]))?$fio[1]:'';

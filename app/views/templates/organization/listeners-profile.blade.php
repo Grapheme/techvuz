@@ -18,6 +18,7 @@
                 </div>
             </div>
         </div>
+        @if($profile->study->count())
         <table class="tech-table sortable purchase-table">
             <tbody>
                 <tr>
@@ -28,95 +29,60 @@
                     <th class="sort sort--asc">Дата <span class="sort--icon"></span> </th>
                     <th class="sort sort--asc">Документы <span class="sort--icon"></span> </th>
                 </tr>
+                @foreach($profile->study as $study)
                 <tr>
-                    <td>
-                        Не самое длинное название одного из курсов системы
-                    </td>
+                    <td>{{ $study->course->title }}</td>
                     <td class="self-status">
+                    @if($study->start_status == 0 && $study->over_status == 0)
+                        Не начато
+                    @elseif($study->start_status == 1 && $study->over_status == 1)
+                        Завершено
+                    @else
                         Обучается
+                    @endif
                     </td>
                     <td>
+                    @if($study->start_status == 0 && $study->over_status == 0)
+
+                    @else
                         <div class="ui-progress-bar bar-1 completed-1 clearfix">
                             <div class="bar-part bar-part-1"></div>
                             <div class="bar-part bar-part-2"></div>
                             <div class="bar-part bar-part-3"></div>
                         </div>
+                    @endif
                     </td>
                     <td>
-                        <a href="#">№ 432</a>
+                        <a href="#">№ {{ $study->order->number }}</a>
                         <div class="font-sm">
-                            от 12.04.13
+                            от {{ myDateTime::SwapDotDateWithOutTime($study->order->created_at) }}
                         </div>
                     </td>
                     <td>
                         <div class="font-sm">
-                            12.04.13
+                        @if($study->start_status == 0 && $study->over_status == 0)
+
+                        @elseif($study->start_status == 1 && $study->over_status == 1)
+                            {{ myDateTime::SwapDotDateWithOutTime($study->order->over_date) }}
+                        @else
+                            {{ myDateTime::SwapDotDateWithOutTime($study->order->start_date) }}
+                        @endif
                         </div>
                     </td>
                     <td>
-                       <span class="icon icon--blue icon-sertifikat"></span>  <a href="#">Сертификат</a>
+                        @if($study->start_status == 0 && $study->over_status == 0)
+
+                        @elseif($study->start_status == 1 && $study->over_status == 1)
+                           <span class="icon icon--blue icon-sertifikat"></span>  <a href="#">Сертификат</a>
+                        @else
+
+                        @endif
                     </td>
                 </tr>
-                <tr class="finished-course">
-                    <td>
-                        Не самое длинное название одного из курсов системы
-                    </td>
-                    <td class="self-status">
-                        Завершено
-                    </td>
-                    <td>
-                        <div class="ui-progress-bar bar-1 completed-1 clearfix">
-                            <div class="bar-part bar-part-1"></div>
-                            <div class="bar-part bar-part-2"></div>
-                            <div class="bar-part bar-part-3"></div>
-                        </div>
-                    </td>
-                    <td>
-                        <a href="#">№ 432</a>
-                        <div class="font-sm">
-                            от 12.04.13
-                        </div>
-                    </td>
-                    <td>
-                        <div class="font-sm">
-                            12.04.13
-                        </div>
-                    </td>
-                    <td>
-                       <span class="icon icon--blue icon-sertifikat"></span>  <a href="#">Сертификат</a>
-                    </td>
-                </tr>
-                <tr class="finished-course">
-                    <td>
-                        Не самое длинное название одного из курсов системы
-                    </td>
-                    <td class="self-status">
-                        Завершено
-                    </td>
-                    <td>
-                        <div class="ui-progress-bar bar-1 completed-1 clearfix">
-                            <div class="bar-part bar-part-1"></div>
-                            <div class="bar-part bar-part-2"></div>
-                            <div class="bar-part bar-part-3"></div>
-                        </div>
-                    </td>
-                    <td>
-                        <a href="#">№ 432</a>
-                        <div class="font-sm">
-                            от 12.04.13
-                        </div>
-                    </td>
-                    <td>
-                        <div class="font-sm">
-                            12.04.13
-                        </div>
-                    </td>
-                    <td>
-                       <span class="icon icon--blue icon-sertifikat"></span>  <a href="#">Сертификат</a>
-                    </td>
-                </tr>
+                @endforeach
             </tbody>
         </table>
+        @endif
         <div class="employer-anket margin-bottom-40">
             <h3 class="margin-bottom-30">Анкета сотрудника</h3>
             <div class="row margin-bottom-10">
