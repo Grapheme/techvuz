@@ -5,13 +5,13 @@ var Courses = (function(){
 
 	//Загружаем чекнутые боксы on document ready
 	$( function(){
-		var activeOrders = $.cookie('activeOrders') ? $.cookie('activeOrders').split(',') : '';
+		var ordering = $.cookie('ordering') ? JSON.parse( $.cookie('ordering').split(',') ) : '';
 
 		//Сбрасываем чекбоксы, которые запомнил браузер
 		$secondaryCheckbox.prop('checked', false);
 
-		for ( var i=0 ; i < activeOrders.length ; i++ ) {
-			$secondaryCheckbox.filter('[value="' + activeOrders[i] + '"]').prop('checked', true);
+		for (var key in ordering) {
+			$secondaryCheckbox.filter('[value="' + key + '"]').prop('checked', true);
 		}
 	});
 
@@ -20,13 +20,13 @@ var Courses = (function(){
 	function renderBuyers(){
 		var $parent = $('.accordion-form');
 		var $checked = $parent.find('.secondary-checkbox:checked');
-		var renderArr = [];
+		var renderArr = {};
 
 		$checked.each( function(){
-			renderArr.push( $(this).val() );
+			renderArr[ $(this).val() ] = [];
 		});
 
-		$.cookie('activeOrders', renderArr);
+		$.cookie('ordering', JSON.stringify(renderArr));
 	}
 
 	//События, которые срабатывают при клике на чекбокс
@@ -43,9 +43,5 @@ var Courses = (function(){
 	$secondaryCheckbox.on('change', function(){
 		renderBuyers();
 	});
-
-	return {
-
-	};
 
 })();
