@@ -51,3 +51,16 @@
 	}
 
 }
+
+@media screen and (-webkit-min-device-pixel-ratio:0) {
+	.banner {
+		&:before {
+			top: -2rem / $hfs;
+			left: -2rem / $hfs;
+		}
+		&:after {
+			top: -2rem / $hfs;
+			left: -2rem / $hfs;			
+		}
+	}
+}

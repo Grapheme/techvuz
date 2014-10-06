@@ -8,6 +8,10 @@
 
 		cursor: pointer;
 
+		&.odd {
+			background: $clr-white;
+		}
+
 		.accordion-img {
 			position: absolute;
 			top: 0;
@@ -38,31 +42,49 @@
 		}
 
 		&:nth-child(6n+1) {
+			&:hover {
+				background-color: $clr-num-1;
+			}
 			&.ui-accordion-header-active {
 				background-color: $clr-num-1;
 			}
 		}
-		&:nth-child(6n+2) {
+		&:nth-child(6n+3) {
+			&:hover {
+				background-color: $clr-num-2;
+			}
 			&.ui-accordion-header-active {
 				background-color: $clr-num-2;
 			}
 		}
-		&:nth-child(6n+3) {
+		&:nth-child(6n+5) {
+			&:hover {
+				background-color: $clr-num-3;
+			}
 			&.ui-accordion-header-active {
 				background-color: $clr-num-3;
 			}
 		}
-		&:nth-child(6n+4) {
+		&:nth-child(6n+7) {
+			&:hover {
+				background-color: $clr-num-4;
+			}
 			&.ui-accordion-header-active {
 				background-color: $clr-num-4;
 			}
 		}
-		&:nth-child(6n+5) {
+		&:nth-child(6n+9) {
+			&:hover {
+				background-color: $clr-num-5;
+			}
 			&.ui-accordion-header-active {
 				background-color: $clr-num-5;
 			}
 		}
-		&:nth-child(6n+6) {
+		&:nth-child(6n+11) {
+			&:hover {
+				background-color: $clr-num-6;
+			}
 			&.ui-accordion-header-active {
 				background-color: $clr-num-6;
 			}
@@ -93,6 +115,7 @@
 			font-size: 14em / $hfs;
 			font-weight: 600;
 			color: #444444;
+			text-align: center;
 
 			&:first-child {				
 				padding: 0 0 0 26em / $hfs;
@@ -172,7 +195,6 @@
 
 	.btn {
 		margin: 38rem / $hfs 0;
-		display: block;
 	}
 
 	.checkbox-container {
