@@ -424,7 +424,7 @@ var Courses = (function(){
 
 		$.cookie('ordering', JSON.stringify(renderArr));
 
-		if( jQuery.isEmptyObject(orderingObj) || !orderingObj ) {
+		if( jQuery.isEmptyObject( renderArr ) || !renderArr ) {
 			console.log('empty');
 		} else {
 			console.log('not empty');
