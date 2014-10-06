@@ -8,13 +8,24 @@
     <div class="cabinet-tabs">
         @include(Helper::acclayout('menu'))
         <div class="employer-anket">
-            <h3>Анкета сотрудника</h3>
+            <h3>Профиль</h3>
+            <a class="icon--blue pull-right" href="{{ URL::route('company-profile-edit') }}">
+                <span class="icon icon-red"></span>
+            </a>
             <div class="row margin-bottom-10">
                 <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
-                    <span class="font-sm">Ф.И.О.</span>
+                    <span class="font-sm">Наименование учреждения</span>
                 </div>
                 <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9">
-                    Авазаров Михаил Юрьевич
+                    {{ $profile->title }}
+                </div>
+            </div>
+            <div class="row margin-bottom-10">
+                <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+                    <span class="font-sm">Ф.И.О. ответственного лица</span>
+                </div>
+                <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9">
+                    {{ $profile->fio_manager }}
                 </div>
             </div>
             <div class="row margin-bottom-10">
@@ -22,66 +33,97 @@
                     <span class="font-sm">Должность</span>
                 </div>
                 <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9">
-                    Старший механик
+                    {{ $profile->manager }}
                 </div>
             </div>
             <div class="row margin-bottom-10">
                 <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
-                    <span class="font-sm">Email</span>
+                    <span class="font-sm">Уставной документ</span>
                 </div>
                 <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9">
-                    avazarov@company.com
+                    {{ $profile->statutory }}
                 </div>
             </div>
             <div class="row margin-bottom-10">
                 <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
-                    <span class="font-sm">Адрес</span>
+                    <span class="font-sm">ИНН</span>
                 </div>
                 <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9">
-                    г. Батайск, ул. Ленина, 35, офис 120
+                    {{ $profile->inn }}
                 </div>
             </div>
             <div class="row margin-bottom-10">
                 <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
-                    <span class="font-sm">Телефон</span>
+                    <span class="font-sm">КПП</span>
                 </div>
                 <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9">
-                    +7 (910) 432 - 10 - 45
+                    {{ $profile->kpp }}
                 </div>
             </div>
             <div class="row margin-bottom-10">
                 <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
-                    <span class="font-sm">Образование</span>
+                    <span class="font-sm">Почтовый адрес</span>
                 </div>
                 <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9">
-                    Высшее профессиональное
+                    {{ $profile->postaddress }}
                 </div>
             </div>
             <div class="row margin-bottom-10">
                 <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
-                    <span class="font-sm">Место работы</span>
+                    <span class="font-sm">Тип счёта</span>
                 </div>
                 <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9">
-                    ГОУ ВПО "БТИ-РГУ"
+                    {{ $profile->account_type }}
                 </div>
             </div>
             <div class="row margin-bottom-10">
                 <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
-                    <span class="font-sm">Год обучения</span>
+                    <span class="font-sm">Номер счета</span>
                 </div>
                 <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9">
-                    2010
+                    {{ $profile->account_number }}
                 </div>
             </div>
             <div class="row margin-bottom-10">
                 <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
-                    <span class="font-sm">Специальность</span>
+                    <span class="font-sm">Наименование банка</span>
                 </div>
                 <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9">
-                    Специалист по ликвидации безработицы
+                    {{ $profile->bank }}
                 </div>
             </div>
-
+            <div class="row margin-bottom-10">
+                <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+                    <span class="font-sm">БИК</span>
+                </div>
+                <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9">
+                    {{ $profile->bik }}
+                </div>
+            </div>
+            <div class="row margin-bottom-10">
+                <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+                    <span class="font-sm">E-mail</span>
+                </div>
+                <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9">
+                    {{ $profile->email }}
+                </div>
+            </div>
+            <div class="row margin-bottom-10">
+                <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+                    <span class="font-sm">Контактное лицо</span>
+                </div>
+                <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9">
+                    {{ $profile->name }}
+                </div>
+            </div>
+            <div class="row margin-bottom-10">
+                <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+                    <span class="font-sm">Номер телефона</span>
+                </div>
+                <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9">
+                    {{ $profile->phone }}
+                </div>
+            </div>
         </div>
     </div>
 </main>

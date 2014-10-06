@@ -6,4 +6,8 @@ class User_organization extends BaseModel {
 
     protected $guarded = array();
 
+    public function bank_account_type(){
+
+        return $this->hasOne('AccountTypes','id','account_type_id');
+    }
 }

@@ -39,6 +39,12 @@ return array(
         'keywords' => ''
     ),
 
+    'COMPANY_NOTIFICATION_LIST' => array(
+        'title' => 'Личный кабинет компании. Список уведомлений.',
+        'description' => '',
+        'keywords' => ''
+    ),
+
     'COMPANY_STUDY_PROGRESS_LIST' => array(
         'title' => 'Личный кабинет компании. Список слушателейы.',
         'description' => '',

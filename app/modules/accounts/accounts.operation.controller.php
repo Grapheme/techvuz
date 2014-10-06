@@ -19,6 +19,9 @@ class AccountsOperationController extends BaseController {
                 Route::get('registration/listener', array('as' => 'signup-listener', 'uses' => $class . '@signupListener'));
 
                 Route::get('profile', array('as' => 'company-profile', 'uses' => $class . '@CompanyProfile'));
+                Route::get('profile/edit', array('as' => 'company-profile-edit', 'uses' => $class . '@CompanyProfileEdit'));
+
+
                 Route::get('listeners/profile/{listener_id}', array('as' => 'company-listener-profile', 'uses' => $class . '@CompanyListenerProfile'));
                 Route::get('listeners/profile/{listener_id}/edit', array('as' => 'company-listener-profile-edit', 'uses' => $class . '@CompanyListenerProfileEdit'));
                 Route::patch('listeners/profile/{listener_id}/update', array('as' => 'company-listener-profile-update', 'uses' => $class . '@CompanyListenerProfileUpdate'));
@@ -75,8 +78,19 @@ class AccountsOperationController extends BaseController {
             'page_title'=> Lang::get('seo.COMPANY_PROFILE.title'),
             'page_description'=> Lang::get('seo.COMPANY_PROFILE.description'),
             'page_keywords'=> Lang::get('seo.COMPANY_PROFILE.keywords'),
+            'profile' => User_organization::where('id',Auth::user()->id)->first()
         );
         return View::make(Helper::acclayout('profile'),$page_data);
+    }
+     public function CompanyProfileEdit(){
+
+        $page_data = array(
+            'page_title'=> Lang::get('seo.COMPANY_PROFILE.title'),
+            'page_description'=> Lang::get('seo.COMPANY_PROFILE.description'),
+            'page_keywords'=> Lang::get('seo.COMPANY_PROFILE.keywords'),
+            'profile' => User_organization::where('id',Auth::user()->id)->first()
+        );
+        return View::make(Helper::acclayout('profile-edit'),$page_data);
     }
 
     public function CompanyListenerProfile($listener_id){
@@ -190,6 +204,16 @@ class AccountsOperationController extends BaseController {
             'page_keywords'=> Lang::get('seo.COMPANY_STUDY_PROGRESS_LIST.keywords'),
         );
         return View::make(Helper::acclayout('listeners-study-progress'),$page_data);
+    }
+
+    public function CompanyNotificationsList(){
+
+        $page_data = array(
+            'page_title'=> Lang::get('seo.COMPANY_NOTIFICATION_LIST.title'),
+            'page_description'=> Lang::get('seo.COMPANY_NOTIFICATION_LIST.description'),
+            'page_keywords'=> Lang::get('seo.COMPANY_NOTIFICATION_LIST.keywords'),
+        );
+        return View::make(Helper::acclayout('notifications'),$page_data);
     }
 
     public function ActivationRepeatedSendingLetter(){
