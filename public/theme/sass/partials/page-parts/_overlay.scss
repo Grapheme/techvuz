@@ -38,6 +38,7 @@
 	}
 
 	.popup-close {
+		transition: all .4s ease;
 		position: absolute;
 		top: 20rem / $hfs;
 		right: 20rem / $hfs;
@@ -45,6 +46,10 @@
 		font-size: 2em;
 
 		cursor: pointer;
+
+		&:hover {
+			opacity: .7;
+		}
 	}
 	.popup-head {
 		margin: 0 0 30rem / $hfs;
