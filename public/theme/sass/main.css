@@ -7022,6 +7022,16 @@ a[href^="tel"] {
   box-shadow: 0 0.3125rem 0rem -0.0625rem #dddddd;
 }
 
+@media screen and (-webkit-min-device-pixel-ratio: 0) {
+  .banner:before {
+    top: -0.125rem;
+    left: -0.125rem;
+  }
+  .banner:after {
+    top: -0.125rem;
+    left: -0.125rem;
+  }
+}
 .accordion {
   border: 1px solid #dddddd;
 }
@@ -7030,6 +7040,9 @@ a[href^="tel"] {
   outline: none;
   background: #dddddd;
   cursor: pointer;
+}
+.accordion .accordion-header.odd {
+  background: white;
 }
 .accordion .accordion-header .accordion-img {
   position: absolute;
@@ -7091,6 +7104,7 @@ a[href^="tel"] {
   font-size: 0.875em;
   font-weight: 600;
   color: #444444;
+  text-align: center;
 }
 .accordion .accordion-body th:first-child {
   padding: 0 0 0 1.625em;

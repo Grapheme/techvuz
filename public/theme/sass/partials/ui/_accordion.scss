@@ -8,6 +8,10 @@
 
 		cursor: pointer;
 
+		&.odd {
+			background: $clr-white;
+		}
+
 		.accordion-img {
 			position: absolute;
 			top: 0;
@@ -93,6 +97,7 @@
 			font-size: 14em / $hfs;
 			font-weight: 600;
 			color: #444444;
+			text-align: center;
 
 			&:first-child {				
 				padding: 0 0 0 26em / $hfs;
