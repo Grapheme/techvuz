@@ -46,27 +46,27 @@
 				background-color: $clr-num-1;
 			}
 		}
-		&:nth-child(6n+2) {
+		&:nth-child(6n+3) {
 			&.ui-accordion-header-active {
 				background-color: $clr-num-2;
 			}
 		}
-		&:nth-child(6n+3) {
+		&:nth-child(6n+5) {
 			&.ui-accordion-header-active {
 				background-color: $clr-num-3;
 			}
 		}
-		&:nth-child(6n+4) {
+		&:nth-child(6n+7) {
 			&.ui-accordion-header-active {
 				background-color: $clr-num-4;
 			}
 		}
-		&:nth-child(6n+5) {
+		&:nth-child(6n+9) {
 			&.ui-accordion-header-active {
 				background-color: $clr-num-5;
 			}
 		}
-		&:nth-child(6n+6) {
+		&:nth-child(6n+11) {
 			&.ui-accordion-header-active {
 				background-color: $clr-num-6;
 			}
