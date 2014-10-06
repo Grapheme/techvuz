@@ -17,6 +17,10 @@ class AccountsOperationController extends BaseController {
             });
             Route::group(array('before' => 'auth.status', 'prefix' => 'organization'), function() use ($class) {
                 Route::get('registration/listener', array('as' => 'signup-listener', 'uses' => $class . '@signupListener'));
+                Route::get('orders', array('as' => 'company-orders', 'uses' => $class . '@CompanyOrdersList'));
+                Route::get('listeners', array('as' => 'company-listeners', 'uses' => $class . '@CompanyListenersList'));
+                Route::get('study', array('as' => 'company-study', 'uses' => $class . '@CompanyStudyProgressList'));
+                Route::get('notifications', array('as' => 'company-notifications', 'uses' => $class . '@CompanyNotificationsList'));
             });
         endif;
     }
