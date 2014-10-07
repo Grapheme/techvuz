@@ -102,7 +102,7 @@ function organizationFormValidation() {
                             $(form).replaceWith(response.responseText);
                         }
                     }else{
-                        $(form).find('.btn-form-submit').parent().parent().parent().before("<p class='error'>"+response.responseText+"</p>");
+                        $(form).find('.btn-form-submit').parent().parent().parent().before("<p class='error' id='error'>"+response.responseText+"</p>");
                     }
                 }
             options.error = function(xhr, textStatus, errorThrown){
