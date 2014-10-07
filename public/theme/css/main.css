@@ -8774,6 +8774,9 @@ section h3 {
   font-size: 1.1875em;
   line-height: 1.52632em;
 }
+.registration-form.listener-add-form .btn {
+  margin: 0;
+}
 .registration-form .form-element {
   position: relative;
   width: 33rem;

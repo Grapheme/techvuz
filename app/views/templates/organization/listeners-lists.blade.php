@@ -13,7 +13,7 @@
     <h2>{{ User_organization::where('id',Auth::user()->id)->first()->title }}</h2>
     <div class="cabinet-tabs">
         @include(Helper::acclayout('menu'))
-        <a href="{{ URL::route('signup-listener') }}" class="btn btn--bordered btn--blue pull-right js-btn-add-emp">
+        <a href="{{ URL::route('signup-listener') }}" class="btn btn--bordered btn--blue pull-right js-btn-add-emp margin-top-20">
             <span class="icon icon-slysh_dob"></span> Добавить
         </a>
         <div class="employees margin-bottom-40">

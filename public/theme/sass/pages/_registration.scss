@@ -6,6 +6,12 @@
 		line-height: (29em / 19);
 	}
 
+	&.listener-add-form {
+		.btn {
+			margin: 0;
+		}
+	}
+
 	.form-element {
 		position: relative;
 		width: 528rem / $hfs;
