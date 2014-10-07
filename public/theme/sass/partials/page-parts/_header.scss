@@ -35,6 +35,10 @@
 
 	color: $clr-white;
 
+	&.notificated {
+		height: 153rem / $hfs;
+	}
+
 	.contact {
 		float: left;
 		margin: 17rem / $hfs 0 0 0;

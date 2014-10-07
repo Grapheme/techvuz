@@ -69,3 +69,24 @@
 	}
 
 }
+
+//Notifications statuses
+.notif {
+	height: 46rem / $hfs;
+	margin: 15rem / $hfs 0 0 17.875rem;
+	padding: 0 0 0 30rem / $hfs;
+
+	background: $clr-white;
+	color: $clr-white;
+
+	line-height: 46rem / $hfs;
+
+	&.notif--warning {
+		background: $clr-num-3;
+	}
+
+	&.notif--danger {
+		background: $clr-danger;
+	}
+
+}
