@@ -60,6 +60,7 @@
     @endforeach
     </div>
     <button type="submit" class="btn btn--bordered btn--blue pull-right btn-catalog js-btn-accordion">Далее</button>
+    {{ Form::close() }}
 </main>
 @stop
 @section('overlays')
