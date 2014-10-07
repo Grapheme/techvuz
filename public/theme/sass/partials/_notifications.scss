@@ -81,6 +81,16 @@
 
 	line-height: 46rem / $hfs;
 
+	a {
+		transition: all .4s ease;
+		border-bottom: 1px solid;
+
+		&:hover {
+			border-color: transparent;
+			text-decoration: none;
+		}
+	}
+
 	&.notif--warning {
 		background: $clr-num-3;
 	}
