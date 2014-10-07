@@ -1,0 +1,32 @@
+.cabinet-menu-ul {
+	@extend .list-unstyled;
+	border: 1px solid $clr-main-bg;
+	border-bottom: none;
+	border-right: none;
+
+	.cabinet-menu-li {
+		position: relative;
+		float: left;
+		width: 25%;
+		height: 65rem / $hfs;
+		border-bottom: 1px solid $clr-main-bg;
+		border-right: 1px solid $clr-main-bg;
+
+		line-height: 65rem / $hfs;
+
+		a {
+			transition: all .4s ease;
+
+			@extend .full-abs;
+			text-align: center;
+			text-decoration: none;
+
+			color: $clr-main-bg;
+
+			&:hover {
+				background: $clr-main-bg;
+				color: $clr-white;
+			}
+		}
+	}
+}
