@@ -1,59 +1,65 @@
-@extends(Helper::acclayout())
+@extends(Helper::layout())
 @section('style')
 @stop
 @section('content')
 <main class="catalog">
+    <h2>Оформление нового заказа. Шаг №1</h2>
     @if(Session::get('message'))
     <div class="banner banner--red">
         <span>{{ Session::get('message') }}</span>
     </div>
     @endif
-@if(isOrganization() && hasCookieData('ordering'))
-    <?php $listeners = User_listener::where('organization_id',Auth::user()->id)->where('active',1)->lists('fio','id'); ?>
-    <h2>Покупка курсов</h2>
-    <div>
-        <a href="{{ URL::route('page','catalog') }}" class="btn btn--bordered btn--blue ">
-           <span class="icon icon-kurs_dob"></span> Добавить курс
-        </a>
-        <a href="{{ URL::route('signup-listener') }}" class="btn btn--bordered btn--blue ">
-           <span class="icon icon-kurs_dob"></span> Добавить сотрудника
-        </a>
+    {{ Form::open(array('route'=>'ordering-courses-store','class'=>'authenticated accordion-form clearfix')) }}
+    <div class="accordion">
+    @foreach(Directions::with('photo')->with('courses')->get() as $direction)
+        <div class="accordion-header">
+        @if(!empty($direction->photo->name))
+            <div class="accordion-img" style="background-image: url('{{ Config::get('site.galleries_photo_public_dir').'/'.$direction->photo->name }}');"></div>
+        @endif
+            <h3>{{ $direction->title }}</h3>
+            <div class="acc-courses">
+                {{ $direction->courses->count() }} {{ Lang::choice('курс|курса|курсов',$direction->courses->count()); }}
+            </div>
+        </div>
+        @if($direction->courses->count())
+        <div class="accordion-body">
+            <table>
+                <tr>
+                    <th>
+                        <div class="checkbox-container">
+                            <input type="checkbox" autocomplete="off" class="main-checkbox">
+                        </div>
+                        Название
+                    </th>
+                    <th>Код</th>
+                    <th>Часы</th>
+                    <th>Цена</th>
+                </tr>
+            @foreach($direction->courses as $course)
+                <tr>
+                    <td>
+                        <div class="checkbox-container">
+                            <input type="checkbox" name="courses[]" autocomplete="off" value="{{ $course->id }}" class="secondary-checkbox">
+                        </div>
+                        {{ $course->title }}
+                    </td>
+                    <td>
+                        <span class="code">{{ $course->code }}</span>
+                    </td>
+                    <td>
+                        <span class="code">{{ $course->hours }}</span>
+                    </td>
+                    <td>
+                        <span class="price">{{ number_format($course->price,0,'.',' ')  }}.–</span>
+                    </td>
+                </tr>
+            @endforeach
+            </table>
+        </div>
+        @endif
+    @endforeach
     </div>
-    {{ Form::open(array('route'=>'ordering-listeners-store','class'=>'purchase-form clearfix')) }}
-        <dl class="purchase-course-dl">
-        @foreach(Courses::whereIn('id',getJsonCookieData('ordering'))->with('direction')->get() as $course)
-            {{ Form::hidden('courses[]',$course->id) }}
-            <dt class="purchase-course-dt">
-                <table class="tech-table purchase-table" data-courseid="{{ $course->id }}">
-                    <tr>
-                        <th>Название</th>
-                        <th>Код</th>
-                        <th>Часы</th>
-                        <th>Слушатели</th>
-                        <th>Цена</th>
-                    </tr>
-                    <tr>
-                        <td>{{ $course->title }}</td>
-                        <td>{{ $course->code }}</td>
-                        <td>{{ $course->hours }}</td>
-                        <td class="purchase-listeners"></td>
-                        <td class="purchase-price" data-price="{{ $course->price }}">{{ number_format($course->price,0,'.',' ')  }}.–</td>
-                    </tr>
-                </table>
-            </dt>
-            <dd class="purchase-course-dd">
-                <select data-placeholder="Выберите пользователей" name="listeners[{{ $course->id }}][]" style="width:450px" multiple="multiple" class="chosen-select">
-                @foreach($listeners as $listener_id => $listener_fio)
-                    <option value="{{ $listener_id }}">{{ $listener_fio }}</option>
-                @endforeach
-                </select>
-            </dd>
-        @endforeach
-        </dl>
-        {{ Form::hidden('completed',1) }}
-        <button type="submit" class="btn btn--bordered btn--blue pull-right js-coursebuy-finish-delete">Завершить</button>
-    {{ Form::close() }}
-@endif
+    <button type="submit" class="btn btn--bordered btn--blue pull-right btn-catalog js-btn-accordion">Далее</button>
 </main>
 @stop
 @section('overlays')

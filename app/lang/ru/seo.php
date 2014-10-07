@@ -3,6 +3,11 @@
 return array(
 
     'ORDERING' => array(
+        'select_courses' => array(
+            'title' => 'Покупка курсов. Выбор курсов',
+            'description' => '',
+            'keywords' => ''
+        ),
         'select_listeners' => array(
             'title' => 'Покупка курсов. Выбор сотрудников',
             'description' => '',

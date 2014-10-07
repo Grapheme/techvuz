@@ -22,7 +22,6 @@ class AccountsOperationController extends BaseController {
                 Route::get('profile/edit', array('as' => 'company-profile-edit', 'uses' => $class . '@CompanyProfileEdit'));
                 Route::patch('profile/update', array('as' => 'company-profile-update', 'uses' => $class . '@CompanyProfileUpdate'));
 
-
                 Route::get('listeners/profile/{listener_id}', array('as' => 'company-listener-profile', 'uses' => $class . '@CompanyListenerProfile'));
                 Route::get('listeners/profile/{listener_id}/edit', array('as' => 'company-listener-profile-edit', 'uses' => $class . '@CompanyListenerProfileEdit'));
                 Route::patch('listeners/profile/{listener_id}/update', array('as' => 'company-listener-profile-update', 'uses' => $class . '@CompanyListenerProfileUpdate'));

@@ -14,9 +14,10 @@ class AccountsOrderingController extends BaseController {
         $class = __CLASS__;
         if (isOrganizationORIndividual()):
             Route::group(array('before' => 'auth.status', 'prefix' => Auth::user()->group()->pluck('name')), function() use ($class) {
+                Route::get('ordering/select-courses', array('as' => 'ordering-select-courses', 'uses' => $class . '@OrderingSelectCourses'));
+                Route::get('ordering/select-listeners', array('as' => 'ordering-select-listeners', 'uses' => $class . '@OrderingSelectListeners'));
                 Route::post('ordering/courses-store', array('before' => 'csrf', 'as' => 'ordering-courses-store', 'uses' => $class . '@OrderingCoursesStore'));
                 Route::post('ordering/listeners-store', array('before' => 'csrf', 'as' => 'ordering-listeners-store', 'uses' => $class . '@OrderingListenersStore'));
-                Route::get('ordering/select-listeners', array('as' => 'ordering-select-listeners', 'uses' => $class . '@OrderingSelectListeners'));
             });
         endif;
     }
@@ -57,27 +58,37 @@ class AccountsOrderingController extends BaseController {
 
     /****************************************************************************/
 
-    public function OrderingCoursesStore(){
+    public function OrderingSelectCourses(){
 
-        $validator = Validator::make(Input::all(),array('courses'=>'required'));
-        if($validator->passes() && hasCookieData('ordering')):
-            return Redirect::route('ordering-select-listeners');
-        else:
-           return Redirect::route('page','catalog')->with('message','Не выбраны курсы для покупки');
-        endif;
+        $page_data = array(
+            'page_title'=> Lang::get('seo.ORDERING.select_courses.title'),
+            'page_description'=> Lang::get('seo.ORDERING.select_courses.description'),
+            'page_keywords'=> Lang::get('seo.ORDERING.select_courses.keywords'),
+        );
+        return View::make(Helper::acclayout('ordering.courses-selected'),$page_data);
     }
 
     public function OrderingSelectListeners(){
 
         if (!hasCookieData('ordering')):
-            return Redirect::route('page','catalog')->with('message','Не выбраны курсы для покупки');
+            return Redirect::route('ordering-select-courses')->with('message','Не выбраны курсы для покупки');
         else:
             $page_data = array(
                 'page_title'=> Lang::get('seo.ORDERING.select_listeners.title'),
                 'page_description'=> Lang::get('seo.ORDERING.select_listeners.description'),
                 'page_keywords'=> Lang::get('seo.ORDERING.select_listeners.keywords'),
             );
-            return View::make(Helper::acclayout('ordering.courses-selected'),$page_data);
+            return View::make(Helper::acclayout('ordering.listeners-selected'),$page_data);
+        endif;
+    }
+
+    public function OrderingCoursesStore(){
+
+        $validator = Validator::make(Input::all(),array('courses'=>'required'));
+        if($validator->passes() && hasCookieData('ordering')):
+            return Redirect::route('ordering-select-listeners');
+        else:
+            return Redirect::route('ordering-select-courses')->with('message','Не выбраны курсы для покупки');
         endif;
     }
 
@@ -107,10 +118,10 @@ class AccountsOrderingController extends BaseController {
                     endforeach;
                 endforeach;
                 setcookie("ordering", "", time() - 3600);
-                return Redirect::to(AuthAccount::getStartPage())->with('message','Заказ №'.$order->number.' оформлен!');
+                return Redirect::to(AuthAccount::getStartPage());
             endif;
         else:
-            return Redirect::route('page','catalog')->with('message','Не выбраны курсы для покупки');
+            return Redirect::route('ordering-select-courses')->with('message','Не выбраны курсы для покупки');
         endif;
 
 

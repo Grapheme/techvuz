@@ -131,49 +131,19 @@
             </div>
         </div>
         <div>
-            <a href="{{ URL::route('page','catalog') }}" class="btn btn-top-margin btn--bordered btn--blue pull-right">Новый заказ</a>
+            <a href="{{ URL::route('ordering-select-courses') }}" class="btn btn-top-margin btn--bordered btn--blue pull-right">Новый заказ</a>
             <h3>Заказы</h3>
             <ul class="orders-ul">
-            <?php $showed = 0;?>
+            <?php $showed = 0; $maxCourses = 3; ?>
+            @if(hasCookieData('ordering'))
+                <?php $maxCourses = 2; ?>
+                @include(Helper::acclayout('assets.temp-order'))
+            @endif
             @foreach($orders as $order)
-                @if($showed >= 3)
+                @if($showed >= $maxCourses)
                     <?php break; ?>
                 @endif
-                <li class="orders-li active-order">
-                    <div class="orders-li-head">
-                        <h4>Заказ №{{ $order->number }}</h4>
-                        <div class="orders-status">
-                            {{ $order->payment->title }}
-                        </div>
-                    </div>
-                    <div class="orders-li-body">
-                        @if($order->listeners->count())
-                        <div class="orders-price">
-                            <?php $price = 0.00; ?>
-                            <?php $coursesIDs = array(); ?>
-                            @foreach($order->listeners as $listener)
-                                <?php $price += $listener->price; ?>
-                                <?php $coursesIDs[$listener->course_id] = 1; ?>
-                            @endforeach
-                            <span class="start-price">{{ number_format($price,0,'.',' ')  }}.-</span> | <span class="end-price">{{ number_format($price,0,'.',' ')  }}.–</span>
-                        </div>
-                        @endif
-                        <div class="orders-date">
-                            Заказ создан:
-                            <div>
-                                {{ myDateTime::SwapDotDateWithTime($order->created_at) }}
-                            </div>
-                        </div>
-                        <div class="orders-package">
-                            <div>В заказе <a href="#">{{ count($coursesIDs) }} {{ Lang::choice('курс|курса|курсов',$order->listeners->count()); }}</a></div>
-                            <div>для <a href="#">{{ $order->listeners->count() }} {{ Lang::choice('слушателя|слушателей|слушателей',$order->listeners->count()); }}</a></div>
-                        </div>
-                        @if(in_array($order->payment_status,array(2,3)) && in_array($order->close_status,array(0,1)))
-                        <div class="orders-docs">
-                            Посмотреть <a href="#">документы</a>
-                        </div>
-                        @endif
-                    </div>
+                @include(Helper::acclayout('assets.order'))
                 <?php $showed++; ?>
             @endforeach
             </ul>

@@ -34,10 +34,22 @@ function hasCookieData($name = null){
     return FALSE;
 }
 
-function getJsonCookieData($name = null){
+function getJsonCookieData($name = null, $return = 'keys'){
     if (!is_null($name)):
         if (isset($_COOKIE[$name]) && !empty($_COOKIE[$name])):
-            return array_keys(json_decode($_COOKIE[$name],TRUE));
+            if ($return == 'keys'):
+                return array_keys(json_decode($_COOKIE[$name],TRUE));
+            elseif ($return == 'values'):
+                return array_values(json_decode($_COOKIE[$name],TRUE));
+            elseif($return == 'values_unique'):
+                $values_unique = array();
+                foreach(json_decode($_COOKIE['ordering'],TRUE) as $index => $values):
+                    foreach($values as $value):
+                        $values_unique[] = $value;
+                    endforeach;
+                endforeach;
+                return array_unique($values_unique);
+            endif;
         endif;
     endif;
     return array();
