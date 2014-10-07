@@ -18,8 +18,11 @@
 		line-height: 65rem / $hfs;
 
 		a {
+			transition: all .4s ease;
+
 			@extend .full-abs;
 			text-align: center;
+			text-decoration: none;
 
 			color: $clr-main-bg;
 
