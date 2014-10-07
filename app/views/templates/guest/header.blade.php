@@ -21,6 +21,16 @@
         <span class="or-span">или</span>
         <a class="login-link js-login" href="javascript:void(0);">Войти</a>
     @else
+        @if(isOrganizationORIndividual())
+            @if($active_status = AccountGroupsController::validActiveUserAccount())
+                @if($active_status['status'] === FALSE)
+                <div style="float: left">
+                    <span>{{ $active_status['message'] }}</span>
+                    <p>Для повторной отправки активационных данных нажмите на <a href="{{ URL::route('activation-repeated-sending-letter') }}">ссылку</a>.</p>
+                </div>
+                @endif
+            @endif
+        @endif
         <a class="btn btn--bordered" href="{{ URL::to(AuthAccount::getStartPage()) }}">Личный кабинет</a>
         <span class="or-span">или</span>
         <a class="login-link" href="{{ URL::route('logout') }}">Выйти</a>

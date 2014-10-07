@@ -3,16 +3,6 @@
 @stop
 @section('content')
 <main class="cabinet">
-    @if(@$page['active_status']['status'] === FALSE)
-    <div class="banner banner--red">
-        @if(Session::get('message'))
-        <span>{{ Session::get('message') }}</span>
-        @else
-        <span>{{ @$page['active_status']['message'] }}</span>
-        <div>Для повторной отправки активационных данных нажмите на <a href="{{ URL::route('activation-repeated-sending-letter') }}">ссылку</a>.</div>
-        @endif
-    </div>
-    @endif
     <?php
     $orders = Orders::where('user_id',Auth::user()->id)->orderBy('payment_status')->orderBy('created_at','DESC')->with('payment')->with('listeners')->get();
     ?>
