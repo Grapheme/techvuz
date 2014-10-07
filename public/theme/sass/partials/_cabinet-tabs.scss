@@ -27,6 +27,12 @@
 				background: $clr-main-bg;
 				color: $clr-white;
 			}
+
+			&.active {
+				background: $clr-main-bg;
+				color: $clr-white;
+				cursor: default;
+			}
 		}
 	}
 }
