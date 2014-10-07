@@ -1,13 +1,13 @@
 .cabinet-tabs {
 	
-	ul {
+	.cabinet-menu-ul {
 		@extend .list-unstyled;
 		border: 1px solid $clr-main-bg;
 		border-bottom: none;
 		border-right: none;
 	}
 
-	li {
+	.cabinet-menu-li {
 		position: relative;
 		float: left;
 		width: 25%;
