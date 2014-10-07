@@ -79,6 +79,7 @@ class AccountsRegisterController extends BaseController {
                         else:
                             $json_request['responseText'] = Lang::get('interface.SIGNUP.success');
                         endif;
+                        $json_request['redirect'] = AuthAccount::getStartPage();
                         $json_request['status'] = TRUE;
                     endif;
                 else:
@@ -113,6 +114,7 @@ class AccountsRegisterController extends BaseController {
                         else:
                             $json_request['responseText'] = Lang::get('interface.SIGNUP.success');
                         endif;
+                        $json_request['redirect'] = AuthAccount::getStartPage();
                         $json_request['status'] = TRUE;
                     endif;
                 else:
