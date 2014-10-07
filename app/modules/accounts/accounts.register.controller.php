@@ -173,7 +173,7 @@ class AccountsRegisterController extends BaseController {
             $account->save();
             $account->touch();
             Auth::login($account);
-            return Redirect::to(AuthAccount::getStartPage())->with('message',Lang::get('interface.ACTIVATE.success'));
+            return Redirect::to(AuthAccount::getStartPage())->with('message.text',Lang::get('interface.ACTIVATE.success'))->with('message.status','activation');
         else:
             return App::abort(404);
         endif;

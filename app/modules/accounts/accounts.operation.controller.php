@@ -281,7 +281,7 @@ class AccountsOperationController extends BaseController {
             $message->to($user->email)->subject('ТехВуз.рф - Активация аккаунта');
         });
 
-        return Redirect::back()->with('message',Lang::get('interface.REPEATED_SENDING_LETTER.success'));
+        return Redirect::back()->with('message.text',Lang::get('interface.REPEATED_SENDING_LETTER.success'))->with('message.status','activation');
     }
 
     public function signupListener(){

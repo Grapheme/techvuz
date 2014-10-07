@@ -7,8 +7,9 @@
         @endif
     @endif
 @endif
-
-
+@if(Session::has('message') && Session::get('message.status') == 'activation')
+<?php $header_notification['show'] = TRUE;?>
+@endif
 
 <header class="main-header {{ $header_notification['show'] ? 'notificated' : '' }} clearfix">
     <div class="top-dec">
@@ -30,7 +31,9 @@
 
     @if($header_notification['show'])
     <div class="notif notif--danger">
-        @if($header_notification['code'] == 3)
+        @if(Session::has('message') && Session::get('message.status') == 'activation')
+            {{ Session::get('message.text') }}
+        @elseif($header_notification['code'] == 3)
             {{ $header_notification['message'] }}
         @elseif($header_notification['code'] == 2)
             {{ $header_notification['message'] }} Для повторной отправки активационных данных нажмите на <a href="{{ URL::route('activation-repeated-sending-letter') }}">ссылку</a>
