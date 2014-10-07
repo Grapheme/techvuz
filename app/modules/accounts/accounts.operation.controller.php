@@ -20,6 +20,7 @@ class AccountsOperationController extends BaseController {
 
                 Route::get('profile', array('as' => 'company-profile', 'uses' => $class . '@CompanyProfile'));
                 Route::get('profile/edit', array('as' => 'company-profile-edit', 'uses' => $class . '@CompanyProfileEdit'));
+                Route::patch('profile/update', array('as' => 'company-profile-update', 'uses' => $class . '@CompanyProfileUpdate'));
 
 
                 Route::get('listeners/profile/{listener_id}', array('as' => 'company-listener-profile', 'uses' => $class . '@CompanyListenerProfile'));
@@ -82,7 +83,8 @@ class AccountsOperationController extends BaseController {
         );
         return View::make(Helper::acclayout('profile'),$page_data);
     }
-     public function CompanyProfileEdit(){
+
+    public function CompanyProfileEdit(){
 
         $page_data = array(
             'page_title'=> Lang::get('seo.COMPANY_PROFILE.title'),
@@ -91,6 +93,59 @@ class AccountsOperationController extends BaseController {
             'profile' => User_organization::where('id',Auth::user()->id)->first()
         );
         return View::make(Helper::acclayout('profile-edit'),$page_data);
+    }
+
+    public function CompanyProfileUpdate(){
+
+        $json_request = array('status'=>FALSE,'responseText'=>'','responseErrorText'=>'','redirect'=>FALSE);
+        if(Request::ajax() && isOrganization()):
+            $validator = Validator::make(Input::all(),Organization::$update_rules);
+            if($validator->passes()):
+                if (self::CompanyAccountUpdate(Input::all())):
+                    $json_request['responseText'] = Lang::get('interface.UPDATE_PROFILE_COMPANY.success');
+                    $json_request['redirect'] = URL::route('company-profile');
+                    $json_request['status'] = TRUE;
+                else:
+                    $json_request['responseText'] = Lang::get('interface.UPDATE_PROFILE_COMPANY.fail');
+                endif;
+            else:
+                $json_request['responseText'] = Lang::get('interface.UPDATE_PROFILE_COMPANY.fail');
+                $json_request['responseErrorText'] = $validator->messages()->all();
+            endif;
+        else:
+            return App::abort(404);
+        endif;
+        return Response::json($json_request,200);
+    }
+
+    private function CompanyAccountUpdate($post){
+
+        $user = Auth::user();
+        if($organization = Organization::where('user_id',$user->id)->first()):
+            $fio = explode(' ',$post['name']);
+            $user->name = (isset($fio[1]))?$fio[1]:'';
+            $user->surname = (isset($fio[0]))?$fio[0]:'';
+            $user->save();
+            $user->touch();
+
+            $organization->title = $post['title'];
+            $organization->fio_manager = $post['fio_manager'];
+            $organization->manager = $post['manager'];
+            $organization->statutory = $post['statutory'];
+            $organization->inn = $post['inn'];
+            $organization->kpp = $post['kpp'];
+            $organization->postaddress = $post['postaddress'];
+            $organization->account_type = $post['account_type'];
+            $organization->account_number = $post['account_number'];
+            $organization->bank = $post['bank'];
+            $organization->bik = $post['bik'];
+            $organization->name = $post['name'];
+            $organization->phone = $post['phone'];
+            $organization->save();
+            $organization->touch();
+
+            return TRUE;
+        endif;
     }
 
     public function CompanyListenerProfile($listener_id){
@@ -238,6 +293,7 @@ class AccountsOperationController extends BaseController {
         );
         return View::make(Helper::acclayout('listener-registration'),$page_data);
     }
+
     /**************************************************************************/
 
 }

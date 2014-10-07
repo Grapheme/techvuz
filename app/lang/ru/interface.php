@@ -24,6 +24,11 @@ return array(
         'fail' => 'Неверно заполнены поля'
     ),
 
+    'UPDATE_PROFILE_COMPANY' => array(
+        'success' => 'Сохранено',
+        'fail' => 'Неверно заполнены поля'
+    ),
+
     'ACCOUNT_STATUS' => array(
 
         'active' => 'Ваш аккаунт активирован!',
