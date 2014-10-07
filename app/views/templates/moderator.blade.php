@@ -12,6 +12,10 @@
     @include(Helper::layout('header'))
     @include(Helper::layout('aside'))
         <main class="cabinet">
+             <h2>{{ Auth::user()->name.' '.Auth::user()->surname }}</h2>
+             <div class="cabinet-tabs">
+                 @include(Helper::acclayout('menu'))
+             </div>
             @yield('content', @$content)
         </main>
     </div>
