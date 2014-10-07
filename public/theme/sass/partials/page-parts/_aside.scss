@@ -1,5 +1,7 @@
 .main-aside {
-	float: left;
+	position: absolute;
+	top: 97rem / $hfs;
+	left: 0;
 	width: 286rem / $hfs;	
 	border-right: 1px solid $clr-light-blue;
 
