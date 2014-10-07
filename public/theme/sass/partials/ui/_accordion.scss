@@ -48,6 +48,7 @@
 		&:nth-child(6n+1) {
 			&:hover {
 				background-color: $clr-num-1;
+				color: $clr-white;
 			}
 			&.ui-accordion-header-active {
 				background-color: $clr-num-1;
@@ -56,6 +57,7 @@
 		&:nth-child(6n+3) {
 			&:hover {
 				background-color: $clr-num-2;
+				color: $clr-white;
 			}
 			&.ui-accordion-header-active {
 				background-color: $clr-num-2;
@@ -64,6 +66,7 @@
 		&:nth-child(6n+5) {
 			&:hover {
 				background-color: $clr-num-3;
+				color: $clr-white;
 			}
 			&.ui-accordion-header-active {
 				background-color: $clr-num-3;
@@ -72,6 +75,7 @@
 		&:nth-child(6n+7) {
 			&:hover {
 				background-color: $clr-num-4;
+				color: $clr-white;
 			}
 			&.ui-accordion-header-active {
 				background-color: $clr-num-4;
@@ -80,6 +84,7 @@
 		&:nth-child(6n+9) {
 			&:hover {
 				background-color: $clr-num-5;
+				color: $clr-white;
 			}
 			&.ui-accordion-header-active {
 				background-color: $clr-num-5;
@@ -88,6 +93,7 @@
 		&:nth-child(6n+11) {
 			&:hover {
 				background-color: $clr-num-6;
+				color: $clr-white;
 			}
 			&.ui-accordion-header-active {
 				background-color: $clr-num-6;
