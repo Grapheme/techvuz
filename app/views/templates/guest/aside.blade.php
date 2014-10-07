@@ -9,19 +9,20 @@
     </div>
     <nav>
        <ul class="nav-ul">
-           <li class="nav-li">
+
+           <li class="nav-li{{ Helper::isRoute('page', 'about',' active') }}">
                <a href="{{ URL::route('page', 'about') }}">О портале</a>
            </li>
-           <li class="nav-li">
+           <li class="nav-li{{ Helper::isRoute('page', 'catalog',' active') }}">
                <a href="{{ URL::route('page', 'catalog') }}">Каталог курсов</a>
            </li>
-           <li class="nav-li">
+           <li class="nav-li{{ Helper::isRoute('page', 'how-it-works',' active') }}">
                <a href="{{ URL::route('page', 'how-it-works') }}">Как это работает</a>
            </li>
-           <li class="nav-li">
+           <li class="nav-li{{ Helper::isRoute('page', 'snips',' active') }}">
                <a href="{{ URL::route('page', 'snips') }}">Переписка (СНИПЫ)</a>
            </li>
-           <li class="nav-li">
+           <li class="nav-li{{ Helper::isRoute('page', 'contacts',' active') }}">
                <a href="{{ URL::route('page', 'contacts') }}">Контактная информация</a>
            </li>
        </ul>
