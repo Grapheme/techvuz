@@ -1,11 +1,8 @@
-.cabinet-tabs {
-	
-	.cabinet-menu-ul {
-		@extend .list-unstyled;
-		border: 1px solid $clr-main-bg;
-		border-bottom: none;
-		border-right: none;
-	}
+.cabinet-menu-ul {
+	@extend .list-unstyled;
+	border: 1px solid $clr-main-bg;
+	border-bottom: none;
+	border-right: none;
 
 	.cabinet-menu-li {
 		position: relative;
