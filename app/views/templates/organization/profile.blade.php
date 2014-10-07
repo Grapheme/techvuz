@@ -7,11 +7,17 @@
     <h2>{{ User_organization::where('id',Auth::user()->id)->first()->title }}</h2>
     <div class="cabinet-tabs">
         @include(Helper::acclayout('menu'))
-        <div class="employer-anket">
-            <h3>Профиль</h3>
-            <a class="icon--blue pull-right" href="{{ URL::route('company-profile-edit') }}">
-                <span class="icon icon-red"></span>
-            </a>
+        <div class="employer-anket margin-bottom-40">
+            <div class="row">
+                <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+                    <h3>Профиль</h3>
+                </div>
+                <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9">
+                    <a class="icon--blue pull-right margin-top-30" href="{{ URL::route('company-profile-edit') }}">
+                        <span class="icon icon-red"></span>
+                    </a>
+                </div>
+            </div>
             <div class="row margin-bottom-10">
                 <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
                     <span class="font-sm">Наименование учреждения</span>
