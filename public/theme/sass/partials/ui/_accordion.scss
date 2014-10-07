@@ -1,6 +1,10 @@
 .accordion {
 	border: 1px solid $clr-gray;
 
+	.main-checkbox {
+		display: none;
+	}
+
 	.accordion-header {
 		position: relative;
 		outline: none;
