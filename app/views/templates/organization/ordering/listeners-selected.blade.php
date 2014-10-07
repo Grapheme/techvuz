@@ -12,11 +12,11 @@
 @if(isOrganization() && hasCookieData('ordering'))
     <?php $listeners = User_listener::where('organization_id',Auth::user()->id)->where('active',1)->lists('fio','id'); ?>
     <h2>Покупка курсов</h2>
-    <div>
-        <a href="{{ URL::route('ordering-select-courses') }}" class="btn btn--bordered btn--blue ">
+    <div class="margin-bottom-20">
+        <a href="{{ URL::route('ordering-select-courses') }}" class="btn btn--bordered btn--blue margin-top-30">
            <span class="icon icon-kurs_dob"></span> Добавить курс
         </a>
-        <a href="{{ URL::route('signup-listener') }}" class="btn btn--bordered btn--blue ">
+        <a href="{{ URL::route('signup-listener') }}" class="btn btn--bordered btn--blue margin-top-30">
            <span class="icon icon-kurs_dob"></span> Добавить сотрудника
         </a>
     </div>
@@ -52,7 +52,7 @@
         @endforeach
         </dl>
         {{ Form::hidden('completed',1) }}
-        <button type="submit" class="btn btn--bordered btn--blue pull-right js-coursebuy-finish-delete">Завершить</button>
+        <button type="submit" class="btn btn--bordered btn--blue pull-right js-coursebuy-finish">Завершить</button>
     {{ Form::close() }}
 @endif
 </main>
