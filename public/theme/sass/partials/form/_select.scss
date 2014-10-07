@@ -20,7 +20,7 @@
 .ui-selectmenu-button {
 	position: relative;
 	display: inline-block;
-	width: 337rem / $hfs;
+	width: 337rem / $hfs !important;
 	height: 43rem / $hfs;
 	padding: 0 10rem / $hfs;
 	border: 1px solid $clr-dark-gray;
