@@ -39,7 +39,7 @@
         </div>
     </fieldset>
     <fieldset>
-        <header>Контактные данные</header>
+        <header class="margin-bottom-20">Контактные данные</header>
         <div class="form-element">
             <label>E-mail</label>{{ Form::email('email', '') }}
         </div>

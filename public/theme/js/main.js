@@ -174,7 +174,7 @@ var Popup = (function(){
 		//Заполним объект так: ключ --> массив пользователей
 		orderingObj[ $parentIndex ] = $listenersArr;
 
-		$.cookie('ordering', JSON.stringify(orderingObj));
+		$.cookie('ordering', JSON.stringify(orderingObj), { path: '/' });
 		
 		console.log( $.cookie('ordering') );
     }

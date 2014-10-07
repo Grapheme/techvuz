@@ -27,7 +27,7 @@ var Courses = (function(){
 			renderArr[ $(this).val() ] = [];
 		});
 
-		$.cookie('ordering', JSON.stringify(renderArr));
+		$.cookie('ordering', JSON.stringify(renderArr), { path: '/' });
 
 		if( jQuery.isEmptyObject( renderArr ) || !renderArr ) {
 			$accBtn.hide();
