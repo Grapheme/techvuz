@@ -1,10 +1,8 @@
 @extends(Helper::layout())
 @section('style') @stop
 @section('content')
-<main class="cabinet">
-    <div class="banner banner--red">
-        <span>{{ Lang::get('interface.ACCOUNT_STATUS.blocked_approve') }}</span>
-    </div>
+<main>
+    {{ HTML::image('img/account_blocked.png') }}
 </main>
 @stop
 @section('overlays')

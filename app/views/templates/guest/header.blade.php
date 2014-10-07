@@ -1,12 +1,16 @@
-<header class="main-header 
-    @if(isOrganizationORIndividual())
-        @if($active_status = AccountGroupsController::validActiveUserAccount())
-            @if($active_status['status'] === FALSE)
-                notificated
-            @endif
+<?php $header_notification['show'] = FALSE;?>
+@if(isOrganizationORIndividual())
+    @if($active_status = AccountGroupsController::validActiveUserAccount())
+        @if($active_status['status'] === FALSE)
+        <?php $header_notification = $active_status; ?>
+        <?php $header_notification['show'] = TRUE; ?>
         @endif
     @endif
-clearfix">
+@endif
+
+
+
+<header class="main-header {{ $header_notification['show'] ? 'notificated' : '' }} clearfix">
     <div class="top-dec">
         <div class="top-dec-part part-1"></div>
         <div class="top-dec-part part-2"></div>
@@ -24,14 +28,14 @@ clearfix">
         </div>
     </div>
 
-    @if(isOrganizationORIndividual())
-        @if($active_status = AccountGroupsController::validActiveUserAccount())
-            @if($active_status['status'] === FALSE)
-            <div class="notif notif--danger">
-                {{ $active_status['message'] }} Для повторной отправки активационных данных нажмите на <a href="{{ URL::route('activation-repeated-sending-letter') }}">ссылку</a>
-            </div>
-            @endif
+    @if($header_notification['show'])
+    <div class="notif notif--danger">
+        @if($header_notification['code'] == 3)
+            {{ $header_notification['message'] }}
+        @elseif($header_notification['code'] == 2)
+            {{ $header_notification['message'] }} Для повторной отправки активационных данных нажмите на <a href="{{ URL::route('activation-repeated-sending-letter') }}">ссылку</a>
         @endif
+    </div>
     @endif
 
     <div class="auth">
