@@ -21,7 +21,6 @@
 				border-color: $clr-danger;
 				box-shadow: inset 0 0 0 2px $clr-danger;
 				color: $clr-danger;
-				outline: none;
 			}
 
 		}
@@ -52,6 +51,7 @@
 	}
 
 	input {
+		outline: none;
 		transition: all .4s ease;
 		width: 337rem / $hfs;
 		height: 43rem / $hfs;
