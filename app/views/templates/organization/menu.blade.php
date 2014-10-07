@@ -11,7 +11,7 @@
     <li class="cabinet-menu-li">
     	<a {{ Helper::isRoute('company-notifications') }} href="{{ URL::route('company-notifications') }}"><span class="icon icon-yved"></span> Уведомления</a>
     </li>
-    <li class="cabinet-menu-li">
+    <!-- <li class="cabinet-menu-li">
     	<a {{ Helper::isRoute('company-profile') }} href="{{ URL::route('company-profile') }}"><span class=""></span> Профиль</a>
-    </li>
+    </li> -->
 </ul>
