@@ -16,8 +16,8 @@
            <li class="nav-li{{ Helper::isRoute('page', 'catalog',' active') }}">
                <a href="{{ URL::route('page', 'catalog') }}">Каталог курсов</a>
            </li>
-           <li style="opacity: .4" class="nav-li{{ Helper::isRoute('page', 'how-it-works',' active') }}">
-               <a onclick="return false;" href="{{ URL::route('page', 'how-it-works') }}">Как это работает</a>
+           <li class="nav-li{{ Helper::isRoute('page', 'how-it-works',' active') }}">
+               <a href="{{ URL::route('page', 'how-it-works') }}">Как это работает</a>
            </li>
            <li style="opacity: .4" class="nav-li{{ Helper::isRoute('page', 'snips',' active') }}">
                <a onclick="return false;" href="{{ URL::route('page', 'snips') }}">Переписка (СНИПЫ)</a>
