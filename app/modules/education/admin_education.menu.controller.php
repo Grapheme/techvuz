@@ -38,7 +38,7 @@ class AdminEducationMenuController extends BaseController {
     public static function returnMenu() {
         return array(
             array(
-                'title' => 'Направления и курсы',
+                'title' => 'Обучение',
                 'link' => self::$group.'/'.AdminEducationDirectionsController::$name,
                 'class' => 'fa-book',
                 'permit' => 'view',
