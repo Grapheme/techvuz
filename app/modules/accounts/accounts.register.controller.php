@@ -141,15 +141,14 @@ class AccountsRegisterController extends BaseController {
                             $message->from(Config::get('mail.from.address'),Config::get('mail.from.name'));
                             $message->to(Input::get('email'))->subject('ТехВуз.рф - регистрация');
                         });
-                        $json_request['responseText'] = Lang::get('interface.SIGNUP_LISTENER.success');
-                        $json_request['responseText'] .= '<div>'.Lang::get('interface.SIGNUP_LISTENER.next_operation_title').'</div>';
-                        $json_request['responseText'] .= '<ul>';
-                        $json_request['responseText'] .= '<li><a href="'.URL::route('signup-listener').'">'.Lang::get('interface.SIGNUP_LISTENER.next_operation_1').'</a></li>';
-                        $json_request['responseText'] .= '<li><a href="'.URL::to(AuthAccount::getStartPage()).'">'.Lang::get('interface.SIGNUP_LISTENER.next_operation_2').'</a></li>';
+                        $json_request['responseText'] = '<h3 class="margin-bottom-10">'.Lang::get('interface.SIGNUP_LISTENER.success').'</h3>';
+                        $json_request['responseText'] .= '<div class="desc margin-bottom-30">'.Lang::get('interface.SIGNUP_LISTENER.success_desc').'</div>';
+                        $json_request['responseText'] .= '<h4 class="margin-bottom-20">'.Lang::get('interface.SIGNUP_LISTENER.next_operation_title').'</h4>';
+                        $json_request['responseText'] .= '<a class="btn btn--bordered btn--blue margin-right-20" href="'.URL::route('signup-listener').'">'.Lang::get('interface.SIGNUP_LISTENER.next_operation_1').'</a>';
+                        $json_request['responseText'] .= '<a class="btn btn--bordered btn--blue margin-right-20" href="'.URL::to(AuthAccount::getStartPage()).'">'.Lang::get('interface.SIGNUP_LISTENER.next_operation_2').'</a>';
                         if (hasCookieData('ordering')):
-                            $json_request['responseText'] .= '<li><a href="'.URL::route('ordering-select-listeners').'">'.Lang::get('interface.SIGNUP_LISTENER.next_operation_3').'</a></li>';
+                            $json_request['responseText'] .= '<a class="btn btn--bordered btn--blue margin-right-20" href="'.URL::route('ordering-select-listeners').'">'.Lang::get('interface.SIGNUP_LISTENER.next_operation_3').'</a>';
                         endif;
-                        $json_request['responseText'] .= '</ul>';
                         $json_request['status'] = TRUE;
                     endif;
                 else:
