@@ -7097,36 +7097,42 @@ a[href^="tel"] {
 }
 .accordion .accordion-header:nth-child(6n+1):hover {
   background-color: #bb252d;
+  color: white;
 }
 .accordion .accordion-header:nth-child(6n+1).ui-accordion-header-active {
   background-color: #bb252d;
 }
 .accordion .accordion-header:nth-child(6n+3):hover {
   background-color: #78a725;
+  color: white;
 }
 .accordion .accordion-header:nth-child(6n+3).ui-accordion-header-active {
   background-color: #78a725;
 }
 .accordion .accordion-header:nth-child(6n+5):hover {
   background-color: #e4b51e;
+  color: white;
 }
 .accordion .accordion-header:nth-child(6n+5).ui-accordion-header-active {
   background-color: #e4b51e;
 }
 .accordion .accordion-header:nth-child(6n+7):hover {
   background-color: #5e52ac;
+  color: white;
 }
 .accordion .accordion-header:nth-child(6n+7).ui-accordion-header-active {
   background-color: #5e52ac;
 }
 .accordion .accordion-header:nth-child(6n+9):hover {
   background-color: #db7336;
+  color: white;
 }
 .accordion .accordion-header:nth-child(6n+9).ui-accordion-header-active {
   background-color: #db7336;
 }
 .accordion .accordion-header:nth-child(6n+11):hover {
   background-color: #4bc8bb;
+  color: white;
 }
 .accordion .accordion-header:nth-child(6n+11).ui-accordion-header-active {
   background-color: #4bc8bb;
