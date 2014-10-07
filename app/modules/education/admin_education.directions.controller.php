@@ -11,6 +11,7 @@ class AdminEducationDirectionsController extends BaseController {
 
     ## Routing rules of module
     public static function returnRoutes($prefix = null) {
+
         $class = __CLASS__;
         Route::group(array('before' => 'auth', 'prefix' => $prefix), function() use ($class) {
             Route::resource($class::$group."/".self::$name, $class,

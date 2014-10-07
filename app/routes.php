@@ -100,8 +100,11 @@ foreach ($files as $file) {
     if (strpos($module_name, "_"))
         list($module_prefix, $module_postname) = explode("_", $module_name, 2);
     $module_prefix = strtolower($module_prefix);
-
     $module_fullname = ucfirst($module_prefix).ucfirst($module_postname)."Controller";
+
+    if (!empty($module_prefix) && $module_prefix != 'public' && Auth::check()):
+        $module_prefix = AuthAccount::getGroupName();
+    endif;
 
     if ($load_debug)
         echo $file_name . ": " . $module_prefix . " | " . $module_name . " | " . $module_fullname . " > "; #die;

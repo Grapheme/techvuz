@@ -6,13 +6,8 @@ class AuthAccount {
 
 		$StartPage = '';
 		if(Auth::check()):
-			#$StartPage = Auth::user()->groups()->first()->dashboard;
-#Helper::dd(Auth::user()->group);
-            $group = Auth::user()->group;
-			#$StartPage = $group->start_url ? $group->start_url : $group->dashboard;
-			$StartPage = $group->dashboard;
+			$StartPage = Auth::user()->group->dashboard;
 		endif;
-        #Helper::dd($StartPage);
 		if(!is_null($url)):
 			return $StartPage.'/'.$url;
 		else:
