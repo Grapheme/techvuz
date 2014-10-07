@@ -280,7 +280,8 @@ class AccountsOperationController extends BaseController {
             $message->from(Config::get('mail.from.address'),Config::get('mail.from.name'));
             $message->to($user->email)->subject('ТехВуз.рф - Активация аккаунта');
         });
-       return Redirect::to(AuthAccount::getGroupStartUrl())->with('message',Lang::get('interface.REPEATED_SENDING_LETTER.success'));
+
+        return Redirect::back()->with('message',Lang::get('interface.REPEATED_SENDING_LETTER.success'));
     }
 
     public function signupListener(){

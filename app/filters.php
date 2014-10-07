@@ -72,7 +72,8 @@ Route::filter('guest', function(){
 });
 
 Route::filter('guest.auth', function(){
-	if(Auth::check()):
+
+    if(Auth::check()):
 		Auth::logout();
 	endif;
 });

@@ -15,7 +15,7 @@ class AccountsRegisterController extends BaseController {
             Route::post('registration/ul', array('before' => 'csrf', 'as' => 'signup-ul', 'uses' => $class . '@signupUL'));
             Route::post('registration/fl', array('before' => 'csrf', 'as' => 'signup-fl', 'uses' => $class . '@signupFL'));
         });
-        Route::group(array('before' => 'guest', 'prefix' => ''), function() use ($class) {
+        Route::group(array('before' => 'guest.auth', 'prefix' => ''), function() use ($class) {
             Route::get('registration/activation/{activate_code}', array('as' => 'signup-activation', 'uses' => $class . '@activation'));
         });
 
@@ -174,7 +174,7 @@ class AccountsRegisterController extends BaseController {
             $account->save();
             $account->touch();
             Auth::login($account);
-            return Redirect::to(AuthAccount::getStartPage());
+            return Redirect::to(AuthAccount::getStartPage())->with('message',Lang::get('interface.ACTIVATE.success'));
         else:
             return App::abort(404);
         endif;
