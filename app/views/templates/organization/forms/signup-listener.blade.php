@@ -1,4 +1,4 @@
-{{ Form::open(array('url'=>URL::route('signup-listener'), 'class'=>'registration-form', 'id'=>'signup-listener-form', 'method'=>'post')) }}
+{{ Form::open(array('url'=>URL::route('signup-listener'), 'class'=>'registration-form listener-add-form', 'id'=>'signup-listener-form', 'method'=>'post')) }}
     {{ Form::hidden('group_id',@Group::where('name','listener')->pluck('id')) }}
     {{ Form::hidden('organization_id',Auth::user()->id) }}
     <div class="reg-form-alert">
@@ -31,10 +31,14 @@
     <div class="form-element">
         <label>Специальность</label>{{ Form::text('specialty') }}
     </div>
-    <div class="form-element">
-        <button type="submit" autocomplete="off" class="btn btn--bordered btn--blue btn-form-submit">
-            <i class="fa fa-spinner fa-spin hidden"></i> <span class="btn-response-text">Готово</span>
-        </button>
-        <a class="btn btn--bordered btn--blue" href="{{ URL::previous() }}">Вернуться назад</a>
+    <div class="form-element row no-gutter margin-top-40">
+        <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+            <a class="btn btn--bordered btn--blue" href="{{ URL::previous() }}">Вернуться назад</a>
+        </div>
+        <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8">
+            <button type="submit" autocomplete="off" class="btn btn--bordered btn--blue btn-form-submit">
+                <i class="fa fa-spinner fa-spin hidden"></i> <span class="btn-response-text">Готово</span>
+            </button>
+        </div>
     </div>
 {{ Form::close() }}
