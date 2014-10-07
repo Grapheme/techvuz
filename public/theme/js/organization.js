@@ -81,6 +81,12 @@ var validation_profile_messages_ul = {
     consent: { required: '' }
 };
 
+function scrollToError(elem) {
+    $('html, body').animate({
+        scrollTop: elem.offset().top
+    }, 200);
+}
+
 function organizationFormValidation() {
 
     var signupListener = $("#signup-listener-form").validate({
@@ -103,6 +109,8 @@ function organizationFormValidation() {
                         }
                     }else{
                         $(form).find('.btn-form-submit').parent().parent().parent().before("<p class='error' id='error'>"+response.responseText+"</p>");
+                        
+                        scrollToError( $('#error') );
                     }
                 }
             options.error = function(xhr, textStatus, errorThrown){
