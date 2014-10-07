@@ -7482,7 +7482,7 @@ a[href^="tel"] {
 .ui-selectmenu-button {
   position: relative;
   display: inline-block;
-  width: 21.0625rem;
+  width: 21.0625rem !important;
   height: 2.6875rem;
   padding: 0 0.625rem;
   border: 1px solid #333333;
@@ -8765,6 +8765,7 @@ section h3 {
   font-size: 0.75em;
   line-height: 2.08333em;
   font-weight: 400;
+  font-style: normal;
   color: #c11c18;
 }
 .registration-form label {
