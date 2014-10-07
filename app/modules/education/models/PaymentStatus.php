@@ -18,7 +18,7 @@ class PaymentStatus extends BaseModel {
 
     protected $table = 'payment_status';
 
-    protected $fillable = array('title');
+    protected $fillable = array('title','class');
 
     public static $order_by = "title";
 

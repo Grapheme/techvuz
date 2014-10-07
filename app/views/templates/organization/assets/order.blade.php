@@ -1,5 +1,5 @@
 @if(isset($order) && is_object($order))
-<li class="orders-li active-order">
+<li class="orders-li {{ $order->payment->class }}">
     <div class="orders-li-head">
         <h4>Заказ №{{ $order->number }}</h4>
         <div class="orders-status">

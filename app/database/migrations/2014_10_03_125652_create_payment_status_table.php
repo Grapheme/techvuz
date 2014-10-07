@@ -10,6 +10,7 @@ class CreatePaymentStatusTable extends Migration {
             Schema::create('payment_status', function(Blueprint $table) {
                 $table->increments('id');
                 $table->string('title',50)->nullable();
+                $table->string('class',20)->nullable();
                 $table->timestamps();
             });
 

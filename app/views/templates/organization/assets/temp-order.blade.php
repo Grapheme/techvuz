@@ -1,4 +1,4 @@
-<li class="orders-li new-order">
+<li class="orders-li non-paid-order">
     <div class="orders-li-head">
         <h4>Новый заказ</h4>
         <div class="orders-status">
