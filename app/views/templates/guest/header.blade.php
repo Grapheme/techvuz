@@ -1,4 +1,12 @@
-<header class="main-header clearfix">
+<header class="main-header 
+    @if(isOrganizationORIndividual())
+        @if($active_status = AccountGroupsController::validActiveUserAccount())
+            @if($active_status['status'] === FALSE)
+                notificated
+            @endif
+        @endif
+    @endif
+clearfix">
     <div class="top-dec">
         <div class="top-dec-part part-1"></div>
         <div class="top-dec-part part-2"></div>
@@ -15,22 +23,23 @@
             Звонок бесплатный
         </div>
     </div>
+
+    @if(isOrganizationORIndividual())
+        @if($active_status = AccountGroupsController::validActiveUserAccount())
+            @if($active_status['status'] === FALSE)
+            <div class="notif notif--danger">
+                {{ $active_status['message'] }} Для повторной отправки активационных данных нажмите на <a href="{{ URL::route('activation-repeated-sending-letter') }}">ссылку</a>
+            </div>
+            @endif
+        @endif
+    @endif
+
     <div class="auth">
     @if(Auth::guest())
         <a class="btn btn--bordered" href="{{ URL::route('page', 'registration') }}">Оформить заявку</a>
         <span class="or-span">или</span>
         <a class="login-link js-login" href="javascript:void(0);">Войти</a>
-    @else
-        @if(isOrganizationORIndividual())
-            @if($active_status = AccountGroupsController::validActiveUserAccount())
-                @if($active_status['status'] === FALSE)
-                <div style="float: left">
-                    <span>{{ $active_status['message'] }}</span>
-                    <p>Для повторной отправки активационных данных нажмите на <a href="{{ URL::route('activation-repeated-sending-letter') }}">ссылку</a>.</p>
-                </div>
-                @endif
-            @endif
-        @endif
+    @else        
         <a class="btn btn--bordered" href="{{ URL::to(AuthAccount::getStartPage()) }}">Личный кабинет</a>
         <span class="or-span">или</span>
         <a class="login-link" href="{{ URL::route('logout') }}">Выйти</a>
