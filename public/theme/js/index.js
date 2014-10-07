@@ -411,17 +411,13 @@ var Courses = (function(){
 		}
 
 		//Если есть чекнутые чекбоксы - показываем кнопку "Далее"
-		btnControl();
-
-	});
-
-	function btnControl(){
-		if( jQuery.isEmptyObject( renderArr ) || !renderArr ) {
+		if( jQuery.isEmptyObject( ordering ) || !ordering ) {
 			$accBtn.hide();
 		} else {
 			$accBtn.show();
 		}
-	}
+
+	});
 
 	//для каждого клика на чекбокс мы должны обновлять массив заказанных курсов
 
@@ -436,8 +432,11 @@ var Courses = (function(){
 
 		$.cookie('ordering', JSON.stringify(renderArr), { path: '/' });
 
-		//Если есть чекнутые чекбоксы - показываем кнопку "Далее"
-		btnControl();
+		if( jQuery.isEmptyObject( renderArr ) || !renderArr ) {
+			$accBtn.hide();
+		} else {
+			$accBtn.show();
+		}
 	}
 
 	//События, которые срабатывают при клике на чекбокс
