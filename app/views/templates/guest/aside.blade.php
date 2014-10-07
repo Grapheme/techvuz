@@ -10,19 +10,19 @@
     <nav>
        <ul class="nav-ul">
 
-           <li style="opacity: .7" class="nav-li{{ Helper::isRoute('page', 'about',' active') }}">
+           <li style="opacity: .4" class="nav-li{{ Helper::isRoute('page', 'about',' active') }}">
                <a onclick="return false;" href="{{ URL::route('page', 'about') }}">О портале</a>
            </li>
            <li class="nav-li{{ Helper::isRoute('page', 'catalog',' active') }}">
                <a href="{{ URL::route('page', 'catalog') }}">Каталог курсов</a>
            </li>
-           <li style="opacity: .7" class="nav-li{{ Helper::isRoute('page', 'how-it-works',' active') }}">
+           <li style="opacity: .4" class="nav-li{{ Helper::isRoute('page', 'how-it-works',' active') }}">
                <a onclick="return false;" href="{{ URL::route('page', 'how-it-works') }}">Как это работает</a>
            </li>
-           <li style="opacity: .7" class="nav-li{{ Helper::isRoute('page', 'snips',' active') }}">
+           <li style="opacity: .4" class="nav-li{{ Helper::isRoute('page', 'snips',' active') }}">
                <a onclick="return false;" href="{{ URL::route('page', 'snips') }}">Переписка (СНИПЫ)</a>
            </li>
-           <li style="opacity: .7" class="nav-li{{ Helper::isRoute('page', 'contacts',' active') }}">
+           <li style="opacity: .4" class="nav-li{{ Helper::isRoute('page', 'contacts',' active') }}">
                <a onclick="return false;" href="{{ URL::route('page', 'contacts') }}">Контактная информация</a>
            </li>
        </ul>
