@@ -11,17 +11,17 @@
 	border: 1px solid $clr-mid-gray;
 	border-top: none;
 
-	&.new-order {
+	&.paid-order {
 
 		&:before {
 			background: $clr-num-2;
 		}
 
 	}
-	&.active-order {
+	&.non-paid-order {
 
 		&:before {
-			background: $clr-num-5;
+			background: $clr-num-1;
 		}
 
 	}
