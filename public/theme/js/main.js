@@ -227,6 +227,8 @@ var Popup = (function(){
 		if (!finishFlag) {
 			returnError('Слушатели выбраны не для всех курсов в списке');
 			return;
+		} else {
+			$('.purchase-form').submit();
 		}
 
     });
