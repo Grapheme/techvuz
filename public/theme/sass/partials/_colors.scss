@@ -7,7 +7,7 @@ $clr-mid-gray: #a8a8a8;
 $clr-dark-gray: #333;
 $clr-black: #000;
 
-$clr-danger: #c11c18;
+//$clr-danger: #c11c18
 
 $clr-red: #bb252d;
 $clr-green: #78a725;
@@ -17,6 +17,7 @@ $clr-orange: #db7336;
 $clr-aquamarine: #4bc8bb;
 
 $clr-main-bg: $clr-blue;
+$clr-danger: $clr-red;
 
 // We have 6 types of page colors, so
 // colors should be display in this order
