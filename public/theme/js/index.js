@@ -409,6 +409,14 @@ var Courses = (function(){
 		for (var key in ordering) {
 			$secondaryCheckbox.filter('[value="' + key + '"]').prop('checked', true);
 		}
+
+		//Если есть чекнутые чекбоксы - показываем кнопку "Далее"
+		if( jQuery.isEmptyObject( ordering ) || !ordering ) {
+			$accBtn.hide();
+		} else {
+			$accBtn.show();
+		}
+
 	});
 
 	//для каждого клика на чекбокс мы должны обновлять массив заказанных курсов
