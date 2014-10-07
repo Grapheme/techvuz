@@ -8632,9 +8632,11 @@ section h3 {
 .reviews-ul .reviews-author-name {
   margin: 0 0 0 4.375rem;
   font-weight: 600;
+  font-family: 'Open Sans';
 }
 .reviews-ul .reviews-author-spec {
   margin: 0 0 0 4.375rem;
+  font-family: 'Open Sans';
 }
 .reviews-ul .reviews-li:nth-child(6n+1) .reviews-text {
   border-color: #bb252d;
