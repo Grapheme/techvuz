@@ -5,7 +5,7 @@ class AdminEducationMenuController extends BaseController {
     public static $name = 'education';
     public static $group = 'education';
     public static $entity = 'directions';
-    public static $entity_name = 'Направления и курсы';
+    public static $entity_name = 'Обучение';
 
     /****************************************************************************/
 
@@ -30,7 +30,7 @@ class AdminEducationMenuController extends BaseController {
         return array(
             'name' => self::$name,
             'group' => self::$group,
-            'title' => 'Направления и курсы',
+            'title' => 'Обучение',
             'visible' => 1,
         );
     }

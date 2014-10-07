@@ -5,7 +5,14 @@
     <?php $menu_active = TRUE; ?>
     @endif
     <li class="cabinet-menu-li">
-    	<a {{ $menu_active ? 'class="active"' : '' }} href="{{ URL::route('company-orders') }}"><span class="icon icon-zakaz"></span> Заказы</a>
+        <a href="{{ URL::to(link::auth($module['link'])) }}" {{ $menu_active ? 'class="active"' : '' }}>
+            <i class="fa fa-lg fa-fw {{ $module['class'] }}">
+                @if (@is_callable($module['icon_badge']))
+                    {{ $module['icon_badge']() }}
+                @endif
+            </i>
+            <span class="menu-item-parent">{{{ $module['title'] }}}</span>
+        </a>
     </li>
 @endforeach
 </ul>
