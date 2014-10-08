@@ -102,11 +102,29 @@
 
             <main>
                 
-                <h2 class="margin-bottom-40">
-                    Заказ № 128
-                </h2>
+                <div class="row">
+                    <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                        <h2 class="margin-bottom-40">
+                            Заказ № 128
+                        </h2>
+                    </div>
+                    <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                        <div class="payment-select pull-right">
+                            <select class="select">
+                                <option value="1">Не оплачен</option>
+                                <option value="2">Оплачен частично</option>
+                                <option value="3">Оплачен</option>
+                            </select>
+                            <div class="select-payments margin-top-30 text-right">
+                                <a href="#" class="font-sm margin-right-10 js-check-all-payments">Добавить всех</a>
+                                <a href="#" class="font-sm js-uncheck-all-payments">Убрать всех</a>
+                            </div>
+                        </div>                        
+                    </div>
+                </div>
+                
 
-                <table class="tech-table margin-bottom-30">
+                <table class="tech-table payments-table margin-bottom-30">
                     <tr>
                         <th> Курс </th>
                         <th> Слушатели </th>
@@ -170,7 +188,7 @@
                         </td>
                     </tr>
                 </table>
-                <table class="tech-table margin-bottom-30">
+                <table class="tech-table payments-table margin-bottom-30">
                     <tr>
                         <th> Курс </th>
                         <th> Слушатели </th>

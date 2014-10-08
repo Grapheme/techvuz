@@ -7376,6 +7376,11 @@ a[href^="tel"] {
   border-bottom: none;
 }
 
+.payment-select {
+  position: relative;
+  margin: 4.75rem 0 0;
+}
+
 .ui-menu {
   position: relative;
   top: -2px;
