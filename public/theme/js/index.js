@@ -469,12 +469,21 @@ var Payments = (function(){
 	var $editPayment = $('.js-edit-payment');
 
 	//Events
-	$deletePayment.click( function(e, callback){
+	$deletePayment.click( function(e){
 		e.preventDefault();
 
-		$(this).parents('tr').remove();
-		if(callback) callback();
+		var $parent = $(this).parents('tr'),
+			$form = $('.form-delete-payment'),
+			$id = $parent.data('paymentid'),
+			$hidden = $form.find('.delete-payment-id');
+
+		$('#deletePayment').modal().one('click', '#confirmRemove', function (e) {
+			$hidden.val( $id );
+            $form.trigger('submit');
+            $(this).parents('tr').remove();
+        });
 	});
+
 	$editPayment.click( function(e, callback){
 		e.preventDefault();
 

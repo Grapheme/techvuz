@@ -283,6 +283,10 @@
                     </tr>
                 </table>
 
+                <form class="form-delete-payment" action="#" method="POST">
+                    <input class="delete-payment-id" type="hidden">
+                </form>
+
                 <div class="margin-bottom-40">
                     <a href="#" class="btn btn--bordered btn--blue" data-toggle="modal" data-target="#regPayment">
                         Добавить платеж
@@ -291,7 +295,7 @@
                 
             </main>
 
-            <div class="modal fade" id="regPayment" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal fade add-payment-modal" id="regPayment" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">
@@ -344,28 +348,16 @@
                     </div>
                 </div>
             </div>
-            <div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal fade delete-payment-modal" id="deletePayment" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">
                             <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                            <h4 class="modal-title" id="myModalLabel">Авторизуйтесь</h4>
+                            <h4 class="modal-title" id="myModalLabel">Вы действительно хотите удалить платеж?</h4>
                         </div>
-                        <div class="modal-body">
-                            <form class="auth-form registration-form clearfix margin-bottom-30">
-                                <div class="form-element">
-                                    <label>Email</label><input type="text">
-                                </div>
-                                <div class="form-element">
-                                    <label>Пароль</label><input type="text">
-                                    <div class="forgot-pass">
-                                        <a class="js-forgot-pass">Забыли пароль?</a>
-                                    </div>
-                                </div>
-                                <button class="btn btn--bordered btn--blue pull-right">
-                                    Войти
-                                </button>
-                            </form>
+                        <div class="modal-body margin-bottom-40 clearfix text-right">                            
+                            <a class="btn btn--bordered btn--blue margin-right-10" data-dismiss="modal" href="#">Отмена</a>
+                            <a id="confirmRemove" class="btn btn--bordered btn--danger" data-dismiss="modal" href="#">Удалить</a>
                         </div>
                     </div>
                 </div>
