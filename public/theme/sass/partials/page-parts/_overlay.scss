@@ -15,6 +15,47 @@
 		z-index: 1000;
 	}
 }
+.modal-dialog {
+	width: 524rem / $hfs;
+
+	.modal-content {
+		padding: 50rem / $hfs 60rem / $hfs 0;
+
+		border-radius: 0;
+	}
+	.modal-header {
+		padding: 0;
+		border: none;
+
+		h4 {
+			margin: 0 0 30rem / $hfs;
+
+			font-size: 19em / $hfs;
+			line-height: (28em / 19);
+			color: #000;
+		}
+		.close {
+			transition: all .4s ease;
+			position: absolute;
+			top: 20rem / $hfs;
+			right: 20rem / $hfs;
+			line-height: .75;
+			font-size: 2em;
+
+			cursor: pointer;
+
+			&:hover {
+				opacity: .7;
+			}
+		}
+	}
+	.modal-body {
+		padding: 0;
+	}
+	.modal-footer {
+
+	}
+}
 .popup {
 	display: none;
 	position: absolute;

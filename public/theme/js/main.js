@@ -83,6 +83,7 @@ var Popup = (function(){
 	});
 	$login.click( function(){
 		Popup.show('login');
+		//$('#loginModal').modal();
 	});
 	$popup.click( function(e){
 		e.stopPropagation();
