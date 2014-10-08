@@ -225,8 +225,7 @@ class PublicPagesController extends BaseController {
                 $page = $this->page
                     ->where('id', $page_seo->unit_id)
                     ->with('meta', 'blocks.meta', 'seo')
-                    ->first()
-                    ->page;
+                    ->first();
                 #Helper::tad($page);
 
                 /*
