@@ -6,7 +6,7 @@
     <div class="desc">
     {{ $page->block('top_desc') }}
     </div>
-
+    {{ Helper::dd($page->block('address')) }}
     <div class="container-fluid">
         <div class="row margin-bottom-20 no-gutter">
             <div class="col-xs-1 col-sm-1 col-md-1 col-lg-1">
