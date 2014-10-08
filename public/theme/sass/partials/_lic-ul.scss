@@ -1,0 +1,26 @@
+.lic-ul {
+	@extend .list-unstyled;
+
+	.lic-li {
+		position: relative;
+		display: inline-block;
+		width: 180rem / $hfs;
+		height: 236rem / $hfs;
+		margin: 0 14rem / $hfs 14rem / $hfs 0;
+
+		border: 11rem / $hfs solid $clr-gray;
+		box-shadow: 4px 4px 0 0 $clr-mid-gray, inset 4px 4px 0 0 $clr-mid-gray;
+
+		&:nth-child(4n) {
+			margin-right: 0;
+		}
+
+		a {
+			position: absolute;
+			top: 11rem / $hfs;
+			right: 11rem / $hfs;
+			bottom: 11rem / $hfs;
+			left: 11rem / $hfs;
+		}
+	}
+}
