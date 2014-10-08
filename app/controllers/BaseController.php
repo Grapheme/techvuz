@@ -59,13 +59,20 @@ class BaseController extends Controller {
         if (!Auth::check())
             return self::redirectToLogin();
 
+        $page_data = array();
+        if (!empty($prefix)):
+            if (class_exists('AccountGroupsController') && method_exists('AccountGroupsController',$prefix)):
+                $controller = new AccountGroupsController;
+                $page_data = $controller->$prefix();
+            endif;
+        endif;
+
         $parts = array();
         $parts[] = 'templates';
         $parts[] = AuthAccount::getStartPage();
         $parts[] = 'dashboard';
 
-#Helper::dd($parts);
-        return View::make(implode('.', $parts));
+        return View::make(implode('.', $parts),array('page'=>$page_data));
     }
 
     public function templates($path = '', $post_path = '/views') {

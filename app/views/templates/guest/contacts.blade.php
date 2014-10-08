@@ -42,7 +42,7 @@
                 ИНН
             </div>
             <div class="col-xs-11 col-sm-11 col-md-11 col-lg-11">
-                6164990260
+                {{ $page->block('inn') }}
             </div>
         </div>
         <div class="row margin-bottom-10 no-gutter">
@@ -50,7 +50,7 @@
                 ОГРН
             </div>
             <div class=" col-xs-11 col-sm-11 col-md-11 col-lg-11">
-                1126100001720
+                {{ $page->block('ogrn') }}
             </div>
         </div>
         <div class="row margin-bottom-10 no-gutter">
@@ -58,7 +58,7 @@
                 КПП
             </div>
             <div class=" col-xs-11 col-sm-11 col-md-11 col-lg-11">
-                616401001
+                {{ $page->block('kpp') }}
             </div>
         </div>
         <div class="row margin-bottom-10 no-gutter">
@@ -66,7 +66,7 @@
                 ОКПО
             </div>
             <div class=" col-xs-11 col-sm-11 col-md-11 col-lg-11">
-                38426411
+                {{ $page->block('okpo') }}
             </div>
         </div>
         <div class="row margin-bottom-10 no-gutter">
@@ -74,7 +74,7 @@
                 ОКАТО
             </div>
             <div class=" col-xs-11 col-sm-11 col-md-11 col-lg-11">
-                60401372000
+                {{ $page->block('okato') }}
             </div>
         </div>
         <div class="row margin-bottom-10 no-gutter">
@@ -82,7 +82,7 @@
                 ОКВЭД
             </div>
             <div class=" col-xs-11 col-sm-11 col-md-11 col-lg-11">
-                80.42
+                {{ $page->block('pkved') }}
             </div>
         </div>
         <div class="row margin-bottom-10 no-gutter">
@@ -90,7 +90,7 @@
                 р/сч
             </div>
             <div class=" col-xs-11 col-sm-11 col-md-11 col-lg-11">
-                4070381082605000000
+                {{ $page->block('rasschet') }}
             </div>
         </div>
         <div class="row margin-bottom-10 no-gutter">
@@ -98,7 +98,7 @@
                 к/сч
             </div>
             <div class=" col-xs-11 col-sm-11 col-md-11 col-lg-11">
-                30101810500000000207
+                {{ $page->block('kschet') }}
             </div>
         </div>
         <div class="row margin-bottom-10 no-gutter">
@@ -106,7 +106,7 @@
                 Банк
             </div>
             <div class=" col-xs-11 col-sm-11 col-md-11 col-lg-11">
-                ОАО Альфа-Банк г.  Ростов-на-Дону
+                {{ $page->block('bank') }}
             </div>
         </div>
         <div class="row margin-bottom-10 no-gutter">
@@ -114,7 +114,7 @@
                 БИК
             </div>
             <div class=" col-xs-11 col-sm-11 col-md-11 col-lg-11">
-                046015207
+                {{ $page->block('bik') }}
             </div>
         </div>
     </div>

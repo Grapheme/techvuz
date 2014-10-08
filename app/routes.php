@@ -15,14 +15,15 @@ Route::post('redactor/upload', 'DownloadsController@redactorUploadImage');
 #################################################################
 
 ## В случае, если неавторизованный пользователь зайдет на /admin, то он будет переадресован на /login.
-Route::get('admin', array('before' => 'auth2login', 'uses' => 'BaseController@redirectToLogin'));
+//Route::get('admin', array('before' => 'auth2login', 'uses' => 'BaseController@redirectToLogin'));
 /*
 | Роуты, доступные для всех авторизованных пользователей - dashboard
 */
 Route::group(array('before' => 'auth.status', 'prefix' => $prefix), function() use ($prefix){
+
     Route::get('/', function() use ($prefix){
         $controller = new BaseController;
-        $controller->dashboard($prefix);
+        return $controller->dashboard($prefix);
     });
 });
 
