@@ -1,8 +1,26 @@
 var Payments = (function(){
 	var $deletePayment = $('.js-delete-payment');
 	var $editPayment = $('.js-edit-payment');
+	var $selectAll = $('.js-check-all-payments');
+	var $unselectAll = $('.js-uncheck-all-payments');
+	var $paymentCheckboxes = $('.payments-table input[type="checkbox"]');
 
 	//Events
+
+	$selectAll.click( function(e){
+
+		e.preventDefault();
+		$paymentCheckboxes.prop('checked', true);
+		
+	});
+
+	$unselectAll.click( function(e){
+
+		e.preventDefault();
+		$paymentCheckboxes.prop('checked', false);
+		
+	});
+
 	$deletePayment.click( function(e){
 		e.preventDefault();
 
