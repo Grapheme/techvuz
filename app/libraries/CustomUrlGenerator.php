@@ -28,6 +28,37 @@ class CustomUrlGenerator extends UrlGenerator {
         return parent::route($name, $parameters, $absolute, $route);
 	}
 
+
+    /**
+     * Get the URL to a controller action.
+     *
+     * @param  string  $action
+     * @param  mixed   $parameters
+     * @param  bool    $absolute
+     * @return string
+     */
+    ##
+    ## Custom URL::action() method
+    ##
+    public function action($action, $parameters = array(), $absolute = true)
+    {
+
+        #\Helper::dd(rand(9999999,99999999));
+        #\Helper::dd($parameters);
+
+        ##
+        ## Call url link modifier closure
+        ##
+        if (isset($action) && $action != '' && isset($this->url_modifiers[$action]) && @is_callable($this->url_modifiers[$action])) {
+            #\Helper::dd($parameters);
+            $this->url_modifiers[$action]($parameters);
+        }
+
+        return parent::route($action, $parameters, $absolute, $this->routes->getByAction($action));
+        #return $this->route($action, $parameters, $absolute, $this->routes->getByAction($action));
+    }
+
+
     ##
     ## Add url link modifier closure
     ##
@@ -44,4 +75,17 @@ class CustomUrlGenerator extends UrlGenerator {
         $this->url_modifiers[$route_name] = $closure;
     }
 
+
+    public function get_modified_parameters($route_name, $params = array()) {
+        if (isset($route_name) && $route_name != '' && isset($this->url_modifiers[$route_name]) && @is_callable($this->url_modifiers[$route_name])) {
+            #\Helper::d('=== START URL::get_modified_parameters() ===');
+            #\Helper::d($route_name);
+            #\Helper::d($params);
+            $this->url_modifiers[$route_name]($params);
+            #\Helper::d($params);
+            #\Helper::d('=== END URL::get_modified_parameters() ===');
+            return $params;
+        }
+
+    }
 }

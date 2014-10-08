@@ -2,7 +2,11 @@
 <?
 #Helper::tad($element->metas->where('language', $locale_sign)->first());
 #Helper::ta($element);
-$element_meta = new PageMeta;
+if (isset($element->metas[$locale_sign]))
+    $element_meta = $element->metas[$locale_sign];
+else
+    $element_meta = new PageMeta;
+/*
 foreach ($element->metas as $tmp) {
     #Helper::ta($tmp);
     if ($tmp->language == $locale_sign) {
@@ -10,6 +14,7 @@ foreach ($element->metas as $tmp) {
         break;
     }
 }
+*/
 ?>
     @if (count($locales) > 1)
 
@@ -25,5 +30,5 @@ foreach ($element->metas as $tmp) {
     @endif
 
     <div class="clearfix margin-bottom-10">
-        {{ ExtForm::seo('locales['.$locale_sign.'][seo]', $element_meta->seo) }}
+        {{ ExtForm::seo('locales['.$locale_sign.'][seo]', @$element->seos[$locale_sign]) }}
     </div>

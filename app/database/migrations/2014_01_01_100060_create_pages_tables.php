@@ -14,6 +14,7 @@ class CreatePagesTables extends Migration {
         if (!Schema::hasTable($this->table0)) {
     		Schema::create($this->table0, function(Blueprint $table) {
                 $table->increments('id');
+                $table->integer('version_of')->unsigned()->nullable()->index();
 
                 $table->string('name', 128)->nullable();
                 $table->string('slug', 128)->nullable()->index();

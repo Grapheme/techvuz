@@ -34,7 +34,11 @@ class PublicPagesController extends BaseController {
          * https://github.com/bencorlett/framework/pull/1
          * https://github.com/bencorlett/framework/commit/ac091a25465d070f8925a80b46eb237ef21ea912
          */
-        if (!Allow::module(self::$group) || !Page::count())
+        if (
+            !Allow::module(self::$group)
+            #|| !Page::count()
+            || Config::get('site.pages.disabled')
+        )
             return false;
 
         ##
@@ -46,13 +50,15 @@ class PublicPagesController extends BaseController {
             #Helper::dd($parameters);
             #return;
             if (
-                is_string($parameters)
-                && Allow::module('seo')
-                && count(Config::get('app.locales')) > 1
+                #is_string($parameters)
+                #&&
+                count(Config::get('app.locales')) > 1
                 && !Config::get('site.disable_url_modification')
+                && Allow::module('seo')
             ) {
                 $pages = new $class;
                 $right_url = $pages->getRightPageUrl($parameters);
+                #Helper::d("Change page URL: " . $parameters . " -> " . $right_url);
                 #Helper::dd("Change page URL: " . $parameters . " -> " . $right_url);
                 if (@$right_url)
                     $parameters = $right_url;
@@ -184,17 +190,16 @@ class PublicPagesController extends BaseController {
             $slug = false;
             $page = $page->where('id', $url);
             $page = $page
-                ->with('meta.seo', 'blocks.meta')
+                ->with('meta', 'blocks.meta', 'seo')
                 ->first();
 
             #Helper::tad($page);
 
             if (@is_object($page)) {
 
-                if (@is_object($page->meta) && @is_object($page->meta->seo)) {
-                    $slug = $page->meta->seo->url;
-                } else {
-                    $slug = $page->slug;
+                $slug = $page->slug;
+                if (@is_object($page->seo) && $page->seo->url != '') {
+                    $slug = $page->seo->url;
                 }
 
                 #$slug = false;
@@ -202,6 +207,7 @@ class PublicPagesController extends BaseController {
 
                 if ($slug) {
                     $redirect = URL::route('page', array('url' => $slug));
+                    #Helper::dd($slug);
                     #Helper::dd('from is_numeric check' . $redirect);
                     return Redirect::to($redirect, 301);
                 }
@@ -212,13 +218,13 @@ class PublicPagesController extends BaseController {
             ## Page by SLUG
 
             ## Search slug in SEO URL
-            $page_meta_seo = Seo::where('module', 'page_meta')->where('url', $url)->first();
-            #Helper::tad($page_meta_seo);
-            if (is_object($page_meta_seo) && is_numeric($page_meta_seo->unit_id)) {
+            $page_seo = Seo::where('module', 'Page')->where('url', $url)->first();
+            #Helper::tad($page_seo);
+            if (is_object($page_seo) && is_numeric($page_seo->unit_id)) {
 
-                $page = $this->page_meta
-                    ->where('id', $page_meta_seo->unit_id)
-                    ->with('page.meta.seo', 'page.blocks.meta')
+                $page = $this->page
+                    ->where('id', $page_seo->unit_id)
+                    ->with('meta', 'blocks.meta', 'seo')
                     ->first()
                     ->page;
                 #Helper::tad($page);
@@ -238,7 +244,7 @@ class PublicPagesController extends BaseController {
                 ## Search slug in SLUG
                 $page = $this->page
                     ->where('slug', $url)
-                    ->with('meta.seo', 'blocks.meta')
+                    ->with('meta', 'blocks.meta', 'seo')
                     ->first();
                 #Helper::tad($page);
 
@@ -255,8 +261,8 @@ class PublicPagesController extends BaseController {
 
             ## Check SEO url & gettin' $url
             ## and make 301 redirect if need it
-            if (@is_object($page->meta) && @is_object($page->meta->seo) && $page->meta->seo->url != '' && $page->meta->seo->url != $url) {
-                $redirect = URL::route('page', array('url' => $page->meta->seo->url));
+            if (@is_object($page) && @is_object($page->seo) && $page->seo->url != '' && $page->seo->url != $url) {
+                $redirect = URL::route('page', array('url' => $page->seo->url));
                 #Helper::dd($redirect);
                 return Redirect::to($redirect, 301);
             }
@@ -264,7 +270,7 @@ class PublicPagesController extends BaseController {
         } else {
 
             $page = $page->where('start_page', 1)
-                ->with('meta.seo', 'blocks.meta')
+                ->with('meta', 'blocks.meta', 'seo')
                 ->first();
 
         }
@@ -298,20 +304,23 @@ class PublicPagesController extends BaseController {
         if(empty($page->template) || !View::exists($this->module['gtpl'].$page->template))
             throw new Exception('Template [' . $this->module['gtpl'].$page->template . '] not found.');
 
+        $page->extract(true);
+
         #Helper::tad($page);
         #Helper::dd($page->blocks['pervyy_blok']->meta->content);
 
         ## Рендерим контент всех блоков - обрабатываем шорткоды
         if (is_object($page->blocks) && $page->blocks->count()) {
 
-            $page = $page->blocksBySlug();
+            #$page = $page->blocksBySlug();
 
             foreach ($page->blocks as $b => $block) {
-                if (is_object($block) && is_object($block->meta)) {
+                #if (is_object($block) && is_object($block->meta)) {
+                if (is_object($block)) {
                     #Helper::dd($block->meta);
-                    if ($block->meta->content != '') {
+                    if ($block->content != '') {
                         #$block->meta->content = self::content_render($meta->content);
-                        $page->blocks[$b]->meta->content = self::content_render($block->meta->content);
+                        $page->blocks[$b]->content = self::content_render($block->content);
                     }
                 }
             }
@@ -395,12 +404,33 @@ class PublicPagesController extends BaseController {
 	}
 
     ## Get right page url
-    private function getRightPageUrl($url = false) {
+    private function getRightPageUrl($parameters = array()) {
 
-        if (!$url)
+        if (!$parameters)
             return false;
 
-        $return = $url;
+        $return_mode = 1;
+
+        ## Get page slug...
+        if (is_string($parameters)) {
+            $return_mode = 1;
+            $url = $parameters;
+        } elseif (is_array($parameters)) {
+            if (isset($parameters['url'])) {
+                $return_mode = 2;
+                $url = $parameters['url'];
+            } else {
+                $return_mode = 3;
+                ## First param is slug
+                foreach ($parameters as $p => $param) {
+                    $url = $param;
+                    break;
+                }
+            }
+        }
+        #Helper::dd("Page->getRightPageUrl() -> url = " . $url);
+
+        $return = $parameters;
 
         $locales = Config::get('locales');
         $locale = Config::get('locale');
@@ -409,15 +439,22 @@ class PublicPagesController extends BaseController {
         $page = $this->page->where('publication', 1);
 
         ## Search slug in SEO URL
-        $page_meta_seo = Seo::where('module', 'page_meta')->where('url', $url)->first();
+        $page_seo = Seo::where('module', 'Page')->where('url', $url)->first();
         #Helper::tad($page_meta_seo);
 
         ## If page not found by slug in SEO URL...
-        if (is_object($page_meta_seo) && is_numeric($page_meta_seo->unit_id)) {
+        if (is_object($page_seo) && is_numeric($page_seo->unit_id)) {
 
-            $page = $this->page_meta
-                ->where('id', $page_meta_seo->unit_id)
-                #->with('page.meta.seo');
+            $page = $this->page
+                ->where('id', $page_seo->unit_id)
+                ->with(array('meta' => function($query) use ($locales, $default_locale) {
+                    #if (@is_array($locales) && count($locales) > 1) {
+                        $query->where('language', $default_locale);
+                    #}
+                }))
+                ->with('seo');
+
+                /*
                 ->with(array('page' => function($query) use ($locales, $default_locale) {
                         $query->with(array('meta' => function($query) use ($locales, $default_locale) {
                                 if (@is_array($locales) && count($locales) > 1) {
@@ -426,8 +463,9 @@ class PublicPagesController extends BaseController {
                                 $query->with('seo');
                             }));
                     }));
+                */
 
-            $page = $page->first()->page;
+            $page = $page->first();
 
             #Helper::ta($page);
 
@@ -435,22 +473,38 @@ class PublicPagesController extends BaseController {
 
             ## Search slug in PAGE SLUG
             $page = $this->page
-                ->with(array('meta' => function($query) use ($locales, $default_locale) {
-                        if (@is_array($locales) && count($locales) > 1) {
-                            $query->where('language', $default_locale);
-                        }
-                        $query->with('seo');
-                    }))
                 ->where('slug', $url)
+                ->with(array('meta' => function($query) use ($locales, $default_locale) {
+                        #if (@is_array($locales) && count($locales) > 1) {
+                            #$query->where('language', $default_locale);
+                        #}
+                        #$query->with('seo');
+                    }))
+                ->with('seo')
                 ->first();
 
             #Helper::ta($page);
         }
 
         ## Compare SEO url & gettin' $url
-        if (@is_object($page->meta) && @is_object($page->meta->seo) && $page->meta->seo->url != '' && $page->meta->seo->url != $url) {
+        if (@is_object($page) && @is_object($page->seo) && $page->seo->url != '' && $page->seo->url != $url) {
 
-            $return = $page->meta->seo->url;
+            $return_url = $page->seo->url;
+
+            switch ($return_mode) {
+                case 1:
+                    $return = $return_url;
+                    break;
+                case 2:
+                    $return['url'] = $return_url;
+                    break;
+                case 3:
+                    foreach ($return as $r => $ret) {
+                        $return[$r] = $return_url;
+                        break;
+                    }
+                    break;
+            }
 
             #$redirect = URL::route('page', array('url' => $page->meta->seo->url));
             #Helper::dd($redirect);

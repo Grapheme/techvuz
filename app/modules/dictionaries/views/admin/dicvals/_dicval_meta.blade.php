@@ -2,6 +2,11 @@
 <?
 #Helper::tad($element->metas->where('language', $locale_sign)->first());
 #Helper::ta($element);
+#Helper::dd($dic_settings);
+
+if (@is_callable($dic_settings['fields_i18n']))
+    $fields_i18n = $dic_settings['fields_i18n']();
+
 $element_meta = new DicValMeta;
 if (@is_object($element->metas) && $element->metas->count())
     foreach ($element->metas as $tmp) {
@@ -24,7 +29,7 @@ if (@is_object($element->metas) && $element->metas->count())
 
 @if (count($locales) > 1)
 
-    @if (@count($fields['i18n']))
+    @if (@count($fields_i18n))
 <?
         $element_fields = array();
         if (@is_object($element->allfields)) {
@@ -37,7 +42,8 @@ if (@is_object($element->metas) && $element->metas->count())
             #Helper::ta($element_fields);
         }
 ?>
-        @foreach ($fields['i18n'] as $field_name => $field)
+
+        @foreach ($fields_i18n as $field_name => $field)
 <?
             $field_meta = new DicFieldVal();
             foreach ($element_fields as $tmp) {
@@ -51,14 +57,19 @@ if (@is_object($element->metas) && $element->metas->count())
             $form_field = Helper::formField('fields_i18n[' . $locale_sign . '][' . $field_name . ']', $field, @$field_meta->value, $element);
             if (!$form_field)
                 continue;
+
+            #$form_field = false;
 ?>
+
             <section>
                 <label class="label">{{ $field['title'] }}</label>
                 <label class="input {{ $field['type'] }}">
                     {{ $form_field }}
                 </label>
             </section>
+
         @endforeach
+
     @endif
 
 @endif

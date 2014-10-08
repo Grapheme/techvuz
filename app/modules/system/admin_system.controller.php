@@ -27,6 +27,8 @@ class AdminSystemController extends BaseController {
             'groups'        => 'Работа с группами пользователей',
             'users'         => 'Работа с пользователями',
             'locale_editor' => 'Работа с редактором языков',
+            'tpl_editor'    => 'Работа с редактором шаблонов',
+            'menu_editor'   => 'Работа с редактором меню',
         );
     }
 
@@ -67,11 +69,25 @@ class AdminSystemController extends BaseController {
                 'class' => 'fa-user',
             );
 
+        if (Allow::action('system', 'menu_editor', false, true))
+            $menu_child[] = array(
+                'title' => 'Конструктор меню',
+                'link' => 'system/menu_editor',
+                'class' => 'fa-list',
+            );
+
         if (Allow::action('system', 'locale_editor', false, true))
             $menu_child[] = array(
                 'title' => 'Редактор языков',
                 'link' => 'system/locale_editor',
                 'class' => 'fa-language',
+            );
+
+        if (Allow::action('system', 'tpl_editor', false, true))
+            $menu_child[] = array(
+                'title' => 'Редактор шаблонов',
+                'link' => 'system/tpl_editor',
+                'class' => 'fa-th-large',
             );
 
         if (count($menu_child) && Allow::action('system', 'system', false, true))

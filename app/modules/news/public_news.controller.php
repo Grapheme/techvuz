@@ -14,34 +14,26 @@ class PublicNewsController extends BaseController {
     public static function returnRoutes($prefix = null) {
 
         $class = __CLASS__;
-
-        if (!Allow::module(self::$group))
-            return false;
-
-        ## Если в конфиге прописано несколько языковых версий - генерим роуты с языковым префиксом
+        ## УРЛЫ С ЯЗЫКОВЫМИ ПРЕФИКСАМИ ДОЛЖНЫ ИДТИ ПЕРЕД ОБЫЧНЫМИ!
+        ## Если в конфиге прописано несколько языковых версий...
         if (is_array(Config::get('app.locales')) && count(Config::get('app.locales')) > 1) {
-
-            ## Генерим роуты только для текущего языка
-            $locale_sign = Config::get('app.locale');
-            ## ...генерим роуты с префиксом (первый сегмент), который будет указывать на текущую локаль
-            Route::group(array('before' => 'i18n_url', 'prefix' => $locale_sign), function() use ($class) {
-
-                Route::get('/news/{url}', array('as' => 'news_full', 'uses' => $class.'@showFullNews'));
-                Route::get('/news/',      array('as' => 'news',      'uses' => $class.'@showNews'));
-
-            });
-
-        } else {
-
-            ## Генерим роуты без языкового префикса
-            Route::group(array('before' => ''), function() use ($class) {
-
-                Route::get('/news/{url}', array('as' => 'news_full', 'uses' => $class.'@showFullNews'));
-                Route::get('/news/',      array('as' => 'news',      'uses' => $class.'@showNews'));
-            });
-
+            ## Для каждого из языков...
+            foreach(Config::get('app.locales') as $locale_sign => $locale_name) {
+            	## ...генерим роуты с префиксом (первый сегмент), который будет указывать на текущую локаль.
+            	## Также указываем before-фильтр i18n_url, для выставления текущей локали.
+                Route::group(array('before' => 'i18n_url', 'prefix' => $locale_sign), function() use ($class) {
+                    Route::get('/news/{url}', array('as' => 'news_full', 'uses' => $class.'@showFullNews'));
+                    Route::get('/news/',      array('as' => 'news',      'uses' => $class.'@showNews'));
+                });
+            }
         }
 
+        ## Генерим роуты без префикса, и назначаем before-фильтр i18n_url.
+        ## Это позволяет нам делать редирект на урл с префиксом только для этих роутов, не затрагивая, например, /admin и /login
+        Route::group(array('before' => 'i18n_url'), function() {
+            Route::get('/news/{url}', array('as' => 'news_full', 'uses' => __CLASS__.'@showFullNews'));
+            Route::get('/news/',      array('as' => 'news',      'uses' => __CLASS__.'@showNews'));
+        });
     }
     
     ## Shortcodes of module
@@ -60,14 +52,18 @@ class PublicNewsController extends BaseController {
 
                 ## Параметры по-умолчанию
                 $default = array(
-                    'tpl' => Config::get('site.news_template', 'default'),
-                    'limit' => Config::get('site.news_count_on_page', 3),
+                    'tpl' => Config::get('app-default.news_template', 'default'),
+                    'limit' => Config::get('app-default.news_count_on_page', 3),
                     'order' => Helper::stringToArray(News::$order_by),
                     'pagination' => 1,
+                    'type' => false,
+                    'exclude_type' => false,
+                    'include' => false,
+                    'exclude' => false,
                 );
         		## Применяем переданные настройки
                 $params = $params+$default;
-                #Helper::dd($params);
+                #dd($params);
 
                 #echo $tpl.$params['tpl'];
 
@@ -94,6 +90,66 @@ class PublicNewsController extends BaseController {
                 #$news = $selected_news->get(); ## all news, without pagination
                 */
 
+                /**
+                 * Показываем новости только определенных типов
+                 */
+                if (@$params['type']) {
+                    $params['types'] = (array)explode(',', $params['type']);
+                    #Helper::d($params);
+                    if (
+                        isset($params['types']) && is_array($params['types']) && count($params['types'])
+                        && Allow::module('dictionaries') && class_exists('DicVal')
+                    ) {
+                        $types = DicVal::whereIn('slug', $params['types'])->get();
+                        #Helper::tad($types);
+                        if ($types->count()) {
+                            $types = $types->lists('id');
+                            #Helper::tad($types);
+                            if (count($types))
+                                $news = $news->whereIn('type_id', $types);
+                        }
+                    }
+                }
+
+                /**
+                 * Исключаем новости определенных типов
+                 */
+                if (@$params['exclude_type']) {
+                    $params['exclude_types'] = (array)explode(',', $params['exclude_type']);
+                    #Helper::d($params);
+                    if (
+                        isset($params['exclude_types']) && is_array($params['exclude_types']) && count($params['exclude_types'])
+                        && Allow::module('dictionaries') && class_exists('DicVal')
+                    ) {
+                        $types = DicVal::whereIn('slug', $params['exclude_types'])->get();
+                        #Helper::tad($types);
+                        if ($types->count()) {
+                            $types = $types->lists('id');
+                            #Helper::tad($types);
+                            if (count($types))
+                                $news = $news->whereNotIn('type_id', $types);
+                        }
+                    }
+                }
+
+                /**
+                 * Будем выводить только новости, ID которых указаны
+                 */
+
+                if (@$params['include']) {
+                    $params['includes'] = (array)explode(',', $params['include']);
+                    if (isset($params['includes']) && is_array($params['includes']) && count($params['includes']))
+                        $news = $news->whereIn('id', $params['includes']);
+                }
+                /**
+                 * Исключаем новости с заданными ID
+                 */
+                if (@$params['exclude']) {
+                    $params['excludes'] = (array)explode(',', $params['exclude']);
+                    if (isset($params['excludes']) && is_array($params['excludes']) && count($params['excludes']))
+                        $news = $news->whereNotIn('id', $params['excludes']);
+                }
+
                 $news = $news->paginate($params['limit']);
 
                 #Helper::tad($news);
@@ -115,8 +171,6 @@ class PublicNewsController extends BaseController {
 
                 if(!$news->count())
                     return false;
-
-                #Helper::dd($tpl.$params['tpl']);
 
                 return View::make($tpl.$params['tpl'], compact('news'));
     	    }
@@ -194,6 +248,7 @@ class PublicNewsController extends BaseController {
 
         return View::make($this->module['gtpl'].$tpl, compact('news'));
     }
+
 
     ## Функция для просмотра полной мультиязычной новости
     public function showFullNews($url = false) {

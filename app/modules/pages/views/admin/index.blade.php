@@ -12,7 +12,7 @@
 				<thead>
 					<tr>
                         <th class="text-center" style="width:40px">#</th>
-                        <th style="width:100%;"class="text-center">Название</th>
+                        <th style="width:100%;" class="text-center">Название</th>
                         <th class="width-250 text-center">Действия</th>
 					</tr>
 				</thead>

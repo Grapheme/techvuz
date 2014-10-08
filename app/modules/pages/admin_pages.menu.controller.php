@@ -18,11 +18,12 @@ class AdminPagesMenuController extends BaseController {
     ## Actions of module (for distribution rights of users)
     public static function returnActions() {
         return array(
-            'view'     => 'Просмотр',
-            'create'   => 'Создание',
-            'edit'     => 'Редактирование',
-            'delete'   => 'Удаление',
-            'settings' => 'Настройка модуля',
+            'view'         => 'Просмотр',
+            'create'       => 'Создание',
+            'edit'         => 'Редактирование',
+            'delete'       => 'Удаление',
+            'page_restore' => 'Работа с резервными копиями',
+            'settings'     => 'Настройка модуля',
         );
     }
 

@@ -1,6 +1,7 @@
 
 @if(isset($news) && is_object($news) && $news->count())
 
+    {{ Helper::tad_($news) }}
 
     <ul class="news-list">
 	@foreach($news as $new)

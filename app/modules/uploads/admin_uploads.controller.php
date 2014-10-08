@@ -246,6 +246,12 @@ class AdminUploadsController extends BaseController {
     
     ## Actions of module (for distribution rights of users)
     public static function returnActions() {
+        return array(
+            'view'   => 'Просмотр',
+            'create' => 'Создание',
+            #'edit'   => 'Редактирование',
+            'delete' => 'Удаление',
+        );
     }
 
     ## Info about module (now only for admin dashboard & menu)

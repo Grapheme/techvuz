@@ -29,6 +29,14 @@ class AdminNewsController extends BaseController {
             );
         });
 
+        #ModTemplates::addFiles($class::$name, 'default');
+        #ModTemplates::addFiles($class::$name, array('default2')); ## don't exists
+        ModTemplates::addDir('news');
+        ModTemplates::addDir('pages');
+        ModTemplates::addDir('pages', 'tpl_block');
+        #ModTemplates::addTplDir(); ## Site layout dir
+        #ModTemplates::addTplDir('tpl'); ## Site layout nested dir
+
     }
 
     ## Shortcodes of module
@@ -178,7 +186,7 @@ class AdminNewsController extends BaseController {
         $input['slug'] = Helper::translit($input['slug']);
         $input['published_at'] = @$input['published_at'] ? date('Y-m-d', strtotime($input['published_at'])) : NULL;
 
-        #$json_request['responseText'] = "<pre>" . print_r(Input::all(), 1) . "</pre>";
+        $json_request['responseText'] = "<pre>" . print_r(Input::all(), 1) . "</pre>";
         #$json_request['responseText'] = "<pre>" . print_r($input, 1) . print_r($locales, 1) . print_r($seo, 1) . "</pre>";
         #return Response::json($json_request,200);
 
@@ -193,12 +201,12 @@ class AdminNewsController extends BaseController {
 
                 $element = $this->essence->find($id);
                 $element->update($input);
-                Event::fire('otredaktirovana-novost', array(array('title'=>$element->title)));
+
             } else {
 
                 $element = $this->essence->create($input);
                 $id = $element->id;
-                Event::fire('dobavlena-novost', array(array('title'=>$element->title)));
+
                 $redirect = URL::route($this->module['entity'].'.edit', array('news_id' => $id));
             }
 
@@ -266,6 +274,7 @@ class AdminNewsController extends BaseController {
         return Response::json($json_request, 200);
 	}
 
+
     public function destroy($id){
 
         if(!Request::ajax())
@@ -284,7 +293,6 @@ class AdminNewsController extends BaseController {
                     $meta->delete();
             }
         }
-        Event::fire('udalena-novost', array(array('title'=>$element->title)));
         $element->delete();
 
         $json_request['responseText'] = 'Удалено';

@@ -18,6 +18,6 @@
 {{HTML::script('js/system/app.js');}}
 {{HTML::script('js/system/messages.js');}}
 
-
 {{HTML::script('js/vendor/dropzone.min.js');}}
+{{--{{HTML::script('js/system/dropzone-functions.js');}}--}}
 {{ HTML::script(URL::route('collectors.js')) }}

@@ -9,7 +9,7 @@
     @section('title')
 {{{ $news->meta->title }}}@stop
     @section('description')
-{{{ strip_tags($news->meta->preview) }}}@stop
+{{{ striptags($news->meta->preview) }}}@stop
 @endif
 
 @section('style')

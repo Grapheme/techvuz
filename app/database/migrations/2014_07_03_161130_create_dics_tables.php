@@ -43,6 +43,7 @@ ADD `sort_order` ENUM( 'ASC', 'DESC' ) NOT NULL DEFAULT 'ASC' AFTER `sort_by`
         if (!Schema::hasTable($this->table)) {
             Schema::create($this->table, function(Blueprint $table) {
                 $table->increments('id');
+                $table->integer('version_of')->unsigned()->nullable()->index();
                 $table->integer('dic_id')->unsigned()->nullable()->index();
                 $table->string('slug')->nullable()->index();
                 $table->string('name')->nullable();
@@ -61,8 +62,23 @@ ADD `sort_order` ENUM( 'ASC', 'DESC' ) NOT NULL DEFAULT 'ASC' AFTER `sort_by`
                 $table->integer('dicval_id')->unsigned()->nullable()->index();
                 $table->string('language', 16)->nullable()->index();
                 $table->string('key')->nullable()->index();
+                $table->string('value')->nullable()->index();
+                $table->timestamps();
+            });
+            echo(' + ' . $this->table . PHP_EOL);
+        } else {
+            echo('...' . $this->table . PHP_EOL);
+        }
+
+        $this->table = "dictionary_textfields_values";
+        if (!Schema::hasTable($this->table)) {
+            Schema::create($this->table, function(Blueprint $table) {
+                $table->increments('id');
+                $table->integer('dicval_id')->unsigned()->nullable()->index();
+                $table->string('language', 16)->nullable()->index();
+                $table->string('key')->nullable()->index();
                 $table->text('value')->nullable();
-    			$table->timestamps();
+                $table->timestamps();
             });
             echo(' + ' . $this->table . PHP_EOL);
         } else {
@@ -112,6 +128,9 @@ ADD `sort_order` ENUM( 'ASC', 'DESC' ) NOT NULL DEFAULT 'ASC' AFTER `sort_by`
 
         Schema::dropIfExists('dictionary_fields_values');
         echo(' - ' . 'dictionary_fields_values' . PHP_EOL);
+
+        Schema::dropIfExists('dictionary_textfields_values');
+        echo(' - ' . 'dictionary_textfields_values' . PHP_EOL);
 
         Schema::dropIfExists('dictionary_values_rel');
         echo(' - ' . 'dictionary_values_rel' . PHP_EOL);

@@ -15,7 +15,7 @@
             <p>Языковые версии из конфигурации:</p>
 
             @if (count($all_locales))
-            <table class="table table-striped table-bordered min-table">
+            <table class="table table-striped table-bordered min-table white-bg">
                 <thead>
                 <tr>
                     <th class="text-center" style="width:0px">#</th>

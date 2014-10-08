@@ -145,13 +145,11 @@ class AdminGalleriesController extends BaseController {
     	    },
             ## Processing results closure
             function($params) use ($mod_tpl, $class) {
-
                 #Helper::dd($params);
-
                 ## Array with POST-data
-                $image = @$params['image'] ?: false;
+                $image = isset($params['image']) ? $params['image'] : false;
                 ## Return format
-                $return = @$params['return'] ?: false;
+                $return = isset($params['return']) ? $params['return'] : false;
                 ## ID of uploaded image
                 #$uploaded_image = isset($image['uploaded_image']) ? (int)$image['uploaded_image'] : false;
                 $uploaded_image = $image;
@@ -160,14 +158,13 @@ class AdminGalleriesController extends BaseController {
 
                 if (!$uploaded_image)
                     return false;
-
                 ## Find photo by ID
                 $photo = Photo::where('id', $uploaded_image)->first();
                 ## If photo don't exists - return false
                 if (is_null($photo))
                     return false;
                 ## Mark photo as "single used image"
-                $photo->gallery_id = 0;
+                $photo->gallery_id = -1;
                 $photo->save();
                 ## Return needable property or full object
                 return $return ? @$photo->$return : $photo;
@@ -273,7 +270,7 @@ class AdminGalleriesController extends BaseController {
 
 	public function postUpload(){
 		
-        return $this->postAbstractupload();
+        return postAbstractupload();
 	}
 
     ##
@@ -312,17 +309,15 @@ class AdminGalleriesController extends BaseController {
     ##
     ## Загрузка одиночного изображения и пометка о его использовании
     ##
-	public function postSingleupload($param_name = 'file', $return = 'ajax'){
+	public function postSingleupload(){
 
         ## Upload gallery image
-        $result = $this->uploadImage($param_name);
+        $result = $this->uploadImage('file');
 
         ## Check response
 		if($result['result'] == 'error') {
-            if (Request::ajax())
-	            return Response::json($result, 400);
-            else
-                return false;
+	        return Response::json($result, 400);
+	        exit;
 		}
 
         ## Make photo object
@@ -337,33 +332,25 @@ class AdminGalleriesController extends BaseController {
 		$result['gallery_id'] = -1;
 		$result['thumb'] = $photo->thumb();
 		$result['full'] = $photo->full();
-
-        if (Request::ajax() && $return == 'ajax')
-            return Response::json($result, 200);
-        else
-            return $photo;
+		return Response::json($result, 200);		
 	}
 
 
     ##
     ## Общая функция загрузки изображений
     ##
-    private function uploadImage($input_file_name = 'file') {
+    private function uploadImage($input_file_name = false) {
 
 		$result = array('result' => 'error');
 
         ## Check data
-        if (is_string($input_file_name)) {
-            if(!Input::hasFile($input_file_name)) {
-                $result['desc'] = 'No input file.';
-                return $result;
-            }
-            $file = Input::file($input_file_name);
-        } elseif (is_object($input_file_name)) {
-            $file = $input_file_name;
+		if(!Input::hasFile($input_file_name)) {
+			$result['desc'] = 'No input file.';
+	        return $result;
         }
-
-        $rules = array(
+        
+		$file = Input::file('file');
+		$rules = array(
         	'file' => 'image'
 	    );	 
 	    $validation = Validator::make(array('file' => $file), $rules);
@@ -373,8 +360,8 @@ class AdminGalleriesController extends BaseController {
 	    }
 
         ## Check upload & thumb dir
-		$uploadPath = Config::get('site.galleries_photo_dir');
-		$thumbsPath = Config::get('site.galleries_thumb_dir');
+		$uploadPath = Config::get('app-default.galleries_photo_dir');
+		$thumbsPath = Config::get('app-default.galleries_thumb_dir');
 
 		if(!File::exists($uploadPath))
 			File::makeDirectory($uploadPath, 0777, TRUE);
@@ -382,14 +369,14 @@ class AdminGalleriesController extends BaseController {
 			File::makeDirectory($thumbsPath, 0777, TRUE);
 
         ## Generate filename
-		$fileName = time() . "_" . rand(1000, 1999) . '.' . $file->getClientOriginalExtension();
+		$fileName = time()."_".rand(1000, 1999).'.'.Input::file($input_file_name)->getClientOriginalExtension();
 
         ## Get images resize parameters from config
-		$thumb_size = Config::get('site.galleries_thumb_size');
-		$photo_size = Config::get('site.galleries_photo_size');
+		$thumb_size = Config::get('app-default.galleries_thumb_size');
+		$photo_size = Config::get('app-default.galleries_photo_size');
 
         ## Get image width & height
-        $image = ImageManipulation::make($file->getRealPath());
+        $image = ImageManipulation::make(Input::file($input_file_name)->getRealPath());
         $w = $image->width();
         $h = $image->height();
 
@@ -406,7 +393,7 @@ class AdminGalleriesController extends BaseController {
             $thumb_resize_h = ($w > $h) ? $thumb_size : null;
         }
         ## Resize thumb image
-        $thumb_upload_success = ImageManipulation::make($file->getRealPath())
+        $thumb_upload_success = ImageManipulation::make(Input::file($input_file_name)->getRealPath())
                                                 ->resize($thumb_resize_w, $thumb_resize_h, function($constraint){
                                                     $constraint->aspectRatio();
                                                     $constraint->upsize();
@@ -426,7 +413,7 @@ class AdminGalleriesController extends BaseController {
             $image_resize_h = ($w > $h) ? $photo_size : null;
         }
         ## Resize full-size image
-		$image_upload_success = ImageManipulation::make($file->getRealPath())
+		$image_upload_success = ImageManipulation::make(Input::file('file')->getRealPath())
                                                 ->resize($image_resize_w, $image_resize_h, function($constraint){
                                                     $constraint->aspectRatio();
                                                     $constraint->upsize();
@@ -453,8 +440,8 @@ class AdminGalleriesController extends BaseController {
 		    $db_delete = $model->delete();
 
 		if(@$db_delete) {
-			$file_delete = File::delete(Config::get('site.galleries_photo_dir').'/'.$model->name);
-			$thumb_delete = File::delete(Config::get('site.galleries_thumb_dir').'/'.$model->name);
+			$file_delete = File::delete(Config::get('app-default.galleries_photo_dir').'/'.$model->name);
+			$thumb_delete = File::delete(Config::get('app-default.galleries_thumb_dir').'/'.$model->name);
 		}
 
 		#if(@$db_delete && @$file_delete && @$thumb_delete) {

@@ -394,5 +394,13 @@ return array(
 
     ),
 
+    'group_actions' => array(
+        'moderator' => function() {
+            return array(
+                'dicval_create' => 0,
+            );
+        },
+
+    ),
     'seo' => false,
 );

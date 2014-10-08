@@ -110,6 +110,9 @@ foreach ($files as $dir => $dir_files) {
 
                 {{ Form::open(array('url' => URL::action($module['class'].'@postSaveLocales'), 'class' => 'smart-form2', 'id' => 'locale-form', 'role' => 'form', 'method' => 'POST')) }}
 
+                {{ Helper::d_($locales); }}
+                {{ Helper::d_($dirs); }}
+
                 <table class="table tbl_header" style="margin-bottom: 0; z-index:999">
                     <thead>
                     <tr class="" style="width:100%;">
@@ -161,7 +164,7 @@ foreach ($files as $dir => $dir_files) {
                 $file_short = mb_substr($file, 0, mb_strpos($file, '.'));
                 ?>
 
-                <table class="table table-striped table-bordered table-hover" style="margin-bottom: 0;" data-section="{{ $file_short }}">
+                <table class="table table-striped table-bordered table-hover white-bg" style="margin-bottom: 0;" data-section="{{ $file_short }}">
                     <tbody>
 
                             <?
@@ -249,7 +252,7 @@ foreach ($files as $dir => $dir_files) {
             ++i;
             var $this = $(this);
 
-            var text = '{' + '{ trans("' + $($this).parents('table').attr('data-section') + '.' + $($this).text() + ') }' + '}';
+            var text = '{' + '{ trans("' + $($this).parents('table').attr('data-section') + '.' + $($this).text() + '") }' + '}';
             $(this).attr('data-clipboard-text', text);
 
             var client = new ZeroClipboard($this);

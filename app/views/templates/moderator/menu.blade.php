@@ -1,5 +1,5 @@
 
-@if(FALSE)
+@if(TRUE)
 
 <ul class="cabinet-menu-ul clearfix margin-top-20 margin-bottom-40">
 @foreach(SystemModules::getSidebarModules() as $name => $module)

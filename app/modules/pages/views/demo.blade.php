@@ -1,15 +1,14 @@
 @extends(Helper::layout())
 
 
-@if (@is_object($page->meta->seo))
-    @section('title'){{ $page->meta->seo->title }}@stop
-    @section('description'){{ $page->meta->seo->description }}@stop
-    @section('keywords'){{ $page->meta->seo->keywords }}@stop
+@if (@is_object($this->seo))
+    @section('title'){{ $this->seo->title }}@stop
+    @section('description'){{ $this->seo->description }}@stop
+    @section('keywords'){{ $this->seo->keywords }}@stop
 @else
     @section('title')
 {{{ $page->meta->title }}}@stop
-    @section('description')
-{{{ strip_tags($page->meta->preview) }}}@stop
+    @section('description')@stop
 @endif
 
 @section('style')
@@ -20,7 +19,7 @@
 @section('content')
 <main1>
     <h1>
-        {{ @is_object($page->meta->seo) && $page->meta->seo->h1 ? $page->meta->seo->h1 : $page->title }}
+        {{ @is_object($this->seo) && $this->seo->h1 ? $this->seo->h1 : $page->title }}
     </h1>
 
     <p class="news-date">
@@ -32,11 +31,10 @@
         <h3>Блоки страницы</h3>
         <hr />
         <div>
+            {{ Helper::ta_($page->blocks) }}
             @foreach($page->blocks as $block)
-            &laquo;<strong>{{ $block->name }}</strong>&raquo; [ <i>{{ $block->slug }}</i> ]<br/>
-            @if (is_object($block->meta))
-            {{ $block->meta->content }}
-            @endif
+                &laquo;<strong>{{ $block->name }}</strong>&raquo; [ <i>{{ $block->slug }}</i> ]<br/>
+                {{ $block->content }}
             @endforeach
         </div>
         <hr />

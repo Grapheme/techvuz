@@ -23,6 +23,32 @@
 
     {{ Form::model($element, array('url'=>$url, 'class'=>'smart-form', 'id'=>$module['entity'].'-form', 'role'=>'form', 'method'=>$method)) }}
 
+    @if (
+        is_object($element->original_version)
+        && $element->original_version->id
+        #&& $element->original_version->updated_at >= $element->updated_at
+    )
+    <?
+    $original_versions_count = count($element->original_version->versions);
+    $newer_versions_count = 0;
+    foreach ($element->original_version->versions as $version)
+        if ($version->id != $element->id && $version->updated_at >= $element->updated_at)
+            ++$newer_versions_count;
+    ?>
+    <p class="alert alert-warning fade in padding-10 margin-bottom-10">
+        <i class="fa-fw fa fa-warning"></i>
+        <strong>Внимание!</strong>
+        Вы просматриваете резервную копию оригинальной записи.<br/>
+        Вы можете
+        <a href="{{ action('page.edit', array('id' => $element->original_version->id)) . (Request::getQueryString() ? '?' . Request::getQueryString() : '') }}">перейти к оригиналу</a> или <a href="#" class="restore_version" data-url="{{ action('page.restore', array('id' => $element->id)) . (Request::getQueryString() ? '?' . Request::getQueryString() : '') }}">восстановить эту копию</a> в качестве оригинала.<br/>
+        @if ($original_versions_count > 1)
+        Также к просмотру доступно еще
+        <a href="#versions">{{ trans_choice(':count резервная копия|:count резервных копии|:count резервных копий', $original_versions_count-1, array(), 'ru') }}</a>@if($newer_versions_count), в том числе
+        {{ trans_choice(':count более свежая|:count более свежие|:count более свежих', $newer_versions_count, array(), 'ru') }}@endif.
+        @endif
+    </p>
+    @endif
+
     <!-- Fields -->
     <div class="row margin-top-10">
 
@@ -148,18 +174,24 @@
                 </fieldset>
 
                 <footer>
-                    <a class="btn btn-default no-margin regular-10 uppercase pull-left btn-spinner" href="{{ link::previous() }}">
-                        <i class="fa fa-arrow-left hidden"></i> <span class="btn-response-text">Назад</span>
-                    </a>
-                    <button type="submit" autocomplete="off" class="btn btn-success no-margin regular-10 uppercase btn-form-submit">
-                        <i class="fa fa-spinner fa-spin hidden"></i> <span class="btn-response-text">Сохранить</span>
-                    </button>
+                    @if ($element->version_of == NULL)
+                        <a class="btn btn-default no-margin regular-10 uppercase pull-left btn-spinner" href="{{ link::previous() }}">
+                            <i class="fa fa-arrow-left hidden"></i> <span class="btn-response-text">Назад</span>
+                        </a>
+                        <button type="submit" autocomplete="off" class="btn btn-success no-margin regular-10 uppercase btn-form-submit">
+                            <i class="fa fa-spinner fa-spin hidden"></i> <span class="btn-response-text">Сохранить</span>
+                        </button>
+                    @else
+                        <label class="note margin-top-0">
+                            Нельзя сохранять изменения в резервной копии
+                        </label>
+                    @endif
                 </footer>
 
             </div>
         </section>
 
-        <section class="col col-6">
+        <section class="col col-6 page_blocks">
             <div class="well">
 
                 <header>Блоки на странице:</header>
@@ -182,16 +214,80 @@
                 </fieldset>
 
                 <footer>
-                    <a class="btn btn-default no-margin regular-10 uppercase pull-left btn-spinner" href="{{ link::previous() }}">
-                        <i class="fa fa-arrow-left hidden"></i> <span class="btn-response-text">Назад</span>
-                    </a>
-                    <button type="submit" autocomplete="off" class="btn btn-success no-margin regular-10 uppercase btn-form-submit">
-                        <i class="fa fa-spinner fa-spin hidden"></i> <span class="btn-response-text">Сохранить</span>
-                    </button>
+                    @if ($element->version_of == NULL)
+                        <a class="btn btn-default no-margin regular-10 uppercase pull-left btn-spinner" href="{{ link::previous() }}">
+                            <i class="fa fa-arrow-left hidden"></i> <span class="btn-response-text">Назад</span>
+                        </a>
+                        <button type="submit" autocomplete="off" class="btn btn-success no-margin regular-10 uppercase btn-form-submit">
+                            <i class="fa fa-spinner fa-spin hidden"></i> <span class="btn-response-text">Сохранить</span>
+                        </button>
+                    @else
+                        <label class="note margin-top-0">
+                            Нельзя сохранять изменения в резервной копии
+                        </label>
+                    @endif
                 </footer>
 
             </div>
         </section>
+
+
+        @if (
+            Config::get('pages.versions') && Allow::action($module['group'], 'page_restore') && $element->id
+        )
+        <section class="col col-6">
+            <div class="well">
+
+                <a name="versions"></a>
+                <header>Резервные копии</header>
+                <fieldset class="padding-bottom-15">
+
+                    @if (
+                        (isset($element->versions) && count($element->versions))
+                        || (isset($element->original_version->versions) && count($element->original_version->versions))
+                    )
+                        <?
+                        $can_restore = true;
+                        $dicval_versions = count($element->versions) ? $element->versions : $element->original_version->versions;
+                        $show_original = count($element->versions) ? false : true;
+                        ?>
+                        <ul class="margin-left-15">
+                            @if ($show_original)
+                            <li>
+                            <a href="{{ action('page.edit', array('id' => $element->original_version->id)) . (Request::getQueryString() ? '?' . Request::getQueryString() : '') }}">{{ $element->original_version->name }} - {{ $element->original_version->updated_at->format('H:i:s, d.m.Y') }}</a> [оригинал]
+                            </li>
+                            @endif
+                            @foreach ($dicval_versions as $v => $version)
+                            <li>
+                                @if ($version->id != $element->id)
+                                <a href="{{ action('page.edit', array('id' => $version->id)) . (Request::getQueryString() ? '?' . Request::getQueryString() : '') }}">{{ $version->name }} - {{ $version->updated_at->format('H:i:s, d.m.Y') }}</a>
+                                @else
+                                    {{ $version->name }} - {{ $version->updated_at->format('H:i:s, d.m.Y') }} [текущая]
+                                @endif
+                            </li>
+                            @endforeach
+                        </ul>
+                    @else
+                        <?
+                        $can_restore = false;
+                        ?>
+                        <p>На данный момент нет ни одной резервной копии</p>
+                    @endif
+
+                </fieldset>
+                <footer>
+                    @if ($can_restore)
+                    <label class="note margin-top-0">
+                        Вы можете восстановить состояние из резервной копии
+                    </label>
+                    @endif
+                </footer>
+
+            </div>
+        </section>
+        @endif
+
+
         <!-- /Form -->
 
     </div>
@@ -460,5 +556,12 @@
         }
 
     </script>
+
+    @if (is_object($element->original_version) && $element->original_version->id)
+    <script>
+        $('form *').attr('disabled', 'disabled');
+        //$('.page_blocks a').attr('href', '#');
+    </script>
+    @endif
 
 @stop

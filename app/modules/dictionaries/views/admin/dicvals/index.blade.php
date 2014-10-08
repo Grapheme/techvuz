@@ -13,11 +13,16 @@
                     <thead>
                         <tr>
                             <th class="text-center" style="width:40px">#</th>
-                            <th style="width:100%;"class="text-center">Название</th>
+                            <th style="width:100%;"class="text-center">{{ $dic->name_title ?: 'Название' }}</th>
+                            @if ($actions_column)
                             <th colspan="2" class="width-250 text-center">Действия</th>
+                            @endif
                         </tr>
                     </thead>
                     <tbody class="dicvals @if($sortable) sortable @endif">
+
+                    {{ Helper::d_(Input::all()) }}
+                    {{ Helper::d_( Helper::multiArrayToAttributes(Input::get('filter'), 'filter') ) }}
 
                     @foreach($elements as $e => $element)
                         <? #continue; ?>
@@ -43,6 +48,7 @@
                                 </span>
                             </td>
 
+                            @if ($actions_column)
                             <td class="text-center" style="white-space:nowrap;">
 
                                 @if (NULL != ($actions = @$dic_settings['actions']) && @is_callable($actions))
@@ -50,7 +56,7 @@
                                 @endif
 
                                 @if(Allow::action($module['group'], 'dicval_edit'))
-                                <a href="{{ action(is_numeric($dic_id) ? 'dicval.edit' : 'entity.edit', array('dic_id' => $dic_id, 'id' => $element->id)) }}" class="btn btn-success">
+                                <a href="{{ action(is_numeric($dic_id) ? 'dicval.edit' : 'entity.edit', array('dic_id' => $dic_id, 'id' => $element->id)) . (Request::getQueryString() ? '?' . Request::getQueryString() : '') }}" class="btn btn-success">
                                     Изменить
                                 </a>
                                 @endif
@@ -64,6 +70,8 @@
                                 @endif
 
                             </td>
+                            @endif
+
                         </tr>
                     @endforeach
                     </tbody>

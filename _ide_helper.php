@@ -1,7 +1,7 @@
 <?php
 /**
  * An helper file for Laravel 4, to provide autocomplete information to your IDE
- * Generated for Laravel 4.2.8 on 2014-10-07.
+ * Generated for Laravel 4.2.8 on 2014-10-08.
  *
  * @author Barry vd. Heuvel <barryvdh@gmail.com>
  * @see https://github.com/barryvdh/laravel-ide-helper
@@ -11640,12 +11640,34 @@ namespace {
         }
         
         /**
+         * Get the URL to a controller action.
+         *
+         * @param string $action
+         * @param mixed $parameters
+         * @param bool $absolute
+         * @return string 
+         * @static 
+         */
+        public static function action($action, $parameters = array(), $absolute = true){
+            return \Illuminate\Routing\CustomUrlGenerator::action($action, $parameters, $absolute);
+        }
+        
+        /**
          * 
          *
          * @static 
          */
         public static function add_url_modifier($route_name, $closure){
             return \Illuminate\Routing\CustomUrlGenerator::add_url_modifier($route_name, $closure);
+        }
+        
+        /**
+         * 
+         *
+         * @static 
+         */
+        public static function get_modified_parameters($route_name, $params = array()){
+            return \Illuminate\Routing\CustomUrlGenerator::get_modified_parameters($route_name, $params);
         }
         
         /**
@@ -11743,20 +11765,6 @@ namespace {
         public static function forceSchema($schema){
             //Method inherited from \Illuminate\Routing\UrlGenerator            
             \Illuminate\Routing\CustomUrlGenerator::forceSchema($schema);
-        }
-        
-        /**
-         * Get the URL to a controller action.
-         *
-         * @param string $action
-         * @param mixed $parameters
-         * @param bool $absolute
-         * @return string 
-         * @static 
-         */
-        public static function action($action, $parameters = array(), $absolute = true){
-            //Method inherited from \Illuminate\Routing\UrlGenerator            
-            return \Illuminate\Routing\CustomUrlGenerator::action($action, $parameters, $absolute);
         }
         
         /**

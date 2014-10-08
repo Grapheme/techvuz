@@ -1,7 +1,7 @@
 <!doctype html>
 <html class="no-js">
     <head>
-	@include(Helper::layout('head'))
+	@include(Helper::acclayout('head'))
 	@yield('style')
     </head>
 <body>
@@ -20,7 +20,7 @@
         </main>
     </div>
     @yield('overlays')
-    @include(Helper::layout('scripts'))
+    @include(Helper::acclayout('scripts'))
     @yield('scripts')
 </body>
 </html>

@@ -15,12 +15,16 @@ class Allow {
                     #Helper::d($action);
                     $actions[$action->action] = $action;
                 }
+                unset($tmp->actions);
                 $tmp->actions = $actions;
+                #Helper::ta($tmp->actions);
+                #Helper::ta($tmp);
                 self::$modules[$tmp['name']] = $tmp;
             }
             #self::$modules['system'] = array('system' => 1);
         }
         #Helper::dd(self::$modules);
+        #Helper::tad(self::$modules);
     }
 
 	/**
@@ -169,5 +173,68 @@ class Allow {
 	public static function valid_access($module_name){
         return self::module($module_name);
 	}
+
+    /**
+     * Устанавливает для текущего юзера право на выполнение действия action со статусом status (1/0) внутри модуля module_name
+     *
+     * @param string $module_name
+     * @param string $action
+     * @param int $status
+     * @return bool
+     */
+    public static function set_action($module_name = '', $action = '', $status = 1) {
+        #$modules = self::$modules;
+        $actions = @self::$modules[$module_name]->actions;
+        $act = @$actions[$action];
+        if (isset($act) && is_object($act)) {
+            $act->status = $status;
+        } else {
+            $act = new Action;
+            #$act->group_id = Auth::user()->group->id;
+            $act->module = $module_name;
+            $act->action = $action;
+            $act->status = $status;
+        }
+        $actions[$action] = $act;
+        self::$modules[$module_name]->actions = $actions;
+        Helper::tad($actions);
+        return true;
+    }
+
+    /**
+     * Устанавливает для текущего юзера права на выполнение группы действий action внутри модуля module_name.
+     * action - массив вида ('action_name' => _status_)
+     *
+     * @param string $module_name
+     * @param array $action
+     * @return bool
+     */
+    public static function set_actions($module_name = '', $action = array()) {
+        #$modules = self::$modules;
+        $actions = @self::$modules[$module_name]->actions;
+        #Helper::tad($actions);
+
+        foreach ($action as $actio => $status) {
+            #Helper::d("$actio => $status");
+            $act = @$actions[$actio];
+            if (isset($act) && is_object($act)) {
+                $act->status = $status;
+            } else {
+                $act = new Action;
+                #$act->group_id = Auth::user()->group->id;
+                $act->module = $module_name;
+                $act->action = $actio;
+                $act->status = $status;
+            }
+            $actions[$actio] = $act;
+        }
+        #Helper::tad($actions);
+
+        self::$modules[$module_name]->actions = $actions;
+        #Helper::tad(self::$modules[$module_name]->actions);
+        return true;
+    }
+
+
 
 }
