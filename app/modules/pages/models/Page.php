@@ -89,6 +89,8 @@ class Page extends BaseModel {
         ## Without blade syntax compile
         #return $this->blocks[$slug]->meta->content;
 
+//        Helper::dd($content_container);
+
         ## Force template compile
         if ($force_compile)
             $content_container->updated_at = date('Y-m-d H:i:s');
