@@ -11,9 +11,10 @@
 	section {
 		margin-bottom: 1rem;
 	}
-	label {
+	.label {
 		display: inline-block;
 		vertical-align: middle;
+		width: 188rem / $hfs;
 
 		font-size: 14em / $hfs;
 		line-height: (20em / 14);
