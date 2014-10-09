@@ -26,11 +26,9 @@ var Payments = (function(){
 
 		var $parent = $(this).parents('tr'),
 			$form = $(this).parents('form'),
-			$id = $parent.data('paymentid'),
-			$hidden = $form.find('.delete-payment-id');
+			$id = $parent.data('paymentid');
 
 		$('#deletePayment').modal().one('click', '#confirmRemove', function (e) {
-			$hidden.val( $id );
             $form.trigger('submit');
             $(this).parents('tr').remove();
         });
