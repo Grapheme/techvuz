@@ -557,9 +557,9 @@ var Payments = (function(){
 
 			//Получаем данные из таблицы платежа
 			$id = $parent.data('paymentid'),
-			$date = $.trim( $parent.find('.js-payment-date').text() ),
-			$sum = $.trim( parseFloat( $parent.find('.js-payment-price').text() ) ),
-			$num = $.trim( $parent.find('.js-payment-id').text() ),
+			$date = $parent.find('.js-payment-date').data('payment-data'),
+			$sum = parseFloat( $parent.find('.js-payment-price').data('payment-price') ),
+			$num = $parent.find('.js-payment-id').data('payment-number'),
 
 			//Получаем ссылки на поля модального окна
 			$idField = $modal.find('.js-edit-payment-id'),
