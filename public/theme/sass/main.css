@@ -9291,7 +9291,7 @@ section h3 {
 }
 .moderator-cabinet .table th {
   height: 3.75rem;
-  padding: 0 2.125rem 0 2.125rem;
+  padding: 0 0 0 2.125rem;
   text-align: left;
   vertical-align: middle;
   white-space: nowrap;
