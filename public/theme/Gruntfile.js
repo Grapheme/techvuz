@@ -8,10 +8,12 @@ module.exports = function(grunt) {
           'js/vendor/jquery.cookie.js',
           'js/vendor/jquery.chosen.js',
           'js/vendor/bootstrap.min.js',
+          'js/vendor/jquery.fancybox.pack.js',
           'js/main.js',
           'js/plugins.js',
           'js/vendor/app/courses.js',
-          'js/vendor/app/payments.js'
+          'js/vendor/app/payments.js',
+          'js/vendor/app/about.js'
         ],
         // the location of the resulting JS file
         dest: 'js/index.js'

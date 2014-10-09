@@ -10,12 +10,13 @@
 
 		border: 11rem / $hfs solid $clr-gray;
 		box-shadow: 4px 4px 0 0 $clr-mid-gray, inset 4px 4px 0 0 $clr-mid-gray;
+		background-size: 100% 100%;
 
 		&:nth-child(4n) {
 			margin-right: 0;
 		}
 
-		a {
+		& > a:first-child {
 			position: absolute;
 			top: 11rem / $hfs;
 			right: 11rem / $hfs;
