@@ -9400,6 +9400,7 @@ section h3 {
 
 .moderator-cabinet .table {
   width: 100%;
+  margin-bottom: 40px;
   outline: 1px solid #a8a8a8;
   font-family: 'Open Sans', sans-serif;
 }
