@@ -3,7 +3,7 @@
 @stop
 @section('content')
 <?php $companies = User_organization::orderBy('created_at','DESC')->get(); ?>
-<h1>Список компаний</h1>
+<h2 class="margin-bottom-40">Список компаний</h2>
 <div class="row">
   @if($companies->count())
   
