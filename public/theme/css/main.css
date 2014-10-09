@@ -9405,6 +9405,32 @@ section h3 {
   letter-spacing: -1px;
   padding: 4.75rem 0 1rem;
 }
+.moderator-cabinet .btn {
+  border: 2px solid;
+}
+.moderator-cabinet .btn:hover {
+  color: inherit;
+}
+.moderator-cabinet .btn:focus {
+  color: inherit;
+}
+.moderator-cabinet .btn.btn-default, .moderator-cabinet .btn.btn-primary, .moderator-cabinet .btn.btn-success {
+  color: #33ace4;
+  border-color: #33ace4;
+  background: white;
+}
+.moderator-cabinet .btn.btn-default:hover, .moderator-cabinet .btn.btn-primary:hover, .moderator-cabinet .btn.btn-success:hover {
+  color: white;
+  background: #33ace4;
+}
+.moderator-cabinet .btn.btn-danger {
+  color: #bb252d;
+  border-color: #bb252d;
+}
+.moderator-cabinet .btn.btn-danger:hover {
+  color: white;
+  background: #bb252d;
+}
 .moderator-cabinet .table {
   width: 100%;
   margin-bottom: 40px;
