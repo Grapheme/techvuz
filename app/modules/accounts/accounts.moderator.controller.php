@@ -117,7 +117,7 @@ class AccountsModeratorController extends BaseController {
         if(Request::ajax()):
             $validator = Validator::make(Input::all(),OrderPayments::$rules);
             if($validator->passes()):
-                if (OrderPayments::create(array('order_id'=>$order_id,'price'=>Input::get('price'),'payment_number'=>Input::get('payment_number'),'payment_date'=>Input::get('payment_date')))):
+                if (OrderPayments::create(array('order_id'=>$order_id,'price'=>Input::get('price'),'payment_number'=>Input::get('payment_number'),'payment_date'=>date('Y-m-d', strtotime(Input::get('payment_date')))))):
                     $json_request['responseText'] = Lang::get('interface.DEFAULT.success_insert');
                     $json_request['redirect'] = URL::route('moderator-order-extended',$order_id);
                     $json_request['status'] = TRUE;
@@ -139,7 +139,7 @@ class AccountsModeratorController extends BaseController {
             $validator = Validator::make(Input::all(),OrderPayments::$rules_update);
             if($validator->passes()):
                 if ($order_payment = OrderPayments::where('id',Input::get('payment_order_id'))->first()):
-                    $order_payment->payment_date = Input::get('payment_date');
+                    $order_payment->payment_date = date('Y-m-d', strtotime(Input::get('payment_date')));
                     $order_payment->price = Input::get('price');
                     $order_payment->payment_number = Input::get('payment_number');
                     $order_payment->save();
@@ -158,17 +158,10 @@ class AccountsModeratorController extends BaseController {
         return Response::json($json_request,200);
     }
 
-    public function OrderPaymentNumberDelete($order_id){
+    public function OrderPaymentNumberDelete($order_id,$payment_order_id){
 
-        if(!Request::ajax()) return App::abort(404);
-        $json_request = array('status'=>FALSE, 'responseText'=>'');
-//        Directions::findOrFail($id)->courses()->delete();
-//        $direction = Directions::findOrFail($id);
-//        Event::fire(Route::currentRouteName(), array(array('title'=>$direction->title)));
-//        $direction->delete();
-//        $json_request['responseText'] = self::$entity_name.' удален';
-        $json_request['status'] = TRUE;
-        return Response::json($json_request, 200);
+        OrderPayments::where('id',$payment_order_id)->where('order_id',$order_id)->delete();
+        return Redirect::route('moderator-order-extended',$order_id);
     }
     /****************************************************************************/
     /****************************** СЛУШАТЕЛИ ***********************************/

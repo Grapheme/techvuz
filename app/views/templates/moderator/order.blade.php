@@ -98,18 +98,15 @@
             <a href="javascript:void(0);" class="margin-right-10 js-edit-payment" title="Редактировать">
                 <span class="icon icon-red icon--blue"></span>
             </a>
-            <form method="DELETE" action="{{ URL::route('payment-order-number-delete',$payment_number->id) }}" style="display:inline-block">
+            {{ Form::open(array('url'=>URL::route('payment-order-number-delete',array('order_id'=>$order->id,'payment_order_id'=>$payment_number->id)),'style'=>"display:inline-block", 'method'=>'DELETE')) }}
                 <button type="submit" title="Удалить" class="js-delete-payment"><span class="icon icon-cancel"></span></button>
-            </form>
+           {{ Form::close() }}
         </td>
     </tr>
     @endforeach
 </table>
 @endif
 
-<form class="form-delete-payment" action="#" method="POST">
-    <input class="delete-payment-id" type="hidden">
-</form>
 @if($payment_summa < $total_summa)
 <div class="margin-bottom-40">
     <a href="javascript:void(0);" class="btn btn--bordered btn--blue" data-toggle="modal" data-target="#regPayment">
