@@ -9426,6 +9426,7 @@ section h3 {
   height: 3.75rem;
   padding: 0 0 0 2.125rem;
   text-align: left;
+  vertical-align: middle;
   background: #dddddd;
   border-right: 2px solid white;
 }
