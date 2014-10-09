@@ -51,9 +51,10 @@
 
 		th {
 			height: 60rem / $hfs;
-			padding: 0 0 0 34rem / $hfs;
+			padding: 0 34rem / $hfs 0 34rem / $hfs;
 			text-align: left;
 			vertical-align: middle;
+			white-space: nowrap;
 
 			background: $clr-gray;
 			border-right: 2px solid $clr-white;
