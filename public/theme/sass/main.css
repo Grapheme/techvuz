@@ -9258,11 +9258,41 @@ section h3 {
 }
 
 .moderator-cabinet h1 {
-  margin-bottom: 2.5rem;
+  margin-bottom: 1.25rem;
   font-size: 2.5em;
   font-weight: 400;
   letter-spacing: -1px;
   padding: 4.75rem 0 1rem;
+}
+.moderator-cabinet label {
+  display: inline-block;
+  vertical-align: middle;
+  width: 11.75rem;
+  font-size: 0.875em;
+  line-height: 1.42857em;
+  font-weight: 400;
+  color: #333333;
+}
+.moderator-cabinet input {
+  outline: none;
+  transition: all .4s ease;
+  width: 21.0625rem;
+  height: 2.6875rem;
+  padding: 0 0.625rem;
+  border: 1px solid #333333;
+  box-shadow: inset 0 0 0 0 white;
+  font-family: 'Geometria';
+  font-size: 0.875em;
+  font-weight: 500;
+  color: #333333;
+}
+.moderator-cabinet input[type="checkbox"] {
+  width: auto;
+  height: auto;
+}
+.moderator-cabinet input:focus {
+  border-color: #33ace4;
+  box-shadow: inset 0 0 0 2px #33ace4;
 }
 .moderator-cabinet .btn {
   border: 2px solid;
@@ -9336,6 +9366,7 @@ section h3 {
   line-height: 1.42857em;
   padding: 0.875rem 0 0.875rem 2.125rem;
   border-right: 2px solid white;
+  border-top: none;
 }
 .moderator-cabinet .table td.td-status-bar {
   vertical-align: top;
