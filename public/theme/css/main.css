@@ -9424,6 +9424,7 @@ section h3 {
   background: #33ace4;
 }
 .moderator-cabinet .btn.btn-danger {
+  background: white;
   color: #bb252d;
   border-color: #bb252d;
 }
