@@ -7292,6 +7292,16 @@ a[href^="tel"] {
   opacity: .7;
 }
 
+.js-delete-payment {
+  transition: all .4s ease;
+  color: #33ace4;
+  border: none;
+  background: none;
+}
+.js-delete-payment:hover {
+  opacity: 0.7;
+}
+
 .banner {
   position: relative;
   display: table;

@@ -96,7 +96,7 @@
         <td class="js-payment-id" data-payment-number="{{ $payment_number->payment_number }}">{{ $payment_number->payment_number }}</td>
         <td>
             <a href="javascript:void(0);" class="margin-right-10 js-edit-payment" title="Редактировать">
-                <span class="icon icon-red"></span>
+                <span class="icon icon-red icon--blue"></span>
             </a>
             <form method="DELETE" action="{{ URL::route('payment-order-number-delete',$payment_number->id) }}" style="display:inline-block">
                 <button type="submit" title="Удалить" class="js-delete-payment"><span class="icon icon-cancel"></span></button>
