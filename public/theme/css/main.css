@@ -9405,6 +9405,9 @@ section h3 {
   letter-spacing: -1px;
   padding: 4.75rem 0 1rem;
 }
+.moderator-cabinet section {
+  margin-bottom: 1rem;
+}
 .moderator-cabinet label {
   display: inline-block;
   vertical-align: middle;
