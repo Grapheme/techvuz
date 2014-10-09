@@ -16,6 +16,7 @@ class AccountsModeratorController extends BaseController {
             Route::group(array('before' => 'auth.status', 'prefix' => self::$name), function() use ($class) {
                 Route::get('companies', array('as' => 'moderator-companies-list', 'uses' => $class . '@CompaniesList'));
                 Route::get('orders', array('as' => 'moderator-orders-list', 'uses' => $class . '@OrdersList'));
+                Route::get('order/{order_id}/extended', array('as' => 'moderator-order-extended', 'uses' => $class . '@OrderExtendedView'));
                 Route::get('listeners', array('as' => 'moderator-listeners-list', 'uses' => $class . '@ListenersList'));
             });
         endif;
@@ -54,7 +55,9 @@ class AccountsModeratorController extends BaseController {
         );
         View::share('module', $this->module);
     }
-
+    /****************************************************************************/
+    /******************************* КОМПАНИИ ***********************************/
+    /****************************************************************************/
     public function CompaniesList(){
 
         $page_data = array(
@@ -64,7 +67,9 @@ class AccountsModeratorController extends BaseController {
         );
         return View::make(Helper::acclayout('companies'),$page_data);
     }
-
+    /****************************************************************************/
+    /******************************** ЗАКАЗЫ ************************************/
+    /****************************************************************************/
     public function OrdersList(){
 
         $page_data = array(
@@ -75,6 +80,18 @@ class AccountsModeratorController extends BaseController {
         return View::make(Helper::acclayout('orders'),$page_data);
     }
 
+    public function OrderExtendedView(){
+
+        $page_data = array(
+            'page_title'=> 'Просмотр заказа',
+            'page_description'=> '',
+            'page_keywords'=> '',
+        );
+        return View::make(Helper::acclayout('order'),$page_data);
+    }
+    /****************************************************************************/
+    /****************************** СЛУШАТЕЛИ ***********************************/
+    /****************************************************************************/
     public function ListenersList(){
 
         $page_data = array(

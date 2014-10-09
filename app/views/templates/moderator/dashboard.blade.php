@@ -3,7 +3,7 @@
 @stop
 @section('content')
 <?php
-$orders = Orders::where('payment_status',1)->orderBy('created_at','DESC')->limit(3)->with('payment')->with('listeners')->get();
+$orders = Orders::where('payment_status',1)->orderBy('created_at','DESC')->limit(3)->with('payment','listeners')->get();
 ?>
 <div class="cabinet-tabs">
     <h3>Уведомления</h3>

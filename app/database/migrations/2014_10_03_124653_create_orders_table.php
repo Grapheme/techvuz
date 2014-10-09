@@ -14,7 +14,6 @@ class CreateOrdersTable extends Migration {
                 $table->boolean('completed')->default(0)->nullable();
                 $table->tinyInteger('payment_status')->default(1)->nullable()->unsigned()->index();
                 $table->timestamp('payment_date');
-                $table->timestamp('payment_date_real');
                 $table->integer('payment_discount')->default(0)->nullable();
                 $table->boolean('close_status')->default(0)->nullable();
                 $table->timestamp('close_date');

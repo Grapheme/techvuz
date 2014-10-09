@@ -9,7 +9,6 @@
  * @property boolean $completed
  * @property \PaymentStatus $payment_status
  * @property string $payment_date
- * @property string $payment_date_real
  * @property integer $payment_discount
  * @property boolean $close_status
  * @property string $close_date
@@ -56,4 +55,13 @@ class Orders extends BaseModel {
 
         return $this->hasOne('PaymentStatus','id','payment_status');
     }
+
+    public function organization() {
+        return $this->belongsTo('User_organization', 'user_id');
+    }
+
+    public function individual() {
+        return $this->belongsTo('User_individual', 'user_id');
+    }
+
 }

@@ -3,10 +3,7 @@
 @stop
 @section('content')
  <?php
-    $orders = Orders::orderBy('payment_status')->orderBy('created_at','DESC')->with('payment')->with(array('listeners'=>function($query){
-        $query->with('listener');
-        $query->with('course');
-    }))->get();
+$orders = Orders::orderBy('payment_status')->orderBy('created_at','DESC')->with('payment', 'organization', 'individual')->get();
 ?>
 <h3>Список заказов</h3>
 <div class="tabs usual-tabs">
@@ -47,38 +44,82 @@
         </li>
     </ul>
     <div id="tabs-11">
-        <ul class="orders-ul">
+        <table class="table table-striped table-bordered">
+            <thead>
+                <tr>
+                    <th>№ заказа</th>
+                    <th>Создан<br>Закрыт</th>
+                    <th>Заказчик</th>
+                    <th>Статус оплаты<br>Дата оплаты</th>
+                    <th>Документы</th>
+                </tr>
+            </thead>
+            <tbody>
         @foreach($orders as $order)
             @if($order->payment_status == 1 && $order->close_status == 0)
-                @include(Helper::acclayout('assets.order'))
+                @include(Helper::acclayout('assets.order-tr'))
             @endif
         @endforeach
-        </ul>
+            </tbody>
+        </table>
     </div>
     <div id="tabs-12">
-        <ul class="orders-ul">
+        <table class="table table-striped table-bordered">
+            <thead>
+                <tr>
+                    <th>№ заказа</th>
+                    <th>Создан<br>Закрыт</th>
+                    <th>Заказчик</th>
+                    <th>Статус оплаты<br>Дата оплаты</th>
+                    <th>Документы</th>
+                </tr>
+            </thead>
+            <tbody>
         @foreach($orders as $order)
             @if(in_array($order->payment_status,array(2,3)) && $order->close_status == 0)
-                @include(Helper::acclayout('assets.order'))
+                @include(Helper::acclayout('assets.order-tr'))
             @endif
         @endforeach
-        </ul>
+            </tbody>
+        </table>
     </div>
     <div id="tabs-13">
-        <ul class="orders-ul">
+        <table class="table table-striped table-bordered">
+            <thead>
+                <tr>
+                    <th>№ заказа</th>
+                    <th>Создан<br>Закрыт</th>
+                    <th>Заказчик</th>
+                    <th>Статус оплаты<br>Дата оплаты</th>
+                    <th>Документы</th>
+                </tr>
+            </thead>
+            <tbody>
         @foreach($orders as $order)
             @if($order->close_status == 1)
-                @include(Helper::acclayout('assets.order'))
+                @include(Helper::acclayout('assets.order-tr'))
             @endif
         @endforeach
-        </ul>
+            </tbody>
+        </table>
     </div>
     <div id="tabs-14">
-        <ul class="orders-ul">
+        <table class="table table-striped table-bordered">
+            <thead>
+                <tr>
+                    <th>№ заказа</th>
+                    <th>Создан<br>Закрыт</th>
+                    <th>Заказчик</th>
+                    <th>Статус оплаты<br>Дата оплаты</th>
+                    <th>Документы</th>
+                </tr>
+            </thead>
+            <tbody>
         @foreach($orders as $order)
-            @include(Helper::acclayout('assets.order'))
+            @include(Helper::acclayout('assets.order-tr'))
         @endforeach
-        </ul>
+            </tbody>
+        </table>
     </div>
 </div>
 @stop

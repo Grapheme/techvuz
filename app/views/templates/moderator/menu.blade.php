@@ -1,12 +1,12 @@
 <ul class="cabinet-menu-ul clearfix margin-top-20 margin-bottom-40">
     <li class="cabinet-menu-li">
-        <a href="{{ URL::route('moderator-companies-list') }}">Компании</a>
+        <a href="{{ URL::route('moderator-orders-list') }}"><i class="fa fa-lg fa-fw fa-bookmark"></i> Заказы</a>
     </li>
     <li class="cabinet-menu-li">
-        <a href="{{ URL::route('moderator-orders-list') }}">Заказы</a>
+        <a href="{{ URL::route('moderator-companies-list') }}"><i class="fa fa-lg fa-fw fa-building"></i> Компании</a>
     </li>
     <li class="cabinet-menu-li">
-        <a href="{{ URL::route('moderator-listeners-list') }}">Слушатели</a>
+        <a href="{{ URL::route('moderator-listeners-list') }}"><i class="fa fa-lg fa-fw fa-group"></i> Слушатели</a>
     </li>
 @foreach(SystemModules::getSidebarModules() as $name => $module)
     <?php $modules_menu[] = $module;?>
