@@ -20,11 +20,11 @@ class AccountsOperationController extends BaseController {
 
                 Route::get('profile', array('as' => 'company-profile', 'uses' => $class . '@CompanyProfile'));
                 Route::get('profile/edit', array('as' => 'company-profile-edit', 'uses' => $class . '@CompanyProfileEdit'));
-                Route::patch('profile/update', array('as' => 'company-profile-update', 'uses' => $class . '@CompanyProfileUpdate'));
+                Route::patch('profile/update', array('before' => 'csrf', 'as' => 'company-profile-update', 'uses' => $class . '@CompanyProfileUpdate'));
 
                 Route::get('listeners/profile/{listener_id}', array('as' => 'company-listener-profile', 'uses' => $class . '@CompanyListenerProfile'));
                 Route::get('listeners/profile/{listener_id}/edit', array('as' => 'company-listener-profile-edit', 'uses' => $class . '@CompanyListenerProfileEdit'));
-                Route::patch('listeners/profile/{listener_id}/update', array('as' => 'company-listener-profile-update', 'uses' => $class . '@CompanyListenerProfileUpdate'));
+                Route::patch('listeners/profile/{listener_id}/update', array('before' => 'csrf', 'as' => 'company-listener-profile-update', 'uses' => $class . '@CompanyListenerProfileUpdate'));
 
                 Route::get('orders', array('as' => 'company-orders', 'uses' => $class . '@CompanyOrdersList'));
                 Route::get('listeners', array('as' => 'company-listeners', 'uses' => $class . '@CompanyListenersList'));

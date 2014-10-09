@@ -59,7 +59,9 @@ return array(
     ),
 
     'DEFAULT' => array(
-        'success' => 'Сохранено',
+        'success_insert' => 'Добавлено',
+        'success_save' => 'Сохранено',
+        'success_remove' => 'Удалено',
         'fail' => 'Неверно заполнены поля'
     )
 

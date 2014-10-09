@@ -89,64 +89,21 @@
         <th> № П/П </th>
         <th> </th>
     </tr>
-
-    <tr data-paymentid="01">
-        <td class="js-payment-date">
-            01.19.14
-        </td>
-        <td class="js-payment-price purchase-price">
-            2000 руб.
-        </td>
-        <td class="js-payment-id" data-courseid="345">
-            345
-        </td>
+    @foreach($order->payment_numbers as $payment_number)
+    <tr data-paymentid="{{ $payment_number->id }}">
+        <td class="js-payment-date" data-payment-data="{{ myDateTime::SwapDotDateWithOutTime($payment_number->payment_date) }}">{{ myDateTime::SwapDotDateWithOutTime($payment_number->payment_date) }}</td>
+        <td class="js-payment-price purchase-price" data-payment-price="{{ $payment_number->price }}">{{ number_format($payment_number->price, 0, ',', ' ') }} руб.</td>
+        <td class="js-payment-id" data-payment-number="{{ $payment_number->payment_number }}">{{ $payment_number->payment_number }}</td>
         <td>
-            <a href="#" class="margin-right-10 js-edit-payment" title="Редактировать">
+            <a href="javascript:void(0);" class="margin-right-10 js-edit-payment" title="Редактировать">
                 <span class="icon icon-red"></span>
             </a>
-            <a href="#" title="Удалить" class="js-delete-payment">
-                <span class="icon icon-cancel"></span>
-            </a>
+            <form method="DELETE" action="{{ URL::route('payment-order-number-delete',$payment_number->id) }}" style="display:inline-block">
+                <button type="submit" title="Удалить" class="js-delete-payment"><span class="icon icon-cancel"></span></button>
+            </form>
         </td>
     </tr>
-    <tr data-paymentid="02">
-        <td class="js-payment-date">
-            07.19.14
-        </td>
-        <td class="js-payment-price purchase-price">
-            2000 руб.
-        </td>
-        <td class="js-payment-id" data-courseid="563">
-            563
-        </td>
-        <td>
-            <a href="#" class="margin-right-10 js-edit-payment" title="Редактировать">
-                <span class="icon icon-red"></span>
-            </a>
-            <a href="#" title="Удалить" class="js-delete-payment">
-                <span class="icon icon-cancel"></span>
-            </a>
-        </td>
-    </tr>
-    <tr data-paymentid="03">
-        <td class="js-payment-date">
-            14.19.14
-        </td>
-        <td class="js-payment-price purchase-price">
-            2000 руб.
-        </td>
-        <td class="js-payment-id" data-courseid="353">
-            353
-        </td>
-        <td>
-            <a href="#" class="margin-right-10 js-edit-payment" title="Редактировать">
-                <span class="icon icon-red"></span>
-            </a>
-            <a href="#" title="Удалить" class="js-delete-payment">
-                <span class="icon icon-cancel"></span>
-            </a>
-        </td>
-    </tr>
+    @endforeach
 </table>
 @endif
 

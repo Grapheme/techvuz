@@ -15,6 +15,7 @@
 {{ HTML::script(Config::get('site.theme_path').'/js/index.js') }}
 
 {{ HTML::script('js/system/main.js') }}
+{{ HTML::script('js/vendor/jquery-form.min.js') }}
 {{ HTML::script('js/vendor/SmartNotification.min.js') }}
 {{ HTML::script('js/vendor/jquery.validate.min.js') }}
 {{ HTML::script('js/vendor/jquery.mask.js') }}

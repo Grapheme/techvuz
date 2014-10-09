@@ -18,8 +18,8 @@ class AccountsModeratorController extends BaseController {
 
                 Route::get('orders', array('as' => 'moderator-orders-list', 'uses' => $class . '@OrdersList'));
                 Route::get('order/{order_id}/extended', array('as' => 'moderator-order-extended', 'uses' => $class . '@OrderExtendedView'));
-                Route::post('order/{order_id}/payment-number/store', array('as' => 'payment-order-number-store', 'uses' => $class . '@OrderPaymentNumberStore'));
-
+                Route::post('order/{order_id}/payment-number/store', array('before' => 'csrf', 'as' => 'payment-order-number-store', 'uses' => $class . '@OrderPaymentNumberStore'));
+                Route::delete('order/{order_id}/payment-number/delete/{payment_order_id}', array('before' => 'csrf', 'as' => 'payment-order-number-delete', 'uses' => $class . '@OrderPaymentNumberDelete'));
 
                 Route::get('listeners', array('as' => 'moderator-listeners-list', 'uses' => $class . '@ListenersList'));
             });
@@ -112,14 +112,12 @@ class AccountsModeratorController extends BaseController {
 
     public function OrderPaymentNumberStore($order_id){
 
-        print_r(Input::all());
-        exit;
-
         $json_request = array('status'=>FALSE,'responseText'=>'','responseErrorText'=>'','redirect'=>FALSE);
         if(Request::ajax()):
             $validator = Validator::make(Input::all(),OrderPayments::$rules);
             if($validator->passes()):
                 if (OrderPayments::create(array('order_id'=>$order_id,'price'=>Input::get('price'),'payment_number'=>Input::get('payment_number'),'payment_date'=>Input::get('payment_date')))):
+                    $json_request['responseText'] = Lang::get('interface.DEFAULT.success_insert');
                     $json_request['redirect'] = URL::route('moderator-order-extended',$order_id);
                     $json_request['status'] = TRUE;
                 endif;
@@ -131,6 +129,19 @@ class AccountsModeratorController extends BaseController {
             return App::abort(404);
         endif;
         return Response::json($json_request,200);
+    }
+
+    public function OrderPaymentNumberDelete($order_id){
+
+        if(!Request::ajax()) return App::abort(404);
+        $json_request = array('status'=>FALSE, 'responseText'=>'');
+//        Directions::findOrFail($id)->courses()->delete();
+//        $direction = Directions::findOrFail($id);
+//        Event::fire(Route::currentRouteName(), array(array('title'=>$direction->title)));
+//        $direction->delete();
+//        $json_request['responseText'] = self::$entity_name.' удален';
+        $json_request['status'] = TRUE;
+        return Response::json($json_request, 200);
     }
     /****************************************************************************/
     /****************************** СЛУШАТЕЛИ ***********************************/

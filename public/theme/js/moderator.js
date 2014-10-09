@@ -33,6 +33,7 @@ function moderatorFormValidation() {
                     $(form).find('.btn-form-submit').elementDisabled(false);
                     if(response.status){
                         if(response.redirect !== false){
+                            $(form).find('.btn-form-submit').html(response.responseText);
                             BASIC.RedirectTO(response.redirect);
                         }else{
                             $(form).replaceWith(response.responseText);
