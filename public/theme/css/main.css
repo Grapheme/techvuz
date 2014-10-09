@@ -9408,6 +9408,9 @@ section h3 {
 .moderator-cabinet .btn {
   border: 2px solid;
 }
+.moderator-cabinet .btn:last-child {
+  margin-right: 0.625rem;
+}
 .moderator-cabinet .btn:hover {
   color: inherit;
 }

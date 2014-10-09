@@ -11,6 +11,10 @@
 	.btn {
 		border: 2px solid;
 
+		&:last-child {
+			margin-right: 10rem / $hfs;
+		}
+
 		&:hover {
 			color: inherit;
 		}
