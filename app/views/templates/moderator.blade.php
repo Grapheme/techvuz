@@ -11,7 +11,7 @@
     <div class="main-wrapper">
     @include(Helper::layout('header'))
     @include(Helper::layout('aside'))
-        <main class="cabinet">
+        <main class="cabinet moderator-cabinet">
              <h2>{{ Auth::user()->name.' '.Auth::user()->surname }}</h2>
              <div class="cabinet-tabs">
                  @include(Helper::acclayout('menu'))

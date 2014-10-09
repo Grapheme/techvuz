@@ -34,6 +34,7 @@
 		}
 
 		a {
+			display: inline-block;
 			transition: border-color .4s ease;
 			border-bottom: 1px solid;
 			border-color: rgba(255, 255, 255, .5);
