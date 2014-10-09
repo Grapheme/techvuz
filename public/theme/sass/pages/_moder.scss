@@ -522,6 +522,10 @@
 		color: $clr-dark-gray;
 	}
 
+	.input {
+		width: 337rem / $hfs;
+	}
+	
 	input {
 		outline: none;
 		transition: all .4s ease;

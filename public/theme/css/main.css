@@ -9902,6 +9902,9 @@ section h3 {
   font-weight: 400;
   color: #333333;
 }
+.moderator-cabinet .input {
+  width: 21.0625rem;
+}
 .moderator-cabinet input {
   outline: none;
   -webkit-transition: all .4s ease;
