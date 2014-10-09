@@ -9398,6 +9398,64 @@ section h3 {
   font-weight: 400;
 }
 
+.moderator-cabinet .table {
+  width: 100%;
+  outline: 1px solid #a8a8a8;
+  font-family: 'Open Sans', sans-serif;
+}
+.moderator-cabinet .table tr:nth-child(2n+1) {
+  background: #f9f9f9;
+}
+.moderator-cabinet .table .sort.sort--asc .sort--icon {
+  cursor: pointer;
+}
+.moderator-cabinet .table .sort.sort--asc .sort--icon:before {
+  content: '\e803';
+  font-family: 'fontello';
+  color: #a8a8a8;
+}
+.moderator-cabinet .table .sort.sort--desc .sort--icon {
+  cursor: pointer;
+}
+.moderator-cabinet .table .sort.sort--desc .sort--icon:before {
+  content: '\e802';
+  font-family: 'fontello';
+  color: #a8a8a8;
+}
+.moderator-cabinet .table th {
+  height: 3.75rem;
+  padding: 0 0 0 2.125rem;
+  text-align: left;
+  background: #dddddd;
+  border-right: 2px solid white;
+}
+.moderator-cabinet .table th:last-child {
+  border-right: none;
+}
+.moderator-cabinet .table td {
+  font-size: 0.875em;
+  line-height: 1.42857em;
+  padding: 0.875rem 0 0.875rem 2.125rem;
+  border-right: 2px solid white;
+}
+.moderator-cabinet .table td.td-status-bar {
+  vertical-align: top;
+}
+.moderator-cabinet .table td:last-child {
+  border: none;
+}
+.moderator-cabinet .table a {
+  -webkit-transition: all .4s ease;
+          transition: all .4s ease;
+  color: #33ace4;
+}
+.moderator-cabinet .table a:hover {
+  text-decoration: none;
+}
+.moderator-cabinet .table .no-courses {
+  opacity: .4;
+}
+
 /* ==========================================================================
    Helper classes
    ========================================================================== */
