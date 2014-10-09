@@ -65,7 +65,12 @@
 }
 
 .js-delete-payment {
+	transition: all .4s ease;
 	color: $clr-main-bg;
 	border: none;
 	background: none;
+
+	&:hover {
+		opacity: .7
+	}
 }
