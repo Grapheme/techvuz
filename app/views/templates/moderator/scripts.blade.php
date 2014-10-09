@@ -8,21 +8,26 @@
 <script>if(!window.jQuery.ui){document.write('<script src="{{asset('js/vendor/jquery-ui.min.js')}}"><\/script>');}</script>
 @endif
 {{ HTML::script('js/plugin/pace/pace.min.js') }}
-{{HTML::script('js/vendor/bootstrap.min.js');}}
-{{HTML::script('js/system/main.js');}}
-{{HTML::script('js/vendor/SmartNotification.min.js');}}
-{{HTML::script('js/vendor/jquery.validate.min.js');}}
-{{HTML::script('js/vendor/jquery.maskedinput.min.js');}}
-{{HTML::script('js/vendor/bootstrap-slider.min.js');}}
-{{HTML::script('js/vendor/smartclick.js');}}
-{{HTML::script('js/system/app.js');}}
-{{HTML::script('js/system/messages.js');}}
-
-{{HTML::script('js/vendor/dropzone.min.js');}}
-{{--{{HTML::script('js/system/dropzone-functions.js');}}--}}
-{{ HTML::script(URL::route('collectors.js')) }}
 
 @if(File::exists(public_path('js/vendor.js')))
 {{ HTML::style(Config::get('site.theme_path').'/js/vendor.js') }}
 @endif
 {{ HTML::script(Config::get('site.theme_path').'/js/index.js') }}
+
+{{ HTML::script('js/system/main.js') }}
+{{ HTML::script('js/vendor/SmartNotification.min.js') }}
+{{ HTML::script('js/vendor/jquery.validate.min.js') }}
+{{ HTML::script('js/vendor/jquery.mask.js') }}
+{{ HTML::script('js/system/app.js') }}
+{{ HTML::script('js/system/messages.js') }}
+
+{{ HTML::script('js/vendor/dropzone.min.js') }}
+{{ HTML::script(URL::route('collectors.js')) }}
+
+{{ HTML::script('theme/js/moderator.js') }}
+<script type="text/javascript">moderatorFormValidation();</script>
+<script>
+     $(document).ready(function(){
+         $(".phone").inputmask("mask", {"mask": "[+7] (999) 999 99 99","placeholder": "X"});
+     });
+ </script>

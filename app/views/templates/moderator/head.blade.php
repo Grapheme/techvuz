@@ -22,3 +22,7 @@
 {{ HTML::style('css/your_style.css') }}
 
 {{ HTML::script(Config::get('site.theme_path').'/js/vendor/modernizr-2.6.2.min.js') }}
+
+<script>
+    var base_url = '{{ URL::to('') }}';
+</script>

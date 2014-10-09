@@ -64,4 +64,8 @@ class Orders extends BaseModel {
         return $this->belongsTo('User_individual', 'user_id');
     }
 
+    public function payment_numbers(){
+
+        return $this->hasMany('OrderPayments','order_id');
+    }
 }

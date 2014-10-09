@@ -54,4 +54,8 @@ class OrderListeners extends BaseModel {
         return $this->hasMany('OrderListenersTests', 'order_listeners_id');
     }
 
+    public function user_listener() {
+        return $this->belongsTo('User_listener', 'user_id');
+    }
+
 }

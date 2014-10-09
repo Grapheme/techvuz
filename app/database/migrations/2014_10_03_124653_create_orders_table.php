@@ -33,6 +33,7 @@ class CreateOrdersTable extends Migration {
                 $table->integer('course_id')->default(0)->nullable()->unsigned()->index();
                 $table->integer('user_id')->default(0)->nullable()->unsigned()->index();
                 $table->float('price')->default(0)->unsigned()->nullable();
+                $table->boolean('access_status')->default(0)->nullable()->unsigned();
                 $table->boolean('start_status')->default(0)->nullable()->unsigned();
                 $table->boolean('over_status')->default(0)->nullable()->unsigned();
                 $table->timestamp('start_date');

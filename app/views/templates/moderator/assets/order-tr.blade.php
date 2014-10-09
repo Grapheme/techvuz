@@ -1,3 +1,4 @@
+@if(isset($order) && is_object($order))
 <tr class="vertical-middle">
     <td> <a href="{{ URL::route('moderator-order-extended',$order->id) }}">Заказ №{{ $order->number }}</td>
     <td>
@@ -21,3 +22,4 @@
     </td>
     <td> </td>
 </tr>
+@endif
