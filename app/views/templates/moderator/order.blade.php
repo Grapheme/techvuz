@@ -21,7 +21,7 @@
     $total_summa = 0;
     $payment_summa = 0;
     foreach($order->payment_numbers as $payment_number):
-
+        $payment_summa += $payment_number->price;
     endforeach;
 
     foreach($courses as $course_id => $course):
@@ -110,13 +110,13 @@
 <form class="form-delete-payment" action="#" method="POST">
     <input class="delete-payment-id" type="hidden">
 </form>
-
+@if($payment_summa < $total_summa)
 <div class="margin-bottom-40">
     <a href="javascript:void(0);" class="btn btn--bordered btn--blue" data-toggle="modal" data-target="#regPayment">
         Добавить платеж
     </a>
 </div>
-
+@endif
 <div class="modal fade add-payment-modal" id="regPayment" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -125,7 +125,7 @@
                 <h4 class="modal-title" id="myModalLabel">Добавление платежа</h4>
             </div>
             <div class="modal-body">
-                @include(Helper::acclayout('forms.payment-number'))
+                @include(Helper::acclayout('forms.payment-number-insert'))
             </div>
         </div>
     </div>
@@ -138,21 +138,7 @@
                 <h4 class="modal-title" id="myModalLabel">Редактирование платежа</h4>
             </div>
             <div class="modal-body">
-                <form class="auth-form registration-form clearfix margin-bottom-30">
-                    <input type="hidden" class="js-edit-payment-id">
-                    <div class="form-element js-edit-date">
-                        <label>Дата</label><input type="text">
-                    </div>
-                    <div class="form-element js-edit-sum">
-                        <label>Сумма</label><input type="text">
-                    </div>
-                    <div class="form-element js-edit-num">
-                        <label>№ П/П</label><input type="text">
-                    </div>
-                    <button class="btn btn--bordered btn--blue pull-right">
-                        Изменить
-                    </button>
-                </form>
+                @include(Helper::acclayout('forms.payment-number-edit'))
             </div>
         </div>
     </div>

@@ -36,6 +36,13 @@ class OrderPayments extends BaseModel {
         'payment_date' => 'required',
     );
 
+    public static $rules_update = array(
+        'payment_order_id' => 'required',
+        'price' => 'required',
+        'payment_number' => 'required',
+        'payment_date' => 'required',
+    );
+
     public function order() {
         return $this->belongsTo('Orders', 'order_id');
     }

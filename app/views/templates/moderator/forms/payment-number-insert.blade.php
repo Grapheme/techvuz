@@ -1,4 +1,4 @@
-{{ Form::open(array('url'=>URL::route('payment-order-number-store',$order->id), 'class'=>'auth-form registration-form clearfix margin-bottom-30', 'id'=>'payment-number-form', 'method'=>'POST')) }}
+{{ Form::open(array('url'=>URL::route('payment-order-number-store',$order->id), 'class'=>'auth-form registration-form clearfix margin-bottom-30', 'id'=>'payment-number-insert-form', 'method'=>'POST')) }}
     {{ Form::hidden('order_id',$order->id) }}
         <div class="form-element">
             <label>Дата</label>{{ Form::text('payment_date',date("Y-m-d")) }}

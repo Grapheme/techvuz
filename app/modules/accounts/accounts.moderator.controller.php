@@ -19,6 +19,7 @@ class AccountsModeratorController extends BaseController {
                 Route::get('orders', array('as' => 'moderator-orders-list', 'uses' => $class . '@OrdersList'));
                 Route::get('order/{order_id}/extended', array('as' => 'moderator-order-extended', 'uses' => $class . '@OrderExtendedView'));
                 Route::post('order/{order_id}/payment-number/store', array('before' => 'csrf', 'as' => 'payment-order-number-store', 'uses' => $class . '@OrderPaymentNumberStore'));
+                Route::patch('order/{order_id}/payment-number/update', array('before' => 'csrf', 'as' => 'payment-order-number-update', 'uses' => $class . '@OrderPaymentNumberUpdate'));
                 Route::delete('order/{order_id}/payment-number/delete/{payment_order_id}', array('before' => 'csrf', 'as' => 'payment-order-number-delete', 'uses' => $class . '@OrderPaymentNumberDelete'));
 
                 Route::get('listeners', array('as' => 'moderator-listeners-list', 'uses' => $class . '@ListenersList'));
@@ -118,6 +119,32 @@ class AccountsModeratorController extends BaseController {
             if($validator->passes()):
                 if (OrderPayments::create(array('order_id'=>$order_id,'price'=>Input::get('price'),'payment_number'=>Input::get('payment_number'),'payment_date'=>Input::get('payment_date')))):
                     $json_request['responseText'] = Lang::get('interface.DEFAULT.success_insert');
+                    $json_request['redirect'] = URL::route('moderator-order-extended',$order_id);
+                    $json_request['status'] = TRUE;
+                endif;
+            else:
+                $json_request['responseText'] = Lang::get('interface.DEFAULT.fail');
+                $json_request['responseErrorText'] = $validator->messages()->all();
+            endif;
+        else:
+            return App::abort(404);
+        endif;
+        return Response::json($json_request,200);
+    }
+
+    public function OrderPaymentNumberUpdate($order_id){
+
+        $json_request = array('status'=>FALSE,'responseText'=>'','responseErrorText'=>'','redirect'=>FALSE);
+        if(Request::ajax()):
+            $validator = Validator::make(Input::all(),OrderPayments::$rules_update);
+            if($validator->passes()):
+                if ($order_payment = OrderPayments::where('id',Input::get('payment_order_id'))->first()):
+                    $order_payment->payment_date = Input::get('payment_date');
+                    $order_payment->price = Input::get('price');
+                    $order_payment->payment_number = Input::get('payment_number');
+                    $order_payment->save();
+                    $order_payment->touch();
+                    $json_request['responseText'] = Lang::get('interface.DEFAULT.success_save');
                     $json_request['redirect'] = URL::route('moderator-order-extended',$order_id);
                     $json_request['status'] = TRUE;
                 endif;
