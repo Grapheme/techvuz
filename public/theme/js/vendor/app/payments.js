@@ -25,7 +25,7 @@ var Payments = (function(){
 		e.preventDefault();
 
 		var $parent = $(this).parents('tr'),
-			$form = $('.form-delete-payment'),
+			$form = $(this).parents('form'),
 			$id = $parent.data('paymentid'),
 			$hidden = $form.find('.delete-payment-id');
 
