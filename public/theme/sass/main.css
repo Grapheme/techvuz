@@ -10008,6 +10008,9 @@ section h3 {
   box-shadow: none;
   border: none;
 }
+.moderator-cabinet .well header {
+  margin-bottom: 1.5rem;
+}
 .moderator-cabinet .well .fieldset {
   padding: 0;
 }
