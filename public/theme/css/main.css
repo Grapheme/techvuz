@@ -10141,6 +10141,9 @@ section h3 {
 .moderator-cabinet .well .fieldset {
   padding: 0;
 }
+.moderator-cabinet .well .nav {
+  display: none;
+}
 .moderator-cabinet .note {
   font-size: 12px;
   font-weight: 400;
