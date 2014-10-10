@@ -692,12 +692,14 @@
 
 	.label {
 		display: inline-block;
-		vertical-align: middle;
-		width: 188rem / $hfs;
+		vertical-align: top;
+		width: 150rem / $hfs;
+		padding-left: 38rem / $hfs;
 
 		font-size: 14em / $hfs;
 		line-height: (20em / 14);
 		font-weight: 400;
+		text-align: left;
 
 		color: $clr-dark-gray;
 	}
