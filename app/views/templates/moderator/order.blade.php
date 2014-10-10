@@ -8,7 +8,7 @@
     </div>
     <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
         <div class="payment-select pull-right">
-            {{ Form::select('payments_status',PaymentStatus::lists('title','id'),$order->payment_status,array('class'=>'select')) }}
+            {{ Form::select('payments_status',PaymentStatus::lists('title','id'),$order->payment_status,array('class'=>'select js-set-order-payment-status','autocomplete'=>'off','data-action' => URL::route('change-order-status',array('order_id'=>$order->id)))) }}
             <div class="select-payments margin-top-30 text-right">
                 <a href="javasccript:void(0);" class="font-sm margin-right-10 js-check-all-payments">Добавить всех</a>
                 <a href="javasccript:void(0);" class="font-sm js-uncheck-all-payments">Убрать всех</a>
@@ -52,7 +52,7 @@
         </td>
         <td class="purchase-price">{{ $listener->price }} руб.</td>
         <td>
-            {{ Form::checkbox('access_status',1,$listener->access_status) }}
+            {{ Form::checkbox('access_status',1,$listener->access_status,array('class'=>'js-set-listener-access','autocomplete'=>'off','data-action' => URL::route('order-listener-access',array('order_id'=>$order->id,'order_listener_id'=>$listener->id)) )) }}
         </td>
     </tr>
         @endforeach

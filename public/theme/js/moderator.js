@@ -17,6 +17,63 @@ function scrollToError(elem) {
     }, 200);
 }
 
+$(function(){
+
+    function SetListenerAccess($this){
+        $.ajax({
+            url: $($this).attr('data-action'),
+            type: 'POST', dataType: 'json',
+            beforeSend: function(){},
+            success: function(response,textStatus,xhr){
+                if(response.status == true) {
+                    if (response.responseOrderStatus !== false){
+                        $(".js-set-order-payment-status").val(response.responseOrderStatus);
+                        $(".js-set-order-payment-status").selectmenu("refresh");
+                        console.log(response.responseOrderStatus);
+                    }
+                }
+            },
+            error: function(xhr,textStatus,errorThrown){}
+        });
+    }
+
+    $(".js-check-all-payments").click(function(){
+        $(".js-set-listener-access").each(function(index,element){SetListenerAccess(element);});
+    });
+    $(".js-uncheck-all-payments").click(function(){
+        $(".js-set-listener-access").each(function(index,element){SetListenerAccess(element);});
+    });
+
+    $(".js-set-order-payment-status").selectmenu({
+        change: function( event, ui ) {
+            var $this = this;
+            var $status = ui.item.value;
+            $.ajax({
+                url: $($this).attr('data-action'),
+                data: { status : $status},
+                type: 'POST', dataType: 'json',
+                beforeSend: function(){},
+                success: function(response,textStatus,xhr){
+                    if(response.status == true) {
+                        if ($status == 2) {
+                            $(".js-set-listener-access").prop('checked', true);
+                        } else if($status == 4) {
+                            $(".js-set-listener-access").prop('checked', true);
+                        } else if($status == 5) {
+                            $(".js-set-listener-access").prop('checked', true);
+                        } else if($status == 6) {
+                            $(".js-set-listener-access").prop('checked', false);
+                        }
+                    }
+                },
+                error: function(xhr,textStatus,errorThrown){}
+            });
+        }
+    });
+
+    $(".js-set-listener-access").click(function(){SetListenerAccess(this);});
+});
+
 function moderatorFormValidation() {
 
     var PaymentNumberInsert = $("#payment-number-insert-form").validate({

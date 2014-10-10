@@ -62,6 +62,7 @@ return array(
         'success_insert' => 'Добавлено',
         'success_save' => 'Сохранено',
         'success_remove' => 'Удалено',
+        'success_change' => 'Изменено',
         'fail' => 'Неверно заполнены поля'
     )
 
