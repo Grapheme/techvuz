@@ -2,7 +2,6 @@
 @section('style')
 @stop
 @section('content')
-
 <main class="cabinet">
     <h2>{{ User_organization::where('id',Auth::user()->id)->first()->title }}</h2>
     <div class="cabinet-tabs">

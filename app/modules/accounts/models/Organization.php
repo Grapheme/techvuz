@@ -63,8 +63,27 @@ class Organization extends BaseModel {
 
 		'consent' => 'required|integer',
 	);
+
     public static $update_rules = array(
 		'name' => 'required',
+		'phone' => 'required',
+		'title' => 'required',
+		'fio_manager' => 'required',
+		'manager' => 'required',
+		'statutory' => 'required',
+		'inn' => 'required',
+		'kpp' => 'required',
+		'postaddress' => 'required',
+		'account_type' => 'required',
+		'account_number' => 'required',
+		'bank' => 'required',
+		'bik' => 'required',
+	);
+
+    public static $moderator_rules = array(
+        'email' => 'required|email',
+        'active' => 'required',
+        'name' => 'required',
 		'phone' => 'required',
 		'title' => 'required',
 		'fio_manager' => 'required',

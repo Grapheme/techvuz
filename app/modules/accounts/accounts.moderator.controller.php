@@ -15,6 +15,11 @@ class AccountsModeratorController extends BaseController {
         if (Auth::check()):
             Route::group(array('before' => 'auth.status', 'prefix' => self::$name), function() use ($class) {
                 Route::get('companies', array('as' => 'moderator-companies-list', 'uses' => $class . '@CompaniesList'));
+                Route::get('companies/profile/{company_id}', array('as' => 'moderator-company-profile', 'uses' => $class . '@CompanyProfile'));
+                Route::get('companies/profile/{company_id}/edit', array('as' => 'moderator-company-profile-edit', 'uses' => $class . '@CompanyProfileEdit'));
+                Route::patch('companies/profile/{company_id}/update', array('as' => 'moderator-company-profile-update', 'uses' => $class . '@CompanyProfileUpdate'));
+
+                Route::get('companies/profile/{company_id}/listener/{listener_id}', array('as' => 'moderator-company-listener-profile', 'uses' => $class . '@CompanyListenerProfileEdit'));
 
                 Route::get('orders', array('as' => 'moderator-orders-list', 'uses' => $class . '@OrdersList'));
                 Route::get('order/{order_id}/extended', array('as' => 'moderator-order-extended', 'uses' => $class . '@OrderExtendedView'));
@@ -71,8 +76,134 @@ class AccountsModeratorController extends BaseController {
             'page_title'=> 'Список компаний',
             'page_description'=> '',
             'page_keywords'=> '',
+            'companies'=> array()
         );
+        if ($companies_list = User_organization::orderBy('created_at','DESC')->with('orders.listeners','orders.payment_numbers')->get()):
+            $companies = array();
+            foreach($companies_list as $index => $company):
+                $companies[$index]['id'] = $company->id;
+                $companies[$index]['title'] = $company->title;
+                $companies[$index]['created_at'] = $company->created_at->format("d.m.Y");
+                $companies[$index]['manager'] = $company->manager;
+                $companies[$index]['fio_manager'] = $company->fio_manager;
+                $companies[$index]['email'] = $company->email;
+                $companies[$index]['orders_count'] = $company->orders->count();
+                $companies[$index]['orders_earnings'] = array('total_earnings'=>0,'real_earnings'=>0);
+                if ($company->orders->count()):
+                    foreach ($company->orders as $order):
+                        if ($order->listeners->count()):
+                            foreach ($order->listeners as $listener):
+                                $companies[$index]['orders_earnings']['total_earnings'] += $listener->price;
+                            endforeach;
+                        endif;
+                        if ($order->payment_numbers->count()):
+                            foreach ($order->payment_numbers as $payment_number):
+                                $companies[$index]['orders_earnings']['real_earnings'] += $payment_number->price;
+                            endforeach;
+                        endif;
+                    endforeach;
+                endif;
+            endforeach;
+            $page_data['companies'] = $companies;
+        endif;
+
         return View::make(Helper::acclayout('companies'),$page_data);
+    }
+
+    public function CompanyProfile($company_id){
+
+        $page_data = array(
+            'page_title'=> 'Просмотр профиля компании',
+            'page_description'=> '',
+            'page_keywords'=> '',
+            'profile' => array(),
+            'listeners' => array(),
+            'orders' => array(),
+
+        );
+        if($page_data['profile'] = User_organization::where('id',$company_id)->first()):
+            $page_data['listeners'] = User_listener::where('organization_id',$company_id)->orderBy('created_at','DESC')->get();
+            $page_data['orders'] = Orders::where('user_id',$company_id)->with('payment')->with('listeners')->get();
+//            Helper::tad($page_data['profile']);
+
+            return View::make(Helper::acclayout('company-profile'),$page_data);
+        else:
+            App::abort(404);
+        endif;
+    }
+
+    public function CompanyProfileEdit($company_id){
+
+        $page_data = array(
+            'page_title'=> 'Редактирование профиля компании',
+            'page_description'=> '',
+            'page_keywords'=> '',
+            'profile' => array(),
+        );
+        if($page_data['profile'] = User_organization::where('id',$company_id)->first()):
+            return View::make(Helper::acclayout('company-profile-edit'),$page_data);
+        else:
+            App::abort(404);
+        endif;
+    }
+
+    public function CompanyProfileUpdate($company_id){
+
+        $json_request = array('status'=>FALSE,'responseText'=>'','responseErrorText'=>'','redirect'=>FALSE);
+        if(Request::ajax()):
+            $validator = Validator::make(Input::all(),Organization::$moderator_rules);
+            if($validator->passes()):
+                if (self::CompanyAccountUpdate($company_id,Input::all())):
+                    $json_request['responseText'] = Lang::get('interface.UPDATE_PROFILE_COMPANY.success');
+                    $json_request['redirect'] = URL::route('moderator-company-profile',$company_id);
+                    $json_request['status'] = TRUE;
+                else:
+                    $json_request['responseText'] = Lang::get('interface.UPDATE_PROFILE_COMPANY.fail');
+                endif;
+            else:
+                $json_request['responseText'] = Lang::get('interface.UPDATE_PROFILE_COMPANY.fail');
+                $json_request['responseErrorText'] = $validator->messages()->all();
+            endif;
+        else:
+            return App::abort(404);
+        endif;
+        return Response::json($json_request,200);
+    }
+
+    private function CompanyAccountUpdate($company_id,$post){
+
+        $user = User::findOrFail($company_id);
+        if($organization = Organization::where('user_id',$user->id)->first()):
+            $fio = explode(' ',$post['name']);
+            $user->name = (isset($fio[1]))?$fio[1]:'';
+            $user->surname = (isset($fio[0]))?$fio[0]:'';
+            $user->email = $post['email'];
+            $user->active = $post['active'];
+            if($post['active'] == 1):
+                $user->temporary_code = '';
+                $user->code_life = 0;
+            endif;
+            $user->save();
+            $user->touch();
+
+            $organization->title = $post['title'];
+            $organization->fio_manager = $post['fio_manager'];
+            $organization->manager = $post['manager'];
+            $organization->statutory = $post['statutory'];
+            $organization->inn = $post['inn'];
+            $organization->kpp = $post['kpp'];
+            $organization->postaddress = $post['postaddress'];
+            $organization->account_type = $post['account_type'];
+            $organization->account_number = $post['account_number'];
+            $organization->bank = $post['bank'];
+            $organization->bik = $post['bik'];
+            $organization->name = $post['name'];
+            $organization->phone = $post['phone'];
+            $organization->save();
+            $organization->touch();
+
+            return TRUE;
+        endif;
     }
     /****************************************************************************/
     /******************************** ЗАКАЗЫ ************************************/
@@ -182,9 +313,7 @@ class AccountsModeratorController extends BaseController {
                 endif;
                 $orderListener->save();
                 $orderListener->touch();
-
                 $order = Orders::where('id',$order_id)->first();
-
                 $countAccess = 0; $total_count = 0;
                 foreach(OrderListeners::where('order_id',$order_id)->get() as $order_listener):
                     if ($order_listener->access_status == 1):
@@ -192,23 +321,24 @@ class AccountsModeratorController extends BaseController {
                     endif;
                     $total_count++;
                 endforeach;
+                $now = date('Y-m-d H:i:s');
                 if ($order->payment_status == 1 && $countAccess == $total_count):
-                    Orders::where('id',$order_id)->update(array('payment_status'=>5,'payment_date'=>'0000-00-00 00:00:00','updated_at'=>date('c')));
+                    Orders::where('id',$order_id)->update(array('payment_status'=>5,'payment_date'=>'0000-00-00 00:00:00','updated_at'=>$now));
                     $json_request['responseOrderStatus'] = 5;
                 elseif ($order->payment_status == 6 && $countAccess == $total_count):
-                    Orders::where('id',$order_id)->update(array('payment_status'=>2,'payment_date'=>date('c'),'updated_at'=>date('c')));
+                    Orders::where('id',$order_id)->update(array('payment_status'=>2,'payment_date'=>$now->getTimestamp(),'updated_at'=>$now));
                     $json_request['responseOrderStatus'] = 2;
                 elseif ($order->payment_status == 3 && $countAccess == $total_count):
-                    Orders::where('id',$order_id)->update(array('payment_status'=>4,'payment_date'=>'0000-00-00 00:00:00','updated_at'=>date('c')));
+                    Orders::where('id',$order_id)->update(array('payment_status'=>4,'payment_date'=>'0000-00-00 00:00:00','updated_at'=>$now));
                     $json_request['responseOrderStatus'] = 4;
                 elseif($order->payment_status == 2 && $countAccess == 0):
-                    Orders::where('id',$order_id)->update(array('payment_status'=>6,'payment_date'=>'0000-00-00 00:00:00','updated_at'=>date('c')));
+                    Orders::where('id',$order_id)->update(array('payment_status'=>6,'payment_date'=>'0000-00-00 00:00:00','updated_at'=>$now));
                     $json_request['responseOrderStatus'] = 6;
                 elseif($order->payment_status == 4 && $countAccess == 0):
-                    Orders::where('id',$order_id)->update(array('payment_status'=>3,'payment_date'=>'0000-00-00 00:00:00','updated_at'=>date('c')));
+                    Orders::where('id',$order_id)->update(array('payment_status'=>3,'payment_date'=>'0000-00-00 00:00:00','updated_at'=>$now));
                     $json_request['responseOrderStatus'] = 3;
                 elseif($order->payment_status == 5 && $countAccess == 0):
-                    Orders::where('id',$order_id)->update(array('payment_status'=>1,'payment_date'=>'0000-00-00 00:00:00','updated_at'=>date('c')));
+                    Orders::where('id',$order_id)->update(array('payment_status'=>1,'payment_date'=>'0000-00-00 00:00:00','updated_at'=>$now));
                     $json_request['responseOrderStatus'] = 1;
                 endif;
 
@@ -226,18 +356,23 @@ class AccountsModeratorController extends BaseController {
         if(Request::ajax() && Input::get('status')):
             if ($order = Orders::where('id',$order_id)->first()):
                 $order->payment_status = Input::get('status');
+                $order->payment_date = '0000-00-0000:00:00';
+                $now = date('Y-m-d H:i:s');
+                switch(Input::get('status')):
+                    case 2: Orders::where('id',$order_id)->first()->listeners()->update(array('access_status'=>1,'updated_at'=>$now));
+                        $order->payment_date = $now;
+                        break;
+                    case 4: Orders::where('id',$order_id)->first()->listeners()->update(array('access_status'=>1,'updated_at'=>$now));
+                        $order->payment_date = $now;
+                        break;
+                    case 5: Orders::where('id',$order_id)->first()->listeners()->update(array('access_status'=>1,'updated_at'=>$now));
+                        break;
+                    case 6: Orders::where('id',$order_id)->first()->listeners()->update(array('access_status'=>0,'updated_at'=>$now));
+                        $order->payment_date = $now;
+                        break;
+                endswitch;
                 $order->save();
                 $order->touch();
-                switch(Input::get('status')):
-                    case 2: Orders::where('id',$order_id)->first()->listeners()->update(array('access_status'=>1,'updated_at'=>date('c')));
-                            break;
-                    case 4: Orders::where('id',$order_id)->first()->listeners()->update(array('access_status'=>1,'updated_at'=>date('c')));
-                            break;
-                    case 5: Orders::where('id',$order_id)->first()->listeners()->update(array('access_status'=>1,'updated_at'=>date('c')));
-                            break;
-                    case 6: Orders::where('id',$order_id)->first()->listeners()->update(array('access_status'=>0,'updated_at'=>date('c')));
-                            break;
-                endswitch;
                 $json_request['responseText'] = Lang::get('interface.DEFAULT.success_change');
                 $json_request['status'] = TRUE;
             endif;
@@ -258,13 +393,14 @@ class AccountsModeratorController extends BaseController {
             foreach($order->payment_numbers as $payment_number):
                 $payment_summa += $payment_number->price;
             endforeach;
+            $now = date('Y-m-d H:i:s');
             if ($payment_summa >= $total_summa):
-                Orders::where('id',$order_id)->update(array('payment_status'=>2,'payment_date'=>date('c'),'updated_at'=>date('c')));
-                Orders::where('id',$order_id)->first()->listeners()->update(array('access_status'=>1,'updated_at'=>date('c')));
+                Orders::where('id',$order_id)->update(array('payment_status'=>2,'payment_date'=>$now,'updated_at'=>$now));
+                Orders::where('id',$order_id)->first()->listeners()->update(array('access_status'=>1,'updated_at'=>$now));
             elseif($payment_summa > 0 && $payment_summa < $total_summa):
-                Orders::where('id',$order_id)->update(array('payment_status'=>3,'payment_date'=>'0000-00-00 00:00:00','updated_at'=>date('c')));
+                Orders::where('id',$order_id)->update(array('payment_status'=>3,'payment_date'=>'0000-00-00 00:00:00','updated_at'=>$now));
             else:
-                Orders::where('id',$order_id)->update(array('payment_status'=>1,'payment_date'=>'0000-00-00 00:00:00','updated_at'=>date('c')));
+                Orders::where('id',$order_id)->update(array('payment_status'=>1,'payment_date'=>'0000-00-00 00:00:00','updated_at'=>$now));
             endif;
         endif;
     }
@@ -280,4 +416,11 @@ class AccountsModeratorController extends BaseController {
         );
         return View::make(Helper::acclayout('listeners'),$page_data);
     }
+
+    public function CompanyListenerProfileEdit($company_id,$listener_id){
+
+
+    }
+
+
 }
