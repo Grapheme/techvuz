@@ -7683,24 +7683,10 @@ a[href^="tel"] {
   background: #33ace4;
   color: white;
 }
-.tabs.usual-tabs .ui-tabs-nav {
+.tabs.usual-tabs {
   position: relative;
-  width: 100%;
-  height: 2.4375rem;
-  border: none;
-  border-bottom: 1px solid #33ace4;
 }
-.tabs.usual-tabs .ui-tabs-nav .ui-tabs-active {
-  position: static;
-  width: 10.875rem;
-  height: 2.8125rem;
-  margin-top: -0.4375rem;
-  border-right: 1px solid;
-  border-color: #33ace4;
-  background: white;
-  color: #33ace4;
-}
-.tabs.usual-tabs .ui-tabs-nav .ui-tabs-active:before {
+.tabs.usual-tabs:before {
   content: '';
   position: absolute;
   z-index: 1;
@@ -7710,7 +7696,7 @@ a[href^="tel"] {
   height: 2.4375rem;
   border-bottom: 1px solid #33ace4;
 }
-.tabs.usual-tabs .ui-tabs-nav .ui-tabs-active:after {
+.tabs.usual-tabs:after {
   content: '';
   position: absolute;
   z-index: 1;
@@ -7719,6 +7705,27 @@ a[href^="tel"] {
   width: 2.75rem;
   height: 2.4375rem;
   border-bottom: 1px solid #33ace4;
+}
+.tabs.usual-tabs .ui-tabs-nav {
+  position: relative;
+  width: 100%;
+  height: 2.4375rem;
+  border: none;
+  border-bottom: 1px solid #33ace4;
+}
+.tabs.usual-tabs .ui-tabs-nav .ui-tabs-active {
+  position: relative;
+  z-index: 2;
+  width: 10.875rem;
+  height: 2.8125rem;
+  margin-top: -0.4375rem;
+  border-right: 1px solid;
+  border-color: #33ace4;
+  background: white;
+  color: #33ace4;
+}
+.tabs.usual-tabs .ui-tabs-nav .ui-tabs-active .filter-count {
+  z-index: 2;
 }
 .tabs.usual-tabs .ui-tabs-nav .ui-tabs-active .ui-tabs-anchor {
   position: relative;
@@ -7744,7 +7751,24 @@ a[href^="tel"] {
 .tabs.usual-tabs .ui-tabs-nav .ui-tabs-anchor:hover {
   background: white;
 }
+.tabs.usual-tabs .ui-tabs-nav .filter-count {
+  position: absolute;
+  top: -0.75rem;
+  right: -0.75rem;
+  z-index: 1;
+  height: 1.5rem;
+  min-width: 1.5rem;
+  padding: 0 0.3rem;
+  border: 1px solid;
+  -webkit-border-radius: 100%;
+          border-radius: 100%;
+  line-height: 1.4rem;
+  font-size: .8em;
+  background: none repeat scroll 0 0 #fff;
+  text-align: center;
+}
 .tabs.usual-tabs .ui-tabs-nav li {
+  position: relative;
   width: 10.25rem;
   -webkit-transition: all .4s ease;
           transition: all .4s ease;
@@ -9409,9 +9433,220 @@ section h3 {
   font-weight: 400;
 }
 
+.ui-datepicker {
+  width: 17em;
+  padding: .2em .2em 0;
+  display: none;
+  border: 1px solid;
+  border-top: none;
+  -webkit-box-shadow: 0 0 12px -7px;
+          box-shadow: 0 0 12px -7px;
+  background: #fff;
+}
+
+.ui-datepicker .ui-datepicker-header {
+  position: relative;
+  padding: .2em 0;
+}
+
+.ui-datepicker .ui-datepicker-prev,
+.ui-datepicker .ui-datepicker-next {
+  position: absolute;
+  top: 2px;
+  width: 1.8em;
+  height: 1.8em;
+}
+
+.ui-datepicker .ui-datepicker-prev-hover,
+.ui-datepicker .ui-datepicker-next-hover {
+  top: 1px;
+}
+
+.ui-datepicker .ui-datepicker-prev {
+  left: 2px;
+}
+
+.ui-datepicker .ui-datepicker-next {
+  right: 2px;
+}
+
+.ui-datepicker .ui-datepicker-prev-hover {
+  left: 1px;
+}
+
+.ui-datepicker .ui-datepicker-next-hover {
+  right: 1px;
+}
+
+.ui-datepicker .ui-datepicker-prev span,
+.ui-datepicker .ui-datepicker-next span {
+  display: block;
+  position: absolute;
+  left: 50%;
+  margin-left: -8px;
+  top: 50%;
+  margin-top: -8px;
+}
+
+.ui-datepicker .ui-datepicker-title {
+  margin: 0 2.3em;
+  line-height: 1.8em;
+  text-align: center;
+}
+
+.ui-datepicker .ui-datepicker-title select {
+  font-size: 1em;
+  margin: 1px 0;
+}
+
+.ui-datepicker select.ui-datepicker-month,
+.ui-datepicker select.ui-datepicker-year {
+  width: 45%;
+}
+
+.ui-datepicker table {
+  width: 100%;
+  font-size: .9em;
+  border-collapse: collapse;
+  margin: 0 0 .4em;
+}
+
+.ui-datepicker th {
+  padding: .7em .3em;
+  text-align: center;
+  font-weight: bold;
+  border: 0;
+}
+
+.ui-datepicker td {
+  border: 0;
+  padding: 1px;
+}
+
+.ui-datepicker td span,
+.ui-datepicker td a {
+  display: block;
+  padding: .2em;
+  text-align: right;
+  text-decoration: none;
+}
+
+.ui-datepicker .ui-datepicker-buttonpane {
+  background-image: none;
+  margin: .7em 0 0 0;
+  padding: 0 .2em;
+  border-left: 0;
+  border-right: 0;
+  border-bottom: 0;
+}
+
+.ui-datepicker .ui-datepicker-buttonpane button {
+  float: right;
+  margin: .5em .2em .4em;
+  cursor: pointer;
+  padding: .2em .6em .3em .6em;
+  width: auto;
+  overflow: visible;
+}
+
+.ui-datepicker .ui-datepicker-buttonpane button.ui-datepicker-current {
+  float: left;
+}
+
+/* with multiple calendars */
+.ui-datepicker.ui-datepicker-multi {
+  width: auto;
+}
+
+.ui-datepicker-multi .ui-datepicker-group {
+  float: left;
+}
+
+.ui-datepicker-multi .ui-datepicker-group table {
+  width: 95%;
+  margin: 0 auto .4em;
+}
+
+.ui-datepicker-multi-2 .ui-datepicker-group {
+  width: 50%;
+}
+
+.ui-datepicker-multi-3 .ui-datepicker-group {
+  width: 33.3%;
+}
+
+.ui-datepicker-multi-4 .ui-datepicker-group {
+  width: 25%;
+}
+
+.ui-datepicker-multi .ui-datepicker-group-last .ui-datepicker-header,
+.ui-datepicker-multi .ui-datepicker-group-middle .ui-datepicker-header {
+  border-left-width: 0;
+}
+
+.ui-datepicker-multi .ui-datepicker-buttonpane {
+  clear: left;
+}
+
+.ui-datepicker-row-break {
+  clear: both;
+  width: 100%;
+  font-size: 0;
+}
+
+/* RTL support */
+.ui-datepicker-rtl {
+  direction: rtl;
+}
+
+.ui-datepicker-rtl .ui-datepicker-prev {
+  right: 2px;
+  left: auto;
+}
+
+.ui-datepicker-rtl .ui-datepicker-next {
+  left: 2px;
+  right: auto;
+}
+
+.ui-datepicker-rtl .ui-datepicker-prev:hover {
+  right: 1px;
+  left: auto;
+}
+
+.ui-datepicker-rtl .ui-datepicker-next:hover {
+  left: 1px;
+  right: auto;
+}
+
+.ui-datepicker-rtl .ui-datepicker-buttonpane {
+  clear: right;
+}
+
+.ui-datepicker-rtl .ui-datepicker-buttonpane button {
+  float: left;
+}
+
+.ui-datepicker-rtl .ui-datepicker-buttonpane button.ui-datepicker-current,
+.ui-datepicker-rtl .ui-datepicker-group {
+  float: right;
+}
+
+.ui-datepicker-rtl .ui-datepicker-group-last .ui-datepicker-header,
+.ui-datepicker-rtl .ui-datepicker-group-middle .ui-datepicker-header {
+  border-right-width: 0;
+  border-left-width: 1px;
+}
+
 .moderator-cabinet {
   /* The MIT License */
   /* The MIT License */
+}
+.moderator-cabinet .notifications {
+  margin: 0 0 2.5rem;
+}
+.moderator-cabinet [class^="col"] {
+  width: 100%;
 }
 .moderator-cabinet .dropzone,
 .moderator-cabinet .dropzone *,
@@ -9422,6 +9657,7 @@ section h3 {
   box-sizing: border-box;
 }
 .moderator-cabinet .dropzone {
+  width: 25.6rem;
   position: relative;
   border: 1px solid rgba(0, 0, 0, 0.08);
   background: rgba(0, 0, 0, 0.02);
@@ -9894,33 +10130,76 @@ section h3 {
 .moderator-cabinet .dropzone-previews a.dz-remove:hover {
   color: #666;
 }
+.moderator-cabinet .cabinet-tabs + h2,
 .moderator-cabinet h1 {
-  margin-bottom: 1.25rem;
-  font-size: 2.5em;
-  font-weight: 400;
-  letter-spacing: -1px;
-  padding: 4.75rem 0 1rem;
+  font-family: "Open Sans",sans-serif;
+  font-size: 1.5em;
+  font-weight: 600;
+  line-height: 3.25em;
+  margin: 0 0 1.3125rem;
 }
 .moderator-cabinet section {
   margin-bottom: 1rem;
 }
 .moderator-cabinet .label {
   display: inline-block;
-  vertical-align: middle;
+  vertical-align: top;
   width: 11.75rem;
   font-size: 0.875em;
   line-height: 1.42857em;
   font-weight: 400;
+  text-align: left;
   color: #333333;
 }
 .moderator-cabinet .input {
   width: 21.0625rem;
 }
+.moderator-cabinet .input .icon-append {
+  display: none;
+}
+.moderator-cabinet .ui-selectmenu-button {
+  width: 25.563rem !important;
+}
+.moderator-cabinet .smart-form .row {
+  padding: 0 14px;
+}
+.moderator-cabinet .smart-form fieldset {
+  padding-left: 0;
+  padding-right: 0;
+}
+.moderator-cabinet .well {
+  padding: 0;
+  -webkit-box-shadow: none;
+          box-shadow: none;
+  border: none;
+}
+.moderator-cabinet .well header {
+  margin-bottom: 1.5rem;
+}
+.moderator-cabinet .well fieldset {
+  padding: 0;
+}
+.moderator-cabinet .well .nav {
+  display: none;
+}
+.moderator-cabinet .well .redactor_box {
+  width: 25.7rem;
+}
+.moderator-cabinet .note {
+  font-size: 12px;
+  font-weight: 400;
+  margin-left: 191px;
+  width: 25.563rem;
+  color: #33ace4;
+}
+.moderator-cabinet textarea {
+  width: 25.563rem;
+}
 .moderator-cabinet input {
   outline: none;
   -webkit-transition: all .4s ease;
           transition: all .4s ease;
-  width: 21.0625rem;
+  width: 25.563rem;
   height: 2.6875rem;
   padding: 0 0.625rem;
   border: 1px solid #333333;
@@ -9977,6 +10256,9 @@ section h3 {
   outline: 1px solid #a8a8a8;
   font-family: 'Open Sans', sans-serif;
 }
+.moderator-cabinet .table .note {
+  margin-left: 0;
+}
 .moderator-cabinet .table tr:nth-child(2n+1) {
   background: #f9f9f9;
 }
@@ -9998,7 +10280,7 @@ section h3 {
 }
 .moderator-cabinet .table th {
   height: 3.75rem;
-  padding: 0 0 0 2.125rem;
+  padding: 0 1.0625rem;
   text-align: left;
   vertical-align: middle;
   white-space: nowrap;
@@ -10011,9 +10293,10 @@ section h3 {
 .moderator-cabinet .table td {
   font-size: 0.875em;
   line-height: 1.42857em;
-  padding: 0.875rem 0 0.875rem 2.125rem;
+  padding: 0.875rem 1.0625rem 0.875rem 1.0625rem;
   border-right: 2px solid white;
   border-top: none;
+  border-bottom: none;
 }
 .moderator-cabinet .table td.td-status-bar {
   vertical-align: top;
