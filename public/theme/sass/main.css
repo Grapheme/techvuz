@@ -10005,6 +10005,11 @@ section h3 {
 }
 .moderator-cabinet .well {
   padding: 0;
+  box-shadow: none;
+  border: none;
+}
+.moderator-cabinet .well .fieldset {
+  padding: 0;
 }
 .moderator-cabinet .note {
   font-size: 12px;
@@ -10012,6 +10017,9 @@ section h3 {
   margin-left: 191px;
   width: 25.563rem;
   color: #33ace4;
+}
+.moderator-cabinet textarea {
+  width: 25.563rem;
 }
 .moderator-cabinet input {
   outline: none;

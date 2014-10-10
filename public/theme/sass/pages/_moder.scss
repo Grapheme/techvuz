@@ -713,6 +713,12 @@
 	
 	.well {
 		padding: 0;
+		box-shadow: none;
+		border: none;
+
+		.fieldset {
+			padding: 0;
+		}
 	}
 
 	.note {
@@ -721,6 +727,10 @@
 	    margin-left: 191px;
 	    width: 25.563rem;
 	    color: $clr-main-bg;
+	}
+
+	textarea {
+		width: 25.563rem;
 	}
 
 	input {
