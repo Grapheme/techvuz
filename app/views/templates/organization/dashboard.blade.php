@@ -13,16 +13,14 @@
             <h3>Сотрудники</h3>
             <div class="count-add">
                 <?php $activeListenersIDs = array(); ?>
-                <?php $allListenersIDs = array(); ?>
                 @foreach($orders as $order)
-                    @if(in_array($order->payment_status,array(2,3)) && $order->close_status == 0)
+                    @if($order->close_status == 0)
                         @foreach($order->listeners as $listener)
+                            @if($listener->start_status == 1)
                             <?php $activeListenersIDs[$listener->user_id] = 1; ?>
+                            @endif
                         @endforeach
                     @endif
-                    @foreach($order->listeners as $listener)
-                        <?php $allListenersIDs[$listener->user_id] = 1; ?>
-                    @endforeach
                 @endforeach
                 <div class="container-fluid">
                     <div class="row">
@@ -33,7 +31,7 @@
                         </div>
                         <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
                             <div class="count-add-sign">Всего</div>
-                            <div class="count-add-num">{{ count($allListenersIDs) }}</div>
+                            <div class="count-add-num">{{ Listener::where('organization_id',Auth::user()->id)->count() }}</div>
                             <div class="count-add-dots"></div>
                         </div>
                         <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 no-gutter">
