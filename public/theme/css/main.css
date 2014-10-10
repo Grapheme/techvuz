@@ -9898,11 +9898,11 @@ section h3 {
   color: #666;
 }
 .moderator-cabinet h1 {
-  margin-bottom: 1.25rem;
-  font-size: 2.5em;
-  font-weight: 400;
-  letter-spacing: -1px;
-  padding: 4.75rem 0 1rem;
+  font-family: "Open Sans",sans-serif;
+  font-size: 1.5em;
+  font-weight: 600;
+  line-height: 3.25em;
+  margin: 0 0 1.3125rem;
 }
 .moderator-cabinet section {
   margin-bottom: 1rem;
@@ -10017,6 +10017,7 @@ section h3 {
   padding: 0.875rem 1.0625rem 0.875rem 1.0625rem;
   border-right: 2px solid white;
   border-top: none;
+  border-bottom: none;
 }
 .moderator-cabinet .table td.td-status-bar {
   vertical-align: top;

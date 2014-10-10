@@ -503,11 +503,11 @@
 	}
 
 	h1 {
-		margin-bottom: 20rem / $hfs;
-		font-size: 2.5em;
-	    font-weight: 400;
-	    letter-spacing: -1px;
-	    padding: 4.75rem 0 1rem;
+		font-family: "Open Sans",sans-serif;
+	    font-size: 1.5em;
+	    font-weight: 600;
+	    line-height: 3.25em;
+	    margin: 0 0 1.3125rem;
 	}
 
 	section {
@@ -660,6 +660,7 @@
 			padding: 14rem / $hfs 17rem / $hfs 14rem / $hfs 17rem / $hfs;
 			border-right: 2px solid $clr-white;
 			border-top: none;
+			border-bottom: none;
 
 			&.td-status-bar {
 				vertical-align: top;
