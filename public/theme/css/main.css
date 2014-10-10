@@ -9897,6 +9897,7 @@ section h3 {
 .moderator-cabinet .dropzone-previews a.dz-remove:hover {
   color: #666;
 }
+.moderator-cabinet .cabinet-tabs + h2,
 .moderator-cabinet h1 {
   font-family: "Open Sans",sans-serif;
   font-size: 1.5em;
