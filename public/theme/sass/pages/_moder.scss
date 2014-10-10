@@ -706,6 +706,10 @@
 
 	.input {
 		width: 337rem / $hfs;
+
+		.icon-append {
+			display: none;
+		}
 	}
 	
 	.ui-selectmenu-button {

@@ -10130,6 +10130,9 @@ section h3 {
 .moderator-cabinet .input {
   width: 21.0625rem;
 }
+.moderator-cabinet .input .icon-append {
+  display: none;
+}
 .moderator-cabinet .ui-selectmenu-button {
   width: 25.563rem !important;
 }
