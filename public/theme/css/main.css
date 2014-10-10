@@ -7683,6 +7683,26 @@ a[href^="tel"] {
   background: #33ace4;
   color: white;
 }
+.tabs.usual-tabs:before {
+  content: '';
+  position: absolute;
+  z-index: 1;
+  top: 0;
+  left: -2.75rem;
+  width: 2.75rem;
+  height: 2.4375rem;
+  border-bottom: 1px solid #33ace4;
+}
+.tabs.usual-tabs:after {
+  content: '';
+  position: absolute;
+  z-index: 1;
+  top: 0;
+  right: -2.75rem;
+  width: 2.75rem;
+  height: 2.4375rem;
+  border-bottom: 1px solid #33ace4;
+}
 .tabs.usual-tabs .ui-tabs-nav {
   position: relative;
   width: 100%;
@@ -7699,26 +7719,6 @@ a[href^="tel"] {
   border-color: #33ace4;
   background: white;
   color: #33ace4;
-}
-.tabs.usual-tabs .ui-tabs-nav .ui-tabs-active:before {
-  content: '';
-  position: absolute;
-  z-index: 1;
-  top: 0;
-  left: -2.75rem;
-  width: 2.75rem;
-  height: 2.4375rem;
-  border-bottom: 1px solid #33ace4;
-}
-.tabs.usual-tabs .ui-tabs-nav .ui-tabs-active:after {
-  content: '';
-  position: absolute;
-  z-index: 1;
-  top: 0;
-  right: -2.75rem;
-  width: 2.75rem;
-  height: 2.4375rem;
-  border-bottom: 1px solid #33ace4;
 }
 .tabs.usual-tabs .ui-tabs-nav .ui-tabs-active .filter-count {
   z-index: 2;
