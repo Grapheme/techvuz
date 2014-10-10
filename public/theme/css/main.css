@@ -7714,7 +7714,8 @@ a[href^="tel"] {
   border-bottom: 1px solid #33ace4;
 }
 .tabs.usual-tabs .ui-tabs-nav .ui-tabs-active {
-  position: static;
+  position: relative;
+  z-index: 2;
   width: 10.875rem;
   height: 2.8125rem;
   margin-top: -0.4375rem;
@@ -7733,9 +7734,6 @@ a[href^="tel"] {
   line-height: 2.875rem;
   color: #33ace4;
   background: white;
-}
-.tabs.usual-tabs .ui-tabs-nav .ui-tabs-active li {
-  z-index: 2;
 }
 .tabs.usual-tabs .ui-tabs-nav .ui-tabs-active:last-child {
   border-color: #33ace4;

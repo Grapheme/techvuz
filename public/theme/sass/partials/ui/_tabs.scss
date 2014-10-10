@@ -93,7 +93,8 @@
 			border-bottom: 1px solid $clr-main-bg;
 
 			.ui-tabs-active {
-				position: static;
+				position: relative;
+				z-index: 2;
 				width: 174rem / $hfs;
 				height: 45rem / $hfs;
 				margin-top: -7rem / $hfs;
@@ -116,10 +117,6 @@
 					line-height: 46rem / $hfs;
 					color: $clr-main-bg;
 					background: $clr-white;
-				}
-
-				li {
-					z-index: 2;
 				}
 
 				&:last-child {
