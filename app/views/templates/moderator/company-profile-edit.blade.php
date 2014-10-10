@@ -4,7 +4,7 @@
 @section('content')
 <h2 class="margin-bottom-40">{{ $profile->title }}</h2>
 <div class="row">
-    <h3 class="margin-bottom-30">Редактировать профиль</h3>
+    <h3 class="margin-bottom-30">Редактировать профиль компании</h3>
     @include(Helper::acclayout('forms.company-profile'))
 </div>
 @stop

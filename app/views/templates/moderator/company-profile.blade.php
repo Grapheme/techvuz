@@ -173,7 +173,7 @@
                 @foreach($listeners as $listener)
                     <tr>
                         <td>
-                            <a href="{{ URL::route('moderator-company-listener-profile',array('company_id'=>$profile->id,'listener_id'=>$listener->id)) }}">{{ $listener->fio }}</a><br>
+                            <a href="{{ URL::route('moderator-listener-profile',$listener->id) }}">{{ $listener->fio }}</a><br>
                             {{ $listener->position }}<br>
                             рег.от: {{ $listener->created_at->format("d.m.Y") }}
                         </td>

@@ -37,6 +37,7 @@
             </tbody>
         </table>
     </div>
+</div>
 @endif
 @stop
 @section('overlays')

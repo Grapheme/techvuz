@@ -55,4 +55,17 @@ class Listener extends BaseModel {
         'specialty' => 'required',
     );
 
+    public static $moderator_rules = array(
+        'email' => 'required|email',
+        'active' => 'required',
+        'fio' => 'required',
+        'phone' => 'required',
+        'position' => 'required',
+        'postaddress' => 'required',
+        'phone' => 'required',
+        'education' => 'required',
+        'place_work' => 'required',
+        'year_study' => 'required|integer',
+        'specialty' => 'required',
+    );
 }

@@ -19,8 +19,6 @@ class AccountsModeratorController extends BaseController {
                 Route::get('companies/profile/{company_id}/edit', array('as' => 'moderator-company-profile-edit', 'uses' => $class . '@CompanyProfileEdit'));
                 Route::patch('companies/profile/{company_id}/update', array('as' => 'moderator-company-profile-update', 'uses' => $class . '@CompanyProfileUpdate'));
 
-                Route::get('companies/profile/{company_id}/listener/{listener_id}', array('as' => 'moderator-company-listener-profile', 'uses' => $class . '@CompanyListenerProfileEdit'));
-
                 Route::get('orders', array('as' => 'moderator-orders-list', 'uses' => $class . '@OrdersList'));
                 Route::get('order/{order_id}/extended', array('as' => 'moderator-order-extended', 'uses' => $class . '@OrderExtendedView'));
                 Route::post('order/{order_id}/extended/set-access/{order_listener_id}', array('as' => 'order-listener-access', 'uses' => $class . '@changeOrderListenerAccess'));
@@ -31,6 +29,10 @@ class AccountsModeratorController extends BaseController {
                 Route::delete('order/{order_id}/payment-number/delete/{payment_order_id}', array('before' => 'csrf', 'as' => 'payment-order-number-delete', 'uses' => $class . '@OrderPaymentNumberDelete'));
 
                 Route::get('listeners', array('as' => 'moderator-listeners-list', 'uses' => $class . '@ListenersList'));
+                Route::get('listeners/profile/{listener_id}', array('as' => 'moderator-listener-profile', 'uses' => $class . '@ListenerProfile'));
+                Route::get('listeners/profile/{listener_id}/edit', array('as' => 'moderator-listener-profile-edit', 'uses' => $class . '@ListenerProfileEdit'));
+                Route::patch('listeners/profile/{listener_id}/update', array('before' => 'csrf', 'as' => 'moderator-listener-profile-update', 'uses' => $class . '@ListenerProfileUpdate'));
+                Route::patch('listeners/profile/{listener_id}/update', array('before' => 'csrf', 'as' => 'moderator-listener-profile-update', 'uses' => $class . '@ListenerProfileUpdate'));
             });
         endif;
     }
@@ -106,7 +108,6 @@ class AccountsModeratorController extends BaseController {
             endforeach;
             $page_data['companies'] = $companies;
         endif;
-
         return View::make(Helper::acclayout('companies'),$page_data);
     }
 
@@ -413,14 +414,128 @@ class AccountsModeratorController extends BaseController {
             'page_title'=> 'Список слушателей',
             'page_description'=> '',
             'page_keywords'=> '',
+            'listeners' => array()
         );
+        $listeners = array();
+        if ($companies_listeners = User_listener::orderBy('created_at','DESC')->with('organization')->get()):
+            $listeners = array_merge($listeners,$companies_listeners->toArray());
+        endif;
+        if ($individual_listeners = User_individual::orderBy('created_at','DESC')->get()):
+            $listeners = array_merge($listeners,$individual_listeners->toArray());
+        endif;
+        if (count($listeners)):
+            foreach ($listeners as $key => $row):
+                @$created_at[$key]  = $row['created_at'];
+            endforeach;
+            array_multisort($created_at, SORT_ASC, $listeners);
+            $page_data['listeners'] = $listeners;
+        endif;
+        $page_data['listeners'] = $listeners;
         return View::make(Helper::acclayout('listeners'),$page_data);
     }
 
-    public function CompanyListenerProfileEdit($company_id,$listener_id){
+    public function ListenerProfile($listener_id){
 
+        $page_data = array(
+            'page_title'=> 'Профиль слушателя',
+            'page_description'=> '',
+            'page_keywords'=> '',
+            'profile' => array()
+        );
 
+        if($account = User::where('id',$listener_id)->first()):
+            if ($account->group_id = 5):
+                $page_data['profile'] = User_listener::where('id',$listener_id)->first();
+            elseif($account->group_id = 6):
+                $page_data['profile'] = User_individual::where('id',$listener_id)->first();
+            endif;
+        endif;
+        return View::make(Helper::acclayout('listener-profile'),$page_data);
     }
 
+    public function ListenerProfileEdit($listener_id){
+
+        $page_data = array(
+            'page_title'=> 'Профиль слушателя',
+            'page_description'=> '',
+            'page_keywords'=> '',
+            'profile' => array(),
+            'profile_group_id' => 0
+        );
+
+        if($account = User::where('id',$listener_id)->first()):
+            if ($account->group_id = 5):
+                $page_data['profile'] = User_listener::where('id',$listener_id)->first();
+                $page_data['profile_group_id'] = 5;
+            elseif($account->group_id = 6):
+                $page_data['profile'] = User_individual::where('id',$listener_id)->first();
+                $page_data['profile_group_id'] = 6;
+            endif;
+        endif;
+        return View::make(Helper::acclayout('listener-profile-edit'),$page_data);
+    }
+
+    public function ListenerProfileUpdate($listener_id){
+
+        $json_request = array('status'=>FALSE,'responseText'=>'','responseErrorText'=>'','redirect'=>FALSE);
+        if(Request::ajax()):
+            $validator = Validator::make(Input::all(),Listener::$moderator_rules);
+            if($validator->passes()):
+                if($account = User::where('id',$listener_id)->first()):
+                    if ($account->group_id = 5):
+                        self::ListenerCompanyAccountUpdate($account,$listener_id,Input::all());
+                    elseif($account->group_id = 6):
+                        self::ListenerIndividualAccountUpdate($account,$listener_id,Input::all());
+                    endif;
+                    $json_request['status'] = TRUE;
+                    $json_request['responseText'] = Lang::get('interface.UPDATE_PROFILE_LISTENER.success');
+                    $json_request['redirect'] = URL::route('moderator-listener-profile',$listener_id);
+                else:
+                    $json_request['responseText'] = Lang::get('interface.UPDATE_PROFILE_LISTENER.fail');
+                endif;
+            else:
+                $json_request['responseText'] = Lang::get('interface.UPDATE_PROFILE_LISTENER.fail');
+                $json_request['responseErrorText'] = $validator->messages()->all();
+            endif;
+        else:
+            return App::abort(404);
+        endif;
+        return Response::json($json_request,200);
+    }
+
+    private function ListenerCompanyAccountUpdate($user,$listener_id,$post){
+
+        if($listener = Listener::where('user_id',$user->id)->first()):
+            $fio = explode(' ',$post['fio']);
+            $user->name = (isset($fio[1]))?$fio[1]:'';
+            $user->surname = (isset($fio[0]))?$fio[0]:'';
+            $user->email = $post['email'];
+            $user->active = $post['active'];
+            if($post['active'] == 1):
+                $user->temporary_code = '';
+                $user->code_life = 0;
+            endif;
+            $user->save();
+            $user->touch();
+
+            $listener->fio = $post['fio'];
+            $listener->position = $post['position'];
+            $listener->postaddress = $post['postaddress'];
+            $listener->phone = $post['phone'];
+            $listener->education = $post['education'];
+            $listener->place_work = $post['place_work'];
+            $listener->year_study = $post['year_study'];
+            $listener->specialty = $post['specialty'];
+            $listener->save();
+            $listener->touch();
+
+            return TRUE;
+        endif;
+    }
+
+    private function ListenerIndividualAccountUpdate($user,$listener_id,$post){
+
+        return TRUE;
+    }
 
 }

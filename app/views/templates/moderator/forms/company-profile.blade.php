@@ -2,7 +2,6 @@
     <div class="reg-form-alert">
         Все поля являются обязательными для заполнения!
     </div>
-    <h4>Доступ</h4>
     <div class="form-element">
         <label>Email</label>{{ Form::text('email') }}
     </div>

@@ -2,34 +2,40 @@
 @section('style')
 @stop
 @section('content')
-<?php $listeners = User_listener::orderBy('created_at','DESC')->get(); ?>
 <h2 class="margin-bottom-40">Список слушателей</h2>
 <div class="row">
-  @if($listeners->count())
-  
+@if(count($listeners))
     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
         <table class="table table-striped table-bordered">
             <thead>
                 <tr>
                     <th>Ф.И.О.</th>
                     <th>Контактные данные</th>
-                    <th>Дата регистрации</th>
-                    <th></th>
+                    <th>Компания</th>
                 </tr>
             </thead>
             <tbody>
             @foreach($listeners as $listener)
                 <tr class="vertical-middle">
-                    <td>{{ $listener->fio }}</td>
-                    <td>{{ $listener->email }} {{ $listener->phone }}</td>
-                    <td>{{ myDateTime::SwapDotDateWithTime($listener->created_at) }}</td>
-                    <td> </td>
+                    <td>
+                        <a href="{{ URL::route('moderator-listener-profile',$listener['id']) }}">{{ $listener['fio'] }}</a><br>
+                        рег.: {{ myDateTime::SwapDotDateWithTime($listener['created_at']) }}
+                    </td>
+                    <td>
+                        {{ $listener['email'] }}<br>
+                        {{ $listener['phone'] }}
+                    </td>
+                    <td>
+                    @if(isset($listener['organization']))
+                        <a href="{{ URL::route('moderator-company-profile',$listener['organization']['id']) }}">{{ $listener['organization']['title'] }}</a>
+                    @endif
+                    </td>
                 </tr>
             @endforeach
             </tbody>
         </table>
     </div>
-
+</div>
 @endif
 @stop
 @section('overlays')

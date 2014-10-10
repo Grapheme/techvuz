@@ -46,6 +46,52 @@ var validation_profile_messages_ul = {
     phone: { required: 'Укажите контактный номер' }
 };
 
+var validation_profile_listener_company = {
+    email: { required: true, email: true },
+    active: { required: true },
+    fio: { required: true },
+    position: { required: true },
+    postaddress: { required: true },
+    phone: { required: true },
+    education: { required: true },
+    place_work: { required: true },
+    year_study: { required: true },
+    specialty: { required: true }
+};
+var validation_profile_messages_listener_company = {
+    email: { required: 'Укажите Email', email: 'Неверный адрес Email' },
+    active: { required: 'Укажите статус аккаунта' },
+    fio: { required: 'Укажите Ф.И.О.' },
+    position: { required: 'Укажите должность' },
+    postaddress: { required: 'Укажите почтовый адрес' },
+    phone: { required: 'Укажите контактный номер' },
+    education: { required: 'Укажите образование' },
+    place_work: { required: 'Укажите образование' },
+    year_study: { required: 'Укажите год обучения' },
+    specialty: { required: 'Укажите специальность' }
+};
+
+var validation_profile_listener_individual = {
+    email: { required: true, email: true },
+    active: { required: true },
+    fio: { required: true },
+    position: { required: true },
+    inn: { required: true },
+    postaddress: { required: true },
+    email: { required: true, email: true },
+    phone: { required: true }
+};
+var validation_signup_messages_listener_individual = {
+    email: { required: 'Укажите Email', email: 'Неверный адрес Email' },
+    active: { required: 'Укажите статус аккаунта' },
+    fio: { required: 'Укажите Ф.И.О.' },
+    position: { required: 'Укажите должность' },
+    inn: { required: 'Укажите ИНН' },
+    postaddress: { required: 'Укажите почтовый адрес' },
+    email: { required: 'Укажите контактный E-mail','email': 'Неверно указан формат данных' },
+    phone: { required: 'Укажите контактный номер' }
+};
+
 function scrollToError(elem) {
     $('html, body').animate({
         scrollTop: elem.offset().top
@@ -235,4 +281,85 @@ function moderatorFormValidation() {
             $(form).ajaxSubmit(options);
         }
     });
+    var profileListenerCompany = $("#company-profile-listener-form").validate({
+        rules: validation_profile_listener_company ? validation_profile_listener_company : {},
+        messages: validation_profile_messages_listener_company ? validation_profile_messages_listener_company : {},
+        errorPlacement : function(error, element){error.insertAfter(element.parent());},
+        submitHandler: function(form) {
+            var options = {target:null, dataType:'json', type:'post'};
+            options.beforeSubmit = function(formData,jqForm,options){
+                $("#error").remove();
+                $(form).find('.btn-form-submit').elementDisabled(true);
+            },
+                options.success = function(response, status, xhr, jqForm){
+                    $(form).find('.btn-form-submit').elementDisabled(false);
+                    if(response.status){
+                        if(response.redirect !== false){
+                            $(form).find('.btn-form-submit').html(response.responseText);
+                            BASIC.RedirectTO(response.redirect);
+                        }else{
+                            $(form).replaceWith(response.responseText);
+                        }
+                    }else{
+                        $(form).find('.btn-form-submit').before("<p id='error'>"+response.responseText+"</p>");
+                    }
+                }
+            options.error = function(xhr, textStatus, errorThrown){
+                if (typeof(xhr.responseJSON) != 'undefined') {
+                    var err_type = xhr.responseJSON.error.type;
+                    var err_file = xhr.responseJSON.error.file;
+                    var err_line = xhr.responseJSON.error.line;
+                    var err_message = xhr.responseJSON.error.message;
+                    var msg_title = err_type;
+                    var msg_body = err_file + ":" + err_line + "<hr/>" + err_message;
+                } else {
+                    var msg_title = textStatus;
+                    var msg_body = xhr.responseText;
+                }
+                $(form).find('.btn-form-submit').elementDisabled(false);
+            }
+            $(form).ajaxSubmit(options);
+        }
+    });
+    var profileListenerCompany = $("#individual-profile-listener-form").validate({
+        rules: validation_profile_listener_individual ? validation_profile_listener_individual : {},
+        messages: validation_signup_messages_listener_individual ? validation_signup_messages_listener_individual : {},
+        errorPlacement : function(error, element){error.insertAfter(element.parent());},
+        submitHandler: function(form) {
+            var options = {target:null, dataType:'json', type:'post'};
+            options.beforeSubmit = function(formData,jqForm,options){
+                $("#error").remove();
+                $(form).find('.btn-form-submit').elementDisabled(true);
+            },
+                options.success = function(response, status, xhr, jqForm){
+                    $(form).find('.btn-form-submit').elementDisabled(false);
+                    if(response.status){
+                        if(response.redirect !== false){
+                            $(form).find('.btn-form-submit').html(response.responseText);
+                            BASIC.RedirectTO(response.redirect);
+                        }else{
+                            $(form).replaceWith(response.responseText);
+                        }
+                    }else{
+                        $(form).find('.btn-form-submit').before("<p id='error'>"+response.responseText+"</p>");
+                    }
+                }
+            options.error = function(xhr, textStatus, errorThrown){
+                if (typeof(xhr.responseJSON) != 'undefined') {
+                    var err_type = xhr.responseJSON.error.type;
+                    var err_file = xhr.responseJSON.error.file;
+                    var err_line = xhr.responseJSON.error.line;
+                    var err_message = xhr.responseJSON.error.message;
+                    var msg_title = err_type;
+                    var msg_body = err_file + ":" + err_line + "<hr/>" + err_message;
+                } else {
+                    var msg_title = textStatus;
+                    var msg_body = xhr.responseText;
+                }
+                $(form).find('.btn-form-submit').elementDisabled(false);
+            }
+            $(form).ajaxSubmit(options);
+        }
+    });
+
 }

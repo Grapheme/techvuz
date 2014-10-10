@@ -25,6 +25,19 @@ function modifyKeys($collection, $key = 'slug',$unset = false) {
     return $array;
 }
 
+function modifyArrayKeys($array, $key = 'id',$unset = false) {
+    $result_array = array();
+    foreach ($array as $c => $col):
+        if (isset($col[$key])):
+            $result_array[$col[$key]] = $col;
+            if ($unset):
+                unset($result_array[$col[$key]][$key]);
+            endif;
+        endif;
+    endforeach;
+    return $result_array;
+}
+
 function hasCookieData($name = null){
     if (!is_null($name)):
         if (isset($_COOKIE[$name]) && !empty($_COOKIE[$name])):
