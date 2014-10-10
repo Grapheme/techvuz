@@ -715,6 +715,10 @@
 		.row {
 			padding: 0 14px;
 		}
+		fieldset {
+			padding-left: 0;
+			padding-right: 0;
+		}
 	}
 	.well {
 		padding: 0;
@@ -724,7 +728,7 @@
 		header {
 			margin-bottom: 1.5rem;
 		}
-		.fieldset {
+		fieldset {
 			padding: 0;
 		}
 		.nav {

@@ -10006,6 +10006,10 @@ section h3 {
 .moderator-cabinet .smart-form .row {
   padding: 0 14px;
 }
+.moderator-cabinet .smart-form fieldset {
+  padding-left: 0;
+  padding-right: 0;
+}
 .moderator-cabinet .well {
   padding: 0;
   box-shadow: none;
@@ -10014,7 +10018,7 @@ section h3 {
 .moderator-cabinet .well header {
   margin-bottom: 1.5rem;
 }
-.moderator-cabinet .well .fieldset {
+.moderator-cabinet .well fieldset {
   padding: 0;
 }
 .moderator-cabinet .well .nav {
