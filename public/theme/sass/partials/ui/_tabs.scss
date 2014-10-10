@@ -62,25 +62,8 @@
 
 	&.usual-tabs {
 
-		.ui-tabs-nav {
-			position: relative;
-			width: 100%;
-			height: 39rem / $hfs;
-			border: none;
-			border-bottom: 1px solid $clr-main-bg;
 
-			.ui-tabs-active {
-				position: static;
-				width: 174rem / $hfs;
-				height: 45rem / $hfs;
-				margin-top: -7rem / $hfs;
-				border-right: 1px solid;
-				border-color: $clr-main-bg;
-
-				background: $clr-white;
-				color: $clr-main-bg;
-
-				&:before {
+		&:before {
 					content: '';
 					position: absolute;
 					z-index: 1;
@@ -101,6 +84,25 @@
 					height: 2.4375rem;
 					border-bottom: 1px solid $clr-main-bg;
 				}
+		.ui-tabs-nav {
+			position: relative;
+			width: 100%;
+			height: 39rem / $hfs;
+			border: none;
+			border-bottom: 1px solid $clr-main-bg;
+
+			.ui-tabs-active {
+				position: static;
+				width: 174rem / $hfs;
+				height: 45rem / $hfs;
+				margin-top: -7rem / $hfs;
+				border-right: 1px solid;
+				border-color: $clr-main-bg;
+
+				background: $clr-white;
+				color: $clr-main-bg;
+
+				
 
 				.filter-count {
 					z-index: 2;
