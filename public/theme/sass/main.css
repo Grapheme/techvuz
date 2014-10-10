@@ -7619,6 +7619,9 @@ a[href^="tel"] {
   height: 2.4375rem;
   border-bottom: 1px solid #33ace4;
 }
+.tabs.usual-tabs .ui-tabs-nav .ui-tabs-active .filter-count {
+  z-index: 2;
+}
 .tabs.usual-tabs .ui-tabs-nav .ui-tabs-active .ui-tabs-anchor {
   position: relative;
   display: block;
@@ -7643,7 +7646,22 @@ a[href^="tel"] {
 .tabs.usual-tabs .ui-tabs-nav .ui-tabs-anchor:hover {
   background: white;
 }
+.tabs.usual-tabs .ui-tabs-nav .filter-count {
+  position: absolute;
+  top: -0.75em;
+  right: -0.75em;
+  z-index: 1;
+  height: 1.5em;
+  min-width: 1.5em;
+  padding: 0 0.3rem;
+  border: 1px solid;
+  border-radius: 100%;
+  line-height: 1.3em;
+  background: none repeat scroll 0 0 #fff;
+  text-align: center;
+}
 .tabs.usual-tabs .ui-tabs-nav li {
+  position: relative;
   width: 10.25rem;
   transition: all .4s ease;
   height: 2.375rem;
