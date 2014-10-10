@@ -9417,6 +9417,7 @@ section h3 {
   border-top: none;
   -webkit-box-shadow: 0 0 12px -7px;
           box-shadow: 0 0 12px -7px;
+  background: #fff;
 }
 
 .ui-datepicker .ui-datepicker-header {
@@ -9619,6 +9620,9 @@ section h3 {
 }
 .moderator-cabinet .notifications {
   margin: 0 0 2.5rem;
+}
+.moderator-cabinet [class^="col"] {
+  width: 100%;
 }
 .moderator-cabinet .dropzone,
 .moderator-cabinet .dropzone *,

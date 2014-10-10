@@ -5,6 +5,7 @@
 	border: 1px solid;
 	border-top: none;
 	box-shadow: 0 0 12px -7px;
+	background: #fff;
 }
 .ui-datepicker .ui-datepicker-header {
 	position: relative;
@@ -172,6 +173,10 @@
 
 	.notifications {
 		margin: 0 0 2.5rem;
+	}
+
+	[class^="col"] {
+		width: 100%;
 	}
 	
 	/* The MIT License */
