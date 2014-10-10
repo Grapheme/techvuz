@@ -10129,11 +10129,21 @@ section h3 {
 .moderator-cabinet .input {
   width: 21.0625rem;
 }
+.moderator-cabinet .ui-selectmenu-button {
+  width: 25.563rem !important;
+}
+.moderator-cabinet .note {
+  font-size: 12px;
+  font-weight: 400;
+  margin-left: 191px;
+  width: 25.563rem;
+  color: #33ace4;
+}
 .moderator-cabinet input {
   outline: none;
   -webkit-transition: all .4s ease;
           transition: all .4s ease;
-  width: 21.0625rem;
+  width: 25.563rem;
   height: 2.6875rem;
   padding: 0 0.625rem;
   border: 1px solid #333333;

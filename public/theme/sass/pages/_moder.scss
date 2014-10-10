@@ -707,10 +707,22 @@
 		width: 337rem / $hfs;
 	}
 	
+	.ui-selectmenu-button {
+		width: 25.563rem !important;
+	}
+
+	.note {
+	    font-size: 12px;
+	    font-weight: 400;
+	    margin-left: 191px;
+	    width: 25.563rem;
+	    color: $clr-main-bg;
+	}
+
 	input {
 		outline: none;
 		transition: all .4s ease;
-		width: 337rem / $hfs;
+		width: 25.563rem;
 		height: 43rem / $hfs;
 		padding: 0 10rem / $hfs;
 		border: 1px solid $clr-dark-gray;
