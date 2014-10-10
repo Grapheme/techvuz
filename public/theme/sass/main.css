@@ -9271,6 +9271,9 @@ section h3 {
   /* The MIT License */
   /* The MIT License */
 }
+.moderator-cabinet .notifications {
+  margin: 0 0 2.5rem;
+}
 .moderator-cabinet .dropzone,
 .moderator-cabinet .dropzone *,
 .moderator-cabinet .dropzone-previews,
@@ -9867,7 +9870,7 @@ section h3 {
 }
 .moderator-cabinet .table th {
   height: 3.75rem;
-  padding: 0 0 0 2.125rem;
+  padding: 0 1.0625rem;
   text-align: left;
   vertical-align: middle;
   white-space: nowrap;
@@ -9880,7 +9883,7 @@ section h3 {
 .moderator-cabinet .table td {
   font-size: 0.875em;
   line-height: 1.42857em;
-  padding: 0.875rem 0 0.875rem 2.125rem;
+  padding: 0.875rem 1.0625rem 0.875rem 1.0625rem;
   border-right: 2px solid white;
   border-top: none;
 }

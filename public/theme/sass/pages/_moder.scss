@@ -1,5 +1,9 @@
 .moderator-cabinet {
 
+	.notifications {
+		margin: 0 0 2.5rem;
+	}
+
 	/* The MIT License */
 	.dropzone,
 	.dropzone *,
@@ -637,7 +641,7 @@
 
 		th {
 			height: 60rem / $hfs;
-			padding: 0 0 0 34rem / $hfs;
+			padding: 0 17rem / $hfs;
 			text-align: left;
 			vertical-align: middle;
 			white-space: nowrap;
@@ -653,7 +657,7 @@
 		td {
 			font-size: 14em / $hfs;
 			line-height: (20em / 14);
-			padding: 14rem / $hfs 0 14rem / $hfs 34rem / $hfs;
+			padding: 14rem / $hfs 17rem / $hfs 14rem / $hfs 17rem / $hfs;
 			border-right: 2px solid $clr-white;
 			border-top: none;
 
