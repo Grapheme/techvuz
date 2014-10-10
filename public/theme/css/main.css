@@ -10132,6 +10132,9 @@ section h3 {
 .moderator-cabinet .ui-selectmenu-button {
   width: 25.563rem !important;
 }
+.moderator-cabinet .well {
+  padding: 0;
+}
 .moderator-cabinet .note {
   font-size: 12px;
   font-weight: 400;
