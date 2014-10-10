@@ -10024,6 +10024,9 @@ section h3 {
 .moderator-cabinet .well .nav {
   display: none;
 }
+.moderator-cabinet .well .redactor-box {
+  width: 25.6rem;
+}
 .moderator-cabinet .note {
   font-size: 12px;
   font-weight: 400;
