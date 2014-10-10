@@ -139,7 +139,7 @@
     <div class="count-add">
         <?php $activeListenersIDs = array(); ?>
         <?php $allListenersIDs = array(); ?>
-        {{ Helper::dd($orders); }}
+        {{ Helper::tad($orders); }}
         @foreach($orders as $order)
             @if(in_array($order->payment_status,array(2,3)) && $order->close_status == 0)
                 @foreach($order->listeners as $listener)
