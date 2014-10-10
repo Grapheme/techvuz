@@ -1,10 +1,4 @@
-.moderator-cabinet {
-
-	.notifications {
-		margin: 0 0 2.5rem;
-	}
-	
-	.ui-datepicker {
+.ui-datepicker {
 		width: 17em;
 		padding: .2em .2em 0;
 		display: none;
@@ -169,7 +163,12 @@
 		border-right-width: 0;
 		border-left-width: 1px;
 	}
+.moderator-cabinet {
 
+	.notifications {
+		margin: 0 0 2.5rem;
+	}
+	
 	/* The MIT License */
 	.dropzone,
 	.dropzone *,
