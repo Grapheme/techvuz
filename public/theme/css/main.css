@@ -9633,6 +9633,7 @@ section h3 {
   box-sizing: border-box;
 }
 .moderator-cabinet .dropzone {
+  width: 25.6rem;
   position: relative;
   border: 1px solid rgba(0, 0, 0, 0.08);
   background: rgba(0, 0, 0, 0.02);
