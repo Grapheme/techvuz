@@ -740,7 +740,7 @@
 			display: none;
 		}
 		.redactor_box {
-			width: 25.6rem;
+			width: 25.7rem;
 		}
 	}
 
@@ -829,6 +829,10 @@
 		margin-bottom: 40px;
 		outline: 1px solid $clr-mid-gray;
 		font-family: 'Open Sans', sans-serif;
+
+		.note {
+			margin-left: 0;
+		}
 
 		tr {
 			&:nth-child(2n+1) {
