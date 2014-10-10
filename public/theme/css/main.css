@@ -7749,16 +7749,17 @@ a[href^="tel"] {
 }
 .tabs.usual-tabs .ui-tabs-nav .filter-count {
   position: absolute;
-  top: -0.75em;
-  right: -0.75em;
+  top: -0.75rem;
+  right: -0.75rem;
   z-index: 1;
-  height: 1.5em;
-  min-width: 1.5em;
+  height: 1.5rem;
+  min-width: 1.5rem;
   padding: 0 0.3rem;
   border: 1px solid;
   -webkit-border-radius: 100%;
           border-radius: 100%;
-  line-height: 1.3em;
+  line-height: 1.4rem;
+  font-size: .8em;
   background: none repeat scroll 0 0 #fff;
   text-align: center;
 }
