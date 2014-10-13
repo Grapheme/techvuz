@@ -268,7 +268,7 @@ class AccountsRegisterController extends BaseController {
             $user->name = (isset($fio[1]))?$fio[1]:'';
             $user->surname = (isset($fio[0]))?$fio[0]:'';
             $user->email = $post['email'];
-            $user->active = 1;
+            $user->active = 2;
             $user->password = Hash::make(Config::get('temp.account_password'));
             $user->photo = '';
             $user->thumbnail = '';

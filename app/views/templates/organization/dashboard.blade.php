@@ -9,7 +9,7 @@
     <h2>{{ User_organization::where('id',Auth::user()->id)->first()->title }}</h2>
     <div class="cabinet-tabs">
         @include(Helper::acclayout('menu'))
-         <div class="employees">
+        <div class="employees">
             <h3>Сотрудники</h3>
             <div class="count-add">
                 <?php $activeListenersIDs = array(); ?>
@@ -189,7 +189,7 @@
                 </tbody>
             </table>
         @else
-            <div class="banner banner--red">
+            <div>
                 <span>На данный момент никто не обучается</span>
             </div>
         @endif

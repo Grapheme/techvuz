@@ -14,6 +14,13 @@ return array(
             'keywords' => ''
         ),
     ),
+
+    'COMPANY_DASHBOARD' => array(
+        'title' => 'Личный кабинет компании.',
+        'description' => '',
+        'keywords' => ''
+    ),
+
     'COMPANY_PROFILE' => array(
         'title' => 'Личный кабинет компании. Профиль.',
         'description' => '',
@@ -54,6 +61,11 @@ return array(
         'title' => 'Личный кабинет компании. Список слушателейы.',
         'description' => '',
         'keywords' => ''
-    )
+    ),
 
+    'COMPANY_LISTENER_DASHBOARD' => array(
+        'title' => 'Личный кабинет сотрудника компании.',
+        'description' => '',
+        'keywords' => ''
+    ),
 );

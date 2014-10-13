@@ -8,14 +8,21 @@ class AccountGroupsController extends \BaseController {
 
     public function organization(){
 
-        $page_data['active_status'] = self::validActiveUserAccount();
-
+        $page_data = array(
+            'page_title'=> Lang::get('seo.COMPANY_DASHBOARD.title'),
+            'page_description'=> Lang::get('seo.COMPANY_DASHBOARD.description'),
+            'page_keywords'=> Lang::get('seo.COMPANY_DASHBOARD.keywords')
+        );
         return $page_data;
     }
 
     public static function listener(){
-
-        return array('listener');
+        $page_data = array(
+            'page_title'=> Lang::get('seo.COMPANY_LISTENER_DASHBOARD.title'),
+            'page_description'=> Lang::get('seo.COMPANY_LISTENER_DASHBOARD.description'),
+            'page_keywords'=> Lang::get('seo.COMPANY_LISTENER_DASHBOARD.keywords')
+        );
+        return $page_data;
     }
 
     public static function individual(){

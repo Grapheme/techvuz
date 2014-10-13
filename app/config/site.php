@@ -3,7 +3,7 @@
 return array(
 
     'theme_path' => 'theme',
-
+    'service_password' => 'CdPfne2pzDNa',
     'paginate_limit' => 30,
 
     'news_count_on_page' => 5,

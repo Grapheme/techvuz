@@ -54,11 +54,9 @@ class BaseController extends Controller {
         return Redirect::route('login');
     }
 
-    public function dashboard() {
+    public function dashboard($prefix) {
 
-        if (!Auth::check())
-            return self::redirectToLogin();
-
+        if (!Auth::check()) return self::redirectToLogin();
         $page_data = array();
         if (!empty($prefix)):
             if (class_exists('AccountGroupsController') && method_exists('AccountGroupsController',$prefix)):
@@ -69,7 +67,7 @@ class BaseController extends Controller {
 
         $parts = array();
         $parts[] = 'templates';
-        $parts[] = AuthAccount::getStartPage();
+        $parts[] = AuthAccount::getGroupName();
         $parts[] = 'dashboard';
 
         return View::make(implode('.', $parts),array('page'=>$page_data));

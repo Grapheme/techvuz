@@ -1,5 +1,5 @@
 <?php $header_notification['show'] = FALSE;?>
-@if(isOrganizationORIndividual())
+@if(isOrganizationORListeners())
     @if($active_status = AccountGroupsController::validActiveUserAccount())
         @if($active_status['status'] === FALSE)
         <?php $header_notification = $active_status; ?>

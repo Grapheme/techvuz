@@ -1,5 +1,15 @@
 <?php
 
+function isOrganizationORListeners(){
+
+    if (Auth::check()):
+        if(in_array(Auth::user()->group()->pluck('name'),array('organization','listener','individual'))):
+            return TRUE;
+        endif;
+    endif;
+    return FALSE;
+}
+
 function isOrganizationORIndividual(){
 
     if (Auth::check()):

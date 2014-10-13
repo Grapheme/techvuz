@@ -20,7 +20,6 @@ Route::post('redactor/upload', 'DownloadsController@redactorUploadImage');
 | Роуты, доступные для всех авторизованных пользователей - dashboard
 */
 Route::group(array('before' => 'auth.status', 'prefix' => $prefix), function() use ($prefix){
-
     Route::get('/', function() use ($prefix){
         $controller = new BaseController;
         return $controller->dashboard($prefix);
