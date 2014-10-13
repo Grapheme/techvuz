@@ -25,8 +25,8 @@
             </div>
         </div>
         <div class="orders-package">
-            <div>В заказе <a href="#">{{ count($coursesIDs) }} {{ Lang::choice('курс|курса|курсов',count($coursesIDs)); }}</a></div>
-            <div>для <a href="#">{{ $order->listeners->count() }} {{ Lang::choice('слушателя|слушателей|слушателей',$order->listeners->count()); }}</a></div>
+            <div>В заказе {{ count($coursesIDs) }} {{ Lang::choice('курс|курса|курсов',count($coursesIDs)); }}</div>
+            <div>для {{ $order->listeners->count() }} {{ Lang::choice('слушателя|слушателей|слушателей',$order->listeners->count()); }}</div>
         </div>
         @if(in_array($order->payment_status,array(2,3)) && in_array($order->close_status,array(0,1)))
         <div class="orders-docs">
