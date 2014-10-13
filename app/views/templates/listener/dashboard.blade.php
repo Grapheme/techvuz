@@ -14,20 +14,20 @@
                 <?php $blockedCoursesCount = 0; ?>
                 <?php $closedCoursesCount = 0; ?>
                 @foreach($courses as $course)
-                    @if($course->access_status == 1 && $course->start_status == 1 && $course->over_status == 0)
+                    @if($course->access_status == 1 && $course->over_status == 0)
                     <?php $activeCoursesCount++; ?>
                     @endif
                     @if($course->access_status == 0)
                     <?php $blockedCoursesCount++; ?>
                     @endif
-                    @if($course->access_status == 1 && $course->start_status == 1 && $course->over_status == 1)
+                    @if($course->access_status == 1 && $course->over_status == 1)
                     <?php $closedCoursesCount++; ?>
                     @endif
                 @endforeach
                 <div class="container-fluid">
                     <div class="row">
                         <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 no-gutter">
-                            <div class="count-add-sign">Активно</div>
+                            <div class="count-add-sign">Доступно</div>
                             <div class="count-add-num">{{ $activeCoursesCount }}</div>
                             <div class="count-add-dots"></div>
                         </div>
@@ -95,20 +95,9 @@
                         <th class="sort sort--asc">Название курса <span class="sort--icon"></span> </th>
                         <th class="sort sort--asc">Прогресс <span class="sort--icon"></span> </th>
                     </tr>
-                @foreach($courses as $course)
-                    @if($course->access_status == 1 && $course->start_status == 1 && $course->over_status == 0)
-                    <tr>
-                        <td>
-                            {{ $course->course->code }}. {{ $course->course->title }}
-                        </td>
-                        <td class="td-status-bar">
-                            <div class="ui-progress-bar bar-1 completed-1 clearfix">
-                                <div class="bar-part bar-part-1"></div>
-                                <div class="bar-part bar-part-2"></div>
-                                <div class="bar-part bar-part-3"></div>
-                            </div>
-                        </td>
-                    </tr>
+                @foreach($courses as $listener_course)
+                    @if($listener_course->access_status == 1 && $listener_course->start_status == 1 && $listener_course->over_status == 0)
+                        @include(Helper::acclayout('assets.course-tr'))
                     @endif
                 @endforeach
                 </tbody>

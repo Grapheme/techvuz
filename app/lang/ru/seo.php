@@ -27,7 +27,7 @@ return array(
         'keywords' => ''
     ),
 
-    'COMPANY_LISTENER_PROFILE' => array(
+    'COMPANY_PROFILE_LISTENER' => array(
         'title' => 'Личный кабинет компании. Профиль сотрудника.',
         'description' => '',
         'keywords' => ''
@@ -63,8 +63,27 @@ return array(
         'keywords' => ''
     ),
 
+
     'COMPANY_LISTENER_DASHBOARD' => array(
         'title' => 'Личный кабинет сотрудника компании.',
+        'description' => '',
+        'keywords' => ''
+    ),
+
+    'COMPANY_LISTENER_PROFILE' => array(
+        'title' => 'Личный кабинет сотрудника компании. Личный профиль.',
+        'description' => '',
+        'keywords' => ''
+    ),
+
+    'COMPANY_LISTENER_STUDY_LIST' => array(
+        'title' => 'Личный кабинет сотрудника компании. Список курсов для обучения.',
+        'description' => '',
+        'keywords' => ''
+    ),
+
+    'COMPANY_LISTENER_STUDY_COURSE' => array(
+        'title' => 'Личный кабинет сотрудника компании. Страница курса.',
         'description' => '',
         'keywords' => ''
     ),

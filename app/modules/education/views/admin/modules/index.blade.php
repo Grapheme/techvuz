@@ -20,7 +20,7 @@
         <table class="table table-striped table-bordered">
             <tbody>
                 <tr class="vertical-middle">
-                    <td class="col-lg-10">{{ $chapter->order }} {{ $chapter->title }}</td>
+                    <td class="col-lg-10">{{ $chapter->order }}. {{ $chapter->title }}</td>
                     <td class="col-lg-2 text-center">
                         @if(Allow::action($module['group'], 'edit'))
                         <a href="{{ URL::route('chapters.edit',array('directions'=>$direction->id,'course'=>$course->id,'chapter'=>$chapter->id)) }}" class="btn btn-success margin-right-10">Изменить</a>

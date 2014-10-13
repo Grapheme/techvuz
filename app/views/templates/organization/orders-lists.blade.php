@@ -25,7 +25,7 @@
                                 <?php $count_orders++ ; ?>
                             @endif
                         @endforeach
-                        <a href="#tabs-11">Новые <span class="filter-count">{{ $count_orders ? $count_orders : '' }}{{ hasCookieData('ordering') ? ' ('.($count_orders+1).')' : '' }}</span></a>
+                        <a href="#tabs-11">Новые {{ $count_orders ? '<span class="filter-count">'.$count_orders.'</span>' : '' }}</a>
                     </li>
                     <li>
                         <?php $count_orders = 0; ?>
@@ -34,7 +34,7 @@
                                 <?php $count_orders++ ; ?>
                             @endif
                         @endforeach
-                        <a href="#tabs-12">Активные <span class="filter-count">{{ $count_orders ? $count_orders : '' }}</span></a>
+                        <a href="#tabs-12">Активные {{ $count_orders ? '<span class="filter-count">'.$count_orders.'</span>' : '' }}</a>
                     </li>
                     <li>
                         <?php $count_orders = 0; ?>
@@ -43,14 +43,14 @@
                                 <?php $count_orders++ ; ?>
                             @endif
                         @endforeach
-                        <a href="#tabs-13">Завершенные <span class="filter-count">{{ $count_orders ? $count_orders : '' }}</span></a>
+                        <a href="#tabs-13">Завершенные {{ $count_orders ? '<span class="filter-count">'.$count_orders.'</span>' : '' }}</a>
                     </li>
                     <li>
                         <?php $count_orders = 0; ?>
                         @foreach($orders as $order)
                             <?php $count_orders++ ; ?>
                         @endforeach
-                        <a href="#tabs-14">Все <span class="filter-count">{{ $count_orders ? $count_orders : '' }}{{ hasCookieData('ordering') ? ' ('.($count_orders+1).')' : '' }}</span></a>
+                        <a href="#tabs-14">Все {{ $count_orders ? '<span class="filter-count">'.$count_orders.'</span>' : '' }}</a>
                     </li>
                 </ul>
                 <div id="tabs-11">

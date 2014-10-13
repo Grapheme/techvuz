@@ -10,6 +10,7 @@
 {{ Form::open(array('url'=>URL::route('lectures.store',array('directions'=>$direction->id,'course'=>$course->id,'chapter'=>$chapter->id)), 'role'=>'form', 'class'=>'smart-form', 'id'=>'lecture-form', 'method'=>'post','files'=>TRUE)) }}
 	{{ Form::hidden('course_id',$course->id) }}
 	{{ Form::hidden('chapter_id',$chapter->id) }}
+	{{ Form::hidden('order',(int) DB::table('lectures')->where('course_id',$course->id)->where('chapter_id',$chapter->id)->max('order')+1) }}
 	<div class="row margin-top-10">
 		<section class="col col-6">
 			<div class="well">

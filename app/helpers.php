@@ -67,6 +67,7 @@ function getJsonCookieData($name = null, $return = 'keys'){
     endif;
     return array();
 }
+
 function getArrayCookieStringData($name = null){
     if (!is_null($name)):
         if (isset($_COOKIE[$name]) && !empty($_COOKIE[$name])):
@@ -74,5 +75,21 @@ function getArrayCookieStringData($name = null){
         endif;
     endif;
     return array();
+}
+
+function returnDownloadHeaders($document){
+
+    return array(
+        'Pragma: public',
+        'Expires: 0',
+        'Cache-Control: must-revalidate, post-check=0, pre-check=0',
+        'Last-Modified: '.gmdate ('D, d M Y H:i:s', filemtime(public_path($document['path']))).' GMT',
+        'Cache-Control: private',
+        'Content-Type: '.$document['mimetype'],
+        'Content-Disposition: attachment; filename="'.basename(public_path($document['path'])).'"',
+        'Content-Transfer-Encoding: binary',
+        'Content-Length: '.filesize(public_path($document['path'])),
+        'Connection: close'
+    );
 }
 

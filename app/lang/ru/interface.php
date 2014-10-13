@@ -35,7 +35,6 @@ return array(
     ),
 
     'ACCOUNT_STATUS' => array(
-
         'active' => 'Ваш аккаунт активирован!',
         'blocked' => 'Ваш аккаунт заблокирован!',
         'not_active' => 'Ваш аккаунт не активирован!',

@@ -3,10 +3,13 @@
 @stop
 @section('content')
 <main class="cabinet">
-    <div class="edit-employee-anket">
-        <h2 class="margin-bottom-30">Добавить сотрудника</h2>
+    <h2>{{ User_organization::where('id',Auth::user()->id)->first()->title }}</h2>
+    <div class="cabinet-tabs">
         @include(Helper::acclayout('menu'))
-        @include(Helper::acclayout('forms.signup-listener'))
+        <div class="edit-employee-anket">
+            <h3>Добавить сотрудника</h3>
+            @include(Helper::acclayout('forms.signup-listener'))
+        </div>
     </div>
 </main>
 @stop

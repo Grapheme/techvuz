@@ -47,7 +47,7 @@
                                     @endif
                                 </td>
                                 <td class="td-status-bar">
-                                    <div class="ui-progress-bar bar-1 completed-1 clearfix">
+                                    <div class="ui-progress-bar bar-1 completed-{{ getCourseStudyProgress() }} clearfix">
                                         <div class="bar-part bar-part-1"></div>
                                         <div class="bar-part bar-part-2"></div>
                                         <div class="bar-part bar-part-3"></div>

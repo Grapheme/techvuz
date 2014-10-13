@@ -8,6 +8,7 @@
     <h4>Курс &laquo;{{ $course->title }}&raquo;</h4>
 {{ Form::open(array('url'=>URL::route('chapters.store',array('directions'=>$direction->id,'course'=>$course->id)), 'role'=>'form', 'class'=>'smart-form', 'id'=>'chapter-form', 'method'=>'post')) }}
 	{{ Form::hidden('course_id',$course->id) }}
+	{{ Form::hidden('order',(int) DB::table('chapters')->where('course_id',$course->id)->max('order')+1) }}
 	<div class="row margin-top-10">
 		<section class="col col-6">
 			<div class="well">

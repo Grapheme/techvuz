@@ -45,7 +45,7 @@
                     @if($study->start_status == 0 && $study->over_status == 0)
 
                     @else
-                        <div class="ui-progress-bar bar-1 completed-1 clearfix">
+                        <div class="ui-progress-bar bar-1 completed-{{ getCourseStudyProgress() }} clearfix">
                             <div class="bar-part bar-part-1"></div>
                             <div class="bar-part bar-part-2"></div>
                             <div class="bar-part bar-part-3"></div>
