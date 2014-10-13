@@ -16,6 +16,10 @@
 			background: $clr-white;
 		}
 
+		&:nth-child(4n+1) {
+			background: #eee;
+		}
+
 		.accordion-img {
 			position: absolute;
 			top: 0;
