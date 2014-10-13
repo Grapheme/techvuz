@@ -7372,6 +7372,9 @@ a[href^="tel"] {
 .accordion .accordion-header.odd {
   background: white;
 }
+.accordion .accordion-header:nth-child(4n+1) {
+  background: #eee;
+}
 .accordion .accordion-header .accordion-img {
   position: absolute;
   top: 0;
