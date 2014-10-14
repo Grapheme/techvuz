@@ -43,8 +43,7 @@
                             <br> {{ $test->questions->count() }} из {{ $test->questions->count() }}
                         </div>
                         <div>
-                            <a href="javascript:void(0)">Пройти еще раз</a>
-                            {{ Form::submit('Завершить') }}
+                            {{ Form::submit('Результат') }}
                         </div>
                     </li>
                 </ul>
