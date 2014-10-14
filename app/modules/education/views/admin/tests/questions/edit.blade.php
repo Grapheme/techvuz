@@ -14,6 +14,7 @@
 @endif
 {{ Form::model($question, array('url'=>URL::route('questions.update',array('directions'=>$direction->id,'course'=>$course->id,'chapter'=>$chapter_id,'test'=>$test->id,'question'=>$question->id)), 'class'=>'smart-form', 'id'=>'question-form', 'role'=>'form', 'method'=>'PUT')) }}
 	{{ Form::hidden('test_id') }}
+	{{ Form::hidden('order',$question->order) }}
     {{ Form::hidden('title') }}
 	<div class="row margin-top-10">
 		<section class="col col-6">

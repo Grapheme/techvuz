@@ -87,8 +87,14 @@
             </div>
         </div>
         <div>
+        <?php $show_block = FALSE; ?>
+        @foreach($courses as $listener_course)
+            @if($listener_course->access_status == 1 && $listener_course->start_status == 1 && $listener_course->over_status == 0)
+                <?php $show_block = TRUE; break;?>
+            @endif
+        @endforeach
+        @if($show_block)
             <h3>Ход обучения</h3>
-        @if($courses->count())
             <table class="tech-table sortable">
                 <tbody>
                     <tr>
@@ -102,10 +108,6 @@
                 @endforeach
                 </tbody>
             </table>
-        @else
-            <div>
-                <span>На данный момент нет курсов для обучения</span>
-            </div>
         @endif
         </div>
     </div>

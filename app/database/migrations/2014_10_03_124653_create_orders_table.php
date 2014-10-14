@@ -52,10 +52,9 @@ class CreateOrdersTable extends Migration {
                 $table->integer('order_listeners_id')->default(0)->nullable()->unsigned()->index();
                 $table->integer('chapter_id')->default(0)->nullable()->unsigned()->index();
                 $table->integer('test_id')->default(0)->nullable()->unsigned()->index();
-                $table->tinyInteger('count_attempts')->default(0)->nullable()->unsigned();
+                $table->text('data_results')->unsigned();
                 $table->tinyInteger('result_attempt')->default(0)->nullable()->unsigned();
                 $table->integer('time_attempt')->default(0)->nullable()->unsigned();
-                $table->boolean('date_status')->default(0)->nullable();
                 $table->timestamps();
             });
 

@@ -5,8 +5,8 @@
 <main class="catalog">
     <h2>Оформление нового заказа. Шаг №1</h2>
     @if(Session::get('message'))
-    <div class="banner banner--red">
-        <span>{{ Session::get('message') }}</span>
+    <div>
+        <p>{{ Session::get('message') }}</p>
     </div>
     @endif
     {{ Form::open(array('route'=>'ordering-courses-store','class'=>'authenticated accordion-form clearfix')) }}

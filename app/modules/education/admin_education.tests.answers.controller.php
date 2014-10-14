@@ -157,8 +157,7 @@ class AdminEducationTestsAnswersController extends BaseController {
         Allow::permission($this->module['group'], 'delete');
         if(!Request::ajax()) return App::abort(404);
         $json_request = array('status'=>FALSE, 'responseText'=>'');
-        $this->question->find($question_id)->answers()->delete();
-        $this->question->find($question_id)->delete();
+        $this->answer->find($answer_id)->delete();
         $json_request['responseText'] = self::$entity_name.' удален';
         $json_request['status'] = TRUE;
         return Response::json($json_request, 200);

@@ -41,7 +41,7 @@
             <tbody>
                 @foreach($chapter->lectures as $lecture)
                 <tr class="vertical-middle">
-                    <td class="col-lg-1 text-center">{{ $lecture->order }}</td>
+                    <td class="col-lg-1 text-center">{{ $chapter->order }}.{{ $lecture->order }}</td>
                     <td class="col-lg-9">{{ $lecture->title }}</td>
                     <td class="col-lg-2 text-center" style="white-space:nowrap;">
                         @if(Allow::action($module['group'], 'edit'))

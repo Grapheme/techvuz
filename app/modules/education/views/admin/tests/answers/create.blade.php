@@ -17,6 +17,7 @@
 {{ Form::open(array('url'=>URL::route('answers.store',array('directions'=>$direction->id,'course'=>$course->id,'chapter'=>$chapter_id,'test'=>$test->id,'question'=>$question->id)), 'role'=>'form', 'class'=>'smart-form', 'id'=>'answer-form', 'method'=>'post')) }}
 	{{ Form::hidden('test_id',$test->id) }}
 	{{ Form::hidden('test_question_id',$question->id) }}
+	{{ Form::hidden('order',(int) DB::table('tests_answers')->where('test_id',$test->id)->where('test_question_id',$question->id)->max('order')+1) }}
 	{{ Form::hidden('title','Ответ №') }}
 	<div class="row margin-top-10">
 		<section class="col col-6">

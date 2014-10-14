@@ -78,7 +78,7 @@ class AdminEducationTestingController extends BaseController {
 
         if ($chapter_id == 0):
             if (!$test = $this->course->test()->first()):
-                $input = array('course_id'=>$course_id,'chapter_id'=>$chapter_id,'order'=>0,'title'=>'Итоговое тестирование по курсу "'.$this->course->title.'"','description'=>'','active'=>1);
+                $input = array('course_id'=>$course_id,'chapter_id'=>$chapter_id,'order'=>0,'title'=>'Итоговое тестирование','description'=>'','active'=>1);
                 $test = CoursesTests::create($input);
                 Event::fire(Route::currentRouteName(), array(array('title'=>$test->title.'. Курс: '.$this->course->title)));
             endif;

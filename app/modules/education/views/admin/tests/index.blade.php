@@ -30,7 +30,7 @@
         <table class="table table-striped table-bordered">
             <tbody>
                 <tr class="vertical-middle">
-                    <td class="col-lg-1">{{ $question->order }} {{ $question->title }}{{ $question_index+1 }}</td>
+                    <td class="col-lg-1">{{ $question->title }}{{ $question->order }}</td>
                     <td class="col-lg-9">{{ $question->description }}</td>
                     <td class="col-lg-2 text-center">
                         @if(Allow::action($module['group'], 'edit'))
@@ -50,7 +50,7 @@
             <tbody>
                 @foreach($question->answers as $answer_index => $answer)
                 <tr class="vertical-middle">
-                    <td class="col-lg-1 text-center">{{ $answer->order }} {{ $answer->title }}{{ $answer_index+1 }}</td>
+                    <td class="col-lg-1 text-center">{{ $answer->title }}{{ $answer->order }}</td>
                     <td class="col-lg-8">{{ $answer->description }}</td>
                     <td class="col-lg-1 text-center">{{ $answer->correct ? 'верный' : 'неверный' }}</td>
                     <td class="col-lg-2 text-center" style="white-space:nowrap;">
@@ -58,7 +58,7 @@
                         <a href="{{ URL::route('answers.edit',array('directions'=>$direction->id,'course'=>$course->id,'chapter'=>$chapter_id,'test'=>$test->id,'question'=>$question->id,'answer'=>$answer->id)) }}" class="btn btn-success margin-right-10">Изменить</a>
                         @endif
                         @if(Allow::action($module['group'], 'delete'))
-                        <form method="DELETE" action="{{ URL::route('answers.destroy',array('directions'=>$direction->id,'course'=>$course->id,'chapter'=>$chapter_id,'test'=>$test->id,'answer'=>$answer->id)) }}" style="display:inline-block">
+                        <form method="DELETE" action="{{ URL::route('answers.destroy',array('directions'=>$direction->id,'course'=>$course->id,'chapter'=>$chapter_id,'test'=>$test->id,'question'=>$question->id,'answer'=>$answer->id)) }}" style="display:inline-block">
                             <button type="submit" target="reload" class="btn btn-danger remove-answer">Удалить</button>
                         </form>
                         @endif

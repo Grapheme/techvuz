@@ -12,7 +12,8 @@
 		"barryvdh/laravel-debugbar": "dev-master",
 		"scalia/sphinxsearch": "*",
 		"flynsarmy/db-blade-compiler": "1.*",
-        "bugsnag/bugsnag-laravel": "v1.0.9"
+        "bugsnag/bugsnag-laravel": "v1.0.9",
+		"chumper/zipper": "dev-master"
 	},
 	"autoload": {
 		"classmap": [

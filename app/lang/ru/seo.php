@@ -87,4 +87,10 @@ return array(
         'description' => '',
         'keywords' => ''
     ),
+
+    'COMPANY_LISTENER_STUDY_TEST_RESULT' => array(
+        'title' => 'Личный кабинет сотрудника компании. Результат прохождения теста.',
+        'description' => '',
+        'keywords' => ''
+    ),
 );

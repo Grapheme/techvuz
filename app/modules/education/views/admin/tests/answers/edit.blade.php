@@ -17,6 +17,7 @@
 {{ Form::model($answer, array('url'=>URL::route('answers.update',array('directions'=>$direction->id,'course'=>$course->id,'chapter'=>$chapter_id,'test'=>$test->id,'question'=>$question->id,'answer'=>$answer->id)), 'class'=>'smart-form', 'id'=>'answer-form', 'role'=>'form', 'method'=>'PUT')) }}
 	{{ Form::hidden('test_id',$test->id) }}
     	{{ Form::hidden('test_question_id') }}
+    	{{ Form::hidden('order',$answer->order) }}
     	{{ Form::hidden('title') }}
 	<div class="row margin-top-10">
 		<section class="col col-6">

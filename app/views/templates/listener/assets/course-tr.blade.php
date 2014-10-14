@@ -1,7 +1,7 @@
 <tr>
     <td>
     @if($listener_course->access_status == 1)
-        <a href="{{ URL::route('listener-study-course',$listener_course->id.'-'.BaseController::stringTranslite($listener_course->course->title)) }}">{{ $listener_course->course->code }}. {{ $listener_course->course->title }}</a>
+        <a href="{{ URL::route('listener-study-course',$listener_course->id.'-'.BaseController::stringTranslite($listener_course->course->title,100)) }}">{{ $listener_course->course->code }}. {{ $listener_course->course->title }}</a>
     @else
         {{ $listener_course->course->code }}. {{ $listener_course->course->title }}
     @endif

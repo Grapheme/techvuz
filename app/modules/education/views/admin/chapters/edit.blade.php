@@ -8,7 +8,7 @@
     <h4>Курс &laquo;{{ $course->title }}&raquo;</h4>
 {{ Form::model($chapter, array('url'=>URL::route('chapters.update',array('directions'=>$direction->id,'course'=>$course->id,'chapter'=>$chapter->id)), 'class'=>'smart-form', 'id'=>'chapter-form', 'role'=>'form', 'method'=>'PUT')) }}
 	{{ Form::hidden('course_id',$course->id) }}
-	{{ Form::hidden('order',$course->order) }}
+	{{ Form::hidden('order',$chapter->order) }}
 	<div class="row margin-top-10">
 		<section class="col col-6">
 			<div class="well">

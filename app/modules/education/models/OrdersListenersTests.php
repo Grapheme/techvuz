@@ -31,9 +31,9 @@ class OrdersListenersTests extends BaseModel {
 
     protected $guarded = array();
 
-    protected $table = 'order_listeners';
+    protected $table = 'order_listener_tests';
 
-    protected $fillable = array('order_listeners_id','chapter_id','test_id');
+    protected $fillable = array('order_listeners_id','chapter_id','test_id','data_results','result_attempt','time_attempt');
 
     public static $rules = array();
 

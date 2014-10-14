@@ -125,8 +125,6 @@ class AccountsModeratorController extends BaseController {
         if($page_data['profile'] = User_organization::where('id',$company_id)->first()):
             $page_data['listeners'] = User_listener::where('organization_id',$company_id)->orderBy('created_at','DESC')->get();
             $page_data['orders'] = Orders::where('user_id',$company_id)->with('payment')->with('listeners')->get();
-//            Helper::tad($page_data['profile']);
-
             return View::make(Helper::acclayout('company-profile'),$page_data);
         else:
             App::abort(404);

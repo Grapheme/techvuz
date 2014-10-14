@@ -10,7 +10,7 @@
 {{ Form::model($lecture, array('url'=>URL::route('lectures.update',array('directions'=>$direction->id,'course'=>$course->id,'chapter'=>$chapter->id,'lecture'=>$lecture->id)), 'class'=>'smart-form', 'id'=>'lecture-form', 'role'=>'form', 'method'=>'PUT', 'files'=>true)) }}
 	{{ Form::hidden('course_id',$course->id) }}
 	{{ Form::hidden('chapter_id',$chapter->id) }}
-	{{ Form::hidden('order',$chapter->order) }}
+	{{ Form::hidden('order',$lecture->order) }}
 	<div class="row margin-top-10">
 		<section class="col col-6">
 			<div class="well">

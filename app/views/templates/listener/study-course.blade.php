@@ -13,6 +13,9 @@
             </div>
         @if($module->chapters->count())
             <div>
+                {{ Form::open(array('url'=>URL::route('listener-study-download-lectures',array('study_course_id'=>$study_course->id)), 'style'=>'display:inline-block', 'method'=>'POST')) }}
+                    {{ Form::submit('Скачать все лекции') }}
+                {{ Form::close() }}
                 <table class="tech-table sortable">
                     <tbody>
                         <tr>
@@ -33,13 +36,25 @@
                                 <td>{{ $lecture->title }}</td>
                                 <td>
                                     {{ Form::open(array('url'=>URL::route('listener-study-download-lecture',array('study_course_id'=>$study_course->id,'lecture_id'=>$lecture->id)), 'style'=>'display:inline-block', 'method'=>'POST')) }}
-                                        {{ Form::submit('Скачать',array('class'=>'btn btn-link')) }}
+                                        {{ Form::submit('Скачать') }}
                                     {{ Form::close() }}
                                 </td>
                             </tr>
                             @endforeach
                         @endif
+                        @if(!empty($chapter->test))
+                        <tr>
+                            <td colspan="2">{{ $chapter->test->title }}</td>
+                            <td><a href="{{ URL::route('listener-study-testing',array('study_course_id'=>$study_course->id.'-'.BaseController::stringTranslite($module->title,100),'study_test_id'=>$chapter->test->id)) }}">Пройти</a></td>
+                        </tr>
+                        @endif
                     @endforeach
+                    @if(!empty($module->test))
+                        <tr>
+                            <td colspan="2">Итоговое тестирование</td>
+                            <td><a href="{{ URL::route('listener-study-testing',array('study_course_id'=>$study_course->id.'-'.BaseController::stringTranslite($module->title,100),'study_test_id'=>$module->test->id)) }}">Пройти</a></td>
+                        </tr>
+                    @endif
                     </tbody>
                 </table>
             </div>

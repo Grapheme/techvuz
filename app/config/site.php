@@ -2,6 +2,8 @@
 
 return array(
 
+    'success_test_percent' => 70,
+
     'theme_path' => 'theme',
     'service_password' => 'CdPfne2pzDNa',
     'paginate_limit' => 30,

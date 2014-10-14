@@ -14,6 +14,7 @@
 @endif
 {{ Form::open(array('url'=>URL::route('questions.store',array('directions'=>$direction->id,'course'=>$course->id,'chapter'=>$chapter_id,'test'=>$test->id)), 'role'=>'form', 'class'=>'smart-form', 'id'=>'question-form', 'method'=>'post')) }}
 	{{ Form::hidden('test_id',$test->id) }}
+	{{ Form::hidden('order',(int) DB::table('tests_questions')->where('test_id',$test->id)->max('order')+1) }}
 	{{ Form::hidden('title','Вопрос №') }}
 	<div class="row margin-top-10">
 		<section class="col col-6">

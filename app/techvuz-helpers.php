@@ -55,3 +55,19 @@ function getCourseStudyProgress($listenerCourse = NULL){
     return $progress;
 }
 
+function returnZipDownloadHeaders($FilePath){
+
+    return array(
+        'Pragma: public',
+        'Expires: 0',
+        'Cache-Control: must-revalidate, post-check=0, pre-check=0',
+        'Last-Modified: '.gmdate ('D, d M Y H:i:s', filemtime($FilePath)).' GMT',
+        'Cache-Control: private',
+        'Content-Type: application/zip',
+        'Content-Disposition: attachment; filename="'.basename($FilePath).'"',
+        'Content-Transfer-Encoding: binary',
+        'Content-Length: '.filesize($FilePath),
+        'Connection: close'
+    );
+}
+

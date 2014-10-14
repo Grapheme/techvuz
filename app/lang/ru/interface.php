@@ -64,6 +64,13 @@ return array(
         'success_remove' => 'Удалено',
         'success_change' => 'Изменено',
         'fail' => 'Неверно заполнены поля'
-    )
+    ),
 
+    'COMPANY_LISTENER_STUDY_TEST_FINISH' => array(
+
+        'success_chapter_test' => 'Поздравляем Вы прошли промежуточный тест. Ваш результат: ',
+        'success_course_test' => 'Поздравляем Вы прошли итоговый тест. Ваш результат: ',
+        'fail' => 'Вы не прошли тест. Попробуйте снова. Ваш результат: ',
+        'empty_answers' => 'Не выбраны ответы!',
+    )
 );
