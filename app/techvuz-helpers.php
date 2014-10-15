@@ -49,7 +49,13 @@ function getCourseStudyProgress($listenerCourse = NULL){
     $progress = 0;
     if (!is_null($listenerCourse) && is_object($listenerCourse)):
         if($listenerCourse->start_status == 1):
-            $progress = 1;
+            $progress++;
+        endif;
+        if(isset($listenerCourse->final_test) && !empty($listenerCourse->final_test)):
+            $progress++;
+        endif;
+        if($listenerCourse->over_status):
+            $progress++;
         endif;
     endif;
     return $progress;

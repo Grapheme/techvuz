@@ -3,8 +3,16 @@
 @stop
 @section('content')
 <main class="cabinet">
-    <?php $courses = OrderListeners::where('user_id',Auth::user()->id)->with('course')->get();?>
-    <h2>{{ User_listener::where('id',Auth::user()->id)->first()->fio }}</h2>
+    <?php
+        $courses = OrderListeners::where('user_id',Auth::user()->id)
+            ->orderBy('start_date','DESC')
+            ->orderBy('access_status','DESC')
+            ->orderBy('updated_at','DESC')
+            ->with('course')
+            ->with('final_test')
+            ->get();
+    ?>
+    <h2>{{ User_listener::where('id',Auth::user()->id)->pluck('fio') }}</h2>
     <div class="cabinet-tabs">
         @include(Helper::acclayout('menu'))
         <div class="employees">

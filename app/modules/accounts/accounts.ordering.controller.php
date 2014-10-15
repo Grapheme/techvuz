@@ -20,6 +20,13 @@ class AccountsOrderingController extends BaseController {
                 Route::post('ordering/listeners-store', array('before' => 'csrf', 'as' => 'ordering-listeners-store', 'uses' => $class . '@OrderingListenersStore'));
             });
         endif;
+
+        Event::listen('order.created', function ($data) { });
+        Event::listen('order.archived', function ($data) { });
+        Event::listen('order.deleted', function ($data) { });
+        Event::listen('order.changed', function ($data) { });
+        Event::listen('order.payment', function ($data) { });
+        Event::listen('order.closed', function ($data) { });
     }
 
     public static function returnShortCodes() {
@@ -118,13 +125,33 @@ class AccountsOrderingController extends BaseController {
                     endforeach;
                 endforeach;
                 setcookie("ordering", "", time() - 3600);
+                Event::fire('order.created',array('order'=>$order));
                 return Redirect::to(AuthAccount::getStartPage());
             endif;
         else:
             return Redirect::route('ordering-select-courses')->with('message','Не выбраны курсы для покупки');
         endif;
+    }
 
+    public static function closeOrder($order_id,$listener_id = NULL){
 
-
+        if (is_null($listener_id)):
+            $listener_id = Auth::user()->id;
+        endif;
+        if($order = Orders::where('id',$order_id)->where('completed',1)->where('archived',0)->where('close_status',0)->with('listeners')->first()):
+            $close_allowed = TRUE;
+            foreach($order->listeners as $listener):
+                if ($listener->access_status == 0 || $listener->start_status == 0 || $listener->over_status == 0):
+                    $close_allowed = FALSE;
+                    break;
+                endif;
+            endforeach;
+            if ($close_allowed):
+                Orders::where('id',$order->id)->update(array('close_status'=>1,'close_date'=>date('Y-m-d H:i:s'),'updated_at'=>date('Y-m-d H:i:s')));
+                Event::fire('order.closed',array('order'=>$order));
+            endif;
+            return TRUE;
+        endif;
+        return FALSE;
     }
 }

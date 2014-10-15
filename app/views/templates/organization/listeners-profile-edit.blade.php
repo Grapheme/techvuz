@@ -3,7 +3,7 @@
 @stop
 @section('content')
 <main class="cabinet">
-    <h2>{{ User_organization::where('id',Auth::user()->id)->first()->title }}</h2>
+    <h2>{{ User_organization::where('id',Auth::user()->id)->pluck('title') }}</h2>
     <div class="edit-employee-anket">
         @include(Helper::acclayout('menu'))
         <h3 class="margin-bottom-30">Редактировать анкету сотрудника</h3>

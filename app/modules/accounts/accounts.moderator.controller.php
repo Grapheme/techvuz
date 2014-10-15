@@ -372,6 +372,7 @@ class AccountsModeratorController extends BaseController {
                 endswitch;
                 $order->save();
                 $order->touch();
+                Event::listen('order.payment', function ($data) { });
                 $json_request['responseText'] = Lang::get('interface.DEFAULT.success_change');
                 $json_request['status'] = TRUE;
             endif;

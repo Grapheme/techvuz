@@ -3,7 +3,7 @@
 @stop
 @section('content')
 <main class="cabinet">
-    <h2>{{ User_listener::where('id',Auth::user()->id)->first()->fio }}</h2>
+    <h2>{{ User_listener::where('id',Auth::user()->id)->pluck('fio') }}</h2>
     <div class="cabinet-tabs">
         @include(Helper::acclayout('menu'))
         <div>
@@ -19,7 +19,11 @@
             <a href="{{ URL::route('listener-study-testing',array('study_course_id'=>$study_course->id.'-'.BaseController::stringTranslite($study_test->test->course->title,100),'study_test_id'=>$study_test->test->id)) }}">Пройти еще раз</a>
             @endif
         @endif
+        @if($study_test->test->chapter_id == 0)
             <a href="{{ URL::route('listener-study') }}">Готово</a>
+        @else
+            <a href="{{ URL::route('listener-study-course',array('course_translite_title'=>$study_course->id.'-'.BaseController::stringTranslite($study_test->test->course->title,100))) }}">Готово</a>
+        @endif
         </div>
     </div>
 </main>

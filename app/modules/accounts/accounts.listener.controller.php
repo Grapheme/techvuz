@@ -25,15 +25,24 @@ class AccountsListenerController extends BaseController {
                 Route::post('study/course/{course_id}/test/{test_id}/finish', array('before' => 'csrf', 'as' => 'listener-study-test-finish', 'uses' => $class . '@ListenerStudyTestFinish'));
                 Route::get('study/course/{course_translite_title}/test/{study_test_id}/result', array('as' => 'listener-study-test-result', 'uses' => $class . '@ListenerStudyTestResult'));
 
-                Route::get('notifications', array('as' => 'listener-notifications', 'uses' => $class . '@ListenerNotificationsList'));
+                Route::get('notifications', array('as' => 'listener-notifications', 'uses' => $class . '@ListenersNotificationsList'));
             });
         endif;
 
         Event::listen('listener.start.course.study', function ($data) {
             OrderListeners::where('id',$data['listener_course_id'])
                 ->where('access_status',1)
+                ->where('start_status',0)
                 ->where('user_id',Auth::user()->id)
-                ->update(array('start_status'=>1,'updated_at'=>date('Y-m-d H:i:s')));
+                ->update(array('start_status'=>1,'start_date'=>date('Y-m-d H:i:s'),'updated_at'=>date('Y-m-d H:i:s')));
+        });
+        Event::listen('listener.over.course.study', function ($data) {
+            OrderListeners::where('id',$data['listener_course_id'])
+                ->where('access_status',1)
+                ->where('start_status',1)
+                ->where('over_status',0)
+                ->where('user_id',Auth::user()->id)
+                ->update(array('over_status'=>1,'over_date'=>date('Y-m-d H:i:s'),'updated_at'=>date('Y-m-d H:i:s')));
         });
     }
 
@@ -158,8 +167,9 @@ class AccountsListenerController extends BaseController {
         $listenerCourse = OrderListeners::where('id',(int) $course_translit)
             ->where('user_id',Auth::user()->id)
             ->where('access_status',1)
+            ->with('order')
             ->first();
-        if (!$listenerCourse):
+        if (!$listenerCourse || $listenerCourse->order->close_status == 1):
             return Redirect::route('listener-study');
         endif;
         $module = Courses::where('id',$listenerCourse->course_id)->with(array('chapters'=>function($query){
@@ -184,8 +194,12 @@ class AccountsListenerController extends BaseController {
         $listenerCourse = OrderListeners::where('id',$study_course_id)
             ->where('user_id',Auth::user()->id)
             ->where('access_status',1)
+            ->with('order')
             ->first();
-        if($listenerCourse && Lectures::where('id',$lecture_id)->exists()):
+        if (!$listenerCourse || $listenerCourse->order->close_status == 1):
+            return Redirect::route('listener-study');
+        endif;
+        if(Lectures::where('id',$lecture_id)->exists()):
             $lecture = Lectures::where('id',$lecture_id)->with('document')->first()->toArray();
             if (isset($lecture['document']['path']) && File::exists(public_path($lecture['document']['path']))):
                 Event::fire('listener.start.course.study', array(array('listener_course_id'=>$study_course_id)));
@@ -204,8 +218,12 @@ class AccountsListenerController extends BaseController {
         $listenerCourse = OrderListeners::where('id',$study_course_id)
             ->where('user_id',Auth::user()->id)
             ->where('access_status',1)
+            ->with('order')
             ->first();
-        if($listenerCourse && Lectures::where('course_id',$listenerCourse->course_id)->exists()):
+        if (!$listenerCourse || $listenerCourse->order->close_status == 1):
+            return Redirect::route('listener-study');
+        endif;
+        if(Lectures::where('course_id',$listenerCourse->course_id)->exists()):
             $lectures = Lectures::where('course_id',$listenerCourse->course_id)->with('document')->get();
             $documents = array();
             foreach($lectures as  $lecture):
@@ -216,7 +234,6 @@ class AccountsListenerController extends BaseController {
             endforeach;
             if (!empty($documents)):
                 $zipFilePath = sys_get_temp_dir().'/'.sha1(time().Auth::user()->id).'.zip';
-//                Helper::dd($zipFilePath);
                 $zipper = new \Chumper\Zipper\Zipper();
                 $zipper->make($zipFilePath)->add($documents)->close();
                 if (File::exists($zipFilePath)):
@@ -229,7 +246,7 @@ class AccountsListenerController extends BaseController {
         return Redirect::back();
     }
 
-    public function CompanyNotificationsList(){
+    public function ListenersNotificationsList(){
 
         $page_data = array(
             'page_title'=> Lang::get('seo.COMPANY_NOTIFICATION_LIST.title'),
@@ -248,17 +265,18 @@ class AccountsListenerController extends BaseController {
         $listenerCourse = OrderListeners::where('id',(int) $course_translit)
             ->where('user_id',Auth::user()->id)
             ->where('access_status',1)
+            ->with('order')
             ->first();
-        if (!$listenerCourse):
+        if (!$listenerCourse || $listenerCourse->order->close_status == 1):
             return Redirect::route('listener-study');
         endif;
         $test = CoursesTests::where('id',$test_id)
-                ->where('course_id',$listenerCourse->course_id)
-                ->where('active',1)
-                ->with('course')
-                ->with('chapter')
-                ->with('questions.answers')
-                ->first();
+            ->where('course_id',$listenerCourse->course_id)
+            ->where('active',1)
+            ->with('course')
+            ->with('chapter')
+            ->with('questions.answers')
+            ->first();
         $page_data = array(
             'page_title'=> Lang::get('seo.COMPANY_LISTENER_STUDY_COURSE.title'),
             'page_description'=> Lang::get('seo.COMPANY_LISTENER_STUDY_COURSE.description'),
@@ -267,14 +285,13 @@ class AccountsListenerController extends BaseController {
             'test' => $test
         );
         return View::make(Helper::acclayout('study-test'),$page_data);
-
     }
 
     public function ListenerStudyTestFinish($study_course_id,$test_id){
 
-        $listenerCourse = OrderListeners::where('id',$study_course_id)->where('user_id',Auth::user()->id)->where('access_status',1)->with('course')->first();
+        $listenerCourse = OrderListeners::where('id',$study_course_id)->where('user_id',Auth::user()->id)->where('access_status',1)->with('order')->with('course')->first();
         $test = CoursesTests::where('id',$test_id)->where('course_id',$listenerCourse->course_id)->where('active',1)->with('questions.answers')->first();
-        if (!$listenerCourse || !$test):
+        if (!$listenerCourse || !$test || $listenerCourse->order->close_status == 1):
             return Redirect::route('listener-study');
         endif;
         $validator = Validator::make(Input::all(),array('questions'=>'required','time_attempt'=>'required'));
@@ -308,6 +325,8 @@ class AccountsListenerController extends BaseController {
             $course_translite_title = $listenerCourse->id.'-'.BaseController::stringTranslite($listenerCourse->course->title,100);
             if ($listenerTest->result_attempt >= $success_test_percent):
                 if ($test->chapter_id == 0):
+                    Event::fire('listener.over.course.study', array(array('listener_course_id'=>$study_course_id)));
+                    AccountsOrderingController::closeOrder($listenerCourse->order_id);
                     return Redirect::route('listener-study-test-result',array('course_translite_title'=>$course_translite_title,'study_test_id'=>$listenerTest->id))->with('message.text',Lang::get('interface.COMPANY_LISTENER_STUDY_TEST_FINISH.success_course_test').' '.$listenerTest->result_attempt .'%')->with('message.status','test-result');
                 else:
                     return Redirect::route('listener-study-test-result',array('course_translite_title'=>$course_translite_title,'study_test_id'=>$listenerTest->id))->with('message.text',Lang::get('interface.COMPANY_LISTENER_STUDY_TEST_FINISH.success_chapter_test').' '.$listenerTest->result_attempt .'%')->with('message.status','test-result');
@@ -326,9 +345,9 @@ class AccountsListenerController extends BaseController {
             return Redirect::route('listener-study');
         endif;
 
-        $listenerCourse = OrderListeners::where('id',(int) $course_translit)->where('user_id',Auth::user()->id)->where('access_status',1)->first();
+        $listenerCourse = OrderListeners::where('id',(int) $course_translit)->where('user_id',Auth::user()->id)->where('access_status',1)->with('order')->first();
         $listenerTest = OrdersListenersTests::where('id',$study_test_id)->where('order_listeners_id',$listenerCourse->id)->with('test.course')->first();
-        if (!$listenerCourse || !$listenerTest):
+        if (!$listenerCourse || !$listenerTest || $listenerCourse->order->close_status == 1):
             return Redirect::route('listener-study');
         endif;
         $page_data = array(

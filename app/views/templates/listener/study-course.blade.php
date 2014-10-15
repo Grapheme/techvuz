@@ -3,7 +3,7 @@
 @stop
 @section('content')
 <main class="cabinet">
-    <h2>{{ User_listener::where('id',Auth::user()->id)->first()->fio }}</h2>
+    <h2>{{ User_listener::where('id',Auth::user()->id)->pluck('fio') }}</h2>
     <div class="cabinet-tabs">
         @include(Helper::acclayout('menu'))
         <div>

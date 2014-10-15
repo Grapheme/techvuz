@@ -3,7 +3,7 @@
 @stop
 @section('content')
 <main class="cabinet">
-    <h2>{{ User_organization::where('id',Auth::user()->id)->first()->title }}</h2>
+    <h2>{{ User_organization::where('id',Auth::user()->id)->pluck('title') }}</h2>
     <div class="employer margin-bottom-40">
         @include(Helper::acclayout('menu'))
         <div class="container-fluid">
