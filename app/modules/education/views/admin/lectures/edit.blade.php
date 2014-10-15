@@ -29,6 +29,12 @@
                         </label>
                     </section>
                     <section>
+                        <label class="label">Количество часов</label>
+                        <label class="input">
+                            {{ Form::text('hours') }}
+                        </label>
+                    </section>
+                    <section>
                         <label class="label">Документ</label>
                         <label class="input">
                             {{ ExtForm::upload('document', $lecture->document) }}

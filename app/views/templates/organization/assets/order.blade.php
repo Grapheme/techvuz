@@ -1,7 +1,7 @@
 @if(isset($order) && is_object($order))
 <li class="orders-li {{ $order->payment->class }}">
     <div class="orders-li-head">
-        <h4>Заказ №{{ $order->number }}</h4>
+        <h4><a href="{{ URL::route('company-order',$order->id) }}">Заказ №{{ $order->number }}</a></h4>
         <div class="orders-status">
             {{ $order->payment->title }}
         </div>
@@ -21,7 +21,7 @@
         <div class="orders-date">
             Заказ создан:
             <div>
-                {{ myDateTime::SwapDotDateWithTime($order->created_at) }}
+                {{ $order->created_at->format("d.m.Y в H:i") }}
             </div>
         </div>
         <div class="orders-package">

@@ -48,7 +48,7 @@
         <td rowspan="{{ count($course['listeners']) }}">{{ $course['course']['code'] }}. {{{ $course['course']['title'] }}}</td>
         @endif
         <td>
-            <a href="javascript:void(0);">{{ $listener->user_listener->fio }}</a>
+            <a href="{{ URL::route('moderator-listener-profile',$listener->user_listener->id) }}">{{ $listener->user_listener->fio }}</a>
         </td>
         <td class="purchase-price">{{ $listener->price }} руб.</td>
         <td>

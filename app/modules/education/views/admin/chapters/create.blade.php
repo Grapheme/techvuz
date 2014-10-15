@@ -26,6 +26,12 @@
 							{{ Form::textarea('description', '',array('class'=>'redactor')) }}
 						</label>
 					</section>
+					<section>
+                        <label class="label">Количество часов</label>
+                        <label class="input">
+                            {{ Form::text('hours', '') }}
+                        </label>
+                    </section>
                 </fieldset>
 				<footer>
 					<a class="btn btn-default no-margin regular-10 uppercase pull-left btn-spinner" href="{{URL::previous()}}">
@@ -46,11 +52,11 @@ var essence = 'chapter';
 var essence_name = 'глава';
 var validation_rules = {
     course_id: { required: true },
-    title: { required: true },
+    title: { required: true }
 };
 var validation_messages = {
     course_id: { required: 'Укажите курс' },
-    title: { required: 'Укажите название' },
+    title: { required: 'Укажите название' }
 };
 </script>
 {{ HTML::script('js/modules/standard.js') }}

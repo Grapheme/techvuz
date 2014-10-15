@@ -31,7 +31,7 @@ class Lectures extends BaseModel {
 
     protected $table = 'lectures';
 
-    protected $fillable = array('course_id','chapter_id','order','title','description','document');
+    protected $fillable = array('course_id','chapter_id','order','title','description','document','hours');
 
     public static $order_by = "order";
 

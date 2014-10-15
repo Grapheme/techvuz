@@ -160,6 +160,7 @@ class AdminEducationLecturesController extends BaseController {
         $input['chapter_id'] = Input::get('chapter_id');
         $input['order'] = Input::get('order');
         $input['title'] = Input::get('title');
+        $input['hours'] = Input::get('hours');
         $input['description'] = Input::get('description');
         $input['document'] = ExtForm::process('upload', @Input::all()['document']);
         return $input;

@@ -13,6 +13,7 @@ class CreateChapterTable extends Migration {
                 $table->integer('order')->unsigned()->nullable();
                 $table->string('title',255)->nullable();
                 $table->text('description')->nullable();
+                $table->integer('hours')->default(0)->unsigned()->nullable();
                 $table->timestamps();
             });
             echo(' + ' . 'chapters' . PHP_EOL);

@@ -45,6 +45,12 @@ return array(
         'keywords' => ''
     ),
 
+    'COMPANY_ORDER' => array(
+        'title' => 'Личный кабинет компании. Заказ.',
+        'description' => '',
+        'keywords' => ''
+    ),
+
     'COMPANY_LISTENERS_LIST' => array(
         'title' => 'Личный кабинет компании. Список слушателейы.',
         'description' => '',

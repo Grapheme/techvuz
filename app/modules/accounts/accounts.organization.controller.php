@@ -24,6 +24,8 @@ class AccountsOrganizationController extends BaseController {
                 Route::patch('listeners/profile/{listener_id}/update', array('before' => 'csrf', 'as' => 'company-listener-profile-update', 'uses' => $class . '@CompanyListenerProfileUpdate'));
 
                 Route::get('orders', array('as' => 'company-orders', 'uses' => $class . '@CompanyOrdersList'));
+                Route::get('order/{order_id}', array('as' => 'company-order', 'uses' => $class . '@CompanyOrderShow'));
+
                 Route::get('listeners', array('as' => 'company-listeners', 'uses' => $class . '@CompanyListenersList'));
                 Route::get('study', array('as' => 'company-study', 'uses' => $class . '@CompanyStudyProgressList'));
                 Route::get('notifications', array('as' => 'company-notifications', 'uses' => $class . '@CompanyNotificationsList'));
@@ -231,6 +233,27 @@ class AccountsOrganizationController extends BaseController {
             'page_keywords'=> Lang::get('seo.COMPANY_ORDERS_LIST.keywords'),
         );
         return View::make(Helper::acclayout('orders-lists'),$page_data);
+    }
+
+    public function CompanyOrderShow($order_id){
+
+        $order = Orders::where('id',$order_id)
+            ->where('user_id',Auth::user()->id)
+            ->where('completed',1)
+            ->where('archived',0)
+            ->with('listeners.course','listeners.user_listener','payment')
+            ->first();
+        if (!$order):
+            return Redirect::route('company-orders');
+        endif;
+
+        $page_data = array(
+            'page_title'=> Lang::get('seo.COMPANY_ORDER.title'),
+            'page_description'=> Lang::get('seo.COMPANY_ORDER.description'),
+            'page_keywords'=> Lang::get('seo.COMPANY_ORDER.keywords'),
+            'order' => $order
+        );
+        return View::make(Helper::acclayout('order'),$page_data);
     }
 
     public function CompanyListenersList(){

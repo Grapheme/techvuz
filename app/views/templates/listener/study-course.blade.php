@@ -21,12 +21,14 @@
                         <tr>
                             <th>№</th>
                             <th>Название</th>
+                            <th>Часов</th>
                             <th>Форма контроля</th>
                         </tr>
                     @foreach($module->chapters as $chapter)
                         <tr>
                             <td>{{ $chapter->order }}</td>
                             <td>{{ $chapter->title }}</td>
+                            <td>{{ $chapter->hours }}</td>
                             <td>Тестирование</td>
                         </tr>
                         @if($chapter->lectures->count())
@@ -34,6 +36,7 @@
                             <tr>
                                 <td>{{ $chapter->order }}.{{ $lecture->order }}</td>
                                 <td>{{ $lecture->title }}</td>
+                                <td>{{ $lecture->hours }}</td>
                                 <td>
                                     {{ Form::open(array('url'=>URL::route('listener-study-download-lecture',array('study_course_id'=>$study_course->id,'lecture_id'=>$lecture->id)), 'style'=>'display:inline-block', 'method'=>'POST')) }}
                                         {{ Form::submit('Скачать') }}
