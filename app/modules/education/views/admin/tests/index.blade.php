@@ -47,9 +47,9 @@
         </table>
         @if($question->answers->count())
         <table class="table table-striped table-bordered">
-            <tbody>
+            <tbody class="sortable" data-question="{{ $question->id  }}">
                 @foreach($question->answers as $answer_index => $answer)
-                <tr class="vertical-middle">
+                <tr data-id="{{ $answer->id }}" class="vertical-middle">
                     <td class="col-lg-1 text-center">{{ $answer->title }}{{ $answer->order }}</td>
                     <td class="col-lg-8">{{ $answer->description }}</td>
                     <td class="col-lg-1 text-center">{{ $answer->correct ? 'верный' : 'неверный' }}</td>
@@ -118,5 +118,27 @@ var validation_messages = {};
     }else{
         loadScript("{{ asset('js/vendor/jquery-form.min.js') }}");
     }
+</script>
+<script>
+    $(document).on("mouseover", ".sortable", function(e){
+        if ( !$(this).data('sortable') ) {
+            $(this).sortable({
+                stop: function() {
+                    var pls = $(this).find('tr');
+                    var poss = [];
+                    var question = $(this).data('question');
+                    $(pls).each(function(i, item) {
+                        poss.push($(item).data('id'));
+                    });
+                    $.ajax({
+                        url: "{{ URL::route('testing.order',array('direction'=>$direction->id,'course'=>$course->id,'chapter'=>$chapter_id)) }}",
+                        type: "post",
+                        data: {poss: poss, question:question},
+                        success: function() {}
+                    });
+                }
+            });
+        }
+    });
 </script>
 @stop

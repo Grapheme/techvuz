@@ -35,17 +35,19 @@
     		<table class="table table-striped table-bordered">
     			<thead>
     				<tr>
-    					<th class="col-lg-1 text-center" style="white-space:nowrap;">Код</th>
-    					<th class="col-lg-6 text-center" style="white-space:nowrap;">Название</th>
-    					<th class="col-lg-1 text-center" style="white-space:nowrap;">Цена</th>
-    					<th class="col-lg-1 text-center" style="white-space:nowrap;">Часы</th>
+    					<th class="col-lg-1 text-center">№</th>
+    					<th class="col-lg-1 text-center">Код</th>
+    					<th class="col-lg-5 text-center">Название</th>
+    					<th class="col-lg-1 text-center">Цена</th>
+    					<th class="col-lg-1 text-center">Часы</th>
     					<th class="col-lg-1 text-center"></th>
     					<th class="col-lg-2 text-center"></th>
     				</tr>
     			</thead>
-    			<tbody>
+    			<tbody class="sortable">
     			@foreach($courses as $course)
-    				<tr class="vertical-middle">
+    				<tr data-id="{{ $course->id }}" class="vertical-middle">
+    					<td>{{ $course->order }}</td>
     					<td>{{ $course->code }}</td>
     					<td>{{ $course->title }}</td>
     					<td>{{ $course->price }} руб.</td>
@@ -99,5 +101,26 @@ var validation_messages = {};
     }else{
         loadScript("{{ asset('js/vendor/jquery-form.min.js') }}");
     }
+</script>
+<script>
+    $(document).on("mouseover", ".sortable", function(e){
+        if ( !$(this).data('sortable') ) {
+            $(this).sortable({
+                stop: function() {
+                    var pls = $(this).find('tr');
+                    var poss = [];
+                    $(pls).each(function(i, item) {
+                        poss.push($(item).data('id'));
+                    });
+                    $.ajax({
+                        url: "{{ URL::route('courses.order') }}",
+                        type: "post",
+                        data: {poss: poss},
+                        success: function() {}
+                    });
+                }
+            });
+        }
+    });
 </script>
 @stop

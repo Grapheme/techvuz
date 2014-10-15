@@ -13,6 +13,7 @@ class AdminEducationModulesController extends BaseController {
     public static function returnRoutes($prefix = null) {
         $class = __CLASS__;
         Route::group(array('before' => 'auth', 'prefix' => $prefix), function() use ($class) {
+            Route::post($class::$group.'/'.self::$name.'/lectures/ajax-order-save', array('as' => $class::$name.'.lectures.order', 'uses' => $class."@postAjaxOrderSave"));
             Route::resource(AdminEducationDirectionsController::$group.'/'.AdminEducationDirectionsController::$name.'/{direction}/'.AdminEducationCoursesController::$name.'/{course}/'.$class::$name, $class,
                 array(
                     'except' => array('show','create','store','edit','update','destroy'),
@@ -76,5 +77,14 @@ class AdminEducationModulesController extends BaseController {
         $direction = $this->direction;
         $course = $this->course;
         return View::make($this->module['tpl'].'index', compact('direction','course'));
+    }
+
+    public function postAjaxOrderSave() {
+
+        foreach(Lectures::where('chapter_id',Input::get('chapter'))->whereIn('id', Input::get('poss'))->get() as $pl):
+            $pl->order = array_search($pl->id, Input::get('poss'))+1;
+            $pl->save();
+        endforeach;
+        return Response::make('ok');
     }
 }

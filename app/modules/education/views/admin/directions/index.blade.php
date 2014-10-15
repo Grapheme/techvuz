@@ -16,15 +16,17 @@
     		<table class="table table-striped table-bordered">
     			<thead>
     				<tr>
-    					<th class="col-lg-1 text-center" style="white-space:nowrap;">Код</th>
-    					<th class="col-lg-6 text-center" style="white-space:nowrap;">Название</th>
+    					<th class="col-lg-1 text-center">№ п.п</th>
+    					<th class="col-lg-1 text-center">Код</th>
+    					<th class="col-lg-6 text-center">Название</th>
     					<th class="col-lg-2 text-center"></th>
     					<th class="col-lg-2 text-center"></th>
     				</tr>
     			</thead>
-    			<tbody>
+    			<tbody class="sortable">
     			@foreach($directions as $direction)
-    				<tr class="vertical-middle">
+    				<tr data-id="{{ $direction->id }}" class="vertical-middle">
+    					<td>{{ $direction->order }}</td>
     					<td>{{ $direction->code }}</td>
                         <td>{{ $direction->title }}</td>
                         <td><a href="{{ URL::route('courses.index',array('directions'=>$direction->id)) }}" class="btn btn-link margin-right-10">Курсы ({{ $direction->courses->count() }})</a></td>
@@ -77,5 +79,26 @@ var validation_messages = {};
     }else{
         loadScript("{{ asset('js/vendor/jquery-form.min.js') }}");
     }
+</script>
+<script>
+    $(document).on("mouseover", ".sortable", function(e){
+        if ( !$(this).data('sortable') ) {
+            $(this).sortable({
+                stop: function() {
+                    var pls = $(this).find('tr');
+                    var poss = [];
+                    $(pls).each(function(i, item) {
+                        poss.push($(item).data('id'));
+                    });
+                    $.ajax({
+                        url: "{{ URL::route('directions.order') }}",
+                        type: "post",
+                        data: {poss: poss},
+                        success: function() {}
+                    });
+                }
+            });
+        }
+    });
 </script>
 @stop

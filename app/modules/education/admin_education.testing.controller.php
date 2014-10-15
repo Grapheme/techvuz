@@ -13,6 +13,7 @@ class AdminEducationTestingController extends BaseController {
     public static function returnRoutes($prefix = null) {
         $class = __CLASS__;
         Route::group(array('before' => 'auth', 'prefix' => $prefix), function() use ($class) {
+            Route::post(AdminEducationDirectionsController::$group.'/'.AdminEducationDirectionsController::$name.'/{direction}/'.AdminEducationCoursesController::$name.'/{course}/'.AdminEducationChaptersController::$name.'/{chapter}/'.$class::$name.'/ajax-order-save', array('as' => $class::$name.'.order', 'uses' => $class."@postAjaxOrderSave"));
             Route::resource(AdminEducationDirectionsController::$group.'/'.AdminEducationDirectionsController::$name.'/{direction}/'.AdminEducationCoursesController::$name.'/{course}/'.AdminEducationChaptersController::$name.'/{chapter}/'.$class::$name, $class,
                 array(
                     'except' => array('show','create','store','edit','update'),
@@ -112,5 +113,14 @@ class AdminEducationTestingController extends BaseController {
         $json_request['responseText'] = self::$entity_name.' удален';
         $json_request['status'] = TRUE;
         return Response::json($json_request, 200);
+    }
+
+    public function postAjaxOrderSave() {
+
+        foreach(CoursesTestsAnswers::where('test_question_id',Input::get('question'))->whereIn('id', Input::get('poss'))->get() as $pl):
+            $pl->order = array_search($pl->id, Input::get('poss'))+1;
+            $pl->save();
+        endforeach;
+        return Response::make('ok');
     }
 }

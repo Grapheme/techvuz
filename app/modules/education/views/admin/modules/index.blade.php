@@ -38,12 +38,12 @@
         </table>
         @if($chapter->lectures->count())
         <table class="table table-striped table-bordered">
-            <tbody>
+            <tbody class="sortable" data-chapter="{{ $chapter->id  }}">
                 @foreach($chapter->lectures as $lecture)
-                <tr class="vertical-middle">
+                <tr data-id="{{ $lecture->id }}" class="vertical-middle">
                     <td class="col-lg-1 text-center">{{ $chapter->order }}.{{ $lecture->order }}</td>
                     <td class="col-lg-9">{{ $lecture->title }}</td>
-                    <td class="col-lg-2 text-center" style="white-space:nowrap;">
+                    <td class="col-lg-2 text-center">
                         @if(Allow::action($module['group'], 'edit'))
                         <a href="{{ URL::route('lectures.edit',array('directions'=>$direction->id,'course'=>$course->id,'chapter'=>$chapter->id,'lecture'=>$lecture->id)) }}" class="btn btn-success margin-right-10">Изменить</a>
                         @endif
@@ -100,5 +100,27 @@
     }else{
         loadScript("{{ asset('js/vendor/jquery-form.min.js') }}");
     }
+</script>
+<script>
+    $(document).on("mouseover", ".sortable", function(e){
+        if ( !$(this).data('sortable') ) {
+            $(this).sortable({
+                stop: function() {
+                    var pls = $(this).find('tr');
+                    var poss = [];
+                    var chapter = $(this).data('chapter');
+                    $(pls).each(function(i, item) {
+                        poss.push($(item).data('id'));
+                    });
+                    $.ajax({
+                        url: "{{ URL::route('modules.lectures.order') }}",
+                        type: "post",
+                        data: {poss: poss, chapter:chapter},
+                        success: function() {}
+                    });
+                }
+            });
+        }
+    });
 </script>
 @stop

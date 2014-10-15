@@ -14,6 +14,7 @@ class AdminEducationDirectionsController extends BaseController {
 
         $class = __CLASS__;
         Route::group(array('before' => 'auth', 'prefix' => $prefix), function() use ($class) {
+            Route::post($class::$group.'/'.self::$name.'/ajax-order-save', array('as' => $class::$name.'.order', 'uses' => $class."@postAjaxOrderSave"));
             Route::resource($class::$group."/".self::$name, $class,
                 array(
                     'except' => array('show'),
@@ -145,4 +146,12 @@ class AdminEducationDirectionsController extends BaseController {
         return Response::json($json_request, 200);
     }
 
+    public function postAjaxOrderSave() {
+
+        foreach(Directions::whereIn('id', Input::get('poss'))->get() as $pl):
+            $pl->order = array_search($pl->id, Input::get('poss'))+1;
+            $pl->save();
+        endforeach;
+        return Response::make('ok');
+    }
 }

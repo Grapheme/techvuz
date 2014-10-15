@@ -5,6 +5,14 @@
 <h2 class="margin-bottom-40">Список компаний</h2>
 <div class="row">
 @if(count($companies))
+    <div class="employee-search input">
+        <form class="employee-search margin-bottom-20">
+            <fieldset>
+                <input type="text" placeholder="Укажите ФИО сотрудника, название компании или курса">
+                <button type="submit"><span class="icon icon-search"></span></button>
+            </fieldset>
+        </form>
+    </div>
     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
         <table class="table table-striped table-bordered">
             <thead>

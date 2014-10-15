@@ -13,6 +13,7 @@ class AdminEducationCoursesController extends BaseController {
     public static function returnRoutes($prefix = null) {
         $class = __CLASS__;
         Route::group(array('before' => 'auth', 'prefix' => $prefix), function() use ($class) {
+            Route::post($class::$group.'/'.self::$name.'/ajax-order-save', array('as' => $class::$name.'.order', 'uses' => $class."@postAjaxOrderSave"));
             Route::resource(AdminEducationDirectionsController::$group.'/'.AdminEducationDirectionsController::$name.'/{direction}/'.$class::$name, $class,
                 array(
                     'except' => array('show'),
@@ -182,5 +183,14 @@ class AdminEducationCoursesController extends BaseController {
         $input['curriculum'] = ExtForm::process('upload', @Input::all()['curriculum']);
         $input['metodical'] = ExtForm::process('upload', @Input::all()['metodical']);
         return $input;
+    }
+
+    public function postAjaxOrderSave() {
+
+        foreach(Courses::whereIn('id', Input::get('poss'))->get() as $pl):
+            $pl->order = array_search($pl->id, Input::get('poss'))+1;
+            $pl->save();
+        endforeach;
+        return Response::make('ok');
     }
 }
