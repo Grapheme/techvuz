@@ -427,6 +427,7 @@ class AccountsOrganizationController extends BaseController {
                     'page_keywords' => Lang::get('seo.COMPANY_ORDER.keywords'),
                     'order' => $order->toArray(),
                     'account' => $account->toArray(),
+                    'listener' => $listener->toArray(),
                     'template' => storage_path('views/'.sha1($order_id.$listener_id.'order-documents-certificate-first'))
                 );
                 self::parseOrderDocument($page_data['template'],$document_content);
@@ -458,6 +459,7 @@ class AccountsOrganizationController extends BaseController {
                     'page_keywords' => Lang::get('seo.COMPANY_ORDER.keywords'),
                     'order' => $order->toArray(),
                     'account' => $account->toArray(),
+                    'listener' => $listener->toArray(),
                     'template' => storage_path('views/'.sha1($order_id.$listener_id.'order-documents-certificate-first'))
                 );
                 self::parseOrderDocument($page_data['template'],$document_content);
