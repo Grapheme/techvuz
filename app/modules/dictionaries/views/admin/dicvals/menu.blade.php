@@ -13,7 +13,22 @@
             'class' => 'btn btn-default'
         );
     }
-    if  (Allow::action($module['group'], 'dicval_create')) {
+    if (Allow::action($module['group'], 'dicval_delete') && isset($element) && is_object($element) && $element->id) {
+        $menus[] = array(
+            'link' => action(is_numeric($dic_id) ? 'dicval.destroy' : 'entity.destroy', array('dic_id' => $dic_id, $element->id)),
+            'title' => '<i class="fa fa-trash-o"></i>',
+            'class' => 'btn btn-danger remove-dicval-record',
+            'others' => [
+                #'data-dicval_id' => $element->id,
+                'data-goto' => action(is_numeric($dic_id) ? 'dicval.index' : 'entity.index', array('dic_id' => $dic_id)),
+                'title' => 'Удалить запись'
+            ]
+        );
+    }
+    if  (
+        Allow::action($module['group'], 'dicval_create')
+        && (!isset($dic_settings['max_elements']) || !$dic_settings['max_elements'] || $dic_settings['max_elements'] > $total_elements)
+    ) {
         $current_link_attributes = Helper::multiArrayToAttributes(Input::get('filter'), 'filter');
         $menus[] = array(
             'link' => action(is_numeric($dic_id) ? 'dicval.create' : 'entity.create', array('dic_id' => $dic_id) + $current_link_attributes),

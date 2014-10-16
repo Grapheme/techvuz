@@ -44,6 +44,8 @@ class AdminModulesController extends BaseController {
 	
 	public function getIndex(){
 		
+		#$settings = Setting::retArray();
+		#$languages = Language::retArray();
 		return View::make($this->module['tpl'].'index', compact('settings','languages'))->render();
 	}
 

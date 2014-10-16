@@ -49,12 +49,22 @@ $tpl_content = @file_get_contents($full_file);
                     <i class="fa fa-save"></i>
                     Сохранить
                 </button>
+
+                <section class="smart-form">
+                <label class="checkbox">
+                    {{ Form::checkbox('git', 1, 1) }}
+                    <i></i>
+                    Отправить изменения в GIT (возможна небольшая задержка)
+                </label>
+                </section>
+
             </fieldset>
 
             <fieldset class="padding-top-10">
                 <section>
                     <label class="textarea" style="display:block; height:auto">
-                        {{ Form::textarea('tpl', $tpl_content, array('id' => 'tpl_content')) }}
+                        <div id="tpl_content">{{ htmlspecialchars($tpl_content) }}</div>
+                        {{ Form::textarea('tpl', '', array('class' => 'hidden')) }}
                     </label>
                 </section>
             </fieldset>
@@ -132,6 +142,8 @@ $tpl_content = @file_get_contents($full_file);
 
             e.preventDefault();
             var form = $(this);
+            $('[name=tpl]').val( editor.getValue() );
+            console.log(form);
             var options = { target: null, type: $(form).attr('method'), dataType: 'json' };
 
             options.beforeSubmit = function(formData, jqForm, options){

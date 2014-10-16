@@ -82,7 +82,7 @@
 
                 {{ Helper::dd_($dic_settings) }}
 
-                @if (@is_callable($dic_settings['fields']) && NULL !== ($fields_general = $dic_settings['fields']()))
+                @if (@is_callable($dic_settings['fields']) && NULL !== ($fields_general = $dic_settings['fields']()) && count($fields_general))
                 <?
                 #Helper::ta($element);
                 $onsuccess_js = array();
@@ -91,7 +91,8 @@
                 } elseif (isset($element->allfields) && is_object($element->allfields) && count($element->allfields)) {
                     $element_fields = $element->allfields->lists('value', 'key');
                 } else {
-                    $element_fields = array();
+                    #$element_fields = array();
+                    $element_fields = $element->toArray();
                 }
                 #Helper::d($element_fields);
                 #$fields_general = $dic_settings['fields'];
@@ -115,8 +116,13 @@
                     </fieldset>
                 @endif
 
-
-                @if (count($locales) > 1)
+                {{-- @if (count($locales) > 1) --}}
+                <?
+                $fields_i18n = array();
+                if (@is_callable($dic_settings['fields_i18n']))
+                    $fields_i18n = $dic_settings['fields_i18n']();
+                ?>
+                @if (count($fields_i18n))
                 <fieldset class="clearfix">
                     <section>
                         {{--
@@ -124,6 +130,7 @@
                         --}}
 
                         <div class="widget-body">
+                            @if (count($locales) > 1)
                             <ul id="myTab1" class="nav nav-tabs bordered">
                                 <? $i = 0; ?>
                                 @foreach ($locales as $locale_sign => $locale_name)
@@ -134,12 +141,13 @@
                                 </li>
                                 @endforeach
                             </ul>
-                            <div id="myTabContent1" class="tab-content padding-10">
+                            @endif
+                            <div id="myTabContent1" class="tab-content{{ count($locales) > 1 ? ' padding-10' : '' }}">
                                 <? $i = 0; ?>
                                 @foreach ($locales as $locale_sign => $locale_name)
                                 <div class="tab-pane fade {{ !$i++ ? 'active in' : '' }}" id="locale_{{ $locale_sign }}">
 
-                                    @include($module['tpl'].'_dicval_meta', compact('locale_sign', 'locale_name', 'element'))
+                                    @include($module['tpl'].'_dicval_meta', compact('locale_sign', 'locale_name', 'element', 'fields_i18n'))
 
                                 </div>
                                 @endforeach

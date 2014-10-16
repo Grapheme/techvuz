@@ -273,6 +273,7 @@
                     --}}
                 </footer>
             </div>
+
         </section>
 
         <!-- /Form -->
@@ -284,6 +285,10 @@
     @endif
 
     {{ Form::close() }}
+
+
+    {{-- Helper::dd(Helper::getLayoutProperties()); --}}
+
 
     <div id="templates" class="hidden">
 

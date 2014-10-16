@@ -164,7 +164,7 @@ foreach ($files as $dir => $dir_files) {
                 $file_short = mb_substr($file, 0, mb_strpos($file, '.'));
                 ?>
 
-                <table class="table table-striped table-bordered table-hover white-bg" style="margin-bottom: 0;" data-section="{{ $file_short }}">
+                <table class="table table-striped table-bordered table-hover" style="margin-bottom: 0;" data-section="{{ $file_short }}">
                     <tbody>
 
                             <?

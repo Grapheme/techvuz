@@ -1,6 +1,6 @@
 <?php
 
-class Storage extends Eloquent {
+class Storage extends BaseModel {
 	
 	protected $guarded = array();
     public $table = 'storages';

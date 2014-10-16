@@ -37,7 +37,7 @@ class AdminGroupsController extends BaseController {
         $this->module = array(
             'name' => self::$name,
             'group' => self::$group,
-            'rest' => self::$name,
+            'rest' => 'system/' . self::$name,
             'tpl'  => static::returnTpl('admin/' . self::$name),
             'gtpl' => static::returnTpl(),
 
@@ -104,7 +104,7 @@ class AdminGroupsController extends BaseController {
 
         Allow::permission($this->module['group'], 'groups');
 
-        if ($id == 1)
+        if ($id == 1 && !Allow::superuser())
             Redirect(link::auth($this->module['rest']));
 
         $groups = Group::all();
@@ -138,7 +138,7 @@ class AdminGroupsController extends BaseController {
 
 		$json_request = array('status'=>FALSE, 'responseText'=>'', 'responseErrorText'=>'', 'redirect'=>FALSE);
 		if(!Request::ajax())
-            return App::abort(404);        
+            App::abort(404);
 
 		if(!$group = Group::find($group_id)) {
 			$json_request['responseText'] = 'Запрашиваемая группа не найдена!';
@@ -193,7 +193,7 @@ class AdminGroupsController extends BaseController {
         Allow::permission($this->module['group'], 'groups');
 
 		if(!Request::ajax())
-            return App::abort(404);
+            App::abort(404);
 
 		$json_request = array('status'=>FALSE, 'responseText'=>'');
 

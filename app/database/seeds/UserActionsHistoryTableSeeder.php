@@ -38,6 +38,8 @@ class UserActionsHistoryTableSeeder extends Seeder{
         DicVal::create(array('dic_id'=>$dic_id,'slug'=>'otredaktirovana-novost','name'=> 'Обновлена новость','order'=>18));
         DicVal::create(array('dic_id'=>$dic_id,'slug'=>'udalena-novost','name'=> 'Удалена новость','order'=>19));
 
+        DicVal::create(array('dic_id'=>$dic_id,'slug'=>'otredaktirovan-document','name'=> 'Обновлен документ','order'=>20));
+
 	}
 
 }

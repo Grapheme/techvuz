@@ -93,17 +93,51 @@ class AdminTplEditorController extends BaseController {
         $file = Input::get('file');
         $tpl = Input::get('tpl');
 
+        if ($tpl === '') {
+            return Response::json($json_request, 200);
+        }
+
         if ($mod_name == 'layout') {
-            $full_file = app_path('views/templates/'.Config::get('app.template').'/'.$file.'.blade.php');
+            $full_file = app_path('views/templates/' . Config::get('app.template') . '/' . $file . '.blade.php');
         } else {
-            $full_file = app_path('modules/'.$mod_name.'/views/'.$file.'.blade.php');
+            $full_file = app_path('modules/' . $mod_name . '/views/' . $file . '.blade.php');
         }
 
         $result = @file_put_contents($full_file, $tpl);
 
+        /**
+         * Send changes to GitHub
+         */
+
+        $config = Config::get('github');
+        if ($config['active'] != FALSE && Input::get('git') && class_exists('GitHub')) {
+
+            #if($config['test_mode_key'] == $extends):
+                $config['test_mode'] = TRUE;
+            #else:
+            #    $config['test_mode'] = FALSE;
+            #endif;
+
+            $config['set_log'] = FALSE;
+
+            $github = new GitHub();
+            $github->init($config);
+            $result = $github->execute('git add ' . $full_file);
+            #echo $result . "\n";
+            if ($result == 0) {
+                $result = $github->execute('git commit -m "server commit - template editor; module: ' . $mod_name . ', file: ' . $file . '"');
+                #echo $result . "\n";
+                if ($result == 0) {
+                    $result = $github->pull();
+                    #echo $result . "\n";
+                    $result = $github->push();
+                    #echo $result . "\n";
+                }
+            }
+        }
+
         $json_request['status'] = true;
         return Response::json($json_request, 200);
-
     }
 
 }

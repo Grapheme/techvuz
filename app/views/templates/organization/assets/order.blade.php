@@ -31,6 +31,7 @@
         @if(in_array($order->payment_status,array(2,3)) && in_array($order->close_status,array(0,1)))
         <div class="orders-docs">
             Посмотреть <a href="#">документы</a>
+            @include(Helper::acclayout('assets.documents'),array('order'=>$order))
         </div>
         @endif
     </div>

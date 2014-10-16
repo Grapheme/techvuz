@@ -1,7 +1,7 @@
 <?php
 /**
  * An helper file for Laravel 4, to provide autocomplete information to your IDE
- * Generated for Laravel 4.2.8 on 2014-10-15.
+ * Generated for Laravel 4.2.11 on 2014-10-16.
  *
  * @author Barry vd. Heuvel <barryvdh@gmail.com>
  * @see https://github.com/barryvdh/laravel-ide-helper
@@ -2924,9 +2924,23 @@ namespace {
          * @return array 
          * @static 
          */
-        public static function select($query, $bindings = array()){
+        public static function selectFromWriteConnection($query, $bindings = array()){
             //Method inherited from \Illuminate\Database\Connection            
-            return \Illuminate\Database\MySqlConnection::select($query, $bindings);
+            return \Illuminate\Database\MySqlConnection::selectFromWriteConnection($query, $bindings);
+        }
+        
+        /**
+         * Run a select statement against the database.
+         *
+         * @param string $query
+         * @param array $bindings
+         * @param bool $useReadPdo
+         * @return array 
+         * @static 
+         */
+        public static function select($query, $bindings = array(), $useReadPdo = true){
+            //Method inherited from \Illuminate\Database\Connection            
+            return \Illuminate\Database\MySqlConnection::select($query, $bindings, $useReadPdo);
         }
         
         /**
@@ -3758,7 +3772,7 @@ namespace {
          *
          * @param array $columns
          * @return \Illuminate\Database\Eloquent\Model|static 
-         * @throws ModelNotFoundException
+         * @throws \Illuminate\Database\Eloquent\ModelNotFoundException
          * @static 
          */
         public static function firstOrFail($columns = array()){
@@ -3835,16 +3849,6 @@ namespace {
          */
         public static function simplePaginate($perPage = null, $columns = array()){
             return \Illuminate\Database\Eloquent\Builder::simplePaginate($perPage, $columns);
-        }
-        
-        /**
-         * Run the default delete function on the builder.
-         *
-         * @return mixed 
-         * @static 
-         */
-        public static function forceDelete(){
-            return \Illuminate\Database\Eloquent\Builder::forceDelete();
         }
         
         /**
@@ -5192,6 +5196,16 @@ namespace {
             \Illuminate\Events\Dispatcher::forget($event);
         }
         
+        /**
+         * Forget all of the queued listeners.
+         *
+         * @return void 
+         * @static 
+         */
+        public static function forgetQueued(){
+            \Illuminate\Events\Dispatcher::forgetQueued();
+        }
+        
     }
 
 
@@ -5661,6 +5675,18 @@ namespace {
          */
         public static function textarea($name, $value = null, $options = array()){
             return \Illuminate\Html\FormBuilder::textarea($name, $value, $options);
+        }
+        
+        /**
+         * Create a number input field.
+         *
+         * @param string $name
+         * @param array $options
+         * @return string 
+         * @static 
+         */
+        public static function number($name, $value = null, $options = array()){
+            return \Illuminate\Html\FormBuilder::number($name, $value, $options);
         }
         
         /**
@@ -6311,6 +6337,26 @@ namespace {
          */
         public static function secure(){
             return \Illuminate\Http\Request::secure();
+        }
+        
+        /**
+         * Returns the client IP address.
+         *
+         * @return string 
+         * @static 
+         */
+        public static function ip(){
+            return \Illuminate\Http\Request::ip();
+        }
+        
+        /**
+         * Returns the client IP addresses.
+         *
+         * @return array 
+         * @static 
+         */
+        public static function ips(){
+            return \Illuminate\Http\Request::ips();
         }
         
         /**
@@ -7100,9 +7146,9 @@ namespace {
         }
         
         /**
-         * Returns the requested URI.
+         * Returns the requested URI (path and query string).
          *
-         * @return string The raw URI (i.e. not urldecoded)
+         * @return string The raw URI (i.e. not URI decoded)
          * @api 
          * @static 
          */
@@ -7126,9 +7172,9 @@ namespace {
         }
         
         /**
-         * Generates a normalized URI for the Request.
+         * Generates a normalized URI (URL) for the Request.
          *
-         * @return string A normalized URI for the Request
+         * @return string A normalized URI (URL) for the Request
          * @see getQueryString()
          * @api 
          * @static 
@@ -7964,11 +8010,11 @@ namespace {
          * @param array $data
          * @param \Closure|string $callback
          * @param string $queue
-         * @return void 
+         * @return mixed 
          * @static 
          */
         public static function queue($view, $data, $callback, $queue = null){
-            \Illuminate\Mail\Mailer::queue($view, $data, $callback, $queue);
+            return \Illuminate\Mail\Mailer::queue($view, $data, $callback, $queue);
         }
         
         /**
@@ -7978,11 +8024,11 @@ namespace {
          * @param string|array $view
          * @param array $data
          * @param \Closure|string $callback
-         * @return void 
+         * @return mixed 
          * @static 
          */
         public static function queueOn($queue, $view, $data, $callback){
-            \Illuminate\Mail\Mailer::queueOn($queue, $view, $data, $callback);
+            return \Illuminate\Mail\Mailer::queueOn($queue, $view, $data, $callback);
         }
         
         /**
@@ -7993,11 +8039,11 @@ namespace {
          * @param array $data
          * @param \Closure|string $callback
          * @param string $queue
-         * @return void 
+         * @return mixed 
          * @static 
          */
         public static function later($delay, $view, $data, $callback, $queue = null){
-            \Illuminate\Mail\Mailer::later($delay, $view, $data, $callback, $queue);
+            return \Illuminate\Mail\Mailer::later($delay, $view, $data, $callback, $queue);
         }
         
         /**
@@ -8008,11 +8054,11 @@ namespace {
          * @param string|array $view
          * @param array $data
          * @param \Closure|string $callback
-         * @return void 
+         * @return mixed 
          * @static 
          */
         public static function laterOn($queue, $delay, $view, $data, $callback){
-            \Illuminate\Mail\Mailer::laterOn($queue, $delay, $view, $data, $callback);
+            return \Illuminate\Mail\Mailer::laterOn($queue, $delay, $view, $data, $callback);
         }
         
         /**
@@ -8492,6 +8538,16 @@ namespace {
         }
         
         /**
+         * Determine if the application is in maintenance mode.
+         *
+         * @return bool 
+         * @static 
+         */
+        public static function isDownForMaintenance(){
+            return \Illuminate\Queue\QueueManager::isDownForMaintenance();
+        }
+        
+        /**
          * Push a new job onto the queue.
          *
          * @param string $job
@@ -8913,6 +8969,26 @@ namespace {
          */
         public static function secure(){
             return \Illuminate\Http\Request::secure();
+        }
+        
+        /**
+         * Returns the client IP address.
+         *
+         * @return string 
+         * @static 
+         */
+        public static function ip(){
+            return \Illuminate\Http\Request::ip();
+        }
+        
+        /**
+         * Returns the client IP addresses.
+         *
+         * @return array 
+         * @static 
+         */
+        public static function ips(){
+            return \Illuminate\Http\Request::ips();
         }
         
         /**
@@ -9702,9 +9778,9 @@ namespace {
         }
         
         /**
-         * Returns the requested URI.
+         * Returns the requested URI (path and query string).
          *
-         * @return string The raw URI (i.e. not urldecoded)
+         * @return string The raw URI (i.e. not URI decoded)
          * @api 
          * @static 
          */
@@ -9728,9 +9804,9 @@ namespace {
         }
         
         /**
-         * Generates a normalized URI for the Request.
+         * Generates a normalized URI (URL) for the Request.
          *
-         * @return string A normalized URI for the Request
+         * @return string A normalized URI (URL) for the Request
          * @see getQueryString()
          * @api 
          * @static 
@@ -10985,6 +11061,17 @@ namespace {
         }
         
         /**
+         * Determine if this is a valid session ID.
+         *
+         * @param string $id
+         * @return bool 
+         * @static 
+         */
+        public static function isValidId($id){
+            return \Illuminate\Session\Store::isValidId($id);
+        }
+        
+        /**
          * Returns the session name.
          *
          * @return mixed The session name.
@@ -11708,7 +11795,7 @@ namespace {
          *
          * @param string $path
          * @param mixed $extra
-         * @param bool $secure
+         * @param bool|null $secure
          * @return string 
          * @static 
          */
@@ -11734,7 +11821,7 @@ namespace {
          * Generate a URL to an application asset.
          *
          * @param string $path
-         * @param bool $secure
+         * @param bool|null $secure
          * @return string 
          * @static 
          */
@@ -12838,6 +12925,16 @@ namespace {
         }
         
         /**
+         * Sets whether Bugsnag should send $_ENV with each error.
+         *
+         * @param Boolean $sendEnvironment whether to send the environment
+         * @static 
+         */
+        public static function setSendEnvironment($sendEnvironment){
+            return \Bugsnag_Client::setSendEnvironment($sendEnvironment);
+        }
+        
+        /**
          * Notify Bugsnag of a non-fatal/handled exception
          *
          * @param \Exception $exception the exception to notify Bugsnag about
@@ -12899,6 +12996,11 @@ namespace {
         public static function notify($error, $metaData = array()){
             return \Bugsnag_Client::notify($error, $metaData);
         }
+        
+    }
+
+
+    class Collection extends \Illuminate\Database\Eloquent\Collection{
         
     }
 

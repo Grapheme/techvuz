@@ -77,3 +77,35 @@ function returnZipDownloadHeaders($FilePath){
     );
 }
 
+
+/****************************************************************************/
+/*********************** ДЛЯ ДОКУМЕНТОВ *************************************/
+/****************************************************************************/
+
+function document_date_time($date_time = ''){
+    if (!is_null($date_time) && $date_time != '0000-00-00 00:00:00'):
+        return myDateTime::SwapDotDateWithTime($date_time);
+    else:
+        return '__________';
+    endif;
+
+}
+
+function document_date($date_time = ''){
+
+    if (!is_null($date_time) && $date_time != '0000-00-00 00:00:00'):
+        return myDateTime::SwapDotDateWithOutTime($date_time);
+    else:
+        return '__________';
+    endif;
+}
+
+function document_date_now(){
+
+    return date("d.m.Y");
+}
+
+function document_date_time_now(){
+
+    return date("d.m.Y H:i");
+}

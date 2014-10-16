@@ -25,6 +25,12 @@ class AccountsOrganizationController extends BaseController {
 
                 Route::get('orders', array('as' => 'company-orders', 'uses' => $class . '@CompanyOrdersList'));
                 Route::get('order/{order_id}', array('as' => 'company-order', 'uses' => $class . '@CompanyOrderShow'));
+                Route::get('order/{order_id}/contract', array('as' => 'company-order-contract', 'uses' => $class . '@CompanyOrderContract'));
+                Route::get('order/{order_id}/invoice', array('as' => 'company-order-invoice', 'uses' => $class . '@CompanyOrderInvoice'));
+                Route::get('order/{order_id}/act', array('as' => 'company-order-act', 'uses' => $class . '@CompanyOrderAct'));
+
+                Route::get('order/{order_id}/course/{course_id}/listener/{listener_id}/certificate/first', array('as' => 'company-order-certificate-first', 'uses' => $class . '@CompanyOrderCertificateFirst'));
+                Route::get('order/{order_id}course/{course_id}/listener/{listener_id}certificate/second', array('as' => 'company-order-certificate-second', 'uses' => $class . '@CompanyOrderCertificateSecond'));
 
                 Route::get('listeners', array('as' => 'company-listeners', 'uses' => $class . '@CompanyListenersList'));
                 Route::get('study', array('as' => 'company-study', 'uses' => $class . '@CompanyStudyProgressList'));
@@ -294,6 +300,179 @@ class AccountsOrganizationController extends BaseController {
             'page_keywords'=> Lang::get('seo.REGISTER_LISTENER.keywords'),
         );
         return View::make(Helper::acclayout('listener-registration'),$page_data);
+    }
+
+    /**************************************************************************/
+    /**************************** DOCUMENTS ***********************************/
+    /**************************************************************************/
+
+    public function CompanyOrderContract($order_id){
+
+        if (!$order = Orders::where('id',$order_id)->where('user_id',Auth::user()->id)->where('completed',1)->where('archived',0)->first()):
+            return Redirect::route('company-orders');
+        endif;
+        $account = User_organization::where('id',Auth::user()->id)->first();
+        $order_listeners = Orders::where('id',$order->id)->first()->listeners()->with('course','user_listener')->get();
+        $count_listeners = $order_listeners->count();
+        $total_summa = 0;
+        foreach($order_listeners as $order_listener):
+            $total_summa += $order_listener->price;
+        endforeach;
+        if($document = Dictionary::valueBySlugs('order-documents','order-documents-contract')):
+            $fields = modifyKeys($document->fields,'key');
+            $document_content = isset($fields['content']) ? $fields['content']->value : '';
+            if (!empty($document_content)):
+                $page_data = array(
+                    'page_title' => Lang::get('seo.COMPANY_ORDER.title'),
+                    'page_description' => Lang::get('seo.COMPANY_ORDER.description'),
+                    'page_keywords' => Lang::get('seo.COMPANY_ORDER.keywords'),
+                    'order' => $order->toArray(),
+                    'account' => $account->toArray(),
+                    'count_listeners' => $count_listeners,
+                    'total_summa' => $total_summa,
+                    'template' => storage_path('views/'.sha1($order_id.'order-documents-contract'))
+                );
+                self::parseOrderDocument($page_data['template'],$document_content);
+                return View::make(Helper::acclayout('documents'),$page_data);
+            endif;
+        endif;
+        App::abort(404);
+    }
+
+    public function CompanyOrderInvoice($order_id){
+
+        if (!$order = Orders::where('id',$order_id)->where('user_id',Auth::user()->id)->where('completed',1)->where('archived',0)->first()):
+            return Redirect::route('company-orders');
+        endif;
+        $account = User_organization::where('id',Auth::user()->id)->first();
+        $order_listeners = Orders::where('id',$order->id)->first()->listeners()->with('course','user_listener')->get();
+        $count_listeners = $order_listeners->count();
+        $total_summa = 0;
+        foreach($order_listeners as $order_listener):
+            $total_summa += $order_listener->price;
+        endforeach;
+        if($document = Dictionary::valueBySlugs('order-documents','order-documents-invoice')):
+            $fields = modifyKeys($document->fields,'key');
+            $document_content = isset($fields['content']) ? $fields['content']->value : '';
+            if (!empty($document_content)):
+                $page_data = array(
+                    'page_title' => Lang::get('seo.COMPANY_ORDER.title'),
+                    'page_description' => Lang::get('seo.COMPANY_ORDER.description'),
+                    'page_keywords' => Lang::get('seo.COMPANY_ORDER.keywords'),
+                    'order' => $order->toArray(),
+                    'account' => $account->toArray(),
+                    'count_listeners' => $count_listeners,
+                    'total_summa' => $total_summa,
+                    'template' => storage_path('views/'.sha1($order_id.'order-documents-invoice'))
+                );
+                self::parseOrderDocument($page_data['template'],$document_content);
+                return View::make(Helper::acclayout('documents'),$page_data);
+            endif;
+        endif;
+        App::abort(404);
+    }
+
+    public function CompanyOrderAct($order_id){
+
+        if (!$order = Orders::where('id',$order_id)->where('user_id',Auth::user()->id)->where('completed',1)->where('archived',0)->first()):
+            return Redirect::route('company-orders');
+        endif;
+        $account = User_organization::where('id',Auth::user()->id)->first();
+        $order_listeners = Orders::where('id',$order->id)->first()->listeners()->with('course','user_listener')->get();
+        $count_listeners = $order_listeners->count();
+        $total_summa = 0;
+        foreach($order_listeners as $order_listener):
+            $total_summa += $order_listener->price;
+        endforeach;
+        if($document = Dictionary::valueBySlugs('order-documents','order-documents-act')):
+            $fields = modifyKeys($document->fields,'key');
+            $document_content = isset($fields['content']) ? $fields['content']->value : '';
+            if (!empty($document_content)):
+                $page_data = array(
+                    'page_title' => Lang::get('seo.COMPANY_ORDER.title'),
+                    'page_description' => Lang::get('seo.COMPANY_ORDER.description'),
+                    'page_keywords' => Lang::get('seo.COMPANY_ORDER.keywords'),
+                    'order' => $order->toArray(),
+                    'account' => $account->toArray(),
+                    'count_listeners' => $count_listeners,
+                    'total_summa' => $total_summa,
+                    'template' => storage_path('views/'.sha1($order_id.'order-documents-act'))
+                );
+                self::parseOrderDocument($page_data['template'],$document_content);
+                return View::make(Helper::acclayout('documents'),$page_data);
+            endif;
+        endif;
+        App::abort(404);
+    }
+
+    public function CompanyOrderCertificateFirst($order_id,$course_id,$listener_id){
+
+        if (!OrderListeners::where('order_id',$order_id)->where('course_id',$course_id)->where('user_id',$listener_id)->where('over_status',1)->exists()):
+            return Redirect::route('company-orders');
+        endif;
+        if (!$order = Orders::where('id',$order_id)->where('user_id',Auth::user()->id)->where('completed',1)->where('archived',0)->first()):
+            return Redirect::route('company-orders');
+        endif;
+        if (!$listener = User_listener::where('id',$listener_id)->where('organization_id',Auth::user()->id)->first()):
+            return Redirect::route('company-orders');
+        endif;
+        $account = User_organization::where('id',Auth::user()->id)->first();
+        if($document = Dictionary::valueBySlugs('order-documents','order-documents-certificate-first')):
+            $fields = modifyKeys($document->fields,'key');
+            $document_content = isset($fields['content']) ? $fields['content']->value : '';
+            if (!empty($document_content)):
+                $page_data = array(
+                    'page_title' => Lang::get('seo.COMPANY_ORDER.title'),
+                    'page_description' => Lang::get('seo.COMPANY_ORDER.description'),
+                    'page_keywords' => Lang::get('seo.COMPANY_ORDER.keywords'),
+                    'order' => $order->toArray(),
+                    'account' => $account->toArray(),
+                    'template' => storage_path('views/'.sha1($order_id.$listener_id.'order-documents-certificate-first'))
+                );
+                self::parseOrderDocument($page_data['template'],$document_content);
+                return View::make(Helper::acclayout('documents'),$page_data);
+            endif;
+        endif;
+        App::abort(404);
+    }
+
+    public function CompanyOrderCertificateSecond($order_id,$course_id,$listener_id){
+
+        if (!OrderListeners::where('order_id',$order_id)->where('course_id',$course_id)->where('user_id',$listener_id)->where('over_status',1)->exists()):
+            return Redirect::route('company-orders');
+        endif;
+        if (!$order = Orders::where('id',$order_id)->where('user_id',Auth::user()->id)->where('completed',1)->where('archived',0)->first()):
+            return Redirect::route('company-orders');
+        endif;
+        if (!$listener = User_listener::where('id',$listener_id)->where('organization_id',Auth::user()->id)->first()):
+            return Redirect::route('company-orders');
+        endif;
+        $account = User_organization::where('id',Auth::user()->id)->first();
+        if($document = Dictionary::valueBySlugs('order-documents','order-documents-certificate-first')):
+            $fields = modifyKeys($document->fields,'key');
+            $document_content = isset($fields['content']) ? $fields['content']->value : '';
+            if (!empty($document_content)):
+                $page_data = array(
+                    'page_title' => Lang::get('seo.COMPANY_ORDER.title'),
+                    'page_description' => Lang::get('seo.COMPANY_ORDER.description'),
+                    'page_keywords' => Lang::get('seo.COMPANY_ORDER.keywords'),
+                    'order' => $order->toArray(),
+                    'account' => $account->toArray(),
+                    'template' => storage_path('views/'.sha1($order_id.$listener_id.'order-documents-certificate-first'))
+                );
+                self::parseOrderDocument($page_data['template'],$document_content);
+                return View::make(Helper::acclayout('documents'),$page_data);
+            endif;
+        endif;
+        App::abort(404);
+    }
+
+    private function parseOrderDocument($template,$content){
+
+        $Filesystem = new Illuminate\Filesystem\Filesystem();
+        $compileString = (new \Illuminate\View\Compilers\BladeCompiler($Filesystem,storage_path('cache')))->compileString($content);
+        $Filesystem->put($template,$compileString);
+        return $compileString;
     }
 
     /**************************************************************************/

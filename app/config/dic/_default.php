@@ -138,8 +138,10 @@ return array(
             'link_to_file' => array(
                 'title' => 'Поле для загрузки файла',
                 'type' => 'upload',
-                'accept' => '*', # .exe,image/*,video/*,audio/*
                 'label_class' => 'input-file',
+                'others' => [
+                    'accept' => 'application/pdf', # *,.exe,application/pdf,image/*,video/*,audio/*
+                ],
                 'handler' => function($value, $element = false) {
                     if (@is_object($element) && @is_array($value)) {
                         $value['module'] = 'dicval';
@@ -176,12 +178,12 @@ return array(
                     $value = array_flip($value);
                     foreach ($value as $v => $null)
                         $value[$v] = array('dicval_child_dic' => 'scope');
-                    $element->relations()->sync($value);
+                    $element->related_dicvals()->sync($value);
                     return @count($value);
                 },
                 'value_modifier' => function($value, $element) {
                     $return = (is_object($element) && $element->id)
-                        ? $element->relations()->get()->lists('id')
+                        ? $element->related_dicvals()->get()->lists('id')
                         : $return = array()
                     ;
                     return $return;
@@ -202,12 +204,12 @@ return array(
                 'values' => $lists['scope'],
                 'handler' => function ($value, $element) {
                     $value = (array)$value;
-                    $element->relations()->sync($value);
+                    $element->related_dicvals()->sync($value);
                     return @count($value);
                 },
                 'value_modifier' => function ($value, $element) {
                     $return = (is_object($element) && $element->id)
-                        ? $element->relations()->get()->lists('name', 'id')
+                        ? $element->related_dicvals()->get()->lists('name', 'id')
                         : $return = array();
                     return $return;
                 },
@@ -394,6 +396,37 @@ return array(
 
     ),
 
+    'seo' => false,
+
+    /**
+     * Модификатор первой строки в списке записей
+     * Значение, возвращаемое данной функцией, заменит содержимое первой строки с названием записи
+     * Внимание! Если функция объявлена, но ничего не возвращает - строка будет пустой!
+     */
+    /*
+    'first_line_modifier' => function($line, $dic, $dicval) {
+        #$actions_types =  Config::get('temp.index_dics');
+        #return @$actions_types[$dicval->action_id]->name.'. '.$dicval->title;
+    },
+    #*/
+
+    /**
+     * Модификатор второй строки в списке записей
+     * Значение, возвращаемое данной функцией, заменит содержимое второй строки с доп. информацией о записи
+     * Внимание! Если функция объявлена, но ничего не возвращает - строка будет пустой!
+     */
+    /*
+    'second_line_modifier' => function($line, $dic, $dicval) {
+        #$users =  Config::get('temp.users');
+        return $dicval->url_document;
+    },
+    #*/
+
+    /**
+     * Поддержка версионности
+     */
+    'versions' => 3,
+
     'group_actions' => array(
         'moderator' => function() {
             return array(
@@ -402,5 +435,10 @@ return array(
         },
 
     ),
-    'seo' => false,
+
+    /**
+     * Максимальное количество элементов в списке.
+     * Если достигнуто - кнопка "Добавить" будет скрыта.
+     */
+    'max_elements' => 1,
 );

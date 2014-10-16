@@ -90,7 +90,17 @@ class AdminMenuEditorController extends BaseController {
 
         $element = new Storage;
 
-		return View::make($this->module['tpl'].'edit', compact('element'));
+        $menu_placement = Storage::firstOrNew(array('module' => 'menu_placement', 'name' => 'menu_placement'));
+        $menu_placement = json_decode($menu_placement->value, 1);
+        #Helper::tad($menu_placement);
+
+        $temp = Storage::where('module', 'menu')->get();
+        $menus = array();
+        foreach ($temp as $tmp)
+            $menus[$tmp->name] = @json_decode($tmp->value, 1)['title'];
+        #Helper::dd($menus);
+
+        return View::make($this->module['tpl'].'edit', compact('element', 'menu_placement', 'menus'));
 	}
 
 	public function edit($id){
@@ -103,7 +113,17 @@ class AdminMenuEditorController extends BaseController {
 
         $element->extract();
 
-		return View::make($this->module['tpl'].'edit', compact('element'));
+        $menu_placement = Storage::firstOrNew(array('module' => 'menu_placement', 'name' => 'menu_placement'));
+        $menu_placement = json_decode($menu_placement->value, 1);
+        #Helper::tad($menu_placement);
+
+        $temp = Storage::where('module', 'menu')->get();
+        $menus = array();
+        foreach ($temp as $tmp)
+            $menus[$tmp->name] = @json_decode($tmp->value, 1)['title'];
+        #Helper::dd($menus);
+
+        return View::make($this->module['tpl'].'edit', compact('element', 'menu_placement', 'menus'));
 	}
 
     public function manage($id){
@@ -189,12 +209,31 @@ class AdminMenuEditorController extends BaseController {
         #Helper::dd($input);
         #Helper::dd(is_null(Input::get('nesting_level2')));
 
+        /**
+         * Основные параметры
+         */
         if (!is_null(Input::get('name')))
             $input['name'] = Input::get('name');
         if (!is_null(Input::get('title')))
             $input['value']['title'] = Input::get('title');
         if (!is_null(Input::get('nesting_level')))
             $input['value']['nesting_level'] = Input::get('nesting_level');
+
+        /**
+         * Дополнительные параметры
+         */
+        if (!is_null(Input::get('container')))
+            $input['value']['container'] = Input::get('container');
+        if (!is_null(Input::get('element_container')))
+            $input['value']['element_container'] = Input::get('element_container');
+        if (!is_null(Input::get('element')))
+            $input['value']['element'] = Input::get('element');
+        if (!is_null(Input::get('active_class')))
+            $input['value']['active_class'] = Input::get('active_class');
+
+        /**
+         * Элементы меню и их порядок
+         */
         if (!is_null(Input::get('items')))
             $input['value']['items'] = Input::get('items');
         if (!is_null(Input::get('order')))
@@ -206,14 +245,59 @@ class AdminMenuEditorController extends BaseController {
 
         #Helper::dd($input);
 
-		$validation = Validator::make($input, $rules);
+        $validation = Validator::make($input, $rules);
 		if($validation->passes()):
 
             ## CREATE OR UPDATE CURRENT MENU
             if ($exist)
                 $element->update($input);
             else
-                $element->create($input);
+                $element = $element->create($input);
+
+
+            /**
+             * Предустановленные места для меню
+             */
+            if (!is_null(Input::get('update_placements'))) {
+                $placements = (array)Input::get('placements');
+                #Helper::dd($placements);
+                #dd($placements);
+                $placements_values = array_flip($placements);
+                #Helper::dd($placements_values);
+
+
+                $layout_placements = Helper::getLayoutProperties();
+                $layout_placements = @(array)$layout_placements['MENU_PLACEMENTS'];
+                #Helper::dd($layout_placements);
+
+                $menu_placement = Storage::firstOrNew(array('module' => 'menu_placement', 'name' => 'menu_placement'));
+                #Helper::dd($menu_placement);
+
+                $menu_placement_value = is_object($menu_placement) ? json_decode($menu_placement->value, 1) : array();
+
+                $array = array();
+                foreach ($layout_placements as $layout_placement_key => $layout_placement_value) {
+                    #Helper::d("$layout_placement_key => $layout_placement_value");
+                    $value = false;
+                    if (isset($placements_values[$layout_placement_key])) {
+                        $value = $element->name;
+                    } elseif (
+                        isset($menu_placement_value[$layout_placement_key])
+                        && $menu_placement_value[$layout_placement_key] != $element->name
+                    ) {
+                        $value = $menu_placement_value[$layout_placement_key];
+                    } else {
+                        $value = false;
+                    }
+                    $array[$layout_placement_key] = $value;
+                }
+                #Helper::d($array);
+                $menu_placement->value = json_encode($array);
+                #Helper::ta($menu_placement);
+                $menu_placement->save();
+
+                #Setting::where('module', 'menu_placement')->whereIn('name', $layout_placements);
+            }
 
 			$json_request['responseText'] = 'Сохранено';
             if ($redirect && Input::get('redirect'))

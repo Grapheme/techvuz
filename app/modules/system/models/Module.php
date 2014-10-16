@@ -1,6 +1,6 @@
 <?php
 
-class Module extends Eloquent {
+class Module extends BaseModel {
 	
 	protected $guarded = array();
 

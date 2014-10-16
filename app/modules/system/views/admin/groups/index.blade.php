@@ -8,7 +8,7 @@
     @if($groups->count())
     <div class="row">
     	<div class="col-xs-12 col-sm-12 col-md-12 col-lg-8">
-    		<table class="table table-striped table-bordered">
+    		<table class="table table-striped table-bordered white-bg">
     			<thead>
     				<tr>
     					<th class="col-lg-1 text-center">ID</th>
@@ -18,8 +18,12 @@
     			</thead>
     			<tbody>
     			@foreach($groups as $group)
+    			    <?
+    			    if ($group->id == 1 && !Allow::superuser())
+    			        continue;
+    			    ?>
     				<tr class="vertical-middle">
-    					<td class="text-center">{{ $group->id }}</td>
+    					<td class="text-center">{{ (@++$i) }}</td>
     					<td>
                             {{ $group->desc }}
                             <div style="margin:0; padding:0; font-size:80%; color:#777">Пользователей: {{ $group->count_users() }}</div>
@@ -33,12 +37,12 @@
                     		@endif
 
         					@if(Allow::action('system', 'groups'))
-							<a class="btn btn-success margin-right-10" href="{{ action($module['class'].'@getEdit', array('group_id' => $group->id)) }}"<? if($group->id == 1){ echo " disabled='disabled'"; }?>>
+							<a class="btn btn-success margin-right-10" href="{{ action($module['class'].'@getEdit', array('group_id' => $group->id)) }}">
 								Изменить
 							</a>
                     		@endif
 
-        					@if(Allow::action('system', 'groups'))
+        					@if(Allow::action('system', 'groups') && $group->id != 1)
 							<form method="POST" action="{{ action($module['class'].'@deleteDestroy', array('group_id' => $group->id)) }}" style="display:inline-block">
 								<button type="submit" class="btn btn-danger remove-group"<? if($group->id == 1){ echo " disabled='disabled'"; }?>>
 									Удалить

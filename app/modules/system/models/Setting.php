@@ -1,6 +1,6 @@
 <?php
 
-class Setting extends Eloquent {
+class Setting extends BaseModel {
 	
 	protected $guarded = array();
     public $table = 'settings';

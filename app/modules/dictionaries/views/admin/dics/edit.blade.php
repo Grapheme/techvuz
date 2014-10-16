@@ -118,7 +118,7 @@
                         </label>
                         <label class="radio">
                             {{ Form::radio('view_access', '1') }}
-                            <i></i> Только Администраторы
+                            <i></i> Только Разработчики
                         </label>
                     </section>
 

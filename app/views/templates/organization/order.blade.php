@@ -16,11 +16,7 @@
         <div>Статус: {{ $order->payment->title }}</div>
         <div>
             Документы:
-            <ul>
-                <li>Договор</li>
-                <li>Счет</li>
-                <li>Акт</li>
-            </ul>
+            @include(Helper::acclayout('assets.documents'))
         </div>
         <h3>Состав заказа</h3>
         <table class="tech-table payments-table margin-bottom-30">
@@ -33,6 +29,7 @@
         <?php
         $courses = $courses_list = array();
         foreach($order->listeners as $course):
+            $courses_list[$course->course_id]['course']['id'] = $course->course->id;
             $courses_list[$course->course_id]['course']['code'] = $course->course->code;
             $courses_list[$course->course_id]['course']['title'] = $course->course->title;
             $courses_list[$course->course_id]['course']['price'] = $course->course->price;
@@ -44,6 +41,7 @@
                 $courses[$course_id]['listeners'][$index]['id'] = $listener->user_listener->id;
                 $courses[$course_id]['listeners'][$index]['price'] = $listener->price;
                 $courses[$course_id]['listeners'][$index]['fio'] = $listener->user_listener->fio;
+                $courses[$course_id]['listeners'][$index]['over_status'] = $listener->over_status;
             endforeach;
         endforeach;
         ?>
@@ -59,7 +57,9 @@
                 </td>
                 <td class="purchase-price">{{ $listener['price'] }} руб.</td>
                 <td>
-                    <a href="javascript:void(0)">Просмотреть</a>
+                @if($listener['over_status'] == 1)
+                    <a href="{{ URL::route('company-order-certificate-first',array('order_id'=>$order->id,'course_id'=>$course['course']['id'],'listener_id'=>$listener['id'])) }}">Просмотреть</a>
+                @endif
                 </td>
             </tr>
                 @endforeach

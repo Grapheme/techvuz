@@ -35,23 +35,32 @@ class Dictionary extends BaseModel {
 
     public function values() {
         return $this->hasMany('DicVal', 'dic_id', 'id')
+            ->where('version_of', NULL)
             ->with('meta', 'fields')
             ->orderBy('order', 'ASC')
             ->orderBy('slug', 'ASC')
             ->orderBy('name', 'ASC')
-            ->orderBy('id', 'ASC');
+            ->orderBy('id', 'ASC')
+        ;
+    }
+
+    public function values_no_conditions() {
+        return $this->hasMany('DicVal', 'dic_id', 'id')
+            ->where('version_of', NULL)
+            ->with('meta', 'fields')
+        ;
     }
 
     public function values_count() {
-        return DicVal::where('dic_id', $this->id)->count();
+        return DicVal::where('dic_id', $this->id)->where('version_of', NULL)->count();
     }
 
     public function values_count2() {
-        return $this->hasMany('DicVal', 'dic_id', 'id'); #->select(DB::raw('COUNT(*) as count'));
+        return $this->hasMany('DicVal', 'dic_id', 'id')->where('version_of', NULL); #->select(DB::raw('COUNT(*) as count'));
     }
 
     public function value() {
-        return $this->hasOne('DicVal', 'dic_id', 'id');
+        return $this->hasOne('DicVal', 'dic_id', 'id')->where('version_of', NULL);
     }
 
     public static function whereSlugValues($slug) {
@@ -102,10 +111,13 @@ class Dictionary extends BaseModel {
         foreach ($collection as $c => $col) {
             if (!$listed_key) {
 
-                if ($key != '')
-                    $lists[$col->$key] = $col->$value;
-                else
-                    $lists[] = $col->$value;
+                #Helper::d((int)$col->$value);
+
+                if (isset($col->$value))
+                    if ($key != '')
+                        $lists[$col->$key] = $col->$value;
+                    else
+                        $lists[] = $col->$value;
 
             } else {
 
@@ -136,13 +148,23 @@ class Dictionary extends BaseModel {
             }))->first()->value;
     }
 
-    public static function valuesBySlug($slug) {
+    public static function valuesBySlug($slug, Closure $conditions = NULL) {
         #Helper::dd($slug);
-        $return = Dic::where('slug', $slug)->with('values')->first();
-        if (is_object($return))
-            $return = $return->values;
+        $return = Dic::where('slug', $slug);
+        #dd($conditions);
+        if (is_callable($conditions))
+            $return = $return->with(array('values_no_conditions' => $conditions));
         else
-            $return = Dic::firstOrNew(array('slug' => $slug))->with('values')->first()->values;
+            $return = $return->with('values');
+
+        $return = $return->first();
+
+        #Helper::tad($return);
+
+        if (is_object($return))
+            $return = isset($return->values_no_conditions) ? $return->values_no_conditions : $return->values;
+        else
+            $return = Dic::firstOrNew(array('slug' => $slug, 'version_of' => NULL))->with('values')->first()->values;
         #return self::firstOrNew(array('slug' => $slug))->values;
         return $return;
     }
@@ -153,30 +175,45 @@ class Dictionary extends BaseModel {
         #Helper::d("$dic_slug, $val_slug");
 
         $data = self::where('slug', $dic_slug)->with(array('value' => function($query) use ($val_slug){
+                $query->where('version_of', NULL);
                 $query->where('slug', $val_slug);
-                $query->with('meta', 'fields');
+                $query->with('meta', 'fields', 'seo', 'related_dicvals');
             }))->first()->value;
 
         if ($extract) {
-            if (@count($data->fields)) {
-                foreach ($data->fields as $field) {
-                    $data->{$field->key} = $field->value;
-                }
-                unset($data->fields);
-            }
-            if (@is_object($data->meta)) {
-                if (@$data->meta->name)
-                    $data->name = $data->meta->name;
-                if (@$data->meta->slug)
-                    $data->slug = $data->meta->slug;
-                unset($data->meta);
-            }
+            $data->extract(0);
         }
 
         #Helper::tad($data);
 
         return is_object($data) ? $data : self::firstOrNew(array('id' => 0));
     }
+
+    public static function valueBySlugAndId($dic_slug, $val_id, $extract = false) {
+
+        #Helper::d("$dic_slug, $val_slug");
+
+        $data = self::where('slug', $dic_slug)->with(array('value' => function($query) use ($val_id){
+                $query->where('version_of', NULL);
+                $query->where('id', $val_id);
+                $query->with('meta', 'fields', 'seo', 'related_dicvals');
+            }))
+            ->first()
+            ->value
+        ;
+
+        #Helper::tad($data);
+
+        if ($extract) {
+            $data->extract(0);
+        }
+
+        #Helper::tad($data);
+
+        return is_object($data) ? $data : self::firstOrNew(array('id' => 0));
+    }
+
+
 
 }
 
