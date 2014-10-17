@@ -29,17 +29,24 @@
         </div>
     </div>
 
-    @if($header_notification['show'])
+@if($header_notification['show'])
+    @if(Session::has('message') && Session::get('message.status') == 'activation')
+    <div class="notif notif--info">
+        {{ Session::get('message.text') }}
+    @elseif($header_notification['code'] == 2)
+    <div class="notif notif--warning">
+        {{ $header_notification['message'] }} {{ Lang::get('interface.ACCOUNT_STATUS.repeated_sending') }}
+    </div>
+    @elseif($header_notification['code'] == 3)
     <div class="notif notif--danger">
-        @if(Session::has('message') && Session::get('message.status') == 'activation')
-            {{ Session::get('message.text') }}
-        @elseif($header_notification['code'] == 3)
-            {{ $header_notification['message'] }}
-        @elseif($header_notification['code'] == 2)
-            {{ $header_notification['message'] }} Для повторной отправки активационных данных нажмите на <a href="{{ URL::route('activation-repeated-sending-letter') }}">ссылку</a>
-        @endif
+        {{ $header_notification['message'] }}
+    </div>
+    @elseif($header_notification['code'] == 4)
+    <div class="notif notif--danger">
+        {{ $header_notification['message'] }} {{ Lang::get('interface.ACCOUNT_STATUS.repeated_sending') }}
     </div>
     @endif
+@endif
 
     <div class="auth">
     @if(Auth::guest())

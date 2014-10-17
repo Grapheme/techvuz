@@ -4,7 +4,14 @@ class myDateTime {
 	public static function SwapDotDateWithTime($date_time) {
 		$list = preg_split("/-/",$date_time);
 		$pattern = "/(\d+)(-)(\w+)(-)(\d+) (\d+)(:)(\d+)(:)(\d+)/i";
-		$replacement = "\$5.$3.\$1 \$6:\$8";
+		$replacement = "\$5.$3.\$1 в \$6:\$8";
+		return preg_replace($pattern, $replacement,$date_time);
+	}
+
+    public static function SwapDotDateWithOutTime($date_time) {
+		$list = preg_split("/-/",$date_time);
+		$pattern = "/(\d+)(-)(\w+)(-)(\d+) (\d+)(:)(\d+)(:)(\d+)/i";
+		$replacement = "\$5.$3.\$1";
 		return preg_replace($pattern, $replacement,$date_time);
 	}
 	
@@ -61,4 +68,12 @@ class myDateTime {
 		$replacement = "\$5/$3";
 		return preg_replace($pattern, $replacement,$date_time);
 	}
+
+    public static function getDiffDate($date_begin,$date_over){
+
+        $datetime1 = new DateTime($date_begin);
+        $datetime2 = new DateTime($date_over);
+        $interval = $datetime1->diff($datetime2);
+        return (int) $interval->format('%d%');
+    }
 }
