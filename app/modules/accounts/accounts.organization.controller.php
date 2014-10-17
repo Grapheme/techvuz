@@ -308,10 +308,13 @@ class AccountsOrganizationController extends BaseController {
 
     public function CompanyOrderContract($order_id){
 
+        $account = User_organization::where('id',Auth::user()->id)->first();
+        if (!$account->moderator_approve):
+            return Redirect::route('company-orders');
+        endif;
         if (!$order = Orders::where('id',$order_id)->where('user_id',Auth::user()->id)->where('completed',1)->where('archived',0)->first()):
             return Redirect::route('company-orders');
         endif;
-        $account = User_organization::where('id',Auth::user()->id)->first();
         $order_listeners = Orders::where('id',$order->id)->first()->listeners()->with('course','user_listener')->get();
         $count_listeners = $order_listeners->count();
         $total_summa = 0;
@@ -341,10 +344,13 @@ class AccountsOrganizationController extends BaseController {
 
     public function CompanyOrderInvoice($order_id){
 
+        $account = User_organization::where('id',Auth::user()->id)->first();
+        if (!$account->moderator_approve):
+            return Redirect::route('company-orders');
+        endif;
         if (!$order = Orders::where('id',$order_id)->where('user_id',Auth::user()->id)->where('completed',1)->where('archived',0)->first()):
             return Redirect::route('company-orders');
         endif;
-        $account = User_organization::where('id',Auth::user()->id)->first();
         $order_listeners = Orders::where('id',$order->id)->first()->listeners()->with('course','user_listener')->get();
         $count_listeners = $order_listeners->count();
         $total_summa = 0;
@@ -374,10 +380,13 @@ class AccountsOrganizationController extends BaseController {
 
     public function CompanyOrderAct($order_id){
 
+        $account = User_organization::where('id',Auth::user()->id)->first();
+        if (!$account->moderator_approve):
+            return Redirect::route('company-orders');
+        endif;
         if (!$order = Orders::where('id',$order_id)->where('user_id',Auth::user()->id)->where('completed',1)->where('archived',0)->first()):
             return Redirect::route('company-orders');
         endif;
-        $account = User_organization::where('id',Auth::user()->id)->first();
         $order_listeners = Orders::where('id',$order->id)->first()->listeners()->with('course','user_listener')->get();
         $count_listeners = $order_listeners->count();
         $total_summa = 0;
@@ -407,6 +416,10 @@ class AccountsOrganizationController extends BaseController {
 
     public function CompanyOrderCertificateFirst($order_id,$course_id,$listener_id){
 
+        $account = User_organization::where('id',Auth::user()->id)->first();
+        if (!$account->moderator_approve):
+            return Redirect::route('company-orders');
+        endif;
         if (!OrderListeners::where('order_id',$order_id)->where('course_id',$course_id)->where('user_id',$listener_id)->where('over_status',1)->exists()):
             return Redirect::route('company-orders');
         endif;
@@ -416,7 +429,6 @@ class AccountsOrganizationController extends BaseController {
         if (!$listener = User_listener::where('id',$listener_id)->where('organization_id',Auth::user()->id)->first()):
             return Redirect::route('company-orders');
         endif;
-        $account = User_organization::where('id',Auth::user()->id)->first();
         if($document = Dictionary::valueBySlugs('order-documents','order-documents-certificate-first')):
             $fields = modifyKeys($document->fields,'key');
             $document_content = isset($fields['content']) ? $fields['content']->value : '';
@@ -439,6 +451,10 @@ class AccountsOrganizationController extends BaseController {
 
     public function CompanyOrderCertificateSecond($order_id,$course_id,$listener_id){
 
+        $account = User_organization::where('id',Auth::user()->id)->first();
+        if (!$account->moderator_approve):
+            return Redirect::route('company-orders');
+        endif;
         if (!OrderListeners::where('order_id',$order_id)->where('course_id',$course_id)->where('user_id',$listener_id)->where('over_status',1)->exists()):
             return Redirect::route('company-orders');
         endif;
@@ -448,7 +464,6 @@ class AccountsOrganizationController extends BaseController {
         if (!$listener = User_listener::where('id',$listener_id)->where('organization_id',Auth::user()->id)->first()):
             return Redirect::route('company-orders');
         endif;
-        $account = User_organization::where('id',Auth::user()->id)->first();
         if($document = Dictionary::valueBySlugs('order-documents','order-documents-certificate-first')):
             $fields = modifyKeys($document->fields,'key');
             $document_content = isset($fields['content']) ? $fields['content']->value : '';

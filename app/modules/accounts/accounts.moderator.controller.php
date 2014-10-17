@@ -200,6 +200,7 @@ class AccountsModeratorController extends BaseController {
             $organization->name = $post['name'];
             $organization->phone = $post['phone'];
             $organization->discount = $post['discount'];
+            $organization->moderator_approve = $post['moderator_approve'];
             $organization->save();
             $organization->touch();
 

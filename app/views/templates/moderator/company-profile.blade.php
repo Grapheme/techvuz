@@ -11,7 +11,13 @@
         @else
         <?php $activation_date = ''; ?>
         @endif
-        <h3>Профиль ({{ $accountStatus[$profile->active] }}{{ $activation_date }})</h3>
+        <h3>Профиль</h3>
+        <div>
+            {{ $accountStatus[$profile->active] }}{{ $activation_date }}
+        </div>
+        <div>
+            Модератором {{ $profile->moderator_approve ? 'подтвержден' : 'не подтвержден' }}.
+        </div>
     @endif
     <div class="employer-anket">
         <div class="row">
