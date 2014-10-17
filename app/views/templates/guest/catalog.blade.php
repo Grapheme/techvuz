@@ -17,7 +17,6 @@
         <span>{{ $fields['content']['value'] }}</span>
     </div>
     @endif
-    {{ Helper::ta($fields); }}
 @endforeach
     <div class="accordion">
     @foreach(Directions::with('photo')->with('courses')->get() as $direction)
