@@ -364,8 +364,8 @@ class AdminDicvalsController extends BaseController {
                 #Helper::d($fields);
                 foreach ($element_fields as $key => $_value) {
 
-                    if (is_numeric($key) || !isset($fields[$key]))
-                        continue;
+                    #if (is_numeric($key) || !isset($fields[$key]))
+                    #    continue;
 
                     #Helper::d($key);
 

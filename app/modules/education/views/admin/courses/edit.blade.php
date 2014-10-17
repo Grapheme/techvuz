@@ -7,6 +7,7 @@
     <h4>Направление обучения &laquo;{{ $direction->title }}&raquo;</h4>
 {{ Form::model($course, array('url'=>URL::route('courses.update',array('directions'=>$direction->id,'course'=>$course->id)), 'class'=>'smart-form', 'id'=>'course-form', 'role'=>'form', 'method'=>'PUT','files'=>true)) }}
 	{{ Form::hidden('direction_id',$direction->id) }}
+	{{ Form::hidden('order') }}
 	<div class="row margin-top-10">
 		<section class="col col-6">
 			<div class="well">
@@ -34,6 +35,12 @@
                         <label class="label">Цена</label>
                         <label class="input">
                             {{ Form::text('price') }}
+                        </label>
+                    </section>
+                    <section>
+                        <label class="label">Скидка, %</label>
+                        <label class="input">
+                            {{ Form::text('discount') }}
                         </label>
                     </section>
                     <section>

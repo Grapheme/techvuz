@@ -37,7 +37,7 @@ class Orders extends BaseModel {
 
     protected $table = 'orders';
 
-    protected $fillable = array('user_id','number','completed');
+    protected $fillable = array('user_id','number','completed','discount');
 
     public static $order_by = "number";
 

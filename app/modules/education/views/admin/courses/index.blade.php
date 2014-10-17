@@ -37,8 +37,9 @@
     				<tr>
     					<th class="col-lg-1 text-center">№</th>
     					<th class="col-lg-1 text-center">Код</th>
-    					<th class="col-lg-5 text-center">Название</th>
+    					<th class="col-lg-4 text-center">Название</th>
     					<th class="col-lg-1 text-center">Цена</th>
+    					<th class="col-lg-1 text-center">Скидка, %</th>
     					<th class="col-lg-1 text-center">Часы</th>
     					<th class="col-lg-1 text-center"></th>
     					<th class="col-lg-2 text-center"></th>
@@ -47,11 +48,12 @@
     			<tbody class="sortable">
     			@foreach($courses as $course)
     				<tr data-id="{{ $course->id }}" class="vertical-middle">
-    					<td>{{ $course->order }}</td>
-    					<td>{{ $course->code }}</td>
+    					<td class="text-center">{{ $course->order }}</td>
+    					<td class="text-center">{{ $course->code }}</td>
     					<td>{{ $course->title }}</td>
-    					<td>{{ $course->price }} руб.</td>
-    					<td>{{ $course->hours }}</td>
+    					<td class="text-center">{{ $course->price }} руб.</td>
+    					<td class="text-center">{{ $course->discount }}</td>
+    					<td class="text-center">{{ $course->hours }}</td>
     					<td><a href="{{ URL::route('modules.index',array('direction'=>$direction->id,'course'=>$course->id)) }}" class="btn btn-link margin-right-10">Модули ({{ $course->lectures->count() }})</a></td>
     					<td class="text-center" style="white-space:nowrap;">
         					@if(Allow::action($module['group'], 'edit'))

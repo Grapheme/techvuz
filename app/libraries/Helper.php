@@ -91,6 +91,16 @@ class Helper {
         return "templates." . $layout . ($file ? '.' . $file : '');
     }
 
+    public static function theme_dir($file = '') {
+
+        $layout = Config::get('app.template');
+        if (!$layout)
+            $layout = 'default';
+
+        $full = base_path("app/views/templates/" . $layout . ( $file ? '/'.$file : ''));
+        return $full;
+    }
+
     public static function inclayout($file) {
 
         $layout = Config::get('app.template');
@@ -338,7 +348,9 @@ HTML;
 
                 #$return .= "\n<!--\n" . $_SERVER['REQUEST_URI'] . "\n" . $menu['link'] . "\n-->\n";
 
-                $return .= '<a class="' . @$menu['class'] . ($child_exists ? '' : ' margin-bottom-5') . '" href="' . $menu['link'] . '">'
+                $additional = isset($menu['others']) ? self::arrayToAttributes($menu['others']) : '';
+
+                $return .= '<a class="' . @$menu['class'] . ($child_exists ? '' : ' margin-bottom-5') . '" href="' . $menu['link'] . '" ' . $additional . '>'
                         . ($current ? '<i class="fa fa-check"></i> ' : '')
                         . @$menu['title'] . '</a> ';
 
@@ -449,6 +461,7 @@ HTML;
                 break;
             case 'upload':
                 $others_array['class'] = trim(@$others_array['class'] . ' file_upload');
+                #Helper::dd($others_array);
                 $return = ExtForm::upload($name, $value, $others_array);
                 break;
             case 'video':
@@ -486,13 +499,14 @@ HTML;
                 }
                 foreach ($array['values'] as $key => $val) {
                     $checked = is_array($value) && isset($value[$key]);
-                    $el = '<label class="checkbox' . $style . '">'
-                        . Form::checkbox($name . '[]', $key, $checked, $others_array)
-                        . '<i></i>'
-                        . '<span>' . $val . '</span>'
-                        . '</label>';
+                    $el = '<label class="checkbox' . $style . '">' . "\n"
+                        . Form::checkbox($name . '[]', $key, $checked, $others_array) . "\n"
+                        . '<i></i>' . "\n"
+                        . '<span>' . $val . '</span>' . "\n"
+                        . '</label>' . "\n\n";
                     $return .= $el;
                 }
+                #Helper::d(htmlspecialchars($return));
                 break;
         }
         return $return;
@@ -952,5 +966,77 @@ HTML;
         #Helper::dd($return);
         return $return;
     }
+
+    public static function getFileProperties($file) {
+        $properties = array();
+        $limit = 18;
+
+        if (!file_exists($file) || !is_file($file) || !is_readable($file))
+            return $properties;
+
+        $l = 0;
+        $handle = @fopen($file, "r");
+        if ($handle) {
+            while (($buffer = fgets($handle, 1024)) !== false) {
+                ++$l;
+                /*
+                Helper::d(
+                    $l . " => " . $buffer
+                    . ' / ' . ($l == 1 ? (int)(trim($buffer) == '<?') . '[' . trim($buffer) . ']' : '')
+                    . ' / ' . ($l == 2 ? (int)(trim($buffer) == '/**') . '[' . trim($buffer) . ']' : '')
+                );
+                */
+                if (
+                    $l > $limit
+                    || ($l == 1 && mb_substr($buffer, 0, 2) != '<?')
+                    || ($l == 2 && mb_substr($buffer, 0, 3) != '/**')
+                )
+                    break;
+
+                #Helper::d(' + ' . $buffer . ' => ' . (int)(trim($buffer) == '<?'));
+
+                if ($l > 2) {
+                    if (mb_substr($buffer, 0, 3) == ' */')
+                        break;
+
+                    $buffer = trim($buffer, " \r\n\t*");
+                    $buffer = explode(':', $buffer);
+                    #Helper::d($buffer);
+
+                    $value = @trim($buffer[1]) ?: true;
+                    if ($value !== true && is_string($value) && mb_strlen($value) && mb_strpos($value, '|')) {
+                        $temp = explode('|', $value);
+                        $value = array();
+                        foreach ($temp as $tmp) {
+                            $tmp = trim($tmp);
+                            if (mb_strpos($tmp, '=')) {
+                                $keyval = explode('=', $tmp, 2);
+                                $value[trim($keyval[0])] = trim($keyval[1]);
+                            } else {
+                                $value[$tmp] = true;
+                            }
+                        }
+                    }
+
+                    $properties[@trim($buffer[0])] = $value;
+                }
+
+            }
+            if (!feof($handle)) {
+                #echo "Error: unexpected fgets() fail\n";
+            }
+            fclose($handle);
+        }
+        return $properties;
+    }
+
+    public static function getLayoutProperties($layout = false) {
+         if (!$layout)
+             $layout = Config::get('app.template');
+
+        $file = base_path("/app/views/templates/" . $layout . '.blade.php');
+        return self::getFileProperties($file);
+    }
+
 }
 

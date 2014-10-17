@@ -19,7 +19,8 @@
     					<th class="col-lg-1 text-center">№ п.п</th>
     					<th class="col-lg-1 text-center">Код</th>
     					<th class="col-lg-6 text-center">Название</th>
-    					<th class="col-lg-2 text-center"></th>
+    					<th class="col-lg-1 text-center">Скидка, %</th>
+    					<th class="col-lg-1 text-center"></th>
     					<th class="col-lg-2 text-center"></th>
     				</tr>
     			</thead>
@@ -29,7 +30,8 @@
     					<td>{{ $direction->order }}</td>
     					<td>{{ $direction->code }}</td>
                         <td>{{ $direction->title }}</td>
-                        <td><a href="{{ URL::route('courses.index',array('directions'=>$direction->id)) }}" class="btn btn-link margin-right-10">Курсы ({{ $direction->courses->count() }})</a></td>
+                        <td class="text-center">{{ $direction->discount }}</td>
+                        <td class="text-center"><a href="{{ URL::route('courses.index',array('directions'=>$direction->id)) }}" class="btn btn-link margin-right-10">Курсы ({{ $direction->courses->count() }})</a></td>
     					<td class="text-center" style="white-space:nowrap;">
         					@if(Allow::action($module['group'], 'edit'))
         					<a href="{{ URL::route('directions.edit',array('directions'=>$direction->id)) }}" class="btn btn-success margin-right-10">Изменить</a>

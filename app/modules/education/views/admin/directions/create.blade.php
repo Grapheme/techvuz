@@ -5,6 +5,7 @@
 @section('content')
     <h1>Направления и курсы: Новое направление обучения</h1>
 {{ Form::open(array('url'=>URL::route('directions.store'), 'role'=>'form', 'class'=>'smart-form', 'id'=>'direction-form', 'method'=>'post')) }}
+	{{ Form::hidden('order',(int) DB::table('directions')->max('order')+1) }}
 	<div class="row margin-top-10">
 		<section class="col col-6">
 			<div class="well">
@@ -26,6 +27,12 @@
 						<label class="label">Описание</label>
 						<label class="textarea">
 							{{ Form::textarea('description', '',array('class'=>'redactor')) }}
+						</label>
+					</section>
+					<section>
+						<label class="label">Скидка, %</label>
+						<label class="input">
+							{{ Form::text('discount',0) }}
 						</label>
 					</section>
 					<section>

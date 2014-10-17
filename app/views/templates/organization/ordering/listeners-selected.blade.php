@@ -38,7 +38,14 @@
                         <td>{{ $course->code }}</td>
                         <td>{{ $course->hours }}</td>
                         <td class="purchase-listeners"></td>
-                        <td class="purchase-price" data-price="{{ $course->price }}">{{ number_format($course->price,0,'.',' ')  }}.–</td>
+                        <?php
+                        $discountPrice = calculateDiscount(array($course->direction->discount,$course->discount,User_organization::whereId(Auth::user()->id)->pluck('discount')),$course->price);
+                        ?>
+                        @if($discountPrice === FALSE)
+                            <td class="purchase-price" data-price="{{ $course->price }}">{{ number_format($course->price,0,'.',' ')  }}.–</td>
+                        @else
+                            <td class="purchase-price" data-price="{{ $discountPrice }}">{{ number_format($discountPrice,0,'.',' ')  }}.–</td>
+                        @endif
                     </tr>
                 </table>
             </dt>

@@ -77,7 +77,21 @@ function returnZipDownloadHeaders($FilePath){
     );
 }
 
+function calculateDiscount($discounts,$price = NULL){
 
+    if (is_array($discounts) && !empty($discounts)):
+        $discount_percent = max($discounts);
+        if($discount_percent > 0):
+            if (is_null($price)):
+                return $discount_percent;
+            else:
+                return $price - ($price*round($discount_percent/100,2));
+            endif;
+        else:
+            return FALSE;
+        endif;
+    endif;
+}
 /****************************************************************************/
 /*********************** ДЛЯ ДОКУМЕНТОВ *************************************/
 /****************************************************************************/

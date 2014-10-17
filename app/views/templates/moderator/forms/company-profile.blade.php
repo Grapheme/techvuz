@@ -50,6 +50,9 @@
         <label>Контактное лицо</label>{{ Form::text('name') }}
     </div>
     <div class="form-element">
+        <label>Скидка, %</label>{{ Form::text('discount') }}
+    </div>
+    <div class="form-element">
         <button type="submit" autocomplete="off" class="btn btn--bordered btn--blue btn-form-submit">
             <i class="fa fa-spinner fa-spin hidden"></i> <span class="btn-response-text">Готово</span>
         </button>

@@ -128,25 +128,25 @@ class GitHub {
         endif;
 
         if(!$this->permission()):
-            return App::abort(403, 'В доступе отказано');
+            App::abort(403, 'В доступе отказано');
         endif;
         try {
-            exec($this->git_path.$command.' 2>&1',$result,$returnCode);
+            exec($this->git_path.$command.' 2>&1', $result, $returnCode);
         } catch (Exception $e) {
             return 'Невозможно вызвать комманду: '.$command;
         }
         if($this->set_log):
-            echo "\ncommand:\n".$command;
+            echo "\nCommand:\n".$this->git_path.$command;
             echo "\nResult:\n"; print_r($result);
-            echo "\Code:\n"; print_r($returnCode);
+            echo "\nCode:\n"; print_r($returnCode);
         endif;
-        return TRUE;
+        return $returnCode;
     }
 
     public function pull(){
 
         if(!$this->permission()):
-            return App::abort(403, 'В доступе отказано');
+            App::abort(403, 'В доступе отказано');
         endif;
 
         try {
@@ -156,11 +156,31 @@ class GitHub {
         }
 
         if($this->set_log):
-            echo "\ncommand:\n".$this->git_path.'git pull '.$this->remote.' '.$this->branch;
+            echo "\nCommand:\n".$this->git_path.'git pull '.$this->remote.' '.$this->branch;
             echo "\nResult:\n"; print_r($result);
-            echo "\Code:\n"; print_r($returnCode);
+            echo "\nCode:\n"; print_r($returnCode);
         endif;
-        return TRUE;
+        return $returnCode;
+    }
+
+    public function push(){
+
+        if(!$this->permission()):
+            App::abort(403, 'В доступе отказано');
+        endif;
+
+        try {
+            exec($this->git_path.'git push '.$this->remote.' '.$this->branch.' 2>&1', $result, $returnCode);
+        } catch (Exception $e) {
+            return 'Невозможно вызвать комманду git push'. $this->remote.' '.$this->branch;
+        }
+
+        if($this->set_log):
+            echo "\nCommand:\n".$this->git_path.'git push '.$this->remote.' '.$this->branch;
+            echo "\nResult:\n"; print_r($result);
+            echo "\nCode:\n"; print_r($returnCode);
+        endif;
+        return $returnCode;
     }
 
     private function permission(){

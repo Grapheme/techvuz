@@ -38,7 +38,8 @@
                     <td>{{ $company['orders_count'] }}</td>
                     <td>
                         реал.: {{ number_format($company['orders_earnings']['real_earnings'], 0, ',', ' ') }} руб.<br>
-                        всего: {{ number_format($company['orders_earnings']['total_earnings'], 0, ',', ' ') }} руб.
+                        всего: {{ number_format($company['orders_earnings']['total_earnings'], 0, ',', ' ') }} руб.<br>
+                        скидка: {{ $company['discount'] }}%.
                     </td>
                 </tr>
             @endforeach

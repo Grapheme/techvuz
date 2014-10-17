@@ -43,7 +43,9 @@ class SystemModules {
         ## If exists menu elements...
         if (isset($mod_menu) && is_array($mod_menu) && count($mod_menu)) {
             #foreach( $mod_menu as $mod_name => $menu_elements ) {
-            foreach( Allow::modules()+(array)@$dic_entities as $mod_name => $module ) {
+            foreach( (array)@$dic_entities+Allow::modules() as $mod_name => $module ) {
+
+                #Helper::d($mod_name);
 
                 ## Hardcode...
                 $menu_elements = @is_object($module) && @is_array($mod_menu[$mod_name]) ? $mod_menu[$mod_name] : $module;

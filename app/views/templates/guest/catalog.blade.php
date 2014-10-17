@@ -10,9 +10,15 @@
     <div class="desc">
     {{ $page->block('top_desc') }}
     </div>
+@foreach(Dictionary::valuesBySlug('information-baners') as $baner)
+    <?php $fields = modifyKeys($baner->fields,'key');?>
+    @if(isset($fields['active']) && $fields['active']['value'] == 1 )
     <div class="banner banner--red">
-        <span>В августе месяце скидка 30%<br>на курсы по охране труда.</span>
+        <span>{{ $fields['content']['value'] }}</span>
     </div>
+    @endif
+    {{ Helper::ta($fields); }}
+@endforeach
     <div class="accordion">
     @foreach(Directions::with('photo')->with('courses')->get() as $direction)
         <div class="accordion-header">
@@ -38,7 +44,17 @@
                     <td>{{ $course->title }}</td>
                     <td><span class="code">{{ $course->code }}</span></td>
                     <td><span class="code">{{ $course->hours }}</span></td>
-                    <td><span class="price">{{ number_format($course->price,0,'.',' ')  }}.–</span></td>
+                    <td>
+                    <?php
+                        $discountPrice = calculateDiscount(array($direction->discount,$course->discount),$course->price);
+                    ?>
+                    @if($discountPrice === FALSE)
+                        <span class="price">{{ number_format($course->price,0,'.',' ')  }}.–</span>
+                    @else
+                        <span class="price"><s>{{ number_format($course->price,0,'.',' ')  }}.–</s></span>
+                        <br><span class="price">{{ number_format($discountPrice,0,'.',' ')  }}.–</span>
+                    @endif
+                    </td>
                 </tr>
             @endforeach
             </table>

@@ -177,6 +177,7 @@ class AdminEducationCoursesController extends BaseController {
         $input['title'] = Input::get('title');
         $input['description'] = Input::get('description');
         $input['price'] = Input::get('price');
+        $input['discount'] = Input::get('discount');
         $input['hours'] = Input::get('hours');
 
         $input['libraries'] = ExtForm::process('upload', @Input::all()['libraries']);

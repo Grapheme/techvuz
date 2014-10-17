@@ -115,16 +115,21 @@ class AccountsOrderingController extends BaseController {
             endforeach;
             $lastOrderNumber = Orders::where('completed',1)->orderBy('number','DESC')->pluck('number');
             if($order = Orders::create(array('user_id'=>Auth::user()->id,'number'=>$lastOrderNumber+1,'completed'=>Input::get('completed')))):
-                foreach(Courses::whereIn('id',Input::get('courses'))->get() as $course):
+                foreach(Courses::whereIn('id',Input::get('courses'))->with('direction')->get() as $course):
+                    $discountPrice = calculateDiscount(array($course->direction->discount,$course->discount,User_organization::whereId(Auth::user()->id)->pluck('discount')),$course->price);
+                    $course_price = $course->price;
+                    if ($discountPrice !== FALSE):
+                        $course_price = $discountPrice;
+                    endif;
                     foreach(Input::get('listeners') as $course_id => $listeners):
                         if ($course->id == $course_id):
                             foreach($listeners as $listener_id):
-                                OrderListeners::create(array('order_id'=>$order->id,'course_id'=>$course_id,'user_id'=>$listener_id,'price'=>$course->price));
+                                OrderListeners::create(array('order_id'=>$order->id,'course_id'=>$course_id,'user_id'=>$listener_id,'price'=>$course_price));
                             endforeach;
                         endif;
                     endforeach;
                 endforeach;
-                setcookie("ordering", "", time() - 3600);
+                setcookie("ordering", "", time() - 3600,'/');
                 Event::fire('order.created',array('order'=>$order));
                 return Redirect::to(AuthAccount::getStartPage());
             endif;

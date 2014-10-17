@@ -90,6 +90,7 @@ class AccountsModeratorController extends BaseController {
                 $companies[$index]['fio_manager'] = $company->fio_manager;
                 $companies[$index]['email'] = $company->email;
                 $companies[$index]['orders_count'] = $company->orders->count();
+                $companies[$index]['discount'] = $company->discount;
                 $companies[$index]['orders_earnings'] = array('total_earnings'=>0,'real_earnings'=>0);
                 if ($company->orders->count()):
                     foreach ($company->orders as $order):
@@ -198,6 +199,7 @@ class AccountsModeratorController extends BaseController {
             $organization->bik = $post['bik'];
             $organization->name = $post['name'];
             $organization->phone = $post['phone'];
+            $organization->discount = $post['discount'];
             $organization->save();
             $organization->touch();
 

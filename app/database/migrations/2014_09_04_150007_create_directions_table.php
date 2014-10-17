@@ -14,6 +14,7 @@ class CreateDirectionsTable extends Migration {
                 $table->string('title',255)->nullable();
                 $table->integer('photo_id')->unsigned()->nullable();
                 $table->text('description')->nullable();
+                $table->tinyInteger('discount')->default(0)->nullable();
                 $table->timestamps();
             });
             echo(' + ' . 'directions' . PHP_EOL);
