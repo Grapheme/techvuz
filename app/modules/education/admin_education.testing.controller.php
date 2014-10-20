@@ -23,6 +23,7 @@ class AdminEducationTestingController extends BaseController {
                     )
                 )
             );
+            Route::post(AdminEducationDirectionsController::$group.'/'.AdminEducationDirectionsController::$name.'/{direction}/'.AdminEducationCoursesController::$name.'/{course}/'.AdminEducationChaptersController::$name.'/{chapter}/'.$class::$name.'/dublicate', array('before' => 'csrf', 'as' => $class::$name.'.dublicate', 'uses' => $class."@postDublicate"));
         });
     }
 
@@ -113,6 +114,35 @@ class AdminEducationTestingController extends BaseController {
         $json_request['responseText'] = self::$entity_name.' удален';
         $json_request['status'] = TRUE;
         return Response::json($json_request, 200);
+    }
+
+    public function postDublicate($direction_id,$course_id,$chapter_id){
+
+        $validation = Validator::make(Input::all(), array('course_id'=>'required','chapter_id'=>'required'));
+        if($validation->passes()):
+            $valid = FALSE;
+            $test = array();
+            if (Input::get('chapter_id') > 0 && Courses::where('id',Input::get('course_id'))->first()->chapters()->where('id',Input::get('chapter_id'))->exists()):
+                $valid = TRUE;
+            elseif(Input::get('chapter_id') == 0 && Courses::where('id',Input::get('course_id'))->exists()):
+                $valid = TRUE;
+            endif;
+            if ($chapter_id > 0):
+                $test = Chapter::where('id',$chapter_id)->first()->test()->with('questions.answers')->first();
+            else:
+                $test = Courses::where('id',$course_id)->first()->test()->with('questions.answers')->first();
+            endif;
+            if ($valid && !empty($test)):
+                $test_new = CoursesTests::create(array('course_id'=>Input::get('course_id'),'chapter_id'=>Input::get('chapter_id'),'order'=>$test->order,'title'=>$test->title,'active'=>$test->active));
+                foreach($test->questions as $question):
+                    $testQuestion_new = CoursesTestsQuestions::create(array('test_id'=>$test_new->id,'order'=>$question->order,'title'=>$question->title,'description'=>$question->description));
+                    foreach($question->answers as $answer):
+                        CoursesTestsAnswers::create(array('test_id'=>$test_new->id,'test_question_id'=>$testQuestion_new->id,'order'=>$answer->order,'title'=>$answer->title,'description'=>$answer->description,'correct'=>$answer->correct));
+                    endforeach;
+                endforeach;
+            endif;
+        endif;
+        return Redirect::back()->with('message','Тест скопирован успешно.');
     }
 
     public function postAjaxOrderSave() {

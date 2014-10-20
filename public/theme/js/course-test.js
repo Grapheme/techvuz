@@ -1,5 +1,19 @@
 $(function(){
 
+    $(".create-dublicate-test").click(function() {
+        var $this = this;
+        $.SmartMessageBox({
+            title : "Создать копию теста?",
+            content : "",
+            buttons : '[Нет][Да]'
+        },function(ButtonPressed) {
+            if(ButtonPressed == "Да"){
+                $($this).parents('form').submit();
+            }
+        });
+        return false;
+    });
+
     $(".remove-" + essence_test).click(function() {
         var $this = this;
         $.SmartMessageBox({

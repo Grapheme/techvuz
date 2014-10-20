@@ -20,6 +20,26 @@
         <div class="pull-left margin-right-10">
             <a class="btn btn-default" href="{{ URL::route('modules.index',array('direction'=>$direction->id,'course'=>$course->id)) }}">Модули</a>
         </div>
+        <div class="btn-group pull-right margin-right-10">
+            {{ Form::open(array('url'=>URL::route('testing.dublicate',array('directions'=>$direction->id,'course_id'=>$course->id,'chapter_id'=>$chapter_id)), 'role'=>'form', 'class'=>'smart-form', 'method'=>'post')) }}
+                {{ Form::select('course_id',Courses::where('id','!=',$course->id)->orderBy('code')->lists('code','id')) }}
+            <?php
+                $chapters_select = Chapter::orderBy('order')->select('id','course_id','title')->get();
+            ?>
+                <select name="chapter_id">
+                @foreach($chapters_select as $chapter_select)
+                    <option data-course="{{ $chapter_select->course_id }}" value="{{ $chapter_select->id }}">{{ $chapter_select->title }}</option>
+                @endforeach
+                    <option value="0">Итоговый тест</option>
+                </select>
+                <button type="submit" autocomplete="off" class="btn btn-success create-dublicate-test">Создать копию</button>
+            {{ Form::close() }}
+            @if(Session::has('message'))
+            <div class="alert alert-info fade in">
+                <i class="fa-fw fa fa-info"></i> {{ Session::get('message') }}
+            </div>
+            @endif
+        </div>
     </div>
 </div>
 <div class="row">
