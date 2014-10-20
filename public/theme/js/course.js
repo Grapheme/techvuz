@@ -1,6 +1,20 @@
 $(function(){
 	
-	$(".remove-" + essence).click(function() {
+	$(".create-dublicate-module").click(function() {
+		var $this = this;
+		$.SmartMessageBox({
+			title : "Создать копию модуля?",
+			content : "",
+			buttons : '[Нет][Да]'
+		},function(ButtonPressed) {
+			if(ButtonPressed == "Да"){
+                $($this).parents('form').submit();
+            }
+		});
+		return false;
+	});
+
+    $(".remove-" + essence).click(function() {
 		var $this = this;
 		$.SmartMessageBox({
 			title : "Удалить " + essence_name + "?",

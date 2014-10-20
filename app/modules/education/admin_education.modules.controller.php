@@ -22,6 +22,7 @@ class AdminEducationModulesController extends BaseController {
                     )
                 )
             );
+            Route::post(AdminEducationDirectionsController::$group.'/'.AdminEducationDirectionsController::$name.'/{direction}/'.AdminEducationCoursesController::$name.'/{course}/'.$class::$name.'/dublicate', array('before' => 'csrf', 'as' => $class::$name.'.dublicate', 'uses' => $class."@postDublicate"));
         });
     }
 
@@ -46,6 +47,9 @@ class AdminEducationModulesController extends BaseController {
     protected $direction;
     protected $course;
 
+    /**
+     *
+     */
     public function __construct(){
 
         $this->direction = Directions::where('id',Request::segment(4))->with('courses')->first();
@@ -71,6 +75,9 @@ class AdminEducationModulesController extends BaseController {
         View::share('module', $this->module);
     }
 
+    /**
+     * @return \Illuminate\View\View
+     */
     public function index() {
 
         Allow::permission($this->module['group'], 'view');
@@ -79,6 +86,49 @@ class AdminEducationModulesController extends BaseController {
         return View::make($this->module['tpl'].'index', compact('direction','course'));
     }
 
+
+    /**
+     * @param $direction_id
+     * @param $course_id
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function postDublicate($direction_id,$course_id){
+
+        $validation = Validator::make(Input::all(), array('course_id'=>'required'));
+        if($validation->passes()):
+            if (Courses::where('id',Input::get('course_id'))->exists()):
+                foreach(Chapter::where('course_id',$course_id)->with('lectures','test.questions.answers')->get() as $chapter):
+                    $chapter_new = Chapter::create(array('course_id'=>Input::get('course_id'),'order'=>$chapter->order,'title'=>$chapter->title,'description'=>$chapter->description,'hours'=>$chapter->hours));
+                    foreach($chapter->lectures as $lecture):
+                        Lectures::create(array('course_id'=>Input::get('course_id'),'chapter_id'=>$chapter_new->id,'order'=>$lecture->order,'title'=>$lecture->title,'description'=>$lecture->description,'hours'=>$lecture->hours,'document'=>0));
+                    endforeach;
+                    if (!empty($chapter->test)):
+                        $test_new = CoursesTests::create(array('course_id'=>Input::get('course_id'),'chapter_id'=>$chapter_new->id,'order'=>$chapter->test->order,'title'=>$chapter->test->title,'active'=>$chapter->test->active));
+                        foreach($chapter->test->questions as $question):
+                            $testQuestion_new = CoursesTestsQuestions::create(array('test_id'=>$test_new->id,'order'=>$question->order,'title'=>$question->title,'description'=>$question->description));
+                            foreach($question->answers as $answer):
+                                CoursesTestsAnswers::create(array('test_id'=>$test_new->id,'test_question_id'=>$testQuestion_new->id,'order'=>$answer->order,'title'=>$answer->title,'description'=>$answer->description,'correct'=>$answer->correct));
+                            endforeach;
+                        endforeach;
+                    endif;
+                endforeach;
+                foreach(CoursesTests::where('course_id',$course_id)->where('chapter_id',0)->with('questions.answers')->get() as $test):
+                    $test_new = CoursesTests::create(array('course_id'=>Input::get('course_id'),'chapter_id'=>$test->chapter_id,'order'=>$test->order,'title'=>$test->title,'active'=>$test->active));
+                    foreach($test->questions as $question):
+                        $testQuestion_new = CoursesTestsQuestions::create(array('test_id'=>$test_new->id,'order'=>$question->order,'title'=>$question->title,'description'=>$question->description));
+                        foreach($question->answers as $answer):
+                            CoursesTestsAnswers::create(array('test_id'=>$test_new->id,'test_question_id'=>$testQuestion_new->id,'order'=>$answer->order,'title'=>$answer->title,'description'=>$answer->description,'correct'=>$answer->correct));
+                        endforeach;
+                    endforeach;
+                endforeach;
+            endif;
+        endif;
+        return Redirect::back()->with('message','Модуль скопирован успешно.');
+    }
+
+    /**
+     * @return \Illuminate\Http\Response
+     */
     public function postAjaxOrderSave() {
 
         foreach(Lectures::where('chapter_id',Input::get('chapter'))->whereIn('id', Input::get('poss'))->get() as $pl):

@@ -11,6 +11,17 @@
         <div class="pull-left margin-right-10">
             <a class="btn btn-default" href="{{ URL::route('courses.index',array('direction'=>$direction->id)) }}">Список курсов</a>
         </div>
+        <div class="btn-group pull-right margin-right-10">
+            {{ Form::open(array('url'=>URL::route('modules.dublicate',array('directions'=>$direction->id,'course_id'=>$course->id)), 'role'=>'form', 'class'=>'smart-form', 'method'=>'post')) }}
+                {{ Form::select('course_id',Courses::where('id','!=',$course->id)->orderBy('code')->lists('code','id')) }}
+                <button type="submit" autocomplete="off" class="btn btn-success create-dublicate-module">Создать копию</button>
+            {{ Form::close() }}
+            @if(Session::has('message'))
+            <div class="alert alert-info fade in">
+                <i class="fa-fw fa fa-info"></i> {{ Session::get('message') }}
+            </div>
+            @endif
+        </div>
     </div>
 </div>
 <div class="row">
