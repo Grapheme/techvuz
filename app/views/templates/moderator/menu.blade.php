@@ -8,6 +8,9 @@
     <li class="cabinet-menu-li">
         <a href="{{ URL::route('moderator-listeners-list') }}"><i class="fa fa-lg fa-fw fa-group"></i> Слушатели</a>
     </li>
+    <li class="cabinet-menu-li">
+        <a href="{{ URL::route('moderator-statistic') }}"><i class="fa fa-lg fa-fw fa-bar-chart"></i> Статистика</a>
+    </li>
 @foreach(SystemModules::getSidebarModules() as $name => $module)
     <?php $modules_menu[] = $module;?>
     <?php $menu_active = false; ?>
