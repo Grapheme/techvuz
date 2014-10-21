@@ -235,6 +235,7 @@ class AccountsModeratorController extends BaseController {
         if($page_data['order'] = Orders::where('id',$order_id)->with('payment_numbers')->first()):
             $courses = array();
             foreach(Orders::where('id',$order_id)->first()->listeners()->with('user_listener','course')->get() as $course):
+                Helper::dd($course);
                 $courses[$course->course_id]['course']['code'] = $course->course->code;
                 $courses[$course->course_id]['course']['title'] = $course->course->title;
                 $courses[$course->course_id]['course']['description'] = $course->course->description;
