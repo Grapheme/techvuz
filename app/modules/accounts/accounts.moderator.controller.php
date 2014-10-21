@@ -157,6 +157,7 @@ class AccountsModeratorController extends BaseController {
             $validator = Validator::make(Input::all(),Organization::$moderator_rules);
             if($validator->passes()):
                 if (self::CompanyAccountUpdate($company_id,Input::all())):
+                    Event::fire(Route::currentRouteName(), array(array('title'=>'Организация: '.User_organization::whereId($company_id)->pluck('title'))));
                     $json_request['responseText'] = Lang::get('interface.UPDATE_PROFILE_COMPANY.success');
                     $json_request['redirect'] = URL::route('moderator-company-profile',$company_id);
                     $json_request['status'] = TRUE;
@@ -181,6 +182,9 @@ class AccountsModeratorController extends BaseController {
             $user->name = (isset($fio[1]))?$fio[1]:'';
             $user->surname = (isset($fio[0]))?$fio[0]:'';
             $user->email = $post['email'];
+            if($post['active'] == 1 && ($user->active == 0 || $user->active == 2) ):
+                Event::fire('moderator-company-profile-activated', array(array('title'=>$post['title'])));
+            endif;
             $user->active = $post['active'];
             if($post['active'] == 1):
                 $user->temporary_code = '';
@@ -203,6 +207,9 @@ class AccountsModeratorController extends BaseController {
             $organization->name = $post['name'];
             $organization->phone = $post['phone'];
             $organization->discount = $post['discount'];
+            if($organization->moderator_approve == 0 && $post['moderator_approve'] == 1):
+                Event::fire('moderator-company-profile-approved', array(array('title'=>$post['title'])));
+            endif;
             $organization->moderator_approve = $post['moderator_approve'];
             $organization->save();
             $organization->touch();
@@ -258,6 +265,7 @@ class AccountsModeratorController extends BaseController {
             if($validator->passes()):
                 if (OrderPayments::create(array('order_id'=>$order_id,'price'=>Input::get('price'),'payment_number'=>Input::get('payment_number'),'payment_date'=>date('Y-m-d', strtotime(Input::get('payment_date')))))):
                     self::authChangeOrderStatus($order_id);
+                    Event::fire(Route::currentRouteName(), array(array('title'=>'Заказ №'.Orders::findOrFail($order_id)->pluck('number').'. Сумма: '.Input::get('price').' руб.')));
                     $json_request['responseText'] = Lang::get('interface.DEFAULT.success_insert');
                     $json_request['redirect'] = URL::route('moderator-order-extended',$order_id);
                     $json_request['status'] = TRUE;
@@ -285,6 +293,7 @@ class AccountsModeratorController extends BaseController {
                     $order_payment->save();
                     $order_payment->touch();
                     self::authChangeOrderStatus($order_id);
+                    Event::fire(Route::currentRouteName(), array(array('title'=>'Заказ №'.Orders::findOrFail($order_id)->pluck('number').'. Сумма: '.Input::get('price').' руб.')));
                     $json_request['responseText'] = Lang::get('interface.DEFAULT.success_save');
                     $json_request['redirect'] = URL::route('moderator-order-extended',$order_id);
                     $json_request['status'] = TRUE;
@@ -301,6 +310,7 @@ class AccountsModeratorController extends BaseController {
 
     public function OrderPaymentNumberDelete($order_id,$payment_order_id){
 
+        Event::fire(Route::currentRouteName(), array(array('title'=>'Заказ №'.Orders::findOrFail($order_id)->pluck('number').'. Сумма: '.OrderPayments::where('id',$payment_order_id)->where('order_id',$order_id)->pluck('price').' руб.')));
         OrderPayments::where('id',$payment_order_id)->where('order_id',$order_id)->delete();
         self::authChangeOrderStatus($order_id);
         return Redirect::route('moderator-order-extended',$order_id);
@@ -378,7 +388,7 @@ class AccountsModeratorController extends BaseController {
                 endswitch;
                 $order->save();
                 $order->touch();
-                Event::listen('order.payment', function ($data) { });
+                Event::fire(Route::currentRouteName(), array(array('title'=>'Заказ №'.$order->number)));
                 $json_request['responseText'] = Lang::get('interface.DEFAULT.success_change');
                 $json_request['status'] = TRUE;
             endif;
@@ -489,8 +499,10 @@ class AccountsModeratorController extends BaseController {
                 if($account = User::where('id',$listener_id)->first()):
                     if ($account->group_id = 5):
                         self::ListenerCompanyAccountUpdate($account,$listener_id,Input::all());
+                        Event::fire(Route::currentRouteName(), array(array('title'=>'Слушатель: '.User_listener::whereId($listener_id)->pluck('fio'))));
                     elseif($account->group_id = 6):
                         self::ListenerIndividualAccountUpdate($account,$listener_id,Input::all());
+                        Event::fire(Route::currentRouteName(), array(array('title'=>'Слушатель: '.User_individual::whereId($listener_id)->pluck('fio'))));
                     endif;
                     $json_request['status'] = TRUE;
                     $json_request['responseText'] = Lang::get('interface.UPDATE_PROFILE_LISTENER.success');
@@ -515,6 +527,9 @@ class AccountsModeratorController extends BaseController {
             $user->name = (isset($fio[1]))?$fio[1]:'';
             $user->surname = (isset($fio[0]))?$fio[0]:'';
             $user->email = $post['email'];
+            if($post['active'] == 1 && ($user->active == 0 || $user->active == 2) ):
+                Event::fire('moderator-listener-profile-activated', array(array('title'=>$post['fio'])));
+            endif;
             $user->active = $post['active'];
             if($post['active'] == 1):
                 $user->temporary_code = '';

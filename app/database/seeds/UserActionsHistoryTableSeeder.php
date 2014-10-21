@@ -40,6 +40,18 @@ class UserActionsHistoryTableSeeder extends Seeder{
 
         DicVal::create(array('dic_id'=>$dic_id,'slug'=>'otredaktirovan-document','name'=> 'Обновлен документ','order'=>20));
 
+        DicVal::create(array('dic_id'=>$dic_id,'slug'=>'payment-order-number-store','name'=> 'Добавлен платеж','order'=>21));
+        DicVal::create(array('dic_id'=>$dic_id,'slug'=>'payment-order-number-update','name'=> 'Обновлен платеж','order'=>22));
+        DicVal::create(array('dic_id'=>$dic_id,'slug'=>'payment-order-number-delete','name'=> 'Удален платеж','order'=>23));
+
+        DicVal::create(array('dic_id'=>$dic_id,'slug'=>'change-order-status','name'=> 'Изменен статус заказа','order'=>24));
+
+        DicVal::create(array('dic_id'=>$dic_id,'slug'=>'moderator-company-profile-update','name'=> 'Изменен профиль компании','order'=>25));
+        DicVal::create(array('dic_id'=>$dic_id,'slug'=>'moderator-company-profile-activated','name'=> 'Активирован аккаунт компании','order'=>26));
+        DicVal::create(array('dic_id'=>$dic_id,'slug'=>'moderator-company-profile-approved','name'=> 'Подтвержден аккаунт компании','order'=>27));
+
+        DicVal::create(array('dic_id'=>$dic_id,'slug'=>'moderator-listener-profile-update','name'=> 'Изменен профиль слушателя','order'=>28));
+        DicVal::create(array('dic_id'=>$dic_id,'slug'=>'moderator-listener-profile-activated','name'=> 'Активирован аккаунт слушателя','order'=>29));
 	}
 
 }
