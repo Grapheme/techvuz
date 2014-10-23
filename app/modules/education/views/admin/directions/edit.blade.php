@@ -47,7 +47,7 @@
 						<i class="fa fa-arrow-left hidden"></i> <span class="btn-response-text">Назад</span>
 					</a>
 					<button type="submit" autocomplete="off" class="btn btn-success no-margin regular-10 uppercase btn-form-submit">
-						<i class="fa fa-spinner fa-spin hidden"></i> <span class="btn-response-text">Изменить</span>
+						<i class="fa fa-spinner fa-spin hidden"></i> <span class="btn-response-text">Сохранить</span>
 					</button>
 				</footer>
 			</div>

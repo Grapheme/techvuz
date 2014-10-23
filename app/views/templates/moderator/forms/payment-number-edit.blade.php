@@ -10,6 +10,6 @@
         <label>№ П/П</label>{{ Form::text('payment_number','') }}
     </div>
     <button type="submit" autocomplete="off" class="btn btn--bordered btn--blue pull-right btn-form-submit">
-        <i class="fa fa-spinner fa-spin hidden"></i> <span class="btn-response-text">Изменить</span>
+        <i class="fa fa-spinner fa-spin hidden"></i> <span class="btn-response-text">Сохранить</span>
     </button>
 {{ Form::close() }}
