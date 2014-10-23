@@ -15,10 +15,10 @@ class CreateListenerTable extends Migration {
                 $table->string('position',100)->nullable();
                 $table->string('postaddress',255)->nullable();
                 $table->string('phone',40)->nullable();
-                $table->string('education ',100)->nullable();
-                $table->string('place_work ',100)->nullable();
-                $table->string('year_study ',4)->nullable();
-                $table->string('specialty ',100)->nullable();
+                $table->string('education',100)->nullable();
+                $table->string('place_work',100)->nullable();
+                $table->string('year_study',4)->nullable();
+                $table->string('specialty',100)->nullable();
                 $table->timestamps();
             });
 
