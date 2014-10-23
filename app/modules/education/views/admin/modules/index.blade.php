@@ -16,11 +16,14 @@
                 {{ Form::select('course_id',Courses::where('id','!=',$course->id)->orderBy('code')->lists('code','id')) }}
                 <button type="submit" autocomplete="off" class="btn btn-success create-dublicate-module">Создать копию</button>
             {{ Form::close() }}
-            @if(Session::has('message'))
+        @if(Session::has('message'))
+            <?php $message = Session::get('message'); ?>
+            @if(!empty($message))
             <div class="alert alert-info fade in">
                 <i class="fa-fw fa fa-info"></i> {{ Session::get('message') }}
             </div>
             @endif
+        @endif
         </div>
     </div>
 </div>
@@ -38,7 +41,7 @@
                         @endif
                         @if(Allow::action($module['group'], 'delete'))
                         <form method="DELETE" action="{{ URL::route('chapters.destroy',array('directions'=>$direction->id,'course'=>$course->id,'chapter'=>$chapter->id)) }}" style="display:inline-block">
-                            <button type="submit" {{ $chapter->lectures->count() ? 'disabled' : '' }} class="btn btn-danger remove-chapter">
+                            <button type="submit" class="btn btn-danger {{ $chapter->lectures->count() ? 'dont-remove-chapter' : 'remove-chapter' }}">
                                 Удалить
                             </button>
                         </form>

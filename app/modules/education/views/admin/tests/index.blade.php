@@ -35,9 +35,12 @@
                 <button type="submit" autocomplete="off" class="btn btn-success create-dublicate-test">Создать копию</button>
             {{ Form::close() }}
             @if(Session::has('message'))
-            <div class="alert alert-info fade in">
-                <i class="fa-fw fa fa-info"></i> {{ Session::get('message') }}
-            </div>
+                <?php $message = Session::get('message'); ?>
+                @if(!empty($message))
+                <div class="alert alert-info fade in">
+                    <i class="fa-fw fa fa-info"></i> {{ Session::get('message') }}
+                </div>
+                @endif
             @endif
         </div>
     </div>

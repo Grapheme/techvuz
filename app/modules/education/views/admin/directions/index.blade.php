@@ -38,7 +38,7 @@
                     		@endif
         					@if(Allow::action($module['group'], 'delete'))
 							<form method="DELETE" action="{{ URL::route('directions.destroy',array('directions'=>$direction->id)) }}" style="display:inline-block">
-								<button type="submit" {{ $direction->courses->count() ? 'disabled' : '' }} class="btn btn-danger remove-direction">
+								<button type="submit" class="btn btn-danger {{ $direction->courses->count() ? 'dont-remove-direction' : 'remove-direction' }}">
 									Удалить
 								</button>
 							</form>

@@ -38,6 +38,15 @@ $(function(){
 		});
 		return false;
 	});
+    $(".dont-remove-" + essence).click(function() {
+		var $this = this;
+		$.SmartMessageBox({
+            title: "Невозможно удалить " + essence_name + ".",
+            content: "Удаляемый элемент содержит данные.",
+            buttons: '[ОК]'
+        });
+		return false;
+	});
 });
 
 
