@@ -9983,7 +9983,7 @@ section h3 {
           filter: none;
   -webkit-transition: opacity 0.3s ease-in-out;
   transition: opacity 0.3s ease-in-out;
-  background-image: url("../img/dropzone/spritemap.png");
+  background-image: url("/img/dropzone/spritemap.png");
   background-repeat: no-repeat;
   background-position: 0 0;
   position: absolute;
