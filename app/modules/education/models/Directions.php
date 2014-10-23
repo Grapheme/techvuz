@@ -35,7 +35,7 @@ class Directions extends BaseModel {
     );
 
     public function courses() {
-        return $this->hasMany('Courses', 'direction_id', 'id');
+        return $this->hasMany('Courses', 'direction_id', 'id')->orderBy('order');
     }
 
     public function photo() {
