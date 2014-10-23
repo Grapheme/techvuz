@@ -20,6 +20,7 @@
 @endforeach
     <div class="accordion">
     @foreach(Directions::orderBy('order')->with('photo')->with('courses')->get() as $direction)
+        <a name="{{ BaseController::stringTranslite($direction->title) }}"></a>
         <div class="accordion-header">
         @if(!empty($direction->photo->name))
             <div class="accordion-img" style="background-image: url('{{ Config::get('site.galleries_photo_public_dir').'/'.$direction->photo->name }}');"></div>

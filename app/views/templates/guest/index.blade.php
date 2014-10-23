@@ -14,7 +14,7 @@
             @if(!empty($direction->photo->name))
             {{ HTML::image(Config::get('site.galleries_photo_public_dir').'/'.$direction->photo->name,$direction->title,array('class'=>'directions-img')) }}
             @endif
-                <a class="direction-link" href="#"></a>
+                <a class="direction-link" href="{{ URL::route('page','catalog') }}#{{ BaseController::stringTranslite($direction->title) }}"></a>
                 <div class="direction-name">
                     {{ $direction->title }}
                 </div>
