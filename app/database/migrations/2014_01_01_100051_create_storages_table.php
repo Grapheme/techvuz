@@ -12,6 +12,7 @@ class CreateStoragesTable extends Migration {
         	Schema::create($this->table, function(Blueprint $table) {			
     			$table->increments('id');
     			$table->string('name');
+    			$table->string('module',255)->nullable()->index();
     			$table->text('value');
     			$table->timestamps();
     		});

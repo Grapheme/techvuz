@@ -61,7 +61,6 @@ class BaseController extends Controller {
 
     public function dashboard($prefix) {
 
-        if (!Auth::check()) return self::redirectToLogin();
         $page_data = array();
         if (!empty($prefix)):
             if (class_exists('AccountGroupsController') && method_exists('AccountGroupsController',$prefix)):

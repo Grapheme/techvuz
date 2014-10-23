@@ -41,7 +41,7 @@ return array(
         #'not_active' => 'Необходимо подтвердить ваш email, или аккаунт будет заблокирован через 5 дней',
         'not_active_few_day' => 'Аккаунт будет заблокирован через',
         'blocked_approve' => 'Ознакомительный период завершен. Ваш аккаунт заблокирован!',
-        'repeated_sending' => 'Для повторной отправки активационных данных нажмите на <a href="'.URL::route('activation-repeated-sending-letter').'">ссылку</a>'
+        'repeated_sending' => 'Для повторной отправки активационных данных нажмите на <a href="'.returnRoute('activation-repeated-sending-letter',null,'#').'">ссылку</a>'
     ),
 
     'PASSWORD_RESTORE' => array(

@@ -93,3 +93,15 @@ function returnDownloadHeaders($document){
     );
 }
 
+function hasNamedRoute($routeName){
+
+    return Route::getRoutes()->hasNamedRoute($routeName);
+}
+
+function returnRoute($routeName,$vars = [],$default = ''){
+    if (hasNamedRoute($routeName)):
+        return URL::route($routeName,$vars);
+    else:
+        return $default;
+    endif;
+}

@@ -20,6 +20,7 @@ Route::post('redactor/upload', 'DownloadsController@redactorUploadImage');
 | Роуты, доступные для всех авторизованных пользователей - dashboard
 */
 Route::group(array('before' => 'auth.status', 'prefix' => $prefix), function() use ($prefix){
+
     Route::get('/', function() use ($prefix){
         $controller = new BaseController;
         return $controller->dashboard($prefix);
@@ -56,7 +57,6 @@ Route::get('logout', array('before' => 'auth', 'as' => 'logout', 'uses' => 'Glob
 #################################################################
 
 
-
 /***********************************************************************/
 /******************** ЗАГРУЗКА РЕСУРСОВ ИЗ МОДУЛЕЙ *********************/
 /***********************************************************************/
@@ -80,6 +80,7 @@ $mod_info = array();
 $mod_menu = array();
 $mod_new = array();
 $default_actions = Config::get('actions');
+
 foreach ($files as $file) {
 
     #$dir_name = basename(dirname($file));
@@ -94,7 +95,6 @@ foreach ($files as $file) {
         }
         $module_name = implode("", $blocks);
     }
-    
     $module_prefix = "";
     $module_postname = $module_name;
     if (strpos($module_name, "_"))
@@ -110,6 +110,7 @@ foreach ($files as $file) {
         echo $file_name . ": " . $module_prefix . " | " . $module_name . " | " . $module_fullname . " > "; #die;
 
     ## If class have right name...
+
     if (class_exists($module_fullname)) {
 
         ## Load routes...
@@ -127,7 +128,7 @@ foreach ($files as $file) {
             if ($load_debug) echo " [ load extended form elements... ] ";
             $module_fullname::$returnExtFormElements();
         }
-        
+
         #if (!isset($module_fullname::$name))
         #    continue;
 
