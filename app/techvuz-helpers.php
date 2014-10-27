@@ -78,7 +78,7 @@ function returnZipDownloadHeaders($FilePath){
 }
 
 function calculateDiscount($discounts,$price = NULL){
-
+    Helper::ta($discounts);
     if (is_array($discounts) && !empty($discounts)):
         $discount_percent = max($discounts);
         if($discount_percent > 0):
