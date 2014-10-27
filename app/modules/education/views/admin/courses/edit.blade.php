@@ -50,12 +50,6 @@
                         </label>
                     </section>
                     <section>
-                        <label class="label">Литература</label>
-                        <label class="input">
-                            {{ ExtForm::upload('libraries') }}
-                        </label>
-                    </section>
-                    <section>
                         <label class="label">Учебный план</label>
                         <label class="input">
                             {{ ExtForm::upload('curriculum') }}
@@ -88,7 +82,7 @@ var essence_name = 'курс';
 var validation_rules = {
     direction_id: { required: true },
     code: { required: true },
-    title: { required: true },
+    title: { required: true }
 };
 var validation_messages = {
     direction_id: { required: 'Укажите направление обучения' },

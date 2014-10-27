@@ -23,11 +23,13 @@ endif;
     <?php $review['fields'] = modifyKeys($review['fields'],'key'); ?>
         <li class="reviews-li">
             <div class="reviews-author">
-                @if(isset($review->fields['user_avatar']->value) && isset($images[$review->fields['user_avatar']->value]))
                 <div class="reviews-author-ava">
-                    <img src="{{ asset(Config::get('site.galleries_photo_public_dir').'/'.$images[$review->fields['user_avatar']->value]->name) }}" alt="">
-                </div>
+                @if(isset($review->fields['user_avatar']->value) && isset($images[$review->fields['user_avatar']->value]))
+                    <img src="{{ asset(Config::get('site.galleries_photo_public_dir').'/'.$images[$review->fields['user_avatar']->value]->name) }}" alt="{{ $review->name }}">
+                @else
+                    <img src="{{ asset(Config::get('site.theme_path').'/img/avatars/default.png') }}" alt="{{ $review->name }}">
                 @endif
+                 </div>
                 <div class="reviews-author-name">
                     {{ $review->name }}
                 </div>

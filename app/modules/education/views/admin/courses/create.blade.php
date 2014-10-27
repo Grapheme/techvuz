@@ -50,12 +50,6 @@
                         </label>
                     </section>
                     <section>
-                        <label class="label">Литература</label>
-                        <label class="input">
-                            {{ ExtForm::upload('libraries') }}
-                        </label>
-                    </section>
-                    <section>
                         <label class="label">Учебный план</label>
                         <label class="input">
                             {{ ExtForm::upload('curriculum') }}
