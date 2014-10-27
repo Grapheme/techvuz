@@ -30,7 +30,7 @@
                         <th>Название</th>
                         <th>Код</th>
                         <th>Часы</th>
-                        <th>Слушатели</th>
+                        <th>Сотрудники</th>
                         <th>Цена</th>
                     </tr>
                     <tr>
@@ -50,7 +50,7 @@
                 </table>
             </dt>
             <dd class="purchase-course-dd">
-                <select data-placeholder="Выберите пользователей" name="listeners[{{ $course->id }}][]" style="width:450px" multiple="multiple" class="chosen-select">
+                <select data-placeholder="Выберите сотрудников" name="listeners[{{ $course->id }}][]" style="width:450px" multiple="multiple" class="chosen-select">
                 @foreach($listeners as $listener_id => $listener_fio)
                     <option value="{{ $listener_id }}">{{ $listener_fio }}</option>
                 @endforeach

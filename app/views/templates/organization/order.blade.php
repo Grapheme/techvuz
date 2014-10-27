@@ -22,7 +22,7 @@
         <table class="tech-table payments-table margin-bottom-30">
             <tr>
                 <th> Курс </th>
-                <th> Слушатели </th>
+                <th> Сотрудник </th>
                 <th> Стоимость </th>
                 <th> Удостоверение </th>
             </tr>
