@@ -15,8 +15,9 @@
 <main class="catalog">
     <h2>{{ $course->seo->h1 }}</h2>
     <div class="desc">
-    {{ $course->discription }}
+    {{ $course->description }}
     </div>
+    {{ $course->curriculum }}
 </main>
 @stop
 @section('overlays')

@@ -68,6 +68,12 @@
                             {{ Form::select('certificate',$certificates) }}
                         </label>
                     </section>
+                    <section>
+                        <label class="label">Учебный план</label>
+                        <label class="textarea">
+                            {{ Form::textarea('curriculum', '',array('class'=>'redactor')) }}
+                        </label>
+                    </section>
                 </fieldset>
 				<footer>
 					<a class="btn btn-default no-margin regular-10 uppercase pull-left btn-spinner" href="{{URL::previous()}}">

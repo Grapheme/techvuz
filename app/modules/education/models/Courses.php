@@ -33,7 +33,7 @@ class Courses extends BaseModel {
 
     protected $table = 'courses';
 
-    protected $fillable = array('direction_id','order','code','title','description','price','discount','hours','metodical','certificate');
+    protected $fillable = array('direction_id','order','code','title','description','price','discount','hours','metodical','certificate','curriculum');
 
     public static $order_by = "order";
 
