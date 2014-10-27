@@ -135,7 +135,7 @@
         </div>
         <div>
         <?php
-            $listeners = User_listener::where('organization_id',Auth::user()->id)->where('active',1)->with(array('study'=>function($query){
+            $listeners = User_listener::where('organization_id',Auth::user()->id)->where('active','>=',1)->with(array('study'=>function($query){
                 $query->where('start_status',1);
                 $query->where('over_status',0);
                 $query->orderBy('start_status','DESC');

@@ -10,7 +10,7 @@
     </div>
     @endif
 @if(isOrganization() && hasCookieData('ordering'))
-    <?php $listeners = User_listener::where('organization_id',Auth::user()->id)->where('active',1)->lists('fio','id'); ?>
+    <?php $listeners = User_listener::where('organization_id',Auth::user()->id)->where('active','>=',1)->lists('fio','id'); ?>
     <h2>Покупка курсов</h2>
     <div class="margin-bottom-20">
         <a href="{{ URL::route('ordering-select-courses') }}" class="btn btn--bordered btn--blue margin-top-30">

@@ -157,7 +157,7 @@ class AccountsOrganizationController extends BaseController {
         );
         $page_data['profile'] = User_listener::where('id',$listener_id)
                 ->where('organization_id',Auth::user()->id)
-                ->where('active',1)
+                ->where('active','>=',1)
                 ->with(array('study'=>function($query){
                     $query->with('order');
                     $query->with('course');
@@ -175,7 +175,7 @@ class AccountsOrganizationController extends BaseController {
         );
         $page_data['profile'] = User_listener::where('id',$listener_id)
                 ->where('organization_id',Auth::user()->id)
-                ->where('active',1)
+                ->where('active','>=',1)
                 ->firstOrFail();
         return View::make(Helper::acclayout('listeners-profile-edit'),$page_data);
     }
@@ -205,7 +205,7 @@ class AccountsOrganizationController extends BaseController {
 
     private function ListenerAccountUpdate($listener_id,$post){
 
-        if($user = User::where('id',$listener_id)->where('active',1)->first()):
+        if($user = User::where('id',$listener_id)->where('active','>=',1)->first()):
             if($listener = Listener::where('user_id',$user->id)->where('organization_id',Auth::user()->id)->first()):
                 $fio = explode(' ',$post['fio']);
                 $user->name = (isset($fio[1]))?$fio[1]:'';

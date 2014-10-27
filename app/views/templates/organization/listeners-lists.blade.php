@@ -5,7 +5,7 @@
 
 <main class="cabinet">
     <?php
-    $listeners = User_listener::where('organization_id',Auth::user()->id)->where('active',1)->orderBy('created_at','DESC')->with(array('study'=>function($query){
+    $listeners = User_listener::where('organization_id',Auth::user()->id)->where('active','>=',1)->orderBy('created_at','DESC')->with(array('study'=>function($query){
         $query->orderBy('start_status','DESC');
         $query->orderBy('access_status','DESC');
         $query->orderBy('updated_at','DESC');
