@@ -55,6 +55,19 @@
                             {{ ExtForm::upload('metodical') }}
                         </label>
                     </section>
+                    <section>
+                        <label class="label">Шаблон удостоверения</label>
+                        <label class="select">
+                        <?php
+                        $certificates = DicVal::where('version_of',NULL)
+                            ->where(function($query){
+                            $query->where('slug','order-documents-certificate-first')
+                                ->orWhere('slug','order-documents-certificate-second');
+                            })->lists('name','id');
+                        ?>
+                            {{ Form::select('certificate',$certificates) }}
+                        </label>
+                    </section>
                 </fieldset>
 				<footer>
 					<a class="btn btn-default no-margin regular-10 uppercase pull-left btn-spinner" href="{{URL::previous()}}">
