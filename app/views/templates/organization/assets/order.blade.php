@@ -7,10 +7,10 @@
         </div>
     </div>
     <div class="orders-li-body">
+        <?php $price = 0.00; ?>
+        <?php $coursesIDs = array(); ?>
         @if(isset($order->listeners) && is_object($order->listeners) && $order->listeners->count())
         <div class="orders-price">
-            <?php $price = 0.00; ?>
-            <?php $coursesIDs = array(); ?>
             @foreach($order->listeners as $listener)
                 <?php $price += $listener->price; ?>
                 <?php $coursesIDs[$listener->course_id] = 1; ?>

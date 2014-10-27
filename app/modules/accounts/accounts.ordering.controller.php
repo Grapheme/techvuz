@@ -115,8 +115,10 @@ class AccountsOrderingController extends BaseController {
             endforeach;
             $lastOrderNumber = Orders::where('completed',1)->orderBy('number','DESC')->pluck('number');
             if($order = Orders::create(array('user_id'=>Auth::user()->id,'number'=>$lastOrderNumber+1,'completed'=>Input::get('completed')))):
+                $accountDiscount = getAccountDiscount();
+                $coursesCountDiscount = coursesCountDiscount(Input::get('courses'));
                 foreach(Courses::whereIn('id',Input::get('courses'))->with('direction')->get() as $course):
-                    $discountPrice = calculateDiscount(array($course->direction->discount,$course->discount,User_organization::whereId(Auth::user()->id)->pluck('discount')),$course->price);
+                    $discountPrice = calculateDiscount(array($course->direction->discount,$course->discount,$accountDiscount,$coursesCountDiscount),$course->price);
                     $course_price = $course->price;
                     if ($discountPrice !== FALSE):
                         $course_price = $discountPrice;

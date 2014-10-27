@@ -35,6 +35,7 @@
                     <th>Часы</th>
                     <th>Цена</th>
                 </tr>
+            <?php $accountDiscount = getAccountDiscount(); ?>
             @foreach($direction->courses as $course)
                 <tr>
                     <td>
@@ -51,7 +52,7 @@
                     </td>
                     <td>
                     <?php
-                        $discountPrice = calculateDiscount(array($direction->discount,$course->discount,User_organization::whereId(Auth::user()->id)->pluck('discount')),$course->price);
+                        $discountPrice = calculateDiscount(array($direction->discount,$course->discount,$accountDiscount),$course->price);
                     ?>
                     @if($discountPrice === FALSE)
                         <span class="price">{{ number_format($course->price,0,'.',' ')  }}.–</span>

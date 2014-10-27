@@ -1,4 +1,4 @@
-@if(User_organization::whereId(Auth::user()->id)->pluck('moderator_approve') == 1)
+@if(User_organization::where('id',Auth::user()->id)->pluck('moderator_approve') == 1)
 <ul>
     <li><a href="{{ URL::route('company-order-contract',$order->id) }}">Договор</a></li>
     <li><a href="{{ URL::route('company-order-invoice',$order->id) }}">Счет</a></li>

@@ -92,6 +92,29 @@ function calculateDiscount($discounts,$price = NULL){
         endif;
     endif;
 }
+
+function getAccountDiscount(){
+
+    if(isOrganization()):
+        return User_organization::where('id',Auth::user()->id)->pluck('discount');
+    elseif(isIndividual()):
+        return User_individual::where('id',Auth::user()->id)->pluck('discount');
+    else:
+        return 0;
+    endif;
+}
+
+function coursesCountDiscount($courses){
+
+    if (is_array($courses) || is_object($courses)):
+        $countProperty = Dictionary::valueBySlugs('properties-site','count-by-course-discount',TRUE)->property;
+        if ($countProperty >= count($courses)):
+            return Dictionary::valueBySlugs('properties-site','count-by-course-discount-percent',TRUE)->property;
+        endif;
+    else:
+        return 0;
+    endif;
+}
 /****************************************************************************/
 /*********************** ДЛЯ ДОКУМЕНТОВ *************************************/
 /****************************************************************************/

@@ -2,6 +2,7 @@
 @section('style')
 @stop
 @section('content')
+
 <main class="catalog">
     <h2>Оформление нового заказа. Шаг №2</h2>
     @if(Session::get('message'))
@@ -21,7 +22,11 @@
         </a>
     </div>
     {{ Form::open(array('route'=>'ordering-listeners-store','class'=>'purchase-form clearfix')) }}
-        <dl class="purchase-course-dl">
+        <dl class="purchase-course-dl" data-count-discount = "{{ Dictionary::valueBySlugs('properties-site','count-by-course-discount',TRUE)->property }}" data-value-discount = "{{ Dictionary::valueBySlugs('properties-site','count-by-course-discount-percent',TRUE)->property }}">
+        <?php
+            $accountDiscount = getAccountDiscount();
+            $coursesCountDiscount = coursesCountDiscount(Courses::whereIn('id',getJsonCookieData('ordering'))->get());
+        ?>
         @foreach(Courses::whereIn('id',getJsonCookieData('ordering'))->with('direction')->get() as $course)
             {{ Form::hidden('courses[]',$course->id) }}
             <dt class="purchase-course-dt">
@@ -39,7 +44,7 @@
                         <td>{{ $course->hours }}</td>
                         <td class="purchase-listeners"></td>
                         <?php
-                        $discountPrice = calculateDiscount(array($course->direction->discount,$course->discount,User_organization::whereId(Auth::user()->id)->pluck('discount')),$course->price);
+                        $discountPrice = calculateDiscount(array($course->direction->discount,$course->discount,$accountDiscount,$coursesCountDiscount),$course->price);
                         ?>
                         @if($discountPrice === FALSE)
                             <td class="purchase-price" data-price="{{ $course->price }}">{{ number_format($course->price,0,'.',' ')  }}.–</td>

@@ -157,7 +157,7 @@ class AccountsModeratorController extends BaseController {
             $validator = Validator::make(Input::all(),Organization::$moderator_rules);
             if($validator->passes()):
                 if (self::CompanyAccountUpdate($company_id,Input::all())):
-                    Event::fire(Route::currentRouteName(), array(array('title'=>'Организация: '.User_organization::whereId($company_id)->pluck('title'))));
+                    Event::fire(Route::currentRouteName(), array(array('title'=>'Организация: '.User_organization::where('id',$company_id)->pluck('title'))));
                     $json_request['responseText'] = Lang::get('interface.UPDATE_PROFILE_COMPANY.success');
                     $json_request['redirect'] = URL::route('moderator-company-profile',$company_id);
                     $json_request['status'] = TRUE;
@@ -499,10 +499,10 @@ class AccountsModeratorController extends BaseController {
                 if($account = User::where('id',$listener_id)->first()):
                     if ($account->group_id = 5):
                         self::ListenerCompanyAccountUpdate($account,$listener_id,Input::all());
-                        Event::fire(Route::currentRouteName(), array(array('title'=>'Слушатель: '.User_listener::whereId($listener_id)->pluck('fio'))));
+                        Event::fire(Route::currentRouteName(), array(array('title'=>'Слушатель: '.User_listener::where('id',$listener_id)->pluck('fio'))));
                     elseif($account->group_id = 6):
                         self::ListenerIndividualAccountUpdate($account,$listener_id,Input::all());
-                        Event::fire(Route::currentRouteName(), array(array('title'=>'Слушатель: '.User_individual::whereId($listener_id)->pluck('fio'))));
+                        Event::fire(Route::currentRouteName(), array(array('title'=>'Слушатель: '.User_individual::where('id',$listener_id)->pluck('fio'))));
                     endif;
                     $json_request['status'] = TRUE;
                     $json_request['responseText'] = Lang::get('interface.UPDATE_PROFILE_LISTENER.success');
