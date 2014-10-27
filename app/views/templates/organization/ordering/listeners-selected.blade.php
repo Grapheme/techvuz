@@ -26,6 +26,7 @@
         <?php
             $accountDiscount = getAccountDiscount();
             $coursesCountDiscount = coursesCountDiscount(Courses::whereIn('id',getJsonCookieData('ordering'))->get());
+            Helper::dd(getJsonCookieData('ordering'));
         ?>
         @foreach(Courses::whereIn('id',getJsonCookieData('ordering'))->with('direction')->get() as $course)
             {{ Form::hidden('courses[]',$course->id) }}
