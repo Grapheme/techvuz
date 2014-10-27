@@ -108,7 +108,7 @@ class AdminEducationCoursesController extends BaseController {
     public function edit($direction_id,$course_id){
 
         Allow::permission($this->module['group'], 'edit');
-        if($course = Courses::where('id',$course_id)->with('libraries')->with('curriculum')->with('metodical')->first()):
+        if($course = Courses::where('id',$course_id)->with('metodical')->first()):
             $direction = $this->direction;
             return View::make($this->module['tpl'].'edit', compact('direction','course'));
         else:
@@ -144,18 +144,7 @@ class AdminEducationCoursesController extends BaseController {
         if(!Request::ajax()) return App::abort(404);
         $json_request = array('status'=>FALSE, 'responseText'=>'');
 
-        $libraries = Courses::find($course_id)->libraries()->first();
-        $curriculum = Courses::find($course_id)->curriculum()->first();
         $metodical = Courses::find($course_id)->metodical()->first();
-
-        if (!empty($libraries) && File::exists(public_path($libraries->path))):
-            File::delete(public_path($libraries->path));
-            Upload::find($libraries->id)->delete();
-        endif;
-        if (!empty($curriculum) && File::exists(public_path($curriculum->path))):
-            File::delete(public_path($curriculum->path));
-            Upload::find($curriculum->id)->delete();
-        endif;
         if (!empty($metodical) && File::exists(public_path($metodical->path))):
             File::delete(public_path($metodical->path));
             Upload::find($metodical->id)->delete();
@@ -180,7 +169,6 @@ class AdminEducationCoursesController extends BaseController {
         $input['discount'] = Input::get('discount');
         $input['hours'] = Input::get('hours');
 
-        $input['curriculum'] = ExtForm::process('upload', @Input::all()['curriculum']);
         $input['metodical'] = ExtForm::process('upload', @Input::all()['metodical']);
         return $input;
     }

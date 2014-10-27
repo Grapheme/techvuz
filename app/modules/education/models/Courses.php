@@ -11,8 +11,6 @@
  * @property string $description
  * @property float $price
  * @property integer $hours
- * @property string $libraries
- * @property string $curriculum
  * @property string $metodical
  * @property \Carbon\Carbon $created_at
  * @property \Carbon\Carbon $updated_at
@@ -25,8 +23,6 @@
  * @method static \Illuminate\Database\Query\Builder|\Courses whereDescription($value)
  * @method static \Illuminate\Database\Query\Builder|\Courses wherePrice($value)
  * @method static \Illuminate\Database\Query\Builder|\Courses whereHours($value)
- * @method static \Illuminate\Database\Query\Builder|\Courses whereLibraries($value)
- * @method static \Illuminate\Database\Query\Builder|\Courses whereCurriculum($value)
  * @method static \Illuminate\Database\Query\Builder|\Courses whereMetodical($value)
  * @method static \Illuminate\Database\Query\Builder|\Courses whereCreatedAt($value)
  * @method static \Illuminate\Database\Query\Builder|\Courses whereUpdatedAt($value)
@@ -37,7 +33,7 @@ class Courses extends BaseModel {
 
     protected $table = 'courses';
 
-    protected $fillable = array('direction_id','order','code','title','description','price','discount','hours','libraries','curriculum','metodical');
+    protected $fillable = array('direction_id','order','code','title','description','price','discount','hours','metodical');
 
     public static $order_by = "order";
 
@@ -49,14 +45,6 @@ class Courses extends BaseModel {
 
     public function direction() {
         return $this->belongsTo('Directions','direction_id');
-    }
-
-    public function libraries(){
-        return $this->hasOne('Upload','id','libraries');
-    }
-
-    public function curriculum(){
-        return $this->hasOne('Upload','id','curriculum');
     }
 
     public function metodical(){
