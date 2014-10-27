@@ -66,6 +66,9 @@
 				</footer>
 			</div>
 		</section>
+		<section class="col col-6">
+            {{ ExtForm::seo('seo') }}
+        </section>
 	</div>
 {{ Form::close() }}
 @stop

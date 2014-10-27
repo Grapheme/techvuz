@@ -94,6 +94,7 @@ class AdminEducationCoursesController extends BaseController {
         if($validation->passes()):
             $input = self::coursesFiles();
             $course = $this->course->create($input);
+            self::coursesSEO($course->id);
             $json_request['responseText'] = self::$entity_name." добавлен";
             $json_request['redirect'] = URL::route('courses.index',array('directions'=>$this->direction->id));
             $json_request['status'] = TRUE;
@@ -108,7 +109,7 @@ class AdminEducationCoursesController extends BaseController {
     public function edit($direction_id,$course_id){
 
         Allow::permission($this->module['group'], 'edit');
-        if($course = Courses::where('id',$course_id)->with('metodical')->first()):
+        if($course = Courses::where('id',$course_id)->with('metodical','seo')->first()):
             $direction = $this->direction;
             return View::make($this->module['tpl'].'edit', compact('direction','course'));
         else:
@@ -126,6 +127,7 @@ class AdminEducationCoursesController extends BaseController {
             if($course = $this->course->where('id',$course_id)->first()):
                 $input = self::coursesFiles();
                 $course->update($input);
+                self::coursesSEO($course->id);
                 $json_request['responseText'] = self::$entity_name." сохранен";
                 $json_request['redirect'] = URL::route('courses.index',array('directions'=>$this->direction->id));
                 $json_request['status'] = TRUE;
@@ -158,7 +160,7 @@ class AdminEducationCoursesController extends BaseController {
         return Response::json($json_request, 200);
     }
 
-    public function coursesFiles(){
+    private function coursesFiles(){
 
         $input['direction_id'] = Input::get('direction_id');
         $input['order'] = Input::get('order');
@@ -168,9 +170,23 @@ class AdminEducationCoursesController extends BaseController {
         $input['price'] = Input::get('price');
         $input['discount'] = Input::get('discount');
         $input['hours'] = Input::get('hours');
-
         $input['metodical'] = ExtForm::process('upload', @Input::all()['metodical']);
         return $input;
+    }
+
+    private function coursesSEO($unit_id){
+
+        $input = Input::all();
+        $seo = Helper::withdraw($input,'seo');
+        if (empty($seo['url'])):
+            $seo['url'] = BaseController::stringTranslite(Input::get('title'));
+        endif;
+        $seo_result = ExtForm::process('seo', array(
+            'module'  => 'education-courses',
+            'unit_id' => $unit_id,
+            'data'    => $seo,
+        ));
+        return $seo_result;
     }
 
     public function postAjaxOrderSave() {

@@ -11,6 +11,8 @@
  * @property string $description
  * @property float $price
  * @property integer $hours
+ * @property string $libraries
+ * @property string $curriculum
  * @property string $metodical
  * @property \Carbon\Carbon $created_at
  * @property \Carbon\Carbon $updated_at
@@ -23,6 +25,8 @@
  * @method static \Illuminate\Database\Query\Builder|\Courses whereDescription($value)
  * @method static \Illuminate\Database\Query\Builder|\Courses wherePrice($value)
  * @method static \Illuminate\Database\Query\Builder|\Courses whereHours($value)
+ * @method static \Illuminate\Database\Query\Builder|\Courses whereLibraries($value)
+ * @method static \Illuminate\Database\Query\Builder|\Courses whereCurriculum($value)
  * @method static \Illuminate\Database\Query\Builder|\Courses whereMetodical($value)
  * @method static \Illuminate\Database\Query\Builder|\Courses whereCreatedAt($value)
  * @method static \Illuminate\Database\Query\Builder|\Courses whereUpdatedAt($value)
@@ -33,7 +37,7 @@ class Courses extends BaseModel {
 
     protected $table = 'courses';
 
-    protected $fillable = array('direction_id','order','code','title','description','price','discount','hours','metodical');
+    protected $fillable = array('direction_id','order','code','title','description','price','discount','hours','libraries','curriculum','metodical');
 
     public static $order_by = "order";
 
@@ -60,5 +64,9 @@ class Courses extends BaseModel {
     }
     public function test(){
         return $this->hasOne('CoursesTests','course_id')->where('chapter_id',0);
+    }
+
+    public function seo() {
+        return $this->hasOne('Seo', 'unit_id', 'id')->where('module', 'education-courses');
     }
 }

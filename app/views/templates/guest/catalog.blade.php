@@ -19,7 +19,7 @@
     @endif
 @endforeach
     <div class="accordion">
-    @foreach(Directions::orderBy('order')->with('photo')->with('courses')->get() as $direction)
+    @foreach(Directions::orderBy('order')->with('photo')->with('courses.seo')->get() as $direction)
         <a name="{{ BaseController::stringTranslite($direction->title) }}"></a>
         <div class="accordion-header">
         @if(!empty($direction->photo->name))
@@ -41,7 +41,13 @@
                 </tr>
             @foreach($direction->courses as $course)
                 <tr>
-                    <td>{{ $course->title }}</td>
+                    <td>
+                    @if(!empty($course->seo))
+                        <a href="{{ URL::route('course-page',$course->seo->url) }}">{{ $course->title }}</a>
+                    @else
+                        {{ $course->title }}
+                    @endif
+                    </td>
                     <td><span class="code">{{ $course->code }}</span></td>
                     <td><span class="code">{{ $course->hours }}</span></td>
                     <td>
