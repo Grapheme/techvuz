@@ -50,7 +50,7 @@
                         </label>
                     </section>
                     <section>
-                        <label class="label">Методические материалы</label>
+                        <label class="label">Специализированная документация</label>
                         <label class="input">
                             {{ ExtForm::upload('metodical') }}
                         </label>
