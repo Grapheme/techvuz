@@ -1,8 +1,8 @@
 <footer class="main-footer">
     <div class="copy">
-        © НОУ ДПО «ЦКС», 2014
+        © АНО ДПО «ЦКС», {{ (int) date("Y") > 2014 ? 2014 - date("Y") : date("Y") }}
     </div>
     <div class="dev">
-        Сделано в <a href="#">GRPHM</a>
+        Сделано в <a href="http://grapheme.ru">ГРАФЕМА</a>
     </div>
 </footer>
