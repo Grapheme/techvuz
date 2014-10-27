@@ -108,9 +108,7 @@ function coursesCountDiscount($courses){
 
     if (is_array($courses) || is_object($courses)):
         $countProperty = Dictionary::valueBySlugs('properties-site','count-by-course-discount',TRUE)->property;
-        Helper::d($countProperty);
         if (count($courses) >= $countProperty):
-            Helper::dd(Dictionary::valueBySlugs('properties-site','count-by-course-discount-percent',TRUE)->property);
             return Dictionary::valueBySlugs('properties-site','count-by-course-discount-percent',TRUE)->property;
         endif;
     else:
