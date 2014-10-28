@@ -56,9 +56,8 @@ class PublicEducationCoursesController extends BaseController {
             $url = Input::get('url');
 
         if($course_seo = Seo::where('module','education-courses')->where('url', $url)->first()):
-            $course = $this->course->where('id', $course_seo->unit_id)
+            $course = $this->course->whereActive(TRUE)->where('id', $course_seo->unit_id)
                 ->with('metodical','direction','seo')->first();
-//            Helper::tad($course);
         else:
             App::abort(404);
         endif;
