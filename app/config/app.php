@@ -63,7 +63,8 @@ return array(
         'Flynsarmy\DbBladeCompiler\DbBladeCompilerServiceProvider',
         'Scalia\SphinxSearch\SphinxSearchServiceProvider',
         'Bugsnag\BugsnagLaravel\BugsnagLaravelServiceProvider',
-        'Chumper\Zipper\ZipperServiceProvider'
+        'Chumper\Zipper\ZipperServiceProvider',
+        'Barryvdh\DomPDF\ServiceProvider'
     ),
 	'aliases' => array(
 		'App'             => 'Illuminate\Support\Facades\App',
@@ -112,6 +113,7 @@ return array(
         'SphinxSearch'      => 'Scalia\SphinxSearch\SphinxSearchFacade',
         'Bugsnag'           => 'Bugsnag\BugsnagLaravel\BugsnagFacade',
 
-        'Collection'      => 'Illuminate\Database\Eloquent\Collection'
+        'Collection'        => 'Illuminate\Database\Eloquent\Collection',
+        'PDF'               => 'Barryvdh\DomPDF\Facade',
 	),
 );

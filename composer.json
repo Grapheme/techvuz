@@ -9,11 +9,12 @@
 		"intervention/image": "2.*",
         "doctrine/dbal": "2.*",
 		"barryvdh/laravel-ide-helper": "1.*",
-		"barryvdh/laravel-debugbar": "dev-master",
+		"barryvdh/laravel-debugbar": "*",
 		"scalia/sphinxsearch": "*",
 		"flynsarmy/db-blade-compiler": "1.*",
         "bugsnag/bugsnag-laravel": "v1.0.9",
-		"chumper/zipper": "dev-master"
+		"chumper/zipper": "dev-master",
+        "barryvdh/laravel-dompdf": "0.4.*"
 	},
 	"autoload": {
 		"classmap": [
