@@ -58,11 +58,11 @@ class PublicEducationCoursesController extends BaseController {
         if($course_seo = Seo::where('module','education-courses')->where('url', $url)->first()):
             $course = $this->course->whereActive(TRUE)->where('id', $course_seo->unit_id)
                 ->with('metodical','direction','seo')->first();
-        else:
-            App::abort(404);
+            if ($course):
+                return View::make('templates.'.Config::get('app.template').'.course', compact('course'));
+            endif;
         endif;
-
-        return View::make('templates.'.Config::get('app.template').'.course', compact('course'));
+        App::abort(404);
     }
 
 }
