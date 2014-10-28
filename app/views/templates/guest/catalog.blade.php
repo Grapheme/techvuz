@@ -19,7 +19,14 @@
     @endif
 @endforeach
     <div class="accordion">
-    @foreach(Directions::orderBy('order')->with('photo')->with('courses.seo')->get() as $direction)
+    <?php
+        $directions = Directions::whereActive(TRUE)->orderBy('order')->with('photo')
+            ->with(array('courses'=>function($query){
+                $query->whereActive(TRUE);
+                $query->with('seo');
+            }))->get();
+    ?>
+    @foreach($directions as $direction)
         <a name="{{ BaseController::stringTranslite($direction->title) }}"></a>
         <div class="accordion-header">
         @if(!empty($direction->photo->name))

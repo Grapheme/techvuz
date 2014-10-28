@@ -11,7 +11,14 @@
     @endif
     {{ Form::open(array('route'=>'ordering-courses-store','class'=>'authenticated accordion-form clearfix')) }}
     <div class="accordion">
-    @foreach(Directions::with('photo')->with('courses')->get() as $direction)
+    <?php
+        $directions = Directions::whereActive(TRUE)->orderBy('order')->with('photo')
+            ->with(array('courses'=>function($query){
+                $query->whereActive(TRUE);
+                $query->with('seo');
+            }))->get();
+    ?>
+    @foreach($directions as $direction)
         <div class="accordion-header">
         @if(!empty($direction->photo->name))
             <div class="accordion-img" style="background-image: url('{{ Config::get('site.galleries_photo_public_dir').'/'.$direction->photo->name }}');"></div>

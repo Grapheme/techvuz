@@ -9,7 +9,7 @@
     <section class="directions">
         <h3>Направления</h3>
         <ul class="directions-ul clearfix">
-        @foreach(Directions::orderBy('order')->with('photo')->with('courses')->limit(6)->get() as $direction)
+        @foreach(Directions::whereActive(TRUE)->orderBy('order')->with('photo')->with('courses')->limit(6)->get() as $direction)
             <li class="directions-li">
             @if(!empty($direction->photo->name))
             {{ HTML::image(Config::get('site.galleries_photo_public_dir').'/'.$direction->photo->name,$direction->title,array('class'=>'directions-img')) }}

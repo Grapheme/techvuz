@@ -74,6 +74,12 @@
                             {{ Form::textarea('curriculum', '',array('class'=>'redactor')) }}
                         </label>
                     </section>
+                    <section>
+                        <label class="checkbox">
+                            {{ Form::checkbox('active',1,TRUE) }}
+                            <i></i>Доступен пользователям
+                        </label>
+                    </section>
                 </fieldset>
 				<footer>
 					<a class="btn btn-default no-margin regular-10 uppercase pull-left btn-spinner" href="{{URL::previous()}}">

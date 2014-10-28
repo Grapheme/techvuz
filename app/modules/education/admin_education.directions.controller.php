@@ -119,7 +119,11 @@ class AdminEducationDirectionsController extends BaseController {
         $validation = Validator::make(Input::all(), Directions::$rules);
         if($validation->passes()):
             if($direction = $this->direction->where('id',$id)->first()):
-                $direction->update(Input::all());
+                $update = Input::all();
+                if (Input::has('active') === FALSE):
+                    $update['active'] = 0;
+                endif;
+                $direction->update($update);
                 $json_request['responseText'] = self::$entity_name." сохранен";
                 $json_request['redirect'] = URL::route('directions.index');
                 $json_request['status'] = TRUE;

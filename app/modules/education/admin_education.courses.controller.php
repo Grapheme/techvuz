@@ -173,6 +173,11 @@ class AdminEducationCoursesController extends BaseController {
         $input['curriculum'] = Input::get('curriculum');
         $input['metodical'] = ExtForm::process('upload', @Input::all()['metodical']);
         $input['certificate'] = Input::get('certificate');
+        if (Input::has('active') === FALSE):
+            $input['active'] = 0;
+        else:
+            $input['active'] = 1;
+        endif;
         return $input;
     }
 

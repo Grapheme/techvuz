@@ -20,6 +20,7 @@ class CreateCoursesTable extends Migration {
                 $table->integer('hours')->default(0)->unsigned()->nullable();
                 $table->integer('metodical')->default(0)->unsigned()->nullable();
                 $table->integer('certificate')->default(0)->unsigned()->nullable();
+                $table->boolean('active')->default(0)->unsigned()->nullable();
                 $table->timestamps();
             });
             echo(' + ' . 'courses' . PHP_EOL);

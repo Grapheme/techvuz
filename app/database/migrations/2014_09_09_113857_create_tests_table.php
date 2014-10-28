@@ -14,7 +14,7 @@ class CreateTestsTable extends Migration {
                 $table->integer('order')->unsigned()->nullable();
                 $table->string('title',255)->nullable();
                 $table->text('description')->nullable();
-                $table->integer('active')->default(0)->unsigned()->nullable();
+                $table->boolean('active')->default(0)->unsigned()->nullable();
                 $table->timestamps();
             });
             echo(' + ' . 'tests' . PHP_EOL);
