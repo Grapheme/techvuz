@@ -10,20 +10,10 @@ class AdminGalleriesController extends BaseController {
     ## Routing rules of module
     public static function returnRoutes($prefix = null) {
         $class = __CLASS__;
-        Route::group(array('before' => 'auth', 'prefix' => $prefix), function() use ($class) {
+        Route::group(array('before' => 'auth', 'prefix' => 'admin'), function() use ($class) {
         	Route::get($class::$group.'/manage', array('uses' => $class.'@getIndex'));
-
         });
-//        if (AuthAccount::getGroupName() == 'admin'):
-//            Route::group(array('before' => 'auth', 'prefix' => $prefix), function() use ($class) {
-//                Route::controller($class::$group, $class);
-//            });
-//        else:
-//            Route::group(array('before' => 'auth'), function() use ($class) {
-//                Route::controller($class::$group, $class);
-//            });
-//        endif;
-        Route::group(array('before' => 'auth'), function() use ($class) {
+        Route::group(array('before' => 'auth', 'prefix' => $prefix), function() use ($class) {
             Route::controller($class::$group, $class);
         });
     }

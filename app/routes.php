@@ -61,7 +61,7 @@ Route::get('logout', array('before' => 'auth', 'as' => 'logout', 'uses' => 'Glob
 /******************** ЗАГРУЗКА РЕСУРСОВ ИЗ МОДУЛЕЙ *********************/
 /***********************************************************************/
 ## For debug
-$load_debug = 0;
+$load_debug = 1;
 ## Reserved methods for return resourses of controller
 $returnRoutes = "returnRoutes";
 $returnActions = "returnActions";
@@ -103,7 +103,11 @@ foreach ($files as $file) {
     $module_fullname = ucfirst($module_prefix).ucfirst($module_postname)."Controller";
 
     if (!empty($module_prefix) && $module_prefix != 'public' && Auth::check()):
-        $module_prefix = AuthAccount::getGroupName();
+        if ($module_name == 'galleries '):
+            $module_prefix = '';
+        else:
+            $module_prefix = AuthAccount::getGroupName();
+        endif;
     endif;
 
     if ($load_debug)
