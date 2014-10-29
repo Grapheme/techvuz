@@ -14,16 +14,18 @@ class AdminGalleriesController extends BaseController {
         	Route::get($class::$group.'/manage', array('uses' => $class.'@getIndex'));
 
         });
-        if (AuthAccount::getGroupName() == 'admin'):
-            Route::group(array('before' => 'auth', 'prefix' => $prefix), function() use ($class) {
-                Route::controller($class::$group, $class);
-            });
-        else:
-            Route::group(array('before' => 'auth'), function() use ($class) {
-                Route::controller($class::$group, $class);
-            });
-        endif;
-
+//        if (AuthAccount::getGroupName() == 'admin'):
+//            Route::group(array('before' => 'auth', 'prefix' => $prefix), function() use ($class) {
+//                Route::controller($class::$group, $class);
+//            });
+//        else:
+//            Route::group(array('before' => 'auth'), function() use ($class) {
+//                Route::controller($class::$group, $class);
+//            });
+//        endif;
+        Route::group(array('before' => 'auth'), function() use ($class) {
+            Route::controller($class::$group, $class);
+        });
     }
 
     ## Shortcodes of module
