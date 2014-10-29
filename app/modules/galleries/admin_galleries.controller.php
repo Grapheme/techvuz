@@ -193,7 +193,7 @@ class AdminGalleriesController extends BaseController {
         	'name' => self::$name,
         	'group' => self::$group,
         	'title' => 'Галереи',
-            'visible' => 1,
+            'visible' => FALSE,
         );
     }
 
