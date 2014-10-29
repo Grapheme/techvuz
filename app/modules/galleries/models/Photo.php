@@ -8,6 +8,7 @@ class Photo extends Eloquent {
 	public static $order_by = 'photos.id DESC';
 
 	public function thumb() {
+		#return link::to(Config::get('site.galleries_thumb_dir')) . "/" . $this->name;
 		return URL::to(Config::get('site.galleries_thumb_public_dir') . "/" . $this->name);
 	}
 
@@ -16,6 +17,17 @@ class Photo extends Eloquent {
 	}
 
 	public function path() {
+		#return link::to(Config::get('site.galleries_photo_dir')) . "/" . $this->name;
 		return URL::to(Config::get('site.galleries_photo_public_dir') . "/" . $this->name);
 	}
+
+    public function fullpath() {
+        #return link::to(Config::get('site.galleries_photo_dir')) . "/" . $this->name;
+        return str_replace('//', '/', public_path(Config::get('site.galleries_photo_public_dir') . "/" . $this->name));
+    }
+
+    public function extract() {
+        return $this;
+    }
+
 }

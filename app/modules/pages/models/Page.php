@@ -79,17 +79,20 @@ class Page extends BaseModel {
         )
             return false;
 
+        #Helper::tad($this);
+
         $content_container = false;
         if (isset($this->blocks[$slug]->content))
             $content_container = $this->blocks[$slug];
-        elseif (isset($this->blocks[$slug]->meta) && is_object($this->blocks[$slug]->meta))
+        elseif (isset($this->blocks[$slug]->meta) && !is_null($this->blocks[$slug]->meta))
             $content_container = $this->blocks[$slug]->meta;
+
+        if (!$content_container)
+            return '';
 
         #Helper::dd($this->blocks[$slug]->meta->content);
         ## Without blade syntax compile
         #return $this->blocks[$slug]->meta->content;
-
-//        Helper::dd($content_container);
 
         ## Force template compile
         if ($force_compile)

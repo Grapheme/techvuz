@@ -73,12 +73,15 @@
 
                 </fieldset>
 
-                <div>
+                <div class="clearfix">
 
                     <section class="col col-lg-6 col-sm-12">
                         <label class="label">Идентификатор страницы</label>
                         <label class="input">
-                            {{ Form::text('slug') }}
+                            {{ Form::text('slug', NULL, array('placeholder' => '')) }}
+                        </label>
+                        <label class="note">
+                            Только символы английского алфавита без пробелов, цифры, знаки _ и -
                         </label>
                     </section>
 
@@ -104,6 +107,7 @@
                 </div>
                 @endif
 
+                @if (Allow::action('page', 'advanced'))
                 <fieldset class="clearfix">
 
                     <section class="col col-lg-6 col-sm-12 col-xs-12">
@@ -114,6 +118,7 @@
                         </label>
                     </section>
 
+                    @if (0)
                     <section class="col col-lg-6 col-sm-12 col-xs-12">
                         <label class="checkbox">
                             {{ Form::checkbox('in_menu', 1, (!$element->in_menu ? null : true)) }}
@@ -121,6 +126,7 @@
                             Отображать в меню
                         </label>
                     </section>
+                    @endif
 
                     <section class="col col-lg-6 col-sm-12 col-xs-12">
                         <label class="checkbox">
@@ -131,6 +137,7 @@
                     </section>
 
                 </fieldset>
+                @endif
 
                 <fieldset class="clearfix">
 
@@ -235,7 +242,7 @@
         @if (
             Config::get('pages.versions') && Allow::action($module['group'], 'page_restore') && $element->id
         )
-        <section class="col col-6">
+        <section class="col col-6 pull-right clearfix">
             <div class="well">
 
                 <a name="versions"></a>

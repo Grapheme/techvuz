@@ -334,6 +334,11 @@
                                         <i></i>
                                         Открывать в новом окне
                                     </label>
+                                    <label class="checkbox">
+                                        <input type="checkbox" name="items[%N%][hidden]" value="1" %is_hidden% />
+                                        <i></i>
+                                        Скрыть
+                                    </label>
                                 </span>
 
                                 <span class="pull-right">

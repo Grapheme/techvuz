@@ -106,7 +106,9 @@ class AdminDicvalsController extends BaseController {
         ## Get element
         $elements = new DicVal;
         $tbl_dicval = $elements->getTable();
-        $elements = $elements->where('dic_id', $dic->id)->where('version_of', '=', NULL)
+        $elements = $elements
+            ->where('dic_id', $dic->id)
+            ->where('version_of', '=', NULL)
             ->select($tbl_dicval . '.*')
             ->with('fields')
         ;
@@ -154,6 +156,26 @@ class AdminDicvalsController extends BaseController {
                 break;
             case 'updated_at':
                 $elements = $elements->orderBy('updated_at', $sort_order);
+                break;
+            default:
+                /**
+                 * ORDER BY по произвольному полю
+                 */
+                #Helper::dd($dic->sort_by);
+                #$dic->sort_by .= '2';
+                $tbl_fields = new DicFieldVal();
+                $tbl_fields = $tbl_fields->getTable();
+                $rand_tbl_alias = md5(rand(99999, 999999));
+                $elements = $elements
+                    ->leftJoin($tbl_fields . ' AS ' . $rand_tbl_alias, function ($join) use ($tbl_dicval, $tbl_fields, $rand_tbl_alias, $dic, $sort_order) {
+                        $join
+                            ->on($rand_tbl_alias . '.dicval_id', '=', $tbl_dicval . '.id')
+                            ->where($rand_tbl_alias . '.key', '=', $dic->sort_by)
+                        ;
+                    })
+                    ->addSelect($rand_tbl_alias . '.value AS ' . $dic->sort_by)
+                    ->orderBy($dic->sort_by, $sort_order)
+                    ->orderBy('created_at', 'DESC'); /* default */
                 break;
         }
 
@@ -208,9 +230,11 @@ class AdminDicvalsController extends BaseController {
         $locales = $this->locales;
         $dic_settings = Config::get('dic/' . $dic->slug);
 
+        $total_elements = DicVal::where('dic_id', $dic->id)->where('version_of', '=', NULL)->count();
+
         $element = new Dictionary;
 
-        return View::make($this->module['tpl'].'edit', compact('element', 'dic', 'dic_id', 'locales', 'dic_settings'))->render();
+        return View::make($this->module['tpl'].'edit', compact('element', 'dic', 'dic_id', 'locales', 'dic_settings', 'total_elements'));
 	}
     
 
@@ -250,7 +274,9 @@ class AdminDicvalsController extends BaseController {
         $element->extract(0);
         #Helper::tad($element);
 
-		return View::make($this->module['tpl'].'edit', compact('element', 'dic', 'dic_id', 'locales', 'dic_settings'));
+        $total_elements = DicVal::where('dic_id', $dic->id)->where('version_of', '=', NULL)->count();
+
+        return View::make($this->module['tpl'].'edit', compact('element', 'dic', 'dic_id', 'locales', 'dic_settings', 'total_elements'));
 	}
 
 
@@ -280,6 +306,12 @@ class AdminDicvalsController extends BaseController {
 
         $this->dicval_permission($dic, (@$id ? 'dicval_edit' : 'dicval_create'));
 
+        $element = new DicVal;
+        if ($id)
+            $element = DicVal::find($id);
+        if (!is_object($element))
+            $element = new DicVal;
+
         $this->callHook('before_all', $dic);
         $this->callHook('before_store_update', $dic);
 
@@ -293,12 +325,62 @@ class AdminDicvalsController extends BaseController {
         $fields_i18n = Input::get('fields_i18n');
         $seo = Input::get('seo');
 
+        /*
         if (!@$input['slug'] && $dic->make_slug_from_name)
             $input['slug'] = Helper::translit($input['name']);
+        */
+
+        if (!@$input['name'])
+            $input['name'] = '';
+
+        /**
+         * Генерация системного имени в зависимости от настроек словаря
+         */
+        switch ((int)$dic->make_slug_from_name) {
+            case 1:
+                $input['slug'] = Helper::translit($input['name']);
+                break;
+            case 2:
+                if (!$dic->hide_slug && !@$input['slug'])
+                    $input['slug'] = Helper::translit($input['name']);
+                break;
+            case 3:
+                if ($dic->hide_slug && $element->slug == '')
+                    $input['slug'] = Helper::translit($input['name']);
+                break;
+
+            case 4:
+                $input['slug'] = Helper::translit($input['name'], false);
+                break;
+            case 5:
+                if (!$dic->hide_slug && !@$input['slug'])
+                    $input['slug'] = Helper::translit($input['name'], false);
+                break;
+            case 6:
+                if ($dic->hide_slug && $element->slug == '')
+                    $input['slug'] = Helper::translit($input['name'], false);
+                break;
+
+            case 7:
+                $input['slug'] = $input['name'];
+                break;
+            case 8:
+                if (!$dic->hide_slug && !@$input['slug'])
+                    $input['slug'] = $input['name'];
+                break;
+            case 9:
+                if ($dic->hide_slug && $element->slug == '')
+                    $input['slug'] = $input['name'];
+                break;
+        }
+        $input['slug'] = @Helper::translit($input['slug'], false);
+
+        #Helper::dd($input['slug']);
 
         #$json_request['responseText'] = "<pre>" . print_r(Input::get('seo'), 1) . "</pre>";
         $json_request['responseText'] = "<pre>" . print_r(Input::all(), 1) . "</pre>";
         #return Response::json($json_request,200);
+        #dd(Input::all());
 
         $json_request = array('status' => FALSE, 'responseText' => '', 'responseErrorText' => '', 'redirect' => FALSE);
 		$validator = Validator::make($input, array());
@@ -310,7 +392,7 @@ class AdminDicvalsController extends BaseController {
 
             $mode = '';
 
-            if ($id > 0 && NULL !== ($element = DicVal::find($id))) {
+            if (isset($element) && is_object($element) && $element->id) {
 
                 $mode = 'update';
 
@@ -486,6 +568,9 @@ class AdminDicvalsController extends BaseController {
                     }
                 }
             }
+
+            $element->load('metas', 'allfields', 'seos');
+            $element = $element->extract(1);
 
             if ($mode == 'update')
                 $this->callHook('after_update', $dic, $element);

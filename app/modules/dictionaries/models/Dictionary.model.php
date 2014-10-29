@@ -80,7 +80,8 @@ class Dictionary extends BaseModel {
      */
     public static function modifyKeys($collection, $key = 'slug') {
         #Helper::tad($collection);
-        $array = array();
+        #$array = array();
+        $array = new Collection;
         foreach ($collection as $c => $col) {
             if (NULL !== ($current_key = $col->$key)) {
                 $array[$current_key] = $col;
@@ -107,6 +108,7 @@ class Dictionary extends BaseModel {
      */
     public static function makeLists($collection, $listed_key = 'values', $value, $key = '') {
         #Helper::ta($collection);
+        #$lists = new Collection;
         $lists = array();
         foreach ($collection as $c => $col) {
             if (!$listed_key) {
@@ -191,8 +193,6 @@ class Dictionary extends BaseModel {
 
     public static function valueBySlugAndId($dic_slug, $val_id, $extract = false) {
 
-        #Helper::d("$dic_slug, $val_slug");
-
         $data = self::where('slug', $dic_slug)->with(array('value' => function($query) use ($val_id){
                 $query->where('version_of', NULL);
                 $query->where('id', $val_id);
@@ -201,13 +201,32 @@ class Dictionary extends BaseModel {
             ->first()
             ->value
         ;
-
         #Helper::tad($data);
 
-        if ($extract) {
+        if ($extract)
             $data->extract(0);
-        }
+        #Helper::tad($data);
 
+        return is_object($data) ? $data : self::firstOrNew(array('id' => 0));
+    }
+
+    public static function valuesBySlugAndIds($dic_slug, $val_ids, $extract = false) {
+
+        $data = self::where('slug', $dic_slug)->with(array('values_no_conditions' => function($query) use ($val_ids){
+                $query->where('version_of', NULL);
+                $query->whereIn('id', $val_ids);
+                $query->with('meta', 'fields', 'seo', 'related_dicvals');
+            }))
+            ->first()
+            ->values_no_conditions
+        ;
+        #Helper::tad($data);
+
+        /*
+        ## Need to test
+        if ($extract)
+            $data->extract(0);
+        */
         #Helper::tad($data);
 
         return is_object($data) ? $data : self::firstOrNew(array('id' => 0));

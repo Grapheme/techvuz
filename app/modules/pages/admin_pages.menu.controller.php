@@ -22,8 +22,8 @@ class AdminPagesMenuController extends BaseController {
             'create'       => 'Создание',
             'edit'         => 'Редактирование',
             'delete'       => 'Удаление',
+            'advanced'     => 'Расширенный режим работы',
             'page_restore' => 'Работа с резервными копиями',
-            'settings'     => 'Настройка модуля',
         );
     }
 

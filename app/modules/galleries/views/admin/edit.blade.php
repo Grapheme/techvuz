@@ -10,6 +10,6 @@
 
 @section('scripts')
     <script>
-    loadScript("{{ asset('js/modules/gallery.js') }}");
+    //loadScript("{{ asset('js/modules/gallery.js') }}");
     </script>
 @stop

@@ -273,23 +273,53 @@ class Helper {
 
     /**************************************************************************************/
 
-    public static function translit($s) {
+    public static function translit($s, $lower = true, $space = '-') {
         $s = (string)$s; // преобразуем в строковое значение
         $s = strip_tags($s); // убираем HTML-теги
         $s = str_replace(array("\n", "\r"), " ", $s); // убираем перевод каретки
-        $s = preg_replace("/\s+/", ' ', $s); // удаляем повторяющие пробелы
+        $s = preg_replace('/ +/', ' ', $s); // удаляем повторяющие пробелы
         $s = trim($s); // убираем пробелы в начале и конце строки
-        $s = function_exists('mb_strtolower') ? mb_strtolower($s) : strtolower($s); // переводим строку в нижний регистр (иногда надо задать локаль)
+        if ($lower)
+            $s = function_exists('mb_strtolower') ? mb_strtolower($s) : strtolower($s); // переводим строку в нижний регистр (иногда надо задать локаль)
         $s = strtr($s, array(
             'а' => 'a', 'б' => 'b', 'в' => 'v', 'г' => 'g', 'д' => 'd', 'е' => 'e', 'ё' => 'e', 'ж' => 'j', 'з' => 'z',
             'и' => 'i', 'й' => 'y', 'к' => 'k', 'л' => 'l', 'м' => 'm', 'н' => 'n', 'о' => 'o', 'п' => 'p', 'р' => 'r',
             'с' => 's', 'т' => 't', 'у' => 'u', 'ф' => 'f', 'х' => 'h', 'ц' => 'c', 'ч' => 'ch', 'ш' => 'sh', 'щ' => 'sch',
-            'ы' => 'y', 'э' => 'e', 'ю' => 'yu', 'я' => 'ya', 'ъ' => '', 'ь' => ''
+            'ы' => 'y', 'э' => 'e', 'ю' => 'yu', 'я' => 'ya', 'ъ' => '', 'ь' => '',
+
+            'А' => 'A', 'Б' => 'B', 'В' => 'V', 'Г' => 'G', 'Д' => 'D', 'Е' => 'E', 'Ё' => 'E', 'Ж' => 'J', 'З' => 'Z',
+            'И' => 'I', 'Й' => 'Y', 'К' => 'K', 'Л' => 'L', 'М' => 'M', 'Н' => 'N', 'О' => 'O', 'П' => 'P', 'Р' => 'R',
+            'С' => 'S', 'Т' => 'T', 'У' => 'U', 'Ф' => 'F', 'Х' => 'H', 'Ц' => 'C', 'Ч' => 'CH', 'Ш' => 'SH', 'Щ' => 'SCH',
+            'Ы' => 'Y', 'Э' => 'E', 'Ю' => 'YU', 'Я' => 'YA', 'Ъ' => '', 'Ь' => '',
         ));
-        $s = preg_replace("/[^0-9a-z-_ ]/i", "", $s); // очищаем строку от недопустимых символов
-        $s = str_replace(" ", "-", $s); // заменяем пробелы знаком минус
+        $s = preg_replace("/[^0-9A-Za-z-_ ]/i", "", $s); // очищаем строку от недопустимых символов
+        $s = str_replace(" ", $space, $s); // заменяем пробелы знаком минус
         return $s; // возвращаем результат
     }
+
+    public static function eng2rus($s, $lower = true, $space = '-') {
+        $s = (string)$s; // преобразуем в строковое значение
+        $s = strip_tags($s); // убираем HTML-теги
+        $s = str_replace(array("\n", "\r"), " ", $s); // убираем перевод каретки
+        $s = preg_replace('/ +/', ' ', $s); // удаляем повторяющие пробелы
+        $s = trim($s); // убираем пробелы в начале и конце строки
+        if ($lower)
+            $s = function_exists('mb_strtolower') ? mb_strtolower($s) : strtolower($s); // переводим строку в нижний регистр (иногда надо задать локаль)
+        $s = $s . ' ';
+        $s = strtr($s, array(
+            'y ' => 'и', 'e ' => 'и', 'ch' => 'ч',
+
+            'a' => 'а', 'b' => 'б', 'c' => 'ц', 'd' => 'д', 'e' => 'е', 'f' => 'ф', 'g' => 'г', 'h' => 'х', 'i' => 'и', 'j' => 'ж',
+            'k' => 'к', 'l' => 'л', 'm' => 'м', 'n' => 'н', 'o' => 'о', 'p' => 'п', 'q' => 'к', 'r' => 'р', 's' => 'с', 't' => 'т',
+            'u' => 'ю', 'v' => 'в', 'w' => 'в', 'x' => 'кс', 'y' => 'и', 'z' => 'з',
+        ));
+        #$s = preg_replace("/[^0-9A-Za-z-_ ]/i", "", $s); // очищаем строку от недопустимых символов
+        $s = trim($s);
+        $s = str_replace(" ", $space, $s); // заменяем пробелы знаком минус
+        return $s; // возвращаем результат
+    }
+
+    /**************************************************************************************/
 
     public static function hiddenGetValues() {
         if (@!count($_GET)) {
@@ -385,6 +415,54 @@ HTML;
 
     }
 
+    public static function buildExcerpts($docs = false, $index = '*', $words = false, $opts = false) {
+
+        if (!$docs || !$words)
+            return false;
+
+        $opts_default = array(
+            'before_match' => '<b>',
+            'after_match' => '</b>',
+            'chunk_separator' => '...',
+            'limit' => 256,
+            'around' => 5,
+            'exact_phrase' => FALSE,
+            'single_passage' => FALSE
+        );
+        $opts = (array)$opts + $opts_default;
+        #Helper::dd($opts);
+
+        /**
+         * VENDOR
+         * scalia/sphinxsearch
+         */
+        $host = \Config::get('sphinxsearch::host');
+        $port = \Config::get('sphinxsearch::port');
+        /**
+         * VENDOR
+         * gigablah/sphinxphp
+         */
+        $sphinx = new \Sphinx\SphinxClient;
+        $sphinx->setServer($host, $port);
+        $results = $sphinx->buildExcerpts($docs, $index, $words, $opts);
+        ##Helper::d($results);
+        
+        /**
+         * Костыль-с...
+         */
+        $n = 0;
+        $temp = array();
+        foreach ($docs as $d => $doc)
+            $temp[$d] = $results[$n++];
+        unset($sphinx);
+        return $temp;
+    }
+
+
+    public static function multiSpace($a) {
+        return preg_replace('~\s\s+~is', " ", $a);
+    }
+
     ##
     ## Uses in Dictionaries module (DicVal additional fields)
     ## $element - current DicVal model
@@ -406,9 +484,12 @@ HTML;
         #if ($name_group != '')
         #    $name = $name_group . '[' . $name . ']';
 
-        $value = $value ? $value : @$array['default'];
+        #var_dump($value);
 
-        #Helper::d($value);
+        $value = (isset($value) && $value !== NULL) ? $value : @$array['default'];
+
+        #echo (int)(isset($value) && $value !== NULL);
+        #var_dump($value);
 
         if (is_object($element) && $element->id) {
             $element = $element->extract();
@@ -446,14 +527,14 @@ HTML;
                 $return = Form::textarea($name, $value, $others_array);
                 break;
             case 'textarea_redactor':
-                $others_array['class'] = trim(@$others_array['class'] . ' redactor redactor_450');
+                $others_array['class'] = trim(@$others_array['class'] . ' redactor redactor_150');
                 $return = Form::textarea($name, $value, $others_array);
                 break;
             case 'image':
-                $return = ExtForm::image($name, $value);
+                $return = ExtForm::image($name, $value, @$array['params']);
                 break;
             case 'gallery':
-                $return = ExtForm::gallery($name, $value);
+                $return = ExtForm::gallery($name, $value, @$array['params']);
                 break;
             case 'date':
                 $others_array['class'] = trim(@$others_array['class'] . ' datepicker');
@@ -637,6 +718,7 @@ HTML;
         return sprintf("%0.2f Gb", $number / 1024 / 1024 / 1024);
     }
 
+
     public static function isRoute($route_name = false, $route_params = array(), $match_text = ' class="active"', $mismatch_text = '') {
 
         $match = true;
@@ -645,7 +727,7 @@ HTML;
         #dd($route->getPath());
 
         if (is_string($route_params)) {
-            preg_match("~\{([^\}]+?)\}~is", $route->getPath(), $matches);
+            preg_match('~\{([^\}]+?)\}~is', $route->getPath(), $matches);
             #Helper::dd($matches);
             if (@$matches[1] != '') {
                 $route_params = array($matches[1] => $route_params);
@@ -1038,5 +1120,35 @@ HTML;
         return self::getFileProperties($file);
     }
 
+
+    public static function detect_encoding($string, $pattern_size = 50) {
+        $list = array('cp1251', 'utf-8', 'ascii', '855', 'KOI8R', 'ISO-IR-111', 'CP866', 'KOI8U');
+        $c = strlen($string);
+        if ($c > $pattern_size) {
+            $string = substr($string, floor(($c - $pattern_size) / 2), $pattern_size);
+            $c = $pattern_size;
+        }
+
+        $reg1 = '/(\xE0|\xE5|\xE8|\xEE|\xF3|\xFB|\xFD|\xFE|\xFF)/i';
+        $reg2 = '/(\xE1|\xE2|\xE3|\xE4|\xE6|\xE7|\xE9|\xEA|\xEB|\xEC|\xED|\xEF|\xF0|\xF1|\xF2|\xF4|\xF5|\xF6|\xF7|\xF8|\xF9|\xFA|\xFC)/i';
+
+        $mk = 10000;
+        $enc = 'ascii';
+        foreach ($list as $item) {
+            $sample1 = @iconv($item, 'cp1251', $string);
+            $gl = @preg_match_all($reg1, $sample1, $arr);
+            $sl = @preg_match_all($reg2, $sample1, $arr);
+            if (!$gl || !$sl) {
+                continue;
+            }
+            $k = abs(3 - ($sl / $gl));
+            $k += $c - $gl - $sl;
+            if ($k < $mk) {
+                $enc = $item;
+                $mk = $k;
+            }
+        }
+        return $enc;
+    }
 }
 

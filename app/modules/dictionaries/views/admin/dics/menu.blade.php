@@ -34,6 +34,17 @@
             'class' => 'btn btn-primary'
         );
     }
+    if (Allow::superuser() && @is_object($element) && $element->id) {
+        $menus[] = array(
+            'link' => action('dic.sphinx', array('dic_id' => $element->id)),
+            'title' => '<i class="fa fa-search-plus"></i>',
+            'class' => 'btn btn-info',
+            'others' => array(
+                'title' => 'SQL-запрос для Sphinx',
+                'target' => '_blank',
+            ),
+        );
+    }
 ?>
     
     <h1>Словари</h1>

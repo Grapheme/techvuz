@@ -13,6 +13,8 @@ class PublicNewsController extends BaseController {
     ## Routing rules of module
     public static function returnRoutes($prefix = null) {
 
+        return false;
+
         $class = __CLASS__;
         ## УРЛЫ С ЯЗЫКОВЫМИ ПРЕФИКСАМИ ДОЛЖНЫ ИДТИ ПЕРЕД ОБЫЧНЫМИ!
         ## Если в конфиге прописано несколько языковых версий...
@@ -52,8 +54,8 @@ class PublicNewsController extends BaseController {
 
                 ## Параметры по-умолчанию
                 $default = array(
-                    'tpl' => Config::get('site.news_template', 'default'),
-                    'limit' => Config::get('site.news_count_on_page', 3),
+                    'tpl' => Config::get('app-default.news_template', 'default'),
+                    'limit' => Config::get('app-default.news_count_on_page', 3),
                     'order' => Helper::stringToArray(News::$order_by),
                     'pagination' => 1,
                     'type' => false,

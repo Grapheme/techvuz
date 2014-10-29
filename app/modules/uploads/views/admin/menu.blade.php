@@ -22,7 +22,7 @@
         {{ Form::open(array('url' => '#', 'class' => 'smart-form', 'files' => true)) }}
             <section>
                 <label class="input pull-left" style="width:300px;">
-                    {{ ExtForm::uploads('files', null, array('allow' => '*')) }}
+                    {{ ExtForm::upload('file', array('allow' => '*')) }}
                 </label>
                 &nbsp; <button class="btn btn-default">Загрузить</button>
             </section>
@@ -30,11 +30,7 @@
     @else
         <div class="alert alert-danger fade in min-table">
             <i class="fa-fw fa fa-times"></i>
-            @if (Config::get('site.uploads_dir') == '')
-            Не задана директория для загрузки файлов: site.uploads_dir
-            @else
-            Директория для загрузки файлов не существует, или недоступна для записи.<br/>
+            Директория для загрузки файлов недоступна для записи.<br/>
             Для выставления прав выполните команду в консоли: chmod -R 777 public/uploads
-            @endif
         </div>
     @endif

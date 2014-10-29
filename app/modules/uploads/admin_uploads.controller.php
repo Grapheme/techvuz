@@ -43,11 +43,16 @@ class AdminUploadsController extends BaseController {
         $mod_tpl = static::returnTpl();
         $class = __CLASS__;
 
-        /**
-         * EXTFORM UPLOAD
-         */
-        ExtForm::add(
-        ## Name of element
+        ##
+        ## EXTFORM ELEMENTS
+        ##
+        /*
+        ################################################
+        ## Process upload
+        ################################################
+        */
+    	ExtForm::add(
+            ## Name of element
             "upload",
             ## Closure for templates (html-code)
             function($name = 'upload', $value = '', $params = null) use ($mod_tpl, $class) {
@@ -60,6 +65,7 @@ class AdminUploadsController extends BaseController {
                 }
 
                 #Helper::dd($value);
+                #Helper::dd($params);
 
                 if ( $value === false || $value === null ) {
                     $val = Form::text($name);
@@ -73,11 +79,9 @@ class AdminUploadsController extends BaseController {
                     $value = Upload::find($value);
                 }
 
-                #Helper::dd($params);
-
                 ## return view with form element
                 return View::make($mod_tpl.$tpl, compact('name', 'value', 'params'));
-            },
+    	    },
             ## Processing results closure
             function($params) use ($mod_tpl, $class) {
 
@@ -148,110 +152,10 @@ class AdminUploadsController extends BaseController {
             }
         );
 
-        /**
-         * EXTFORM UPLOADS
-         */
-        ExtForm::add(
-        ## Name of element
-            "uploads",
-            ## Closure for templates (html-code)
-            function($name = 'uploads', $values = array(), $params = null) use ($mod_tpl, $class) {
-                ## default template
-                $tpl = "extform_uploads";
-                ## custom template
-                if (@$params['tpl']) {
-                    $tpl = $params['tpl'];
-                    unset($params['tpl']);
-                }
-
-                #Helper::dd($values);
-                /*
-                if ( $value === false || $value === null ) {
-                    $val = Form::text($name);
-                    preg_match("~value=['\"]([^'\"]+?)['\"]~is", $val, $matches);
-                    #Helper::d($matches);
-                    $val = (int)@$matches[1];
-                    if ( $val > 0 ) {
-                        $value = Upload::firstOrNew(array('id' => $val));
-                    }
-                } elseif (is_numeric($value)) {
-                    $value = Upload::find($value);
-                }
-                */
-                #Helper::dd($params);
-
-                $params['multiple'] = 'multiple';
-
-                ## return view with form element
-                return View::make($mod_tpl.$tpl, compact('name', 'values', 'params'))->render();
-            },
-            ## Processing results closure
-            function($params) use ($mod_tpl, $class) {
-
-                $files = isset($params['files']) ? $params['files'] : false;
-                #$upload_id = isset($params['upload_id']) ? $params['upload_id'] : false;
-
-                $module = isset($params['module']) ? $params['module'] : NULL;
-                $unit_id = isset($params['unit_id']) ? $params['unit_id'] : NULL;
-
-                #Helper::dd($files);
-
-                ## If new file uploaded
-                if (isset($files) && is_array($files) && count($files)) {
-
-                    $c = 0;
-                    foreach ($files as $f => $file) {
-
-                        if (!is_object($file))
-                            continue;
-
-                        $mimetype = $file->getMimeType();
-                        $mimes = explode('/', $mimetype);
-
-                        ## Move file
-                        $dir = Config::get('site.uploads_dir', public_path('uploads/files'));
-                        $file_name = time() . "_" . rand(1000, 1999) . '.' . $file->getClientOriginalExtension();
-                        $file->move($dir, $file_name);
-                        $path = preg_replace("~^" . addslashes(public_path()) . "~is", '', $dir . '/' . $file_name);
-                        #Helper::dd(filesize($dir . '/' . $file_name));
-
-                        $input = array(
-                            'path' => $path,
-                            'original_name' => $file->getClientOriginalName(),
-                            'filesize' => filesize($dir . '/' . $file_name),
-                            'mimetype' => $mimetype,
-                            'mime1' => @$mimes[0],
-                            'mime2' => @$mimes[1],
-                            'module' => $module,
-                            'unit_id' => $unit_id,
-                        );
-
-                        ## Create new upload object if file not found
-                        $upload = new Upload;
-                        $upload->save();
-                        ## Update upload record with new path
-                        $upload->update($input);
-
-                        ++$c;
-                    }
-
-                    return $c > 0;
-                }
-
-                return false;
-            }
-        );
-
     }
     
     ## Actions of module (for distribution rights of users)
     public static function returnActions() {
-        return array(
-            'view'   => 'Просмотр',
-            'create' => 'Создание',
-            #'edit'   => 'Редактирование',
-            'delete' => 'Удаление',
-        );
     }
 
     ## Info about module (now only for admin dashboard & menu)
@@ -322,13 +226,10 @@ class AdminUploadsController extends BaseController {
         Allow::permission($this->module['group'], 'create');
 
         #Helper::dd(Input::all());
-        #Helper::d(Input::file('files'));
-        #Helper::d(Input::hasFile('files.files'));
-        #Helper::dd($_FILES);
+        #Helper::d(Input::file('file'));
 
-        if (Input::hasFile('files.files')) {
-            #Helper::d(Input::file('files'));
-            $result = ExtForm::process('uploads', Input::file('files'));
+        if (Input::hasFile('file')) {
+            $result = ExtForm::process('upload', Input::file('file'));
             #Helper::dd($result);
         }
 

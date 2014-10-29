@@ -103,11 +103,26 @@ class AdminPagesPageController extends BaseController {
         Allow::permission($this->module['group'], 'create');
 
         $element = new $this->essence;
-        $locales = $this->locales;
-        foreach ($this->templates(__DIR__) as $template)
-            @$templates[$template] = $template;
 
+        $locales = $this->locales;
         #Helper::dd($locales);
+
+        foreach ($this->templates(__DIR__) as $template)
+            @$templates_module[$template] = $template;
+
+        foreach ($this->templates(Helper::theme_dir(), '') as $key => $template)
+            @$templates_theme[$key] = $template;
+
+        $templates = array();
+        if (@count($templates_theme)) {
+            natsort($templates_theme);
+            $templates['Тема оформления'] = $templates_theme;
+        }
+        if (@count($templates_module)) {
+            natsort($templates_module);
+            $templates['Модуль'] = $templates_module;
+        }
+        #Helper::dd($templates);
 
         return View::make($this->module['tpl'].'edit', compact('element', 'locales', 'templates'));
     }
@@ -137,10 +152,24 @@ class AdminPagesPageController extends BaseController {
             return Redirect::route($this->module['entity'] . '.index');
 
         $locales = $this->locales;
-        foreach ($this->templates(__DIR__) as $template)
-            @$templates[$template] = $template;
-
         #Helper::dd($locales);
+
+        foreach ($this->templates(__DIR__) as $template)
+            @$templates_module[$template] = $template;
+
+        foreach ($this->templates(Helper::theme_dir(), '') as $key => $template)
+            @$templates_theme[$key] = $template;
+
+        $templates = array();
+        if (@count($templates_theme)) {
+            natsort($templates_theme);
+            $templates['Тема оформления'] = $templates_theme;
+        }
+        if (@count($templates_module)) {
+            natsort($templates_module);
+            $templates['Модуль'] = $templates_module;
+        }
+        #Helper::dd($templates);
 
         return View::make($this->module['tpl'].'edit', compact('element', 'locales', 'templates'));
     }
@@ -663,6 +692,8 @@ class AdminPagesPageController extends BaseController {
                     $seo_backup = $element_seo->toArray();
                     unset($seo_backup['id'], $seo_backup['created_at'], $seo_backup['updated_at']);
                     $seo_backup['unit_id'] = $new_version->id;
+                    if (!$seo_backup['language'])
+                        $seo_backup['language'] = Config::get('app.locale');
                     #Helper::ta($seo_backup);
                     if (class_exists('Seo'))
                         $temp = Seo::firstOrCreate($seo_backup);

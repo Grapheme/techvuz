@@ -30,15 +30,12 @@
 
                             {{ mb_substr($element->original_name, 0, 100) }}
 
-                            <div class="note hidden">
+                            <div class="note">
                                 {{ $element->path }}
                             </div>
 
                             <div class="note">
-                                <span class="margin-right-10">
-                                    <i class="fa fa-clock-o"></i> {{ $element->created_at->format("d.m.Y, H:i") }}
-                                </span>
-                                <i class="fa fa-download"></i> {{ Helper::smartFilesize($element->filesize) }}
+                                {{ Helper::smartFilesize($element->filesize) }}
                             </div>
 
                             @if ($element->mime1 == 'image')
@@ -50,12 +47,8 @@
 						</td>
 						<td class="text-center" style="vertical-align:middle; white-space:nowrap;">
 
-                            <span class="btn btn-warning copy-button" title="Скопировать путь до файла" data-clipboard-text="{{ $element->path  }}">
-                                <i class="fa fa-copy"></i>
-                            </span>
-
-                            <a href="{{ URL::to($element->path) }}" target="_blank" download="{{ $element->original_name }}" class="btn btn-success" title="Скачать">
-                                <i class="fa fa-download"></i>
+                            <a href="{{ URL::to($element->path) }}" target="_blank" download="$element->original_name" class="btn btn-success margin-right-10">
+                                <i class="fa fa-download"></i> Скачать
                             </a>
 
         					@if(Allow::action($module['group'], 'delete'))
@@ -113,36 +106,6 @@
 			loadScript("{{ asset('js/vendor/jquery-form.min.js'); }}");
 		}
 	</script>
-
-    {{ HTML::script("js/plugin/zeroclipboard/ZeroClipboard.min.js") }}
-
-	<script type="text/javascript">
-    function activate_clipboard() {
-
-        ZeroClipboard.config({
-            forceHandCursor: true
-        });
-        $('.copy-button').each(function() {
-            var $this = $(this);
-            //var text = $($this).attr('data-path');
-            //$(this).attr('data-clipboard-text', text);
-            var client = new ZeroClipboard($this);
-            client.on( "ready", function(readyEvent) {
-                client.on("aftercopy", function(event) {
-                    // `this` === `client`
-                    // `event.target` === the element that was clicked
-                    //alert("Copied text to clipboard: " + event.data["text/plain"] );
-                    $(event.target).find('i').attr('class', 'fa fa-check')
-                    setTimeout(function () {
-                        $(event.target).find('i').attr('class', 'fa fa-copy')
-                    }, 1500);
-                    return false;
-                });
-            });
-        });
-    }
-    activate_clipboard();
-    </script>
 
 @stop
 

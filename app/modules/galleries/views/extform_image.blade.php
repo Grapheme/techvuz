@@ -12,7 +12,7 @@
         <input type="text" name="{{ $name }}" value="" class="uploaded_image_false uploaded_image_cap" style="position:absolute; left:-10000px;" />
     @endif
     <div>
-    	<div class="egg-dropzone-single dropzone" data-name="{{ $name }}" data-gallery_id="0"<? if ($photo_exists) { echo " style='display:none'";} ?>></div>
+    	<div class="egg-dropzone-single dropzone" data-name="{{ $name }}" data-gallery_id="0"<? if (isset($params) && is_array($params) && count($params)) { foreach($params as $key => $value) { echo ' data-' . $key . '="' . $value . '"'; } } ?><? if ($photo_exists) { echo " style='display:none'";} ?>></div>
         <div class="superbox_ photo-preview-container" style="margin-top:10px;">
 
             @if ($photo_exists)

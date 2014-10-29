@@ -61,7 +61,13 @@
                                 </a>
                                 @endif
 
-                                @if(Allow::action($module['group'], 'dicval_delete'))
+                                @if(
+                                    Allow::action($module['group'], 'dicval_delete')
+                                    && (
+                                            !isset($dic_settings['min_elements'])
+                                            || ($dic_settings['min_elements'] > 0 && $total_elements > $dic_settings['min_elements'])
+                                        )
+                                )
                                 <form method="POST" action="{{ action(is_numeric($dic_id) ? 'dicval.destroy' : 'entity.destroy', array('dic_id' => $dic_id, 'id' => $element->id)) }}" style="display:inline-block">
                                     <button type="submit" class="btn btn-danger remove-record">
                                         Удалить
@@ -127,6 +133,12 @@
     @if ($sortable)
     <script>
         init_sortable("{{ URL::route('dicval.order') }}", ".dicvals");
+    </script>
+    @endif
+
+    @if (@trim($dic_settings['javascript']))
+    <script>
+        {{ @$dic_settings['javascript'] }}
     </script>
     @endif
 

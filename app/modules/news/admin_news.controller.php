@@ -29,14 +29,6 @@ class AdminNewsController extends BaseController {
             );
         });
 
-        #ModTemplates::addFiles($class::$name, 'default');
-        #ModTemplates::addFiles($class::$name, array('default2')); ## don't exists
-        ModTemplates::addDir('news');
-        ModTemplates::addDir('pages');
-        ModTemplates::addDir('pages', 'tpl_block');
-        #ModTemplates::addTplDir(); ## Site layout dir
-        #ModTemplates::addTplDir('tpl'); ## Site layout nested dir
-
     }
 
     ## Shortcodes of module

@@ -40,7 +40,7 @@ class PublicPagesController extends BaseController {
             || Config::get('site.pages.disabled')
         )
             return false;
-
+        
         ##
         ## Add URL modifier for check SEO url of the page (custom UrlGenerator functionality)
         ##
@@ -225,7 +225,9 @@ class PublicPagesController extends BaseController {
                 $page = $this->page
                     ->where('id', $page_seo->unit_id)
                     ->with('meta', 'blocks.meta', 'seo')
-                    ->first();
+                    ->first()
+                    #->page
+                ;
                 #Helper::tad($page);
 
                 /*
@@ -269,11 +271,13 @@ class PublicPagesController extends BaseController {
         } else {
 
             $page = $page->where('start_page', 1)
+                ->where('version_of', NULL)
                 ->with('meta', 'blocks.meta', 'seo')
                 ->first();
 
         }
 
+        #Helper::smartQueries(1); #die;
         #Helper::tad($page);
 
         ## Page not found... Hmmm... Check template dir...
@@ -300,8 +304,20 @@ class PublicPagesController extends BaseController {
         if (!$page->template)
             $page->template = 'default';
 
-        if(empty($page->template) || !View::exists($this->module['gtpl'].$page->template))
+        if(
+            empty($page->template)
+            || (
+                !View::exists($this->module['gtpl'].$page->template)
+                && !View::exists(Helper::layout($page->template))
+            )
+        )
             throw new Exception('Template [' . $this->module['gtpl'].$page->template . '] not found.');
+
+        $template = 'default';
+        if (View::exists($this->module['gtpl'].$page->template))
+            $template = $this->module['gtpl'].$page->template;
+        elseif (View::exists(Helper::layout($page->template)))
+            $template = Helper::layout($page->template);
 
         $page->extract(true);
 
@@ -327,7 +343,7 @@ class PublicPagesController extends BaseController {
 
         #Helper::tad($page);
 
-        return View::make($this->module['gtpl'].$page->template, compact('page'));
+        return View::make($template, compact('page'));
 
 	}
     

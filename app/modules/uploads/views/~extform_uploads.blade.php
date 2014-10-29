@@ -3,7 +3,7 @@
     <!-- loadScript("/js/modules/gallery.js"); -->
 
 
-	<div class="egg-dropzone dropzone" data-name="{{ $name }}" data-gallery_id="{{ (isset($gallery) && is_object($gallery)) ? (int)$gallery->id : '0' }}"<? if (isset($params) && is_array($params) && count($params)) { foreach($params as $key => $value) { echo ' data-' . $key . '="' . $value . '"'; } } ?>></div>
+	<div class="egg-dropzone dropzone" data-name="{{ $name }}" data-gallery_id="{{ (isset($gallery) && is_object($gallery)) ? (int)$gallery->id : '0' }}"></div>
     <div class="superbox_" style="margin-top:10px;">
 
     	<input type="hidden" name="{{ $name }}[gallery_id]" value="{{ (isset($gallery) && is_object($gallery)) ? (int)$gallery->id : '0' }}" />

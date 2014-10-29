@@ -23,6 +23,8 @@ class Upload extends BaseModel {
 	);
 
     public function fullpath() {
+        #return link::to(Config::get('site.galleries_photo_dir')) . "/" . $this->name;
+        #return public_path(Config::get('site.uploads_dir', public_path('uploads/files')));
         return str_replace('//', '/', Config::get('site.uploads_dir', public_path('uploads/files')) . "/" . basename($this->path));
     }
 

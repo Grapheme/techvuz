@@ -64,10 +64,18 @@ if (@is_object($element->metas) && $element->metas->count())
 ?>
 
         <section>
+            @if (!@$field['no_label'])
             <label class="label">{{ $field['title'] }}</label>
+            @endif
+            @if (@$field['first_note'])
+            <label class="note">{{ @$field['first_note'] }}</label>
+            @endif
             <div class="input {{ $field['type'] }}">
                 {{ $form_field }}
             </div>
+            @if (@$field['second_note'])
+            <label class="note">{{ @$field['second_note'] }}</label>
+            @endif
         </section>
 
     @endforeach

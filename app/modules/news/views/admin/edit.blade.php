@@ -173,6 +173,6 @@
     {{ HTML::script('js/vendor/redactor.min.js') }}
     {{ HTML::script('js/system/redactor-config.js') }}
 
-    {{ HTML::script('js/modules/gallery.js') }}
+    {{-- HTML::script('js/modules/gallery.js') --}}
 
 @stop

@@ -124,6 +124,7 @@ var menu_editor = {
         main_block = str_replace('%attr_title%', params.title || '', main_block);
 
         main_block = str_replace('%target_blank%', params.target == '_blank' ? 'checked' : '', main_block);
+        main_block = str_replace('%is_hidden%', params.hidden == '1' ? 'checked' : '', main_block);
 
         var inner_list_block = '';
         if (inner_list) {

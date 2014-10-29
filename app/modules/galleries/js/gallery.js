@@ -3,6 +3,46 @@
  * Gallery functionality JS file
  */
 
+var dropzone_translate = {
+
+    // Dictionary
+
+    // The text used before any files are dropped
+    dictDefaultMessage: "Перетяните сюда файлы для загрузки",
+
+    // The text that replaces the default message text it the browser is not supported
+    dictFallbackMessage: "Ваш браузер не поддерживает загрузку drag-and-drop",
+
+    // The text that will be added before the fallback form
+    // If null, no text will be added at all.
+    dictFallbackText: "Пожалуйста, используйте форму ниже, чтобы загрузить файлы.",
+
+    // If the filesize is too big.
+    dictFileTooBig: "Cлишком большой файл ({{filesize}}Мб). Максимально допустимый размер: {{maxFilesize}}Мб.",
+
+    // If the file doesn't match the file type.
+    dictInvalidFileType: "Данный тип файлов запрещен к загрузке",
+
+    // If the server response was invalid.
+    dictResponseError: "Ошибка при загрузке. Код ответа сервера: {{statusCode}}",
+
+    // If used, the text to be used for the cancel upload link.
+    dictCancelUpload: "Отменить",
+
+    // If used, the text to be used for confirmation when cancelling upload.
+    dictCancelUploadConfirmation: "Вы действительно хотите отменить загрузку?",
+
+    // If used, the text to be used to remove a file.
+    dictRemoveFile: "Удалить",
+
+    // If this is not null, then the user will be prompted before removing a file.
+    dictRemoveFileConfirmation: null,
+
+    // Displayed when the maxFiles have been exceeded
+    // You can use {{maxFiles}} here, which will be replaced by the option.
+    dictMaxFilesExceeded: "Достигнут лимит на кол-во загруженных файлов: {{maxFiles}}"
+};
+
     $(document).ready(function(){
 
     	Dropzone.autoDiscover = false;
@@ -16,14 +56,21 @@
 
             var el_name = $(el).data("name");
 			var gallery_id = $(el).data('gallery_id');
+            var max_file_size = $(el).data("maxfilesize");
+            var max_files = $(el).data("maxfiles");
+            var acceptedFiles = $(el).data("acceptedfiles");
+
+            var dropzone_settings = {
+                url: base_url + "/admin/galleries/abstractupload",
+                addRemoveLinks : true,
+                maxFilesize: max_file_size || 2, // MB
+                maxFiles: max_files || 0,
+                acceptedFiles: acceptedFiles || 'image/*'
+            };
+            dropzone_settings = array_merge(dropzone_settings, dropzone_translate);
 
 			var myDropzone = new Dropzone(
-				el, {
-                    url: base_url + "/galleries/abstractupload",
-                    addRemoveLinks : true,
-                    maxFilesize: 0.5,
-                    dictResponseError: 'Error uploading file!'
-				}
+				el, dropzone_settings
 			);
 
 	        myDropzone.on("totaluploadprogress", function(data) {
@@ -64,27 +111,31 @@
             var el_name = $(el).data("name");
             var gallery_id = 0; //$(el).data('gallery_id');
 			var preview = $(el).parent().find(".photo-preview");
+            var max_file_size = $(el).data("maxfilesize");
+            var acceptedFiles = $(el).data("acceptedfiles");
 
-			var myDropzone = new Dropzone(
-				el, {
-                    url: base_url + "/galleries/singleupload",
-                    addRemoveLinks : true,
-                    maxFilesize: 0.5,
-                    dictResponseError: 'Error uploading file!',
-                    dictDefaultMessage: 'dictDefaultMessage',
-                    uploadMultiple: false,
-                    parallelUploads: 1,
-                    maxFiles: 1,
-                    dictMaxFilesExceeded: 'Можно загрузить только одно изображение.',
-                    init: function() {
-                        this.on("addedfile", function() {
-                            // Single image upload
-                            if (this.files[1] != null){
-                                this.removeFile(this.files[0]);
-                            }
-                        });
-                    }
-				}
+            var dropzone_settings = {
+                url: base_url + "/admin/galleries/singleupload",
+                addRemoveLinks : true,
+                maxFilesize: max_file_size || 2, // MB
+                acceptedFiles: acceptedFiles || 'image/*',
+                uploadMultiple: false,
+                parallelUploads: 1,
+                maxFiles: 1,
+                dictMaxFilesExceeded: 'Можно загрузить только одно изображение.',
+                init: function() {
+                    this.on("addedfile", function() {
+                        // Single image upload
+                        if (this.files[1] != null){
+                            this.removeFile(this.files[0]);
+                        }
+                    });
+                }
+            }
+            dropzone_settings = array_merge(dropzone_settings, dropzone_translate);
+
+            var myDropzone = new Dropzone(
+				el, dropzone_settings
 			);
 
 	        myDropzone.on("totaluploadprogress", function(data) {
@@ -139,7 +190,7 @@
     		},function(ButtonPressed) {
     			if(ButtonPressed == "Да") {
                     $.ajax({
-                        url: base_url + "/galleries/photodelete",
+                        url: base_url + "/admin/galleries/photodelete",
                         data: { id: image_id },
                         type: 'post',
                     }).done(function(){
@@ -167,7 +218,7 @@
     		},function(ButtonPressed) {
     			if(ButtonPressed == "Да") {
                     $.ajax({
-                        url: base_url + "/galleries/photodelete",
+                        url: base_url + "/admin/galleries/photodelete",
                         data: { id: image_id },
                         type: 'post',
                     }).done(function(){
@@ -190,9 +241,9 @@
 
 		function deleteUploadedImage(image_id) {
             $.ajax({
-                url: base_url + "/galleries/photodelete",
+                url: base_url + "/admin/galleries/photodelete",
                 data: { id: image_id },
-                type: 'post'
+                type: 'post',
             }).done(function(){
                 $(".uploaded_image_" + image_id).empty().remove();
                 //$photoDiv.fadeOut('fast');

@@ -122,6 +122,9 @@ class MenuConstructor {
             $element = $this->get_element($id);
             #Helper::dd($element);
 
+            if (!$element)
+                continue;
+
             /**
              * Отрисовываем дочерние элементы текущего пункта меню, если они есть
              */
@@ -186,6 +189,10 @@ class MenuConstructor {
          * Получаем данные об элементе меню
          */
         $data = $this->items[$element_id];
+
+        #Helper::d($data);
+        if (@$data['hidden'])
+            return;
 
         /**
          * Определяем атрибуты ссылки (class, title, target и т.д.)

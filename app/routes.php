@@ -104,7 +104,7 @@ foreach ($files as $file) {
 
     if (!empty($module_prefix) && $module_prefix != 'public' && Auth::check()):
         if ($module_name == 'galleries '):
-            $module_prefix = '';
+            $module_prefix = 'admin';
         else:
             $module_prefix = AuthAccount::getGroupName();
         endif;

@@ -13,7 +13,13 @@
             'class' => 'btn btn-default'
         );
     }
-    if (Allow::action($module['group'], 'dicval_delete') && isset($element) && is_object($element) && $element->id) {
+    if (
+        Allow::action($module['group'], 'dicval_delete') && isset($element) && is_object($element) && $element->id
+        && (
+            !isset($dic_settings['min_elements'])
+            || ($dic_settings['min_elements'] > 0 && $total_elements > $dic_settings['min_elements'])
+        )
+    ) {
         $menus[] = array(
             'link' => action(is_numeric($dic_id) ? 'dicval.destroy' : 'entity.destroy', array('dic_id' => $dic_id, $element->id)),
             'title' => '<i class="fa fa-trash-o"></i>',
@@ -27,7 +33,7 @@
     }
     if  (
         Allow::action($module['group'], 'dicval_create')
-        && (!isset($dic_settings['max_elements']) || !$dic_settings['max_elements'] || $dic_settings['max_elements'] > $total_elements)
+        && (!isset($dic_settings['max_elements']) || !$dic_settings['max_elements'] || $dic_settings['max_elements'] > @$total_elements)
     ) {
         $current_link_attributes = Helper::multiArrayToAttributes(Input::get('filter'), 'filter');
         $menus[] = array(

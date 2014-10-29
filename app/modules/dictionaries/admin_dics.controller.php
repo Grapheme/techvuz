@@ -21,6 +21,8 @@ class AdminDicsController extends BaseController {
             Route::post('dic/{dic_id}/import2', array('as' => 'dic.import2', 'uses' => $class.'@postImport2'));
             Route::post('dic/{dic_id}/import3', array('as' => 'dic.import3', 'uses' => $class.'@postImport3'));
 
+            Route::get('dic/{dic_id}/sphinx',  array('as' => 'dic.sphinx',   'uses' => $class.'@getSphinx'));
+
             Route::resource('dic', $class,
                 array(
                     'except' => array('show'),
@@ -82,7 +84,12 @@ class AdminDicsController extends BaseController {
         $tbl_dic = $elements->getTable();
 
         ## Ordering
-        $elements = $elements->orderBy('order', 'ASC')->orderBy('name', 'ASC');
+        $elements = $elements
+            #->orderBy('order', 'ASC')
+            ->orderBy(DB::raw('-' . $tbl_dic . '.order'), 'DESC') ## 0, 1, 2 ... NULL, NULL
+            ->orderBy($tbl_dic . '.created_at', 'ASC')
+            ->orderBy('name', 'ASC')
+        ;
 
         ## View access
         if (!Allow::superuser())
@@ -131,7 +138,41 @@ class AdminDicsController extends BaseController {
         Allow::permission($this->module['group'], 'edit');
 
 		$element = Dictionary::find($id);
-		return View::make($this->module['tpl'].'edit', compact('element'));
+
+        $dic_fields_array = array();
+        if (NULL !== ($dic_fields = Config::get('dic/' . $element->slug . '.fields'))) {
+            if (is_callable($dic_fields)) {
+                $dic_fields = $dic_fields();
+                $temp = array();
+                foreach ($dic_fields as $field_name => $field_array) {
+                    if (!isset($field_array['title']) || !$field_array['title'])
+                        continue;
+                    $temp[$field_name] = $field_array['title'];
+                }
+                if (count($temp))
+                    $dic_fields_array['Обычные поля'] = $temp;
+
+            }
+        }
+        if (NULL !== ($dic_fields = Config::get('dic/' . $element->slug . '.fields_i18n'))) {
+            if (is_callable($dic_fields)) {
+                $dic_fields = $dic_fields();
+                $temp = array();
+                foreach ($dic_fields as $field_name => $field_array) {
+                    if (!isset($field_array['title']) || !$field_array['title']) {
+                        continue;
+                    }
+                    $temp[$field_name] = $field_array['title'];
+                }
+                if (count($temp)) {
+                    $dic_fields_array['Мультиязычные поля'] = $temp;
+                }
+            }
+        }
+
+        #Helper::dd($dic_fields_array);
+
+        return View::make($this->module['tpl'].'edit', compact('element', 'dic_fields_array'));
 	}
 
 
@@ -171,7 +212,7 @@ class AdminDicsController extends BaseController {
         if (Allow::action($this->module['group'], 'settings')) {
             $input['entity'] = Input::get('entity') ? 1 : NULL;
             $input['hide_slug'] = Input::get('hide_slug') ? 1 : NULL;
-            $input['make_slug_from_name'] = Input::get('make_slug_from_name') ? 1 : NULL;
+            $input['make_slug_from_name'] = Input::get('make_slug_from_name') > 0 ? (int)Input::get('make_slug_from_name') : NULL;
             $input['name_title'] = Input::get('name_title') ?: NULL;
             $input['view_access'] = Input::get('view_access') ?: NULL;
             $input['sortable'] = Input::get('sortable') ? 1 : 0;
@@ -298,7 +339,7 @@ class AdminDicsController extends BaseController {
 
         #Helper::dd($array);
 
-        $fields = array('Выберите...', 'name' => 'Название', 'slug' => 'Системное имя') + array_keys((array)Config::get('dic.fields.' . $dic->slug));
+        $fields = array('Выберите...', 'name' => 'Название', 'slug' => 'Системное имя') + array_keys((array)Config::get('dic/' . $dic->slug . '.fields'));
         #Helper::dd($fields);
 
         $element = $dic;
@@ -396,6 +437,101 @@ class AdminDicsController extends BaseController {
         #Helper::d($array);
 
         return Redirect::route('dicval.index', $dic_id);
+    }
+
+    public function getSphinx($dic_id) {
+
+        if (!Allow::superuser())
+            App::abort(404);
+
+        $dic = Dictionary::where(is_numeric($dic_id) ? 'id' : 'slug', $dic_id)
+            #->with('values')
+            ->first();
+
+        if (!is_object($dic))
+            App::abort(404);
+
+        #Helper::d('Данные словаря:') . Helper::ta($dic);
+
+        $fields = Config::get('dic/' . $dic->slug . '.fields');
+        if (isset($fields) && is_callable($fields))
+            $fields = $fields();
+
+        #Helper::d('Доп. поля словаря (fields):') . Helper::d($fields);
+
+        $fields_i18n = Config::get('dic/' . $dic->slug . '.fields_i18n');
+        if (isset($fields_i18n) && is_callable($fields_i18n))
+            $fields_i18n = $fields_i18n();
+
+        #Helper::d('Мультиязычные доп. поля словаря (fields_i18n):') . Helper::d($fields_i18n);
+
+        $tbl_dic_field_val = (new DicFieldVal)->getTable();
+
+        /**
+         * Будут индексироваться только поля следующих типов
+         */
+        $indexed_types = array('textarea', 'textarea_redactor', 'text');
+
+        $selects = array(
+            "dicval.id AS id",
+            $dic->id . " AS dic_id",
+            "'" . $dic->name . "' AS dic_name",
+            "'" . $dic->slug . "' AS dic_slug",
+            "dicval.name AS name"
+        );
+        $sql = array();
+
+        $j = 0;
+        /**
+         * Поиск по обычным полям
+         */
+        if (isset($fields) && is_array($fields) && count($fields)) {
+            foreach ($fields as $field_key => $field) {
+
+                if (!in_array($field['type'], $indexed_types))
+                    continue;
+
+                ++$j;
+                $tbl =  "tbl" . $j;
+                ##$selects[] = $tbl . '.language AS language';
+                $selects[] = $tbl . '.value AS ' . $field_key;
+                $sql[] = "LEFT JOIN " . $tbl_dic_field_val . " AS " . $tbl . " ON " . $tbl . ".dicval_id = dicval.id AND " . $tbl . ".key = '" . $field_key . "' AND " . $tbl . ".language IS NULL";
+            }
+        }
+        /**
+         * Поиск по мультиязычным полям
+         */
+        if (isset($fields_i18n) && is_array($fields_i18n) && count($fields_i18n)) {
+            foreach ($fields_i18n as $field_key => $field) {
+
+                if (!in_array($field['type'], $indexed_types))
+                    continue;
+
+                ++$j;
+                $tbl =  "tbl" . $j;
+                ##$selects[] = $tbl . '.language AS language';
+                $selects[] = $tbl . '.value AS ' . $field_key;
+                $sql[] = "LEFT JOIN " . $tbl_dic_field_val . " AS " . $tbl . " ON " . $tbl . ".dicval_id = dicval.id AND " . $tbl . ".key = '" . $field_key . "' AND " . $tbl . ".language IS NOT NULL";
+            }
+        }
+
+        $sql[] = "WHERE dicval.version_of IS NULL AND dicval.dic_id = '" . $dic->id . "'";
+
+        $selects_compile = implode(', ', $selects);
+
+        array_unshift($sql, "SELECT " . $selects_compile . " FROM " . (new DicVal)->getTable() . " AS dicval");
+
+        return
+            "<h1>Поиск по словарю &laquo;" . $dic->name . "&raquo; (" . $dic->slug . ")</h1>" .
+            "<h3>SQL-запрос для тестирования (phpMyAdmin):</h3>" .
+            nl2br(implode("\n", $sql)) .
+            "<h3>SQL-запрос для вставки в конфиг Sphinx:</h3>" .
+            "<pre>
+    sql_query     = \\\n        " . (implode(' \\'."\n        ", $sql)) . "
+
+    sql_attr_uint = id
+</pre>"
+            ;
     }
 
 }

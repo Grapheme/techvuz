@@ -85,7 +85,6 @@ var validation_messages = {
         loadScript("{{ asset('js/vendor/jquery-form.min.js') }}");
     }
 </script>
-{{ HTML::script('js/modules/gallery.js') }}
 {{ HTML::script('js/vendor/redactor.min.js') }}
 {{ HTML::script('js/system/redactor-config.js') }}
 @stop
