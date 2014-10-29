@@ -54,13 +54,17 @@ class AccountsDocumentsController extends BaseController {
         View::share('module', $this->module);
     }
 
-    public function CompanyOrderContract($order_id,$format){
+    public function CompanyOrderContract($order_id,$format,$stream = TRUE,$accountID = NULL){
 
-        $account = User_organization::where('id',Auth::user()->id)->first();
+        if (is_null($accountID)):
+            $accountID = Auth::user()->id;
+        endif;
+
+        $account = User_organization::where('id',$accountID)->first();
         if (!$account->moderator_approve):
             return Redirect::route('company-orders');
         endif;
-        if (!$order = Orders::where('id',$order_id)->where('user_id',Auth::user()->id)->where('completed',1)->where('archived',0)->first()):
+        if (!$order = Orders::where('id',$order_id)->where('user_id',$accountID)->where('completed',1)->where('archived',0)->first()):
             return Redirect::route('company-orders');
         endif;
         $order_listeners = Orders::where('id',$order->id)->first()->listeners()->with('course','user_listener')->get();
@@ -87,8 +91,12 @@ class AccountsDocumentsController extends BaseController {
                 switch($format):
                     case 'html': return View::make(Helper::acclayout('documents'),$page_data);
                     case 'pdf' :
-                                 $pdf = PDF::loadView(Helper::acclayout('documents'), $page_data);
-                                 return $pdf->download('contract-'.$order_id.'.pdf');
+//                                $pdf = PDF::loadView(Helper::acclayout('documents'), $page_data,array(),'UTF-8');
+                                if ($stream):
+//                                    return $pdf->stream('contract-'.$order_id.'.pdf');
+                                else:
+//                                    return $pdf->download('contract-'.$order_id.'.pdf');
+                                endif;
                     case 'word':
                                  break;
                     default: App:abort(404);
@@ -99,13 +107,17 @@ class AccountsDocumentsController extends BaseController {
         App::abort(404);
     }
 
-    public function CompanyOrderInvoice($order_id,$format){
+    public function CompanyOrderInvoice($order_id,$format,$stream = TRUE,$accountID = NULL){
 
-        $account = User_organization::where('id',Auth::user()->id)->first();
+        if (is_null($accountID)):
+            $accountID = Auth::user()->id;
+        endif;
+
+        $account = User_organization::where('id',$accountID)->first();
         if (!$account->moderator_approve):
             return Redirect::route('company-orders');
         endif;
-        if (!$order = Orders::where('id',$order_id)->where('user_id',Auth::user()->id)->where('completed',1)->where('archived',0)->first()):
+        if (!$order = Orders::where('id',$order_id)->where('user_id',$accountID)->where('completed',1)->where('archived',0)->first()):
             return Redirect::route('company-orders');
         endif;
         $order_listeners = Orders::where('id',$order->id)->first()->listeners()->with('course','user_listener')->get();
@@ -135,13 +147,17 @@ class AccountsDocumentsController extends BaseController {
         App::abort(404);
     }
 
-    public function CompanyOrderAct($order_id,$format){
+    public function CompanyOrderAct($order_id,$format,$stream = TRUE,$accountID = NULL){
 
-        $account = User_organization::where('id',Auth::user()->id)->first();
+        if (is_null($accountID)):
+            $accountID = Auth::user()->id;
+        endif;
+
+        $account = User_organization::where('id',$accountID)->first();
         if (!$account->moderator_approve):
             return Redirect::route('company-orders');
         endif;
-        if (!$order = Orders::where('id',$order_id)->where('user_id',Auth::user()->id)->where('completed',1)->where('archived',0)->first()):
+        if (!$order = Orders::where('id',$order_id)->where('user_id',$accountID)->where('completed',1)->where('archived',0)->first()):
             return Redirect::route('company-orders');
         endif;
         $order_listeners = Orders::where('id',$order->id)->first()->listeners()->with('course','user_listener')->get();

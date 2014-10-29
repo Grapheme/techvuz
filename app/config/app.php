@@ -64,7 +64,6 @@ return array(
         'Scalia\SphinxSearch\SphinxSearchServiceProvider',
         'Bugsnag\BugsnagLaravel\BugsnagLaravelServiceProvider',
         'Chumper\Zipper\ZipperServiceProvider',
-        'Barryvdh\DomPDF\ServiceProvider'
     ),
 	'aliases' => array(
 		'App'             => 'Illuminate\Support\Facades\App',
@@ -114,6 +113,5 @@ return array(
         'Bugsnag'           => 'Bugsnag\BugsnagLaravel\BugsnagFacade',
 
         'Collection'        => 'Illuminate\Database\Eloquent\Collection',
-        'PDF'               => 'Barryvdh\DomPDF\Facade',
 	),
 );

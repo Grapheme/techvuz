@@ -13,8 +13,7 @@
 		"scalia/sphinxsearch": "*",
 		"flynsarmy/db-blade-compiler": "1.*",
         "bugsnag/bugsnag-laravel": "v1.0.9",
-		"chumper/zipper": "dev-master",
-        "barryvdh/laravel-dompdf": "0.4.*"
+		"chumper/zipper": "dev-master"
 	},
 	"autoload": {
 		"classmap": [
