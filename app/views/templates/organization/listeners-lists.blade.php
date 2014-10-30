@@ -42,7 +42,7 @@
                         @endforeach
                     @else
                     <tr>
-                        <td><a href="{{ URL::route('company-listener-profile',$listener->id) }}">{{ $listener->fio }}</a></td>
+                        <td><a href="{{ URL::route('organization-listener-profile',$listener->id) }}">{{ $listener->fio }}</a></td>
                         <td><span class="no-courses">Для этого сотрудника курсы не покупались</span></td>
                         <td class="td-status-bar">
                             <div class="ui-progress-bar bar-1 clearfix">

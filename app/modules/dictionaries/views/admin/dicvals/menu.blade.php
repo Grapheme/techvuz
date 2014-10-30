@@ -33,7 +33,7 @@
     }
     if  (
         Allow::action($module['group'], 'dicval_create')
-        && (!isset($dic_settings['max_elements']) || !$dic_settings['max_elements'] || $dic_settings['max_elements'] > @$total_elements)
+        && (!isset($dic_settings['max_elements']) || !$dic_settings['max_elements'] || $dic_settings['max_elements'] > @$total_elements_current_selection)
     ) {
         $current_link_attributes = Helper::multiArrayToAttributes(Input::get('filter'), 'filter');
         $menus[] = array(

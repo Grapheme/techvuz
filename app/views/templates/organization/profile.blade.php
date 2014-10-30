@@ -12,7 +12,7 @@
                     <h3>Профиль</h3>
                 </div>
                 <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9">
-                    <a class="icon--blue pull-right margin-top-30" href="{{ URL::route('company-profile-edit') }}">
+                    <a class="icon--blue pull-right margin-top-30" href="{{ URL::route('organization-profile-edit') }}">
                         <span class="icon icon-red"></span>
                     </a>
                 </div>

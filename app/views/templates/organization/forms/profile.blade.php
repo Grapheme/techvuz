@@ -1,4 +1,4 @@
-{{ Form::model($profile,array('url'=>URL::route('company-profile-update'), 'class'=>'registration-form', 'id'=>'profile-company-form', 'method'=>'PATCH')) }}
+{{ Form::model($profile,array('url'=>URL::route('organization-profile-update'), 'class'=>'registration-form', 'id'=>'profile-company-form', 'method'=>'PATCH')) }}
     <div class="reg-form-alert">
         Все поля являются обязательными для заполнения!
     </div>

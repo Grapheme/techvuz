@@ -12,6 +12,7 @@
 {{HTML::script('js/system/main.js');}}
 {{HTML::script('js/vendor/SmartNotification.min.js');}}
 {{HTML::script('js/vendor/jquery.validate.min.js');}}
+{{HTML::script('js/vendor/additional-methods.min.js');}}
 {{HTML::script('js/vendor/jquery.maskedinput.min.js');}}
 {{HTML::script('js/vendor/bootstrap-slider.min.js');}}
 {{HTML::script('js/vendor/smartclick.js');}}

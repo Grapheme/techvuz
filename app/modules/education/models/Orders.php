@@ -68,4 +68,35 @@ class Orders extends BaseModel {
 
         return $this->hasMany('OrderPayments','order_id');
     }
+
+    public function getLastOrderNumber($next = FALSE){
+
+        $lastNumber = (int) $this->where('completed',1)
+            ->where(DB::raw('YEAR(created_at)'),'=',date('Y'))
+            ->orderBy('number','DESC')
+            ->where('archived',0)
+            ->pluck('number');
+        if ($next):
+            return $lastNumber+1;
+        else:
+            return $lastNumber;
+        endif;
+    }
+
+    public function getLastFreeOrderNumber(){
+
+        $freeNumber = 0;
+        $allNumbers = $this->where('completed',1)
+            ->where(DB::raw('YEAR(created_at)'),'=',date('Y'))
+            ->orderBy('number','ASC')
+            ->where('archived',0)
+            ->lists('number');
+        foreach($allNumbers as $index => $number):
+            if (isset($allNumbers[$index+1]) && $allNumbers[$index+1] != $number+1):
+                $freeNumber = $number+1;
+                break;
+            endif;
+        endforeach;
+        return $freeNumber;
+    }
 }

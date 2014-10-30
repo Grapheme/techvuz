@@ -7,7 +7,7 @@
     <h2>{{ User_organization::where('id',Auth::user()->id)->pluck('title') }}</h2>
     <div class="cabinet-tabs">
         @include(Helper::acclayout('menu'))
-        <h3>Заказ №{{ $order->number }}</h3> {{ $order->created_at->format("d.m.Y в H:i") }}
+        <h3>Заказ №{{ getOrderNumber($order) }}</h3> {{ $order->created_at->format("d.m.Y в H:i") }}
         <?php $order_price = 0;?>
         @foreach($order->listeners as $listener)
         <?php $order_price += $listener->price;?>
@@ -53,12 +53,12 @@
                 <td rowspan="{{ count($course['listeners']) }}">{{ $course['course']['code'] }}. {{{ $course['course']['title'] }}}</td>
                 @endif
                 <td>
-                    <a href="{{ URL::route('company-listener-profile',$listener['id']) }}">{{ $listener['fio'] }}</a>
+                    <a href="{{ URL::route('organization-listener-profile',$listener['id']) }}">{{ $listener['fio'] }}</a>
                 </td>
                 <td class="purchase-price">{{ $listener['price'] }} руб.</td>
                 <td>
                 @if($listener['over_status'] == 1)
-                    <a href="{{ URL::route('company-order-certificate-first',array('order_id'=>$order->id,'course_id'=>$course['course']['id'],'listener_id'=>$listener['id'])) }}">Просмотреть</a>
+                    <a href="{{ URL::route('organization-order-certificate-first',array('order_id'=>$order->id,'course_id'=>$course['course']['id'],'listener_id'=>$listener['id'])) }}">Просмотреть</a>
                 @endif
                 </td>
             </tr>

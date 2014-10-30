@@ -1,7 +1,7 @@
 <tr data-index="{{ $listener->id }}" {{ $index >= 1 ? 'class="hidden"' : '' }}>
     <td>
         @if($index == 0)
-        <a href="{{ URL::route('company-listener-profile',$listener->id) }}">{{ $listener->fio }}</a>
+        <a href="{{ URL::route('organization-listener-profile',$listener->id) }}">{{ $listener->fio }}</a>
         @endif
     </td>
     <td>

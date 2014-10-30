@@ -10,7 +10,8 @@ ImperaviRedactor.getBaseURL = function(url){
 	if(typeof(url) == "undefined"){url = '';}
 	return ImperaviRedactor.baseURL+url;
 };
-ImperaviRedactor.buttons = ['html','|','bold','italic','|','unorderedlist','|','alignleft','aligncenter','alignright','justify','|','image','file','video','link','|','table','|'];
+ImperaviRedactor.buttons = ['html','|','formatting','bold','italic','|','unorderedlist','|','alignleft','aligncenter','alignright','justify','|','image','file','video','link','|','table','|'];
+//ImperaviRedactor.formatting = ['p', 'blockquote', 'h1', 'h2'];
 ImperaviRedactor.buttonsCustom = {
 	button_undo:{title: 'Назад',callback: function(buttonName,buttonDOM,buttonObject){this.execCommand('undo',false,false);}},
 	button_redo:{title: 'Вперед',callback: function(buttonName,buttonDOM,buttonObject){this.execCommand('redo', false, false);}}

@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "6033997769badf3208f598cf149f0d50",
+    "hash": "c93c5cfd12b38b92d64864514921edcf",
     "packages": [
         {
             "name": "barryvdh/laravel-debugbar",
@@ -631,12 +631,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/dbal.git",
-                "reference": "a67db17b3d5bf373ba7a827db52dd0c7066cb08a"
+                "reference": "d12672808124e711c2cb78a82d4461ba2e89c7ef"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/dbal/zipball/a67db17b3d5bf373ba7a827db52dd0c7066cb08a",
-                "reference": "a67db17b3d5bf373ba7a827db52dd0c7066cb08a",
+                "url": "https://api.github.com/repos/doctrine/dbal/zipball/d12672808124e711c2cb78a82d4461ba2e89c7ef",
+                "reference": "d12672808124e711c2cb78a82d4461ba2e89c7ef",
                 "shasum": ""
             },
             "require": {
@@ -694,7 +694,7 @@
                 "persistence",
                 "queryobject"
             ],
-            "time": "2014-10-27 17:14:07"
+            "time": "2014-10-29 16:12:22"
         },
         {
             "name": "doctrine/inflector",
@@ -1229,17 +1229,57 @@
             "time": "2014-10-26 23:39:38"
         },
         {
+            "name": "lowerends/l4-mpdf",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/lowerends/l4-mpdf.git",
+                "reference": "1a28d9649320cb81098cb9004bcd625ffbb6a156"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/lowerends/l4-mpdf/zipball/1a28d9649320cb81098cb9004bcd625ffbb6a156",
+                "reference": "1a28d9649320cb81098cb9004bcd625ffbb6a156",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/support": "4.x",
+                "mpdf/mpdf": "5.7.*",
+                "php": ">=5.3.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "Lowerends\\Mpdf": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "authors": [
+                {
+                    "name": "Lowe Rends",
+                    "email": "lowerends@gmail.com"
+                }
+            ],
+            "description": "mPDF wrapper for Laravel 4",
+            "keywords": [
+                "laravel",
+                "mpdf",
+                "pdf"
+            ],
+            "time": "2014-05-23 20:53:27"
+        },
+        {
             "name": "maximebf/debugbar",
             "version": "dev-master",
             "source": {
                 "type": "git",
                 "url": "https://github.com/maximebf/php-debugbar.git",
-                "reference": "eb3f0d448a360132af24ad9322451ce447e1294a"
+                "reference": "21bb4b4be57d06a618fb69d2d0cc7579968ae0cd"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/maximebf/php-debugbar/zipball/eb3f0d448a360132af24ad9322451ce447e1294a",
-                "reference": "eb3f0d448a360132af24ad9322451ce447e1294a",
+                "url": "https://api.github.com/repos/maximebf/php-debugbar/zipball/21bb4b4be57d06a618fb69d2d0cc7579968ae0cd",
+                "reference": "21bb4b4be57d06a618fb69d2d0cc7579968ae0cd",
                 "shasum": ""
             },
             "require": {
@@ -1281,7 +1321,7 @@
             "keywords": [
                 "debug"
             ],
-            "time": "2014-10-28 08:58:41"
+            "time": "2014-10-29 14:55:38"
         },
         {
             "name": "monolog/monolog",
@@ -1289,12 +1329,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Seldaek/monolog.git",
-                "reference": "d0a9acbad0643726453e901d9d49c14e13de9f86"
+                "reference": "53c6cf358bf50a3d31a003639245dac1d4de694b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Seldaek/monolog/zipball/d0a9acbad0643726453e901d9d49c14e13de9f86",
-                "reference": "d0a9acbad0643726453e901d9d49c14e13de9f86",
+                "url": "https://api.github.com/repos/Seldaek/monolog/zipball/53c6cf358bf50a3d31a003639245dac1d4de694b",
+                "reference": "53c6cf358bf50a3d31a003639245dac1d4de694b",
                 "shasum": ""
             },
             "require": {
@@ -1353,7 +1393,50 @@
                 "logging",
                 "psr-3"
             ],
-            "time": "2014-10-21 20:10:18"
+            "time": "2014-10-29 06:32:01"
+        },
+        {
+            "name": "mpdf/mpdf",
+            "version": "v5.7.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/finwe/mpdf.git",
+                "reference": "ace190986978df40b9c416cf7ba8761945fc1758"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/finwe/mpdf/zipball/ace190986978df40b9c416cf7ba8761945fc1758",
+                "reference": "ace190986978df40b9c416cf7ba8761945fc1758",
+                "shasum": ""
+            },
+            "require": {
+                "ext-mbstring": "*",
+                "php": ">=4.3.10"
+            },
+            "type": "library",
+            "autoload": {
+                "classmap": [
+                    "mpdf.php",
+                    "classes"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "GPL-1.0+"
+            ],
+            "authors": [
+                {
+                    "name": "Ian Back"
+                }
+            ],
+            "description": "A PHP class to generate PDF files from HTML with Unicode/UTF-8 and CJK support",
+            "homepage": "http://www.mpdf1.com/mpdf/index.php",
+            "keywords": [
+                "pdf",
+                "php",
+                "utf-8"
+            ],
+            "time": "2014-08-24 08:33:20"
         },
         {
             "name": "nesbot/carbon",
@@ -2717,6 +2800,42 @@
             "time": "2014-10-26 07:41:27"
         },
         {
+            "name": "vkharseev/laravel-phpword",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/vkharseev/laravel-phpword.git",
+                "reference": "e95daf65108a792d261c80a4b2b06e3eada8bbaa"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/vkharseev/laravel-phpword/zipball/e95daf65108a792d261c80a4b2b06e3eada8bbaa",
+                "reference": "e95daf65108a792d261c80a4b2b06e3eada8bbaa",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.4.0"
+            },
+            "type": "library",
+            "autoload": {
+                "classmap": [
+                    "PHPWord.php",
+                    "PHPWord"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Vladimir Kharseev"
+                }
+            ],
+            "description": "PHPWord Laravel",
+            "time": "2014-10-29 16:40:52"
+        },
+        {
             "name": "way/generators",
             "version": "2.6.1",
             "source": {
@@ -2773,7 +2892,9 @@
     ],
     "minimum-stability": "dev",
     "stability-flags": {
-        "chumper/zipper": 20
+        "chumper/zipper": 20,
+        "lowerends/l4-mpdf": 20,
+        "vkharseev/laravel-phpword": 20
     },
     "prefer-stable": false,
     "platform": [

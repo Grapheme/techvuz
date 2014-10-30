@@ -1,7 +1,7 @@
 @if(isset($order) && is_object($order))
 <li class="orders-li {{ $order->payment->class }}">
     <div class="orders-li-head">
-        <h4><a href="{{ URL::route('moderator-order-extended',$order->id) }}">Заказ №{{ $order->number }}</a></h4>
+        <h4><a href="{{ URL::route('moderator-order-extended',$order->id) }}">Заказ №{{ getOrderNumber($order) }}</a></h4>
         <div class="orders-status">
             {{ $order->payment->title }}
         </div>

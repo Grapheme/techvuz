@@ -60,6 +60,8 @@ var dropzone_translate = {
             var max_files = $(el).data("maxfiles");
             var acceptedFiles = $(el).data("acceptedfiles");
 
+            //alert(max_files);
+
             var dropzone_settings = {
                 url: base_url + "/admin/galleries/abstractupload",
                 addRemoveLinks : true,

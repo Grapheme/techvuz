@@ -20,7 +20,7 @@
                <a href="{{ URL::route('page', 'how-it-works') }}">Как это работает</a>
            </li>
            <li class="nav-li{{ Helper::isRoute('page', 'snips',' active') }}">
-               <a href="{{ URL::route('page', 'snips') }}">Переписка (СНИПЫ)</a>
+               {{--<a href="{{ URL::route('page', 'snips') }}">Переписка (СНИПЫ)</a>--}}
            </li>
            <li class="nav-li{{ Helper::isRoute('page', 'contacts',' active') }}">
                <a href="{{ URL::route('page', 'contacts') }}">Контактная информация</a>

@@ -48,12 +48,3 @@ $seo = isset($value) && is_object($value) ? $value : new Seo;
     </fieldset>
 
 </div>
-
-<style>
-    .redactor_redactor_preview {
-        height: 80px !important;
-    }
-    .redactor_redactor_content {
-        height: 200px !important;
-    }
-</style>

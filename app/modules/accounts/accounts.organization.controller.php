@@ -12,26 +12,23 @@ class AccountsOrganizationController extends BaseController {
     public static function returnRoutes($prefix = null) {
         $class = __CLASS__;
         if (isOrganization()):
-            Route::group(array('before' => 'auth.status', 'prefix' => self::$name), function() use ($class) {
+            Route::group(array('before' => 'auth.status', 'prefix' => 'organization'), function() use ($class) {
                 Route::get('registration/listener', array('as' => 'signup-listener', 'uses' => $class . '@signupListener'));
 
-                Route::get('profile', array('as' => 'company-profile', 'uses' => $class . '@CompanyProfile'));
-                Route::get('profile/edit', array('as' => 'company-profile-edit', 'uses' => $class . '@CompanyProfileEdit'));
-                Route::patch('profile/update', array('before' => 'csrf', 'as' => 'company-profile-update', 'uses' => $class . '@CompanyProfileUpdate'));
+                Route::get('profile', array('as' => 'organization-profile', 'uses' => $class . '@CompanyProfile'));
+                Route::get('profile/edit', array('as' => 'organization-profile-edit', 'uses' => $class . '@CompanyProfileEdit'));
+                Route::patch('profile/update', array('before' => 'csrf', 'as' => 'organization-profile-update', 'uses' => $class . '@CompanyProfileUpdate'));
 
-                Route::get('listeners/profile/{listener_id}', array('as' => 'company-listener-profile', 'uses' => $class . '@CompanyListenerProfile'));
-                Route::get('listeners/profile/{listener_id}/edit', array('as' => 'company-listener-profile-edit', 'uses' => $class . '@CompanyListenerProfileEdit'));
-                Route::patch('listeners/profile/{listener_id}/update', array('before' => 'csrf', 'as' => 'company-listener-profile-update', 'uses' => $class . '@CompanyListenerProfileUpdate'));
+                Route::get('listeners/profile/{listener_id}', array('as' => 'organization-listener-profile', 'uses' => $class . '@CompanyListenerProfile'));
+                Route::get('listeners/profile/{listener_id}/edit', array('as' => 'organization-listener-profile-edit', 'uses' => $class . '@CompanyListenerProfileEdit'));
+                Route::patch('listeners/profile/{listener_id}/update', array('before' => 'csrf', 'as' => 'organization-listener-profile-update', 'uses' => $class . '@CompanyListenerProfileUpdate'));
 
-                Route::get('orders', array('as' => 'company-orders', 'uses' => $class . '@CompanyOrdersList'));
-                Route::get('order/{order_id}', array('as' => 'company-order', 'uses' => $class . '@CompanyOrderShow'));
+                Route::get('orders', array('as' => 'organization-orders', 'uses' => $class . '@CompanyOrdersList'));
+                Route::get('order/{order_id}', array('as' => 'organization-order', 'uses' => $class . '@CompanyOrderShow'));
 
-                Route::get('order/{order_id}/course/{course_id}/listener/{listener_id}/certificate/first', array('as' => 'company-order-certificate-first', 'uses' => $class . '@CompanyOrderCertificateFirst'));
-                Route::get('order/{order_id}course/{course_id}/listener/{listener_id}certificate/second', array('as' => 'company-order-certificate-second', 'uses' => $class . '@CompanyOrderCertificateSecond'));
-
-                Route::get('listeners', array('as' => 'company-listeners', 'uses' => $class . '@CompanyListenersList'));
-                Route::get('study', array('as' => 'company-study', 'uses' => $class . '@CompanyStudyProgressList'));
-                Route::get('notifications', array('as' => 'company-notifications', 'uses' => $class . '@CompanyNotificationsList'));
+                Route::get('listeners', array('as' => 'organization-listeners', 'uses' => $class . '@CompanyListenersList'));
+                Route::get('study', array('as' => 'organization-study', 'uses' => $class . '@CompanyStudyProgressList'));
+                Route::get('notifications', array('as' => 'organization-notifications', 'uses' => $class . '@CompanyNotificationsList'));
             });
         endif;
     }
@@ -100,7 +97,7 @@ class AccountsOrganizationController extends BaseController {
             if($validator->passes()):
                 if (self::CompanyAccountUpdate(Input::all())):
                     $json_request['responseText'] = Lang::get('interface.UPDATE_PROFILE_COMPANY.success');
-                    $json_request['redirect'] = URL::route('company-profile');
+                    $json_request['redirect'] = URL::route('organization-profile');
                     $json_request['status'] = TRUE;
                 else:
                     $json_request['responseText'] = Lang::get('interface.UPDATE_PROFILE_COMPANY.fail');
@@ -185,7 +182,7 @@ class AccountsOrganizationController extends BaseController {
             if($validator->passes()):
                 if (self::ListenerAccountUpdate($listener_id,Input::all())):
                     $json_request['responseText'] = Lang::get('interface.UPDATE_PROFILE_LISTENER.success');
-                    $json_request['redirect'] = URL::route('company-listener-profile',$listener_id);
+                    $json_request['redirect'] = URL::route('organization-listener-profile',$listener_id);
                     $json_request['status'] = TRUE;
                 else:
                     $json_request['responseText'] = Lang::get('interface.UPDATE_PROFILE_LISTENER.fail');
@@ -247,7 +244,7 @@ class AccountsOrganizationController extends BaseController {
             ->with('listeners.course','listeners.user_listener','payment')
             ->first();
         if (!$order):
-            return Redirect::route('company-orders');
+            return Redirect::route('organization-orders');
         endif;
 
         $page_data = array(

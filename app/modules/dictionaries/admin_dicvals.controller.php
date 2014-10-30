@@ -107,9 +107,9 @@ class AdminDicvalsController extends BaseController {
         $elements = new DicVal;
         $tbl_dicval = $elements->getTable();
         $elements = $elements
-            ->where('dic_id', $dic->id)
-            ->where('version_of', '=', NULL)
             ->select($tbl_dicval . '.*')
+            ->where($tbl_dicval.'.dic_id', (int)$dic->id)
+            ->where($tbl_dicval.'.version_of', '=', NULL)
             ->with('fields')
         ;
         #$elements = DB::table('dictionary_values')->where('dic_id', $dic->id)->select('dictionary_values.*');
@@ -143,19 +143,19 @@ class AdminDicvalsController extends BaseController {
         $sort_order = $dic->sort_order_reverse ? 'DESC' : 'ASC';
         switch ($dic->sort_by) {
             case '':
-                $elements = $elements->orderBy('order', $sort_order)->orderBy('name', $sort_order);
+                $elements = $elements->orderBy($tbl_dicval.'.order', $sort_order)->orderBy($tbl_dicval.'.name', $sort_order);
                 break;
             case 'name':
-                $elements = $elements->orderBy('name', $sort_order);
+                $elements = $elements->orderBy($tbl_dicval.'.name', $sort_order);
                 break;
             case 'slug':
-                $elements = $elements->orderBy('slug', $sort_order);
+                $elements = $elements->orderBy($tbl_dicval.'.slug', $sort_order);
                 break;
             case 'created_at':
-                $elements = $elements->orderBy('created_at', $sort_order);
+                $elements = $elements->orderBy($tbl_dicval.'.created_at', $sort_order);
                 break;
             case 'updated_at':
-                $elements = $elements->orderBy('updated_at', $sort_order);
+                $elements = $elements->orderBy($tbl_dicval.'.updated_at', $sort_order);
                 break;
             default:
                 /**
@@ -174,10 +174,17 @@ class AdminDicvalsController extends BaseController {
                         ;
                     })
                     ->addSelect($rand_tbl_alias . '.value AS ' . $dic->sort_by)
-                    ->orderBy($dic->sort_by, $sort_order)
-                    ->orderBy('created_at', 'DESC'); /* default */
+                    ->orderBy($tbl_dicval.'.'.$dic->sort_by, $sort_order)
+                    ->orderBy($tbl_dicval.'.created_at', 'DESC'); /* default */
                 break;
         }
+
+        /**
+         * Кол-во элементов, подпадающих под условия, но без учета пагинации
+         */
+        $total_elements_current_selection = clone $elements;
+        $total_elements_current_selection = (int)$total_elements_current_selection->count();
+        #Helper::ta($total_elements_current_selection);
 
         ## Pagination
         if ($dic->pagination > 0)
@@ -187,11 +194,15 @@ class AdminDicvalsController extends BaseController {
 
         $sortable = ($dic->sortable && $dic->pagination == 0 && $dic->sort_by == NULL) ? true : false;
 
+        #Helper::smartQueries(1);
+
         DicVal::extracts($elements, true);
+
         #Helper::tad($elements);
 
         $dic_settings = Config::get('dic/' . $dic->slug);
         #Helper::dd($dic_settings);
+
 
         $actions_column = false;
         if (
@@ -208,7 +219,7 @@ class AdminDicvalsController extends BaseController {
         $this->callHook('before_index_view', $dic, $elements);
 
         #return View::make(Helper::acclayout());
-        return View::make($this->module['tpl'].'index', compact('elements', 'dic', 'dic_id', 'sortable', 'dic_settings', 'actions_column', 'total_elements'));
+        return View::make($this->module['tpl'].'index', compact('elements', 'dic', 'dic_id', 'sortable', 'dic_settings', 'actions_column', 'total_elements', 'total_elements_current_selection'));
 	}
 
     /************************************************************************************/

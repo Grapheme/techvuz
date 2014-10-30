@@ -12,7 +12,7 @@
                     <h3 class="margin-bottom-20">{{ $profile->fio }}</h3>
                 </div>
                 <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
-                    <a class="icon--blue pull-right" href="{{ URL::route('company-listener-profile-edit',$profile->id) }}">
+                    <a class="icon--blue pull-right" href="{{ URL::route('organization-listener-profile-edit',$profile->id) }}">
                         <span class="icon icon-red"></span>
                     </a>
                 </div>

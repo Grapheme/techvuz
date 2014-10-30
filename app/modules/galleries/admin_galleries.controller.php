@@ -59,8 +59,12 @@ class AdminGalleriesController extends BaseController {
                 #Helper::dd($params);
 
                 if (is_numeric($value)) {
-                    $value = Gallery::find($value);
+                    $value = Gallery::where('id', $value)->with('photos')->first();
                 }
+
+                #if (isset($params['maxFiles']) && isset($value->photos) && count($value->photos)) {
+                #    $params['maxFiles'] = $params['maxFiles'] - count($value->photos);
+                #}
 
                 $gallery = $value;
                 ## return view with form element

@@ -113,8 +113,9 @@ class AccountsOrderingController extends BaseController {
                     return Redirect::route('ordering-select-listeners')->with('message','Сотрудники выбраны не для всех курсов в списке');
                 endif;
             endforeach;
-            $lastOrderNumber = Orders::where('completed',1)->orderBy('number','DESC')->pluck('number');
-            if($order = Orders::create(array('user_id'=>Auth::user()->id,'number'=>$lastOrderNumber+1,'completed'=>Input::get('completed')))):
+//            $lastOrderNumber = (new Orders)->getLastOrderNumber(true);
+            $lastFreeOrderNumber = (new Orders)->getLastFreeOrderNumber();
+            if($order = Orders::create(array('user_id'=>Auth::user()->id,'number'=>$lastFreeOrderNumber,'completed'=>Input::get('completed')))):
                 $accountDiscount = getAccountDiscount();
                 $coursesCountDiscount = coursesCountDiscount(Input::get('courses'));
                 foreach(Courses::whereIn('id',Input::get('courses'))->with('direction')->get() as $course):

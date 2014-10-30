@@ -13,7 +13,9 @@
 		"scalia/sphinxsearch": "*",
 		"flynsarmy/db-blade-compiler": "1.*",
         "bugsnag/bugsnag-laravel": "v1.0.9",
-		"chumper/zipper": "dev-master"
+		"chumper/zipper": "dev-master",
+		"lowerends/l4-mpdf": "dev-master",
+        "vkharseev/laravel-phpword": "dev-master"
 	},
 	"autoload": {
 		"classmap": [

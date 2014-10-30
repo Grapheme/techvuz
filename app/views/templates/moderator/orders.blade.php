@@ -44,6 +44,11 @@ $orders = Orders::orderBy('payment_status')->orderBy('created_at','DESC')->with(
         </li>
     </ul>
     <div id="tabs-11">
+        <form class="employee-search margin-bottom-20">
+            <fieldset>
+                <input type="text" placeholder="Укажите номер заказа или заказчика">
+            </fieldset>
+        </form>
         <table class="table table-striped table-bordered">
             <thead>
                 <tr>
@@ -64,6 +69,11 @@ $orders = Orders::orderBy('payment_status')->orderBy('created_at','DESC')->with(
         </table>
     </div>
     <div id="tabs-12">
+        <form class="employee-search margin-bottom-20">
+            <fieldset>
+                <input type="text" placeholder="Укажите номер заказа или заказчика">
+            </fieldset>
+        </form>
         <table class="table table-striped table-bordered">
             <thead>
                 <tr>
@@ -84,6 +94,11 @@ $orders = Orders::orderBy('payment_status')->orderBy('created_at','DESC')->with(
         </table>
     </div>
     <div id="tabs-13">
+        <form class="employee-search margin-bottom-20">
+            <fieldset>
+                <input type="text" placeholder="Укажите номер заказа или заказчика">
+            </fieldset>
+        </form>
         <table class="table table-striped table-bordered">
             <thead>
                 <tr>
@@ -104,6 +119,11 @@ $orders = Orders::orderBy('payment_status')->orderBy('created_at','DESC')->with(
         </table>
     </div>
     <div id="tabs-14">
+        <form class="employee-search margin-bottom-20">
+            <fieldset>
+                <input type="text" placeholder="Укажите номер заказа или заказчика">
+            </fieldset>
+        </form>
         <table class="table table-striped table-bordered">
             <thead>
                 <tr>

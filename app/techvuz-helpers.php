@@ -115,6 +115,15 @@ function coursesCountDiscount($courses){
         return 0;
     endif;
 }
+
+function getOrderNumber($order){
+
+    if(is_object($order)):
+        return str_pad($order->number,3,'0',STR_PAD_LEFT).'-'.$order->created_at->format('y');
+    elseif(is_array($order)):
+        return str_pad($order['number'],3,'0',STR_PAD_LEFT).'-'.date('y',strtotime($order['created_at']));
+    endif;
+}
 /****************************************************************************/
 /*********************** ДЛЯ ДОКУМЕНТОВ *************************************/
 /****************************************************************************/

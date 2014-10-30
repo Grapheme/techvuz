@@ -38,24 +38,36 @@ $(function(){
 		});
 		return false;
 	});
-    $(".dont-remove-" + essence).click(function() {
-		var $this = this;
-		$.SmartMessageBox({
-            title: "Невозможно удалить " + essence_name + ".",
-            content: "Удаляемый элемент содержит данные.",
-            buttons: '[ОК]'
-        });
-		return false;
-	});
 });
 
 
 function runFormValidation() {
 
-	var validation = $("#" + essence + "-form").validate({
+    $.extend($.validator.messages, {
+        required: "Это поле необходимо заполнить.",
+        remote: "Пожалуйста, введите правильное значение.",
+        email: "Пожалуйста, введите корректный адрес электронной почты.",
+        url: "Пожалуйста, введите корректный URL.",
+        date: "Пожалуйста, введите корректную дату.",
+        dateISO: "Пожалуйста, введите корректную дату в формате ISO.",
+        number: "Пожалуйста, введите число.",
+        digits: "Пожалуйста, вводите только цифры.",
+        creditcard: "Пожалуйста, введите правильный номер кредитной карты.",
+        equalTo: "Пожалуйста, введите такое же значение ещё раз.",
+        extension: "Пожалуйста, выберите файл с правильным расширением.",
+        maxlength: $.validator.format("Пожалуйста, введите не больше {0} символов."),
+        minlength: $.validator.format("Пожалуйста, введите не меньше {0} символов."),
+        rangelength: $.validator.format("Пожалуйста, введите значение длиной от {0} до {1} символов."),
+        range: $.validator.format("Пожалуйста, введите число от {0} до {1}."),
+        max: $.validator.format("Пожалуйста, введите число, меньшее или равное {0}."),
+        min: $.validator.format("Пожалуйста, введите число, большее или равное {0}.")
+    });
+
+    var validation = $("#" + essence + "-form").validate({
         rules: validation_rules ? validation_rules : {},
 		messages: validation_messages ? validation_messages : {},
-		errorPlacement : function(error, element){error.insertAfter(element.parent());},
+		errorPlacement: function(error, element){error.insertAfter(element.parent());},
+        ignore: [],
 		submitHandler: function(form) {
 			var options = {target:null, dataType:'json', type:'post'};
 			options.beforeSubmit = function(formData,jqForm,options){
@@ -111,4 +123,10 @@ function runFormValidation() {
 			$(form).ajaxSubmit(options);
 		}
 	});
+    /*
+    $('textarea.redactor').filter(function(){
+        //alert($(this).css('display'));
+        return $(this).css('display') == 'none';
+    }).css('height', '0').css('display', 'block');
+    */
 }
