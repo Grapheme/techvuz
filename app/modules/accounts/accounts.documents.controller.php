@@ -68,100 +68,78 @@ class AccountsDocumentsController extends BaseController {
 
     public function organizationOrderContract($order_id,$format){
 
-        $account = User_organization::where('id',Auth::user()->id)->first();
-        if (!$account->moderator_approve):
+        if (!User_organization::where('id',Auth::user()->id)->pluck('moderator_approve')):
             return Redirect::route('organization-orders');
         endif;
-        if (!$order = Orders::where('id',$order_id)->where('user_id',Auth::user()->id)->where('completed',1)->where('archived',0)->first()):
+        if (!Orders::where('id',$order_id)->where('user_id',Auth::user()->id)->where('completed',1)->where('archived',0)->exists()):
             return Redirect::route('organization-orders');
         endif;
-        $order_listeners = Orders::where('id',$order->id)->first()->listeners()->with('course','user_listener')->get();
-        $count_listeners = $order_listeners->count();
-        $total_summa = 0;
-        foreach($order_listeners as $order_listener):
-            $total_summa += $order_listener->price;
-        endforeach;
         if($document = Dictionary::valueBySlugs('order-documents','order-documents-contract')):
             $fields = modifyKeys($document->fields,'key');
-            $document_content = isset($fields['content']) ? $fields['content']->value : '';
             $word_template = FALSE;
             if($word_template_id = isset($fields['word_template']) ? $fields['word_template']->value : ''):
                 $word_template = Upload::where('id',$word_template_id)->pluck('path');
             endif;
-            if (!empty($document_content) || $word_template):
-                $page_data = array(
-                    'page_title' => Lang::get('seo.COMPANY_ORDER.title'),
-                    'page_description' => Lang::get('seo.COMPANY_ORDER.description'),
-                    'page_keywords' => Lang::get('seo.COMPANY_ORDER.keywords'),
-                    'order' => $order->toArray(),
-                    'account' => $account->toArray(),
-                    'count_listeners' => $count_listeners,
-                    'total_summa' => $total_summa,
-                    'template' => storage_path('views/'.sha1($order_id.'order-documents-contract'))
-                );
-                switch($format):
-                    case 'html':
-                        self::parseOrderDocument($page_data['template'],$document_content);
+            Config::set('show-document.order_id', $order_id);
+            switch($format):
+                case 'html':
+                    $document_content = isset($fields['content']) ? $fields['content']->value : '';
+                    if($page_data = self::parseOrderHTMLDocument($document_content)):
                         return View::make(Helper::acclayout('documents'),$page_data);
-                    case 'pdf' :
-                        $filePath = self::parseOrderWordDocument($word_template,$page_data);
-                        return Response::download($filePath,'testword.docx');
-                    case 'word':
-                        $filePath = self::parseOrderWordDocument($word_template,$page_data);
-                        return Response::download($filePath,'testword.docx');
-                    default: App:abort(404);
-                endswitch;
-            endif;
+                    endif;
+                    break;
+                case 'pdf' :
+                    if($filePath = self::parseOrderWordDocument($word_template)):
+                        return Response::download($filePath,'Договор.docx');
+                    endif;
+                    break;
+                case 'word':
+                    if($filePath = self::parseOrderWordDocument($word_template)):
+                        return Response::download($filePath,'Договор.docx');
+                    endif;
+                    break;
+                default: App:abort(404);
+            endswitch;
         endif;
-        App::abort(404);
+        return Redirect::route('organization-orders');
     }
 
     public function organizationOrderInvoice($order_id,$format){
 
-        $account = User_organization::where('id',Auth::user()->id)->first();
-        if (!$account->moderator_approve):
+        if (!User_organization::where('id',Auth::user()->id)->pluck('moderator_approve')):
             return Redirect::route('organization-orders');
         endif;
-        if (!$order = Orders::where('id',$order_id)->where('user_id',Auth::user()->id)->where('completed',1)->where('archived',0)->first()):
+        if (!Orders::where('id',$order_id)->where('user_id',Auth::user()->id)->where('completed',1)->where('archived',0)->exists()):
             return Redirect::route('organization-orders');
         endif;
-        $order_listeners = Orders::where('id',$order->id)->first()->listeners()->with('course','user_listener')->get();
-        $count_listeners = $order_listeners->count();
-        $total_summa = 0;
-        foreach($order_listeners as $order_listener):
-            $total_summa += $order_listener->price;
-        endforeach;
         if($document = Dictionary::valueBySlugs('order-documents','order-documents-invoice')):
             $fields = modifyKeys($document->fields,'key');
-            $document_content = isset($fields['content']) ? $fields['content']->value : '';
-            if (!empty($document_content)):
-                $page_data = array(
-                    'page_title' => Lang::get('seo.COMPANY_ORDER.title'),
-                    'page_description' => Lang::get('seo.COMPANY_ORDER.description'),
-                    'page_keywords' => Lang::get('seo.COMPANY_ORDER.keywords'),
-                    'order' => $order->toArray(),
-                    'account' => $account->toArray(),
-                    'count_listeners' => $count_listeners,
-                    'total_summa' => $total_summa,
-                    'template' => storage_path('views/'.sha1($order_id.'order-documents-invoice'))
-                );
-                self::parseOrderDocument($page_data['template'],$document_content);
-                switch($format):
-                    case 'html': return View::make(Helper::acclayout('documents'),$page_data);
-                    case 'pdf' :
-                        $pdf = PDF::loadView(Helper::acclayout('documents'), $page_data);
-                        if ($this->document_stream):
-                            return $pdf->stream('invoice-'.$order_id.'.pdf');
-                        else:
-                            return $pdf->download('invoice-'.$order_id.'.pdf');
-                        endif;
-                    case 'word':
-                        break;
-                    default: App:abort(404);
-                endswitch;
+            $word_template = FALSE;
+            if($word_template_id = isset($fields['word_template']) ? $fields['word_template']->value : ''):
+                $word_template = Upload::where('id',$word_template_id)->pluck('path');
             endif;
+            Config::set('show-document.order_id', $order_id);
+            switch($format):
+                case 'html':
+                    $document_content = isset($fields['content']) ? $fields['content']->value : '';
+                    if($page_data = self::parseOrderHTMLDocument($document_content)):
+                        return View::make(Helper::acclayout('documents'),$page_data);
+                    endif;
+                    break;
+                case 'pdf' :
+                    if($filePath = self::parseOrderWordDocument($word_template)):
+                        return Response::download($filePath,'Счет.docx');
+                    endif;
+                    break;
+                case 'word':
+                    if($filePath = self::parseOrderWordDocument($word_template)):
+                        return Response::download($filePath,'Счет.docx');
+                    endif;
+                    break;
+                default: App:abort(404);
+            endswitch;
         endif;
-        App::abort(404);
+        return Redirect::route('organization-orders');
     }
 
     public function organizationOrderAct($order_id,$format){
@@ -460,36 +438,73 @@ class AccountsDocumentsController extends BaseController {
         App::abort(404);
     }
     /****************************************************************************/
-    private function parseOrderDocument($template,$content){
 
-        $Filesystem = new Illuminate\Filesystem\Filesystem();
-        $compileString = (new \Illuminate\View\Compilers\BladeCompiler($Filesystem,storage_path('cache')))->compileString($content);
-        $Filesystem->put($template,$compileString);
-        return $compileString;
+    private function getDocumentVariables($extract = FALSE){
+
+        $order = Orders::where('id',Config::get('show-document.order_id'))->with('organization','individual','payment','listeners.course','listeners.listener','listeners.final_test','payment_numbers')->first();
+        $dateTime = new myDateTime();
+        $variables = array(
+            'page_title' => '',
+            'NomerZakaza' => getOrderNumber($order),
+            'SummaZakaza' => 1547,
+            'SummaZakazaSlovami' => num2str(1547),
+            'DataOplatuZakaza' => $dateTime->setDateString($order->payment_date)->format('d.m.y'),
+            'DataOformleniyaZakaza' => $order->created_at->format('d.m.y'),
+            'DataOformleniyaZakazaSlovami' => $dateTime->setDateString($order->created_at)->months(),
+            'NazvanieOrganizacii' => empty($order->organization) ? '' : $order->organization->title,
+            'ImyaOtvetstvennogoLicaOrganizacii' => empty($order->organization) ? '' : $order->organization->fio_manager,
+            'DoljnostOtvetstvennogoLicaOrganizacii' => empty($order->organization) ? '' : $order->organization->manager,
+            'DeystvuyucheeOsnovanieOrganizacii' => empty($order->organization) ? '' : $order->organization->statutory,
+            'UridicheskiyAdresOrganizacii' => empty($order->organization) ? '' : $order->organization->uraddress,
+            'PochtovuyAdressZakazchika' => empty($order->organization) ? $order->individual->postaddress : $order->organization->postaddress,
+            'OGNROrganizacii' => empty($order->organization) ? '' : $order->organization->ogrn,
+            'INNOrganizacii' => empty($order->organization) ? '' : $order->organization->inn,
+            'KPPOrganizacii' => empty($order->organization) ? '' : $order->organization->kpp,
+            'RaschetnuySchetOrganizacii' => empty($order->organization) ? '' : $order->organization->account_number,
+            'KorrespondentskuyChetOrganizacii' => empty($order->organization) ? '' : $order->organization->account_kor_number,
+            'NazvanieBankaOrganizacii' => empty($order->organization) ? '' : $order->organization->bank,
+            'BIKOrganizacii' => empty($order->organization) ? '' : $order->organization->bik,
+            'KontaktnuyTelefonZakazchika' => empty($order->organization) ? $order->individual->phone : $order->organization->phone,
+
+            'ImyaIndividualnogoZakazchika' => empty($order->individual) ? '' : $order->individual->fio,
+        );
+        if ($extract):
+            return extract($variables);
+        else:
+            return $variables;
+        endif;
     }
 
-    private function parseOrderWordDocument($template,$data){
+    private function parseOrderHTMLDocument($content){
+
+        if (!empty($content)):
+            $template = public_path('uploads/orders/temporary/'.sha1($content));
+            $Filesystem = new Illuminate\Filesystem\Filesystem();
+            $compileString = (new \Illuminate\View\Compilers\BladeCompiler($Filesystem,storage_path('cache')))->compileString($content);
+            $Filesystem->put($template,$compileString);
+            $page_data = self::getDocumentVariables();
+            $page_data['page_title'] = 'HTML версия';
+            $page_data['template'] = $template;
+            return $page_data;
+        else:
+            return FALSE;
+        endif;
+    }
+
+    private function parseOrderWordDocument($template){
 
         if (File::exists(public_path($template)) === FALSE):
             return FALSE;
         endif;
-        $filePath = public_path('uploads/orders/testword.docx');
-        $document = (new PHPWord())->loadTemplate(public_path($template));
-
-        $document->setValue('Value1', 'Sun');
-        $document->setValue('Value2', 'Mercury');
-        $document->setValue('Value3', 'Venus');
-        $document->setValue('Value4', 'Earth');
-        $document->setValue('Value5', 'Mars');
-        $document->setValue('Value6', 'Jupiter');
-        $document->setValue('Value7', 'Saturn');
-        $document->setValue('Value8', 'Uranus');
-        $document->setValue('Value9', 'Neptun');
-        $document->setValue('Value10', 'Pluto');
-
-        $document->setValue('weekday', date('l'));
-        $document->setValue('time', date('H:i'));
-
+        $filePath = public_path('uploads/orders/temporary/'.sha1(time()).'.docx');
+        $document = new PHPWord();
+        $document->setDefaultFontName('Times New Roman');
+        $document->setDefaultFontSize(12);
+        $document = $document->loadTemplate(public_path($template));
+        $variables = self::getDocumentVariables();
+        foreach($variables as $variable_index => $variable_value):
+            $document->setValue($variable_index,$variable_value);
+        endforeach;
         $document->save($filePath);
         return $filePath;
     }

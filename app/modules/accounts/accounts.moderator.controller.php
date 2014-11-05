@@ -36,6 +36,8 @@ class AccountsModeratorController extends BaseController {
 
                 Route::get('statistic', array('as' => 'moderator-statistic', 'uses' => $class . '@statistic'));
                 Route::post('statistic-set-period', array('as' => 'moderator-statistic-set-period', 'uses' => $class . '@statisticSetPeriod'));
+
+                Route::get('notifications', array('as' => 'moderator-notifications', 'uses' => $class . '@NotificationsList'));
             });
         endif;
     }
@@ -71,6 +73,16 @@ class AccountsModeratorController extends BaseController {
             'entity_name' => self::$entity_name,
         );
         View::share('module', $this->module);
+    }
+
+    public function NotificationsList(){
+
+        $page_data = array(
+            'page_title'=> 'Системные сообщения',
+            'page_description'=> '',
+            'page_keywords'=> '',
+        );
+        return View::make(Helper::acclayout('notifications'),$page_data);
     }
     /****************************************************************************/
     /******************************* КОМПАНИИ ***********************************/
@@ -195,13 +207,17 @@ class AccountsModeratorController extends BaseController {
 
             $organization->title = $post['title'];
             $organization->fio_manager = $post['fio_manager'];
+            $organization->fio_manager_rod = $post['fio_manager_rod'];
             $organization->manager = $post['manager'];
             $organization->statutory = $post['statutory'];
+            $organization->ogrn = $post['ogrn'];
             $organization->inn = $post['inn'];
             $organization->kpp = $post['kpp'];
+            $organization->uraddress = $post['uraddress'];
             $organization->postaddress = $post['postaddress'];
             $organization->account_type = $post['account_type'];
             $organization->account_number = $post['account_number'];
+            $organization->account_kor_number = $post['account_kor_number'];
             $organization->bank = $post['bank'];
             $organization->bik = $post['bik'];
             $organization->name = $post['name'];
@@ -539,12 +555,13 @@ class AccountsModeratorController extends BaseController {
             $user->touch();
 
             $listener->fio = $post['fio'];
+            $listener->fio_dat = $post['fio_dat'];
             $listener->position = $post['position'];
             $listener->postaddress = $post['postaddress'];
             $listener->phone = $post['phone'];
             $listener->education = $post['education'];
-            $listener->place_work = $post['place_work'];
-            $listener->year_study = $post['year_study'];
+            $listener->education_document_data = $post['education_document_data'];
+            $listener->educational_institution = $post['educational_institution'];
             $listener->specialty = $post['specialty'];
             $listener->save();
             $listener->touch();

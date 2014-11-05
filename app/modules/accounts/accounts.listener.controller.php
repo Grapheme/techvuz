@@ -136,12 +136,13 @@ class AccountsListenerController extends BaseController {
             $user->touch();
 
             $listener->fio = $post['fio'];
+            $listener->fio_dat = $post['fio_dat'];
             $listener->position = $post['position'];
             $listener->postaddress = $post['postaddress'];
             $listener->phone = $post['phone'];
             $listener->education = $post['education'];
-            $listener->place_work = $post['place_work'];
-            $listener->year_study = $post['year_study'];
+            $listener->education_document_data = $post['education_document_data'];
+            $listener->educational_institution = $post['educational_institution'];
             $listener->specialty = $post['specialty'];
             $listener->save();
             $listener->touch();
@@ -202,6 +203,9 @@ class AccountsListenerController extends BaseController {
         if(Lectures::where('id',$lecture_id)->exists()):
             $lecture = Lectures::where('id',$lecture_id)->with('document')->first()->toArray();
             if (isset($lecture['document']['path']) && File::exists(public_path($lecture['document']['path']))):
+                if($listenerCourse->start_status == 0):
+                    Event::fire('organization.study.begin',array(array('accountID'=>User_listener::where('id',Auth::user()->id)->first()->organization()->pluck('id'),'course'=>OrderListeners::where('id',$study_course_id)->first()->course()->pluck('title'),'listener'=>User_listener::where('id',Auth::user()->id)->pluck('fio'))));
+                endif;
                 Event::fire('listener.start.course.study', array(array('listener_course_id'=>$study_course_id)));
                 $headers = returnDownloadHeaders($lecture['document']);
                 return Response::download(public_path($lecture['document']['path']), $lecture['document']['original_name'], $headers);
@@ -237,6 +241,9 @@ class AccountsListenerController extends BaseController {
                 $zipper = new \Chumper\Zipper\Zipper();
                 $zipper->make($zipFilePath)->add($documents)->close();
                 if (File::exists($zipFilePath)):
+                    if($listenerCourse->start_status == 0):
+                        Event::fire('organization.study.begin',array(array('accountID'=>User_listener::where('id',Auth::user()->id)->first()->organization()->pluck('id'),'course'=>OrderListeners::where('id',$study_course_id)->first()->course()->pluck('title'),'listener'=>User_listener::where('id',Auth::user()->id)->pluck('fio'))));
+                    endif;
                     Event::fire('listener.start.course.study', array(array('listener_course_id'=>$study_course_id)));
                     $headers = returnZipDownloadHeaders($zipFilePath);
                     return Response::download($zipFilePath, 'all-lectures.zip.', $headers);

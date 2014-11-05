@@ -68,7 +68,6 @@ class AccountsOrganizationController extends BaseController {
     }
 
     public function CompanyProfile(){
-
         $page_data = array(
             'page_title'=> Lang::get('seo.COMPANY_PROFILE.title'),
             'page_description'=> Lang::get('seo.COMPANY_PROFILE.description'),
@@ -96,6 +95,7 @@ class AccountsOrganizationController extends BaseController {
             $validator = Validator::make(Input::all(),Organization::$update_rules);
             if($validator->passes()):
                 if (self::CompanyAccountUpdate(Input::all())):
+                    Event::fire('moderator.update-profile-organization',array(array('accountID'=>0,'organization'=>User_organization::where('id',Auth::user()->id)->pluck('title'))));
                     $json_request['responseText'] = Lang::get('interface.UPDATE_PROFILE_COMPANY.success');
                     $json_request['redirect'] = URL::route('organization-profile');
                     $json_request['status'] = TRUE;
@@ -181,6 +181,7 @@ class AccountsOrganizationController extends BaseController {
             $validator = Validator::make(Input::all(),Listener::$update_rules);
             if($validator->passes()):
                 if (self::ListenerAccountUpdate($listener_id,Input::all())):
+                    Event::fire('moderator.update-profile-listener',array(array('accountID'=>0,'organization'=>User_organization::where('id',Auth::user()->id)->pluck('title'),'listener'=>Input::get('fio'))));
                     $json_request['responseText'] = Lang::get('interface.UPDATE_PROFILE_LISTENER.success');
                     $json_request['redirect'] = URL::route('organization-listener-profile',$listener_id);
                     $json_request['status'] = TRUE;
@@ -208,12 +209,13 @@ class AccountsOrganizationController extends BaseController {
                 $user->touch();
 
                 $listener->fio = $post['fio'];
+                $listener->fio_dat = $post['fio_dat'];
                 $listener->position = $post['position'];
                 $listener->postaddress = $post['postaddress'];
                 $listener->phone = $post['phone'];
                 $listener->education = $post['education'];
-                $listener->place_work = $post['place_work'];
-                $listener->year_study = $post['year_study'];
+                $listener->education_document_data = $post['education_document_data'];
+                $listener->educational_institution = $post['educational_institution'];
                 $listener->specialty = $post['specialty'];
                 $listener->save();
                 $listener->touch();

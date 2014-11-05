@@ -97,6 +97,6 @@ class Orders extends BaseModel {
                 break;
             endif;
         endforeach;
-        return $freeNumber;
+        return $freeNumber != 0 ? $freeNumber : $this->getLastOrderNumber(TRUE);
     }
 }

@@ -193,6 +193,28 @@ class DicVal extends BaseModel {
     }
     */
 
+    public function scopeFilter_by_field($query, $key, $condition_or_value, $value = NULL) {
+
+        #return $query->where('votes', '>', 100);
+
+        if ($value === NULL) {
+            $value = $condition_or_value;
+            $condition = '=';
+        } else {
+            $condition = $condition_or_value;
+        }
+
+        $tbl_dicval = (new DicVal())->getTable();
+        $tbl_dic_field_val = (new DicFieldVal())->getTable();
+        $rand_tbl_alias = md5(time() . rand(999999, 9999999));
+        $query->join($tbl_dic_field_val . ' AS ' . $rand_tbl_alias, $rand_tbl_alias . '.dicval_id', '=', $tbl_dicval . '.id')
+            ->where($rand_tbl_alias . '.key', '=', $key)
+            ->where($rand_tbl_alias . '.value', $condition, $value);
+
+        return $query;
+    }
+
+
     public static function extracts($elements, $unset = false, $extract_ids = true) {
         $return = new Collection;
         #Helper::dd($return);

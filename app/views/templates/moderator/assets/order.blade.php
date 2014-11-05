@@ -1,4 +1,5 @@
 @if(isset($order) && is_object($order))
+<?php $paymentNumbersPrice = 0;?>
 <li class="orders-li {{ $order->payment->class }}">
     <div class="orders-li-head">
         <h4><a href="{{ URL::route('moderator-order-extended',$order->id) }}">Заказ №{{ getOrderNumber($order) }}</a></h4>
@@ -15,7 +16,7 @@
                 <?php $price += $listener->price; ?>
                 <?php $coursesIDs[$listener->course_id] = 1; ?>
             @endforeach
-            <span class="start-price">{{ number_format($price,0,'.',' ')  }}.-</span> | <span class="end-price">{{ number_format($price,0,'.',' ')  }}.–</span>
+            <span class="start-price">{{ number_format($price,0,'.',' ')  }}.-</span> | <span class="end-price">{{ number_format($paymentNumbersPrice,0,'.',' ')  }}.–</span>
         </div>
         @endif
         <div class="orders-date">
@@ -28,10 +29,9 @@
             <div>В заказе <a href="#">{{ count($coursesIDs) }} {{ Lang::choice('курс|курса|курсов',count($coursesIDs)); }}</a></div>
             <div>для <a href="#">{{ $order->listeners->count() }} {{ Lang::choice('слушателя|слушателей|слушателей',$order->listeners->count()); }}</a></div>
         </div>
-        @if(in_array($order->payment_status,array(2,3)) && in_array($order->close_status,array(0,1)))
         <div class="orders-docs">
             Посмотреть <a href="#">документы</a>
+            @include(Helper::acclayout('assets.documents'),array('order'=>$order))
         </div>
-        @endif
     </div>
 @endif

@@ -5,22 +5,34 @@
     </div>
     <fieldset>
         <div class="form-element">
-            <label>Ф.И.О.</label>{{ Form::text('fio', '') }}
+            <label>Ф.И.О.</label>{{ Form::text('fio', '',array('placeholder'=>'Иванов Иван Иванович')) }}
         </div>
         <div class="form-element">
-            <label>Должность</label>{{ Form::text('position', '') }}
+            <label>Ф.И.О. в род. падеже</label>{{ Form::text('fio_rod', '',array('placeholder'=>'Иванов Иван Иванович')) }}
         </div>
         <div class="form-element">
-            <label>ИНН</label>{{ Form::text('inn', '') }}
+            <label>Серия паспорта</label>{{ Form::text('passport_seria', '',array('placeholder'=>'')) }}
         </div>
         <div class="form-element">
-            <label>Почтовый адрес</label>{{ Form::text('postaddress', '') }}
+            <label>Номер паспорта</label>{{ Form::text('passport_number', '',array('placeholder'=>'')) }}
         </div>
         <div class="form-element">
-            <label>E-mail</label>{{ Form::email('email', '') }}
+            <label>Кем выдан</label>{{ Form::text('passport_data', '',array('placeholder'=>'')) }}
         </div>
         <div class="form-element">
+            <label>Дата выдачи</label>{{ Form::text('passport_date', '',array('placeholder'=>'')) }}
+        </div>
+        <div class="form-element">
+            <label>Код подразделения</label>{{ Form::text('code', '',array('placeholder'=>'')) }}
+        </div>
+        <div class="form-element">
+            <label>Зарегистрирован по адресу</label>{{ Form::text('postaddress', '',array('placeholder'=>'121354, г. Москва, ул. Кутузова, 57, кв. 9')) }}
+        </div>
+         <div class="form-element">
             <label>Номер телефона</label>{{ Form::text('phone', '',array('class'=>'phone')) }}
+        </div>
+        <div class="form-element">
+            <label>E-mail</label>{{ Form::email('email', '',array('placeholder'=>'')) }}
         </div>
     </fieldset>
     <fieldset>

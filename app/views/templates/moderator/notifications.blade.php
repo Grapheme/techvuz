@@ -2,19 +2,15 @@
 @section('style')
 @stop
 @section('content')
-<main class="cabinet">
-    <?php
-    $messages = Dictionary::valuesBySlug('system-messages',function($query){
-        $query->orderBy('dictionary_values.updated_at','DESC');
-        $query->filter_by_field('user_id',Auth::user()->id);
-    });
-    ?>
-    <h2>{{ User_organization::where('id',Auth::user()->id)->pluck('title') }}</h2>
-    <div class="cabinet-tabs">
-        @include(Helper::acclayout('menu'))
-        <div class="employees margin-bottom-40">
-            <h3 class="margin-bottom-20">Уведомления</h3>
-        </div>
+<?php
+$messages = Dictionary::valuesBySlug('system-messages',function($query){
+    $query->orderBy('dictionary_values.updated_at','DESC');
+    $query->filter_by_field('user_id',0);
+});
+?>
+<h2 class="margin-bottom-40">Уведомления</h2>
+<div class="row">
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
         <table class="tech-table sortable">
             <tbody>
                 <tr>
@@ -30,7 +26,7 @@
             </tbody>
         </table>
     </div>
-</main>
+</div>
 @stop
 @section('overlays')
 @stop

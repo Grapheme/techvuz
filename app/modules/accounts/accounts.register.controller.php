@@ -74,6 +74,11 @@ class AccountsRegisterController extends BaseController {
                             $message->to(Input::get('email'))->subject('ТехВуз.рф - регистрация');
                         });
                         Auth::login(User::find($account->id));
+                        Event::fire('organization.approve-email',array(array('accountID'=>$account->id)));
+                        Event::fire('organization.save-profile',array(array('accountID'=>$account->id)));
+                        Event::fire('organization.register-listeners',array(array('accountID'=>$account->id)));
+                        Event::fire('organization.select-courses',array(array('accountID'=>$account->id)));
+                        Event::fire('moderator.register-organization',array(array('accountID'=>0,'organization'=>User_organization::where('id',$account->id)->pluck('title'))));
                         if (Auth::check()):
                             $json_request['responseText'] = Lang::get('interface.SIGNUP.success_login');
                         else:
@@ -149,6 +154,7 @@ class AccountsRegisterController extends BaseController {
                         if (hasCookieData('ordering')):
                             $json_request['responseText'] .= '<a class="btn btn--bordered btn--blue margin-right-20 margin-bottom-10" href="'.URL::route('ordering-select-listeners').'">'.Lang::get('interface.SIGNUP_LISTENER.next_operation_2').'</a>';
                         endif;
+                        Event::fire('moderator.register-listener',array(array('accountID'=>0,'organization'=>User_organization::where('id',Auth::user()->id)->pluck('title'),'listener'=>Input::get('fio'))));
                         $json_request['status'] = TRUE;
                     endif;
                 else:
@@ -204,13 +210,21 @@ class AccountsRegisterController extends BaseController {
             $organization->user_id = $user->id;
             $organization->title = $post['title'];
             $organization->fio_manager = $post['fio_manager'];
+            $organization->fio_manager_rod = $post['fio_manager_rod'];
             $organization->manager = $post['manager'];
             $organization->statutory = $post['statutory'];
+            $organization->ogrn = $post['ogrn'];
             $organization->inn = $post['inn'];
             $organization->kpp = $post['kpp'];
-            $organization->postaddress = $post['postaddress'];
+            $organization->uraddress = $post['uraddress'];
+            if (empty($post['postaddress'])):
+                $organization->postaddress = $organization->uraddress;
+            else:
+                $organization->postaddress = $post['postaddress'];
+            endif;
             $organization->account_type = $post['account_type'];
             $organization->account_number = $post['account_number'];
+            $organization->account_kor_number = $post['account_kor_number'];
             $organization->bank = $post['bank'];
             $organization->bik = $post['bik'];
             $organization->name = $post['name'];
@@ -245,8 +259,12 @@ class AccountsRegisterController extends BaseController {
 
             $individual->user_id = $user->id;
             $individual->fio = $post['fio'];
-            $individual->position = $post['position'];
-            $individual->inn = $post['inn'];
+            $individual->passport_seria = $post['passport_seria'];
+            $individual->passport_number = $post['passport_number'];
+            $individual->passport_data = $post['passport_data'];
+            $individual->passport_date = $post['passport_date'];
+            $individual->code = $post['code'];
+
             $individual->postaddress = $post['postaddress'];
             $individual->phone = $post['phone'];
             $individual->save();
@@ -280,12 +298,13 @@ class AccountsRegisterController extends BaseController {
             $listener->user_id = $user->id;
             $listener->organization_id = Auth::user()->id;
             $listener->fio = $post['fio'];
+            $listener->fio_dat = $post['fio_dat'];
             $listener->position = $post['position'];
             $listener->postaddress = $post['postaddress'];
             $listener->phone = $post['phone'];
             $listener->education = $post['education'];
-            $listener->place_work = $post['place_work'];
-            $listener->year_study = $post['year_study'];
+            $listener->education_document_data = $post['education_document_data'];
+            $listener->educational_institution = $post['educational_institution'];
             $listener->specialty = $post['specialty'];
             $listener->save();
             $listener->touch();

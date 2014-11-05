@@ -12,6 +12,9 @@
         <label>Ф.И.О.</label>{{ Form::text('fio') }}
     </div>
     <div class="form-element">
+        <label>Ф.И.О. в дат. падеже</label>{{ Form::text('fio_dat') }}
+    </div>
+    <div class="form-element">
         <label>Должность</label>{{ Form::text('position') }}
     </div>
     <div class="form-element">
@@ -24,13 +27,13 @@
         <label>Образование</label>{{ Form::text('education') }}
     </div>
     <div class="form-element">
-        <label>Место работы</label>{{ Form::text('place_work') }}
+        <label>Номер и дата выдачи документа об образовании</label>{{ Form::text('education_document_data') }}
     </div>
     <div class="form-element">
-        <label>Год обучения</label>{{ Form::text('year_study',NULL,array('class'=>'year')) }}
+        <label>Наименование специальности</label>{{ Form::text('specialty') }}
     </div>
     <div class="form-element">
-        <label>Специальность</label>{{ Form::text('specialty') }}
+        <label>Наименование учебного заведения</label>{{ Form::text('educational_institution') }}
     </div>
     <div class="form-element">
         <button type="submit" autocomplete="off" class="btn btn--bordered btn--blue btn-form-submit">

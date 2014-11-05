@@ -16,10 +16,9 @@
         @if(isset($listener))
             <?php extract($listener, EXTR_PREFIX_ALL, "listener");?>
         @endif
-        @if(File::exists($template))
+        @if(isset($template) && File::exists($template))
             <?php require_once($template);?>
         @endif
     </main>
-    </div>
 </body>
 </html>

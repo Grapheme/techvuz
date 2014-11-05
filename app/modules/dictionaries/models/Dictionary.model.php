@@ -45,7 +45,11 @@ class Dictionary extends BaseModel {
     }
 
     public function values_no_conditions() {
+
+        $tbl_dicval = (new DicVal())->getTable();
+
         return $this->hasMany('DicVal', 'dic_id', 'id')
+            ->select($tbl_dicval.'.*')
             ->where('version_of', NULL)
             ->with('meta', 'fields')
         ;

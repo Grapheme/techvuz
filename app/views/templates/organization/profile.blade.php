@@ -19,7 +19,7 @@
             </div>
             <div class="row margin-bottom-10">
                 <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
-                    <span class="font-sm">Наименование учреждения</span>
+                    <span class="font-sm">Полное наименование организации</span>
                 </div>
                 <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9">
                     {{ $profile->title }}
@@ -27,7 +27,7 @@
             </div>
             <div class="row margin-bottom-10">
                 <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
-                    <span class="font-sm">Ф.И.О. ответственного лица</span>
+                    <span class="font-sm">ФИО подписанта договора</span>
                 </div>
                 <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9">
                     {{ $profile->fio_manager }}
@@ -35,7 +35,15 @@
             </div>
             <div class="row margin-bottom-10">
                 <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
-                    <span class="font-sm">Должность</span>
+                    <span class="font-sm">ФИО подписанта договора в род. падеже</span>
+                </div>
+                <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9">
+                    {{ $profile->fio_manager_rod }}
+                </div>
+            </div>
+            <div class="row margin-bottom-10">
+                <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+                    <span class="font-sm">Должность подписанта договора</span>
                 </div>
                 <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9">
                     {{ $profile->manager }}
@@ -43,10 +51,34 @@
             </div>
             <div class="row margin-bottom-10">
                 <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
-                    <span class="font-sm">Уставной документ</span>
+                    <span class="font-sm">Документ, на основании которого действует подписант</span>
                 </div>
                 <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9">
                     {{ $profile->statutory }}
+                </div>
+            </div>
+            <div class="row margin-bottom-10">
+                <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+                    <span class="font-sm">Юридический адрес</span>
+                </div>
+                <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9">
+                    {{ $profile->uraddress }}
+                </div>
+            </div>
+            <div class="row margin-bottom-10">
+                <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+                    <span class="font-sm">Почтовый адрес</span>
+                </div>
+                <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9">
+                    {{ $profile->postaddress }}
+                </div>
+            </div>
+            <div class="row margin-bottom-10">
+                <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+                    <span class="font-sm">ОГРН</span>
+                </div>
+                <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9">
+                    {{ $profile->ogrn }}
                 </div>
             </div>
             <div class="row margin-bottom-10">
@@ -67,26 +99,18 @@
             </div>
             <div class="row margin-bottom-10">
                 <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
-                    <span class="font-sm">Почтовый адрес</span>
-                </div>
-                <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9">
-                    {{ $profile->postaddress }}
-                </div>
-            </div>
-            <div class="row margin-bottom-10">
-                <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
-                    <span class="font-sm">Тип счёта</span>
-                </div>
-                <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9">
-                    {{ $profile->account_type }}
-                </div>
-            </div>
-            <div class="row margin-bottom-10">
-                <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
-                    <span class="font-sm">Номер счета</span>
+                    <span class="font-sm">Расчетный счет</span>
                 </div>
                 <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9">
                     {{ $profile->account_number }}
+                </div>
+            </div>
+            <div class="row margin-bottom-10">
+                <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+                    <span class="font-sm">Корреспондентский счет</span>
+                </div>
+                <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9">
+                    {{ $profile->account_kor_number }}
                 </div>
             </div>
             <div class="row margin-bottom-10">

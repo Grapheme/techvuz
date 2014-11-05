@@ -10,31 +10,43 @@
     </div>
 
     <div class="form-element">
-        <label>Наименование учреждения</label>{{ Form::text('title') }}
+        <label>Полное наименование организации</label>{{ Form::text('title') }}
     </div>
     <div class="form-element">
-        <label>Ф.И.О. ответственного лица</label>{{ Form::text('fio_manager') }}
+        <label>ФИО подписанта договора</label>{{ Form::text('fio_manager') }}
+    </div>
+     <div class="form-element">
+        <label>ФИО подписанта договора в род. падеже</label>{{ Form::text('fio_manager_rod') }}
     </div>
     <div class="form-element">
-        <label>Должность</label>{{ Form::text('manager') }}
+        <label>Должность подписанта договора</label>{{ Form::text('manager') }}
     </div>
     <div class="form-element">
-        <label>Уставной документ</label>{{ Form::text('statutory') }}
+        <label>Документ, на основании которого действует подписант</label>{{ Form::text('statutory') }}
     </div>
     <div class="form-element">
+        <label>Юридический адрес</label>{{ Form::text('uraddress') }}
+    </div>
+    <div class="form-element">
+        <label>Почтовый адрес</label>{{ Form::text('postaddress') }}
+    </div>
+    <div class="form-element">
+        <label>ОГРН</label>{{ Form::text('ogrn') }}
+    </div>
+     <div class="form-element">
         <label>ИНН</label>{{ Form::text('inn') }}
     </div>
     <div class="form-element">
         <label>КПП</label>{{ Form::text('kpp') }}
     </div>
     <div class="form-element">
-        <label>Почтовый адрес</label>{{ Form::text('postaddress') }}
-    </div>
-    <div class="form-element">
         <label>Тип счёта</label>{{ Form::select('account_type',AccountTypes::lists('title','id'),$profile->account_type_id,array('class'=>'select')) }}
     </div>
     <div class="form-element">
-        <label>Номер счета</label>{{ Form::text('account_number') }}
+        <label>Расчетный счет</label>{{ Form::text('account_number') }}
+    </div>
+    <div class="form-element">
+        <label>Корреспондентский счет</label>{{ Form::text('account_kor_number') }}
     </div>
     <div class="form-element">
         <label>Наименование банка</label>{{ Form::text('bank') }}
@@ -42,7 +54,6 @@
     <div class="form-element">
         <label>БИК</label>{{ Form::text('bik') }}
     </div>
-
     <div class="form-element">
         <label>Телефон</label>{{ Form::text('phone',NULL,array('class'=>'phone')) }}
     </div>

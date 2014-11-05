@@ -5,31 +5,34 @@
         Все поля являются обязательными для заполнения!
     </div>
     <div class="form-element">
-        <label>Ф.И.О.</label>{{ Form::text('fio', '') }}
+        <label>Ф.И.О.</label>{{ Form::text('fio', '',array('placeholder'=>'Иванов Иван Иванович')) }}
     </div>
     <div class="form-element">
-        <label>Должность</label>{{ Form::text('position', '') }}
+        <label>ФИО в дат. падеже</label>{{ Form::text('fio_dat', '',array('placeholder'=>'Иванову Ивану Ивановичу')) }}
     </div>
     <div class="form-element">
-        <label>Email</label>{{ Form::email('email', '') }}
+        <label>Должность</label>{{ Form::text('position', '',array('placeholder'=>'Начальник ПТО, ведущий инженер')) }}
+    </div>
+     <div class="form-element">
+        <label>Адрес</label>{{ Form::text('postaddress', '',array('placeholder'=>'121354, г. Москва, ул. Кутузова, 57, кв. 9')) }}
     </div>
     <div class="form-element">
-        <label>Адрес</label>{{ Form::text('postaddress', '') }}
+        <label>Номер телефона</label>{{ Form::text('phone', '',array('class'=>'phone')) }}
     </div>
     <div class="form-element">
-        <label>Телефон</label>{{ Form::text('phone', '',array('class'=>'phone')) }}
+        <label>Email</label>{{ Form::email('email', '',array('placeholder'=>'')) }}
     </div>
     <div class="form-element">
-        <label>Образование</label>{{ Form::text('education', '') }}
+        <label>Образование</label>{{ Form::text('education', '',array('placeholder'=>'Высшее, среднее профессиональное')) }}
     </div>
     <div class="form-element">
-        <label>Место работы</label>{{ Form::text('place_work') }}
+        <label>Номер и дата выдачи документа об образовании</label>{{ Form::text('education_document_data','',array('placeholder'=>'РВ №112233 от 17.06.2003')) }}
     </div>
     <div class="form-element">
-        <label>Год обучения</label>{{ Form::text('year_study', '',array('class'=>'year')) }}
+        <label>Наименование специальности</label>{{ Form::text('specialty','',array('placeholder'=>'Промышленное и гражданское строительство')) }}
     </div>
     <div class="form-element">
-        <label>Специальность</label>{{ Form::text('specialty') }}
+        <label>Наименование учебного заведения</label>{{ Form::text('educational_institution', '',array('placeholder'=>'Указать как в дипломе')) }}
     </div>
     <div class="form-element row no-gutter margin-top-40">
         <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">

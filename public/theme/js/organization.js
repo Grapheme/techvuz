@@ -2,83 +2,93 @@ var validation_signup_listener = {
     group_id: { required: true },
     organization_id: { required: true },
     fio: { required: true },
+    fio_dat: { required: true },
     position: { required: true },
     email: { required: true, email: true },
     postaddress: { required: true },
     phone: { required: true },
     education: { required: true },
-    place_work: { required: true },
-    year_study: { required: true },
+    education_document_data: { required: true },
+    educational_institution: { required: true },
     specialty: { required: true }
 };
 var validation_signup_messages_listener = {
     group_id: { required: 'Укажите группу' },
     organization_id: { required: 'Укажите организацию' },
     fio: { required: 'Укажите Ф.И.О.' },
+    fio_dat: { required: 'Укажите Ф.И.О. в дат. падеже' },
     position: { required: 'Укажите должность' },
     email: { required: 'Укажите контактный E-mail','email': 'Неверно указан формат данных' },
     postaddress: { required: 'Укажите почтовый адрес' },
     phone: { required: 'Укажите контактный номер' },
     education: { required: 'Укажите образование' },
-    place_work: { required: 'Укажите образование' },
-    year_study: { required: 'Укажите год обучения' },
-    specialty: { required: 'Укажите специальность' }
+    education_document_data: { required: 'Укажите номер и дату выдачи документа об образовании' },
+    educational_institution: { required: 'Укажите наименование учебного заведения' },
+    specialty: { required: 'Укажите наименование специальности' }
 };
 
 var validation_profile_listener = {
     fio: { required: true },
+    fio_dat: { required: true },
     position: { required: true },
     postaddress: { required: true },
     phone: { required: true },
     education: { required: true },
-    place_work: { required: true },
-    year_study: { required: true },
-    specialty: { required: true }
+    education_document_data: { required: true },
+    specialty: { required: true },
+    educational_institution: { required: true }
 };
 var validation_profile_messages_listener = {
     fio: { required: 'Укажите Ф.И.О.' },
+    fio_dat: { required: 'Укажите Ф.И.О. в дат. падеже' },
     position: { required: 'Укажите должность' },
-    postaddress: { required: 'Укажите почтовый адрес' },
-    phone: { required: 'Укажите контактный номер' },
+    postaddress: { required: 'Укажите адрес' },
+    phone: { required: 'Укажите номер телефона' },
     education: { required: 'Укажите образование' },
-    place_work: { required: 'Укажите образование' },
-    year_study: { required: 'Укажите год обучения' },
-    specialty: { required: 'Укажите специальность' }
+    education_document_data: { required: 'Укажите номер и дата выдачи документа' },
+    specialty: { required: 'Укажите наименование специальности' },
+    educational_institution: { required: 'Укажите наименование учебного заведения' }
 };
 
 var validation_profile_ul = {
     group_id: { required: true },
     title: { required: true },
     fio_manager: { required: true },
+    fio_manager_rod: { required: true },
     manager: { required: true },
     statutory: { required: true },
+    ogrn: { required: true },
     inn: { required: true },
     kpp: { required: true },
+    uraddress: { required: true },
     postaddress: { required: true },
     account_number: { required: true },
+    account_kor_number: { required: true },
     bank: { required: true },
     bik: { required: true },
     email: { required: true, email: true },
     name: { required: true },
-    phone: { required: true },
-    consent: { required: true }
+    phone: { required: true }
 };
 var validation_profile_messages_ul = {
     group_id: { required: 'Укажите группу' },
     title: { required: 'Укажите название' },
     fio_manager: { required: 'Укажите фамилию, имя и отчество руководителя' },
+    fio_manager_rod: { required: 'Укажите фамилию, имя и отчество руководителя в род. падеже' },
     manager: { required: 'Укажите должность' },
     statutory: { required: 'Укажите уставной документ' },
+    ogrn: { required: 'Укажите ОГРН' },
     inn: { required: 'Укажите ИНН' },
     kpp: { required: 'Укажите КПП' },
+    uraddress: { required: 'Укажите юридический адрес' },
     postaddress: { required: 'Укажите почтовый адрес' },
     account_number: { required: 'Укажите номер счета' },
+    account_kor_number: { required: 'Укажите корреспондентский счет' },
     bank: { required: 'Укажите наименование банка' },
     bik: { required: 'Укажите БИК' },
     email: { required: 'Укажите контактный E-mail','email': 'Неверно указан формат данных' },
     name: { required: 'Укажите контактное лицо' },
-    phone: { required: 'Укажите контактный номер' },
-    consent: { required: '' }
+    phone: { required: 'Укажите контактный номер' }
 };
 
 function scrollToError(elem) {

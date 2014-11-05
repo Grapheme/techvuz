@@ -1,35 +1,42 @@
-{{ Form::model($profile,array('url'=>URL::route('organization-listener-profile-update',$profile->id), 'class'=>'registration-form', 'id'=>'profile-listener-form', 'method'=>'PATCH')) }}
+{{ Form::model($profile,array('url'=>URL::route('organization-listener-profile-update',$profile->id), 'class'=>'registration-form listener-add-form', 'id'=>'profile-listener-form', 'method'=>'PATCH')) }}
     <div class="reg-form-alert">
         Все поля являются обязательными для заполнения!
     </div>
     <div class="form-element">
-        <label>Ф.И.О.</label>{{ Form::text('fio') }}
+        <label>Ф.И.О.</label>{{ Form::text('fio',NULL,array('placeholder'=>'Иванов Иван Иванович')) }}
     </div>
     <div class="form-element">
-        <label>Должность</label>{{ Form::text('position') }}
+        <label>ФИО в дат. падеже</label>{{ Form::text('fio_dat',NULL,array('placeholder'=>'Иванову Ивану Ивановичу')) }}
     </div>
     <div class="form-element">
-        <label>Адрес</label>{{ Form::text('postaddress') }}
+        <label>Должность</label>{{ Form::text('position',NULL,array('placeholder'=>'Начальник ПТО, ведущий инженер')) }}
     </div>
     <div class="form-element">
-        <label>Телефон</label>{{ Form::text('phone',NULL,array('class'=>'phone')) }}
+        <label>Адрес</label>{{ Form::text('postaddress',NULL,array('placeholder'=>'121354, г. Москва, ул. Кутузова, 57, кв. 9')) }}
     </div>
     <div class="form-element">
-        <label>Образование</label>{{ Form::text('education') }}
+        <label>Номер телефона</label>{{ Form::text('phone',NULL,array('class'=>'phone')) }}
     </div>
     <div class="form-element">
-        <label>Место работы</label>{{ Form::text('place_work') }}
+        <label>Образование</label>{{ Form::text('education',NULL,array('placeholder'=>'Высшее, среднее профессиональное')) }}
     </div>
     <div class="form-element">
-        <label>Год обучения</label>{{ Form::text('year_study',NULL,array('class'=>'year')) }}
+        <label>Номер и дата выдачи документа об образовании</label>{{ Form::text('education_document_data',NULL,array('placeholder'=>'РВ №112233 от 17.06.2003')) }}
     </div>
     <div class="form-element">
-        <label>Специальность</label>{{ Form::text('specialty') }}
+        <label>Наименование специальности</label>{{ Form::text('specialty',NULL,array('placeholder'=>'Промышленное и гражданское строительство')) }}
     </div>
     <div class="form-element">
-        <button type="submit" autocomplete="off" class="btn btn--bordered btn--blue btn-form-submit">
-            <i class="fa fa-spinner fa-spin hidden"></i> <span class="btn-response-text">Готово</span>
-        </button>
-        <a class="btn btn--bordered btn--blue" href="{{ URL::previous() }}">Вернуться назад</a>
+        <label>Наименование учебного заведения</label>{{ Form::text('educational_institution',NULL,array('placeholder'=>'Указать как в дипломе')) }}
+    </div>
+    <div class="form-element row no-gutter margin-top-40">
+        <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+            <a class="btn btn--bordered btn--blue" href="{{ URL::previous() }}">Вернуться назад</a>
+        </div>
+        <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8">
+            <button type="submit" autocomplete="off" class="btn btn--bordered btn--blue btn-form-submit">
+                <i class="fa fa-spinner fa-spin hidden"></i> <span class="btn-response-text">Готово</span>
+            </button>
+        </div>
     </div>
 {{ Form::close() }}

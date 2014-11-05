@@ -27,6 +27,7 @@ class AdminLoggingController extends BaseController {
             'logging'  => 'Вести лог действий данной группы',
         );
     }
+
     public static function returnInfo() {
         return array(
             'name' => self::$name,

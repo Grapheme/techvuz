@@ -4,7 +4,13 @@
 @section('content')
 <main class="cabinet">
     <?php
-    $orders = Orders::where('user_id',Auth::user()->id)->orderBy('payment_status')->orderBy('created_at','DESC')->with('payment')->with('listeners')->get();
+    $orders = Orders::where('user_id',Auth::user()->id)->orderBy('created_at','DESC')->with('payment','payment_numbers')->with('listeners')->get();
+    $messages = Dictionary::valuesBySlug('system-messages',function($query){
+        $lastMonth = \Carbon\Carbon::now()->subMonth();
+        $query->orderBy('dictionary_values.updated_at','DESC');
+        $query->where('dictionary_values.updated_at','>=',$lastMonth);
+        $query->filter_by_field('user_id',Auth::user()->id);
+    });
     ?>
     <h2>{{ User_organization::where('id',Auth::user()->id)->pluck('title') }}</h2>
     <div class="cabinet-tabs">
@@ -74,6 +80,7 @@
                 </div>
             </div>
         </div>
+        @if($messages->count())
         <div>
             <h3>Уведомления</h3>
             <div class="notifications">
@@ -82,39 +89,36 @@
                     <span class="notifications-count">
                         <span class="current">1</span> / <span class="all"></span>
                     </span>
-                    <span class="icon icon-angle-right js-notif-right"></span>
+                    <span class="icon icon-angle-right js-notif-right">
+                        <a href="{{ URL::route('organization-notifications') }}" class="btn btn--bordered btn--blue">
+                            Полный список
+                        </a>
+                    </span>
                 </div>
                 <ul class="notifications-ul">
-                @for($i=0;$i<19;$i++)
+                @foreach($messages as $index => $message)
                     <li class="notifications-li container-fluid">
                         <div class="row">
                             <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9">
                                 <div class="notif-type">
-                                    Системное сообщение {{ $i+1 }}
+                                    Системное сообщение {{ $index+1 }}
                                 </div>
                                 <div class="notif-cont">
-                                    Заказ №400 не оплачен, но доступ к обучению предоставлен.
-                                </div>
-                                <div class="margin-top-20">
-                                    <button class="btn btn--bordered btn--blue">
-                                        Загрузить счет
-                                    </button>
+                                    {{ $message->name }}
                                 </div>
                             </div>
                             <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
                                 <div class="notif-date font-sm">
-                                    24.09.14
-                                </div>
-                                <div class="notif-delete js-notif-delete">
-                                    удалить
+                                    {{ $message->updated_at->format('d.m.Y в H:i') }}
                                 </div>
                             </div>
                         </div>
                     </li>
-                @endfor
+                @endforeach
                 </ul>
             </div>
         </div>
+        @endif
         <div>
             <a href="{{ URL::route('ordering-select-courses') }}" class="btn btn-top-margin btn--bordered btn--blue pull-right">Новый заказ</a>
             <h3>Заказы</h3>

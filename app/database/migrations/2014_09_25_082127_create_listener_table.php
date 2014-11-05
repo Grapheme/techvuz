@@ -12,17 +12,19 @@ class CreateListenerTable extends Migration {
                 $table->integer('user_id')->default(0)->nullable()->unsigned()->index();
                 $table->integer('organization_id')->default(0)->nullable()->unsigned()->index();
                 $table->string('fio',160)->nullable();
+                $table->string('fio_dat',160)->nullable();
                 $table->string('position',100)->nullable();
                 $table->string('postaddress',255)->nullable();
                 $table->string('phone',40)->nullable();
+
                 $table->string('education',100)->nullable();
-                $table->string('place_work',100)->nullable();
-                $table->string('year_study',4)->nullable();
+                $table->string('education_document_data',100)->nullable();
+                $table->string('educational_institution',100)->nullable();
                 $table->string('specialty',100)->nullable();
                 $table->timestamps();
             });
 
-            DB::statement("CREATE VIEW users_listeners AS SELECT users.id, users.email, users.active, users.created_at,listeners.id as listener_id, listeners.organization_id, listeners.fio, listeners.position, listeners.postaddress, listeners.phone, listeners.education, listeners.place_work, listeners.year_study, listeners.specialty FROM listeners LEFT JOIN users ON users.id = listeners.user_id WHERE users.group_id = 5");
+            DB::statement("CREATE VIEW users_listeners AS SELECT users.id, users.email, users.active, users.created_at,listeners.id as listener_id, listeners.organization_id, listeners.fio, listeners.fio_dat, listeners.position, listeners.postaddress, listeners.phone, listeners.education, listeners.education_document_data, listeners.educational_institution, listeners.specialty FROM listeners LEFT JOIN users ON users.id = listeners.user_id WHERE users.group_id = 5");
 
             echo(' + ' . 'listeners' . PHP_EOL);
         } else {

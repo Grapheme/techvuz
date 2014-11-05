@@ -31,10 +31,14 @@ class Individual extends BaseModel {
     public static $rules = array(
         'group_id' => 'required|integer',
         'fio' => 'required',
+        'fio_rod' => 'required',
         'email' => 'required|email',
         'phone' => 'required',
-        'position' => 'required',
-        'inn' => 'required',
+        'passport_seria' => 'required',
+        'passport_number' => 'required',
+        'passport_data' => 'required',
+        'passport_date' => 'required',
+        'code' => 'required',
         'postaddress' => 'required',
 
         'consent' => 'required|integer',

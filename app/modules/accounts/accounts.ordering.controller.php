@@ -20,13 +20,6 @@ class AccountsOrderingController extends BaseController {
                 Route::post('ordering/listeners-store', array('before' => 'csrf', 'as' => 'ordering-listeners-store', 'uses' => $class . '@OrderingListenersStore'));
             });
         endif;
-
-        Event::listen('order.created', function ($data) { });
-        Event::listen('order.archived', function ($data) { });
-        Event::listen('order.deleted', function ($data) { });
-        Event::listen('order.changed', function ($data) { });
-        Event::listen('order.payment', function ($data) { });
-        Event::listen('order.closed', function ($data) { });
     }
 
     public static function returnShortCodes() {
@@ -133,7 +126,8 @@ class AccountsOrderingController extends BaseController {
                     endforeach;
                 endforeach;
                 setcookie("ordering", "", time() - 3600,'/');
-                Event::fire('order.created',array('order'=>$order));
+                Event::fire('organization.order-puy',array(array('accountID'=>Auth::user()->id,'order'=>getOrderNumber($order),'link'=>URL::route('organization-order',$order->id))));
+                Event::fire('moderator.order.new',array(array('accountID'=>0,'order'=>getOrderNumber($order))));
                 return Redirect::to(AuthAccount::getStartPage());
             endif;
         else:
@@ -156,7 +150,6 @@ class AccountsOrderingController extends BaseController {
             endforeach;
             if ($close_allowed):
                 Orders::where('id',$order->id)->update(array('close_status'=>1,'close_date'=>date('Y-m-d H:i:s'),'updated_at'=>date('Y-m-d H:i:s')));
-                Event::fire('order.closed',array('order'=>$order));
             endif;
             return TRUE;
         endif;

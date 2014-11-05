@@ -1,6 +1,32 @@
 <?php
+
 class myDateTime {
-	
+
+    protected $date_string;
+    protected $months;
+
+    public function __construct($string = NULL){
+
+        if (!is_null($string)):
+            $this->date_string = \Carbon\Carbon::createFromTimestamp($string);
+        else:
+            $this->date_string = \Carbon\Carbon::now();
+        endif;
+        $this->months = array("01"=>"января","02"=>"февраля","03"=>"марта","04"=>"апреля","05"=>"мая","06"=>"июня","07"=>"июля","08"=>"августа","09"=>"сентября","10"=>"октября","11"=>"ноября","12"=>"декабря");
+    }
+
+    public function setDateString($string){
+
+        $this->date_string = \Carbon\Carbon::createFromTimestamp(strtotime($string));
+        return $this;
+    }
+
+    public function setMonths($list){
+
+        $this->months = $list;
+        return $this;
+    }
+
 	public static function SwapDotDateWithTime($date_time) {
 		$list = preg_split("/-/",$date_time);
 		$pattern = "/(\d+)(-)(\w+)(-)(\d+) (\d+)(:)(\d+)(:)(\d+)/i";
@@ -15,33 +41,31 @@ class myDateTime {
 		return preg_replace($pattern, $replacement,$date_time);
 	}
 	
-	public static function months($field,$months = NULL){
-		
-		if(is_null($months)):
-			$months = array("01"=>"января","02"=>"февраля","03"=>"марта","04"=>"апреля","05"=>"мая","06"=>"июня","07"=>"июля","08"=>"августа","09"=>"сентября","10"=>"октября","11"=>"ноября","12"=>"декабря");
-		endif;
-		$list = explode("-",$field);
-		$list[2] = (int)$list[2];
-		$field = implode("-",$list);
-		$nmonth = $months[$list[1]];
-		$pattern = "/(\d+)(-)(\w+)(-)(\d+)/i";
-		$replacement = "\$5 $nmonth \$1 г.";
-		return preg_replace($pattern, $replacement,$field);
+	public function months(){
+
+        if ($this->validDate()):
+            $list = explode("-",$this->date_string);
+            $list[2] = (int)$list[2];
+            $field = implode("-",$list);
+            $nmonth = $this->months[$list[1]];
+            $pattern = "/(\d+)(-)(\w+)(-)(\d+)/i";
+            $replacement = "\$5 $nmonth \$1 г.";
+            return preg_replace($pattern, $replacement,$field);
+        endif;
 	}
 	
-	public static function monthsTime($field,$months = NULL){
-		
-		if(is_null($months)):
-			$months = array("01"=>"января","02"=>"февраля","03"=>"марта","04"=>"апреля","05"=>"мая","06"=>"июня","07"=>"июля","08"=>"августа","09"=>"сентября","10"=>"октября","11"=>"ноября","12"=>"декабря");
-		endif;
-		$list = explode("-",$field);
-		$list[2] = (int)$list[2];
-		$time = substr($field,11);
-		$field = implode("-",$list).' '.$time;
-		$nmonth = $months[$list[1]];
-		$pattern = "/(\d+)(-)(\w+)(-)(\d+) (\d+)(:)(\d+)(:)(\d+)/i";
-		$replacement = "\$5 $nmonth \$1 в \$6:\$8";
-		return preg_replace($pattern, $replacement,$field);
+	public function monthsTime(){
+
+        if ($this->validDate()):
+            $list = explode("-",$this->date_string);
+            $list[2] = (int)$list[2];
+            $time = substr($this->date_string,11);
+            $field = implode("-",$list).' '.$time;
+            $nmonth = $this->months[$list[1]];
+            $pattern = "/(\d+)(-)(\w+)(-)(\d+) (\d+)(:)(\d+)(:)(\d+)/i";
+            $replacement = "\$5 $nmonth \$1 в \$6:\$8";
+            return preg_replace($pattern, $replacement,$field);
+        endif;
 	}
 
 	public static function getFutureDays($days = 1,$date = NULL){
@@ -75,5 +99,21 @@ class myDateTime {
         $datetime2 = new DateTime($date_over);
         $interval = $datetime1->diff($datetime2);
         return (int) $interval->format('%d%');
+    }
+
+    public function format($format){
+
+        if ($this->validDate()):
+            return $this->date_string->format($format);
+        endif;
+    }
+
+    private function validDate(){
+
+        if ($this->date_string == '1970-01-01 00:00:00'):
+            return FALSE;
+        else:
+            return TRUE;
+        endif;
     }
 }

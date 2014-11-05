@@ -5,7 +5,7 @@
 
 <main class="cabinet">
     <?php
-    $orders = Orders::whereUserId(Auth::user()->id)->orderBy('payment_status')->orderBy('created_at','DESC')->with('payment')->with(array('listeners'=>function($query){
+    $orders = Orders::whereUserId(Auth::user()->id)->orderBy('payment_status')->orderBy('created_at','DESC')->with('payment','payment_numbers')->with(array('listeners'=>function($query){
         $query->with('listener');
         $query->with('course');
     }))->get();
