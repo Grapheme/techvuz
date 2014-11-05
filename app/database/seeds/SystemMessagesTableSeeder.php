@@ -21,17 +21,21 @@ class SystemMessagesTableSeeder extends Seeder {
         DicVal::create(array('dic_id'=>$dic_id,'slug'=>'organization.study.finish','name'=> 'Итоговый результат — сотрудник [listener] завершил обучение по курсу [course]. Итоговое тестирование завершено с результатом [percent]%.','order'=>10));
 
         DicVal::create(array('dic_id'=>$dic_id,'slug'=>'organization.order.new','name'=> 'Новый заказ ожидает отправки','order'=>11));
-        DicVal::create(array('dic_id'=>$dic_id,'slug'=>'organization.order.approve','name'=> 'Заказ [order] ожидает подтверждения администратором','order'=>12));
-        DicVal::create(array('dic_id'=>$dic_id,'slug'=>'organization.order.not-puy-not-access','name'=> 'Заказ [order] не оплачен, доступ к обучению не предоставлен.','order'=>13));
-        DicVal::create(array('dic_id'=>$dic_id,'slug'=>'organization.order.not-puy-yes-access','name'=> 'Заказ [order] не оплачен, но доступ к обучению предоставлен.','order'=>14));
-        DicVal::create(array('dic_id'=>$dic_id,'slug'=>'organization.order.part-puy-not-access','name'=> 'Заказ [order] оплачен частично, доступ к обучению не предоставлен.','order'=>15));
-        DicVal::create(array('dic_id'=>$dic_id,'slug'=>'organization.order.part-puy-yes-access','name'=> 'Заказ [order] оплачен частично, но доступ к обучению предоставлен.','order'=>16));
-        DicVal::create(array('dic_id'=>$dic_id,'slug'=>'organization.order.yes-puy-yes-access','name'=> 'Заказ [order] оплачен, доступ к обучению предоставлен.','order'=>17));
+        DicVal::create(array('dic_id'=>$dic_id,'slug'=>'organization.order.approve','name'=> 'Заказ №[order] ожидает подтверждения администратором','order'=>12));
+        DicVal::create(array('dic_id'=>$dic_id,'slug'=>'organization.order.not-puy-not-access','name'=> 'Заказ №[order] не оплачен, доступ к обучению не предоставлен.','order'=>13));
+        DicVal::create(array('dic_id'=>$dic_id,'slug'=>'organization.order.not-puy-yes-access','name'=> 'Заказ №[order] не оплачен, но доступ к обучению предоставлен.','order'=>14));
+        DicVal::create(array('dic_id'=>$dic_id,'slug'=>'organization.order.part-puy-not-access','name'=> 'Заказ №[order] оплачен частично, доступ к обучению не предоставлен.','order'=>15));
+        DicVal::create(array('dic_id'=>$dic_id,'slug'=>'organization.order.part-puy-yes-access','name'=> 'Заказ №[order] оплачен частично, но доступ к обучению предоставлен.','order'=>16));
+        DicVal::create(array('dic_id'=>$dic_id,'slug'=>'organization.order.yes-puy-yes-access','name'=> 'Заказ №[order] оплачен, доступ к обучению предоставлен.','order'=>17));
+        DicVal::create(array('dic_id'=>$dic_id,'slug'=>'organization.order.yes-puy-not-access','name'=> 'Заказ №[order] оплачен, но доступ к обучению не предоставлен.','order'=>18));
 
-        DicVal::create(array('dic_id'=>$dic_id,'slug'=>'moderator.register-organization','name'=> 'Зарегистрирована организация [organization]','order'=>18));
-        DicVal::create(array('dic_id'=>$dic_id,'slug'=>'moderator.update-profile-organization','name'=> 'Организация [organization] обновила регистрационные данные','order'=>19));
-        DicVal::create(array('dic_id'=>$dic_id,'slug'=>'moderator.register-listener','name'=> 'Организация [organization] зарегистрировала [listener] как сотрудника','order'=>20));
-        DicVal::create(array('dic_id'=>$dic_id,'slug'=>'moderator.update-profile-listener','name'=> 'Сотрудник организации [organization], [listener],  обновил(-а) регистрационные данные','order'=>21));
-        DicVal::create(array('dic_id'=>$dic_id,'slug'=>'moderator.order.new','name'=> 'Оформлен заказ №[order]','order'=>22));
+        DicVal::create(array('dic_id'=>$dic_id,'slug'=>'moderator.register-organization','name'=> 'Зарегистрирована организация [organization]','order'=>19));
+        DicVal::create(array('dic_id'=>$dic_id,'slug'=>'moderator.update-profile-organization','name'=> 'Организация [organization] обновила регистрационные данные','order'=>20));
+        DicVal::create(array('dic_id'=>$dic_id,'slug'=>'moderator.register-listener','name'=> 'Организация [organization] зарегистрировала [listener] как сотрудника','order'=>21));
+        DicVal::create(array('dic_id'=>$dic_id,'slug'=>'moderator.update-profile-listener','name'=> 'Сотрудник организации [organization], [listener],  обновил(-а) регистрационные данные','order'=>22));
+        DicVal::create(array('dic_id'=>$dic_id,'slug'=>'moderator.order.new','name'=> 'Оформлен заказ №[order]','order'=>23));
+        DicVal::create(array('dic_id'=>$dic_id,'slug'=>'moderator.order.closed','name'=> 'Заказ №[order] закрылся','order'=>24));
+
+        DicVal::create(array('dic_id'=>$dic_id,'slug'=>'organization.order.closed','name'=> 'Заказ <a href="[link]">№[order]</a> закрылся','order'=>25));
     }
 }

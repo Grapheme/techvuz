@@ -333,12 +333,17 @@ class AccountsListenerController extends BaseController {
             if ($listenerTest->result_attempt >= $success_test_percent):
                 if ($test->chapter_id == 0):
                     Event::fire('listener.over.course.study', array(array('listener_course_id'=>$study_course_id)));
+                    Event::fire('organization.study.finish',array(array('accountID'=>User_listener::where('id',Auth::user()->id)->first()->organization()->pluck('id'),'course'=>OrderListeners::where('id',$study_course_id)->first()->course()->pluck('title'),'listener'=>User_listener::where('id',Auth::user()->id)->pluck('fio'),'percent'=>$listenerTest->result_attempt)));
+                    Event::fire('organization.order.closed',array(array('accountID'=>User_listener::where('id',Auth::user()->id)->first()->organization()->pluck('id'),'order'=>getOrderNumber(Orders::where('id',$listenerCourse->order_id)->first()),'link'=>URL::to('organization/order/'.$listenerCourse->order_id))));
+                    Event::fire('moderator.order.closed',array(array('accountID'=>0,'order'=>getOrderNumber(Orders::where('id',$listenerCourse->order_id)->first()))));
                     AccountsOrderingController::closeOrder($listenerCourse->order_id);
                     return Redirect::route('listener-study-test-result',array('course_translite_title'=>$course_translite_title,'study_test_id'=>$listenerTest->id))->with('message.text',Lang::get('interface.COMPANY_LISTENER_STUDY_TEST_FINISH.success_course_test').' '.$listenerTest->result_attempt .'%')->with('message.status','test-result');
                 else:
+                    Event::fire('organization.study.control',array(array('accountID'=>User_listener::where('id',Auth::user()->id)->first()->organization()->pluck('id'),'course'=>OrderListeners::where('id',$study_course_id)->first()->course()->pluck('title'),'listener'=>User_listener::where('id',Auth::user()->id)->pluck('fio'),'percent'=>$listenerTest->result_attempt)));
                     return Redirect::route('listener-study-test-result',array('course_translite_title'=>$course_translite_title,'study_test_id'=>$listenerTest->id))->with('message.text',Lang::get('interface.COMPANY_LISTENER_STUDY_TEST_FINISH.success_chapter_test').' '.$listenerTest->result_attempt .'%')->with('message.status','test-result');
                 endif;
             else:
+                Event::fire('organization.study.fail',array(array('accountID'=>User_listener::where('id',Auth::user()->id)->first()->organization()->pluck('id'),'course'=>OrderListeners::where('id',$study_course_id)->first()->course()->pluck('title'),'listener'=>User_listener::where('id',Auth::user()->id)->pluck('fio'),'percent'=>$listenerTest->result_attempt)));
                 return Redirect::route('listener-study-test-result',array('course_translite_title'=>$course_translite_title,'study_test_id'=>$listenerTest->id))->with('message.text',Lang::get('interface.COMPANY_LISTENER_STUDY_TEST_FINISH.fail').' '.$listenerTest->result_attempt .'%')->with('message.status','test-result')->with('message.show_repeat',TRUE);
             endif;
         else:
@@ -354,7 +359,7 @@ class AccountsListenerController extends BaseController {
 
         $listenerCourse = OrderListeners::where('id',(int) $course_translit)->where('user_id',Auth::user()->id)->where('access_status',1)->with('order')->first();
         $listenerTest = OrdersListenersTests::where('id',$study_test_id)->where('order_listeners_id',$listenerCourse->id)->with('test.course')->first();
-        if (!$listenerCourse || !$listenerTest || $listenerCourse->order->close_status == 1):
+        if (!$listenerCourse || !$listenerTest):
             return Redirect::route('listener-study');
         endif;
         $page_data = array(
