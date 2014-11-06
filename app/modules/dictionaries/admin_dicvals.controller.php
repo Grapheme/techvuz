@@ -93,6 +93,8 @@ class AdminDicvalsController extends BaseController {
 	#public function getIndex(){
 	public function index($dic_id){
 
+        #Helper::dd($dic_id);
+
         $dic = Dictionary::where(is_numeric($dic_id) ? 'id' : 'slug', $dic_id)->first();
         if (!$this->checkDicPermission($dic))
             App::abort(404);
@@ -384,9 +386,9 @@ class AdminDicvalsController extends BaseController {
                     $input['slug'] = $input['name'];
                 break;
         }
-        $input['slug'] = @Helper::translit($input['slug'], false);
+        if (isset($input['slug']))
+            $input['slug'] = @Helper::translit($input['slug'], false);
 
-        #Helper::dd($input['slug']);
 
         #$json_request['responseText'] = "<pre>" . print_r(Input::get('seo'), 1) . "</pre>";
         $json_request['responseText'] = "<pre>" . print_r(Input::all(), 1) . "</pre>";
@@ -1043,6 +1045,8 @@ class AdminDicvalsController extends BaseController {
     }
 
     private function checkDicUrl($dic, $dic_id) {
+        #Helper::ta($dic);
+        #Helper::tad($dic_id);
         $qs = Request::getQueryString();
         if ($qs != '')
             $qs = '?' . $qs;

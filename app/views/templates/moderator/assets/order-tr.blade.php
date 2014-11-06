@@ -1,6 +1,13 @@
 @if(isset($order) && is_object($order))
-<tr class="vertical-middle">
-    <td> <a href="{{ URL::route('moderator-order-extended',$order->id) }}">Заказ №{{ getOrderNumber($order) }}</a></td>
+<tr class="vertical-middle orders-line">
+    <td>
+        <form method="DELETE" action="{{ URL::route('moderator-order-delete',array('order_id'=>$order->id)) }}" style="display:inline-block">
+            <button type="submit" title="Удалить заказ" data-order-number="{{ getOrderNumber($order) }}" class="orders-delete js-delete-order">
+                <span class="icon icon-korzina"></span>
+            </button>
+        </form>
+    </td>
+    <td><a href="{{ URL::route('moderator-order-extended',$order->id) }}">Заказ №{{ getOrderNumber($order) }}</a></td>
     <td>
         {{ myDateTime::SwapDotDateWithTime($order->created_at) }}
         @if($order->close_status == 1)

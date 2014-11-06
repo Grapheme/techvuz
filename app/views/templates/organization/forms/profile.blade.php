@@ -45,12 +45,11 @@
     <div class="form-element">
         <label>БИК</label>{{ Form::text('bik') }}
     </div>
-
     <div class="form-element">
-        <label>Телефон</label>{{ Form::text('phone',NULL,array('class'=>'phone')) }}
+        <label>Телефон контактного лица</label>{{ Form::text('phone',NULL,array('class'=>'phone')) }}
     </div>
     <div class="form-element">
-        <label>Контактное лицо</label>{{ Form::text('name') }}
+        <label>Ф.И.О. контактного лица</label>{{ Form::text('name') }}
     </div>
     <div class="form-element row no-gutter margin-top-40">
         <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">

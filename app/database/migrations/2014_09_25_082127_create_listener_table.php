@@ -13,14 +13,14 @@ class CreateListenerTable extends Migration {
                 $table->integer('organization_id')->default(0)->nullable()->unsigned()->index();
                 $table->string('fio',160)->nullable();
                 $table->string('fio_dat',160)->nullable();
-                $table->string('position',100)->nullable();
+                $table->string('position',255)->nullable();
                 $table->string('postaddress',255)->nullable();
                 $table->string('phone',40)->nullable();
 
-                $table->string('education',100)->nullable();
-                $table->string('education_document_data',100)->nullable();
-                $table->string('educational_institution',100)->nullable();
-                $table->string('specialty',100)->nullable();
+                $table->string('education',255)->nullable();
+                $table->string('education_document_data',255)->nullable();
+                $table->string('educational_institution',255)->nullable();
+                $table->string('specialty',255)->nullable();
                 $table->timestamps();
             });
 

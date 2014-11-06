@@ -32,7 +32,11 @@
 						<td class="text-center" style="white-space:nowrap;">
 
         					@if(Allow::action($module['group'], 'dicval_view'))
-                            <a href="{{ action('dicval.index', array('dic_id' => $element->id)) }}" class="btn btn-warning">
+                            <a href="{{
+                                $element->entity
+                                ? URL::route('entity.index', $element->slug)
+                                : URL::route('dicval.index', $element->id)
+                            }}" class="btn btn-warning">
                                 Содержимое ({{ $element->count }})
                             </a>
                     		@endif

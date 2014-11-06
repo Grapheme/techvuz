@@ -75,7 +75,6 @@ class AccountsRegisterController extends BaseController {
                         });
                         Auth::login(User::find($account->id));
                         Event::fire('organization.approve-email',array(array('accountID'=>$account->id)));
-                        Event::fire('organization.save-profile',array(array('accountID'=>$account->id)));
                         Event::fire('organization.register-listeners',array(array('accountID'=>$account->id)));
                         Event::fire('organization.select-courses',array(array('accountID'=>$account->id)));
                         Event::fire('moderator.register-organization',array(array('accountID'=>0,'organization'=>User_organization::where('id',$account->id)->pluck('title'))));

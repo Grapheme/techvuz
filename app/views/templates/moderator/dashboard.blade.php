@@ -3,7 +3,7 @@
 @stop
 @section('content')
 <?php
-$orders = Orders::where('payment_status',1)->orderBy('created_at','DESC')->limit(3)->with('payment','listeners')->get();
+$orders = Orders::where('payment_status',1)->orderBy('created_at','DESC')->limit(3)->with('payment','listeners','payment_numbers')->get();
 $messages = Dictionary::valuesBySlug('system-messages',function($query){
     $last14Days = \Carbon\Carbon::now()->subDays(14);
     $query->orderBy('dictionary_values.updated_at','DESC');

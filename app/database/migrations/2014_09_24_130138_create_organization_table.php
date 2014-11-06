@@ -13,8 +13,8 @@ class CreateOrganizationTable extends Migration {
                 $table->string('title',255)->nullable();
                 $table->string('fio_manager',160)->nullable();
                 $table->string('fio_manager_rod',160)->nullable();
-                $table->string('manager',100)->nullable();
-                $table->string('statutory',160)->nullable();
+                $table->string('manager',255)->nullable();
+                $table->string('statutory',255)->nullable();
                 $table->string('ogrn',40)->nullable();
                 $table->string('inn',40)->nullable();
                 $table->string('kpp',40)->nullable();

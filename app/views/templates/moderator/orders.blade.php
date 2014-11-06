@@ -52,6 +52,7 @@ $orders = Orders::orderBy('payment_status')->orderBy('created_at','DESC')->with(
         <table class="table table-striped table-bordered">
             <thead>
                 <tr>
+                    <th></th>
                     <th>№ заказа</th>
                     <th>Создан<br>Закрыт</th>
                     <th>Заказчик</th>
@@ -77,6 +78,7 @@ $orders = Orders::orderBy('payment_status')->orderBy('created_at','DESC')->with(
         <table class="table table-striped table-bordered">
             <thead>
                 <tr>
+                    <th></th>
                     <th>№ заказа</th>
                     <th>Создан<br>Закрыт</th>
                     <th>Заказчик</th>
@@ -102,6 +104,7 @@ $orders = Orders::orderBy('payment_status')->orderBy('created_at','DESC')->with(
         <table class="table table-striped table-bordered">
             <thead>
                 <tr>
+                    <th></th>
                     <th>№ заказа</th>
                     <th>Создан<br>Закрыт</th>
                     <th>Заказчик</th>
@@ -127,6 +130,7 @@ $orders = Orders::orderBy('payment_status')->orderBy('created_at','DESC')->with(
         <table class="table table-striped table-bordered">
             <thead>
                 <tr>
+                    <th></th>
                     <th>№ заказа</th>
                     <th>Создан<br>Закрыт</th>
                     <th>Заказчик</th>

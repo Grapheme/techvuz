@@ -11,7 +11,7 @@ return array(
     ),
 
     'ACTIVATE' => array(
-        'success' => 'Аккаунт успешно активирован',
+        'success' => 'Email успешно активирован',
         'fail' => 'Ошибка при активации',
     ),
 

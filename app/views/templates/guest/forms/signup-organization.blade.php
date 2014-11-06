@@ -54,7 +54,7 @@
             <label>E-mail</label>{{ Form::email('email', '',array('placeholder'=>'')) }}
         </div>
         <div class="form-element">
-            <label>Контактное лицо</label>{{ Form::text('name', '',array('placeholder'=>'')) }}
+            <label>Ф.И.О.</label>{{ Form::text('name', '',array('placeholder'=>'Иванов Иван Иванович')) }}
         </div>
         <div class="form-element">
             <label>Номер телефона</label>{{ Form::text('phone', '',array('class'=>'phone')) }}

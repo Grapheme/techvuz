@@ -74,7 +74,8 @@ class AccountsDocumentsController extends BaseController {
         if (!Orders::where('id',$order_id)->where('user_id',Auth::user()->id)->where('completed',1)->where('archived',0)->exists()):
             return Redirect::route('organization-orders');
         endif;
-        if($document = Dictionary::valueBySlugs('order-documents','order-documents-contract')):
+        $document = Dictionary::valueBySlugs('order-documents','order-documents-contract');
+        if($document->exists && !empty($document->fields)):
             $fields = modifyKeys($document->fields,'key');
             $word_template = FALSE;
             if($word_template_id = isset($fields['word_template']) ? $fields['word_template']->value : ''):
@@ -89,8 +90,11 @@ class AccountsDocumentsController extends BaseController {
                     endif;
                     break;
                 case 'pdf' :
-                    if($filePath = self::parseOrderWordDocument($word_template)):
-                        return Response::download($filePath,'Договор.docx');
+                    $document_content = isset($fields['content']) ? $fields['content']->value : '';
+                    if($page_data = self::parseOrderHTMLDocument($document_content)):
+                        $pdf = PDF::loadView(Helper::acclayout('documents'), $page_data);
+                        return $pdf->download('act-'.$order_id.'.pdf');
+                        #return $pdf->stream('act-'.$order_id.'.pdf');
                     endif;
                     break;
                 case 'word':
@@ -112,7 +116,8 @@ class AccountsDocumentsController extends BaseController {
         if (!Orders::where('id',$order_id)->where('user_id',Auth::user()->id)->where('completed',1)->where('archived',0)->exists()):
             return Redirect::route('organization-orders');
         endif;
-        if($document = Dictionary::valueBySlugs('order-documents','order-documents-invoice')):
+        $document = Dictionary::valueBySlugs('order-documents','order-documents-invoice');
+        if($document->exists && !empty($document->fields)):
             $fields = modifyKeys($document->fields,'key');
             $word_template = FALSE;
             if($word_template_id = isset($fields['word_template']) ? $fields['word_template']->value : ''):
@@ -127,13 +132,16 @@ class AccountsDocumentsController extends BaseController {
                     endif;
                     break;
                 case 'pdf' :
-                    if($filePath = self::parseOrderWordDocument($word_template)):
-                        return Response::download($filePath,'Счет.docx');
+                    $document_content = isset($fields['content']) ? $fields['content']->value : '';
+                    if($page_data = self::parseOrderHTMLDocument($document_content)):
+                        $pdf = PDF::loadView(Helper::acclayout('documents'), $page_data);
+                        return $pdf->download('act-'.$order_id.'.pdf');
+                        #return $pdf->stream('act-'.$order_id.'.pdf');
                     endif;
                     break;
                 case 'word':
                     if($filePath = self::parseOrderWordDocument($word_template)):
-                        return Response::download($filePath,'Счет.docx');
+                        return Response::download($filePath,'Договор.docx');
                     endif;
                     break;
                 default: App:abort(404);
@@ -142,52 +150,49 @@ class AccountsDocumentsController extends BaseController {
         return Redirect::route('organization-orders');
     }
 
-    public function organizationOrderAct($order_id,$format){
+    public function organizationOrderAct($order_id,$format)
+    {
 
-        $account = User_organization::where('id',Auth::user()->id)->first();
-        if (!$account->moderator_approve):
+        if (!User_organization::where('id', Auth::user()->id)->pluck('moderator_approve')):
             return Redirect::route('organization-orders');
         endif;
-        if (!$order = Orders::where('id',$order_id)->where('user_id',Auth::user()->id)->where('completed',1)->where('archived',0)->first()):
+        if (!Orders::where('id', $order_id)->where('user_id', Auth::user()->id)->where('completed', 1)->where('archived', 0)->exists()):
             return Redirect::route('organization-orders');
         endif;
-        $order_listeners = Orders::where('id',$order->id)->first()->listeners()->with('course','user_listener')->get();
-        $count_listeners = $order_listeners->count();
-        $total_summa = 0;
-        foreach($order_listeners as $order_listener):
-            $total_summa += $order_listener->price;
-        endforeach;
-        if($document = Dictionary::valueBySlugs('order-documents','order-documents-act')):
-            $fields = modifyKeys($document->fields,'key');
-            $document_content = isset($fields['content']) ? $fields['content']->value : '';
-            if (!empty($document_content)):
-                $page_data = array(
-                    'page_title' => Lang::get('seo.COMPANY_ORDER.title'),
-                    'page_description' => Lang::get('seo.COMPANY_ORDER.description'),
-                    'page_keywords' => Lang::get('seo.COMPANY_ORDER.keywords'),
-                    'order' => $order->toArray(),
-                    'account' => $account->toArray(),
-                    'count_listeners' => $count_listeners,
-                    'total_summa' => $total_summa,
-                    'template' => storage_path('views/'.sha1($order_id.'order-documents-act'))
-                );
-                self::parseOrderDocument($page_data['template'],$document_content);
-                switch($format):
-                    case 'html': return View::make(Helper::acclayout('documents'),$page_data);
-                    case 'pdf' :
-                        $pdf = PDF::loadView(Helper::acclayout('documents'), $page_data);
-                        if ($this->document_stream):
-                            return $pdf->stream('act-'.$order_id.'.pdf');
-                        else:
-                            return $pdf->download('act-'.$order_id.'.pdf');
-                        endif;
-                    case 'word':
-                        break;
-                    default: App:abort(404);
-                endswitch;
+        $document = Dictionary::valueBySlugs('order-documents', 'order-documents-act');
+        if ($document->exists && !empty($document->fields)):
+            $fields = modifyKeys($document->fields, 'key');
+            $word_template = FALSE;
+            if ($word_template_id = isset($fields['word_template']) ? $fields['word_template']->value : ''):
+                $word_template = Upload::where('id', $word_template_id)->pluck('path');
             endif;
+            Config::set('show-document.order_id', $order_id);
+            switch ($format):
+                case 'html':
+                    $document_content = isset($fields['content']) ? $fields['content']->value : '';
+                    if ($page_data = self::parseOrderHTMLDocument($document_content)):
+                        return View::make(Helper::acclayout('documents'), $page_data);
+                    endif;
+                    break;
+                case 'pdf' :
+                    $document_content = isset($fields['content']) ? $fields['content']->value : '';
+                    if ($page_data = self::parseOrderHTMLDocument($document_content)):
+                        $pdf = PDF::loadView(Helper::acclayout('documents'), $page_data);
+                        return $pdf->download('act-' . $order_id . '.pdf');
+                        #return $pdf->stream('act-'.$order_id.'.pdf');
+                    endif;
+                    break;
+                case 'word':
+                    if ($filePath = self::parseOrderWordDocument($word_template)):
+                        return Response::download($filePath, 'Договор.docx');
+                    endif;
+                    break;
+                default:
+                    App:
+                    abort(404);
+            endswitch;
         endif;
-        App::abort(404);
+        return Redirect::route('organization-orders');
     }
 
     public function organizationOrderCertificateFirst($order_id,$course_id,$listener_id){
@@ -492,6 +497,24 @@ class AccountsDocumentsController extends BaseController {
     }
 
     private function parseOrderWordDocument($template){
+
+        if (File::exists(public_path($template)) === FALSE):
+            return FALSE;
+        endif;
+        $filePath = public_path('uploads/orders/temporary/'.sha1(time()).'.docx');
+        $document = new PHPWord();
+        $document->setDefaultFontName('Times New Roman');
+        $document->setDefaultFontSize(12);
+        $document = $document->loadTemplate(public_path($template));
+        $variables = self::getDocumentVariables();
+        foreach($variables as $variable_index => $variable_value):
+            $document->setValue($variable_index,$variable_value);
+        endforeach;
+        $document->save($filePath);
+        return $filePath;
+    }
+
+    private function parseOrderPDFDocument($template){
 
         if (File::exists(public_path($template)) === FALSE):
             return FALSE;

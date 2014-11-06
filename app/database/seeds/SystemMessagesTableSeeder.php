@@ -9,7 +9,6 @@ class SystemMessagesTableSeeder extends Seeder {
 
         $dic_id = Dictionary::where('slug','types-system-messages')->first()->id;
         DicVal::create(array('dic_id'=>$dic_id,'slug'=>'organization.approve-email','name'=> 'Подтвердите свой e-mail (пройдите по ссылке, направленной на указанный при регистрации адрес)','order'=>1));
-        DicVal::create(array('dic_id'=>$dic_id,'slug'=>'organization.save-profile','name'=> 'Заполните анкету компании и сможете покупать курсы.','order'=>2));
         DicVal::create(array('dic_id'=>$dic_id,'slug'=>'organization.register-listeners','name'=> 'Добавьте слушателей — сотрудников, которых нужно обучить.','order'=>3));
         DicVal::create(array('dic_id'=>$dic_id,'slug'=>'organization.select-courses','name'=> 'Выберите нужные курсы, назначьте слушателей и оформите заказ.','order'=>4));
         DicVal::create(array('dic_id'=>$dic_id,'slug'=>'organization.account-blocked','name'=> 'Ваша учетная запись заблокирована. За уточнениями обратитесь к администрации системы.','order'=>5));
@@ -37,5 +36,6 @@ class SystemMessagesTableSeeder extends Seeder {
         DicVal::create(array('dic_id'=>$dic_id,'slug'=>'moderator.order.closed','name'=> 'Заказ №[order] закрылся','order'=>24));
 
         DicVal::create(array('dic_id'=>$dic_id,'slug'=>'organization.order.closed','name'=> 'Заказ <a href="[link]">№[order]</a> закрылся','order'=>25));
+        DicVal::create(array('dic_id'=>$dic_id,'slug'=>'organization.order-puy-no-approve','name'=> 'Заказ <a href="[link]">№[order]</a> создан успешно! Оплата недоступна. Ваш аккаунт не поддвержден модератором.','order'=>26));
     }
 }

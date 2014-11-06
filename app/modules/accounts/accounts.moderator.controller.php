@@ -24,6 +24,9 @@ class AccountsModeratorController extends BaseController {
                 Route::post('order/{order_id}/extended/set-access/{order_listener_id}', array('as' => 'order-listener-access', 'uses' => $class . '@changeOrderListenerAccess'));
                 Route::post('order/{order_id}/extended/set-status', array('as' => 'change-order-status', 'uses' => $class . '@changeOrderStatus'));
 
+                Route::delete('order/{order_id}/arhived', array('as' => 'moderator-order-arhived', 'uses' => $class . '@arhivedOrder'));
+                Route::delete('order/{order_id}/delete', array('as' => 'moderator-order-delete', 'uses' => $class . '@deleteOrder'));
+
                 Route::post('order/{order_id}/payment-number/store', array('before' => 'csrf', 'as' => 'payment-order-number-store', 'uses' => $class . '@OrderPaymentNumberStore'));
                 Route::patch('order/{order_id}/payment-number/update', array('before' => 'csrf', 'as' => 'payment-order-number-update', 'uses' => $class . '@OrderPaymentNumberUpdate'));
                 Route::delete('order/{order_id}/payment-number/delete/{payment_order_id}', array('before' => 'csrf', 'as' => 'payment-order-number-delete', 'uses' => $class . '@OrderPaymentNumberDelete'));
@@ -419,6 +422,37 @@ class AccountsModeratorController extends BaseController {
             return App::abort(404);
         endif;
         return Response::json($json_request,200);
+    }
+
+    public function deleteOrder($order_id){
+
+        if(!Request::ajax()) return App::abort(404);
+        $json_request = array('status'=>FALSE, 'responseText'=>'');
+        $order = Orders::findOrFail($order_id);
+        Orders::findOrFail($order_id)->payment_numbers()->delete();
+        if($orderListenersIDs = Orders::findOrFail($order_id)->listeners()->lists('id')):
+            OrdersListenersTests::whereIn('order_listeners_id',$orderListenersIDs)->delete();
+            Orders::findOrFail($order_id)->listeners()->delete();
+        endif;
+        Event::fire(Route::currentRouteName(), array(array('title'=>'№'.getOrderNumber($order))));
+        $order->delete();
+        $json_request['responseText'] = 'Выполенено';
+        $json_request['status'] = TRUE;
+        return Response::json($json_request, 200);
+    }
+
+    public function arhivedOrder($order_id){
+
+        if(!Request::ajax()) return App::abort(404);
+        $json_request = array('status'=>FALSE, 'responseText'=>'');
+        $order = Orders::findOrFail($order_id);
+        $order->archived = 1;
+        $order->save();
+        $order->touch();
+        Event::fire(Route::currentRouteName(), array(array('title'=>'№'.getOrderNumber($order))));
+        $json_request['responseText'] = 'Выполенено';
+        $json_request['status'] = TRUE;
+        return Response::json($json_request, 200);
     }
 
     private function authChangeOrderStatus($order_id){

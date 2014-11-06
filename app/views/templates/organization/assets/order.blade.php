@@ -1,8 +1,14 @@
 @if(isset($order) && is_object($order))
 <?php $paymentNumbersPrice = 0;?>
+<?php $listenersCount = array();?>
 @if($order->payment_numbers->count())
     @foreach($order->payment_numbers as $payment_number)
     <?php $paymentNumbersPrice+=$payment_number->price;?>
+    @endforeach
+@endif
+@if($order->listeners->count())
+    @foreach($order->listeners as $listener)
+    <?php $listenersCount[$listener->user_id]++;?>
     @endforeach
 @endif
 <li class="orders-li {{ $order->payment->class }}">
@@ -32,13 +38,10 @@
         </div>
         <div class="orders-package">
             <div>В заказе {{ count($coursesIDs) }} {{ Lang::choice('курс|курса|курсов',count($coursesIDs)); }}</div>
-            <div>для {{ $order->listeners->count() }} {{ Lang::choice('слушателя|слушателей|слушателей',$order->listeners->count()); }}</div>
+            <div>для {{ count($listenersCount) }} {{ Lang::choice('слушателя|слушателей|слушателей',count($listenersCount)); }}</div>
         </div>
-        @if(in_array($order->payment_status,array(2,3)) && in_array($order->close_status,array(0,1)))
         <div class="orders-docs">
-            Посмотреть <a href="#">документы</a>
             @include(Helper::acclayout('assets.documents'),array('order'=>$order))
         </div>
-        @endif
     </div>
 @endif
