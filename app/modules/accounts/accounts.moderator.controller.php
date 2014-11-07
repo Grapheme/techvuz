@@ -41,6 +41,7 @@ class AccountsModeratorController extends BaseController {
                 Route::post('statistic-set-period', array('as' => 'moderator-statistic-set-period', 'uses' => $class . '@statisticSetPeriod'));
 
                 Route::get('notifications', array('as' => 'moderator-notifications', 'uses' => $class . '@NotificationsList'));
+                Route::delete('notification/{notification_id}/delete', array('as' => 'moderator-notification-delete', 'uses' => $class . '@NotificationDelete'));
             });
         endif;
     }
@@ -86,6 +87,13 @@ class AccountsModeratorController extends BaseController {
             'page_keywords'=> '',
         );
         return View::make(Helper::acclayout('notifications'),$page_data);
+    }
+
+    public function NotificationDelete($notification_id){
+
+        DicVal::where('id',$notification_id)->delete();
+        DicFieldVal::where('dicval_id',$notification_id)->delete();
+        return Redirect::back();
     }
     /****************************************************************************/
     /******************************* КОМПАНИИ ***********************************/

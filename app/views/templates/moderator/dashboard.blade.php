@@ -44,6 +44,11 @@ $messages = Dictionary::valuesBySlug('system-messages',function($query){
                             <div class="notif-date font-sm">
                                 {{ $message->updated_at->timezone('Europe/Moscow')->format('d.m.Y в H:i') }}
                             </div>
+                            <div class="notif-delete js-notif-delete">
+                            {{ Form::open(array('url'=>URL::route('moderator-notification-delete',array('notification_id'=>$message->id)), 'style'=>'display:inline-block', 'method'=>'delete')) }}
+                                {{ Form::submit('удалить',array('title'=>'Удалить сообщение')) }}
+                            {{ Form::close() }}
+                            </div>
                         </div>
                     </div>
                 </li>

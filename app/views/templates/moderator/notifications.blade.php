@@ -17,11 +17,17 @@ $messages = Dictionary::valuesBySlug('system-messages',function($query){
                 <tr>
                     <th class="sort sort--asc">Содержание <span class="sort--icon"></span> </th>
                     <th class="sort sort--asc">Дата <span class="sort--icon"></span> </th>
+                    <th> </th>
                 </tr>
             @foreach($messages as $message)
                 <tr>
                     <td>{{ $message->name }}</td>
                     <td>{{ $message->updated_at->timezone('Europe/Moscow')->format('d.m.Y в H:i') }}</td>
+                    <td>
+                    {{ Form::open(array('url'=>URL::route('moderator-notification-delete',array('notification_id'=>$message->id)), 'style'=>'display:inline-block', 'method'=>'delete')) }}
+                        {{ Form::submit('удалить',array('title'=>'Удалить сообщение')) }}
+                    {{ Form::close() }}
+                    </td>
                 </tr>
             @endforeach
             </tbody>
