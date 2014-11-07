@@ -14,7 +14,7 @@
     <?php
         $directions = Directions::whereActive(TRUE)->orderBy('order')->with('photo')
             ->with(array('courses'=>function($query){
-                $query->whereActive(TRUE);
+                $query->where('active',1);
                 $query->with('seo');
             }))->get();
     ?>
