@@ -29,6 +29,7 @@ class AccountsOrganizationController extends BaseController {
                 Route::get('listeners', array('as' => 'organization-listeners', 'uses' => $class . '@CompanyListenersList'));
                 Route::get('study', array('as' => 'organization-study', 'uses' => $class . '@CompanyStudyProgressList'));
                 Route::get('notifications', array('as' => 'organization-notifications', 'uses' => $class . '@CompanyNotificationsList'));
+                Route::delete('notification/{notification_id}/delete', array('as' => 'organization-notification-delete', 'uses' => $class . '@CompanyNotificationDelete'));
             });
         endif;
     }
@@ -286,6 +287,13 @@ class AccountsOrganizationController extends BaseController {
             'page_keywords'=> Lang::get('seo.COMPANY_NOTIFICATION_LIST.keywords'),
         );
         return View::make(Helper::acclayout('notifications'),$page_data);
+    }
+
+    public function CompanyNotificationDelete($notification_id){
+
+        DicVal::where('id',$notification_id)->delete();
+        DicFieldVal::where('dicval_id',$notification_id)->delete();
+        return Redirect::back();
     }
 
     public function signupListener(){

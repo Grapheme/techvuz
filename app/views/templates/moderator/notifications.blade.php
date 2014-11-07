@@ -21,7 +21,7 @@ $messages = Dictionary::valuesBySlug('system-messages',function($query){
             @foreach($messages as $message)
                 <tr>
                     <td>{{ $message->name }}</td>
-                    <td>{{ $message->updated_at->format('d.m.Y в H:i') }}</td>
+                    <td>{{ $message->updated_at->timezone('Europe/Moscow')->format('d.m.Y в H:i') }}</td>
                 </tr>
             @endforeach
             </tbody>

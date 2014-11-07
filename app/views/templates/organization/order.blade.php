@@ -7,7 +7,7 @@
     <h2>{{ User_organization::where('id',Auth::user()->id)->pluck('title') }}</h2>
     <div class="cabinet-tabs">
         @include(Helper::acclayout('menu'))
-        <h3>Заказ №{{ getOrderNumber($order) }}</h3> {{ $order->created_at->format("d.m.Y в H:i") }}
+        <h3>Заказ №{{ getOrderNumber($order) }}</h3> {{ $order->created_at->timezone('Europe/Moscow')->format("d.m.Y в H:i") }}
         <?php $order_price = 0;?>
         @foreach($order->listeners as $listener)
         <?php $order_price += $listener->price;?>
