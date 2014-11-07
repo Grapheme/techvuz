@@ -35,7 +35,7 @@
         {{ Session::get('message.text') }}
     @elseif($header_notification['code'] == 2)
     <div class="notif notif--warning">
-        {{ $header_notification['message'] }} {{ Lang::get('interface.ACCOUNT_STATUS.repeated_sending') }}
+        {{ $header_notification['message'] }} {{ Lang::get('interface.ACCOUNT_EMAIL_STATUS.repeated_sending') }}
     </div>
     @elseif($header_notification['code'] == 3)
     <div class="notif notif--danger">
@@ -43,7 +43,7 @@
     </div>
     @elseif($header_notification['code'] == 4)
     <div class="notif notif--danger">
-        {{ $header_notification['message'] }} {{ Lang::get('interface.ACCOUNT_STATUS.repeated_sending') }}
+        {{ $header_notification['message'] }} {{ Lang::get('interface.ACCOUNT_EMAIL_STATUS.repeated_sending') }}
     </div>
     @endif
 @endif
