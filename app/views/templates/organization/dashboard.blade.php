@@ -8,6 +8,7 @@
     $messages = Dictionary::valuesBySlug('system-messages',function($query){
         $lastMonth = \Carbon\Carbon::now()->subMonth();
         $query->orderBy('dictionary_values.updated_at','DESC');
+        $query->orderBy('dictionary_values.id','DESC');
         $query->where('dictionary_values.updated_at','>=',$lastMonth);
         $query->filter_by_field('user_id',Auth::user()->id);
     });

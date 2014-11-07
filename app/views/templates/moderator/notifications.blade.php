@@ -5,6 +5,7 @@
 <?php
 $messages = Dictionary::valuesBySlug('system-messages',function($query){
     $query->orderBy('dictionary_values.updated_at','DESC');
+    $query->orderBy('dictionary_values.id','DESC');
     $query->filter_by_field('user_id',0);
 });
 ?>

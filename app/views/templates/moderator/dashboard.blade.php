@@ -7,6 +7,7 @@ $orders = Orders::where('payment_status',1)->orderBy('created_at','DESC')->limit
 $messages = Dictionary::valuesBySlug('system-messages',function($query){
     $last14Days = \Carbon\Carbon::now()->subDays(14);
     $query->orderBy('dictionary_values.updated_at','DESC');
+    $query->orderBy('dictionary_values.id','DESC');
     $query->where('dictionary_values.updated_at','>=',$last14Days);
     $query->filter_by_field('user_id',0);
 });
