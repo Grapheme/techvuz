@@ -39,10 +39,9 @@ class AccountsListenerController extends BaseController {
         Event::listen('listener.over.course.study', function ($data) {
             OrderListeners::where('id',$data['listener_course_id'])
                 ->where('access_status',1)
-                ->where('start_status',1)
                 ->where('over_status',0)
                 ->where('user_id',Auth::user()->id)
-                ->update(array('over_status'=>1,'over_date'=>date('Y-m-d H:i:s'),'updated_at'=>date('Y-m-d H:i:s')));
+                ->update(array('start_status'=>1,'over_status'=>1,'over_date'=>date('Y-m-d H:i:s'),'updated_at'=>date('Y-m-d H:i:s')));
         });
     }
 
@@ -334,8 +333,7 @@ class AccountsListenerController extends BaseController {
                 if ($test->chapter_id == 0):
                     Event::fire('listener.over.course.study', array(array('listener_course_id'=>$study_course_id)));
                     Event::fire('organization.study.finish',array(array('accountID'=>User_listener::where('id',Auth::user()->id)->first()->organization()->pluck('id'),'course'=>OrderListeners::where('id',$study_course_id)->first()->course()->pluck('title'),'listener'=>User_listener::where('id',Auth::user()->id)->pluck('fio'),'percent'=>$listenerTest->result_attempt)));
-                    Event::fire('organization.order.closed',array(array('accountID'=>User_listener::where('id',Auth::user()->id)->first()->organization()->pluck('id'),'order'=>getOrderNumber(Orders::where('id',$listenerCourse->order_id)->first()),'link'=>URL::to('organization/order/'.$listenerCourse->order_id))));
-                    Event::fire('moderator.order.closed',array(array('accountID'=>0,'order'=>getOrderNumber(Orders::where('id',$listenerCourse->order_id)->first()))));
+                    Config::set('temp.study_course_id',$study_course_id);
                     AccountsOrderingController::closeOrder($listenerCourse->order_id);
                     return Redirect::route('listener-study-test-result',array('course_translite_title'=>$course_translite_title,'study_test_id'=>$listenerTest->id))->with('message.text',Lang::get('interface.COMPANY_LISTENER_STUDY_TEST_FINISH.success_course_test').' '.$listenerTest->result_attempt .'%')->with('message.status','test-result');
                 else:

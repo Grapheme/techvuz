@@ -22,7 +22,7 @@
         </div>
         <div class="btn-group pull-right margin-right-10">
             {{ Form::open(array('url'=>URL::route('testing.dublicate',array('directions'=>$direction->id,'course_id'=>$course->id,'chapter_id'=>$chapter_id)), 'role'=>'form', 'class'=>'smart-form', 'method'=>'post')) }}
-                {{ Form::select('course_id',Courses::where('id','!=',$course->id)->orderBy('code')->lists('code','id')) }}
+                {{ Form::select('course_id',Courses::orderBy('code')->lists('code','id')) }}
             <?php
                 $chapters_select = Chapter::orderBy('order')->select('id','course_id','title')->get();
             ?>

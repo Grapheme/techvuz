@@ -162,13 +162,15 @@ class AccountsOrderingController extends BaseController {
         if($order = Orders::where('id',$order_id)->where('completed',1)->where('archived',0)->where('close_status',0)->with('listeners')->first()):
             $close_allowed = TRUE;
             foreach($order->listeners as $listener):
-                if ($listener->access_status == 0 || $listener->start_status == 0 || $listener->over_status == 0):
+                if ($listener->over_status == 0):
                     $close_allowed = FALSE;
                     break;
                 endif;
             endforeach;
             if ($close_allowed):
                 Orders::where('id',$order->id)->update(array('close_status'=>1,'close_date'=>date('Y-m-d H:i:s'),'updated_at'=>date('Y-m-d H:i:s')));
+                Event::fire('organization.order.closed',array(array('accountID'=>User_listener::where('id',Auth::user()->id)->first()->organization()->pluck('id'),'order'=>getOrderNumber(Orders::where('id',Config::get('temp.study_course_id'))->first()),'link'=>URL::to('organization/order/'.$order_id))));
+                Event::fire('moderator.order.closed',array(array('accountID'=>0,'order'=>getOrderNumber($order))));
             endif;
             return TRUE;
         endif;
