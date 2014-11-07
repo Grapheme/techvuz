@@ -22,7 +22,7 @@ var validation_signup_ul = {
     statutory: { required: true },
     ogrn: { required: true },
     inn: { required: true },
-    kpp: { required: true },
+    kpp: {},
     uraddress: { required: true },
     account_number: { required: true },
     account_kor_number: { required: true },
