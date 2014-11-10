@@ -299,7 +299,6 @@ class AccountsDocumentsController extends BaseController {
             $SpisokSluschateleyDlyaDogovora[$listener->user_id]['course'][] = !empty($listener->course) ? $listener->course->toArray() : array();
         endforeach;
         $dateTime = new myDateTime();
-        Helper::tad($order);
         $variables = array(
             'page_title' => '',
             'NomerZakaza' => getOrderNumber($order),
