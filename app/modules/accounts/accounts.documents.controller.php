@@ -290,10 +290,13 @@ class AccountsDocumentsController extends BaseController {
     /****************************************************************************/
     private function getDocumentVariables($extract = FALSE){
 
-        $order = Orders::where('id',Config::get('show-document.order_id'))->with('organization','individual','payment','listeners.course','listeners.listener','listeners.final_test','payment_numbers')->first();
-        $SummaZakaza = 0;
+        $order = Orders::where('id',Config::get('show-document.order_id'))->with('organization','individual','payment','listeners.course','listeners.user_listener','listeners.user_listener','listeners.user_individual','listeners.final_test','payment_numbers')->first();
+        $SummaZakaza = 0; $SpisokSluschateleyDlyaDogovora = array();
         foreach($order->listeners as $listener):
             $SummaZakaza += $listener->price;
+            $SpisokSluschateleyDlyaDogovora[$listener->user_id]['listener'] = !empty($listener->user_listener) ? $listener->user_listener->toArray() : array();
+            $SpisokSluschateleyDlyaDogovora[$listener->user_id]['individual'] = !empty($listener->user_individual) ? $listener->user_individual->toArray() : array();
+            $SpisokSluschateleyDlyaDogovora[$listener->user_id]['course'][] = !empty($listener->course) ? $listener->course->toArray() : array();
         endforeach;
         $dateTime = new myDateTime();
         $variables = array(
@@ -321,6 +324,9 @@ class AccountsDocumentsController extends BaseController {
             'NazvanieBankaOrganizacii' => empty($order->organization) ? '' : $order->organization->bank,
             'BIKOrganizacii' => empty($order->organization) ? '' : $order->organization->bik,
             'KontaktnuyTelefonZakazchika' => empty($order->organization) ? $order->individual->phone : $order->organization->phone,
+
+            'SpisokSluschateleyDlyaDogovora' => $SpisokSluschateleyDlyaDogovora,
+            'TablicaSluschateleyDlyaDogovora' => '',
 
             'ImyaIndividualnogoZakazchika' => empty($order->individual) ? '' : $order->individual->fio,
         );

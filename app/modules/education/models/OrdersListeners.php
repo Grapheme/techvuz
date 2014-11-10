@@ -57,6 +57,10 @@ class OrderListeners extends BaseModel {
     public function user_listener() {
         return $this->belongsTo('User_listener', 'user_id');
     }
+    public function user_individual() {
+        return $this->belongsTo('User_individual', 'user_id');
+    }
+
     public function final_test(){
 
         return $this->belongsTo('OrdersListenersTests','id','order_listeners_id')->where('chapter_id',0);
