@@ -53,7 +53,7 @@
                         <a href="#tabs-14">Все {{ $count_orders ? '<span class="filter-count">'.$count_orders.'</span>' : '' }}</a>
                     </li>
                 </ul>
-                <div id="tabs-11">
+                <div id="tabs-11" class="js-tab-current">
                     <ul class="orders-ul">
                     @if(hasCookieData('ordering'))
                         @include(Helper::acclayout('assets.temp-order'))
@@ -101,4 +101,8 @@
 @section('overlays')
 @stop
 @section('scripts')
+{{ HTML::script('js/system/main.js') }}
+{{ HTML::script('js/vendor/SmartNotification.min.js') }}
+{{ HTML::script('js/system/messages.js') }}
+{{ HTML::script('theme/js/organization.js') }}
 @stop

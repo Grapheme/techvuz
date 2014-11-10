@@ -25,6 +25,7 @@ class AccountsOrganizationController extends BaseController {
 
                 Route::get('orders', array('as' => 'organization-orders', 'uses' => $class . '@CompanyOrdersList'));
                 Route::get('order/{order_id}', array('as' => 'organization-order', 'uses' => $class . '@CompanyOrderShow'));
+                Route::delete('order/{order_id}/delete', array('as' => 'organization-order-delete', 'uses' => $class . '@CompanyDeleteOrder'));
 
                 Route::get('listeners', array('as' => 'organization-listeners', 'uses' => $class . '@CompanyListenersList'));
                 Route::get('study', array('as' => 'organization-study', 'uses' => $class . '@CompanyStudyProgressList'));
@@ -257,6 +258,23 @@ class AccountsOrganizationController extends BaseController {
             'order' => $order
         );
         return View::make(Helper::acclayout('order'),$page_data);
+    }
+
+    public function CompanyDeleteOrder($order_id){
+
+        if(!Request::ajax()) return App::abort(404);
+        $json_request = array('status'=>FALSE, 'responseText'=>'');
+        if($order = Orders::where('payment_status',1)->findOrFail($order_id)):
+            Orders::where('payment_status',1)->findOrFail($order_id)->payment_numbers()->delete();
+            if($orderListenersIDs = Orders::where('payment_status',1)->findOrFail($order_id)->listeners()->lists('id')):
+                OrdersListenersTests::whereIn('order_listeners_id',$orderListenersIDs)->delete();
+                Orders::where('payment_status',1)->findOrFail($order_id)->listeners()->delete();
+            endif;
+            $order->delete();
+            $json_request['status'] = TRUE;
+            $json_request['responseText'] = 'Выполенено';
+        endif;
+        return Response::json($json_request, 200);
     }
 
     public function CompanyListenersList(){

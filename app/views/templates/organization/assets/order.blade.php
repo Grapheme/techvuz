@@ -11,7 +11,7 @@
     <?php $listenersCount[$listener->user_id]++;?>
     @endforeach
 @endif
-<li class="orders-li {{ $order->payment->class }}">
+<li class="orders-li js-orders-line {{ $order->payment->class }}">
     <div class="orders-li-head">
         <h4><a href="{{ URL::route('organization-order',$order->id) }}">Заказ №{{ getOrderNumber($order) }}</a></h4>
         <div class="orders-status">
@@ -43,5 +43,14 @@
         <div class="orders-docs">
             @include(Helper::acclayout('assets.documents'),array('order'=>$order))
         </div>
+        @if($order->payment_status == 1)
+        <div class="orders-actions">
+            {{ Form::open(array('url'=>URL::route('organization-order-delete',array('order_id'=>$order->id)), 'style'=>'display:inline-block', 'method'=>'delete')) }}
+                <button type="submit" autocomplete="off" title="Удалить заказ" data-order-number="{{ getOrderNumber($order) }}" class="orders-delete js-delete-order">
+                    <span class="icon icon-korzina"></span>
+                </button>
+            {{ Form::close() }}
+        </div>
+        @endif
     </div>
 @endif

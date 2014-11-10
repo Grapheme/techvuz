@@ -97,6 +97,52 @@ function scrollToError(elem) {
     }, 200);
 }
 
+$(function(){
+
+    $(".js-delete-order").click(function() {
+        var $this = this;
+        var $order = $($this).data('order-number');
+        var currentTabID = $($this).parents('.js-tab-current').attr('id');
+        var currentTabCountOrder = $("a[href='#"+currentTabID+"']").find('.filter-count').html();
+        var totalTabCountOrder = $("a[href='#tabs-14']").find('.filter-count').html();
+        console.log(currentTabCountOrder);
+        console.log(totalTabCountOrder);
+        $.SmartMessageBox({
+            title : "Удалить заказ №"+$order+"?",
+            content : "",
+            buttons : '[Нет][Да]'
+        },function(ButtonPressed) {
+            if(ButtonPressed == "Да") {
+                $.ajax({
+                    url: $($this).parent('form').attr('action'),
+                    type: 'DELETE',
+                    dataType: 'json',
+                    beforeSend: function(){$($this).elementDisabled(true);},
+                    success: function(response, textStatus, xhr){
+                        if(response.status == true){
+                            showMessage.constructor('Удаление закза', response.responseText);
+                            showMessage.smallSuccess();
+                            $("a[href='#"+currentTabID+"']").find('.filter-count').html(currentTabCountOrder-1);
+                            $("a[href='#tabs-14']").find('.filter-count').html(totalTabCountOrder-1);
+                            $(".js-delete-order[data-order-number='"+$order+"']").parents('.js-orders-line').fadeOut(500,function(){$(this).remove();});
+                        } else {
+                            $($this).elementDisabled(false);
+                            showMessage.constructor('Удалить ' + essence_name, 'Возникла ошибка. Обновите страницу и повторите снова.');
+                            showMessage.smallError();
+                        }
+                    },
+                    error: function(xhr, textStatus, errorThrown){
+                        $($this).elementDisabled(false);
+                        showMessage.constructor('Удалить ' + essence_name, 'Возникла ошибка. Повторите снова.');
+                        showMessage.smallError();
+                    }
+                });
+            }
+        });
+        return false;
+    });
+});
+
 function organizationFormValidation() {
 
     var signupListener = $("#signup-listener-form").validate({
