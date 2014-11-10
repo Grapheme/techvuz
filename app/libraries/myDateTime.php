@@ -17,7 +17,7 @@ class myDateTime {
 
     public function setDateString($string){
 
-        Helper::dd($string);
+        Helper::dd(strtotime($string));
 
         $this->date_string = \Carbon\Carbon::createFromTimestamp(strtotime($string));
 
