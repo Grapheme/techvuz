@@ -17,10 +17,7 @@ class myDateTime {
 
     public function setDateString($string){
 
-        Helper::dd(strtotime($string));
-
         $this->date_string = \Carbon\Carbon::createFromTimestamp(strtotime($string));
-
         return $this;
     }
 
@@ -119,6 +116,8 @@ class myDateTime {
     }
 
     private function validDate(){
+
+        Helper::dd($this->date_string);
 
         if ($this->date_string == '1970-01-01 00:00:00'):
             return FALSE;
