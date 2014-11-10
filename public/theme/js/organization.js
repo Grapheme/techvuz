@@ -102,11 +102,7 @@ $(function(){
     $(".js-delete-order").click(function() {
         var $this = this;
         var $order = $($this).data('order-number');
-        var currentTabID = $($this).parents('.js-tab-current').attr('id');
-        var currentTabCountOrder = $("a[href='#"+currentTabID+"']").find('.filter-count').html();
-        var totalTabCountOrder = $("a[href='#tabs-14']").find('.filter-count').html();
-        console.log(currentTabCountOrder);
-        console.log(totalTabCountOrder);
+        var currentTabCountOrder = 0;
         $.SmartMessageBox({
             title : "Удалить заказ №"+$order+"?",
             content : "",
@@ -122,8 +118,10 @@ $(function(){
                         if(response.status == true){
                             showMessage.constructor('Удаление закза', response.responseText);
                             showMessage.smallSuccess();
-                            $("a[href='#"+currentTabID+"']").find('.filter-count').html(currentTabCountOrder-1);
-                            $("a[href='#tabs-14']").find('.filter-count').html(totalTabCountOrder-1);
+                            $(".js-delete-order[data-order-number='"+$order+"']").parents('.js-tab-current').each(function(){
+                                currentTabCountOrder = $("a[href='#"+$(this).attr('id')+"']").find('.filter-count').html();
+                                $("a[href='#"+$(this).attr('id')+"']").find('.filter-count').html(currentTabCountOrder-1);
+                            });
                             $(".js-delete-order[data-order-number='"+$order+"']").parents('.js-orders-line').fadeOut(500,function(){$(this).remove();});
                         } else {
                             $($this).elementDisabled(false);

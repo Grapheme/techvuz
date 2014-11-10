@@ -99,4 +99,16 @@ class Orders extends BaseModel {
         endforeach;
         return $freeNumber != 0 ? $freeNumber : $this->getLastOrderNumber(TRUE);
     }
+
+    public function contract(){
+        return $this->hasOne('Upload','id','contract_id');
+    }
+
+    public function invoice(){
+        return $this->hasOne('Upload','id','invoice_id');
+    }
+
+    public function act(){
+        return $this->hasOne('Upload','id','act_id');
+    }
 }

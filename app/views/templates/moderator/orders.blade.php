@@ -3,7 +3,7 @@
 @stop
 @section('content')
  <?php
-$orders = Orders::orderBy('payment_status')->orderBy('created_at','DESC')->with('payment', 'organization', 'individual')->get();
+$orders = Orders::where('archived',FALSE)->orderBy('payment_status')->orderBy('created_at','DESC')->with('payment', 'organization', 'individual')->get();
 ?>
 <h3>Список заказов</h3>
 <div class="tabs usual-tabs">
@@ -43,7 +43,7 @@ $orders = Orders::orderBy('payment_status')->orderBy('created_at','DESC')->with(
             <a href="#tabs-14">Все {{ $count_orders ? '<span class="filter-count">'.$count_orders.'</span>' : '' }}</a>
         </li>
     </ul>
-    <div id="tabs-11">
+    <div id="tabs-11" class="js-tab-current">
         <form class="employee-search margin-bottom-20">
             <fieldset>
                 <input type="text" placeholder="Укажите номер заказа или заказчика">
@@ -69,7 +69,7 @@ $orders = Orders::orderBy('payment_status')->orderBy('created_at','DESC')->with(
             </tbody>
         </table>
     </div>
-    <div id="tabs-12">
+    <div id="tabs-12" class="js-tab-current">
         <form class="employee-search margin-bottom-20">
             <fieldset>
                 <input type="text" placeholder="Укажите номер заказа или заказчика">
@@ -95,7 +95,7 @@ $orders = Orders::orderBy('payment_status')->orderBy('created_at','DESC')->with(
             </tbody>
         </table>
     </div>
-    <div id="tabs-13">
+    <div id="tabs-13" class="js-tab-current">
         <form class="employee-search margin-bottom-20">
             <fieldset>
                 <input type="text" placeholder="Укажите номер заказа или заказчика">
@@ -121,7 +121,7 @@ $orders = Orders::orderBy('payment_status')->orderBy('created_at','DESC')->with(
             </tbody>
         </table>
     </div>
-    <div id="tabs-14">
+    <div id="tabs-14" class="js-tab-current">
         <form class="employee-search margin-bottom-20">
             <fieldset>
                 <input type="text" placeholder="Укажите номер заказа или заказчика">

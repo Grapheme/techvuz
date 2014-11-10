@@ -11,7 +11,7 @@
     <?php $listenersCount[$listener->user_id]++;?>
     @endforeach
 @endif
-<li class="orders-li {{ $order->payment->class }} orders-line">
+<li class="orders-li {{ $order->payment->class }} js-orders-line">
     <div class="orders-li-head">
         <h4><a href="{{ URL::route('moderator-order-extended',$order->id) }}">Заказ №{{ getOrderNumber($order) }}</a></h4>
         <div class="orders-status">
@@ -45,11 +45,16 @@
             @include(Helper::acclayout('assets.documents'),array('order'=>$order))
         </div>
         <div class="orders-actions">
-            <form method="DELETE" action="{{ URL::route('moderator-order-delete',array('order_id'=>$order->id)) }}" style="display:inline-block">
-                <button type="submit" title="Удалить заказ" data-order-number="{{ getOrderNumber($order) }}" class="orders-delete js-delete-order">
+        @if($order->payment_status == 1)
+            <?php $formAction = URL::route('moderator-order-delete',array('order_id'=>$order->id));?>
+        @else
+            <?php $formAction = URL::route('moderator-order-arhived',array('order_id'=>$order->id));?>
+        @endif
+            {{ Form::open(array('url'=>$formAction, 'style'=>'display:inline-block', 'method'=>'delete')) }}
+                <button type="submit" autocomplete="off" title="Удалить заказ" data-order-number="{{ getOrderNumber($order) }}" class="orders-delete js-delete-order">
                     <span class="icon icon-korzina"></span>
                 </button>
-            </form>
+            {{ Form::close() }}
         </div>
     </div>
 @endif

@@ -5,7 +5,7 @@
 
 <main class="cabinet">
     <?php
-    $orders = Orders::whereUserId(Auth::user()->id)->orderBy('payment_status')->orderBy('created_at','DESC')->with('payment','payment_numbers')->with(array('listeners'=>function($query){
+    $orders = Orders::where('user_id',Auth::user()->id)->where('archived',FALSE)->orderBy('payment_status')->orderBy('created_at','DESC')->with('payment','payment_numbers')->with(array('listeners'=>function($query){
         $query->with('listener');
         $query->with('course');
     }))->get();
@@ -65,7 +65,7 @@
                     @endforeach
                     </ul>
                 </div>
-                <div id="tabs-12">
+                <div id="tabs-12" class="js-tab-current">
                     <ul class="orders-ul">
                     @foreach($orders as $order)
                         @if(in_array($order->payment_status,array(2,3)) && $order->close_status == 0)
@@ -74,7 +74,7 @@
                     @endforeach
                     </ul>
                 </div>
-                <div id="tabs-13">
+                <div id="tabs-13" class="js-tab-current">
                     <ul class="orders-ul">
                     @foreach($orders as $order)
                         @if($order->close_status == 1)
@@ -83,7 +83,7 @@
                     @endforeach
                     </ul>
                 </div>
-                <div id="tabs-14">
+                <div id="tabs-14" class="js-tab-current">
                     <ul class="orders-ul">
                     @if(hasCookieData('ordering'))
                         @include(Helper::acclayout('assets.temp-order'))

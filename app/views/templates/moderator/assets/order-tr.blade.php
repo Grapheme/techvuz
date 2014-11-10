@@ -1,11 +1,16 @@
 @if(isset($order) && is_object($order))
-<tr class="vertical-middle orders-line">
+<tr class="vertical-middle js-orders-line">
     <td>
-        <form method="DELETE" action="{{ URL::route('moderator-order-delete',array('order_id'=>$order->id)) }}" style="display:inline-block">
-            <button type="submit" title="Удалить заказ" data-order-number="{{ getOrderNumber($order) }}" class="orders-delete js-delete-order">
+    @if($order->payment_status == 1)
+        <?php $formAction = URL::route('moderator-order-delete',array('order_id'=>$order->id));?>
+    @else
+        <?php $formAction = URL::route('moderator-order-arhived',array('order_id'=>$order->id));?>
+    @endif
+        {{ Form::open(array('url'=>$formAction, 'style'=>'display:inline-block', 'method'=>'delete')) }}
+            <button type="submit" autocomplete="off" title="Удалить заказ" data-order-number="{{ getOrderNumber($order) }}" class="orders-delete js-delete-order">
                 <span class="icon icon-korzina"></span>
             </button>
-        </form>
+        {{ Form::close() }}
     </td>
     <td><a href="{{ URL::route('moderator-order-extended',$order->id) }}">Заказ №{{ getOrderNumber($order) }}</a></td>
     <td>
@@ -29,9 +34,9 @@
     </td>
     <td>
         <ul>
-            <li><a href="{{ URL::route('moderator-order-contract',array('order_id'=>$order->id,'format'=>'word')) }}">Договор</a></li>
-            <li><a href="{{ URL::route('moderator-order-invoice',array('order_id'=>$order->id,'format'=>'word')) }}">Счет</a></li>
-            <li><a href="{{ URL::route('moderator-order-act',array('order_id'=>$order->id,'format'=>'word')) }}">Акт</a></li>
+            <li><a href="{{ URL::route('moderator-order-contract',array('order_id'=>$order->id,'format'=>'pdf')) }}">Договор</a></li>
+            <li><a href="{{ URL::route('moderator-order-invoice',array('order_id'=>$order->id,'format'=>'pdf')) }}">Счет</a></li>
+            <li><a href="{{ URL::route('moderator-order-act',array('order_id'=>$order->id,'format'=>'pdf')) }}">Акт</a></li>
         </ul>
     </td>
 </tr>

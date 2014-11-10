@@ -65,134 +65,19 @@ class AccountsDocumentsController extends BaseController {
     }
 
     /****************************************************************************/
-
     public function organizationOrderContract($order_id,$format){
 
-        if (!User_organization::where('id',Auth::user()->id)->pluck('moderator_approve')):
-            return Redirect::route('organization-orders');
-        endif;
-        if (!Orders::where('id',$order_id)->where('user_id',Auth::user()->id)->where('completed',1)->where('archived',0)->exists()):
-            return Redirect::route('organization-orders');
-        endif;
-        $document = Dictionary::valueBySlugs('order-documents','order-documents-contract');
-        if($document->exists && !empty($document->fields)):
-            $fields = modifyKeys($document->fields,'key');
-            $word_template = FALSE;
-            if($word_template_id = isset($fields['word_template']) ? $fields['word_template']->value : ''):
-                $word_template = Upload::where('id',$word_template_id)->pluck('path');
-            endif;
-            Config::set('show-document.order_id', $order_id);
-            switch($format):
-                case 'html':
-                    $document_content = isset($fields['content']) ? $fields['content']->value : '';
-                    if($page_data = self::parseOrderHTMLDocument($document_content)):
-                        return View::make(Helper::acclayout('documents'),$page_data);
-                    endif;
-                    break;
-                case 'pdf' :
-                    $document_content = isset($fields['content']) ? $fields['content']->value : '';
-                    if($page_data = self::parseOrderHTMLDocument($document_content)):
-                        $pdf = PDF::loadView(Helper::acclayout('documents'), $page_data);
-                        return $pdf->download('act-'.$order_id.'.pdf');
-                        #return $pdf->stream('act-'.$order_id.'.pdf');
-                    endif;
-                    break;
-                case 'word':
-                    if($filePath = self::parseOrderWordDocument($word_template)):
-                        return Response::download($filePath,'Договор.docx');
-                    endif;
-                    break;
-                default: App:abort(404);
-            endswitch;
-        endif;
-        return Redirect::route('organization-orders');
+        return $this->organizationShowDocument($order_id,$format,'contract');
     }
 
     public function organizationOrderInvoice($order_id,$format){
 
-        if (!User_organization::where('id',Auth::user()->id)->pluck('moderator_approve')):
-            return Redirect::route('organization-orders');
-        endif;
-        if (!Orders::where('id',$order_id)->where('user_id',Auth::user()->id)->where('completed',1)->where('archived',0)->exists()):
-            return Redirect::route('organization-orders');
-        endif;
-        $document = Dictionary::valueBySlugs('order-documents','order-documents-invoice');
-        if($document->exists && !empty($document->fields)):
-            $fields = modifyKeys($document->fields,'key');
-            $word_template = FALSE;
-            if($word_template_id = isset($fields['word_template']) ? $fields['word_template']->value : ''):
-                $word_template = Upload::where('id',$word_template_id)->pluck('path');
-            endif;
-            Config::set('show-document.order_id', $order_id);
-            switch($format):
-                case 'html':
-                    $document_content = isset($fields['content']) ? $fields['content']->value : '';
-                    if($page_data = self::parseOrderHTMLDocument($document_content)):
-                        return View::make(Helper::acclayout('documents'),$page_data);
-                    endif;
-                    break;
-                case 'pdf' :
-                    $document_content = isset($fields['content']) ? $fields['content']->value : '';
-                    if($page_data = self::parseOrderHTMLDocument($document_content)):
-                        $pdf = PDF::loadView(Helper::acclayout('documents'), $page_data);
-                        return $pdf->download('act-'.$order_id.'.pdf');
-                        #return $pdf->stream('act-'.$order_id.'.pdf');
-                    endif;
-                    break;
-                case 'word':
-                    if($filePath = self::parseOrderWordDocument($word_template)):
-                        return Response::download($filePath,'Договор.docx');
-                    endif;
-                    break;
-                default: App:abort(404);
-            endswitch;
-        endif;
-        return Redirect::route('organization-orders');
+        return $this->organizationShowDocument($order_id,$format,'invoice');
     }
 
-    public function organizationOrderAct($order_id,$format)
-    {
+    public function organizationOrderAct($order_id,$format){
 
-        if (!User_organization::where('id', Auth::user()->id)->pluck('moderator_approve')):
-            return Redirect::route('organization-orders');
-        endif;
-        if (!Orders::where('id', $order_id)->where('user_id', Auth::user()->id)->where('completed', 1)->where('archived', 0)->exists()):
-            return Redirect::route('organization-orders');
-        endif;
-        $document = Dictionary::valueBySlugs('order-documents', 'order-documents-act');
-        if ($document->exists && !empty($document->fields)):
-            $fields = modifyKeys($document->fields, 'key');
-            $word_template = FALSE;
-            if ($word_template_id = isset($fields['word_template']) ? $fields['word_template']->value : ''):
-                $word_template = Upload::where('id', $word_template_id)->pluck('path');
-            endif;
-            Config::set('show-document.order_id', $order_id);
-            switch ($format):
-                case 'html':
-                    $document_content = isset($fields['content']) ? $fields['content']->value : '';
-                    if ($page_data = self::parseOrderHTMLDocument($document_content)):
-                        return View::make(Helper::acclayout('documents'), $page_data);
-                    endif;
-                    break;
-                case 'pdf' :
-                    $document_content = isset($fields['content']) ? $fields['content']->value : '';
-                    if ($page_data = self::parseOrderHTMLDocument($document_content)):
-                        $pdf = PDF::loadView(Helper::acclayout('documents'), $page_data);
-                        return $pdf->download('act-' . $order_id . '.pdf');
-                        #return $pdf->stream('act-'.$order_id.'.pdf');
-                    endif;
-                    break;
-                case 'word':
-                    if ($filePath = self::parseOrderWordDocument($word_template)):
-                        return Response::download($filePath, 'Договор.docx');
-                    endif;
-                    break;
-                default:
-                    App:
-                    abort(404);
-            endswitch;
-        endif;
-        return Redirect::route('organization-orders');
+        return $this->organizationShowDocument($order_id,$format,'act');
     }
 
     public function organizationOrderCertificateFirst($order_id,$course_id,$listener_id){
@@ -265,6 +150,50 @@ class AccountsDocumentsController extends BaseController {
         App::abort(404);
     }
 
+    private function organizationShowDocument($order_id,$format,$document_type = 'contract'){
+
+        if (!User_organization::where('id',Auth::user()->id)->pluck('moderator_approve')):
+            return Redirect::route('organization-orders');
+        endif;
+        if (!$order = Orders::where('id',$order_id)->where('user_id',Auth::user()->id)->where('completed',1)->where('archived',0)->first()):
+            return Redirect::route('organization-orders');
+        endif;
+        if (!$order->close_status && $document_type == 'act'):
+            return Redirect::route('organization-orders');
+        endif;
+        $document = Dictionary::valueBySlugs('order-documents','order-documents-'.$document_type);
+        if ($order->$document_type->exists && File::exists(public_path($order->$document_type->path))):
+            $headers = returnDownloadHeaders($order->contract);
+            return Response::download(public_path($order->contract->path),$document_type.'-№'.getOrderNumber($order).'.'.$order->$document_type->mime2,$headers);
+        elseif($document->exists && !empty($document->fields)):
+            $fields = modifyKeys($document->fields,'key');
+            $word_template = FALSE;
+            if($word_template_id = isset($fields['word_template']) ? $fields['word_template']->value : ''):
+                $word_template = Upload::where('id',$word_template_id)->pluck('path');
+            endif;
+            Config::set('show-document.order_id', $order_id);
+            switch($format):
+                case 'html':
+                    $document_content = isset($fields['content']) ? $fields['content']->value : '';
+                    if($page_data = self::parseOrderHTMLDocument($document_content)):
+                        return View::make(Helper::acclayout('documents'),$page_data);
+                    endif;
+                    break;
+                case 'pdf' :
+                    $document_content = isset($fields['content']) ? $fields['content']->value : '';
+                    if($page_data = self::parseOrderHTMLDocument($document_content)):
+                        $pdf = PDF::loadView(Helper::acclayout('documents'), $page_data);
+                        return $pdf->download($document_type.'-№'.getOrderNumber($order).'.pdf');
+                        #return $pdf->stream('act-'.$order_id.'.pdf');
+                    endif;
+                    break;
+                case 'word':
+                    return Redirect::back();
+                    break;
+            endswitch;
+        endif;
+        return Redirect::route('organization-orders');
+    }
     /****************************************************************************/
     public function individualOrderContract($order_id,$format){
 
@@ -294,168 +223,90 @@ class AccountsDocumentsController extends BaseController {
     }
     /****************************************************************************/
     public function moderatorOrderContract($order_id,$format){
+        return $this->moderatorShowDocument($order_id,$format,'contract');
+    }
 
-        if (!$order = Orders::where('id',$order_id)->where('completed',1)->with('organization','individual')->first()):
-            return Redirect::route('moderator-orders');
+    public function moderatorOrderInvoice($order_id,$format){
+
+        return $this->moderatorShowDocument($order_id,$format,'invoice');
+
+    }
+
+    public function moderatorOrderAct($order_id,$format){
+
+        return $this->moderatorShowDocument($order_id, $format, 'act');
+
+    }
+
+    private function moderatorShowDocument($order_id,$format,$document_type = 'contract'){
+
+        if (!$order = Orders::where('id',$order_id)->where('completed',1)->with('organization','individual',$document_type)->first()):
+            return Redirect::route('moderator-orders-list');
         endif;
         $account = NULL; $account_type = NULL; $template = '';
         if (!empty($order->organization)):
             $account = User_organization::where('id',$order->user_id)->first();
             $account_type = 4;
             $template = 'templates.organization.documents';
+            $document = Dictionary::valueBySlugs('order-documents','order-documents-'.$document_type);
         elseif(!empty($order->individual)):
             $account = User_individual::where('id',$order->user_id)->first();
             $account_type = 6;
             $template = 'templates.individual.documents';
+            $document = Dictionary::valueBySlugs('order-documents','order-documents-'.$document_type);
         endif;
-        $order_listeners = Orders::where('id',$order->id)->first()->listeners()->with('course','user_listener')->get();
-        $count_listeners = $order_listeners->count();
-        $total_summa = 0;
-        foreach($order_listeners as $order_listener):
-            $total_summa += $order_listener->price;
-        endforeach;
-        if($document = Dictionary::valueBySlugs('order-documents','order-documents-contract')):
+        if ($order->$document_type->exists && File::exists(public_path($order->$document_type->path))):
+            $headers = returnDownloadHeaders($order->contract);
+            return Response::download(public_path($order->contract->path),$document_type.'-№'.getOrderNumber($order).'.'.$order->$document_type->mime2,$headers);
+        elseif($document->exists && !empty($document->fields)):
             $fields = modifyKeys($document->fields,'key');
-            $document_content = isset($fields['content']) ? $fields['content']->value : '';
-            if (!empty($document_content)):
-                $page_data = array(
-                    'page_title' => 'Договор',
-                    'page_description' => '',
-                    'page_keywords' => '',
-                    'order' => $order->toArray(),
-                    'account' => $account->toArray(),
-                    'count_listeners' => $count_listeners,
-                    'total_summa' => $total_summa,
-                    'template' => storage_path('views/'.sha1($order_id.'order-documents-contract'))
-                );
-                self::parseOrderDocument($page_data['template'],$document_content);
-                switch($format):
-                    case 'html':return View::make($template,$page_data);
-                    case 'pdf' :
-                        $pdf = PDF::loadView($template, $page_data);
-                        if ($this->document_stream):
-                            return $pdf->stream('contract-'.$order_id.'.pdf');
-                        else:
-                            return $pdf->download('contract-'.$order_id.'.pdf');
-                        endif;
-                    case 'word':
-                        break;
-                    default: App:abort(404);
-                endswitch;
+            $word_template = FALSE;
+            if($word_template_id = isset($fields['word_template']) ? $fields['word_template']->value : ''):
+                $word_template = Upload::where('id',$word_template_id)->pluck('path');
             endif;
-        endif;
-        App::abort(404);
-    }
-
-    public function moderatorOrderInvoice($order_id,$format){
-
-        $account = User_organization::where('id',Auth::user()->id)->first();
-        if (!$account->moderator_approve):
-            return Redirect::route('organization-orders');
-        endif;
-        if (!$order = Orders::where('id',$order_id)->where('user_id',Auth::user()->id)->where('completed',1)->where('archived',0)->first()):
-            return Redirect::route('organization-orders');
-        endif;
-        $order_listeners = Orders::where('id',$order->id)->first()->listeners()->with('course','user_listener')->get();
-        $count_listeners = $order_listeners->count();
-        $total_summa = 0;
-        foreach($order_listeners as $order_listener):
-            $total_summa += $order_listener->price;
-        endforeach;
-        if($document = Dictionary::valueBySlugs('order-documents','order-documents-invoice')):
-            $fields = modifyKeys($document->fields,'key');
-            $document_content = isset($fields['content']) ? $fields['content']->value : '';
-            if (!empty($document_content)):
-                $page_data = array(
-                    'page_title' => Lang::get('seo.COMPANY_ORDER.title'),
-                    'page_description' => Lang::get('seo.COMPANY_ORDER.description'),
-                    'page_keywords' => Lang::get('seo.COMPANY_ORDER.keywords'),
-                    'order' => $order->toArray(),
-                    'account' => $account->toArray(),
-                    'count_listeners' => $count_listeners,
-                    'total_summa' => $total_summa,
-                    'template' => storage_path('views/'.sha1($order_id.'order-documents-invoice'))
-                );
-                self::parseOrderDocument($page_data['template'],$document_content);
-                switch($format):
-                    case 'html': return View::make(Helper::acclayout('documents'),$page_data);
-                    case 'pdf' :
+            Config::set('show-document.order_id', $order_id);
+            switch($format):
+                case 'html':
+                    $document_content = isset($fields['content']) ? $fields['content']->value : '';
+                    if($page_data = self::parseOrderHTMLDocument($document_content)):
+                        return View::make(Helper::acclayout('documents'),$page_data);
+                    endif;
+                    break;
+                case 'pdf' :
+                    $document_content = isset($fields['content']) ? $fields['content']->value : '';
+                    if($page_data = self::parseOrderHTMLDocument($document_content)):
                         $pdf = PDF::loadView(Helper::acclayout('documents'), $page_data);
-                        if ($this->document_stream):
-                            return $pdf->stream('invoice-'.$order_id.'.pdf');
-                        else:
-                            return $pdf->download('invoice-'.$order_id.'.pdf');
-                        endif;
-                    case 'word':
-                        break;
-                    default: App:abort(404);
-                endswitch;
-            endif;
-        endif;
-        App::abort(404);
-    }
-
-    public function moderatorOrderAct($order_id,$format){
-
-        $account = User_organization::where('id',Auth::user()->id)->first();
-        if (!$account->moderator_approve):
-            return Redirect::route('organization-orders');
-        endif;
-        if (!$order = Orders::where('id',$order_id)->where('user_id',Auth::user()->id)->where('completed',1)->where('archived',0)->first()):
-            return Redirect::route('organization-orders');
-        endif;
-        $order_listeners = Orders::where('id',$order->id)->first()->listeners()->with('course','user_listener')->get();
-        $count_listeners = $order_listeners->count();
-        $total_summa = 0;
-        foreach($order_listeners as $order_listener):
-            $total_summa += $order_listener->price;
-        endforeach;
-        if($document = Dictionary::valueBySlugs('order-documents','order-documents-act')):
-            $fields = modifyKeys($document->fields,'key');
-            $document_content = isset($fields['content']) ? $fields['content']->value : '';
-            if (!empty($document_content)):
-                $page_data = array(
-                    'page_title' => Lang::get('seo.COMPANY_ORDER.title'),
-                    'page_description' => Lang::get('seo.COMPANY_ORDER.description'),
-                    'page_keywords' => Lang::get('seo.COMPANY_ORDER.keywords'),
-                    'order' => $order->toArray(),
-                    'account' => $account->toArray(),
-                    'count_listeners' => $count_listeners,
-                    'total_summa' => $total_summa,
-                    'template' => storage_path('views/'.sha1($order_id.'order-documents-act'))
-                );
-                self::parseOrderDocument($page_data['template'],$document_content);
-                switch($format):
-                    case 'html': return View::make(Helper::acclayout('documents'),$page_data);
-                    case 'pdf' :
-                        $pdf = PDF::loadView(Helper::acclayout('documents'), $page_data);
-                        if ($this->document_stream):
-                            return $pdf->stream('act-'.$order_id.'.pdf');
-                        else:
-                            return $pdf->download('act-'.$order_id.'.pdf');
-                        endif;
-                    case 'word':
-                        break;
-                    default: App:abort(404);
-                endswitch;
-            endif;
+                        return $pdf->download($document_type.'-№'.getOrderNumber($order).'.pdf');
+                        #return $pdf->stream('act-'.$order_id.'.pdf');
+                    endif;
+                    break;
+                case 'word':
+                    return Redirect::back();
+                    break;
+            endswitch;
         endif;
         App::abort(404);
     }
     /****************************************************************************/
-
     private function getDocumentVariables($extract = FALSE){
 
         $order = Orders::where('id',Config::get('show-document.order_id'))->with('organization','individual','payment','listeners.course','listeners.listener','listeners.final_test','payment_numbers')->first();
+        $SummaZakaza = 0;
+        foreach($order->listeners as $listener):
+            $SummaZakaza += $listener->price;
+        endforeach;
         $dateTime = new myDateTime();
         $variables = array(
             'page_title' => '',
             'NomerZakaza' => getOrderNumber($order),
-            'SummaZakaza' => 1547,
-            'SummaZakazaSlovami' => num2str(1547),
+            'SummaZakaza' => number_format($SummaZakaza,0,'.',' '),
+            'SummaZakazaSlovami' => num2str($SummaZakaza),
+            'KolichestvoSluschateley' => $order->listeners->count(),
             'DataOplatuZakaza' => $dateTime->setDateString($order->payment_date)->format('d.m.y'),
             'DataOformleniyaZakaza' => $order->created_at->format('d.m.y'),
             'DataOformleniyaZakazaSlovami' => $dateTime->setDateString($order->created_at)->months(),
+            'DataZakrutiyaZakaza' => $dateTime->setDateString($order->close_date)->format('d.m.y'),
+            'DataZakrutiyaZakazaSlovami' => $dateTime->setDateString($order->close_date)->months(),
             'NazvanieOrganizacii' => empty($order->organization) ? '' : $order->organization->title,
             'ImyaOtvetstvennogoLicaOrganizacii' => empty($order->organization) ? '' : $order->organization->fio_manager,
             'DoljnostOtvetstvennogoLicaOrganizacii' => empty($order->organization) ? '' : $order->organization->manager,

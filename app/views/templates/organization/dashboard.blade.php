@@ -4,7 +4,7 @@
 @section('content')
 <main class="cabinet">
     <?php
-    $orders = Orders::where('user_id',Auth::user()->id)->orderBy('created_at','DESC')->with('payment','payment_numbers')->with('listeners')->get();
+    $orders = Orders::where('user_id',Auth::user()->id)->where('archived',FALSE)->orderBy('created_at','DESC')->with('payment','payment_numbers')->with('listeners')->get();
     $messages = Dictionary::valuesBySlug('system-messages',function($query){
         $lastMonth = \Carbon\Carbon::now()->subMonth();
         $query->orderBy('dictionary_values.updated_at','DESC');
@@ -194,4 +194,8 @@
 @section('overlays')
 @stop
 @section('scripts')
+{{ HTML::script('js/system/main.js') }}
+{{ HTML::script('js/vendor/SmartNotification.min.js') }}
+{{ HTML::script('js/system/messages.js') }}
+{{ HTML::script('theme/js/organization.js') }}
 @stop

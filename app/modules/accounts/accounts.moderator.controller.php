@@ -23,6 +23,8 @@ class AccountsModeratorController extends BaseController {
                 Route::get('order/{order_id}/extended', array('as' => 'moderator-order-extended', 'uses' => $class . '@OrderExtendedView'));
                 Route::post('order/{order_id}/extended/set-access/{order_listener_id}', array('as' => 'order-listener-access', 'uses' => $class . '@changeOrderListenerAccess'));
                 Route::post('order/{order_id}/extended/set-status', array('as' => 'change-order-status', 'uses' => $class . '@changeOrderStatus'));
+                Route::get('order/{order_id}/edit', array('as' => 'moderator-order-edit', 'uses' => $class . '@OrderEdit'));
+                Route::patch('order/{order_id}/update', array('as' => 'moderator-order-update', 'uses' => $class . '@OrderUpdate'));
 
                 Route::delete('order/{order_id}/arhived', array('as' => 'moderator-order-arhived', 'uses' => $class . '@arhivedOrder'));
                 Route::delete('order/{order_id}/delete', array('as' => 'moderator-order-delete', 'uses' => $class . '@deleteOrder'));
@@ -486,6 +488,39 @@ class AccountsModeratorController extends BaseController {
                 Orders::where('id',$order_id)->update(array('payment_status'=>1,'payment_date'=>'0000-00-00 00:00:00','updated_at'=>$now));
             endif;
         endif;
+    }
+
+    public function OrderEdit($order_id){
+
+        $page_data = array(
+            'page_title'=> 'Редактирование заказа',
+            'page_description'=> '',
+            'page_keywords'=> '',
+            'order' => Orders::where('id',$order_id)->with('contract','invoice','act')->first()
+        );
+        return View::make(Helper::acclayout('order-edit'),$page_data);
+    }
+
+    public function OrderUpdate($order_id){
+
+        if(!Request::ajax()) return App::abort(404);
+        $json_request = array('status'=>FALSE, 'responseText'=>'');
+        if($order = Orders::where('id',$order_id)->first()):
+            $date = new myDateTime();
+            $order->number = (int)Input::get('number');
+            $order->created_at = $date->setDateString(Input::get('created_at'))->format('Y-m-d H:i:s');;
+            $order->payment_date = $date->setDateString(Input::get('payment_date'))->format('Y-m-d H:i:s');
+            $order->contract_id = ExtForm::process('upload', @Input::all()['contract']);
+            $order->invoice_id = ExtForm::process('upload', @Input::all()['invoice']);
+            $order->act_id = ExtForm::process('upload', @Input::all()['act']);
+            $order->save();
+            $order->touch();
+            Event::fire(Route::currentRouteName(), array(array('title'=>'№'.getOrderNumber($order))));
+            $json_request['responseText'] = 'Выполенено';
+            $json_request['status'] = TRUE;
+            $json_request['redirect'] = URL::route('moderator-order-extended',$order_id);
+        endif;
+        return Response::json($json_request, 200);
     }
     /****************************************************************************/
     /****************************** СЛУШАТЕЛИ ***********************************/

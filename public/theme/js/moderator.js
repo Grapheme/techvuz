@@ -102,6 +102,15 @@ var validation_signup_messages_listener_individual = {
     phone: { required: 'Укажите контактный номер' }
 };
 
+var validation_order_update = {
+    number: { required: true},
+    created_at: { required: true }
+};
+var validation_order_update_messages = {
+    number: { required: 'Укажите номер заказа' },
+    created_at: { required: 'Укажите дату создания заказа' }
+};
+
 function scrollToError(elem) {
     $('html, body').animate({
         scrollTop: elem.offset().top
@@ -166,6 +175,8 @@ $(function(){
 
     $(".js-delete-order").click(function() {
         var $this = this;
+        var $order = $($this).data('order-number');
+        var currentTabCountOrder = 0;
         $.SmartMessageBox({
             title : "Удалить заказ №"+$($this).data('order-number')+"?",
             content : "",
@@ -181,7 +192,11 @@ $(function(){
                         if(response.status == true){
                             showMessage.constructor('Удаление закза', response.responseText);
                             showMessage.smallSuccess();
-                            $($this).parents('.orders-line').fadeOut(500,function(){$(this).remove();});
+                            $(".js-delete-order[data-order-number='"+$order+"']").parents('.js-tab-current').each(function(){
+                                currentTabCountOrder = $("a[href='#"+$(this).attr('id')+"']").find('.filter-count').html();
+                                $("a[href='#"+$(this).attr('id')+"']").find('.filter-count').html(currentTabCountOrder-1);
+                            });
+                            $(".js-delete-order[data-order-number='"+$order+"']").parents('.js-orders-line').fadeOut(500,function(){$(this).remove();});
                         } else {
                             $($this).elementDisabled(false);
                             showMessage.constructor('Удалить ' + essence_name, 'Возникла ошибка. Обновите страницу и повторите снова.');
@@ -369,6 +384,46 @@ function moderatorFormValidation() {
     var profileListenerCompany = $("#individual-profile-listener-form").validate({
         rules: validation_profile_listener_individual ? validation_profile_listener_individual : {},
         messages: validation_signup_messages_listener_individual ? validation_signup_messages_listener_individual : {},
+        errorPlacement : function(error, element){error.insertAfter(element.parent());},
+        submitHandler: function(form) {
+            var options = {target:null, dataType:'json', type:'post'};
+            options.beforeSubmit = function(formData,jqForm,options){
+                $("#error").remove();
+                $(form).find('.btn-form-submit').elementDisabled(true);
+            },
+                options.success = function(response, status, xhr, jqForm){
+                    $(form).find('.btn-form-submit').elementDisabled(false);
+                    if(response.status){
+                        if(response.redirect !== false){
+                            $(form).find('.btn-form-submit').html(response.responseText);
+                            BASIC.RedirectTO(response.redirect);
+                        }else{
+                            $(form).replaceWith(response.responseText);
+                        }
+                    }else{
+                        $(form).find('.btn-form-submit').before("<p id='error'>"+response.responseText+"</p>");
+                    }
+                }
+            options.error = function(xhr, textStatus, errorThrown){
+                if (typeof(xhr.responseJSON) != 'undefined') {
+                    var err_type = xhr.responseJSON.error.type;
+                    var err_file = xhr.responseJSON.error.file;
+                    var err_line = xhr.responseJSON.error.line;
+                    var err_message = xhr.responseJSON.error.message;
+                    var msg_title = err_type;
+                    var msg_body = err_file + ":" + err_line + "<hr/>" + err_message;
+                } else {
+                    var msg_title = textStatus;
+                    var msg_body = xhr.responseText;
+                }
+                $(form).find('.btn-form-submit').elementDisabled(false);
+            }
+            $(form).ajaxSubmit(options);
+        }
+    });
+    var OrderUpdate = $("#order-edit-form").validate({
+        rules: validation_order_update ? validation_order_update : {},
+        messages: validation_order_update_messages ? validation_order_update_messages : {},
         errorPlacement : function(error, element){error.insertAfter(element.parent());},
         submitHandler: function(form) {
             var options = {target:null, dataType:'json', type:'post'};

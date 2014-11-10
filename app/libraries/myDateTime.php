@@ -35,10 +35,15 @@ class myDateTime {
 	}
 
     public static function SwapDotDateWithOutTime($date_time) {
-		$list = preg_split("/-/",$date_time);
-		$pattern = "/(\d+)(-)(\w+)(-)(\d+) (\d+)(:)(\d+)(:)(\d+)/i";
-		$replacement = "\$5.$3.\$1";
-		return preg_replace($pattern, $replacement,$date_time);
+        if ($date_time != '0000-00-00 00:00:00'):
+            $list = preg_split("/-/",$date_time);
+            $pattern = "/(\d+)(-)(\w+)(-)(\d+) (\d+)(:)(\d+)(:)(\d+)/i";
+            $replacement = "\$5.$3.\$1";
+            return preg_replace($pattern, $replacement,$date_time);
+        else:
+            return '';
+        endif;
+
 	}
 	
 	public function months(){
@@ -105,6 +110,8 @@ class myDateTime {
 
         if ($this->validDate()):
             return $this->date_string->format($format);
+        else:
+            return '';
         endif;
     }
 
