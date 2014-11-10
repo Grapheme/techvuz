@@ -117,9 +117,7 @@ class myDateTime {
 
     private function validDate(){
 
-        Helper::dd($this->date_string);
-
-        if ($this->date_string == '1970-01-01 00:00:00'):
+        if ($this->date_string == '1970-01-01 00:00:00' || strtotime($this->date_string) < 10000):
             return FALSE;
         else:
             return TRUE;
