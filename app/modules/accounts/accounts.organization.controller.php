@@ -325,8 +325,6 @@ class AccountsOrganizationController extends BaseController {
             DicVal::where('id',$notification_id)->delete();
             DicFieldVal::where('dicval_id',$notification_id)->delete();
         endif;
-
-
         return Redirect::back();
     }
 
