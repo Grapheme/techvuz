@@ -1,4 +1,5 @@
 {{ Form::model($profile,array('url'=>URL::route('listener-profile-update'), 'class'=>'registration-form listener-add-form', 'id'=>'profile-listener-form', 'method'=>'PATCH')) }}
+    {{ Form::hidden('approved',1) }}
     <div class="reg-form-alert">
         Все поля являются обязательными для заполнения!
     </div>

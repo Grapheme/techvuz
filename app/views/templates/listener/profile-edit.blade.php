@@ -5,8 +5,12 @@
 <main class="cabinet">
     <h2>{{ $profile->fio }}</h2>
     <div class="edit-employee-anket">
+    @if(Listener::where('user_id',Auth::user()->id)->pluck('approved'))
         @include(Helper::acclayout('menu'))
         <h3 class="margin-bottom-30">Редактировать профиль</h3>
+    @else
+        <h3 class="margin-bottom-30">Подтверждение регистрационных данных</h3>
+    @endif
         @include(Helper::acclayout('forms.profile'))
     </div>
 </main>

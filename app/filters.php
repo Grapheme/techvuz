@@ -96,6 +96,17 @@ Route::filter('auth.status', function(){
     endif;
 });
 
+Route::filter('auth.status.listener', function(){
+
+    if(Auth::guest()):
+        return Redirect::to('/');
+    elseif(Auth::check() && Auth::user()->active == 2 && Auth::user()->code_life < time()):
+        return View::make(Helper::layout('account-blocked'));
+    elseif(Auth::check() && Listener::where('user_id',Auth::user()->id)->pluck('approved') == FALSE):
+        return Redirect::route('listener-profile-approve')->with('message.status','profile-approve');
+    endif;
+});
+
 /*
 |--------------------------------------------------------------------------
 | CSRF Protection Filter

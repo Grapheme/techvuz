@@ -12,10 +12,8 @@ class AccountsListenerController extends BaseController {
     public static function returnRoutes($prefix = null) {
         $class = __CLASS__;
         if (isCompanyListener()):
-            Route::group(array('before' => 'auth.status', 'prefix' => self::$name), function() use ($class) {
+            Route::group(array('before' => 'auth.status.listener', 'prefix' => self::$name), function() use ($class) {
                 Route::get('profile', array('as' => 'listener-profile', 'uses' => $class . '@ListenerProfile'));
-                Route::get('profile/edit', array('as' => 'listener-profile-edit', 'uses' => $class . '@ListenerProfileEdit'));
-                Route::patch('profile/update', array('before' => 'csrf', 'as' => 'listener-profile-update', 'uses' => $class . '@ListenerProfileUpdate'));
 
                 Route::get('study', array('as' => 'listener-study', 'uses' => $class . '@ListenerStudyList'));
                 Route::get('study/course/{course_translite_title}', array('as' => 'listener-study-course', 'uses' => $class . '@ListenerStudyCourse'));
@@ -26,6 +24,12 @@ class AccountsListenerController extends BaseController {
                 Route::get('study/course/{course_translite_title}/test/{study_test_id}/result', array('as' => 'listener-study-test-result', 'uses' => $class . '@ListenerStudyTestResult'));
 
                 Route::get('notifications', array('as' => 'listener-notifications', 'uses' => $class . '@ListenersNotificationsList'));
+            });
+            Route::group(array('prefix' => self::$name), function() use ($class) {
+                Route::get('profile-approve', array('as' => 'listener-profile-approve', 'uses' => $class . '@ListenerProfileApprove'));
+                Route::patch('profile-approve-store', array('before' => 'csrf', 'as' => 'listener-profile-approve-store', 'uses' => $class . '@ListenerProfileApproveStore'));
+                Route::get('profile/edit', array('as' => 'listener-profile-edit', 'uses' => $class . '@ListenerProfileEdit'));
+                Route::patch('profile/update', array('before' => 'csrf', 'as' => 'listener-profile-update', 'uses' => $class . '@ListenerProfileUpdate'));
             });
         endif;
 
@@ -90,6 +94,30 @@ class AccountsListenerController extends BaseController {
         return View::make(Helper::acclayout('profile'),$page_data);
     }
 
+    public function ListenerProfileApprove(){
+
+        if(!Listener::where('user_id',Auth::user()->id)->where('approved',0)->first()):
+            return Redirect::to(AuthAccount::getStartPage());
+        endif;
+
+        $page_data = array(
+            'page_title'=> Lang::get('seo.COMPANY_LISTENER_PROFILE.title'),
+            'page_description'=> Lang::get('seo.COMPANY_LISTENER_PROFILE.description'),
+            'page_keywords'=> Lang::get('seo.COMPANY_LISTENER_PROFILE.keywords'),
+            'profile' => User_listener::where('id',Auth::user()->id)->first()
+        );
+        return View::make(Helper::acclayout('profile-approve'),$page_data);
+    }
+
+    public function ListenerProfileApproveStore(){
+
+        $listener = Listener::where('user_id',Auth::user()->id)->first();
+        $listener->approved = 1;
+        $listener->save();
+        $listener->touch();
+        return Redirect::to(AuthAccount::getStartPage());
+    }
+
     public function ListenerProfileEdit(){
 
         $page_data = array(
@@ -134,6 +162,7 @@ class AccountsListenerController extends BaseController {
             $user->save();
             $user->touch();
 
+            $listener->approved = $post['approved'];
             $listener->fio = $post['fio'];
             $listener->fio_dat = $post['fio_dat'];
             $listener->position = $post['position'];
@@ -333,7 +362,6 @@ class AccountsListenerController extends BaseController {
                 if ($test->chapter_id == 0):
                     Event::fire('listener.over.course.study', array(array('listener_course_id'=>$study_course_id)));
                     Event::fire('organization.study.finish',array(array('accountID'=>User_listener::where('id',Auth::user()->id)->first()->organization()->pluck('id'),'course'=>OrderListeners::where('id',$study_course_id)->first()->course()->pluck('title'),'listener'=>User_listener::where('id',Auth::user()->id)->pluck('fio'),'percent'=>$listenerTest->result_attempt)));
-                    Config::set('temp.study_course_id',$study_course_id);
                     AccountsOrderingController::closeOrder($listenerCourse->order_id);
                     return Redirect::route('listener-study-test-result',array('course_translite_title'=>$course_translite_title,'study_test_id'=>$listenerTest->id))->with('message.text',Lang::get('interface.COMPANY_LISTENER_STUDY_TEST_FINISH.success_course_test').' '.$listenerTest->result_attempt .'%')->with('message.status','test-result');
                 else:

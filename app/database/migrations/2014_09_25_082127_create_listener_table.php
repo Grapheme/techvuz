@@ -21,6 +21,7 @@ class CreateListenerTable extends Migration {
                 $table->string('education_document_data',255)->nullable();
                 $table->string('educational_institution',255)->nullable();
                 $table->string('specialty',255)->nullable();
+                $table->boolean('approved')->default(0)->nullable();
                 $table->timestamps();
             });
 

@@ -9,7 +9,7 @@
         <div>
             <h4>{{ $test->title }}</h4>
             <div class="desc">
-                 по курсу {{ $test->course->title }}
+                 по курсу {{ $test->course->code }}. {{ $test->course->title }}
             </div>
             @if(Session::get('message'))
             <div>

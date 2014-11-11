@@ -309,8 +309,24 @@ class AccountsOrganizationController extends BaseController {
 
     public function CompanyNotificationDelete($notification_id){
 
-        DicVal::where('id',$notification_id)->delete();
-        DicFieldVal::where('dicval_id',$notification_id)->delete();
+        if ($notification_id == 'all'):
+            $messages = Dictionary::valuesBySlug('system-messages',function($query){
+                $query->filter_by_field('user_id',Auth::user()->id);
+            });
+            foreach($messages as $message):
+                if($IDs = array_keys(modifyKeys($message->fields,'id'))):
+                    DicFieldVal::whereIn('id',$IDs)->delete();
+                endif;
+            endforeach;
+            if($IDs = array_keys(modifyKeys($messages,'id'))):
+                DicFieldVal::whereIn('id',$IDs)->delete();
+            endif;
+        else:
+            DicVal::where('id',$notification_id)->delete();
+            DicFieldVal::where('dicval_id',$notification_id)->delete();
+        endif;
+
+
         return Redirect::back();
     }
 

@@ -16,7 +16,8 @@ class AccountGroupsController extends \BaseController {
         return $page_data;
     }
 
-    public static function listener(){
+    public function listener(){
+
         $page_data = array(
             'page_title'=> Lang::get('seo.COMPANY_LISTENER_DASHBOARD.title'),
             'page_description'=> Lang::get('seo.COMPANY_LISTENER_DASHBOARD.description'),

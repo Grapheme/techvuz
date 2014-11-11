@@ -68,13 +68,16 @@ class BaseController extends Controller {
                 $page_data = $controller->$prefix();
             endif;
         endif;
-
         $parts = array();
         $parts[] = 'templates';
         $parts[] = AuthAccount::getGroupName();
         $parts[] = 'dashboard';
 
-        return View::make(implode('.', $parts),array('page'=>$page_data));
+        if ($prefix == 'listener' && Listener::where('user_id',Auth::user()->id)->pluck('approved') == FALSE):
+            return Redirect::route('listener-profile-approve')->with('message','YES');
+        endif;
+
+        return View::make(implode('.', $parts),$page_data);
     }
 
     public function templates($path = '', $post_path = '/views') {

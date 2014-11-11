@@ -21,6 +21,7 @@ class AccountsDocumentsController extends BaseController {
                 Route::get('order/{order_id}/course/{course_id}/listener/{listener_id}/certificate/first', array('as' => $prefix.'-order-certificate-first', 'uses' => $class . '@'.$prefix.'OrderCertificateFirst'));
                 Route::get('order/{order_id}course/{course_id}/listener/{listener_id}certificate/second', array('as' => $prefix.'-order-certificate-second', 'uses' => $class . '@'.$prefix.'OrderCertificateSecond'));
             });
+//            Route::get('order/{order_id}/{document}/save',array('as' => $prefix.'-order-contract', 'uses' => $class . '@'.$prefix.'OrderContract'));
         endif;
     }
 
@@ -66,7 +67,6 @@ class AccountsDocumentsController extends BaseController {
 
     /****************************************************************************/
     public function organizationOrderContract($order_id,$format){
-
         return $this->organizationShowDocument($order_id,$format,'contract');
     }
 
@@ -164,7 +164,7 @@ class AccountsDocumentsController extends BaseController {
         $document = Dictionary::valueBySlugs('order-documents','order-documents-'.$document_type);
         if ($order->$document_type->exists && File::exists(public_path($order->$document_type->path))):
             $headers = returnDownloadHeaders($order->contract);
-            return Response::download(public_path($order->contract->path),$document_type.'-№'.getOrderNumber($order).'.'.$order->$document_type->mime2,$headers);
+            return Response::download(public_path($order->$document_type->path),$document_type.'-№'.getOrderNumber($order).'.'.$order->$document_type->mime2,$headers);
         elseif($document->exists && !empty($document->fields)):
             $fields = modifyKeys($document->fields,'key');
             $word_template = FALSE;
@@ -238,7 +238,7 @@ class AccountsDocumentsController extends BaseController {
 
     }
 
-    private function moderatorShowDocument($order_id,$format,$document_type = 'contract'){
+    public function moderatorShowDocument($order_id,$format,$document_type){
 
         if (!$order = Orders::where('id',$order_id)->where('completed',1)->with('organization','individual',$document_type)->first()):
             return Redirect::route('moderator-orders-list');
@@ -257,7 +257,7 @@ class AccountsDocumentsController extends BaseController {
         endif;
         if ($order->$document_type->exists && File::exists(public_path($order->$document_type->path))):
             $headers = returnDownloadHeaders($order->contract);
-            return Response::download(public_path($order->contract->path),$document_type.'-№'.getOrderNumber($order).'.'.$order->$document_type->mime2,$headers);
+            return Response::download(public_path($order->$document_type->path),$document_type.'-№'.getOrderNumber($order).'.'.$order->$document_type->mime2,$headers);
         elseif($document->exists && !empty($document->fields)):
             $fields = modifyKeys($document->fields,'key');
             $word_template = FALSE;
@@ -287,6 +287,117 @@ class AccountsDocumentsController extends BaseController {
         endif;
         App::abort(404);
     }
+
+    public function generateAllDocuments($order_id){
+
+        $order = Orders::where('id',$order_id)->where('close_status',0)->with('contract','invoice','act','organization','individual')->first();
+        $contract_content = $invoice_content = $act_content = '';
+        if (!empty($order->organization)):
+            $account = $order->organization;
+            $account_type = 4;
+            $template = 'templates.organization.documents';
+        elseif(!empty($order->individual)):
+            $account = $order->individual;
+            $account_type = 6;
+            $template = 'templates.individual.documents';
+        endif;
+        if (empty($order->contract_id)):
+            if ($account_type == 4):
+                $document = Dictionary::valueBySlugs('order-documents','order-documents-contract');
+            else:
+                $document = Dictionary::valueBySlugs('order-documents','fiz-order-documents-contract');
+            endif;
+            if ($document->exists && !empty($document->fields)):
+                $fields = modifyKeys($document->fields,'key');
+                $contract_content = $fields['content']->value;
+            endif;
+        endif;
+        if (empty($order->invoice_id)):
+            if ($account_type == 4):
+                $document = Dictionary::valueBySlugs('order-documents','order-documents-invoice');
+            else:
+                $document = Dictionary::valueBySlugs('order-documents','fiz-order-documents-invoice');
+            endif;
+            if ($document->exists && !empty($document->fields)):
+                $fields = modifyKeys($document->fields,'key');
+                $invoice_content = $fields['content']->value;
+            endif;
+        endif;
+        if (empty($order->act_id)):
+            if ($account_type == 4):
+                $document = Dictionary::valueBySlugs('order-documents','order-documents-act');
+            else:
+                $document = Dictionary::valueBySlugs('order-documents','fiz-order-documents-act');
+            endif;
+            if ($document->exists && !empty($document->fields)):
+                $fields = modifyKeys($document->fields,'key');
+                $act_content = $fields['content']->value;
+            endif;
+        endif;
+        Config::set('show-document.order_id', $order->id);
+        if (!empty($contract_content)):
+            $page_data = self::parseOrderHTMLDocument($contract_content);
+            $fileName = 'uploads/orders/contract'.'-'.getOrderNumber($order).'.pdf';
+            $page_data['page_title'] = '';
+            $mpdf = new mPDF('utf-8', 'A4', '8', '', 10, 10, 7, 7, 10, 10);
+            $mpdf->charset_in = 'cp1251';
+            $mpdf->SetDisplayMode('fullpage');
+            $mpdf->WriteHTML(View::make($template, $page_data)->render(), 2);
+            $mpdf->Output($fileName, 'F');
+            unset($mpdf);
+            $input = array(
+                'path' => $fileName,'original_name' => 'contract-'.getOrderNumber($order).'.pdf','filesize' => filesize(public_path($fileName)),
+                'mimetype' => 'application/pdf','mime1' => 'application','mime2' => 'pdf','module' => 'ordering','unit_id' => $order->id
+            );
+            if($document = (new Upload)->create($input)):
+                $order->contract_id = $document->id;
+                $order->save();
+                $order->touch();
+            endif;
+        endif;
+        if (!empty($invoice_content)):
+            $page_data = self::parseOrderHTMLDocument($invoice_content);
+            $fileName = 'uploads/orders/invoice'.'-'.getOrderNumber($order).'.pdf';
+            $page_data['page_title'] = '';
+            $mpdf = new mPDF('utf-8', 'A4', '8', '', 10, 10, 7, 7, 10, 10);
+            $mpdf->charset_in = 'cp1251';
+            $mpdf->SetDisplayMode('fullpage');
+            $mpdf->WriteHTML(View::make($template, $page_data)->render(), 2);
+            $mpdf->Output($fileName, 'F');
+            unset($mpdf);
+            $input = array(
+                'path' => $fileName,'original_name' => 'contract-'.getOrderNumber($order).'.pdf','filesize' => filesize(public_path($fileName)),
+                'mimetype' => 'application/pdf','mime1' => 'application','mime2' => 'pdf','module' => 'ordering','unit_id' => $order->id
+            );
+            if($document = (new Upload)->create($input)):
+                $order->invoice_id = $document->id;
+                $order->save();
+                $order->touch();
+            endif;
+        endif;
+        if (!empty($act_content)):
+            $page_data = self::parseOrderHTMLDocument($act_content);
+            $page_data['page_title'] = '';
+            $fileName = 'uploads/orders/act'.'-'.getOrderNumber($order).'.pdf';
+            $page_data['page_title'] = '';
+            $mpdf = new mPDF('utf-8', 'A4', '8', '', 10, 10, 7, 7, 10, 10);
+            $mpdf->charset_in = 'cp1251';
+            $mpdf->SetDisplayMode('fullpage');
+            $mpdf->WriteHTML(View::make($template, $page_data)->render(), 2);
+            $mpdf->Output($fileName, 'F');
+            unset($mpdf);
+            $input = array(
+                'path' => $fileName,'original_name' => 'contract-'.getOrderNumber($order).'.pdf','filesize' => filesize(public_path($fileName)),
+                'mimetype' => 'application/pdf','mime1' => 'application','mime2' => 'pdf','module' => 'ordering','unit_id' => $order->id
+            );
+            if($document = (new Upload)->create($input)):
+                $order->act_id = $document->id;
+                $order->save();
+                $order->touch();
+            endif;
+        endif;
+        return TRUE;
+    }
     /****************************************************************************/
     private function getDocumentVariables($extract = FALSE){
 
@@ -300,6 +411,7 @@ class AccountsDocumentsController extends BaseController {
         endforeach;
         $dateTime = new myDateTime();
         $variables = array(
+            'stringCompileTemplate' => '',
             'page_title' => '',
             'NomerZakaza' => getOrderNumber($order),
             'SummaZakaza' => number_format($SummaZakaza,0,'.',' '),
@@ -345,6 +457,7 @@ class AccountsDocumentsController extends BaseController {
             $compileString = (new \Illuminate\View\Compilers\BladeCompiler($Filesystem,storage_path('cache')))->compileString($content);
             $Filesystem->put($template,$compileString);
             $page_data = self::getDocumentVariables();
+            $page_data['stringCompileTemplate'] = $compileString;
             $page_data['page_title'] = 'HTML версия';
             $page_data['template'] = $template;
             return $page_data;
@@ -388,4 +501,5 @@ class AccountsDocumentsController extends BaseController {
         $document->save($filePath);
         return $filePath;
     }
+    /****************************************************************************/
 }
