@@ -182,8 +182,14 @@ class AccountsDocumentsController extends BaseController {
                 case 'pdf' :
                     $document_content = isset($fields['content']) ? $fields['content']->value : '';
                     if($page_data = self::parseOrderHTMLDocument($document_content)):
-                        $pdf = PDF::loadView(Helper::acclayout('documents'), $page_data);
-                        return $pdf->download($document_type.'-№'.getOrderNumber($order).'.pdf');
+                        $page_data['page_title'] = '';
+                        $mpdf = new mPDF('utf-8', 'A4', '8', '', 10, 10, 7, 7, 10, 10);
+                        $mpdf->charset_in = 'cp1251';
+                        $mpdf->SetDisplayMode('fullpage');
+                        $mpdf->WriteHTML(View::make(Helper::acclayout('documents'), $page_data)->render(), 2);
+                        return $mpdf->Output($document_type.'-№'.getOrderNumber($order).'.pdf', 'D');
+                        #$pdf = PDF::loadView(Helper::acclayout('documents'), $page_data);
+                        #return $pdf->download($document_type.'-№'.getOrderNumber($order).'.pdf');
                         #return $pdf->stream('act-'.$order_id.'.pdf');
                     endif;
                     break;
@@ -275,8 +281,14 @@ class AccountsDocumentsController extends BaseController {
                 case 'pdf' :
                     $document_content = isset($fields['content']) ? $fields['content']->value : '';
                     if($page_data = self::parseOrderHTMLDocument($document_content)):
-                        $pdf = PDF::loadView(Helper::acclayout('documents'), $page_data);
-                        return $pdf->download($document_type.'-№'.getOrderNumber($order).'.pdf');
+                        $page_data['page_title'] = '';
+                        $mpdf = new mPDF('utf-8', 'A4', '8', '', 10, 10, 7, 7, 10, 10);
+                        $mpdf->charset_in = 'cp1251';
+                        $mpdf->SetDisplayMode('fullpage');
+                        $mpdf->WriteHTML(View::make(Helper::acclayout('documents'), $page_data)->render(), 2);
+                        return $mpdf->Output($document_type.'-№'.getOrderNumber($order).'.pdf', 'D');
+                        #$pdf = PDF::loadView(Helper::acclayout('documents'), $page_data);
+                        #return $pdf->download($document_type.'-№'.getOrderNumber($order).'.pdf');
                         #return $pdf->stream('act-'.$order_id.'.pdf');
                     endif;
                     break;
