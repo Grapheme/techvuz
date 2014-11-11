@@ -19,7 +19,7 @@ $messages = Dictionary::valuesBySlug('system-messages',function($query){
                     <th class="sort sort--asc">Дата <span class="sort--icon"></span> </th>
                     <th>
                     @if($messages->count())
-                        {{ Form::open(array('url'=>URL::route('organization-notification-delete',array('notification_id'=>'all')), 'style'=>'display:inline-block', 'method'=>'delete')) }}
+                        {{ Form::open(array('url'=>URL::route('moderator-notification-delete',array('notification_id'=>'all')), 'style'=>'display:inline-block', 'method'=>'delete')) }}
                             {{ Form::submit('удалить все',array('title'=>'Удалить все сообщения')) }}
                         {{ Form::close() }}
                     @endif
