@@ -1,11 +1,11 @@
 <?php
 
-class AdminEducationCoursesController extends BaseController {
+class AdminEducationCoursesMetodicalController extends BaseController {
 
-    public static $name = 'courses';
+    public static $name = 'metodical';
     public static $group = 'education';
-    public static $entity = 'courses';
-    public static $entity_name = 'Курс';
+    public static $entity = 'metodical';
+    public static $entity_name = 'Специализированная документация';
 
     /****************************************************************************/
 
@@ -14,7 +14,7 @@ class AdminEducationCoursesController extends BaseController {
         $class = __CLASS__;
         Route::group(array('before' => 'auth', 'prefix' => $prefix), function() use ($class) {
             Route::post($class::$group.'/'.self::$name.'/ajax-order-save', array('as' => $class::$name.'.order', 'uses' => $class."@postAjaxOrderSave"));
-            Route::resource(AdminEducationDirectionsController::$group.'/'.AdminEducationDirectionsController::$name.'/{direction}/'.$class::$name, $class,
+            Route::resource(AdminEducationDirectionsController::$group.'/'.AdminEducationDirectionsController::$name.'/{direction}/course/{course}/'.$class::$name, $class,
                 array(
                     'except' => array('show'),
                     'names' => array(
@@ -50,17 +50,19 @@ class AdminEducationCoursesController extends BaseController {
 
     protected $direction;
     protected $course;
+    protected $metodical;
 
-    public function __construct(Courses $course){
+    public function __construct(CourseMetodical $metodical){
 
         $this->direction = Directions::where('id',Request::segment(4))->with('courses')->first();
-        $this->course = $course;
+        $this->course = Courses::where('id',Request::segment(6))->with(array('metodicals'=>function($query){ $query->orderBy('order');}))->first();
+        $this->metodical = $metodical;
 
         $this->module = array(
             'name' => self::$name,
             'group' => self::$group,
             'rest' => self::$group,
-            'tpl' => static::returnTpl('admin.courses'),
+            'tpl' => static::returnTpl('admin.courses.metodical'),
             'gtpl' => static::returnTpl(),
             'class' => __CLASS__,
 
@@ -74,31 +76,30 @@ class AdminEducationCoursesController extends BaseController {
 
         Allow::permission($this->module['group'], 'view');
         $direction = $this->direction;
-        $courses = Courses::where('direction_id',$direction->id)->orderBy('order')->with('lectures','metodicals')->get();
-        return View::make($this->module['tpl'].'index', compact('direction','courses'));
+        $course = $this->course;
+        return View::make($this->module['tpl'].'index', compact('direction','course'));
     }
 
     public function create() {
 
         Allow::permission($this->module['group'], 'create');
         $direction = $this->direction;
-        return View::make($this->module['tpl'].'create',compact('direction'));
+        $course = $this->course;
+        return View::make($this->module['tpl'].'create',compact('direction','course'));
     }
 
-    public function store(){
+    public function store($direction_id,$course_id){
 
         if(!Request::ajax()) return App::abort(404);
         Allow::permission($this->module['group'], 'create');
-        $json_request = array('status'=>FALSE, 'responseText'=>'', 'responseErrorText'=>'', 'redirect'=>FALSE, 'gallery'=>0);
-        $validation = Validator::make(Input::all(), Courses::$rules);
+        $json_request = array('status'=>FALSE, 'responseText'=>'', 'responseErrorText'=>'', 'redirect'=>FALSE);
+        $validation = Validator::make(Input::all(), CourseMetodical::$rules);
         if($validation->passes()):
-            $input = self::coursesFiles();
-            $course = $this->course->create($input);
-            self::coursesSEO($course->id);
-            $json_request['responseText'] = self::$entity_name." добавлен";
-            $json_request['redirect'] = URL::route('courses.index',array('directions'=>$this->direction->id));
+            $input = self::сourseMetodicalFiles();
+            $this->metodical->create($input);
+            $json_request['responseText'] = "Документ добавлен";
+            $json_request['redirect'] = URL::route('metodical.index',array('directions'=>$this->direction->id,'course'=>$this->course->id));
             $json_request['status'] = TRUE;
-            Event::fire(Route::currentRouteName(), array(array('title'=>$course->title)));
         else:
             $json_request['responseText'] = 'Неверно заполнены поля';
             $json_request['responseErrorText'] = implode($validation->messages()->all(),'<br />');
@@ -106,32 +107,31 @@ class AdminEducationCoursesController extends BaseController {
         return Response::json($json_request, 200);
     }
 
-    public function edit($direction_id,$course_id){
+    public function edit($direction_id,$course_id,$metodical_id){
 
         Allow::permission($this->module['group'], 'edit');
-        if($course = Courses::where('id',$course_id)->with('seo')->first()):
+        if($metodical = CourseMetodical::where('id',$metodical_id)->with('document')->first()):
             $direction = $this->direction;
-            return View::make($this->module['tpl'].'edit', compact('direction','course'));
+            $course = $this->course;
+            return View::make($this->module['tpl'].'edit', compact('direction','course','metodical'));
         else:
             App::abort(404);
         endif;
     }
 
-    public function update($direction_id,$course_id){
+    public function update($direction_id,$course_id,$metodical_id){
 
         if(!Request::ajax()) return App::abort(404);
         Allow::permission($this->module['group'], 'edit');
-        $json_request = array('status'=>FALSE, 'responseText'=>'', 'responseErrorText'=>'', 'redirect'=>FALSE, 'gallery'=>0);
-        $validation = Validator::make(Input::all(), Courses::$rules);
+        $json_request = array('status'=>FALSE, 'responseText'=>'', 'responseErrorText'=>'', 'redirect'=>FALSE);
+        $validation = Validator::make(Input::all(), CourseMetodical::$rules);
         if($validation->passes()):
-            if($course = $this->course->where('id',$course_id)->first()):
-                $input = self::coursesFiles();
-                $course->update($input);
-                self::coursesSEO($course->id);
-                $json_request['responseText'] = self::$entity_name." сохранен";
-                $json_request['redirect'] = URL::route('courses.index',array('directions'=>$this->direction->id));
+            if($metodical = $this->metodical->where('id',$metodical_id)->first()):
+                $input = self::сourseMetodicalFiles();
+                $metodical->update($input);
+                $json_request['responseText'] = "Документ сохранен";
+                $json_request['redirect'] = URL::route('metodical.index',array('directions'=>$this->direction->id,'course'=>$this->course->id));
                 $json_request['status'] = TRUE;
-                Event::fire(Route::currentRouteName(), array(array('title'=>$course->title)));
             endif;
         else:
             $json_request['responseText'] = 'Неверно заполнены поля';
@@ -140,57 +140,35 @@ class AdminEducationCoursesController extends BaseController {
         return Response::json($json_request, 200);
     }
 
-    public function destroy($direction_id,$course_id){
+    public function destroy($direction_id,$course_id,$metodical_id){
 
         Allow::permission($this->module['group'], 'delete');
         if(!Request::ajax()) return App::abort(404);
         $json_request = array('status'=>FALSE, 'responseText'=>'');
-        $course = Courses::findOrFail($course_id);
-        Event::fire(Route::currentRouteName(), array(array('title'=>$course->title)));
-        $course->delete();
-        $json_request['responseText'] = self::$entity_name.' удален';
+        $file = $this->metodical->where('id',$metodical_id)->first()->document()->first();
+        if (!empty($file) && File::exists(public_path($file->path))):
+            File::delete(public_path($file->path));
+            Upload::find($file->id)->delete();
+        endif;
+        $this->metodical->find($metodical_id)->delete();
+        $json_request['responseText'] = 'Документ удален';
         $json_request['status'] = TRUE;
         return Response::json($json_request, 200);
     }
 
-    private function coursesFiles(){
+    private function сourseMetodicalFiles(){
 
-        $input['direction_id'] = Input::get('direction_id');
+        $input['course_id'] = Input::get('course_id');
         $input['order'] = Input::get('order');
-        $input['code'] = Input::get('code');
         $input['title'] = Input::get('title');
         $input['description'] = Input::get('description');
-        $input['price'] = Input::get('price');
-        $input['discount'] = Input::get('discount');
-        $input['hours'] = Input::get('hours');
-        $input['curriculum'] = Input::get('curriculum');
-        $input['certificate'] = Input::get('certificate');
-        if (Input::has('active') === FALSE):
-            $input['active'] = 0;
-        else:
-            $input['active'] = 1;
-        endif;
+        $input['document_id'] = ExtForm::process('upload', @Input::all()['document_id']);
         return $input;
-    }
-
-    private function coursesSEO($unit_id){
-
-        $input = Input::all();
-        $seo = Helper::withdraw($input,'seo');
-        if (empty($seo['url'])):
-            $seo['url'] = BaseController::stringTranslite(Input::get('title'));
-        endif;
-        $seo_result = ExtForm::process('seo', array(
-            'module'  => 'education-courses',
-            'unit_id' => $unit_id,
-            'data'    => $seo,
-        ));
-        return $seo_result;
     }
 
     public function postAjaxOrderSave() {
 
-        foreach(Courses::whereIn('id', Input::get('poss'))->get() as $pl):
+        foreach(CourseMetodical::whereIn('id', Input::get('poss'))->get() as $pl):
             $pl->order = array_search($pl->id, Input::get('poss'))+1;
             $pl->save();
         endforeach;

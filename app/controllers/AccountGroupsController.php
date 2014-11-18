@@ -40,13 +40,19 @@ class AccountGroupsController extends \BaseController {
         if($account->active == 0):
             return array('status'=>FALSE,'code'=>0,'days'=>$lostDays,'message'=>Lang::get('interface.ACCOUNT_STATUS.blocked'));
         elseif ($account->active == 1):
-            return array('status'=>TRUE,'code'=>1,'days'=>$lostDays,'message'=>Lang::get('interface.ACCOUNT_STATUS.active'));
+            if(isOrganization() && Organization::where('user_id',Auth::user()->id)->pluck('moderator_approve') == 0):
+                return array('status'=>FALSE,'code'=>1,'days'=>0,'message'=>Lang::get('interface.ACCOUNT_STATUS.not_moderator_approve'));
+            elseif(isIndividual() && Individual::where('user_id',Auth::user()->id)->pluck('moderator_approve') == 0):
+                return array('status'=>FALSE,'code'=>1,'days'=>0,'message'=>Lang::get('interface.ACCOUNT_STATUS.not_moderator_approve'));
+            else:
+                return array('status'=>TRUE,'code'=>0,'days'=>0,'message'=>Lang::get('interface.ACCOUNT_EMAIL_STATUS.active'));
+            endif;
         elseif ($account->active == 2 && $account->code_life > time() && $lostDays >= 4):
             return array(
                 'status'=>FALSE,
                 'code'=>2,
                 'days' => $lostDays,
-                'message'=>Lang::get('interface.ACCOUNT_STATUS.not_active')
+                'message'=>Lang::get('interface.ACCOUNT_EMAIL_STATUS.not_active')
             );
         elseif ($account->active == 2 && $account->code_life < time()):
             return array(

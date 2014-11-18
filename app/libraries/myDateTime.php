@@ -98,12 +98,22 @@ class myDateTime {
 		return preg_replace($pattern, $replacement,$date_time);
 	}
 
-    public static function getDiffDate($date_begin,$date_over){
+    public static function getDiffDate($date_begin,$date_over,$format = '%d%'){
 
         $datetime1 = new DateTime($date_begin);
         $datetime2 = new DateTime($date_over);
         $interval = $datetime1->diff($datetime2);
-        return (int) $interval->format('%d%');
+        if (is_null($format)):
+            return (array) $interval;
+        else:
+            return (int) $interval->format($format);
+        endif;
+
+    }
+
+    public static function getDiffTimeStamp($date_begin,$date_over){
+        return strtotime($date_begin) - strtotime($date_over);
+
     }
 
     public function format($format){

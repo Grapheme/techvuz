@@ -25,7 +25,7 @@ class AccountsListenerController extends BaseController {
 
                 Route::get('notifications', array('as' => 'listener-notifications', 'uses' => $class . '@ListenersNotificationsList'));
             });
-            Route::group(array('prefix' => self::$name), function() use ($class) {
+            Route::group(array('before' => 'auth', 'prefix' => self::$name), function() use ($class) {
                 Route::get('profile-approve', array('as' => 'listener-profile-approve', 'uses' => $class . '@ListenerProfileApprove'));
                 Route::patch('profile-approve-store', array('before' => 'csrf', 'as' => 'listener-profile-approve-store', 'uses' => $class . '@ListenerProfileApproveStore'));
                 Route::get('profile/edit', array('as' => 'listener-profile-edit', 'uses' => $class . '@ListenerProfileEdit'));
@@ -207,7 +207,12 @@ class AccountsListenerController extends BaseController {
                 $query_lecture->orderBy('order');
             }));
             $query->with('test');
-        }))->with('test')->first();
+        }))->with('test')->with(array('metodicals'=>function($query){
+            $query->orderBy('order');
+            $query->with('document');
+        }))->first();
+
+//        Helper::tad($listenerCourse);
         $page_data = array(
             'page_title'=> Lang::get('seo.COMPANY_LISTENER_STUDY_COURSE.title'),
             'page_description'=> Lang::get('seo.COMPANY_LISTENER_STUDY_COURSE.description'),
@@ -232,7 +237,7 @@ class AccountsListenerController extends BaseController {
             $lecture = Lectures::where('id',$lecture_id)->with('document')->first()->toArray();
             if (isset($lecture['document']['path']) && File::exists(public_path($lecture['document']['path']))):
                 if($listenerCourse->start_status == 0):
-                    Event::fire('organization.study.begin',array(array('accountID'=>User_listener::where('id',Auth::user()->id)->first()->organization()->pluck('id'),'course'=>OrderListeners::where('id',$study_course_id)->first()->course()->pluck('title'),'listener'=>User_listener::where('id',Auth::user()->id)->pluck('fio'))));
+                    Event::fire('organization.study.begin',array(array('accountID'=>User_listener::where('id',Auth::user()->id)->first()->organization()->pluck('id'),'course'=>OrderListeners::where('id',$study_course_id)->first()->course()->pluck('code'),'listener'=>User_listener::where('id',Auth::user()->id)->pluck('fio'))));
                 endif;
                 Event::fire('listener.start.course.study', array(array('listener_course_id'=>$study_course_id)));
                 $headers = returnDownloadHeaders($lecture['document']);
@@ -270,7 +275,7 @@ class AccountsListenerController extends BaseController {
                 $zipper->make($zipFilePath)->add($documents)->close();
                 if (File::exists($zipFilePath)):
                     if($listenerCourse->start_status == 0):
-                        Event::fire('organization.study.begin',array(array('accountID'=>User_listener::where('id',Auth::user()->id)->first()->organization()->pluck('id'),'course'=>OrderListeners::where('id',$study_course_id)->first()->course()->pluck('title'),'listener'=>User_listener::where('id',Auth::user()->id)->pluck('fio'))));
+                        Event::fire('organization.study.begin',array(array('accountID'=>User_listener::where('id',Auth::user()->id)->first()->organization()->pluck('id'),'course'=>OrderListeners::where('id',$study_course_id)->first()->course()->pluck('code'),'listener'=>User_listener::where('id',Auth::user()->id)->pluck('fio'))));
                     endif;
                     Event::fire('listener.start.course.study', array(array('listener_course_id'=>$study_course_id)));
                     $headers = returnZipDownloadHeaders($zipFilePath);
@@ -353,7 +358,7 @@ class AccountsListenerController extends BaseController {
                 'chapter_id' => $test->chapter_id,
                 'test_id' => $test->id,
                 'data_results' => json_encode($user_questions_answers),
-                'result_attempt' => round($test_user_balls/$test_max_balls,3)*100,
+                'result_attempt' => @round($test_user_balls/$test_max_balls,3)*100,
                 'time_attempt' => Input::get('time_attempt')
             );
             $listenerTest = OrdersListenersTests::create($insert);
@@ -361,15 +366,15 @@ class AccountsListenerController extends BaseController {
             if ($listenerTest->result_attempt >= $success_test_percent):
                 if ($test->chapter_id == 0):
                     Event::fire('listener.over.course.study', array(array('listener_course_id'=>$study_course_id)));
-                    Event::fire('organization.study.finish',array(array('accountID'=>User_listener::where('id',Auth::user()->id)->first()->organization()->pluck('id'),'course'=>OrderListeners::where('id',$study_course_id)->first()->course()->pluck('title'),'listener'=>User_listener::where('id',Auth::user()->id)->pluck('fio'),'percent'=>$listenerTest->result_attempt)));
+                    Event::fire('organization.study.finish',array(array('accountID'=>User_listener::where('id',Auth::user()->id)->first()->organization()->pluck('id'),'course'=>OrderListeners::where('id',$study_course_id)->first()->course()->pluck('code'),'listener'=>User_listener::where('id',Auth::user()->id)->pluck('fio'),'percent'=>$listenerTest->result_attempt)));
                     AccountsOrderingController::closeOrder($listenerCourse->order_id);
                     return Redirect::route('listener-study-test-result',array('course_translite_title'=>$course_translite_title,'study_test_id'=>$listenerTest->id))->with('message.text',Lang::get('interface.COMPANY_LISTENER_STUDY_TEST_FINISH.success_course_test').' '.$listenerTest->result_attempt .'%')->with('message.status','test-result');
                 else:
-                    Event::fire('organization.study.control',array(array('accountID'=>User_listener::where('id',Auth::user()->id)->first()->organization()->pluck('id'),'course'=>OrderListeners::where('id',$study_course_id)->first()->course()->pluck('title'),'listener'=>User_listener::where('id',Auth::user()->id)->pluck('fio'),'percent'=>$listenerTest->result_attempt)));
+                    Event::fire('organization.study.control',array(array('accountID'=>User_listener::where('id',Auth::user()->id)->first()->organization()->pluck('id'),'course'=>OrderListeners::where('id',$study_course_id)->first()->course()->pluck('code'),'listener'=>User_listener::where('id',Auth::user()->id)->pluck('fio'),'percent'=>$listenerTest->result_attempt)));
                     return Redirect::route('listener-study-test-result',array('course_translite_title'=>$course_translite_title,'study_test_id'=>$listenerTest->id))->with('message.text',Lang::get('interface.COMPANY_LISTENER_STUDY_TEST_FINISH.success_chapter_test').' '.$listenerTest->result_attempt .'%')->with('message.status','test-result');
                 endif;
             else:
-                Event::fire('organization.study.fail',array(array('accountID'=>User_listener::where('id',Auth::user()->id)->first()->organization()->pluck('id'),'course'=>OrderListeners::where('id',$study_course_id)->first()->course()->pluck('title'),'listener'=>User_listener::where('id',Auth::user()->id)->pluck('fio'),'percent'=>$listenerTest->result_attempt)));
+                Event::fire('organization.study.fail',array(array('accountID'=>User_listener::where('id',Auth::user()->id)->first()->organization()->pluck('id'),'course'=>OrderListeners::where('id',$study_course_id)->first()->course()->pluck('code'),'listener'=>User_listener::where('id',Auth::user()->id)->pluck('fio'),'percent'=>$listenerTest->result_attempt)));
                 return Redirect::route('listener-study-test-result',array('course_translite_title'=>$course_translite_title,'study_test_id'=>$listenerTest->id))->with('message.text',Lang::get('interface.COMPANY_LISTENER_STUDY_TEST_FINISH.fail').' '.$listenerTest->result_attempt .'%')->with('message.status','test-result')->with('message.show_repeat',TRUE);
             endif;
         else:

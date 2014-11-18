@@ -2,7 +2,7 @@
 @section('style')
 @stop
 @section('content')
-<main class="cabinet">
+<main class="cabinet" xmlns="http://www.w3.org/1999/html">
     <?php
         $courses = OrderListeners::where('user_id',Auth::user()->id)
             ->orderBy('start_date','DESC')
@@ -69,7 +69,7 @@
                             <span class="current">1</span> / <span class="all"></span>
                         </span>
                         <span class="icon icon-angle-right js-notif-right">
-                            <a href="{{ URL::route('organization-notifications') }}" class="btn btn--bordered btn--blue">
+                            <a href="{{ URL::route('listener-notifications') }}" class="btn btn--bordered btn--blue">
                                 Полный список
                             </a>
                         </span>
@@ -105,8 +105,8 @@
                 <?php $show_block = TRUE; break;?>
             @endif
         @endforeach
-        @if($show_block)
             <h3>Ход обучения</h3>
+        @if($show_block)
             <table class="tech-table sortable">
                 <tbody>
                     <tr>
@@ -120,6 +120,8 @@
                 @endforeach
                 </tbody>
             </table>
+        @else
+            <p>Отсутствуют активные изучаемые курсы.<br>Что бы просмотреть доступные курсы перейдите в раздел <a href="{{ URL::route('listener-study') }}">Обучение</a></p>
         @endif
         </div>
     </div>

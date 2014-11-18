@@ -252,6 +252,7 @@ class AccountsModeratorController extends BaseController {
             $organization->discount = $post['discount'];
             if($organization->moderator_approve == 0 && $post['moderator_approve'] == 1):
                 Event::fire('moderator-company-profile-approved', array(array('title'=>$post['title'])));
+                Event::fire('account.approved-profile',array(array('accountID'=>$user->id)));
             endif;
             $organization->moderator_approve = $post['moderator_approve'];
             $organization->save();
@@ -419,7 +420,7 @@ class AccountsModeratorController extends BaseController {
                 switch(Input::get('status')):
                     case 2: Orders::where('id',$order_id)->first()->listeners()->update(array('access_status'=>1,'updated_at'=>$now));
                         $order->payment_date = $now;
-                        Event::fire('organization.order.yes-puy-yes-access', array(array('accountID'=>$order->user_id,'order'=>getOrderNumber($order))));
+                        Event::fire('organization.order.yes-puy-yes-access', array(array('accountID'=>$order->user_id,'link'=>URL::to('organization/order/'.$order->id),'order'=>getOrderNumber($order))));
                         break;
                     case 3:
                         Event::fire('organization.order.part-puy-not-access', array(array('accountID'=>$order->user_id,'order'=>getOrderNumber($order))));
@@ -494,7 +495,7 @@ class AccountsModeratorController extends BaseController {
             if ($payment_summa >= $total_summa):
                 Orders::where('id',$order_id)->update(array('payment_status'=>2,'payment_date'=>$now,'updated_at'=>$now));
                 Orders::where('id',$order_id)->first()->listeners()->update(array('access_status'=>1,'updated_at'=>$now));
-                Event::fire('organization.order.yes-puy-yes-access', array(array('accountID'=>$order->user_id,'order'=>getOrderNumber($order))));
+                Event::fire('organization.order.yes-puy-yes-access', array(array('accountID'=>$order->user_id,'link'=>URL::to('organization/order/'.$order->id),'order'=>getOrderNumber($order))));
             elseif($payment_summa > 0 && $payment_summa < $total_summa):
                 Event::fire('organization.order.part-puy-not-access', array(array('accountID'=>$order->user_id,'order'=>getOrderNumber($order))));
                 Orders::where('id',$order_id)->update(array('payment_status'=>3,'payment_date'=>'0000-00-00 00:00:00','updated_at'=>$now));

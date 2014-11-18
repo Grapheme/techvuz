@@ -16,6 +16,20 @@ class GlobalController extends \BaseController {
 			if($validator->passes()):
 				if(Auth::attempt(array('email'=>Input::get('login'),'password'=>Input::get('password')),(bool)Input::get('remember'))):
                     if (Auth::user()->active >= 1):
+                        if (Auth::user()->active == 2):
+                            $user = Auth::user();
+                            $user->active = 1;
+                            $user->temporary_code = '';
+                            $user->	code_life = 0;
+                            $user->save();
+                            $user->touch();
+                            Auth::login($user);
+                            if(isOrganization()):
+                                Event::fire('organization.select-courses',array(array('accountID'=>Auth::user()->id)));
+                                Event::fire('organization.register-listeners',array(array('accountID'=>Auth::user()->id)));
+                            endif;
+                            Event::fire('account.approved-email',array(array('accountID'=>Auth::user()->id)));
+                        endif;
                         $json_request['redirect'] = AuthAccount::getGroupStartUrl();
                         $json_request['status'] = TRUE;
                     else:
@@ -93,7 +107,7 @@ class GlobalController extends \BaseController {
 			$account->save();
 			$account->touch();
 			Auth::login($account);
-			if(Auth::check()):
+            if(Auth::check()):
 				return Redirect::to(AuthAccount::getStartPage());
 			endif;
 		else:

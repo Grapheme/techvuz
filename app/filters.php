@@ -23,6 +23,17 @@ App::missing(function ($exception) {
 Route::filter('auth', function(){
 	if(Auth::guest()):
 		return App::abort(404);
+    elseif(Auth::check() && Auth::user()->active == 2 && Auth::user()->code_life < time()):
+        $user = Auth::user();
+        $user->active = 0;
+        $user->temporary_code = '';
+        $user->	code_life = 0;
+        $user->save();
+        $user->touch();
+        return View::make(Helper::layout('account-blocked'));
+    elseif(Auth::check() && Auth::user()->active == 0):
+        Auth::logout();
+        return Redirect::to('/');
 	endif;
 });
 
@@ -91,7 +102,16 @@ Route::filter('auth.status', function(){
 
     if(Auth::guest()):
         return Redirect::to('/');
+    elseif(Auth::check() && Auth::user()->active == 0):
+        Auth::logout();
+        return Redirect::to('/');
     elseif(Auth::check() && Auth::user()->active == 2 && Auth::user()->code_life < time()):
+        $user = Auth::user();
+        $user->active = 0;
+        $user->temporary_code = '';
+        $user->	code_life = 0;
+        $user->save();
+        $user->touch();
         return View::make(Helper::layout('account-blocked'));
     endif;
 });
@@ -100,7 +120,16 @@ Route::filter('auth.status.listener', function(){
 
     if(Auth::guest()):
         return Redirect::to('/');
+    elseif(Auth::check() && Auth::user()->active == 0):
+        Auth::logout();
+        return Redirect::to('/');
     elseif(Auth::check() && Auth::user()->active == 2 && Auth::user()->code_life < time()):
+        $user = Auth::user();
+        $user->active = 0;
+        $user->temporary_code = '';
+        $user->	code_life = 0;
+        $user->save();
+        $user->touch();
         return View::make(Helper::layout('account-blocked'));
     elseif(Auth::check() && Listener::where('user_id',Auth::user()->id)->pluck('approved') == FALSE):
         return Redirect::route('listener-profile-approve')->with('message.status','profile-approve');

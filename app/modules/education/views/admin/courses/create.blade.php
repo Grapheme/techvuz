@@ -50,12 +50,6 @@
                         </label>
                     </section>
                     <section>
-                        <label class="label">Специализированная документация</label>
-                        <label class="input">
-                            {{ ExtForm::upload('metodical') }}
-                        </label>
-                    </section>
-                    <section>
                         <label class="label">Шаблон удостоверения</label>
                         <label class="select">
                         <?php

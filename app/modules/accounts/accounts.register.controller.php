@@ -74,9 +74,7 @@ class AccountsRegisterController extends BaseController {
                             $message->to(Input::get('email'))->subject('ТехВуз.рф - регистрация');
                         });
                         Auth::login(User::find($account->id));
-                        Event::fire('organization.approve-email',array(array('accountID'=>$account->id)));
-                        Event::fire('organization.register-listeners',array(array('accountID'=>$account->id)));
-                        Event::fire('organization.select-courses',array(array('accountID'=>$account->id)));
+                        #Event::fire('organization.approve-email',array(array('accountID'=>$account->id)));
                         Event::fire('moderator.register-organization',array(array('accountID'=>0,'organization'=>User_organization::where('id',$account->id)->pluck('title'))));
                         if (Auth::check()):
                             $json_request['responseText'] = Lang::get('interface.SIGNUP.success_login');
@@ -178,7 +176,12 @@ class AccountsRegisterController extends BaseController {
             $account->save();
             $account->touch();
             Auth::login($account);
-            return Redirect::to(AuthAccount::getStartPage())->with('message.text',Lang::get('interface.ACTIVATE.success'))->with('message.status','activation');
+            if(isOrganization()):
+                Event::fire('organization.select-courses',array(array('accountID'=>Auth::user()->id)));
+                Event::fire('organization.register-listeners',array(array('accountID'=>Auth::user()->id)));
+                Event::fire('account.approved-email',array(array('accountID'=>Auth::user()->id)));
+            endif;
+            return Redirect::to(AuthAccount::getStartPage());
         else:
             return App::abort(404);
         endif;

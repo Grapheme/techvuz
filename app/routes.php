@@ -33,7 +33,7 @@ Route::group(array('before' => 'auth.status', 'prefix' => $prefix), function() u
 Route::group(array('before' => 'guest.auth', 'prefix' => ''), function(){
 	Route::post('signin', array('as' => 'signin', 'uses' => 'GlobalController@signin'));
 	Route::post('signup', array('as' => 'signup', 'uses' => 'GlobalController@signup'));
-	Route::get('activation', array('as' => 'activation', 'uses' => 'GlobalController@activation'));
+	#Route::get('activation', array('as' => 'activation', 'uses' => 'GlobalController@activation'));
     Route::resource('restore-password','RemindersController',
         array(
             'only'=>array('index','store','show','update'),

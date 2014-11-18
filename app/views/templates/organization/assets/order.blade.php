@@ -16,6 +16,7 @@
         <h4><a href="{{ URL::route('organization-order',$order->id) }}">Заказ №{{ getOrderNumber($order) }}</a></h4>
         <div class="orders-status">
             {{ $order->payment->title }}
+            @if($order->close_status)<p>Завершен</p>@endif
         </div>
     </div>
     <div class="orders-li-body">

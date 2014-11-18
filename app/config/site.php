@@ -7,6 +7,7 @@ return array(
     'theme_path' => 'theme',
     'service_password' => 'CdPfne2pzDNa',
     'paginate_limit' => 30,
+    'time_to_study_begin' => 259200, #72 часа
 
     'news_count_on_page' => 5,
     'news_template' => 'news-list',

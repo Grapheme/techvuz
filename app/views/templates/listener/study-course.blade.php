@@ -11,6 +11,21 @@
             <div class="desc">
                 {{ $module->description }}
             </div>
+            @if($module->metodicals->count())
+            <div>
+                <h4>Специализированная документация</h4>
+                <ul>
+                @foreach($module->metodicals as $metodical)
+                    @if(!empty($metodical->document->path) && File::exists(public_path($metodical->document->path)))
+                    <li>
+                        <a href="{{ asset($metodical->document->path) }}" target="_blank"> {{ $metodical->title }}</a>.<br>
+                        {{ $metodical->description }}
+                    </li>
+                    @endif
+                @endforeach
+                </ul>
+            </div>
+            @endif
         @if($module->chapters->count())
             <div>
                 {{ Form::open(array('url'=>URL::route('listener-study-download-lectures',array('study_course_id'=>$study_course->id)), 'style'=>'display:inline-block', 'method'=>'POST')) }}
@@ -52,10 +67,20 @@
                         </tr>
                         @endif
                     @endforeach
-                    @if(!empty($module->test))
+                    <?php
+                        $lostTime = myDateTime::getDiffTimeStamp(date("Y-m-d H:i:s",strtotime($study_course->start_date)+Config::get('site.time_to_study_begin')),date("Y-m-d H:i:s",time()));
+                    ?>
+                    @if($study_course->start_status == 1 && $lostTime <= 0 && !empty($module->test))
                         <tr>
                             <td colspan="3">Итоговое тестирование</td>
                             <td><a href="{{ URL::route('listener-study-testing',array('study_course_id'=>$study_course->id.'-'.BaseController::stringTranslite($module->title,100),'study_test_id'=>$module->test->id)) }}">Пройти</a></td>
+                        </tr>
+                    @elseif($study_course->start_status == 1 && $lostTime > 0)
+                        <tr>
+                            <?php
+                            $lostDateTime = myDateTime::getDiffDate(date("Y-m-d H:i:s",time()),date("Y-m-d H:i:s",strtotime($study_course->start_date)+Config::get('site.time_to_study_begin')),NULL);
+                            ?>
+                            <td colspan="4">Итоговое тестирование будет доступно через {{ ($lostDateTime['d']*24)+$lostDateTime['h'].' '.Lang::choice('час|часа|часов', ($lostDateTime['d']*24)+$lostDateTime['h']) }}</td>
                         </tr>
                     @endif
                     </tbody>
