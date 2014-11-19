@@ -19,13 +19,13 @@
                 $spisok[$listener->course->id]['price'] = $listener->course->price;
                 $spisok[$listener->course->id]['discount'] = calculateDiscount(array($listener->course->direction->discount,$listener->course->discount,$accountDiscount,$coursesCountDiscount));
                 $spisok[$listener->course->id]['summa'] = calculateDiscount(array($listener->course->direction->discount,$listener->course->discount,$accountDiscount,$coursesCountDiscount),$spisok[$listener->course->id]['count']*$spisok[$listener->course->id]['price']);
+                if(empty($spisok[$listener->course->id]['discount'])):
+                    $spisok[$listener->course->id]['discount'] = 0;
+                endif;
             endforeach;
             foreach($spisok as $course):
                 $VsegoNaimenovaliy += $course['count'];
                 $KolichestvoNaimenovaliy++;
-                if(!$spisok[$listener->course->id]['discount']):
-                    $spisok[$listener->course->id]['discount'] = 0;
-                endif;
             endforeach;
         ?>
         <?php ob_start();?>
