@@ -229,7 +229,84 @@ class AccountsDocumentsController extends BaseController {
     }
     /****************************************************************************/
     public function moderatorOrderContract($order_id,$format){
-        return $this->moderatorShowDocument($order_id,$format,'contract');
+
+        $document_type = 'contract';
+        if (!$order = Orders::where('id',$order_id)->where('completed',1)->with('organization','individual',$document_type)->first()):
+            return Redirect::route('moderator-orders-list');
+        endif;
+        $account = NULL; $account_type = NULL; $template = '';
+        if (!empty($order->organization)):
+            $account = User_organization::where('id',$order->user_id)->first();
+            $account_type = 4;
+            $template = 'templates.organization.documents';
+            $document = Dictionary::valueBySlugs('order-documents','order-documents-'.$document_type);
+            $document_app1 = Dictionary::valueBySlugs('order-documents','order-documents-'.$document_type.'-listeners');
+            $document_consent = Dictionary::valueBySlugs('order-documents','order-documents-'.$document_type.'-consent');
+        elseif(!empty($order->individual)):
+            $account = User_individual::where('id',$order->user_id)->first();
+            $account_type = 6;
+            $template = 'templates.individual.documents';
+            $document = Dictionary::valueBySlugs('order-documents','order-documents-'.$document_type);
+        endif;
+        if ($order->$document_type->exists && File::exists(public_path($order->$document_type->path))):
+            $headers = returnDownloadHeaders($order->contract);
+            return Response::download(public_path($order->$document_type->path),$document_type.'-№'.getOrderNumber($order).'.'.$order->$document_type->mime2,$headers);
+        elseif($document->exists && !empty($document->fields)):
+            $fields = modifyKeys($document->fields,'key');
+            $fields_app1 = modifyKeys($document_app1->fields,'key');
+            $fields_consent = modifyKeys($document_consent->fields,'key');
+            $word_template = FALSE;
+            if($word_template_id = isset($fields['word_template']) ? $fields['word_template']->value : ''):
+                $word_template = Upload::where('id',$word_template_id)->pluck('path');
+            endif;
+            Config::set('show-document.order_id', $order_id);
+            switch($format):
+                case 'html':
+                    $document_content = isset($fields['content']) ? $fields['content']->value : '';
+                    if($page_data = self::parseOrderHTMLDocument($document_content)):
+                        #return View::make('templates/assets/documents',$page_data);
+                    endif;
+                    $document_content_app1 = isset($fields_app1['content']) ? $fields_app1['content']->value : '';
+                    if($page_data = self::parseOrderHTMLDocument($document_content_app1)):
+                        #return View::make('templates/assets/contract-app1',$page_data);
+                    endif;
+                    $document_content_consent = isset($fields_consent['content']) ? $fields_consent['content']->value : '';
+                    if($page_data = self::parseOrderHTMLDocument($document_content_consent)):
+                        return View::make('templates/assets/contract-consent',$page_data);
+                    endif;
+                    break;
+                case 'pdf' :
+                    $mpdf = new mPDF('utf-8', 'A4', '8', '', 10, 10, 7, 7, 10, 10);
+                    $mpdf->charset_in = 'cp1251';
+                    $mpdf->SetDisplayMode('fullpage');
+                    $document_content = isset($fields['content']) ? $fields['content']->value : '';
+                    if($page_data = self::parseOrderHTMLDocument($document_content)):
+                        $page_data['page_title'] = '';
+                        $mpdf->WriteHTML(View::make('templates/assets/documents', $page_data)->render(), 2);
+                    endif;
+                    $document_content_app1 = isset($fields_app1['content']) ? $fields_app1['content']->value : '';
+                     if($page_data = self::parseOrderHTMLDocument($document_content_app1)):
+                        $page_data['page_title'] = '';
+                        $mpdf->AddPage('L');
+                        $mpdf->WriteHTML(View::make('templates/assets/contract-app1', $page_data)->render(), 2);
+                    endif;
+                    $document_content_consent = isset($fields_consent['content']) ? $fields_consent['content']->value : '';
+                    if($page_data = self::parseOrderHTMLDocument($document_content_consent)):
+                        $page_data['page_title'] = '';
+                        foreach($page_data['SpisokSluschateleyDlyaDogovora'] as $listener_id => $listener):
+                            $page_data['FIO_listener'] = $listener['listener']['fio'];
+                            $page_data['Address_listener'] = $listener['listener']['postaddress'];
+                            $mpdf->AddPage('P');
+                            $mpdf->WriteHTML(View::make('templates/assets/contract-consent', $page_data)->render(), 2);
+                        endforeach;
+                    endif;
+                    return $mpdf->Output($document_type.'-№'.getOrderNumber($order).'.pdf', 'D');
+                case 'word':
+                    return Redirect::back();
+                    break;
+            endswitch;
+        endif;
+        App::abort(404);
     }
 
     public function moderatorOrderInvoice($order_id,$format){
@@ -453,6 +530,8 @@ class AccountsDocumentsController extends BaseController {
             'TablicaSluschateleyDlyaDogovora' => '',
 
             'ImyaIndividualnogoZakazchika' => empty($order->individual) ? '' : $order->individual->fio,
+
+            'FIO_listener' => '', 'Address_listener' => ''
         );
         if ($extract):
             return extract($variables);
