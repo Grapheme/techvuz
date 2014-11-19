@@ -23,6 +23,9 @@
             foreach($spisok as $course):
                 $VsegoNaimenovaliy += $course['count'];
                 $KolichestvoNaimenovaliy++;
+                if(!$spisok[$listener->course->id]['discount']):
+                    $spisok[$listener->course->id]['discount'] = 0;
+                endif;
             endforeach;
         ?>
         <?php ob_start();?>
