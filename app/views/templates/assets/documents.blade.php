@@ -7,6 +7,7 @@
 </head>
 <body>
     <main>
+
         @if(isset($template) && File::exists($template))
             <?php require_once($template);?>
         @endif

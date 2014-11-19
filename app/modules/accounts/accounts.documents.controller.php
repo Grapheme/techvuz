@@ -264,7 +264,7 @@ class AccountsDocumentsController extends BaseController {
                 case 'html':
                     $document_content = isset($fields['content']) ? $fields['content']->value : '';
                     if($page_data = self::parseOrderHTMLDocument($document_content)):
-                        #return View::make('templates/assets/documents',$page_data);
+                        return View::make('templates/assets/documents',$page_data);
                     endif;
                     $document_content_app1 = isset($fields_app1['content']) ? $fields_app1['content']->value : '';
                     if($page_data = self::parseOrderHTMLDocument($document_content_app1)):
@@ -272,7 +272,7 @@ class AccountsDocumentsController extends BaseController {
                     endif;
                     $document_content_consent = isset($fields_consent['content']) ? $fields_consent['content']->value : '';
                     if($page_data = self::parseOrderHTMLDocument($document_content_consent)):
-                        return View::make('templates/assets/contract-consent',$page_data);
+                        #return View::make('templates/assets/contract-consent',$page_data);
                     endif;
                     break;
                 case 'pdf' :
@@ -293,7 +293,7 @@ class AccountsDocumentsController extends BaseController {
                     $document_content_consent = isset($fields_consent['content']) ? $fields_consent['content']->value : '';
                     if($page_data = self::parseOrderHTMLDocument($document_content_consent)):
                         $page_data['page_title'] = '';
-                        foreach($page_data['SpisokSluschateleyDlyaDogovora'] as $listener_id => $listener):
+                        foreach($page_data['SpisokSluschateley'] as $listener_id => $listener):
                             $page_data['FIO_listener'] = $listener['listener']['fio'];
                             $page_data['Address_listener'] = $listener['listener']['postaddress'];
                             $mpdf->AddPage('P');
@@ -311,7 +311,8 @@ class AccountsDocumentsController extends BaseController {
 
     public function moderatorOrderInvoice($order_id,$format){
 
-        return $this->moderatorShowDocument($order_id,$format,'invoice');
+        $template = 'templates/assets/invoice';
+        return $this->moderatorShowDocument($order_id,$format,'invoice',$template);
 
     }
 
@@ -321,21 +322,19 @@ class AccountsDocumentsController extends BaseController {
 
     }
 
-    public function moderatorShowDocument($order_id,$format,$document_type){
+    public function moderatorShowDocument($order_id,$format,$document_type,$template = 'templates/assets/documents'){
 
         if (!$order = Orders::where('id',$order_id)->where('completed',1)->with('organization','individual',$document_type)->first()):
             return Redirect::route('moderator-orders-list');
         endif;
-        $account = NULL; $account_type = NULL; $template = '';
+        $account = NULL; $account_type = NULL;
         if (!empty($order->organization)):
             $account = User_organization::where('id',$order->user_id)->first();
             $account_type = 4;
-            $template = 'templates.organization.documents';
             $document = Dictionary::valueBySlugs('order-documents','order-documents-'.$document_type);
         elseif(!empty($order->individual)):
             $account = User_individual::where('id',$order->user_id)->first();
             $account_type = 6;
-            $template = 'templates.individual.documents';
             $document = Dictionary::valueBySlugs('order-documents','order-documents-'.$document_type);
         endif;
         if ($order->$document_type->exists && File::exists(public_path($order->$document_type->path))):
@@ -352,7 +351,7 @@ class AccountsDocumentsController extends BaseController {
                 case 'html':
                     $document_content = isset($fields['content']) ? $fields['content']->value : '';
                     if($page_data = self::parseOrderHTMLDocument($document_content)):
-                        return View::make(Helper::acclayout('documents'),$page_data);
+                        return View::make($template,$page_data);
                     endif;
                     break;
                 case 'pdf' :
@@ -362,11 +361,8 @@ class AccountsDocumentsController extends BaseController {
                         $mpdf = new mPDF('utf-8', 'A4', '8', '', 10, 10, 7, 7, 10, 10);
                         $mpdf->charset_in = 'cp1251';
                         $mpdf->SetDisplayMode('fullpage');
-                        $mpdf->WriteHTML(View::make(Helper::acclayout('documents'), $page_data)->render(), 2);
+                        $mpdf->WriteHTML(View::make($template, $page_data)->render(), 2);
                         return $mpdf->Output($document_type.'-№'.getOrderNumber($order).'.pdf', 'D');
-                        #$pdf = PDF::loadView(Helper::acclayout('documents'), $page_data);
-                        #return $pdf->download($document_type.'-№'.getOrderNumber($order).'.pdf');
-                        #return $pdf->stream('act-'.$order_id.'.pdf');
                     endif;
                     break;
                 case 'word':
@@ -490,13 +486,10 @@ class AccountsDocumentsController extends BaseController {
     /****************************************************************************/
     private function getDocumentVariables($extract = FALSE){
 
-        $order = Orders::where('id',Config::get('show-document.order_id'))->with('organization','individual','payment','listeners.course','listeners.user_listener','listeners.user_listener','listeners.user_individual','listeners.final_test','payment_numbers')->first();
+        $order = Orders::where('id',Config::get('show-document.order_id'))->with('organization','individual','payment','listeners.course.direction','listeners.user_listener','listeners.user_listener','listeners.user_individual','listeners.final_test','payment_numbers')->first();
         $SummaZakaza = 0; $SpisokSluschateleyDlyaDogovora = array();
         foreach($order->listeners as $listener):
             $SummaZakaza += $listener->price;
-            $SpisokSluschateleyDlyaDogovora[$listener->user_id]['listener'] = !empty($listener->user_listener) ? $listener->user_listener->toArray() : array();
-            $SpisokSluschateleyDlyaDogovora[$listener->user_id]['individual'] = !empty($listener->user_individual) ? $listener->user_individual->toArray() : array();
-            $SpisokSluschateleyDlyaDogovora[$listener->user_id]['course'][] = !empty($listener->course) ? $listener->course->toArray() : array();
         endforeach;
         $dateTime = new myDateTime();
         $variables = array(
@@ -526,12 +519,14 @@ class AccountsDocumentsController extends BaseController {
             'BIKOrganizacii' => empty($order->organization) ? '' : $order->organization->bik,
             'KontaktnuyTelefonZakazchika' => empty($order->organization) ? $order->individual->phone : $order->organization->phone,
 
-            'SpisokSluschateleyDlyaDogovora' => $SpisokSluschateleyDlyaDogovora,
+            'SpisokSluschateley' => $order,
             'TablicaSluschateleyDlyaDogovora' => '',
+            '$SpisokSluschateleyDlyaScheta' => '',
 
             'ImyaIndividualnogoZakazchika' => empty($order->individual) ? '' : $order->individual->fio,
 
-            'FIO_listener' => '', 'Address_listener' => ''
+            'FIO_listener' => '', 'Address_listener' => '',
+            'VsegoNaimenovaliy' => 0,'KolichestvoNaimenovaliy' => 0,
         );
         if ($extract):
             return extract($variables);

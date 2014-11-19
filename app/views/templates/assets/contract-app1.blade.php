@@ -7,7 +7,15 @@
 </head>
 <body>
     <main>
-        @if(isset($SpisokSluschateleyDlyaDogovora))
+        @if(isset($SpisokSluschateley))
+        <?php
+            $spisok = array();
+            foreach($SpisokSluschateley->listeners as $listener):
+                $spisok[$listener->user_id]['listener'] = !empty($listener->user_listener) ? $listener->user_listener->toArray() : array();
+                $spisok[$listener->user_id]['individual'] = !empty($listener->user_individual) ? $listener->user_individual->toArray() : array();
+                $spisok[$listener->user_id]['course'][] = !empty($listener->course) ? $listener->course->toArray() : array();
+            endforeach;
+        ?>
         <?php ob_start();?>
         <table>
             <tbody>
@@ -30,7 +38,7 @@
                     <td><p align="center"><strong>Наименование ДПП</strong></p></td>
                 </tr>
                 <?php $index = 1;?>
-            @foreach($SpisokSluschateleyDlyaDogovora as $listener_id => $listener)
+            @foreach($spisok as $listener_id => $listener)
                 <tr>
                     <td><p align="center">{{ $index }}</p></td>
                     <td><p align="center">{{ $listener['listener']['fio'] }}</p></td>
