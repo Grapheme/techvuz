@@ -123,8 +123,8 @@ main {
 section {
 	margin: 0 0 4.375rem;
 
-	h3 {
-		margin: 0 0 42rem / $hfs;
+	h3, .h3 {
+		margin: 0 0 1.5rem;
 		font-size: 22em / $hfs;
 		font-weight: 500;
 		line-height: 28.8em / 22;

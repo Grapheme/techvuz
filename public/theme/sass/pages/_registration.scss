@@ -15,13 +15,9 @@
 	.form-element {
 		position: relative;
 		width: 528rem / $hfs;
-		margin: 0 0 25rem / $hfs;
+		margin: 0 0 2rem;
 
 		&.state-error {
-
-			label {
-				color: $clr-red;
-			}
 
 			input {
 				border-color: $clr-red;
@@ -68,7 +64,7 @@
 
 		font-family: 'Geometria';
 		font-size: 14em / $hfs;
-		font-weight: 500;
+		font-weight: 400;
 		color: $clr-dark-gray;
 
 		&[type="checkbox"] {
