@@ -3,6 +3,7 @@
 @stop
 @section('content')
 <main class="catalog">
+    <h1>{{ $page->block('top_h2') }}</h1>
     <div class="print-link">
         <a href="#">Распечатать каталог</a> <span class="icon icon-print"></span>
     </div>
