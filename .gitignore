@@ -1,6 +1,7 @@
 .idea
 /vendor
 /.htaccess
+/public/.htaccess
 /public/uploads/galleries/*.jpg
 /public/uploads/galleries/thumbs/*.jpg
 /app/storage
