@@ -3,6 +3,10 @@ html, body {
 	font: 500 #{$hfs}px'Geometria', 'Open Sans', sans-serif; 
 }
 
+html {
+	font-size: .875em;
+}
+
 h1, h2, h3 {
 	margin: 0; 
 }
@@ -34,12 +38,14 @@ main {
 	border-top: 1px solid transparent;
 	border-bottom: 1px solid $clr-white;
 
+	font-size: .875em;
+
 	background: $clr-white;
 
-	h2 {
+	h1, h2 {
 		&.padding-h,
 		&:first-child {
-			padding: 76rem / $hfs 0 16rem / $hfs;
+			padding: 3rem 0 16rem / $hfs;
 			font-size: 40em / $hfs;
 			font-weight: 400;
 
@@ -49,7 +55,7 @@ main {
 	}
 
 	.desc {
-		margin: 0 0 70rem / $hfs;
+		margin: 0 0 2.5rem;
 		padding: 0 32rem / $hfs 0 0;
 
 		font-size: 18em / $hfs;
@@ -72,7 +78,7 @@ main {
 	&:after {
 		content: '';
 		position: absolute;
-		top: -1px;
+		top: -2px;
 		right: 0;
 		width: 0;
 		height: 0;
