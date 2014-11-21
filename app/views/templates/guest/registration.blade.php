@@ -4,7 +4,7 @@
 @stop
 @section('content')
 <main class="registration">
-    <h2>{{ $page->block('top_h2') }}</h2>
+    <h1>{{ $page->block('top_h2') }}</h1>
     <div class="desc">
     {{ $page->block('top_desc') }}
     </div>
