@@ -1,4 +1,5 @@
 .idea
+.htaccess
 /vendor
 /.htaccess
 /public/.htaccess
