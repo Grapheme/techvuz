@@ -10115,6 +10115,11 @@ section h3, section .h3 {
 .moderator-cabinet .table .note {
   margin-left: 0;
 }
+.moderator-cabinet .table ul {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
 .moderator-cabinet .table tr:nth-child(2n+1) {
   background: #f9f9f9;
 }
