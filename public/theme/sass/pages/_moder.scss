@@ -743,7 +743,7 @@
 			display: none;
 		}
 		.redactor_box {
-			width: 25.7rem;
+			
 		}
 	}
 
@@ -845,6 +845,9 @@
 			&:nth-child(2n+1) {
 				background: $clr-light-gray;
 			}
+			&:nth-child(2n+2) {
+				background: $clr-white;
+			}
 		}
 
 		.sort {
@@ -894,7 +897,7 @@
 		td {
 			font-size: 14em / $hfs;
 			line-height: (20em / 14);
-			padding: 14rem / $hfs 17rem / $hfs 14rem / $hfs 17rem / $hfs;
+			padding: .875rem .6rem;
 			border-right: 2px solid $clr-white;
 			border-top: none;
 			border-bottom: none;

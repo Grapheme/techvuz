@@ -10030,9 +10030,6 @@ section h3, section .h3 {
 .moderator-cabinet .well .nav {
   display: none;
 }
-.moderator-cabinet .well .redactor_box {
-  width: 25.7rem;
-}
 .moderator-cabinet .note {
   font-size: 12px;
   font-weight: 400;
@@ -10113,6 +10110,9 @@ section h3, section .h3 {
 .moderator-cabinet .table tr:nth-child(2n+1) {
   background: #f9f9f9;
 }
+.moderator-cabinet .table tr:nth-child(2n+2) {
+  background: white;
+}
 .moderator-cabinet .table .sort.sort--asc .sort--icon {
   cursor: pointer;
 }
@@ -10144,7 +10144,7 @@ section h3, section .h3 {
 .moderator-cabinet .table td {
   font-size: 0.875em;
   line-height: 1.42857em;
-  padding: 0.875rem 1.0625rem 0.875rem 1.0625rem;
+  padding: .875rem .6rem;
   border-right: 2px solid white;
   border-top: none;
   border-bottom: none;
