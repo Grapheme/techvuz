@@ -708,6 +708,10 @@
 
 	.input {
 
+		&.textarea {
+			display: inline-block;
+		}
+
 		.icon-append {
 			display: none;
 		}

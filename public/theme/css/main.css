@@ -10000,6 +10000,9 @@ section h3, section .h3 {
   white-space: normal;
   color: #333333;
 }
+.moderator-cabinet .input.textarea {
+  display: inline-block;
+}
 .moderator-cabinet .input .icon-append {
   display: none;
 }
