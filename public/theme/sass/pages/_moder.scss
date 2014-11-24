@@ -841,6 +841,10 @@
 			margin-left: 0;
 		}
 
+		ul {
+			.list-unstyled;
+		}
+
 		tr {
 			&:nth-child(2n+1) {
 				background: $clr-light-gray;
