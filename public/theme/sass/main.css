@@ -10004,14 +10004,12 @@ section h3, section .h3 {
   display: inline-block;
   vertical-align: top;
   width: 11.75rem;
+  padding-left: 0;
   font-size: 0.875em;
   line-height: 1.42857em;
   font-weight: 400;
   text-align: left;
   color: #333333;
-}
-.moderator-cabinet .input {
-  width: 21.0625rem;
 }
 .moderator-cabinet .input .icon-append {
   display: none;
@@ -10025,6 +10023,9 @@ section h3, section .h3 {
 .moderator-cabinet .smart-form fieldset {
   padding-left: 0;
   padding-right: 0;
+}
+.moderator-cabinet .smart-form footer {
+  padding-left: 0;
 }
 .moderator-cabinet .well {
   padding: 0;
@@ -10077,6 +10078,9 @@ section h3, section .h3 {
 .moderator-cabinet .btn {
   margin: 0 0.625rem;
   border: 2px solid;
+}
+.moderator-cabinet .btn:first-child {
+  margin-left: 0;
 }
 .moderator-cabinet .btn:last-child {
   margin-right: 0.625rem;
@@ -10168,6 +10172,9 @@ section h3, section .h3 {
 }
 .moderator-cabinet .table .no-courses {
   opacity: .4;
+}
+.moderator-cabinet .col .col {
+  padding-left: 0;
 }
 
 /* ==========================================================================
