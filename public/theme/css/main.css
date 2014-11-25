@@ -10447,7 +10447,11 @@ section h3, section .h3 {
     content: none;
   }
 
-  .accordion-header:after {
+  .accordion .ui-state-default:after {
+    content: none;
+  }
+
+  .accordion .ui-state-active:after {
     content: none;
   }
 

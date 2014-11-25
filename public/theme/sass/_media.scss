@@ -20,11 +20,13 @@
     	}
     }
 
-    .accordion-header {
-    	&:after {
-    		content: none;
-    	}
+    .accordion .ui-state-default:after {
+		content: none;
     }
+    .accordion .ui-state-active:after {
+		content: none;
+    }
+    
     .accordion-body {
     	display: block !important;
     }
