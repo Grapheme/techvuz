@@ -1,0 +1,22 @@
+@media print {
+    a[href]:after {
+        content: "";
+    }
+    aside {
+    	display: none;
+    }
+    .main-header {
+    	.auth {
+    		display: none;
+    	}
+    }
+    main {
+    	margin: 0;
+    	&:before {
+			content: none;
+    	}
+    	&:after {
+			content: none;    		
+    	}
+    }
+}

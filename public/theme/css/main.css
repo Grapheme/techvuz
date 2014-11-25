@@ -10424,3 +10424,26 @@ section h3, section .h3 {
     page-break-after: avoid;
   }
 }
+@media print {
+  a[href]:after {
+    content: "";
+  }
+
+  aside {
+    display: none;
+  }
+
+  .main-header .auth {
+    display: none;
+  }
+
+  main {
+    margin: 0;
+  }
+  main:before {
+    content: none;
+  }
+  main:after {
+    content: none;
+  }
+}
