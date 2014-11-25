@@ -10462,4 +10462,8 @@ section h3, section .h3 {
   .print-link {
     display: none;
   }
+
+  .directions-ul .directions-li .directions-img {
+    display: none;
+  }
 }

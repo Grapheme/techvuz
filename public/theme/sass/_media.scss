@@ -26,11 +26,19 @@
     .accordion .ui-state-active:after {
 		content: none;
     }
-    
+
     .accordion-body {
     	display: block !important;
     }
     .print-link {
     	display: none;
+    }
+
+    .directions-ul {
+		.directions-li {
+			.directions-img {
+				display: none;
+			}
+		}
     }
 }
