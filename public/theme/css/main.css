@@ -9284,6 +9284,52 @@ section h3, section .h3 {
   font-weight: 400;
 }
 
+.divMessageBox {
+  background: none repeat scroll 0 0 rgba(0, 0, 0, 0.6);
+  height: 100%;
+  left: 0;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 100000;
+}
+
+.MessageBoxContainer {
+  background-color: rgba(0, 0, 0, 0.8);
+  color: white;
+  padding: 20px;
+  position: relative;
+  top: 35%;
+  width: 100%;
+}
+
+.MessageBoxMiddle {
+  left: 20%;
+  position: relative;
+  width: 60%;
+}
+
+.MessageBoxMiddle .MsgTitle {
+  font-size: 24px;
+  font-weight: 300;
+  letter-spacing: -1px;
+}
+
+.MessageBoxButtonSection {
+  height: 30px;
+  width: 100%;
+}
+
+.MessageBoxButtonSection button {
+  float: right;
+  font-size: 14px;
+  font-weight: bold;
+  margin-right: 7px;
+  padding-left: 15px;
+  padding-right: 15px;
+  color: #000;
+}
+
 .ui-datepicker {
   width: 17em;
   padding: .2em .2em 0;
@@ -9982,8 +10028,8 @@ section h3, section .h3 {
   font-family: "Open Sans",sans-serif;
   font-size: 1.5em;
   font-weight: 600;
-  line-height: 3.25em;
-  margin: 0 0 1.3125rem;
+  line-height: .75em;
+  margin: 3rem 0 1.75rem;
 }
 .moderator-cabinet section {
   margin-bottom: 1rem;
