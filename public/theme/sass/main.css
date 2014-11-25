@@ -10073,6 +10073,9 @@ section h3, section .h3 {
 .moderator-cabinet .input.textarea {
   display: inline-block;
 }
+.moderator-cabinet .input.textarea_redactor {
+  display: inline-block;
+}
 .moderator-cabinet .input .icon-append {
   display: none;
 }
