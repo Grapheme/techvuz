@@ -10469,6 +10469,9 @@ section h3, section .h3 {
     display: none;
   }
 
+  .directions-ul .directions-li {
+    height: 8rem;
+  }
   .directions-ul .directions-li .directions-img {
     display: none;
   }
