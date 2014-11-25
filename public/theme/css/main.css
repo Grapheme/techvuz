@@ -10446,4 +10446,16 @@ section h3, section .h3 {
   main:after {
     content: none;
   }
+
+  .accordion-header:after {
+    content: none;
+  }
+
+  .accordion-body {
+    display: block !important;
+  }
+
+  .print-link {
+    display: none;
+  }
 }
