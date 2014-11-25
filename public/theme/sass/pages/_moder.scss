@@ -720,6 +720,14 @@
 	  color: #666;
 	}
 
+	.modal-dialog .modal-content {
+		padding: 3.125rem 3.75rem 3rem;
+
+		.btn {
+			margin-left: 0;
+		}
+	}
+
 	.cabinet-tabs + h2,
 	h1 {
 		font-family: "Open Sans",sans-serif;
