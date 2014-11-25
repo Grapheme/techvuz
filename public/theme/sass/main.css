@@ -10035,6 +10035,12 @@ section h3, section .h3 {
 .moderator-cabinet .dropzone-previews a.dz-remove:hover {
   color: #666;
 }
+.moderator-cabinet .modal-dialog .modal-content {
+  padding: 3.125rem 3.75rem 3rem;
+}
+.moderator-cabinet .modal-dialog .modal-content .btn {
+  margin-left: 0;
+}
 .moderator-cabinet .cabinet-tabs + h2,
 .moderator-cabinet h1 {
   font-family: "Open Sans",sans-serif;
