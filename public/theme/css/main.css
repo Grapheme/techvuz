@@ -10058,6 +10058,12 @@ section h3, section .h3 {
 .moderator-cabinet .input .icon-append {
   display: none;
 }
+.moderator-cabinet .input.upload.input-file {
+  display: inline-block;
+}
+.moderator-cabinet .input.upload.input-file .file_upload {
+  border: none;
+}
 .moderator-cabinet .ui-selectmenu-button {
   width: 25.563rem !important;
 }

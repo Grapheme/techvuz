@@ -766,6 +766,14 @@
 			display: none;
 		}
 	}
+
+	.input.upload.input-file {
+		display: inline-block;
+
+		.file_upload {
+			border: none;
+		}
+	}
 	
 	.ui-selectmenu-button {
 		width: 25.563rem !important;
