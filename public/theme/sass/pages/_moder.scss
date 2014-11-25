@@ -756,7 +756,15 @@
 		color: $clr-dark-gray;
 	}
 
+	.checkbox {
+		margin-left: 189px;
+	}
+
 	.input {
+
+		&.text {
+			display: inline-block;
+		}
 
 		&.textarea {
 			display: inline-block;

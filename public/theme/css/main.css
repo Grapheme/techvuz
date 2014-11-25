@@ -10052,6 +10052,12 @@ section h3, section .h3 {
   white-space: normal;
   color: #333333;
 }
+.moderator-cabinet .checkbox {
+  margin-left: 189px;
+}
+.moderator-cabinet .input.text {
+  display: inline-block;
+}
 .moderator-cabinet .input.textarea {
   display: inline-block;
 }
