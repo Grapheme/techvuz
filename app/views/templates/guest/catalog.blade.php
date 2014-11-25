@@ -36,8 +36,8 @@
                 {{ $direction->courses->count() }} {{ Lang::choice('курс|курса|курсов',$direction->courses->count()); }}
             </div>
         </div>
-        @if($direction->courses->count())
         <div class="accordion-body">
+        @if($direction->courses->count())        
             <table>
                 <tr>
                     <th>Название</th>
@@ -70,9 +70,9 @@
                     </td>
                 </tr>
             @endforeach
-            </table>
-        </div>
+            </table>        
         @endif
+        </div>
     @endforeach
     </div>
 </main>
