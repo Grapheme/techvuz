@@ -24,7 +24,7 @@
                     <th>
                     @if($messages->count())
                         {{ Form::open(array('url'=>URL::route('organization-notification-delete',array('notification_id'=>'all')), 'style'=>'display:inline-block', 'method'=>'delete')) }}
-                            {{ Form::submit('удалить все',array('title'=>'Удалить все сообщения')) }}
+                            <button type="submit" title="Удалить сообщение" class="btn btn--bordered btn--danger">Удалить</button>
                         {{ Form::close() }}
                     @endif
                     </th>
