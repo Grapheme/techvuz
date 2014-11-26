@@ -7245,6 +7245,7 @@ a[href^="tel"] {
   border-radius: 0 !important;
   outline: none;
   text-decoration: none;
+  text-decoration: none;
   cursor: pointer;
 }
 .btn:hover {
@@ -7268,6 +7269,7 @@ a[href^="tel"] {
 .btn.btn--danger {
   color: #bb252d;
   border-color: #bb252d;
+  background: white;
 }
 .btn.btn--danger:hover {
   color: white;
