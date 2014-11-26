@@ -231,7 +231,7 @@
 	  box-sizing: border-box;
 	}
 	.dropzone {
-	  width: 25.6rem;
+	  width: 31.1rem;
 	  position: relative;
 	  border: 1px solid rgba(0, 0, 0, 0.08);
 	  background: rgba(0, 0, 0, 0.02);
@@ -745,6 +745,7 @@
 		display: inline-block;
 		vertical-align: top;
 		width: 7rem;
+		margin-right: 1em;
 		padding-left: 0;
 
 		font-size: 14em / $hfs;
@@ -757,6 +758,10 @@
 
 		& + .checkbox {
 			margin: 0;
+			display: inline-block;
+		}
+
+		& + .input.image {
 			display: inline-block;
 		}
 	}
@@ -845,7 +850,7 @@
 	.note {
 	    font-size: 12px;
 	    font-weight: 400;
-	    margin-left: 170px;
+	    margin-left: 114px;
 	    width: 25.563rem;
 	    color: $clr-main-bg;
 	}

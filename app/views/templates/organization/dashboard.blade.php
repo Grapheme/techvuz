@@ -91,7 +91,7 @@
                         <span class="current">1</span> / <span class="all"></span>
                     </span>
                     <span class="icon icon-angle-right js-notif-right">
-                        <a href="{{ URL::route('organization-notifications') }}" class="btn btn--bordered btn--blue">
+                        <a href="{{ URL::route('organization-notifications') }}" class="all-notifications">
                             Полный список
                         </a>
                     </span>
