@@ -114,7 +114,9 @@
                                 </div>
                                 <div class="notif-delete js-notif-delete">
                                 {{ Form::open(array('url'=>URL::route('organization-notification-delete',array('notification_id'=>$message->id)), 'style'=>'display:inline-block', 'method'=>'delete')) }}
-                                    {{ Form::submit('удалить',array('title'=>'Удалить сообщение')) }}
+                                    
+                                    <button type="submit">Удалить</button>
+                                    
                                 {{ Form::close() }}
                                 </div>
                             </div>
