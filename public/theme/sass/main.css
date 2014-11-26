@@ -10071,6 +10071,9 @@ section h3, section .h3 {
 .moderator-cabinet .checkbox {
   margin-left: 189px;
 }
+.moderator-cabinet .checkbox .checkbox {
+  margin: 0;
+}
 .moderator-cabinet .input.text {
   display: inline-block;
 }
