@@ -10102,6 +10102,9 @@ section h3, section .h3 {
 .moderator-cabinet .well .nav {
   display: none;
 }
+.moderator-cabinet .employee-search input {
+  margin: 0 0 0 15px;
+}
 .moderator-cabinet .note {
   font-size: 12px;
   font-weight: 400;
