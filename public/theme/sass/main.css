@@ -10064,6 +10064,10 @@ section h3, section .h3 {
   white-space: normal;
   color: #333333;
 }
+.moderator-cabinet .label + .checkbox {
+  margin: 0;
+  display: inline-block;
+}
 .moderator-cabinet .checkbox {
   margin-left: 189px;
 }
@@ -10113,7 +10117,7 @@ section h3, section .h3 {
 .moderator-cabinet .well .nav {
   display: none;
 }
-.moderator-cabinet .employee-search input {
+.moderator-cabinet .employee-search.input {
   margin: 0 0 0 15px;
 }
 .moderator-cabinet #statistic-form footer {
@@ -10122,7 +10126,7 @@ section h3, section .h3 {
 .moderator-cabinet .note {
   font-size: 12px;
   font-weight: 400;
-  margin-left: 191px;
+  margin-left: 170px;
   width: 25.563rem;
   color: #33ace4;
 }
