@@ -10055,7 +10055,7 @@ section h3, section .h3 {
 .moderator-cabinet .label {
   display: inline-block;
   vertical-align: top;
-  width: 11.75rem;
+  width: 7rem;
   padding-left: 0;
   font-size: 0.875em;
   line-height: 1.42857em;
@@ -10091,7 +10091,7 @@ section h3, section .h3 {
   height: auto;
 }
 .moderator-cabinet .ui-selectmenu-button {
-  width: 25.563rem !important;
+  width: 31.163rem !important;
 }
 .moderator-cabinet .smart-form .row {
   padding: 0 14px;
@@ -10131,12 +10131,12 @@ section h3, section .h3 {
   color: #33ace4;
 }
 .moderator-cabinet textarea {
-  width: 25.563rem;
+  width: 31.163rem;
 }
 .moderator-cabinet input {
   outline: none;
   transition: all .4s ease;
-  width: 25.563rem;
+  width: 31.163rem;
   height: 2.6875rem;
   padding: 0 0.625rem;
   border: 1px solid #333333;

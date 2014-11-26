@@ -744,7 +744,7 @@
 	.label {
 		display: inline-block;
 		vertical-align: top;
-		width: 188rem / $hfs;
+		width: 7rem;
 		padding-left: 0;
 
 		font-size: 14em / $hfs;
@@ -794,7 +794,7 @@
 	}
 	
 	.ui-selectmenu-button {
-		width: 25.563rem !important;
+		width: 31.163rem !important;
 	}
 	
 	.smart-form {
@@ -847,13 +847,13 @@
 	}
 
 	textarea {
-		width: 25.563rem;
+		width: 31.163rem;
 	}
 
 	input {
 		outline: none;
 		transition: all .4s ease;
-		width: 25.563rem;
+		width: 31.163rem;
 		height: 43rem / $hfs;
 		padding: 0 10rem / $hfs;
 		border: 1px solid $clr-dark-gray;
