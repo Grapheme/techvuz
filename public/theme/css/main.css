@@ -7190,6 +7190,10 @@ a[href^="tel"] {
   margin-left: 1.25rem !important;
 }
 
+.no-padding {
+  padding: 0 !important;
+}
+
 .txt-color-blue {
   color: #33ace4;
 }
