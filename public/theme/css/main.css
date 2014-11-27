@@ -7204,6 +7204,16 @@ a[href^="tel"] {
   line-height: 1.5em;
 }
 
+.delete-btn {
+  background: none;
+  border: none;
+  text-decoration: underline;
+  color: #bb252d;
+}
+.delete-btn:hover {
+  text-decoration: none;
+}
+
 .btn {
   -webkit-transition: all .4s ease;
           transition: all .4s ease;

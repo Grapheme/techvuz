@@ -1,3 +1,15 @@
+.delete-btn {
+	background: none;
+	border: none;
+	text-decoration: underline;
+
+	color: $clr-danger;
+
+	&:hover {
+		text-decoration: none;
+	}
+}
+
 .btn {
 	transition: all .4s ease;
 	display: inline-block;
