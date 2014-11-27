@@ -1,0 +1,46 @@
+@media print {
+    a[href]:after {
+        content: "";
+    }
+    aside {
+    	display: none;
+    }
+    .main-header {
+    	.auth {
+    		display: none;
+    	}
+    }
+    main {
+    	margin: 0;
+    	&:before {
+			content: none;
+    	}
+    	&:after {
+			content: none;    		
+    	}
+    }
+
+    .accordion .ui-state-default:after {
+		content: none;
+    }
+    .accordion .ui-state-active:after {
+		content: none;
+    }
+
+    .accordion-body {
+    	display: block !important;
+    }
+    .print-link {
+    	display: none;
+    }
+
+    .directions-ul {
+		.directions-li {
+			height: 8rem;
+			
+			.directions-img {
+				display: none;
+			}
+		}
+    }
+}

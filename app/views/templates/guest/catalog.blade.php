@@ -3,7 +3,7 @@
 @stop
 @section('content')
 <main class="catalog">
-    <h2>{{ $page->block('top_h2') }}</h2>
+    {{ $page->block('top_h2') }}
     <div class="print-link">
         <a href="#">Распечатать каталог</a> <span class="icon icon-print"></span>
     </div>
@@ -27,7 +27,6 @@
             }))->get();
     ?>
     @foreach($directions as $direction)
-        <a name="{{ BaseController::stringTranslite($direction->title) }}"></a>
         <div class="accordion-header">
         @if(!empty($direction->photo->name))
             <div class="accordion-img" style="background-image: url('{{ Config::get('site.galleries_photo_public_dir').'/'.$direction->photo->name }}');"></div>
@@ -37,8 +36,8 @@
                 {{ $direction->courses->count() }} {{ Lang::choice('курс|курса|курсов',$direction->courses->count()); }}
             </div>
         </div>
-        @if($direction->courses->count())
         <div class="accordion-body">
+        @if($direction->courses->count())        
             <table>
                 <tr>
                     <th>Название</th>
@@ -71,9 +70,9 @@
                     </td>
                 </tr>
             @endforeach
-            </table>
-        </div>
+            </table>        
         @endif
+        </div>
     @endforeach
     </div>
 </main>

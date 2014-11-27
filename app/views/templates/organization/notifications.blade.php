@@ -24,7 +24,7 @@
                     <th>
                     @if($messages->count())
                         {{ Form::open(array('url'=>URL::route('organization-notification-delete',array('notification_id'=>'all')), 'style'=>'display:inline-block', 'method'=>'delete')) }}
-                            {{ Form::submit('удалить все',array('title'=>'Удалить все сообщения')) }}
+                            <button type="submit" title="Удалить сообщение" class="btn btn--bordered btn--danger">Удалить</button>
                         {{ Form::close() }}
                     @endif
                     </th>
@@ -35,7 +35,7 @@
                     <td>{{ $message->updated_at->timezone('Europe/Moscow')->format('d.m.Y в H:i') }}</td>
                     <td>
                     {{ Form::open(array('url'=>URL::route('organization-notification-delete',array('notification_id'=>$message->id)), 'style'=>'display:inline-block', 'method'=>'delete')) }}
-                        {{ Form::submit('удалить',array('title'=>'Удалить сообщение')) }}
+                        <button type="submit" title="Удалить сообщение" class="btn btn--bordered btn--danger">Удалить</button>
                     {{ Form::close() }}
                     </td>
                 </tr>

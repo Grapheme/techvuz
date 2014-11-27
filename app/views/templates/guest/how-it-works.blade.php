@@ -3,7 +3,7 @@
 @stop
 @section('content')
 <main class="how-it-works">
-    <h2>{{ $page->block('top_h2') }}</h2>
+    {{ $page->block('top_h2') }}
     <div class="desc">
     {{ $page->block('top_desc') }}
     </div>

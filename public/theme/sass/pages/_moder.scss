@@ -1,3 +1,45 @@
+.divMessageBox {
+    background: none repeat scroll 0 0 rgba(0, 0, 0, 0.6);
+    height: 100%;
+    left: 0;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 100000;
+}
+.MessageBoxContainer {
+    background-color: rgba(0, 0, 0, 0.8);
+    color: white;
+    padding: 20px;
+    position: relative;
+    top: 35%;
+    width: 100%;
+}
+.MessageBoxMiddle {
+    left: 20%;
+    position: relative;
+    width: 60%;
+}
+.MessageBoxMiddle .MsgTitle {
+    font-size: 24px;
+    font-weight: 300;
+    letter-spacing: -1px;
+}
+.MessageBoxButtonSection {
+    height: 30px;
+    width: 100%;
+}
+.MessageBoxButtonSection button {
+    float: right;
+    font-size: 14px;
+    font-weight: bold;
+    margin-right: 7px;
+    padding-left: 15px;
+    padding-right: 15px;
+
+    color: #000;
+}
+
 .ui-datepicker {
 	width: 17em;
 	padding: .2em .2em 0;
@@ -189,7 +231,7 @@
 	  box-sizing: border-box;
 	}
 	.dropzone {
-	  width: 25.6rem;
+	  width: 31.1rem;
 	  position: relative;
 	  border: 1px solid rgba(0, 0, 0, 0.08);
 	  background: rgba(0, 0, 0, 0.02);
@@ -678,13 +720,21 @@
 	  color: #666;
 	}
 
+	.modal-dialog .modal-content {
+		padding: 3.125rem 3.75rem 3rem;
+
+		.btn {
+			margin-left: 0;
+		}
+	}
+
 	.cabinet-tabs + h2,
 	h1 {
 		font-family: "Open Sans",sans-serif;
 	    font-size: 1.5em;
 	    font-weight: 600;
-	    line-height: 3.25em;
-	    margin: 0 0 1.3125rem;
+	    line-height: .75em;
+	    margin: 3rem 0 1.75rem;
 	}
 
 	section {
@@ -694,26 +744,66 @@
 	.label {
 		display: inline-block;
 		vertical-align: top;
-		width: 188rem / $hfs;
+		width: 7rem;
+		margin-right: 1em;
+		padding-left: 0;
 
 		font-size: 14em / $hfs;
 		line-height: (20em / 14);
 		font-weight: 400;
 		text-align: left;
+		white-space: normal;
 
 		color: $clr-dark-gray;
+
+		& + .checkbox {
+			margin: 0;
+			display: inline-block;
+		}
+
+		& + .input.image {
+			display: inline-block;
+		}
+	}
+
+	.checkbox {
+		margin-left: 189px;
+
+		.checkbox {
+			margin: 0;
+		}
 	}
 
 	.input {
-		width: 337rem / $hfs;
+
+		&.text {
+			display: inline-block;
+		}
+
+		&.textarea {
+			display: inline-block;
+		}
+
+		&.textarea_redactor {
+			display: inline-block;
+		}
 
 		.icon-append {
 			display: none;
 		}
 	}
+
+	.input.upload.input-file {
+		display: inline-block;
+
+		.file_upload {
+			border: none;
+			height: auto;
+		}
+	}
 	
 	.ui-selectmenu-button {
-		width: 25.563rem !important;
+		width: 31.163rem !important;
 	}
 	
 	.smart-form {
@@ -723,6 +813,9 @@
 		fieldset {
 			padding-left: 0;
 			padding-right: 0;
+		}
+		footer {
+			padding-left: 0;
 		}
 	}
 	.well {
@@ -740,26 +833,36 @@
 			display: none;
 		}
 		.redactor_box {
-			width: 25.7rem;
+			
+		}
+	}
+
+	.employee-search.input {
+		margin: 0 0 0 15px;
+	}
+
+	#statistic-form {
+		footer {
+			margin-top: 32px;
 		}
 	}
 
 	.note {
 	    font-size: 12px;
 	    font-weight: 400;
-	    margin-left: 191px;
+	    margin-left: 114px;
 	    width: 25.563rem;
 	    color: $clr-main-bg;
 	}
 
 	textarea {
-		width: 25.563rem;
+		width: 31.163rem;
 	}
 
 	input {
 		outline: none;
 		transition: all .4s ease;
-		width: 25.563rem;
+		width: 31.163rem;
 		height: 43rem / $hfs;
 		padding: 0 10rem / $hfs;
 		border: 1px solid $clr-dark-gray;
@@ -787,6 +890,10 @@
 	.btn {
 		margin: 0 10rem / $hfs;
 		border: 2px solid;
+
+		&:first-child {
+			margin-left: 0;
+		}
 
 		&:last-child {
 			margin-right: 10rem / $hfs;
@@ -834,9 +941,18 @@
 			margin-left: 0;
 		}
 
+		ul {
+			padding: 0;
+			margin: 0;
+			list-style: none;
+		}
+
 		tr {
 			&:nth-child(2n+1) {
 				background: $clr-light-gray;
+			}
+			&:nth-child(2n+2) {
+				background: $clr-white;
 			}
 		}
 
@@ -887,7 +1003,7 @@
 		td {
 			font-size: 14em / $hfs;
 			line-height: (20em / 14);
-			padding: 14rem / $hfs 17rem / $hfs 14rem / $hfs 17rem / $hfs;
+			padding: .875rem .6rem;
 			border-right: 2px solid $clr-white;
 			border-top: none;
 			border-bottom: none;
@@ -914,6 +1030,13 @@
 			opacity: .4;
 		}
 
+	}
+
+	//Grid fixes 
+	.col {
+		.col {
+			padding-left: 0;
+		}
 	}
 	
 }

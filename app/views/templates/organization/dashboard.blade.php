@@ -91,7 +91,7 @@
                         <span class="current">1</span> / <span class="all"></span>
                     </span>
                     <span class="icon icon-angle-right js-notif-right">
-                        <a href="{{ URL::route('organization-notifications') }}" class="btn btn--bordered btn--blue">
+                        <a href="{{ URL::route('organization-notifications') }}" class="all-notifications">
                             Полный список
                         </a>
                     </span>
@@ -114,7 +114,9 @@
                                 </div>
                                 <div class="notif-delete js-notif-delete">
                                 {{ Form::open(array('url'=>URL::route('organization-notification-delete',array('notification_id'=>$message->id)), 'style'=>'display:inline-block', 'method'=>'delete')) }}
-                                    {{ Form::submit('удалить',array('title'=>'Удалить сообщение')) }}
+                                    
+                                    <button type="submit" class="btn btn--bordered btn--danger">Удалить</button>
+
                                 {{ Form::close() }}
                                 </div>
                             </div>

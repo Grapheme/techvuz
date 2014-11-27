@@ -18,6 +18,9 @@
 		.notifications-count {
 			margin: 0 .25rem;
 		}
+		.all-notifications {
+			margin: 0 0 0 1em;
+		}
 	}
 
 	.notifications-ul {
@@ -53,7 +56,6 @@
 			transition: all .4s ease;
 			float: right;
 			margin: 80rem / $hfs 0 0;
-			border-bottom: 1px solid;
 
 			font-size: 14em / $hfs;
 			line-height: (16.8em / 14);
