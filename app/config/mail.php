@@ -9,7 +9,7 @@ return array(
     'driver' => 'sendmail',
     'host' => '',
     'port' => 465,
-    'from' => array('address' => '', 'name' => 'ТехВуз.рф'),
+    'from' => array('address' => 'info@tehvuz.ru', 'name' => 'ТехВуз.рф'),
     'username' => '',
     'password' => '',
 
