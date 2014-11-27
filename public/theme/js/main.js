@@ -8,7 +8,7 @@ $('.accordion').accordion({
 });
 
 $('.js-close-notifications').click( function(){
-	$(this).parent().parent().parent().hide();
+	$(this).parent().parent().parent().parent().hide();
 });
 
 jQuery.fn.notifications = function() {
