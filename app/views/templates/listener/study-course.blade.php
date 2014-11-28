@@ -63,7 +63,7 @@
                         @if(!empty($chapter->test))
                         <tr>
                             <td colspan="3">{{ $chapter->test->title }}</td>
-                            <td><a href="{{ URL::route('listener-study-testing',array('study_course_id'=>$study_course->id.'-'.BaseController::stringTranslite($module->title,100),'study_test_id'=>$chapter->test->id)) }}">Пройти</a></td>
+                            <td><a class="btn btn--bordered btn--blue" href="{{ URL::route('listener-study-testing',array('study_course_id'=>$study_course->id.'-'.BaseController::stringTranslite($module->title,100),'study_test_id'=>$chapter->test->id)) }}">Пройти</a></td>
                         </tr>
                         @endif
                     @endforeach
@@ -73,7 +73,7 @@
                     @if($study_course->start_status == 1 && $lostTime <= 0 && !empty($module->test))
                         <tr>
                             <td colspan="3">Итоговое тестирование</td>
-                            <td><a href="{{ URL::route('listener-study-testing',array('study_course_id'=>$study_course->id.'-'.BaseController::stringTranslite($module->title,100),'study_test_id'=>$module->test->id)) }}">Пройти</a></td>
+                            <td><a class="btn btn--bordered btn--blue" href="{{ URL::route('listener-study-testing',array('study_course_id'=>$study_course->id.'-'.BaseController::stringTranslite($module->title,100),'study_test_id'=>$module->test->id)) }}">Пройти</a></td>
                         </tr>
                     @elseif($study_course->start_status == 1 && $lostTime > 0)
                         <tr>
