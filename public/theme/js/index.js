@@ -193,7 +193,7 @@ $('.ui-tabs-anchor').click(function (evt) {
         // stops from submitting the form
         evt.preventDefault();
         return false;
-    }
+    });
 
 $('.select').selectmenu();
 
