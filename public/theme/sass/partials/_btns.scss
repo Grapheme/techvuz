@@ -1,3 +1,16 @@
+.delete-btn {
+	background: none;
+	border: none;
+	text-decoration: underline;
+	font-size: 14rem / $hfs;
+
+	color: $clr-danger;
+
+	&:hover {
+		text-decoration: none;
+	}
+}
+
 .btn {
 	transition: all .4s ease;
 	display: inline-block;

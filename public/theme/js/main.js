@@ -7,6 +7,10 @@ $('.accordion').accordion({
     collapsible: true
 });
 
+$('.js-close-notifications').click( function(){
+	$(this).parent().parent().parent().parent().hide();
+});
+
 jQuery.fn.notifications = function() {
 	'use strict';
 

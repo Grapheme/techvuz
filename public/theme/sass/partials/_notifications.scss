@@ -21,6 +21,13 @@
 		.all-notifications {
 			margin: 0 0 0 1em;
 		}
+		.white-link {
+			font-size: 0.9em;
+			font-weight: 300;
+			text-decoration: underline;
+
+			cursor: pointer;
+		}
 	}
 
 	.notifications-ul {

@@ -7,8 +7,8 @@
         <?php $formAction = URL::route('moderator-order-arhived',array('order_id'=>$order->id));?>
     @endif
         {{ Form::open(array('url'=>$formAction, 'style'=>'display:inline-block', 'method'=>'delete')) }}
-            <button type="submit" autocomplete="off" title="Удалить заказ" data-order-number="{{ getOrderNumber($order) }}" class="orders-delete js-delete-order">
-                <span class="icon icon-korzina"></span>
+            <button type="submit" autocomplete="off" title="Удалить заказ" data-order-number="{{ getOrderNumber($order) }}" class="delete-btn js-delete-order">
+                удалить заказ
             </button>
         {{ Form::close() }}
     </td>

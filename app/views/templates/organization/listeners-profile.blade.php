@@ -13,7 +13,7 @@
                 </div>
                 <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
                     <a class="icon--blue pull-right" href="{{ URL::route('organization-listener-profile-edit',$profile->id) }}">
-                        <span class="icon icon-red"></span>
+                        Редактировать профиль <span class="icon icon-red"></span>
                     </a>
                 </div>
             </div>

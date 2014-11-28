@@ -59,6 +59,12 @@
 		float: right;
 		margin: 24rem / $hfs 0 0;
 
+		.btn {
+			&:hover {
+				opacity: .6;
+			}
+		}
+
 		.login-link {
 			font-size: 12px;
 			text-transform: uppercase;

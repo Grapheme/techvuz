@@ -41,7 +41,7 @@
                             <div class="count-add-num">{{ Listener::where('organization_id',Auth::user()->id)->count() }}</div>
                             <div class="count-add-dots"></div>
                         </div>
-                        <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 no-gutter">
+                        <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 no-gutter no-padding">
                             <a href="{{ URL::route('signup-listener') }}" class="btn btn--bordered btn--blue pull-right js-btn-add-emp">
                                 <span class="icon icon-slysh_dob"></span> Добавить
                             </a>
@@ -95,6 +95,9 @@
                             Полный список
                         </a>
                     </span>
+                    <span>
+                        <a class="white-link pull-right js-close-notifications">закрыть</a>  
+                    </span>
                 </div>
                 <ul class="notifications-ul">
                 @foreach($messages as $index => $message)
@@ -115,7 +118,7 @@
                                 <div class="notif-delete js-notif-delete">
                                 {{ Form::open(array('url'=>URL::route('organization-notification-delete',array('notification_id'=>$message->id)), 'style'=>'display:inline-block', 'method'=>'delete')) }}
                                     
-                                    <button type="submit" class="btn btn--bordered btn--danger">Удалить</button>
+                                    <button type="submit" class="delete-btn">удалить</button>
 
                                 {{ Form::close() }}
                                 </div>

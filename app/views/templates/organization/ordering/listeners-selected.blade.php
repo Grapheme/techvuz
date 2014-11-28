@@ -64,7 +64,7 @@
         @endforeach
         </dl>
         {{ Form::hidden('completed',1) }}
-        <button type="submit" class="btn btn--bordered btn--blue pull-right js-coursebuy-finish">Завершить</button>
+        <button type="submit" class="btn btn--bordered btn--blue pull-right js-coursebuy-finish">Заказать</button>
     {{ Form::close() }}
 @endif
 </main>

@@ -46,9 +46,9 @@
                 </tbody>
             </table>
         @else
-            <div class="banner banner--red">
-                <span>На данный момент никто не обучается</span>
-            </div>
+            <p>
+                На данный момент никто не обучается
+            </p>
         @endif
         </div>
     </div>
