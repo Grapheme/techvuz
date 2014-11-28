@@ -146,7 +146,7 @@ class AccountsRegisterController extends BaseController {
                             $message->to(Input::get('email'))->subject('ТехВуз.рф - регистрация');
                         });
                         $json_request['responseText'] = '<h3 class="margin-bottom-10">'.Lang::get('interface.SIGNUP_LISTENER.success').'</h3>';
-                        $json_request['responseText'] .= '<div class="desc margin-bottom-30">'.Lang::get('interface.SIGNUP_LISTENER.success_desc').'</div>';
+                        $json_request['responseText'] .= '<div class="desc margin-bottom-30">На '.Input::get('email').' '.Lang::get('interface.SIGNUP_LISTENER.success_desc').'</div>';
                         $json_request['responseText'] .= '<a class="btn btn--bordered btn--blue margin-right-20 margin-bottom-10" href="'.URL::route('signup-listener').'">'.Lang::get('interface.SIGNUP_LISTENER.next_operation_1').'</a>';
                         if (hasCookieData('ordering')):
                             $json_request['responseText'] .= '<a class="btn btn--bordered btn--blue margin-right-20 margin-bottom-10" href="'.URL::route('ordering-select-listeners').'">'.Lang::get('interface.SIGNUP_LISTENER.next_operation_2').'</a>';
