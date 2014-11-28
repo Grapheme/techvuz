@@ -189,6 +189,11 @@ $("#tabs ul li").delegate('a', 'click', function(e){
      e.preventDefault();
      return false;
 });
+$('.ui-tabs-anchor').click(function (evt) {
+        // stops from submitting the form
+        evt.preventDefault();
+        return false;
+    }
 
 $('.select').selectmenu();
 
