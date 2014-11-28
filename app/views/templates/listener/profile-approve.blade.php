@@ -7,7 +7,8 @@
         <div class="employer-anket margin-bottom-40">
             <div class="row">
                 <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                    <h3>Здравствуйте, {{ $profile->fio }}! Пожалуйста, подтвердите правильность данных в Вашей анкете.</h3>
+                    <?php $fio = explode(' ',$profile->fio); ?>
+                    <h3>Здравствуйте, {{ isset($fio[1]) ? $fio[1] : '' }} {{ isset($fio[2]) ? $fio[2] : '' }}! Пожалуйста, подтвердите правильность данных в Вашей анкете.</h3>
                 </div>
             </div>
             <div class="row margin-bottom-10">
