@@ -1416,7 +1416,7 @@ ul ul, ol ul, ul ol, ol ol {
   margin-bottom: 0;
 }
 
-.list-unstyled, .tabs .ui-tabs-nav, .ui-menu, .orders-ul, .learning-ul, .notifications .notifications-ul, .cabinet-menu-ul, .lic-ul, .main-aside .nav-ul, .benefits-ul, .directions-ul, .news-ul, .reviews-ul, .htw-ul {
+.list-unstyled, .tabs .ui-tabs-nav, .ui-menu, .orders-ul, .learning-ul, .notifications .notifications-ul, .cabinet-menu-ul, .lic-ul, .questions-ul, .answers-ul, .main-aside .nav-ul, .benefits-ul, .directions-ul, .news-ul, .reviews-ul, .htw-ul {
   padding-left: 0;
   list-style: none;
 }
@@ -7145,7 +7145,7 @@ a[href^="tel"] {
   text-decoration: none;
 }
 
-.list-unstyled, .tabs .ui-tabs-nav, .ui-menu, .orders-ul, .learning-ul, .notifications .notifications-ul, .cabinet-menu-ul, .lic-ul, .main-aside .nav-ul, .benefits-ul, .directions-ul, .news-ul, .reviews-ul, .htw-ul {
+.list-unstyled, .tabs .ui-tabs-nav, .ui-menu, .orders-ul, .learning-ul, .notifications .notifications-ul, .cabinet-menu-ul, .lic-ul, .questions-ul, .answers-ul, .main-aside .nav-ul, .benefits-ul, .directions-ul, .news-ul, .reviews-ul, .htw-ul {
   margin: 0;
   padding: 0;
   list-style: none;
