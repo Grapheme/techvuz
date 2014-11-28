@@ -23,15 +23,6 @@
                     <li>
                         <?php $count_courses = 0; ?>
                         @foreach($courses as $course)
-                            @if($course->access_status == 0)
-                                <?php $count_courses++ ; ?>
-                            @endif
-                        @endforeach
-                        <a href="#tabs-12">Не доступно {{ $count_courses ? '<span class="filter-count">'.$count_courses.'</span>' : '' }}</a>
-                    </li>
-                    <li>
-                        <?php $count_courses = 0; ?>
-                        @foreach($courses as $course)
                             @if($course->access_status == 1 && $course->over_status == 1)
                                 <?php $count_courses++ ; ?>
                             @endif
@@ -55,21 +46,6 @@
                             </tr>
                     @foreach($courses as $listener_course)
                         @if($listener_course->access_status == 1 && $listener_course->over_status == 0)
-                            @include(Helper::acclayout('assets.course-tr'))
-                        @endif
-                    @endforeach
-                        </tbody>
-                    </table>
-                </div>
-                <div id="tabs-12">
-                    <table class="tech-table sortable">
-                        <tbody>
-                            <tr>
-                                <th class="sort sort--asc">Название курса <span class="sort--icon"></span> </th>
-                                <th class="sort sort--asc">Прогресс <span class="sort--icon"></span> </th>
-                            </tr>
-                    @foreach($courses as $listener_course)
-                        @if($listener_course->access_status == 0)
                             @include(Helper::acclayout('assets.course-tr'))
                         @endif
                     @endforeach

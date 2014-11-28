@@ -3,12 +3,11 @@
 @stop
 @section('content')
 <main class="cabinet">
-    <h2>{{ $profile->fio }}</h2>
     <div class="cabinet-tabs">
         <div class="employer-anket margin-bottom-40">
             <div class="row">
                 <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                    <h3>Подтвердите Ваши регистрационные данные</h3>
+                    <h3>Здравствуйте, {{ $profile->fio }}! Пожалуйста, подтвердите правильность данных в Вашей анкете.</h3>
                 </div>
             </div>
             <div class="row margin-bottom-10">
@@ -95,7 +94,7 @@
             {{ Form::open(array('url'=>URL::route('listener-profile-approve-store'), 'style'=>'display:inline-block', 'method'=>'patch')) }}
                 {{ Form::submit('Подтверждаю') }}
             {{ Form::close() }}
-           <a href="{{ URL::route('listener-profile-edit') }}">Не подтвержаю</a>
+           <a href="{{ URL::route('listener-profile-edit') }}">Исправить ошибки</a>
             </div>
         </div>
     </div>

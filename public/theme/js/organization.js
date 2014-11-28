@@ -159,6 +159,7 @@ function organizationFormValidation() {
                         if(response.redirect !== false){
                             BASIC.RedirectTO(response.redirect);
                         }else{
+                            $(".cabinet-tabs h3").remove();
                             $(form).replaceWith(response.responseText);
                         }
                     }else{
