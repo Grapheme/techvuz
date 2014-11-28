@@ -28,8 +28,8 @@
             @endif
         @if($module->chapters->count())
             <div>
-                {{ Form::open(array('url'=>URL::route('listener-study-download-lectures',array('study_course_id'=>$study_course->id)), 'style'=>'display:inline-block', 'method'=>'POST')) }}
-                    {{ Form::submit('Скачать все лекции') }}
+                {{ Form::open(array('url'=>URL::route('listener-study-download-lectures',array('study_course_id'=>$study_course->id)), 'class'=>'clearfix','style'=>'display:block', 'method'=>'POST')) }}
+                    <input type="submit" value="Скачать все лекции" class="btn btn--bordered btn--blue margin-bottom-20 pull-right">
                 {{ Form::close() }}
                 <table class="tech-table sortable">
                     <tbody>
@@ -54,7 +54,7 @@
                                 <td>{{ $lecture->hours }}</td>
                                 <td>
                                     {{ Form::open(array('url'=>URL::route('listener-study-download-lecture',array('study_course_id'=>$study_course->id,'lecture_id'=>$lecture->id)), 'style'=>'display:inline-block', 'method'=>'POST')) }}
-                                        {{ Form::submit('Скачать') }}
+                                        <input type="submit" value="Скачать" class="btn btn--bordered btn--blue margin-bottom-20 pull-right">
                                     {{ Form::close() }}
                                 </td>
                             </tr>

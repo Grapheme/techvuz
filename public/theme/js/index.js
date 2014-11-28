@@ -185,16 +185,6 @@ e=f(this),c=this.selector||"",k=function(g){var h=f(this).blur(),j=d,k,l;!g.ctrl
 d[0].offsetTop||15===d[0].offsetTop;d.remove();a.fixedPosition=e}f.extend(b.defaults,{scrollbarWidth:f.scrollbarWidth(),fixed:f.support.fixedPosition,parent:f("body")});a=f(r).width();J.addClass("fancybox-lock-test");d=f(r).width();J.removeClass("fancybox-lock-test");f("<style type='text/css'>.fancybox-margin{margin-right:"+(d-a)+"px;}</style>").appendTo("head")})})(window,document,jQuery);
 $('.tabs').tabs();
 
-$("#tabs ul li").delegate('a', 'click', function(e){
-     e.preventDefault();
-     return false;
-});
-$('.ui-tabs-anchor').click(function (evt) {
-        // stops from submitting the form
-        evt.preventDefault();
-        return false;
-    });
-
 $('.select').selectmenu();
 
 $('.accordion').accordion({
