@@ -8,8 +8,12 @@
 
 .answers-ul {
 	@extend .list-unstyled;
+	margin: 1rem 0;
 
 	.answers-li {
-
+		p {
+			display: inline-block;
+			margin-left: 1rem;
+		}
 	}
 }
