@@ -1,5 +1,6 @@
 .cabinet-menu-ul {
 	@extend .list-unstyled;
+	display: inline-block;
 	border: 1px solid $clr-main-bg;
 	border-bottom: none;
 	border-right: none;
@@ -7,7 +8,7 @@
 	.cabinet-menu-li {
 		position: relative;
 		float: left;
-		width: 25%;
+		width: 171px;
 		height: 65rem / $hfs;
 		border-bottom: 1px solid $clr-main-bg;
 		border-right: 1px solid $clr-main-bg;
