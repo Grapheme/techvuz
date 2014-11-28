@@ -19,10 +19,10 @@
         @if($test->questions->count())
             {{ Form::open(array('url'=>URL::route('listener-study-test-finish',array('course_id'=>$study_course->id,'test_id'=>$test->id)), 'method'=>'POST')) }}
                 {{ Form::hidden('time_attempt',0) }}
-                <ul data-questions-count="{{ $test->questions->count() }}">
+                <ul class="questions-ul" data-questions-count="{{ $test->questions->count() }}">
             @foreach($test->questions as $question)
                 @if($question->answers->count())
-                    <li data-question="{{ $question->id }}">
+                    <li class="questions-li" data-question="{{ $question->id }}">
                         <h4>{{ $question->title }}{{ $question->order }}</h4>
                         <div>{{ $question->description }}</div>
                         <ul data-answers-count="{{ $question->answers->count() }}">
