@@ -25,14 +25,10 @@
             <h3>Курсы</h3>
             <div class="count-add">
                 <?php $activeCoursesCount = 0; ?>
-                <?php $blockedCoursesCount = 0; ?>
                 <?php $closedCoursesCount = 0; ?>
                 @foreach($courses as $course)
                     @if($course->access_status == 1 && $course->over_status == 0)
                     <?php $activeCoursesCount++; ?>
-                    @endif
-                    @if($course->access_status == 0)
-                    <?php $blockedCoursesCount++; ?>
                     @endif
                     @if($course->access_status == 1 && $course->over_status == 1)
                     <?php $closedCoursesCount++; ?>
@@ -43,11 +39,6 @@
                         <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 no-gutter">
                             <div class="count-add-sign">Доступно</div>
                             <div class="count-add-num">{{ $activeCoursesCount }}</div>
-                            <div class="count-add-dots"></div>
-                        </div>
-                        <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
-                            <div class="count-add-sign">Не доступно</div>
-                            <div class="count-add-num">{{ $blockedCoursesCount }}</div>
                             <div class="count-add-dots"></div>
                         </div>
                         <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
