@@ -8,7 +8,8 @@
             <div class="row">
                 <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                     <?php $fio = explode(' ',$profile->fio); ?>
-                    <h3>Здравствуйте, {{ isset($fio[1]) ? $fio[1] : '' }} {{ isset($fio[2]) ? $fio[2] : '' }}! Пожалуйста, подтвердите правильность данных в Вашей анкете.</h3>
+                    <h3 class="margin-top-40 margin-bottom-10">Здравствуйте, {{ isset($fio[1]) ? $fio[1] : '' }} {{ isset($fio[2]) ? $fio[2] : '' }}!</h3>
+                    <p class="margin-bottom-40">Пожалуйста, подтвердите правильность данных в Вашей анкете.</p>
                 </div>
             </div>
             <div class="row margin-bottom-10">
@@ -91,11 +92,13 @@
                     {{ $profile->educational_institution }}
                 </div>
             </div>
-            <div class="row margin-bottom-10">
-            {{ Form::open(array('url'=>URL::route('listener-profile-approve-store'), 'style'=>'display:inline-block', 'method'=>'patch')) }}
-                {{ Form::submit('Подтверждаю') }}
-            {{ Form::close() }}
-           <a href="{{ URL::route('listener-profile-edit') }}">Исправить ошибки</a>
+            <div class="row margin-bottom-10 margin-top-40">
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                    {{ Form::open(array('url'=>URL::route('listener-profile-approve-store'), 'style'=>'display:inline-block', 'class'=>'margin-right-20','method'=>'patch')) }}
+                        <input type="submit" class="btn btn--bordered btn--blue" value="Подтверждаю">
+                    {{ Form::close() }}
+                    <a class="delete-btn" href="{{ URL::route('listener-profile-edit') }}">Исправить ошибки</a>
+                </div>
             </div>
         </div>
     </div>
