@@ -16,8 +16,8 @@
             @else
             <a href="{{ URL::route('ordering-select-courses') }}" class="btn btn--bordered btn--blue">Оформить заказ</a>
             @endif
-            <div title="Удалить заказ" class="orders-delete js-delete-order">
-                <span class="icon icon-korzina"></span>
+            <div title="Удалить заказ" class="delete-btn js-delete-order">
+                удалить заказ
             </div>
         </div>
     </div>
