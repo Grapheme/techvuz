@@ -1,4 +1,10 @@
 $('.tabs').tabs();
+
+$("#tabs ul li").delegate('a', 'click', function(e){
+     e.preventDefault();
+     return false;
+});
+
 $('.select').selectmenu();
 
 $('.accordion').accordion({
