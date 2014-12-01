@@ -71,7 +71,7 @@
                 <td>
                     <a href="{{ URL::route('organization-listener-profile',$listener['id']) }}">{{ $listener['fio'] }}</a>
                 </td>
-                <td class="purchase-price">{{ $listener['price'] }}</td>
+                <td class="purchase-price">{{ number_format($listener['price'],0,'.',' ') }}.-</td>
                 <td>
                 @if($listener['over_status'] == 1)
                     <a href="{{ URL::route('organization-order-certificate-first',array('order_id'=>$order->id,'course_id'=>$course['course']['id'],'listener_id'=>$listener['id'])) }}">Просмотреть</a>
