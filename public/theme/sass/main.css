@@ -7145,6 +7145,10 @@ a[href^="tel"] {
   text-decoration: none;
 }
 
+.reset-link:hover {
+  border: none;
+}
+
 .list-unstyled, .tabs .ui-tabs-nav, .ui-menu, .orders-ul, .learning-ul, .notifications .notifications-ul, .cabinet-menu-ul, .lic-ul, .questions-ul, .answers-ul, .main-aside .nav-ul, .benefits-ul, .directions-ul, .news-ul, .reviews-ul, .htw-ul {
   margin: 0;
   padding: 0;
@@ -9279,13 +9283,13 @@ main.order-page .order-docs-ul .order-docs-head {
   border: 1px solid #dddddd;
 }
 main.order-page .order-docs-ul .order-docs-head.docs {
-  background: url(../img/document.png) no-repeat center center/cover;
+  background: url(../img/document.jpg) no-repeat center top/cover;
 }
 main.order-page .order-docs-ul .order-docs-head.bill {
-  background: url(../img/document.png) no-repeat center center/cover;
+  background: url(../img/bill.jpg) no-repeat center top/cover;
 }
 main.order-page .order-docs-ul .order-docs-head.acts {
-  background: url(../img/document.png) no-repeat center center/cover;
+  background: url(../img/act.jpg) no-repeat center top/cover;
 }
 main.order-page .order-docs-ul .order-docs-head a {
   position: absolute;

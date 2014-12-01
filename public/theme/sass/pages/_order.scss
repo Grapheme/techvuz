@@ -40,13 +40,13 @@ main.order-page {
 			border: 1px solid $clr-gray;
 
 			&.docs {
-				background: url(../img/document.png) no-repeat center center / cover;
+				background: url(../img/document.jpg) no-repeat center top / cover;
 			}
 			&.bill {
-				background: url(../img/document.png) no-repeat center center / cover;
+				background: url(../img/bill.jpg) no-repeat center top / cover;
 			}
 			&.acts {
-				background: url(../img/document.png) no-repeat center center / cover;
+				background: url(../img/act.jpg) no-repeat center top / cover;
 			}
 
 			a {

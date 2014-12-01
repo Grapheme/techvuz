@@ -31,10 +31,9 @@
                 </div>
             </div>
         </div>
-        <div>
-            Документы:
-            @include(Helper::acclayout('assets.documents'))
-        </div>
+
+        @include(Helper::acclayout('assets.documents'))
+        
         <h3>Состав заказа</h3>
         <table class="tech-table payments-table margin-bottom-30">
             <tr>
