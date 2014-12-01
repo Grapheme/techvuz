@@ -362,6 +362,7 @@ class AccountsListenerController extends BaseController {
                 'time_attempt' => Input::get('time_attempt')
             );
             $listenerTest = OrdersListenersTests::create($insert);
+            Event::fire('listener.start.course.study', array(array('listener_course_id'=>$study_course_id)));
             $course_translite_title = $listenerCourse->id.'-'.BaseController::stringTranslite($listenerCourse->course->title,100);
             if ($listenerTest->result_attempt >= $success_test_percent):
                 if ($test->chapter_id == 0):
