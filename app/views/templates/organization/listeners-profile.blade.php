@@ -78,13 +78,13 @@
             </tbody>
         </table>
         @endif
-        <div class="employer-anket margin-bottom-40">
-            <div class="row">
+        <div class="employer-anket margin-top-20 margin-bottom-40">
+            <div class="row margin-bottom-30">
                 <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9">
-                    <h3 class="margin-bottom-30">Анкета сотрудника</h3>
+                    <h3>Анкета сотрудника</h3>
                 </div>
                 <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
-                    <a class="icon--blue pull-right" href="{{ URL::route('organization-listener-profile-edit',$profile->id) }}">
+                    <a class="icon--blue pull-right margin-top-20" href="{{ URL::route('organization-listener-profile-edit',$profile->id) }}">
                         Редактировать <span class="icon icon-red"></span>
                     </a>
                 </div>
