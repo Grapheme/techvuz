@@ -12,10 +12,18 @@
 
 	.answers-li {
 		margin: 0 0 1rem;
+
+		label {
+			font-weight: 400;
+			
+			input {
+				float: left;
+			}
+		}
 		
 		p {
-			display: inline;
-			margin-left: 1rem;
+			display: block;
+			margin-left: 2rem;
 		}
 	}
 }
