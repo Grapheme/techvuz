@@ -1,8 +1,8 @@
 .auth-form {
 	p#error {
 		position: absolute;
-		top: 70px;
-		left: 50px;
+		top: 70rem / $hfs;
+		left: 51rem / $hfs;
 
 		font-size: 0.75rem;
 	    font-weight: 400;
