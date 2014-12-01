@@ -14,10 +14,6 @@
 				padding: 0 0 0 34rem / $hfs;
 				text-align: left;
 			}
-
-			&.listeners-row {
-				width: 30%;
-			}
 		}
 
 		td {
@@ -93,6 +89,10 @@
 
 		&:last-child {
 			border-right: none;
+		}
+
+		&.listeners-row {
+			width: 30%;
 		}
 	}
 
