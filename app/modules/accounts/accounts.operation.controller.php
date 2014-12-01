@@ -14,8 +14,11 @@ class AccountsOperationController extends BaseController {
         if (Auth::check()):
             Route::group(array('before' => 'auth.status', 'prefix' => Auth::user()->group()->pluck('name')), function() use ($class) {
                 Route::get('repeated-send-mail/activation', array('as'=>'activation-repeated-sending-letter', 'uses' => $class.'@ActivationRepeatedSendingLetter'));
+                Route::any('settings/update/{setting_slug}/{value}', array('as'=>'setting-update', 'uses' => $class.'@saveUserSetting'));
             });
         endif;
+
+
     }
 
     public static function returnShortCodes() {
@@ -66,6 +69,16 @@ class AccountsOperationController extends BaseController {
         return Redirect::back()->with('message.text',Lang::get('interface.REPEATED_SENDING_LETTER.success'))->with('message.status','activation');
     }
 
+    public function saveUserSetting($setting_slug,$value){
+
+        if ($setting = User_settings::where('user_id',Auth::user()->id)->where('slug',$setting_slug)->first()):
+            $setting->value = $value;
+            $setting->save();
+            $setting->touch();
+        else:
+            User_settings::create(array('user_id'=>Auth::user()->id,'slug'=>$setting_slug,'value'=>$value));
+        endif;
+    }
     /**************************************************************************/
 
 }

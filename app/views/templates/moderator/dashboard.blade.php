@@ -14,7 +14,10 @@ $messages = Dictionary::valuesBySlug('system-messages',function($query){
 ?>
 <div class="cabinet-tabs">
     @if($messages->count())
-    <div>
+    <?php
+        $dashboardNotificationBlockTargetValue = Config::get('site.user_setting.dashboard-target-notification-block') ? 0 : 1;
+    ?>
+    <div {{ $dashboardNotificationBlockTargetValue == 1 ? '' : 'class="hidden"' }}>
         <h3>Уведомления</h3>
         <div class="notifications">
             <div class="notifications-nav">
@@ -26,6 +29,9 @@ $messages = Dictionary::valuesBySlug('system-messages',function($query){
                     <a href="{{ URL::route('moderator-notifications') }}" class="btn btn--bordered btn--blue">
                         Полный список
                     </a>
+                </span>
+                <span>
+                    <a data-action="{{ URL::route('setting-update',array('setting_slug'=>'dashboard-target-notification-block','value'=>$dashboardNotificationBlockTargetValue)) }}" class="white-link pull-right js-close-notifications">закрыть</a>
                 </span>
             </div>
             <ul class="notifications-ul">

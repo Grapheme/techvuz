@@ -174,3 +174,9 @@ require app_path().'/filters.php';
 #*/
 
 #Event::listen('illuminate.query', function($query){ echo $query . "<br/>\n"; });
+
+if (Auth::check()):
+    foreach (User_settings::where('user_id',Auth::user()->id)->get() as $setting):
+        Config::set('site.user_setting.'.$setting->slug,$setting->value);
+    endforeach;
+endif;

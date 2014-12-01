@@ -82,7 +82,10 @@
             </div>
         </div>
         @if($messages->count())
-        <div>
+        <?php
+            $dashboardNotificationBlockTargetValue = Config::get('site.user_setting.dashboard-target-notification-block') ? 0 : 1;
+        ?>
+        <div {{ $dashboardNotificationBlockTargetValue == 1 ? '' : 'class="hidden"' }}>
             <h3>Уведомления</h3>
             <div class="notifications">
                 <div class="notifications-nav">
@@ -96,7 +99,7 @@
                         </a>
                     </span>
                     <span>
-                        <a data-action="#" class="white-link pull-right js-close-notifications">закрыть</a>  
+                        <a data-action="{{ URL::route('setting-update',array('setting_slug'=>'dashboard-target-notification-block','value'=>$dashboardNotificationBlockTargetValue)) }}" class="white-link pull-right js-close-notifications">закрыть</a>
                     </span>
                 </div>
                 <ul class="notifications-ul">
