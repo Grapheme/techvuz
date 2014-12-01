@@ -9,7 +9,18 @@ $('.accordion').accordion({
 });
 
 $('.js-close-notifications').click( function(){
-	$(this).parent().parent().parent().parent().hide();
+	var url = $(this).data('action');
+
+	var jqxhr = $.ajax( url )
+	.done(function() {
+		$(this).parent().parent().parent().parent().addClass('hidden');
+	})
+	.fail(function() {
+		console.log( "error" );
+	})
+	.always(function() {
+		console.log( "complete" );
+	});
 });
 
 jQuery.fn.notifications = function() {

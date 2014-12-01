@@ -96,7 +96,7 @@
                         </a>
                     </span>
                     <span>
-                        <a class="white-link pull-right js-close-notifications">закрыть</a>  
+                        <a data-action="#" class="white-link pull-right js-close-notifications">закрыть</a>  
                     </span>
                 </div>
                 <ul class="notifications-ul">
