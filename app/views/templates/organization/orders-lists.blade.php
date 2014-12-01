@@ -14,7 +14,7 @@
     <div class="cabinet-tabs">
         @include(Helper::acclayout('menu'))
         <div>
-            <a href="{{ URL::route('ordering-select-courses') }}" class="btn btn-top-margin btn--bordered btn--blue pull-right">Новый заказ</a>
+            <a href="{{ URL::route('ordering-select-courses') }}" class="btn btn-top-margin btn--bordered btn--blue pull-right">Оформить заказ</a>
             <h3>Заказы</h3>
             <div class="tabs usual-tabs">
                 <ul>

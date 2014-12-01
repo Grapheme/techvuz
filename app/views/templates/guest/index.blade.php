@@ -7,7 +7,7 @@
     {{ $page->block('top_desc') }}
     </div>
     <section class="directions">
-        <h3>Направления</h3>
+        <h3><a href="{{ URL::route('page','catalog') }}">Направления</a></h3>
         <ul class="directions-ul clearfix">
         @foreach(Directions::whereActive(TRUE)->orderBy('order')->with('photo')->with('courses')->limit(6)->get() as $direction)
             <li class="directions-li">
