@@ -9,7 +9,7 @@
                 <div class="order-docs-body">
                     <h2>Договор</h2>
                     <p>
-                        Просмотреть данный документ вы можете нажав на него.
+                        Нажмите на документ, чтобы загрузить его.
                     </p>
                 </div>
             </div>                            
@@ -22,7 +22,7 @@
                 <div class="order-docs-body">
                     <h2>Счет</h2>
                     <p>
-                        Документ доступен к просмотру после оплаты заказа.
+                        Нажмите на документ, чтобы загрузить его.
                     </p>
                 </div>
             </div>                            
@@ -36,7 +36,21 @@
                 <div class="order-docs-body">
                     <h2>Акт</h2>
                     <p>
-                        Документ доступен к просмотру после оплаты заказа.
+                        Документ будет доступен после завершения обучения.
+                    </p>
+                </div>
+            </div>                            
+        </li>
+        @else
+        <li class="col-xs-4 col-sm-4 col-md-4 col-lg-4 order-docs-li">
+            <div class="order-docs-cont">
+                <div class="order-docs-head acts">
+                    <a class="reset-link"></a>
+                </div>
+                <div class="order-docs-body">
+                    <h2>Акт</h2>
+                    <p>
+                        Документ будет доступен после завершения обучения.
                     </p>
                 </div>
             </div>                            
