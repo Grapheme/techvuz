@@ -57,13 +57,13 @@
                     @if(in_array($order->payment_status,array(2,3,4,5)) && $order->close_status == 0)
                         @foreach($order->listeners as $listener)
                             @if($listener->start_status > 0)
-                            <?php $activeCoursesIDs[] = $listener->course_id; ?>
+                            <?php $activeCoursesIDs[$listener->course_id] = 1; ?>
                             @endif
                         @endforeach
                     @endif
                     @if($order->close_status == 1)
                         @foreach($order->listeners as $listener)
-                            <?php $closedCoursesIDs[] = $listener->course_id; ?>
+                            <?php $closedCoursesIDs[$listener->course_id] = 1; ?>
                         @endforeach
                     @endif
                 @endforeach

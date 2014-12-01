@@ -68,7 +68,13 @@
                         @endif
                     @endforeach
                     <?php
-                        $lostTime = myDateTime::getDiffTimeStamp(date("Y-m-d H:i:s",strtotime($study_course->start_date)+Config::get('site.time_to_study_begin')),date("Y-m-d H:i:s",time()));
+
+                        if((int)$module->hours > 0):
+                            $studyTime = ((int)$module->hours)*3600;
+                        else:
+                            $studyTime = Config::get('site.time_to_study_begin');
+                        endif;
+                        $lostTime = myDateTime::getDiffTimeStamp(date("Y-m-d H:i:s",strtotime($study_course->start_date)+$studyTime),date("Y-m-d H:i:s",time()));
                     ?>
                     @if($study_course->start_status == 1 && $lostTime <= 0 && !empty($module->test))
                         <tr>
