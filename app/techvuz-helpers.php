@@ -45,7 +45,7 @@ function isCompanyListener(){
 }
 
 function getCourseStudyProgress($listenerCourse = NULL){
-
+    Helper::ta($listenerCourse);
     $progress = 0;
     if (!is_null($listenerCourse) && is_object($listenerCourse)):
         if($listenerCourse->start_status == 1):
