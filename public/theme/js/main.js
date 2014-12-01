@@ -13,7 +13,7 @@ $('.js-close-notifications').click( function(){
 
 	var jqxhr = $.ajax( url )
 	.done(function() {
-		$(this).parent().parent().parent().parent().addClass('hidden');
+		$(this).parents('notifications').addClass('hidden').prev().addClass('hidden');
 	})
 	.fail(function() {
 		console.log( "error" );
