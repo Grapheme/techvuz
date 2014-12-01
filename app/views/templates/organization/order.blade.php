@@ -3,17 +3,40 @@
 @stop
 @section('content')
 
-<main class="cabinet">
+<main class="cabinet order-page">
     <h2>{{ User_organization::where('id',Auth::user()->id)->pluck('title') }}</h2>
     <div class="cabinet-tabs">
         @include(Helper::acclayout('menu'))
-        <h3>Заказ №{{ getOrderNumber($order) }}</h3> {{ $order->created_at->timezone('Europe/Moscow')->format("d.m.Y в H:i") }}
-        <?php $order_price = 0;?>
-        @foreach($order->listeners as $listener)
-        <?php $order_price += $listener->price;?>
-        @endforeach
-        <div>Сумма: {{ number_format($order_price,0,'.',' ') }} руб.</div>
-        <div>Статус: {{ $order->payment->title }}</div>
+        <div>
+            <div class="orders-li-head">
+                <h1>
+                    Заказ №{{ getOrderNumber($order) }}
+                </h1>
+                
+                <?php $order_price = 0;?>
+                @foreach($order->listeners as $listener)
+                <?php $order_price += $listener->price;?>
+                @endforeach
+
+                <div class="orders-status">
+                    {{ $order->payment->title }}
+                </div>
+            </div>
+            <div class="orders-li-body">
+                <div class="orders-price">
+                    <span class="start-price">{{ number_format($order_price,0,'.',' ') }}.-</span>
+                </div>
+                <div class="orders-date">
+                    Заказ создан: {{ $order->created_at->timezone('Europe/Moscow')->format("d.m.Y в H:i") }}
+                </div>
+                <div class="orders-package">
+                    <div>
+                        В заказе <a href="#">12 курсов</a>
+                        для <a href="#">4 слушателей</a>
+                    </div>
+                </div>
+            </div>
+        </div>
         <div>
             Документы:
             @include(Helper::acclayout('assets.documents'))
