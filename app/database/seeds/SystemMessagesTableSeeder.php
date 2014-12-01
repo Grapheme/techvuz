@@ -17,7 +17,8 @@ class SystemMessagesTableSeeder extends Seeder {
 
         DicVal::create(array('dic_id'=>$dic_id,'slug'=>'organization.study.begin','name'=> '[listener] приступил к обучению по программе [course]. К итоговому тестированию по программе [course] можно будет приступить через 72 академических часа.','order'=>7));
         DicVal::create(array('dic_id'=>$dic_id,'slug'=>'organization.study.control','name'=> '[listener] успешно завершил(ла) промежуточное тестирования по программе [course] с результатом [percent]%.','order'=>8));
-        DicVal::create(array('dic_id'=>$dic_id,'slug'=>'organization.study.fail','name'=> '[listener] неудачно завершил(ла) промежуточное/итоговое тестирование по программе [course] с результатом [percent]%.','order'=>9));
+        DicVal::create(array('dic_id'=>$dic_id,'slug'=>'organization.study.fail-control','name'=> '[listener] неудачно завершил(ла) промежуточное тестирование по программе [course] с результатом [percent]%.','order'=>9));
+        DicVal::create(array('dic_id'=>$dic_id,'slug'=>'organization.study.fail-finish','name'=> '[listener] неудачно завершил(ла) итоговое тестирование по программе [course] с результатом [percent]%.','order'=>9));
         DicVal::create(array('dic_id'=>$dic_id,'slug'=>'organization.study.finish','name'=> '[listener] прошел(ла) итоговое тестирование по программе [course] с результатом [percent]%.','order'=>10));
 
         DicVal::create(array('dic_id'=>$dic_id,'slug'=>'organization.order.new','name'=> 'Новый заказ ожидает отправки','order'=>11));

@@ -68,7 +68,6 @@
                         @endif
                     @endforeach
                     <?php
-
                         if((int)$module->hours > 0):
                             $studyTime = ((int)$module->hours)*3600;
                         else:
