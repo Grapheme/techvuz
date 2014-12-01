@@ -8,7 +8,7 @@
                 </div>
                 <div class="order-docs-body">
                     <h2>Договор</h2>
-                    <p>
+                    <p class="font-sm">
                         Нажмите на документ, чтобы загрузить его.
                     </p>
                 </div>
