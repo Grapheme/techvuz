@@ -8,13 +8,8 @@
         @include(Helper::acclayout('menu'))
         <div class="container-fluid">
             <div class="row">
-                <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8">
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                     <h3 class="margin-bottom-20">{{ $profile->fio }}</h3>
-                </div>
-                <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
-                    <a class="icon--blue pull-right" href="{{ URL::route('organization-listener-profile-edit',$profile->id) }}">
-                        Редактировать профиль <span class="icon icon-red"></span>
-                    </a>
                 </div>
             </div>
         </div>
@@ -84,7 +79,16 @@
         </table>
         @endif
         <div class="employer-anket margin-bottom-40">
-            <h3 class="margin-bottom-30">Анкета сотрудника</h3>
+            <div class="row">
+                <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9">
+                    <h3 class="margin-bottom-30">Анкета сотрудника</h3>
+                </div>
+                <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+                    <a class="icon--blue pull-right" href="{{ URL::route('organization-listener-profile-edit',$profile->id) }}">
+                        Редактировать <span class="icon icon-red"></span>
+                    </a>
+                </div>
+            </div>            
             <div class="row margin-bottom-10">
                 <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
                     <span class="font-sm">Ф.И.О.</span>
