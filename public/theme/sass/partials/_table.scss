@@ -109,6 +109,10 @@
 		&:last-child {
 			border: none;
 		}
+
+		&.equal-padding {
+			padding: 14rem / $hfs 1rem 14rem / $hfs 1rem;
+		}
 	}
 
 	a {

@@ -22,7 +22,7 @@
                     <th class="sort sort--asc">Содержание <span class="sort--icon"></span> </th>
                     <th class="sort sort--asc">Дата <span class="sort--icon"></span> </th>
                     <th>
-                    @if($messages->count())
+                    @if($messages->count() && false)
                         {{ Form::open(array('url'=>URL::route('organization-notification-delete',array('notification_id'=>'all')), 'style'=>'display:inline-block', 'method'=>'delete')) }}
                             <button type="submit" title="Удалить сообщение" class="btn btn--bordered btn--danger">Удалить</button>
                         {{ Form::close() }}
@@ -33,9 +33,9 @@
                 <tr>
                     <td>{{ $message->name }}</td>
                     <td>{{ $message->updated_at->timezone('Europe/Moscow')->format('d.m.Y в H:i') }}</td>
-                    <td>
+                    <td class="equal-padding">
                     {{ Form::open(array('url'=>URL::route('organization-notification-delete',array('notification_id'=>$message->id)), 'style'=>'display:inline-block', 'method'=>'delete')) }}
-                        <button type="submit" title="Удалить сообщение" class="btn btn--bordered btn--danger">Удалить</button>
+                        <button type="submit" title="Удалить сообщение" class="delete-btn">удалить</button>
                     {{ Form::close() }}
                     </td>
                 </tr>
