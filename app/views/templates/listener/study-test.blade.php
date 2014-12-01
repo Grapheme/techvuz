@@ -28,8 +28,10 @@
                         <ul class="answers-ul" data-answers-count="{{ $question->answers->count() }}">
                         @foreach($question->answers as $answer)
                             <li class="answers-li">
-                                {{ Form::radio('questions['.$question->id.']',$answer->id,NULL,array('data-answer'=>$answer->id,'autocomplete'=>'off')) }}
-                                {{ $answer->description }}
+                                <label>
+                                    {{ Form::radio('questions['.$question->id.']',$answer->id,NULL,array('data-answer'=>$answer->id,'autocomplete'=>'off')) }}
+                                    {{ $answer->description }}
+                                </label>
                             </li>
                         @endforeach
                         </ul>
