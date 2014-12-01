@@ -84,7 +84,7 @@
                     <h3>Анкета сотрудника</h3>
                 </div>
                 <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
-                    <a class="icon--blue pull-right margin-top-20" href="{{ URL::route('organization-listener-profile-edit',$profile->id) }}">
+                    <a class="icon--blue pull-right margin-top-30" href="{{ URL::route('organization-listener-profile-edit',$profile->id) }}">
                         Редактировать <span class="icon icon-red"></span>
                     </a>
                 </div>
