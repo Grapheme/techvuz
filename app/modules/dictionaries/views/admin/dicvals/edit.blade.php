@@ -377,7 +377,7 @@
 		}        
 	</script>
 
-    {{ HTML::script('js/vendor/redactor.min.js') }}
+    {{ HTML::script('js/vendor/redactor.js') }}
     {{ HTML::script('js/system/redactor-config.js') }}
 
     {{-- HTML::script('js/modules/gallery.js') --}}

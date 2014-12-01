@@ -90,57 +90,12 @@ class DownloadsController extends BaseController {
 				File::makeDirectory($uploadPath.'/thumbnail',0777,TRUE);
 			endif;
 			ImageManipulation::make(Input::file('file')->getRealPath())->resize(100,100)->save($uploadPath.'/thumbnail/thumb_'.$fileName);
-			ImageManipulation::make(Input::file('file')->getRealPath())->resize(600,600)->save($uploadPath.'/'.$fileName);
-			#$file = array('filelink'=>url('uploads/'.$fileName));
+			ImageManipulation::make(Input::file('file')->getRealPath())->save($uploadPath.'/'.$fileName);
 			$file = array('filelink'=>'/uploads/'.$fileName);
 			echo stripslashes(json_encode($file));
 		else:
 			exit('Нет файла для загрузки!');
 		endif;
-	}
-	
-	public function postUploadCatalogProductImages($product_id = NULL){
-		
-		if(Input::hasFile('file')):
-			$this->moduleActionPermission('catalogs','download');
-			if(!is_null($product_id)):
-				$product = Product::where('user_id',Auth::user()->id)->find($product_id);
-			else:
-				$product = NULL;
-			endif;
-			if(AuthAccount::isAdminLoggined()):
-				$dirPath = 'public/uploads/catalogs';
-			elseif(AuthAccount::isUserLoggined()):
-				$dirPath = 'usersfiles/account-'.Auth::user()->id.'/catalogs';
-			else:
-				$dirPath = 'usersfiles/temporary/catalogs';
-			endif;
-			$dirFullPath = base_path($dirPath);
-			
-			if(!File::isDirectory($dirFullPath.'/thumbnail')):
-				File::makeDirectory($dirFullPath.'/thumbnail',0777,TRUE);
-			endif;
-			$fileName = str_random(24).'.'.Input::file('file')->getClientOriginalExtension();
-			ImageManipulation::make(Input::file('file')->getRealPath())->resize(100,100,TRUE)->save($dirFullPath.'/thumbnail/'.$fileName);
-			Input::file('file')->move($dirFullPath,$fileName);
-			
-			$productID = (!is_null($product)) ? $product->id : 0;
-			$productTitle = (!is_null($product)) ? $product->title : '';
-			$module = Module::where('name', 'catalogs')->first();
-			$maxSortValue = (int)Image::where('item_id',$productID)->where('module_id',$module->id)->max('sort')+1;
-			
-			$newImageData = array('module_id' => $module->id,'item_id' => $productID,'user_id'=>Auth::user()->id,'sort' => $maxSortValue,'title' => $productTitle,'description' => '','attributes' => '[]','publication' => 1,
-				'paths' => json_encode(array('image' => $dirPath.'/'.$fileName,'thumbnail'=> $dirPath.'/thumbnail/'.$fileName)));
-			$newImage = Image::create($newImageData);
-			if(is_null($product)):
-				$FreeImagesIDs = Image::where('user_id',Auth::user()->id)->where('module_id',$module->id)->where('item_id',0)->lists('id');
-				Session::put($module->url.'_product', $FreeImagesIDs);
-			endif;
-			return Response::json(array('status'=>TRUE,'responseText'=>'Файл загружен'),200);
-		else:
-			return Response::json(array('status'=>FALSE,'responseText'=>'Файл не загружен'),400);
-		endif;
-		
 	}
 	
 }
