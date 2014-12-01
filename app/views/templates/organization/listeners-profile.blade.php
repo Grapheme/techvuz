@@ -18,57 +18,53 @@
             <tbody>
                 <tr>
                     <th class="sort sort--asc">Название курса <span class="sort--icon"></span> </th>
-                    <th class="sort sort--asc">Статус <span class="sort--icon"></span> </th>
-                    <th class="sort sort--asc">Прогресс <span class="sort--icon"></span> </th>
                     <th class="sort sort--asc">№ заказа <span class="sort--icon"></span> </th>
-                    <th class="sort sort--asc">Дата <span class="sort--icon"></span> </th>
-                    <th class="sort sort--asc">Документы <span class="sort--icon"></span> </th>
+                    <th class="sort sort--asc">Статус <span class="sort--icon"></span> </th>
                 </tr>
                 @foreach($profile->study as $study)
                 <tr {{ ($study->start_status == 1 && $study->over_status == 1) ? 'class="finished-course"' : '' }}>
-                    <td>{{ $study->course->title }}</td>
-                    <td class="self-status">
-                    @if($study->start_status == 0 && $study->over_status == 0)
-                        Не начато
-                    @elseif($study->start_status == 1 && $study->over_status == 1)
-                        Завершено
-                    @else
-                        Обучается
-                    @endif
-                    </td>
-                    <td>
-                    @if($study->start_status == 0 && $study->over_status == 0)
-
-                    @else
-                        <div class="ui-progress-bar bar-1 completed-{{ getCourseStudyProgress() }} clearfix">
-                            <div class="bar-part bar-part-1"></div>
-                            <div class="bar-part bar-part-2"></div>
-                            <div class="bar-part bar-part-3"></div>
-                        </div>
-                    @endif
-                    </td>
+                    <td>{{ $study->course->title }}</td>                    
                     <td>
                         <a href="#">№ {{ $study->order->number }}</a>
                         <div class="font-sm">
                             от {{ myDateTime::SwapDotDateWithOutTime($study->order->created_at) }}
                         </div>
                     </td>
-                    <td>
-                        <div class="font-sm">
+                    <td class="self-status">
+                        <span>
+                            @if($study->start_status == 0 && $study->over_status == 0)
+                                Не обучается
+                            @elseif($study->start_status == 1 && $study->over_status == 1)
+                                Обучение завершено
+                            @else
+                                Обучается с
+                            @endif
+                        </span>
+                        
+                        <span>
+                            @if($study->start_status == 0 && $study->over_status == 0)
+
+                            @elseif($study->start_status == 1 && $study->over_status == 1)
+                                {{ myDateTime::SwapDotDateWithTime($study->over_date) }}
+                            @else
+                                {{ myDateTime::SwapDotDateWithTime($study->start_date) }}
+                            @endif
+                        </span>
+
                         @if($study->start_status == 0 && $study->over_status == 0)
 
-                        @elseif($study->start_status == 1 && $study->over_status == 1)
-                            {{ myDateTime::SwapDotDateWithTime($study->over_date) }}
                         @else
-                            {{ myDateTime::SwapDotDateWithTime($study->start_date) }}
+                            <div class="ui-progress-bar bar-1 completed-{{ getCourseStudyProgress() }} clearfix">
+                                <div class="bar-part bar-part-1"></div>
+                                <div class="bar-part bar-part-2"></div>
+                                <div class="bar-part bar-part-3"></div>
+                            </div>
                         @endif
-                        </div>
-                    </td>
-                    <td>
+
                         @if($study->start_status == 0 && $study->over_status == 0)
 
                         @elseif($study->start_status == 1 && $study->over_status == 1)
-                           <span class="icon icon--blue icon-sertifikat"></span>  <a href="#">Сертификат</a>
+                           <span class="icon icon--blue icon-sertifikat"></span>  <a href="#">Загрузить удостоверение</a>
                         @else
 
                         @endif
