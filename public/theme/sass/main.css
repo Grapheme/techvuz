@@ -9243,78 +9243,79 @@ section h3, section .h3 {
   font-weight: 400;
 }
 
-.order-page {
+main.order-page {
   font-family: 'Open Sans';
 }
-.order-page .orders-date {
+main.order-page .orders-date {
   margin-bottom: 0;
 }
-.order-page .orders-li-head {
+main.order-page .orders-li-head {
   height: 5.25rem;
   padding-left: 0;
   border: none;
 }
-.order-page .orders-li-body .orders-price {
+main.order-page .orders-li-body .orders-price {
   padding-left: 0;
 }
-.order-page .orders-li-body .orders-date {
+main.order-page .orders-li-body .orders-date {
   padding-left: 0;
 }
-.order-page .orders-li-body .orders-package {
+main.order-page .orders-li-body .orders-package {
   padding-left: 0;
 }
-.order-page .order-docs-ul {
+main.order-page .order-docs-ul {
   margin-top: 0;
   margin-bottom: 2em;
   padding: 0;
   list-style: none;
 }
-.order-page .order-docs-ul .order-docs-cont {
+main.order-page .order-docs-ul .order-docs-cont {
   border: 1px solid #a8a8a8;
 }
-.order-page .order-docs-ul .order-docs-head {
+main.order-page .order-docs-ul .order-docs-head {
   position: relative;
   height: 21rem;
   margin: 0.25rem 0.25rem 1em;
   border: 1px solid #dddddd;
 }
-.order-page .order-docs-ul .order-docs-head.docs {
+main.order-page .order-docs-ul .order-docs-head.docs {
   background: url(../img/document.png) no-repeat center center/cover;
 }
-.order-page .order-docs-ul .order-docs-head.bill {
+main.order-page .order-docs-ul .order-docs-head.bill {
   background: url(../img/document.png) no-repeat center center/cover;
 }
-.order-page .order-docs-ul .order-docs-head.acts {
+main.order-page .order-docs-ul .order-docs-head.acts {
   background: url(../img/document.png) no-repeat center center/cover;
 }
-.order-page .order-docs-ul .order-docs-head a {
+main.order-page .order-docs-ul .order-docs-head a {
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
 }
-.order-page .order-docs-ul .order-docs-body {
+main.order-page .order-docs-ul .order-docs-body {
   padding: 0 1.625rem;
 }
-.order-page .order-docs-ul h2 {
+main.order-page .order-docs-ul h2 {
   margin: 0 0 1em;
   font-size: 1em;
   font-weight: 600;
 }
-.order-page h1 {
+main.order-page h1 {
   margin: 0 0 0.875rem 0;
+  padding: 0;
   line-height: .75;
   font-size: 1.375em;
   font-family: 'Open Sans', sans-serif;
 }
-.order-page a {
+main.order-page a {
   transition: all .4s ease;
   color: #33ace4;
   text-decoration: none;
   border-bottom: 1px solid;
 }
-.order-page a:hover {
+main.order-page a:hover {
   border-color: transparent;
 }
 

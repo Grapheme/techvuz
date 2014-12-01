@@ -12,7 +12,7 @@
                 <h1>
                     Заказ №{{ getOrderNumber($order) }}
                 </h1>
-                
+
                 <?php $order_price = 0;?>
                 @foreach($order->listeners as $listener)
                 <?php $order_price += $listener->price;?>
@@ -28,12 +28,6 @@
                 </div>
                 <div class="orders-date">
                     Заказ создан: {{ $order->created_at->timezone('Europe/Moscow')->format("d.m.Y в H:i") }}
-                </div>
-                <div class="orders-package">
-                    <div>
-                        В заказе <a href="#">12 курсов</a>
-                        для <a href="#">4 слушателей</a>
-                    </div>
                 </div>
             </div>
         </div>

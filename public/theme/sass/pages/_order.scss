@@ -1,4 +1,4 @@
-.order-page {
+main.order-page {
 	font-family: 'Open Sans';
 	
 	.orders-date {
@@ -70,6 +70,7 @@
 
 	h1 {
 		margin: 0 0 14rem / $hfs 0;
+		padding: 0;
 		line-height: .75;
 		font-size: 22em / $hfs;
 		font-family: 'Open Sans', sans-serif;
