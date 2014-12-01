@@ -18,7 +18,7 @@
             <tbody>
                 <tr>
                     <th class="sort sort--asc">Название курса <span class="sort--icon"></span> </th>
-                    <th class="sort sort--asc">№ заказа <span class="sort--icon"></span> </th>
+                    <th class="sort sort--asc">Заказ <span class="sort--icon"></span> </th>
                     <th class="sort sort--asc">Статус <span class="sort--icon"></span> </th>
                 </tr>
                 @foreach($profile->study as $study)
@@ -45,9 +45,9 @@
                             @if($study->start_status == 0 && $study->over_status == 0)
 
                             @elseif($study->start_status == 1 && $study->over_status == 1)
-                                {{ myDateTime::SwapDotDateWithTime($study->over_date) }}
+                                {{ myDateTime::SwapDotDateWithOutTime($study->over_date) }}
                             @else
-                                {{ myDateTime::SwapDotDateWithTime($study->start_date) }}
+                                {{ myDateTime::SwapDotDateWithOutTime($study->start_date) }}
                             @endif
                         </span>
 
