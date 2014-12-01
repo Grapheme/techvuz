@@ -33,14 +33,14 @@
         </div>
 
         @include(Helper::acclayout('assets.documents'))
-        
+
         <h3>Состав заказа</h3>
         <table class="tech-table payments-table margin-bottom-30">
             <tr>
-                <th> Курс </th>
-                <th> Сотрудник </th>
-                <th> Стоимость </th>
-                <th> Удостоверение </th>
+                <th> Название курса </th>
+                <th> Слушатели </th>
+                <th> Сумма </th>
+                <th> Документы </th>
             </tr>
         <?php
         $courses = $courses_list = array();
