@@ -14,6 +14,8 @@ a[href^="tel"] {
 }
 
 .reset-link {
+	border: none !important;
+	
 	&:hover {
 		border: none !important;
 	}

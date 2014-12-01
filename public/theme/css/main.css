@@ -7111,6 +7111,9 @@ a[href^="tel"] {
   text-decoration: none;
 }
 
+.reset-link {
+  border: none !important;
+}
 .reset-link:hover {
   border: none !important;
 }
