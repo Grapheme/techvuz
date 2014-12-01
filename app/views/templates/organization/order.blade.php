@@ -40,7 +40,7 @@
                 <th> Название курса </th>
                 <th> Слушатели </th>
                 <th> Сумма </th>
-                <th> Документы </th>
+                <th> Удостоверение </th>
             </tr>
         <?php
         $courses = $courses_list = array();
