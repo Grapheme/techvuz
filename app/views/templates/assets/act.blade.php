@@ -55,7 +55,7 @@
             @endforeach
             </tbody>
         </table>
-        <?php $SpisokSluschateleyDlyaScheta = ob_get_clean(); ?>
+        <?php $SpisokSluschateleyDlyaAkta = ob_get_clean(); ?>
         @endif
         @if(isset($template) && File::exists($template))
             <?php require_once($template);?>

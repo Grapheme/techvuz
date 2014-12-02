@@ -379,7 +379,8 @@ class AccountsDocumentsController extends BaseController {
 
     public function moderatorOrderAct($order_id,$format){
 
-        return $this->moderatorShowDocument($order_id, $format, 'act');
+        $template = 'templates/assets/act';
+        return $this->moderatorShowDocument($order_id, $format, 'act',$template);
 
     }
 
@@ -582,7 +583,8 @@ class AccountsDocumentsController extends BaseController {
 
             'SpisokSluschateley' => $order,
             'TablicaSluschateleyDlyaDogovora' => '',
-            '$SpisokSluschateleyDlyaScheta' => '',
+            'SpisokSluschateleyDlyaScheta' => '',
+            'SpisokSluschateleyDlyaAkta' => '',
 
             'ImyaIndividualnogoZakazchika' => empty($order->individual) ? '' : $order->individual->fio,
 

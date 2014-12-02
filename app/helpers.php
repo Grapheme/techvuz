@@ -14,6 +14,9 @@ function is_image($filename){
 
 function modifyKeys($collection, $key = 'slug',$unset = false) {
     $array = array();
+    if (empty($collection)):
+        return NULL;
+    endif;
     foreach ($collection as $c => $col):
         if (isset($col->$key)):
             $array[$col->$key] = $col;

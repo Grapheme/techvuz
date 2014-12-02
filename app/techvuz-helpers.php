@@ -88,7 +88,11 @@ function calculateDiscount($discounts,$price = NULL){
                 return $price - ($price*round($discount_percent/100,2));
             endif;
         else:
-            return FALSE;
+            if (is_null($price)):
+                return FALSE;
+            else:
+                return $price;
+            endif;
         endif;
     endif;
 }
@@ -108,12 +112,11 @@ function coursesCountDiscount($courses){
 
     if (is_array($courses) || is_object($courses)):
         $countProperty = Dictionary::valueBySlugs('properties-site','count-by-course-discount',TRUE)->property;
-        if (count($courses) >= $countProperty):
+        if ($countProperty && count($courses) >= $countProperty):
             return Dictionary::valueBySlugs('properties-site','count-by-course-discount-percent',TRUE)->property;
         endif;
-    else:
-        return 0;
     endif;
+    return 0;
 }
 
 function getOrderNumber($order){
