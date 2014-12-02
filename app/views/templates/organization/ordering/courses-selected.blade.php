@@ -3,7 +3,7 @@
 @stop
 @section('content')
 <main class="catalog">
-    <h2>Оформление нового заказа. Шаг №1</h2>
+    <h1>Покупка курсов, шаг 1</h1>
     @if(Session::get('message'))
     <div>
         <p>{{ Session::get('message') }}</p>
