@@ -17,7 +17,7 @@
            <span class="icon icon-kurs_dob"></span> Добавить курс
         </a>
         <a href="{{ URL::route('signup-listener') }}" class="btn btn--bordered btn--blue margin-top-30">
-           <span class="icon icon-kurs_dob"></span> Добавить сотрудника
+           <span class="icon icon icon-slysh_dob"></span> Добавить сотрудника
         </a>
     </div>
     {{ Form::open(array('route'=>'ordering-listeners-store','class'=>'purchase-form clearfix')) }}
@@ -54,7 +54,7 @@
                 </table>
             </dt>
             <dd class="purchase-course-dd">
-                <select data-placeholder="Выберите сотрудников" name="listeners[{{ $course->id }}][]" style="width:450px" multiple="multiple" class="chosen-select">
+                <select data-placeholder=" " name="listeners[{{ $course->id }}][]" style="width:450px" multiple="multiple" class="chosen-select">
                 @foreach($listeners as $listener_id => $listener_fio)
                     <option value="{{ $listener_id }}">{{ $listener_fio }}</option>
                 @endforeach
