@@ -46,9 +46,9 @@
                         $discountPrice = calculateDiscount(array($course->direction->discount,$course->discount,$accountDiscount,$coursesCountDiscount),$course->price);
                         ?>
                         @if($discountPrice === FALSE)
-                            <td class="purchase-price" data-price="{{ number_format($course->price,0,'.',' ') }}">{{ number_format($course->price,0,'.',' ') }}.–</td>
+                            <td class="purchase-price" data-price="{{ number_format($course->price,0,'.','') }}">{{ number_format($course->price,0,'.',' ') }}.–</td>
                         @else
-                            <td class="purchase-price" data-price="{{ number_format($discountPrice,0,'.',' ') }}">{{ number_format($discountPrice,0,'.',' ') }}.–</td>
+                            <td class="purchase-price" data-price="{{ number_format($discountPrice,0,'.','') }}">{{ number_format($discountPrice,0,'.',' ') }}.–</td>
                         @endif
                     </tr>
                 </table>
