@@ -5,7 +5,7 @@
 <main class="catalog">
     {{ $page->block('top_h2') }}
     <div class="print-link">
-        <a href="#">Распечатать каталог</a> <span class="icon icon-print"></span>
+        <a href="#" onclick="window.print();return false;">Распечатать каталог</a> <span class="icon icon-print"></span>
     </div>
     <div class="desc">
     {{ $page->block('top_desc') }}
