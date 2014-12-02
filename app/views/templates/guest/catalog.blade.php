@@ -58,9 +58,7 @@
                     <td><span class="code">{{ $course->code }}</span></td>
                     <td><span class="code">{{ $course->hours }}</span></td>
                     <td>
-                    <?php
-                        $discountPrice = calculateDiscount(array($direction->discount,$course->discount,$accountDiscount),$course->price,FALSE);
-                    ?>
+                    <?php $discountPrice = calculateDiscount(array($direction->discount,$course->discount,$accountDiscount),$course->price,FALSE); ?>
                     @if($discountPrice === FALSE)
                         <span class="price">{{ number_format($course->price,0,'.',' ')  }}.–</span>
                     @else
