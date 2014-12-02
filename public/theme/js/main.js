@@ -2,7 +2,7 @@ $('.tabs').tabs();
 
 $('.select').selectmenu();
 $(function(){
-	$('table.sortable').tablesorter();
+	$('table.sortable').tablesorter(); 
 });
 
 $('.accordion').accordion({
@@ -217,7 +217,7 @@ var Popup = (function(){
         //1. Fill active listeners
         $listeners.text( $listenersLength );
         //2. Set price
-        $price.text( ($listenersLength * $priceCount) ? (($listenersLength * $priceCount) + '').replace(/(\d)(?=(\d{3})+$)/g, '$1 ') + '.-' : $priceCount + '.-' ).replace(/(\d)(?=(\d{3})+$)/g, '$1 ');
+        $price.text( ($listenersLength * $priceCount) ? ($listenersLength * $priceCount).replace(/(\d)(?=(\d{3})+$)/g, '$1 ') + '.-' : $priceCount.replace(/(\d)(?=(\d{3})+$)/g, '$1 ') + '.-' );
     }
 
     function returnError(text) {
