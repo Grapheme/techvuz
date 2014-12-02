@@ -5,13 +5,18 @@
 <main class="cabinet">
     <?php
     $orders = Orders::where('user_id',Auth::user()->id)->where('archived',FALSE)->orderBy('created_at','DESC')->with('payment','payment_numbers')->with('listeners')->get();
-    $messages = Dictionary::valuesBySlug('system-messages',function($query){
-        $lastMonth = \Carbon\Carbon::now()->subMonth();
+    $dashboardNotificationBlockTargetValue = Config::get('site.user_setting.dashboard-target-notification-block') ? Config::get('site.user_setting.dashboard-target-notification-block') : 0;
+    $messages = Dictionary::valuesBySlug('system-messages',function($query) use ($dashboardNotificationBlockTargetValue){
+        $setDate = Config::get('site.user_setting.dashboard-target-notification-block-date') ? Config::get('site.user_setting.dashboard-target-notification-block-date') : \Carbon\Carbon::now()->subMonth() ;
         $query->orderBy('dictionary_values.updated_at','DESC');
         $query->orderBy('dictionary_values.id','DESC');
-        $query->where('dictionary_values.updated_at','>=',$lastMonth);
+        $query->where('dictionary_values.updated_at','>=',$setDate);
         $query->filter_by_field('user_id',Auth::user()->id);
     });
+    if($messages->count()):
+        (new AccountsOperationController())->saveUserSetting('dashboard-target-notification-block',0,FALSE);
+        $dashboardNotificationBlockTargetValue = 1;
+    endif;
     ?>
     <h2>{{ User_organization::where('id',Auth::user()->id)->pluck('title') }}</h2>
     <div class="cabinet-tabs">
@@ -85,10 +90,7 @@
             </div>
         </div>
         @if($messages->count())
-        <?php
-            $dashboardNotificationBlockTargetValue = Config::get('site.user_setting.dashboard-target-notification-block') ? 0 : 1;
-        ?>
-        <div {{ $dashboardNotificationBlockTargetValue == 1 ? '' : 'class="hidden"' }}>
+        <div {{ $dashboardNotificationBlockTargetValue ? '' : 'class="hidden"' }}>
             <h3>Уведомления</h3>
             <div class="notifications">
                 <div class="notifications-nav">

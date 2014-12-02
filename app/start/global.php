@@ -178,5 +178,6 @@ require app_path().'/filters.php';
 if (Auth::check()):
     foreach (User_settings::where('user_id',Auth::user()->id)->get() as $setting):
         Config::set('site.user_setting.'.$setting->slug,$setting->value);
+        Config::set('site.user_setting.'.$setting->slug.'-date',@$setting->updated_at->format('Y-m-d H:i:s'));
     endforeach;
 endif;

@@ -17,8 +17,6 @@ class AccountsOperationController extends BaseController {
                 Route::any('settings/update/{setting_slug}/{value}', array('as'=>'setting-update', 'uses' => $class.'@saveUserSetting'));
             });
         endif;
-
-
     }
 
     public static function returnShortCodes() {
@@ -69,12 +67,14 @@ class AccountsOperationController extends BaseController {
         return Redirect::back()->with('message.text',Lang::get('interface.REPEATED_SENDING_LETTER.success'))->with('message.status','activation');
     }
 
-    public function saveUserSetting($setting_slug,$value){
+    public function saveUserSetting($setting_slug,$value,$changeDate = TRUE){
 
         if ($setting = User_settings::where('user_id',Auth::user()->id)->where('slug',$setting_slug)->first()):
             $setting->value = $value;
             $setting->save();
-            $setting->touch();
+            if ($changeDate):
+                $setting->touch();
+            endif;
         else:
             User_settings::create(array('user_id'=>Auth::user()->id,'slug'=>$setting_slug,'value'=>$value));
         endif;

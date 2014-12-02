@@ -4,20 +4,22 @@
 @section('content')
 <?php
 $orders = Orders::where('payment_status',1)->orderBy('created_at','DESC')->limit(3)->with('payment','listeners','payment_numbers')->get();
+$dashboardNotificationBlockTargetValue = Config::get('site.user_setting.dashboard-target-notification-block') ? Config::get('site.user_setting.dashboard-target-notification-block') : 0;
 $messages = Dictionary::valuesBySlug('system-messages',function($query){
-    $last14Days = \Carbon\Carbon::now()->subDays(14);
+    $setDate = Config::get('site.user_setting.dashboard-target-notification-block-date') ? Config::get('site.user_setting.dashboard-target-notification-block-date') : \Carbon\Carbon::now()->subDays(14);
     $query->orderBy('dictionary_values.updated_at','DESC');
     $query->orderBy('dictionary_values.id','DESC');
-    $query->where('dictionary_values.updated_at','>=',$last14Days);
+    $query->where('dictionary_values.updated_at','>=',$setDate);
     $query->filter_by_field('user_id',0);
 });
+if($messages->count()):
+    (new AccountsOperationController())->saveUserSetting('dashboard-target-notification-block',0,FALSE);
+    $dashboardNotificationBlockTargetValue = 1;
+endif;
 ?>
 <div class="cabinet-tabs">
     @if($messages->count())
-    <?php
-        $dashboardNotificationBlockTargetValue = Config::get('site.user_setting.dashboard-target-notification-block') ? 0 : 1;
-    ?>
-    <div {{ $dashboardNotificationBlockTargetValue == 1 ? '' : 'class="hidden"' }}>
+    <div {{ $dashboardNotificationBlockTargetValue ? '' : 'class="hidden"' }}>
         <h3>Уведомления</h3>
         <div class="notifications">
             <div class="notifications-nav">
