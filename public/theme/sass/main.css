@@ -7609,6 +7609,9 @@ a[href^="tel"] {
   background: #33ace4;
   color: white;
 }
+.tabs .ui-tabs-panel .orders-ul {
+  min-height: 20.9375rem;
+}
 .tabs.usual-tabs {
   position: relative;
 }
