@@ -27,7 +27,7 @@
                 <tr {{ ($study->start_status == 1 && $study->over_status == 1) ? 'class="finished-course"' : '' }}>
                     <td>{{ $study->course->title }}</td>                    
                     <td>
-                        <a href="#">№ {{ $study->order->number }}</a>
+                        <a href="{{ URL::route('organization-order',$study->order->id) }}"> №{{ getOrderNumber($study->order) }}</a>
                         <div class="font-sm">
                             от {{ myDateTime::SwapDotDateWithOutTime($study->order->created_at) }}
                         </div>

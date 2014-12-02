@@ -16,8 +16,6 @@
                     <a class="icon--blue pull-right margin-top-30" href="{{ URL::route('listener-profile-edit') }}">
                         Изменить данные <span class="icon icon-red"></span>
                     </a>
-                @else
-                    <p>{{ Lang::get('interface.ACCOUNT_STATUS.blocked_edit_listener_profile') }}</p>
                 @endif
                 </div>
             </div>
