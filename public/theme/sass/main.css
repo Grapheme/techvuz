@@ -7246,11 +7246,12 @@ a[href^="tel"] {
 }
 
 .icon-bag-btn {
-  display: inline-block;
+  display: block;
   width: 2.125rem;
   height: 2.125rem;
   margin: 0 auto;
   background: url(../img/delete.png) no-repeat center center;
+  cursor: pointer;
 }
 
 .delete-btn {
