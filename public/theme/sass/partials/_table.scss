@@ -3,6 +3,21 @@
 	outline: 1px solid #cbcbcb;
 	font-family: 'Open Sans', sans-serif;
 
+	&.notif {
+		
+		tr {
+			border-bottom: 1px solid #cbcbcb;
+
+			&:nth-child(2n+1) {
+				background: #fff;
+			}
+		}
+
+		td {
+			border-right: none;
+		}
+	}
+
 	&.purchase-table {
 
 		th {

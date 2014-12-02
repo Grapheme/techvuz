@@ -16,19 +16,8 @@
         <div class="employees margin-bottom-40">
             <h3 class="margin-bottom-20">Уведомления</h3>
         </div>
-        <table class="tech-table sortable">
+        <table class="tech-table sortable notif-table">
             <tbody>
-                <tr>
-                    <th class="sort sort--asc">Содержание <span class="sort--icon"></span> </th>
-                    <th class="sort sort--asc">Дата <span class="sort--icon"></span> </th>
-                    <th>
-                    @if($messages->count() && false)
-                        {{ Form::open(array('url'=>URL::route('organization-notification-delete',array('notification_id'=>'all')), 'style'=>'display:inline-block', 'method'=>'delete')) }}
-                            <button type="submit" title="Удалить сообщение" class="btn btn--bordered btn--danger">Удалить</button>
-                        {{ Form::close() }}
-                    @endif
-                    </th>
-                </tr>
             @foreach($messages as $message)
                 <tr>
                     <td>{{ $message->name }}</td>
