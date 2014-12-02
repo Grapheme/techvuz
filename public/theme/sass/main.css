@@ -7250,6 +7250,7 @@ a[href^="tel"] {
   width: 2.125rem;
   height: 2.125rem;
   margin: 0 auto;
+  border: none;
   background: url(../img/delete.png) no-repeat center center;
   cursor: pointer;
 }
