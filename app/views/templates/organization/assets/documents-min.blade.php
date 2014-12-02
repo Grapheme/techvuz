@@ -1,5 +1,5 @@
 @if(User_organization::where('id',Auth::user()->id)->pluck('moderator_approve') == 1)
-Посмотреть <a href="#">документы</a>
+Документы:
 <ul>
     <li><a href="{{ URL::route('organization-order-contract',array('order_id'=>$order->id,'format'=>'pdf')) }}">Договор</a></li>
     <li><a href="{{ URL::route('organization-order-invoice',array('order_id'=>$order->id,'format'=>'pdf')) }}">Счет</a></li>
