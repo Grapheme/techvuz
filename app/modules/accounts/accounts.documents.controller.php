@@ -145,7 +145,8 @@ class AccountsDocumentsController extends BaseController {
 
     public function organizationOrderAct($order_id,$format){
 
-        return $this->organizationShowDocument($order_id,$format,'act',NULL);
+        $template = 'templates/assets/act';
+        return $this->moderatorShowDocument($order_id, $format, 'act',$template);
     }
 
     public function organizationOrderCertificateFirst($order_id,$course_id,$listener_id){

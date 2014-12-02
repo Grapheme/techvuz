@@ -59,7 +59,7 @@
                     <td><span class="code">{{ $course->hours }}</span></td>
                     <td>
                     <?php
-                        $discountPrice = calculateDiscount(array($direction->discount,$course->discount,$accountDiscount),$course->price);
+                        $discountPrice = calculateDiscount(array($direction->discount,$course->discount,$accountDiscount),$course->price,FALSE);
                     ?>
                     @if($discountPrice === FALSE)
                         <span class="price">{{ number_format($course->price,0,'.',' ')  }}.–</span>

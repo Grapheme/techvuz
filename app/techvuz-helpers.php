@@ -77,7 +77,7 @@ function returnZipDownloadHeaders($FilePath){
     );
 }
 
-function calculateDiscount($discounts,$price = NULL){
+function calculateDiscount($discounts,$price = NULL,$showResult = TRUE){
 
     if (is_array($discounts) && !empty($discounts)):
         $discount_percent = max($discounts);
@@ -87,7 +87,7 @@ function calculateDiscount($discounts,$price = NULL){
             else:
                 return $price - ($price*round($discount_percent/100,2));
             endif;
-        else:
+        elseif($showResult):
             if (is_null($price)):
                 return FALSE;
             else:
@@ -95,6 +95,7 @@ function calculateDiscount($discounts,$price = NULL){
             endif;
         endif;
     endif;
+    return FALSE;
 }
 
 function getAccountDiscount(){
