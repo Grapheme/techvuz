@@ -410,7 +410,7 @@ var Popup = (function(){
     }
 
     function returnError(text) {
-		$('.purchase-form').before('<p class="error" style="font-size: 14px; color: #bb252d; font-weight: 400;">' + text + '</p>');
+		$('.purchase-course-dl').after('<p class="error" style="font-size: 14px; color: #bb252d; font-weight: 400;">' + text + '</p>');
 
 		setTimeout( function(){ $('p.error').remove(); }, 3000 );
 	}
