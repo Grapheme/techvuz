@@ -45,7 +45,7 @@
                         <td><a href="{{ URL::route('organization-listener-profile',$listener->id) }}">{{ $listener->fio }}</a></td>
                         <td><span class="no-courses">Для этого сотрудника курсы не покупались</span></td>
                         <td class="td-status-bar">
-                            <div class="ui-progress-bar bar-1 clearfix">
+                            <div title="{{ getCourseStudyProgress($listener_course) == 1 ? 'Сотрудник изучает лекции' : getCourseStudyProgress($listener_course) == 2 ? 'Сотрудник пока не сдал итоговое тестирование' : getCourseStudyProgress($listener_course) == 3 ? 'Сотрудник сдал итоговое тестирование' : 'Сотрудник не приступил к обучению' }}" class="ui-progress-bar bar-1 clearfix">
                                 <div class="bar-part bar-part-1"></div>
                                 <div class="bar-part bar-part-2"></div>
                                 <div class="bar-part bar-part-3"></div>
