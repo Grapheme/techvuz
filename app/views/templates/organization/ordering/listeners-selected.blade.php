@@ -4,7 +4,7 @@
 @section('content')
 
 <main class="catalog">
-    <h2>Оформление нового заказа. Шаг №2</h2>
+    <h1>Покупка курсов, шаг 2</h1>
     @if(Session::get('message'))
     <div class="banner banner--red">
         <span>{{ Session::get('message') }}</span>
@@ -12,7 +12,6 @@
     @endif
 @if(isOrganization() && hasCookieData('ordering'))
     <?php $listeners = User_listener::where('organization_id',Auth::user()->id)->where('active','>=',1)->lists('fio','id'); ?>
-    <h2>Покупка курсов</h2>
     <div class="margin-bottom-20">
         <a href="{{ URL::route('ordering-select-courses') }}" class="btn btn--bordered btn--blue margin-top-30">
            <span class="icon icon-kurs_dob"></span> Добавить курс

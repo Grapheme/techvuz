@@ -15,12 +15,14 @@
         </div>
         @if($profile->study->count())
         <table class="tech-table sortable purchase-table">
-            <tbody>
+            <thead>
                 <tr>
                     <th class="sort sort--asc">Название курса <span class="sort--icon"></span> </th>
                     <th class="sort sort--asc">Заказ <span class="sort--icon"></span> </th>
                     <th class="sort sort--asc">Статус <span class="sort--icon"></span> </th>
                 </tr>
+            </thead>
+            <tbody>                
                 @foreach($profile->study as $study)
                 <tr {{ ($study->start_status == 1 && $study->over_status == 1) ? 'class="finished-course"' : '' }}>
                     <td>{{ $study->course->title }}</td>                    
