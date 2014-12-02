@@ -1,6 +1,9 @@
 $('.tabs').tabs();
 
 $('.select').selectmenu();
+$(function(){
+	$('table.sortable').tablesorter(); 
+});
 
 $('.accordion').accordion({
     header: '.accordion-header',
