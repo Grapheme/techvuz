@@ -17,7 +17,7 @@
            <span class="icon icon-kurs_dob"></span> Добавить курс
         </a>
         <a href="{{ URL::route('signup-listener') }}" class="btn btn--bordered btn--blue margin-top-30">
-           <span class="icon icon-kurs_dob"></span> Добавить сотрудника
+           <span class="icon icon icon-slysh_dob"></span> Добавить сотрудника
         </a>
     </div>
     {{ Form::open(array('route'=>'ordering-listeners-store','class'=>'purchase-form clearfix')) }}
