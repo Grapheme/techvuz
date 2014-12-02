@@ -17,6 +17,9 @@
     <div class="cabinet-tabs">
         @include(Helper::acclayout('menu'))
         <div class="employees">
+            <a href="{{ URL::route('signup-listener') }}" class="btn btn-top-margin btn--bordered btn--blue pull-right js-btn-add-emp">
+                <span class="icon icon-slysh_dob"></span> Добавить
+            </a>
             <h3>Сотрудники</h3>
             <div class="count-add">
                 <?php $activeListenersIDs = array(); ?>
@@ -42,9 +45,7 @@
                             <div class="count-add-dots"></div>
                         </div>
                         <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 no-gutter no-padding">
-                            <a href="{{ URL::route('signup-listener') }}" class="btn btn--bordered btn--blue pull-right js-btn-add-emp">
-                                <span class="icon icon-slysh_dob"></span> Добавить
-                            </a>
+                            
                         </div>
                     </div>
                 </div>
