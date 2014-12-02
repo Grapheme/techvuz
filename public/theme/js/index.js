@@ -411,7 +411,7 @@ var Popup = (function(){
 
     function returnError(text) {
     	$('p.error').remove();
-		$('.purchase-course-dl').append('<p class="error" style="position: relative; top: -2rem; height: 0; font-size: 14px; color: #bb252d; font-weight: 400;">' + text + '</p>');
+		$('.purchase-course-dl').append('<p class="error" style="position: relative; top: -1rem; height: 0; font-size: 14px; color: #bb252d; font-weight: 400;">' + text + '</p>');
 
 		setTimeout( function(){ $('p.error').remove(); }, 3000 );
 	}
