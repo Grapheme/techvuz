@@ -55,7 +55,8 @@ class AccountsMessagesController extends BaseController {
 
     private static function messages($slug){
 
-        if($routeActions = Dictionary::where('slug',$slug)->first()->values()->get()):
+        if($routeActions = Dictionary::where('slug',$slug)->first()->values()->where('version_of',NULL)->groupBy('slug')->get()):
+            Helper::tad($routeActions);
             foreach ($routeActions as $action):
                 $action_id = $action->id;
                 $action_slug = $action->slug;
