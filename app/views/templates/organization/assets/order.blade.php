@@ -42,7 +42,7 @@
             <div>для {{ count($listenersCount) }} {{ Lang::choice('слушателя|слушателей|слушателей',count($listenersCount)); }}</div>
         </div>
         <div class="orders-docs">
-            @include(Helper::acclayout('assets.documents'),array('order'=>$order))
+            @include(Helper::acclayout('assets.documents-min'),array('order'=>$order))
         </div>
         @if($order->payment_status == 1)
         <div class="orders-actions">

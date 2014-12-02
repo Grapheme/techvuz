@@ -28,8 +28,10 @@
                         <ul class="answers-ul" data-answers-count="{{ $question->answers->count() }}">
                         @foreach($question->answers as $answer)
                             <li class="answers-li">
-                                {{ Form::radio('questions['.$question->id.']',$answer->id,NULL,array('data-answer'=>$answer->id,'autocomplete'=>'off')) }}
-                                {{ $answer->description }}
+                                <label>
+                                    {{ Form::radio('questions['.$question->id.']',$answer->id,NULL,array('data-answer'=>$answer->id,'autocomplete'=>'off')) }}
+                                    {{ $answer->description }}
+                                </label>
                             </li>
                         @endforeach
                         </ul>
@@ -38,12 +40,12 @@
             @endforeach
                     <li data-question="finish">
                         <h4>Результаты тестирования</h4>
-                        <div>
+                        <div class="margin-top-20 margin-bottom-20">
                             Вы прошли тестирование, ваш результат:
                             <br> {{ $test->questions->count() }} из {{ $test->questions->count() }}
                         </div>
                         <div>
-                            {{ Form::submit('Просмотреть результат') }}
+                            <button type="submit" class="btn btn--bordered btn--blue">Просмотреть результат</button>
                         </div>
                     </li>
                 </ul>
