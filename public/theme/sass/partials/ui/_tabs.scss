@@ -60,6 +60,12 @@
 		}
 	}
 
+	.ui-tabs-panel {
+		.orders-ul {
+			min-height: 335rem / $hfs;
+		}
+	}
+
 	&.usual-tabs {
 		position: relative;
 

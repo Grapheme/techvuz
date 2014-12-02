@@ -41,7 +41,7 @@
             <div>для {{ count($listenersCount) }} {{ Lang::choice('слушателя|слушателей|слушателей',count($listenersCount)); }}</div>
         </div>
         <div class="orders-docs">
-            Посмотреть <a href="#">документы</a>
+            Документы:
             @include(Helper::acclayout('assets.documents'),array('order'=>$order))
         </div>
         <div class="orders-actions">
