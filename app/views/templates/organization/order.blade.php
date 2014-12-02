@@ -13,10 +13,17 @@
                     Заказ №{{ getOrderNumber($order) }}
                 </h1>
 
-                <?php $order_price = 0;?>
+                <?php
+                    $order_price = $paymentNumbersPrice = 0;
+                ?>
                 @foreach($order->listeners as $listener)
                 <?php $order_price += $listener->price;?>
                 @endforeach
+                @if($order->payment_numbers->count())
+                    @foreach($order->payment_numbers as $payment_number)
+                    <?php $paymentNumbersPrice+=$payment_number->price;?>
+                    @endforeach
+                @endif
 
                 <div class="orders-status">
                     {{ $order->payment->title }}
@@ -24,7 +31,7 @@
             </div>
             <div class="orders-li-body">
                 <div class="orders-price">
-                    <span class="start-price">{{ number_format($order_price,0,'.',' ') }}.-</span>
+                    <span class="start-price">{{ number_format($order_price,0,'.',' ')  }}.-</span> | <span class="end-price">{{ number_format($paymentNumbersPrice,0,'.',' ')  }}.–</span>
                 </div>
                 <div class="orders-date">
                     Заказ создан: {{ $order->created_at->timezone('Europe/Moscow')->format("d.m.Y в H:i") }}
