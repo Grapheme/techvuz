@@ -406,7 +406,7 @@ var Popup = (function(){
         //1. Fill active listeners
         $listeners.text( $listenersLength );
         //2. Set price
-        $price.text( ($listenersLength * $priceCount) ? ($listenersLength * $priceCount) + '.-' : $priceCount + '.-' );
+        $price.text( ($listenersLength * $priceCount) ? ($listenersLength * $priceCount).replace(/\B(?=(\d{3})+(?!\d))/g, " ") ) + '.-' : $priceCount.replace(/\B(?=(\d{3})+(?!\d))/g, " ") ); + '.-' );
     }
 
     function returnError(text) {
