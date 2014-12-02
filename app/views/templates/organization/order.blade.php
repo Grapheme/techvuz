@@ -13,9 +13,7 @@
                     Заказ №{{ getOrderNumber($order) }}
                 </h1>
 
-                <?php
-                    $order_price = $paymentNumbersPrice = 0;
-                ?>
+                <?php $order_price = $paymentNumbersPrice = 0; ?>
                 @foreach($order->listeners as $listener)
                 <?php $order_price += $listener->price;?>
                 @endforeach
