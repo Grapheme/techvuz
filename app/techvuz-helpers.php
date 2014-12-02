@@ -45,6 +45,7 @@ function isCompanyListener(){
 }
 
 function getCourseStudyProgress($listenerCourse = NULL){
+
     $progress = 0;
     if (!is_null($listenerCourse) && is_object($listenerCourse)):
         if($listenerCourse->start_status == 1):
@@ -123,6 +124,7 @@ function getOrderNumber($order){
         return str_pad($order['number'],3,'0',STR_PAD_LEFT).'-'.date('y',strtotime($order['created_at']));
     endif;
 }
+
 /****************************************************************************/
 /*********************** ДЛЯ ДОКУМЕНТОВ *************************************/
 /****************************************************************************/

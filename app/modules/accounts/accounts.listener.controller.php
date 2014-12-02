@@ -132,6 +132,9 @@ class AccountsListenerController extends BaseController {
     public function ListenerProfileUpdate(){
 
         $json_request = array('status'=>FALSE,'responseText'=>'','responseErrorText'=>'','redirect'=>FALSE);
+        if(self::activism()):
+            return App::abort(404);
+        endif;
         if(Request::ajax() && isCompanyListener()):
             $validator = Validator::make(Input::all(),Listener::$update_rules);
             if($validator->passes()):
@@ -294,6 +297,20 @@ class AccountsListenerController extends BaseController {
             'page_keywords'=> Lang::get('seo.COMPANY_NOTIFICATION_LIST.keywords'),
         );
         return View::make(Helper::acclayout('notifications'),$page_data);
+    }
+
+    /**************************************************************************/
+
+    public static function activism(){
+
+        $result = FALSE;
+        foreach(OrderListeners::where('user_id',Auth::user()->id)->with('order')->get() as $order):
+            if ($order->order->close_status == 0):
+                $result = TRUE;
+                break;
+            endif;
+        endforeach;
+        return $result;
     }
 
     /**************************************************************************/

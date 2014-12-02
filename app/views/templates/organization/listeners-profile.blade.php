@@ -80,9 +80,13 @@
                     <h3>Анкета сотрудника</h3>
                 </div>
                 <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+                @if(AccountsOrganizationController::activism($profile->id) === FALSE)
                     <a class="icon--blue pull-right margin-top-30" href="{{ URL::route('organization-listener-profile-edit',$profile->id) }}">
                         Редактировать <span class="icon icon-red"></span>
                     </a>
+                @else
+                    <p>{{ Lang::get('interface.ACCOUNT_STATUS.blocked_edit_listener_profile') }}</p>
+                @endif
                 </div>
             </div>            
             <div class="row margin-bottom-10">

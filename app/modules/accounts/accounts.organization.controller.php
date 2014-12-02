@@ -93,6 +93,9 @@ class AccountsOrganizationController extends BaseController {
     public function CompanyProfileUpdate(){
 
         $json_request = array('status'=>FALSE,'responseText'=>'','responseErrorText'=>'','redirect'=>FALSE);
+        if(AccountsOrganizationController::activism()):
+            return App::abort(404);
+        endif;
         if(Request::ajax() && isOrganization()):
             $validator = Validator::make(Input::all(),Organization::$update_rules);
             if($validator->passes()):
@@ -179,6 +182,9 @@ class AccountsOrganizationController extends BaseController {
     public function CompanyListenerProfileUpdate($listener_id){
 
         $json_request = array('status'=>FALSE,'responseText'=>'','responseErrorText'=>'','redirect'=>FALSE);
+        if(self::activism($listener_id)):
+            return App::abort(404);
+        endif;
         if(Request::ajax() && isOrganization()):
             $validator = Validator::make(Input::all(),Listener::$update_rules);
             if($validator->passes()):
@@ -340,4 +346,20 @@ class AccountsOrganizationController extends BaseController {
 
     /**************************************************************************/
 
+    public static function activism($listenerIDs = NULL){
+
+        $result = FALSE;
+        if (is_null($listenerIDs)):
+            $listenerIDs = User_listener::where('organization_id',Auth::user()->id)->lists('id');
+        elseif(is_array($listenerIDs) == FALSE):
+            $listenerIDs = array($listenerIDs);
+        endif;
+        foreach(OrderListeners::whereIn('user_id',$listenerIDs)->with('order')->get() as $order):
+            if ($order->order->close_status == 0):
+                $result = TRUE;
+                break;
+            endif;
+        endforeach;
+        return $result;
+    }
 }
