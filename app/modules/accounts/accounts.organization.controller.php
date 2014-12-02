@@ -160,6 +160,7 @@ class AccountsOrganizationController extends BaseController {
                 ->with(array('study'=>function($query){
                     $query->with('order');
                     $query->with('course');
+                    $query->with('final_test');
                 }))
                 ->firstOrFail();
         return View::make(Helper::acclayout('listeners-profile'),$page_data);
