@@ -125,13 +125,47 @@ $(function(){
                             $(".js-delete-order[data-order-number='"+$order+"']").parents('.js-orders-line').fadeOut(500,function(){$(this).remove();});
                         } else {
                             $($this).elementDisabled(false);
-                            showMessage.constructor('Удалить ' + essence_name, 'Возникла ошибка. Обновите страницу и повторите снова.');
+                            showMessage.constructor('Удаление закза', 'Возникла ошибка. Обновите страницу и повторите снова.');
                             showMessage.smallError();
                         }
                     },
                     error: function(xhr, textStatus, errorThrown){
                         $($this).elementDisabled(false);
-                        showMessage.constructor('Удалить ' + essence_name, 'Возникла ошибка. Повторите снова.');
+                        showMessage.constructor('Удаление закза', 'Возникла ошибка. Повторите снова.');
+                        showMessage.smallError();
+                    }
+                });
+            }
+        });
+        return false;
+    });
+    $(".js-delete-listener").click(function() {
+        var $this = this;
+        $.SmartMessageBox({
+            title : "Удалить сотрудника?",
+            content : "",
+            buttons : '[Нет][Да]'
+        },function(ButtonPressed) {
+            if(ButtonPressed == "Да") {
+                $.ajax({
+                    url: $($this).parent('form').attr('action'),
+                    type: 'DELETE',
+                    dataType: 'json',
+                    beforeSend: function(){$($this).elementDisabled(true);},
+                    success: function(response, textStatus, xhr){
+                        if(response.status == true){
+                            showMessage.constructor('Удаление сотрудника', response.responseText);
+                            showMessage.smallSuccess();
+                           $($this).parents('tr').remove();
+                        } else {
+                            $($this).elementDisabled(false);
+                            showMessage.constructor('Удаление сотрудника', 'Возникла ошибка. Обновите страницу и повторите снова.');
+                            showMessage.smallError();
+                        }
+                    },
+                    error: function(xhr, textStatus, errorThrown){
+                        $($this).elementDisabled(false);
+                        showMessage.constructor('Удаление сотрудника', 'Возникла ошибка. Повторите снова.');
                         showMessage.smallError();
                     }
                 });

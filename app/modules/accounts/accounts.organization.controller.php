@@ -22,6 +22,7 @@ class AccountsOrganizationController extends BaseController {
                 Route::get('listeners/profile/{listener_id}', array('as' => 'organization-listener-profile', 'uses' => $class . '@CompanyListenerProfile'));
                 Route::get('listeners/profile/{listener_id}/edit', array('as' => 'organization-listener-profile-edit', 'uses' => $class . '@CompanyListenerProfileEdit'));
                 Route::patch('listeners/profile/{listener_id}/update', array('before' => 'csrf', 'as' => 'organization-listener-profile-update', 'uses' => $class . '@CompanyListenerProfileUpdate'));
+                Route::delete('listeners/profile/{listener_id}/delete', array('as' => 'organization-listener-profile-delete', 'uses' => $class . '@CompanyListenerProfileDelete'));
 
                 Route::get('orders', array('as' => 'organization-orders', 'uses' => $class . '@CompanyOrdersList'));
                 Route::get('order/{order_id}', array('as' => 'organization-order', 'uses' => $class . '@CompanyOrderShow'));
@@ -201,6 +202,24 @@ class AccountsOrganizationController extends BaseController {
             else:
                 $json_request['responseText'] = Lang::get('interface.UPDATE_PROFILE_LISTENER.fail');
                 $json_request['responseErrorText'] = $validator->messages()->all();
+            endif;
+        else:
+            return App::abort(404);
+        endif;
+        return Response::json($json_request,200);
+    }
+
+    public function CompanyListenerProfileDelete($listener_id){
+
+        $json_request = array('status'=>FALSE,'responseText'=>'','responseErrorText'=>'','redirect'=>FALSE);
+        if(self::activism($listener_id)):
+            return App::abort(404);
+        endif;
+        if(Request::ajax() && isOrganization()):
+            if(Listener::where('organization_id',Auth::user()->id)->where('user_id',$listener_id)->exists()):
+                Listener::where('user_id',$listener_id)->delete();
+                User::where('id',$listener_id)->delete();
+                $json_request['status'] = TRUE;
             endif;
         else:
             return App::abort(404);
