@@ -213,7 +213,7 @@
                         <td>
                             <a href="{{ URL::route('moderator-listener-profile',$listener->id) }}">{{ $listener->fio }}</a><br>
                             {{ $listener->position }}<br>
-                            рег.от: {{ $listener->created_at->timezone('Europe/Moscow')->format("d.m.Y") }}
+                            рег.от: {{ $listener->created_at->timezone(Config::get('site.time_zone'))->format("d.m.Y") }}
                         </td>
                         <td>
                             {{ $listener->email }}<br>

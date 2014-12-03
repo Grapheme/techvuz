@@ -7,8 +7,12 @@
     </div>
     <div class="orders-li-body">
         <div class="orders-package">
+         @if(count(getJsonCookieData('ordering')) > 0)
             <div>В заказе {{ count(getJsonCookieData('ordering')) }} {{ Lang::choice('курс|курса|курсов',count(getJsonCookieData('ordering'))); }}</div>
             <div>для {{ count(getJsonCookieData('ordering','values_unique')) }} {{ Lang::choice('слушателя|слушателей|слушателей',count(getJsonCookieData('ordering','values_unique'))); }}</div>
+        @else
+            <div>В заказе нет курсов</div>
+        @endif
         </div>
         <div class="orders-actions">
             @if(count(getJsonCookieData('ordering','values_unique')) > 0)

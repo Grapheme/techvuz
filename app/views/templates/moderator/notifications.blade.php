@@ -28,7 +28,7 @@ $messages = Dictionary::valuesBySlug('system-messages',function($query){
             @foreach($messages as $message)
                 <tr>
                     <td>{{ $message->name }}</td>
-                    <td>{{ $message->updated_at->timezone('Europe/Moscow')->format('d.m.Y в H:i') }}</td>
+                    <td>{{ $message->updated_at->timezone(Config::get('site.time_zone'))->format('d.m.Y в H:i') }}</td>
                     <td>
                     {{ Form::open(array('url'=>URL::route('moderator-notification-delete',array('notification_id'=>$message->id)), 'style'=>'display:inline-block', 'method'=>'delete')) }}
                         {{ Form::submit('удалить',array('title'=>'Удалить сообщение')) }}

@@ -21,7 +21,7 @@
             @foreach($messages as $message)
                 <tr>
                     <td>{{ $message->name }}</td>
-                    <td class="vertical-top">{{ $message->updated_at->timezone('Europe/Moscow')->format('d.m.Y в H:i') }}</td>
+                    <td class="vertical-top">{{ $message->updated_at->timezone(Config::get('site.time_zone'))->format('d.m.Y в H:i') }}</td>
                     <td class="equal-padding vertical-top">
                     {{ Form::open(array('url'=>URL::route('organization-notification-delete',array('notification_id'=>$message->id)), 'style'=>'display:inline-block; width: 100%;', 'method'=>'delete')) }}
                         <button type="submit" title="Удалить сообщение" class="icon-bag-btn"></button>

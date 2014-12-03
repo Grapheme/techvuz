@@ -85,7 +85,7 @@
                                 </div>
                                 <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
                                     <div class="notif-date font-sm">
-                                        {{ $message->updated_at->timezone('Europe/Moscow')->format('d.m.Y в H:i') }}
+                                        {{ $message->updated_at->timezone(Config::get('site.time_zone'))->format('d.m.Y в H:i') }}
                                     </div>
                                 </div>
                             </div>

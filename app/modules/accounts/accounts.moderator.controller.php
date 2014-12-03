@@ -127,7 +127,7 @@ class AccountsModeratorController extends BaseController {
             foreach($companies_list as $index => $company):
                 $companies[$index]['id'] = $company->id;
                 $companies[$index]['title'] = $company->title;
-                $companies[$index]['created_at'] = $company->created_at->timezone('Europe/Moscow')->format("d.m.Y");
+                $companies[$index]['created_at'] = $company->created_at->timezone(Config::get('site.time_zone'))->format("d.m.Y");
                 $companies[$index]['manager'] = $company->manager;
                 $companies[$index]['fio_manager'] = $company->fio_manager;
                 $companies[$index]['email'] = $company->email;
@@ -706,7 +706,7 @@ class AccountsModeratorController extends BaseController {
                     $users[$index]['group'] = 4;
                     $users[$index]['id'] = $company->id;
                     $users[$index]['title'] = $company->title;
-                    $users[$index]['created_at'] = $company->created_at->timezone('Europe/Moscow')->format("d.m.Y");
+                    $users[$index]['created_at'] = $company->created_at->timezone(Config::get('site.time_zone'))->format("d.m.Y");
                     $users[$index]['manager'] = $company->manager;
                     $users[$index]['fio_manager'] = $company->fio_manager;
                     $users[$index]['email'] = $company->email;
@@ -737,7 +737,7 @@ class AccountsModeratorController extends BaseController {
                     $users[$index]['group'] = 6;
                     $users[$index]['id'] = $individual->id;
                     $users[$index]['title'] = $individual->fio;
-                    $users[$index]['created_at'] = $individual->created_at->timezone('Europe/Moscow')->format("d.m.Y");
+                    $users[$index]['created_at'] = $individual->created_at->timezone(Config::get('site.time_zone'))->format("d.m.Y");
                     $users[$index]['manager'] = $individual->position;
                     $users[$index]['fio_manager'] = '';
                     $users[$index]['email'] = $individual->email;
