@@ -7290,6 +7290,7 @@ a[href^="tel"] {
 }
 
 .icon--disabled {
+  color: inherit;
   opacity: .7;
 }
 .icon--disabled:hover {

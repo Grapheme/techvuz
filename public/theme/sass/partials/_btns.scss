@@ -81,6 +81,7 @@
 	}
 }
 .icon--disabled {
+	color: inherit;
 	opacity: .7;
 
 	&:hover {
