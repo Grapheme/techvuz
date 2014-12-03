@@ -44,10 +44,7 @@ $('.js-close-notifications').click( function(){
             else
                 $(this).show();
         });
-
-        if ( $searchTbody.find('tr:not(.hidden)')[0] ) {
-        	alert('no search results');
-        };
+        
     });
 })();
 
