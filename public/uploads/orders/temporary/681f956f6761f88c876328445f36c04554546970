@@ -1,0 +1,165 @@
+<table border="1" cellpadding="0" cellspacing="0">
+<tbody>
+<tr>
+	<td valign="top" width="218">
+		<p>
+			                                 ИНН 6164990894
+		</p>
+	</td>
+	<td width="218">
+		<p>
+			                                 КПП 616401001
+		</p>
+	</td>
+	<td valign="top" width="218">
+		<p>
+			                                 р/с №
+		</p>
+	</td>
+	<td rowspan="2" valign="top" width="218">
+		<p>
+			                                 40703810626050000009
+		</p>
+	</td>
+</tr>
+<tr>
+	<td colspan="3" valign="top" width="654">
+		<p>
+			                                 Автономная некоммерческая организация дополнительного профессионального образования "Центр качества строительства"
+		</p>
+		<p>
+			                                 Получатель
+		</p>
+	</td>
+</tr>
+<tr>
+	<td colspan="2" rowspan="2" width="436">
+		<p>
+			                                 Филиал "Ростовский" ОАО АЛЬФА-БАНК г. Ростов-на-Дону
+		</p>
+		<p>
+			                                 Банк получателя
+		</p>
+	</td>
+	<td valign="top" width="218">
+		<p>
+			                                 БИК
+		</p>
+	</td>
+	<td rowspan="2" valign="top" width="218">
+		<p>
+			                                 046015207
+		</p>
+		<p>
+			                                 30101810500000000207
+		</p>
+	</td>
+</tr>
+<tr>
+	<td width="218">
+		<p>
+			                                 к/с №
+		</p>
+	</td>
+</tr>
+</tbody>
+</table>
+<p>
+	                 Счет № <?php echo @$NomerZakaza; ?><strong> </strong>от <?php echo @$DataOplatuZakaza; ?>
+
+</p>
+<table border="1" cellpadding="0" cellspacing="0">
+<tbody>
+<tr>
+	<td valign="top" width="108">
+		<p>
+			                                 Поставщик:
+		</p>
+	</td>
+	<td valign="top" width="763">
+		<p>
+			<strong>                         Автономная некоммерческая организация дополнительного профессионального образования "Центр качества строительства", ИНН 6164990894, КПП                         616401001, г. Ростов-на-Дону, ул. Соляной спуск, д. 8-10, тел. (863) 299-07-14                     </strong>
+		</p>
+	</td>
+</tr>
+</tbody>
+</table>
+<table border="0" cellpadding="0" cellspacing="0" width="793">
+<tbody>
+<tr>
+	<td nowrap="" valign="top" width="98">
+		<p>
+			                                 Покупатель:
+		</p>
+	</td>
+	<td valign="top" width="666">
+		<p>
+			<strong></strong>
+		</p>
+		<p>
+			           <?php echo @$NazvanieOrganizacii; ?>
+
+		</p>
+		<p>
+			 <strong></strong>
+		</p>
+	</td>
+</tr>
+</tbody>
+</table>
+<p>
+	  <?php echo @$SpisokSluschateleyDlyaScheta; ?>
+
+</p>
+<div align="right">
+	<table border="1" cellpadding="0" cellspacing="0" width="350">
+	<tbody>
+	<tr>
+		<td nowrap="" valign="top" width="150">
+			<p align="right">
+				<strong>Итого</strong>
+			</p>
+		</td>
+		<td nowrap="" valign="top" width="200">
+			<p align="right">
+				<strong></strong>
+			</p>
+			<p align="right">
+				 <strong><?php echo @$SummaZakaza; ?>,00</strong>
+			</p>
+		</td>
+	</tr>
+	<tr>
+		<td nowrap="" valign="top" width="133">
+			<p align="right">
+				<strong>Сумма НДС</strong>
+			</p>
+		</td>
+		<td nowrap="" valign="top" width="115">
+			<p align="right">
+				<strong>0,00</strong>
+			</p>
+		</td>
+	</tr>
+	</tbody>
+	</table>
+</div>
+<p>
+	                 В поле "Назначение платежа" необходимо указать:
+</p>
+<p>
+	                 Оказание платных образовательных услуг в соответствии с договором №<?php echo @$NomerZakaza; ?> от <?php echo @$DataOplatuZakaza; ?>.
+</p>
+<p>
+	                 Всего наименований: <?php echo @$VsegoNaimenovaliy; ?>; количество: <?php echo @$KolichestvoNaimenovaliy; ?>
+
+</p>
+<p>
+	            на сумму <?php echo @$SummaZakaza; ?>.00 Руб
+</p>
+<p>
+	            (<?php echo @$SummaZakazaSlovami; ?>)
+</p>
+<p>
+	 <strong>Руководитель /Шумеев П.А./</strong>
+</p>

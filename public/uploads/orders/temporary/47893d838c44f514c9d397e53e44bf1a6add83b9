@@ -1,0 +1,44 @@
+<p align="right">
+	   Приложение №1
+</p>
+<p align="right">
+	   к Договору №<?php echo @$NomerZakaza; ?> ПК
+</p>
+<p align="right">
+	   от <?php echo @$DataOformleniyaZakazaSlovami; ?>
+
+</p>
+   <?php echo @$TablicaSluschateleyDlyaDogovora; ?>
+
+<table>
+<tbody>
+<tr>
+	<td>
+		<p>
+			 <strong>Исполнитель:</strong>
+		</p>
+		<p>
+			                          Руководитель НОУ ДПО «ЦКС»
+		</p>
+		<p>
+			                          ___________________ П.А. Шумеев
+		</p>
+		<p>
+			                          м.п.
+		</p>
+	</td>
+	<td>
+		 <strong>Заказчик:</strong>
+		<p>
+			                          <?php echo @$DoljnostOtvetstvennogoLicaOrganizacii; ?> <em><u><?php echo @$NazvanieOrganizacii; ?></u></em>
+		</p>
+		<p>
+			                          ___________________ <em><u>ФИО</u></em>
+		</p>
+		<p>
+			                          м.п.
+		</p>
+	</td>
+</tr>
+</tbody>
+</table>

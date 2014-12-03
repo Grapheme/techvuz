@@ -1,0 +1,190 @@
+<p align="right">
+	          Приложение № 3
+</p>
+<p align="right">
+	          к Договору №<?php echo @$NomerZakaza; ?> ПК
+</p>
+<p style="text-align: right;">
+	          от <?php echo @$DataOplatuZakaza; ?>
+
+</p>
+<p align="center">
+	 <strong></strong>
+</p>
+<p align="center">
+	 <strong>Акт сдачи-приемки выполненных работ</strong>
+</p>
+<p style="text-align: center;">
+	          от <?php echo @$DataZakrutiyaZakaza; ?> по Договору №<?php echo @$NomerZakaza; ?> ПК от <?php echo @$DataOplatuZakaza; ?>
+
+</p>
+<p style="text-align: center;">
+</p>
+<p>
+	 <strong>Исполнитель: </strong>     Негосударственное образовательное учреждение дополнительного профессионального образования «Центр качества строительства»
+</p>
+<p>
+	 <strong> </strong>
+</p>
+<p>
+	 <strong>Заказчик:</strong> <?php echo @$NazvanieOrganizacii; ?>
+
+</p>
+<p align="right">
+	 <strong>Валюта: Руб</strong>
+</p>
+<table border="1" cellpadding="0" cellspacing="0" width="836">
+<tbody>
+<tr>
+	<td valign="top">
+		<p align="center">
+			                              №
+		</p>
+	</td>
+	<td valign="top" width="377">
+		<p align="center">
+			                              Наименование работы (услуги)
+		</p>
+	</td>
+	<td valign="top" width="92">
+		<p align="center">
+			                              Ед.изм.
+		</p>
+	</td>
+	<td valign="top" width="118">
+		<p align="center">
+			                              Количество
+		</p>
+	</td>
+	<td valign="top" width="119">
+		<p align="center">
+			                              Цена
+		</p>
+	</td>
+	<td valign="top" width="93">
+		<p align="center">
+			                              Сумма
+		</p>
+	</td>
+</tr>
+<tr>
+	<td valign="top">
+		<p>
+			                              1
+		</p>
+	</td>
+	<td valign="top" width="377">
+		<p>
+			                              Оказание платных образовательных услуг в соответствии с договором №<?php echo @$NomerZakaza; ?> ПК от <?php echo @$DataOplatuZakaza; ?>
+
+		</p>
+	</td>
+	<td valign="top" width="92">
+		<p style="text-align: center;" align="center">
+			                              чел.
+		</p>
+	</td>
+	<td valign="top" width="118">
+		<p align="center">
+		</p>
+		<p style="text-align: center;">
+			        <?php echo @$KolichestvoSluschateley; ?>
+
+		</p>
+		<p align="center">
+		</p>
+	</td>
+	<td valign="top" width="119">
+		<p align="center">
+			 <strong></strong>
+		</p>
+		<p style="text-align: center;">
+			        <?php echo @$SummaZakaza; ?>
+
+		</p>
+		<p align="center">
+			 <strong></strong>
+		</p>
+	</td>
+	<td valign="top" width="93">
+		<p align="center">
+			 <strong></strong>
+		</p>
+		<p style="text-align: center;">
+			        <?php echo @$SummaZakaza; ?>
+
+		</p>
+		<p align="center">
+			 <strong></strong>
+		</p>
+	</td>
+</tr>
+<tr>
+	<td valign="top">
+		 <br>
+	</td>
+	<td valign="top" width="377">
+		 <br>
+	</td>
+	<td valign="top" width="92">
+		 <br>
+	</td>
+	<td valign="top" width="118">
+		 <br>
+	</td>
+	<td valign="top" width="119">
+		<p align="center">
+			 <strong>Итого:</strong>
+		</p>
+	</td>
+	<td valign="top" width="93">
+		<p style="text-align: center;">
+			        <?php echo @$SummaZakaza; ?>
+
+		</p>
+	</td>
+</tr>
+<tr>
+	<td valign="top">
+		 <br>
+	</td>
+	<td valign="top" width="377">
+		 <br>
+	</td>
+	<td valign="top" width="92">
+		 <br>
+	</td>
+	<td valign="top" width="118">
+		 <br>
+	</td>
+	<td valign="top" width="119">
+		<p align="center">
+			 <strong>В т.ч.НДС:</strong>
+		</p>
+	</td>
+	<td valign="top" width="93">
+		<p align="center">
+			 <strong>-</strong>
+		</p>
+	</td>
+</tr>
+</tbody>
+</table>
+<p>
+	 <em>Всего выполнено работ (оказано услуг) на сумму: </em><?php echo @$SummaZakazaSlovami; ?><em><u>.</u> НДС не облагается п.2 ст.346.11 НК РФ.</em>
+</p>
+<p>
+	          Вышеперечисленные работы (услуги) выполнены полностью и в срок. Заказчик претензий по объему, качеству и срокам выполнения работ (оказания услуг) не имеет.
+</p>
+<p>
+	 <strong>Исполнитель: Заказчик: </strong>
+</p>
+<p>
+	          Руководитель Директор
+</p>
+<p>
+	          ____________________ П.А. Шумеев ___________________ А.П. Донченко
+</p>
+<p>
+	          м.п.                                                                   м.п.
+</p>
