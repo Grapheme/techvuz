@@ -12,6 +12,6 @@
     	<a {{ Helper::isRoute('organization-notifications') }} href="{{ URL::route('organization-notifications') }}"><span class="icon icon-yved"></span> Уведомления</a>
     </li>
     <!-- <li class="cabinet-menu-li">
-    	<a {{ Helper::isRoute('organization-profile') }} href="{{ URL::route('organization-profile') }}"><span class=""></span> Профиль</a>
+    	<a {{ Helper::isRoute('organization-profile') }} {{ Helper::isRoute('organization-profile-edit') }} href="{{ URL::route('organization-profile') }}"><span class=""></span> Профиль</a>
     </li> -->
 </ul>
