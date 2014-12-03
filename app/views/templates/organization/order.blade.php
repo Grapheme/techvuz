@@ -32,7 +32,7 @@
                     <span class="start-price">{{ number_format($order_price,0,'.',' ')  }}.-</span> | <span class="end-price">{{ number_format($paymentNumbersPrice,0,'.',' ')  }}.–</span>
                 </div>
                 <div class="orders-date">
-                    Заказ создан: {{ $order->created_at->timezone('Europe/Moscow')->format("d.m.Y в H:i") }}
+                    Заказ создан: {{ $order->created_at->timezone(Config::get('site.time_zone'))->format("d.m.Y в H:i") }}
                 </div>
             </div>
         </div>

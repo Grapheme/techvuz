@@ -4,7 +4,7 @@
 @section('content')
 <div class="row">
     <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
-        <h2 class="margin-bottom-40">Заказ №{{ getOrderNumber($order) }}</h2> {{ $order->created_at->timezone('Europe/Moscow')->format("d.m.Y в H:i") }}
+        <h2 class="margin-bottom-40">Заказ №{{ getOrderNumber($order) }}</h2> {{ $order->created_at->timezone(Config::get('site.time_zone'))->format("d.m.Y в H:i") }}
     </div>
     <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
          <?php $order_price = 0;?>
