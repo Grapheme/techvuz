@@ -69,9 +69,9 @@
             endif;
         endforeach;
         ?>
+        @if($hasStudyProgress)
         <div class="employees margin-bottom-40">
             <h3 class="margin-bottom-20">Обучение завершено</h3>
-        @if($hasStudyProgress)
             <table class="tech-table sortable">
                 <tbody>
                     <tr>
@@ -89,8 +89,8 @@
                 @endforeach
                 </tbody>
             </table>
-        @endif
         </div>
+        @endif
     </div>
 </main>
 @stop

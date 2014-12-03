@@ -17,6 +17,7 @@
                 $spisok[$listener->course->id]['code'] = $listener->course->code;
                 $spisok[$listener->course->id]['title'] = $listener->course->title;
                 $spisok[$listener->course->id]['price'] = $listener->course->price;
+                $accountDiscount = 90;
                 $discount = calculateDiscount(array($listener->course->direction->discount,$listener->course->discount,$accountDiscount,$coursesCountDiscount));
                 $spisok[$listener->course->id]['discount'] = 0;
                 if($discount > 0):
