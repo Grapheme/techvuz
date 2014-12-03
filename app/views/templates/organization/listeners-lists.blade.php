@@ -46,12 +46,10 @@
                     <tr>
                         <td class="vertical-top"><a href="{{ URL::route('organization-listener-profile',$listener->id) }}">{{ $listener->fio }}</a></td>
                         <td class="vertical-top"><span class="no-courses">Для этого сотрудника курсы не покупались</span></td>
-                        <td class="td-status-bar vertical-top">
-                            <div class="ui-progress-bar bar-1 clearfix">
-                                <div class="bar-part bar-part-1"></div>
-                                <div class="bar-part bar-part-2"></div>
-                                <div class="bar-part bar-part-3"></div>
-                            </div>
+                        <td class="vertical-top">
+                            {{ Form::open(array('url'=>URL::route('organization-listener-profile-delete',$listener->id), 'style'=>'display:inline-block', 'method'=>'delete')) }}
+                                <button type="submit" class="icon-bag-btn js-delete-listener" autocomplete="off" title="Удалить сотрудника"></button>
+                            {{ Form::close() }}
                         </td>
                     </tr>
                     @endif
@@ -66,9 +64,12 @@
 @section('overlays')
 @stop
 @section('scripts')
+{{ HTML::script('js/system/main.js') }}
+{{ HTML::script('js/vendor/SmartNotification.min.js') }}
+{{ HTML::script('js/system/messages.js') }}
+{{ HTML::script('theme/js/organization.js') }}
 <script>
     $(function(){
-
         $(".more-courses").click(function(){
             var index = $(this).attr('data-index');
             $("tr[data-index='"+index+"']:hidden").hide().removeClass('hidden').slideDown(500);
