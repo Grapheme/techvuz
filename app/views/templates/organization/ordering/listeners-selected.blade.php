@@ -38,7 +38,10 @@
                         <th>Цена</th>
                     </tr>
                     <tr>
-                        <td>{{ $course->title }}</td>
+                        <td>
+                            <div class="icon-blue-bag-btn js-delete-course"></div>
+                            {{ $course->title }}
+                        </td>
                         <td>{{ $course->code }}</td>
                         <td>{{ $course->hours }}</td>
                         <td class="purchase-listeners"></td>
