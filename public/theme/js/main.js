@@ -234,7 +234,11 @@ var Popup = (function(){
 
     function deleteCourse(btn) {
 		var $courseId = btn.parents('.purchase-table').data('courseid');
-		$.cookie('ordering').remove(courseid);
+		var $newOrdering = JSON.parse( $.cookie('ordering'));
+
+		delete $newOrdering[$courseId];
+
+		$.cookie('ordering', JSON.stringify($newOrdering), { path: '/' });
 
 		btn.parents('.purchase-course-dt').add( btn.parents('.purchase-course-dt').next() ).remove();
     }
