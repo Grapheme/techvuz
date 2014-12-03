@@ -113,7 +113,7 @@
                         <div class="row">
                             <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9">
                                 <div class="notif-type">
-                                    Системное сообщение ololo{{ $index+1 }}
+                                    Системное сообщение {{ $index+1 }}
                                 </div>
                                 <div class="notif-cont">
                                     {{ $message->name }}
@@ -126,7 +126,7 @@
                                 <div class="notif-delete js-notif-delete">
                                 {{ Form::open(array('url'=>URL::route('organization-notification-delete',array('notification_id'=>$message->id)), 'style'=>'display:inline-block', 'method'=>'delete')) }}
                                     
-                                    <button type="submit" class="icon-bag-btn" title="Удалить"></button> 
+                                    <button type="submit" class="icon-bag-btn" title="Удалить"></button>
 
                                 {{ Form::close() }}
                                 </div>
