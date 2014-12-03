@@ -28,7 +28,7 @@
                     <td>{{ $study->course->title }}</td>                    
                     <td>
                         <a href="{{ URL::route('organization-order',$study->order->id) }}"> №{{ getOrderNumber($study->order) }}</a>
-                        <div class="font-sm">
+                        <div class="font-sm nowrap">
                             от {{ myDateTime::SwapDotDateWithOutTime($study->order->created_at) }}
                         </div>
                     </td>
@@ -66,7 +66,7 @@
                         @if($study->start_status == 0 && $study->over_status == 0)
 
                         @elseif($study->start_status == 1 && $study->over_status == 1)
-                           <span class="icon icon--blue icon-sertifikat"></span>  <a href="#">Загрузить удостоверение</a>
+                           <a class="style-normal" href="#"><span class="icon icon--blue icon-sertifikat"></span> Загрузить удостоверение</a>
                         @else
 
                         @endif
