@@ -62,6 +62,10 @@ a[href^="tel"] {
 
 //Margin classes
 
+.margin-auto {
+	margin-left: auto !important;
+	margin-right: auto !important;
+}
 .margin-top-10 {
 	margin-top: 10rem / $hfs !important;
 }

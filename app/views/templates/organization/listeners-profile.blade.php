@@ -5,14 +5,9 @@
 <main class="cabinet">
     <h2>{{ User_organization::where('id',Auth::user()->id)->pluck('title') }}</h2>
     <div class="employer margin-bottom-40">
-        @include(Helper::acclayout('menu'))
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                    <h3 class="margin-bottom-20">{{ $profile->fio }}</h3>
-                </div>
-            </div>
-        </div>
+        @include(Helper::acclayout('menu'))        
+        <h3 class="margin-bottom-20">{{ $profile->fio }}</h3>
+
         @if($profile->study->count())
         <table class="tech-table sortable purchase-table">
             <thead>
@@ -56,7 +51,7 @@
                         @if($study->start_status == 0 && $study->over_status == 0)
 
                         @else
-                            <div title="{{ Lang::get('interface.STUDY_PROGRESS.'.getCourseStudyProgress($study)) }}" class="ui-progress-bar bar-1 completed-{{ getCourseStudyProgress($study) }} margin-top-20 clearfix">
+                            <div title="{{ Lang::get('interface.STUDY_PROGRESS.'.getCourseStudyProgress($study)) }}" class="ui-progress-bar bar-1 completed-{{ getCourseStudyProgress($study) }} margin-top-20 margin-bottom-20 margin-auto clearfix">
                                 <div class="bar-part bar-part-1"></div>
                                 <div class="bar-part bar-part-2"></div>
                                 <div class="bar-part bar-part-3"></div>
@@ -66,7 +61,7 @@
                         @if($study->start_status == 0 && $study->over_status == 0)
 
                         @elseif($study->start_status == 1 && $study->over_status == 1)
-                            <a class="style-normal" href="#"><span class="icon icon--blue icon-sertifikat"></span> Загрузить удостоверение</a>
+                            <a class="style-normal" href="#"><span class="icon icon-sertifikat"></span> Удостоверение</a>
                         @else
 
                         @endif
