@@ -8,6 +8,16 @@
 
 	cursor: pointer;
 }
+.icon-blue-bag-btn {
+	display: block;
+	width: 34rem / $hfs;
+	height: 34rem / $hfs;
+	margin: 0 auto;
+	border: none;
+	background: url(../img/delete-blue.png) no-repeat center center;
+
+	cursor: pointer;
+}
 
 .delete-btn {
 	background: none;

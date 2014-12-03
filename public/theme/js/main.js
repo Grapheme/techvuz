@@ -170,6 +170,7 @@ var Popup = (function(){
 	var $select = $('.chosen-select');
 	//Кнопка конечной покупки курса
 	var $finishBtn = $('.js-coursebuy-finish');
+	var $deleteBtn = $('.js-delete-course');
 
 	$select.chosen({
 		no_results_text: 'Ничего не найдено'
@@ -231,6 +232,13 @@ var Popup = (function(){
 		console.log( $.cookie('ordering') );
     }
 
+    function deleteCourse(btn) {
+		var $courseId = btn.parents('.purchase-table').data('courseid');
+		$.cookie('ordering').remove(courseid);
+
+		btn.parents('.purchase-course-dt').add( btn.parents('.purchase-course-dt').next() ).remove();
+    }
+
     function countSum() {
 		//Sum number
 		var $sum = 0;
@@ -286,6 +294,10 @@ var Popup = (function(){
         makeCoursesJson( $(this) );
         countSum();
 
+    });
+
+    $deleteBtn.click( function(e) {
+		deleteCourse( $(this) );
     });
 
     $finishBtn.click( function(e){
