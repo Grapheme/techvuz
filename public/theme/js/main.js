@@ -27,6 +27,26 @@ $('.js-close-notifications').click( function(){
 	});
 });
 
+//Table search
+
+(function(){
+	var $searchForm = $('.employee-search'),
+		$searchInput = $searchForm.find('input[type="text"]'),
+		$searchTbody = $searchForm.next().find('tbody');
+
+	$($searchInput).keyup(function(){
+        self = this;
+        // Show only matching TR, hide rest of them
+        $.each($searchTbody.find("tr"), function() {
+
+            if($(this).text().toLowerCase().indexOf($(self).val().toLowerCase()) == -1)
+               $(this).hide();
+            else
+                 $(this).show();
+        });
+    });
+})();
+
 jQuery.fn.notifications = function() {
 	'use strict';
 
