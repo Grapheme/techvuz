@@ -24,7 +24,7 @@
             <h3 class="margin-bottom-20">Сотрудники</h3>
             <form class="employee-search margin-bottom-20">
                 <fieldset>
-                    <input type="text" placeholder="Укажите ФИО сотрудника, название компании или курса">
+                    <input type="text" placeholder="Найти сотрудника">
                     <button type="submit"><span class="icon icon-search"></span></button>
                 </fieldset>
             </form>
