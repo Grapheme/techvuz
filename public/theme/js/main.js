@@ -44,7 +44,11 @@ $('.js-close-notifications').click( function(){
             else
                 $(this).show();
         });
-        
+
+        if( !$searchTbody.find("tr:visible") ) {
+        	alert('Null result');
+        }
+
     });
 })();
 
