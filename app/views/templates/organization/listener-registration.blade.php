@@ -3,11 +3,11 @@
 @stop
 @section('content')
 <main class="cabinet">
-    <h2>{{ User_organization::where('id',Auth::user()->id)->pluck('title') }}</h2>
+    <h1>{{ User_organization::where('id',Auth::user()->id)->pluck('title') }}</h1>
     <div class="cabinet-tabs">
         @include(Helper::acclayout('menu'))
         <div class="edit-employee-anket">
-            <h3>Добавление нового сотрудника</h3>
+            <h2 class="h3">Регистрация нового сотрудника</h2 class="h3">
             @include(Helper::acclayout('forms.signup-listener'))
         </div>
     </div>

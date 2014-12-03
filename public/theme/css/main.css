@@ -9275,7 +9275,8 @@ section h3, section .h3 {
   text-decoration: underline;
 }
 
-.cabinet h3 {
+.cabinet h3,
+.cabinet .h3 {
   margin: 0 0 1.3125rem;
   font-family: 'Open Sans', sans-serif;
   font-weight: 600;
