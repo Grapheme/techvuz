@@ -32,7 +32,8 @@ $('.js-close-notifications').click( function(){
 (function(){
 	var $searchForm = $('.employee-search'),
 		$searchInput = $searchForm.find('input[type="text"]'),
-		$searchTbody = $searchForm.next().find('tbody');
+		$searchTbody = $searchForm.next().find('tbody'),
+		$searchError = $('.js-search-table-error');
 
 	$($searchInput).keyup(function(){
         self = this;
@@ -46,7 +47,9 @@ $('.js-close-notifications').click( function(){
         });
 
         if( !$searchTbody.find("tr:visible")[0] ) {
-			alert('Null result');
+			$searchError.removeClass('hidden');
+		} else {
+			$searchError.addClass('hidden');
 		}
 
     });

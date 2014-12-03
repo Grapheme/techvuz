@@ -58,6 +58,7 @@
                 @endforeach
                 </tbody>
             </table>
+            <p class="hidden js-search-table-error font-sm text-center">Ничего не найдено</p>
         </div>
     </div>
 </main>
