@@ -7,7 +7,7 @@
     @endif
     </td>
     <td class="td-status-bar">
-        <div title="{{ Lang::get('interface.STUDY_PROGRESS_LISTENER'.getCourseStudyProgress($listener_course)) }}" class="ui-progress-bar bar-1 completed-{{ getCourseStudyProgress($listener_course) }} clearfix">
+        <div title="{{ Lang::get('interface.STUDY_PROGRESS_LISTENER.'.getCourseStudyProgress($listener_course)) }}" class="ui-progress-bar bar-1 completed-{{ getCourseStudyProgress($listener_course) }} clearfix">
             <div class="bar-part bar-part-1"></div>
             <div class="bar-part bar-part-2"></div>
             <div class="bar-part bar-part-3"></div>
