@@ -37,14 +37,14 @@ $('.js-close-notifications').click( function(){
 	$($searchInput).keyup(function(){
         self = this;
         // Show only matching TR, hide rest of them
-        $.each($searchTbody.find("tr td:first-child"), function() {
+        $.each($searchTbody.find("tr"), function() {
 
-            if($(this).text().toLowerCase().indexOf($(self).val().toLowerCase()) == -1)
+            if($(this).find('td:first-child').text().toLowerCase().indexOf($(self).val().toLowerCase()) == -1)
                 $(this).hide();
             else
-                $(this).show();
+                $(this).show();           
         });
-    });
+    }); 
 })();
 
 jQuery.fn.notifications = function() {
