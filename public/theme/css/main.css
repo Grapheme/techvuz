@@ -7145,6 +7145,18 @@ a[href^="tel"] {
   vertical-align: top;
 }
 
+.style-normal {
+  font-style: normal !important;
+}
+
+.style-italic {
+  font-style: italic !important;
+}
+
+.nowrap {
+  white-space: nowrap;
+}
+
 .margin-top-10 {
   margin-top: 0.625rem !important;
 }
