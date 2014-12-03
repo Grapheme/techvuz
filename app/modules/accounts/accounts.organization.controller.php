@@ -158,6 +158,7 @@ class AccountsOrganizationController extends BaseController {
                 ->where('organization_id',Auth::user()->id)
                 ->where('active','>=',1)
                 ->with(array('study'=>function($query){
+                    $query->orderBy('over_status');
                     $query->with('order');
                     $query->with('course');
                     $query->with('final_test');
