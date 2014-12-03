@@ -17,7 +17,11 @@
                 $spisok[$listener->course->id]['code'] = $listener->course->code;
                 $spisok[$listener->course->id]['title'] = $listener->course->title;
                 $spisok[$listener->course->id]['price'] = $listener->course->price;
-                $spisok[$listener->course->id]['discount'] = calculateDiscount(array($listener->course->direction->discount,$listener->course->discount,$accountDiscount,$coursesCountDiscount));
+                $discount = calculateDiscount(array($listener->course->direction->discount,$listener->course->discount,$accountDiscount,$coursesCountDiscount));
+                $spisok[$listener->course->id]['discount'] = 0;
+                if($discount > 0):
+                    $spisok[$listener->course->id]['discount'] = round($spisok[$listener->course->id]['price']*round($discount/100,2));
+                endif;
                 $spisok[$listener->course->id]['summa'] = calculateDiscount(array($listener->course->direction->discount,$listener->course->discount,$accountDiscount,$coursesCountDiscount),$spisok[$listener->course->id]['count']*$spisok[$listener->course->id]['price']);
                 if(empty($spisok[$listener->course->id]['discount'])):
                     $spisok[$listener->course->id]['discount'] = 0;
