@@ -241,6 +241,8 @@ var Popup = (function(){
 		$.cookie('ordering', JSON.stringify($newOrdering), { path: '/' });
 
 		btn.parents('.purchase-course-dt').add( btn.parents('.purchase-course-dt').next() ).remove();
+
+		countSum();
     }
 
     function countSum() {
