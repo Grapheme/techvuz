@@ -62,6 +62,26 @@
             </dd>
         @endforeach
         </dl>
+        <div class="sum-block margin-bottom-40">
+            <div class="count-add">
+                <div class="container-fluid">
+                    <div class="row no-gutter margin-bottom-20">
+                        <div class="col-xs-offset-6 col-sm-offset-6 col-md-offset-6 col-lg-offset-6 col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                            <div class="count-add-sign">Оплачено</div>
+                            <div class="count-add-num">9000 руб.</div>
+                            <div class="count-add-dots"></div>
+                        </div>
+                    </div>
+                    <div class="row no-gutter margin-bottom-20">
+                        <div class="col-xs-offset-6 col-sm-offset-6 col-md-offset-6 col-lg-offset-6 col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                            <div class="count-add-sign">Итоговая сумма</div>
+                            <div class="count-add-num">12000 руб.</div>
+                            <div class="count-add-dots"></div>
+                        </div>
+                    </div>                                
+                </div>
+            </div>
+        </div>
         {{ Form::hidden('completed',1) }}
         <button type="submit" class="btn btn--bordered btn--blue pull-right js-coursebuy-finish">Заказать</button>
     {{ Form::close() }}
