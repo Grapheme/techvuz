@@ -231,9 +231,13 @@ $('.js-close-notifications').click( function(){
             if($(this).find('td:first-child').text().toLowerCase().indexOf($(self).val().toLowerCase()) == -1)
                 $(this).hide();
             else
-                $(this).show();           
+                $(this).show();
         });
-    }); 
+
+        if ( $searchTbody.find('tr:not(.hidden)')[0] ) {
+        	alert('no search results');
+        };
+    });
 })();
 
 jQuery.fn.notifications = function() {
