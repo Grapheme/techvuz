@@ -47,8 +47,8 @@
         @if($order->payment_status == 1)
         <div class="orders-actions">
             {{ Form::open(array('url'=>URL::route('organization-order-delete',array('order_id'=>$order->id)), 'style'=>'display:inline-block', 'method'=>'delete')) }}
-                <button type="submit" class="icon-bag-btn" autocomplete="off" title="Удалить заказ" data-order-number="{{ getOrderNumber($order) }}" class="orders-delete js-delete-order">
-                    
+                <button type="submit" class="icon-bag-btn js-delete-order" autocomplete="off" title="Удалить заказ" data-order-number="{{ getOrderNumber($order) }}">
+
                 </button>
             {{ Form::close() }}
         </div>
