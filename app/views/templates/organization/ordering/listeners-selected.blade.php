@@ -71,7 +71,7 @@
                     <div class="row no-gutter margin-bottom-20">
                         <div class="col-xs-offset-6 col-sm-offset-6 col-md-offset-6 col-lg-offset-6 col-xs-6 col-sm-6 col-md-6 col-lg-6">
                             <div class="count-add-sign">Итоговая сумма</div>
-                            <div class="count-add-num">12000 руб.</div>
+                            <div class="count-add-num js-count-finish-sum"></div>
                             <div class="count-add-dots"></div>
                         </div>
                     </div>                                
