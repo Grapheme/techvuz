@@ -12,6 +12,11 @@
 	}
 
 	&.purchase-table {
+		.icon-blue-bag-btn {
+			position: absolute;
+			top: 9rem / $hfs;
+			left: 0;
+		}
 
 		th {
 			text-align: center;
@@ -54,6 +59,7 @@
 	}
 
 	tr {
+		position: relative;
 		&:nth-child(2n+1) {
 			background: $clr-light-gray;
 		}
