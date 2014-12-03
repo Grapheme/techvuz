@@ -70,7 +70,7 @@
         endforeach;
         ?>
         <div class="employees margin-bottom-40">
-            <h3 class="margin-bottom-20">Архив обучения</h3>
+            <h3 class="margin-bottom-20">Обучение завершено</h3>
         @if($hasStudyProgress)
             <table class="tech-table sortable">
                 <tbody>

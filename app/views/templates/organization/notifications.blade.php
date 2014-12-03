@@ -16,26 +16,15 @@
         <div class="employees margin-bottom-40">
             <h3 class="margin-bottom-20">Уведомления</h3>
         </div>
-        <table class="tech-table sortable">
+        <table class="tech-table sortable notif-table">
             <tbody>
-                <tr>
-                    <th class="sort sort--asc">Содержание <span class="sort--icon"></span> </th>
-                    <th class="sort sort--asc">Дата <span class="sort--icon"></span> </th>
-                    <th>
-                    @if($messages->count() && false)
-                        {{ Form::open(array('url'=>URL::route('organization-notification-delete',array('notification_id'=>'all')), 'style'=>'display:inline-block', 'method'=>'delete')) }}
-                            <button type="submit" title="Удалить сообщение" class="btn btn--bordered btn--danger">Удалить</button>
-                        {{ Form::close() }}
-                    @endif
-                    </th>
-                </tr>
             @foreach($messages as $message)
                 <tr>
                     <td>{{ $message->name }}</td>
-                    <td>{{ $message->updated_at->timezone('Europe/Moscow')->format('d.m.Y в H:i') }}</td>
-                    <td class="equal-padding">
-                    {{ Form::open(array('url'=>URL::route('organization-notification-delete',array('notification_id'=>$message->id)), 'style'=>'display:inline-block', 'method'=>'delete')) }}
-                        <button type="submit" title="Удалить сообщение" class="delete-btn">удалить</button>
+                    <td class="vertical-top">{{ $message->updated_at->timezone('Europe/Moscow')->format('d.m.Y в H:i') }}</td>
+                    <td class="equal-padding vertical-top">
+                    {{ Form::open(array('url'=>URL::route('organization-notification-delete',array('notification_id'=>$message->id)), 'style'=>'display:inline-block; width: 100%;', 'method'=>'delete')) }}
+                        <button type="submit" title="Удалить сообщение" class="icon-bag-btn"></button>
                     {{ Form::close() }}
                     </td>
                 </tr>

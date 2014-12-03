@@ -3,6 +3,14 @@
 	outline: 1px solid #cbcbcb;
 	font-family: 'Open Sans', sans-serif;
 
+	&.notif-table {
+		outline: none; 
+
+		td {
+			border-right: none;
+		}
+	}
+
 	&.purchase-table {
 
 		th {
@@ -21,7 +29,7 @@
 			padding: 14rem / $hfs 10rem / $hfs;
 
 			&:first-child {
-				padding: 14rem / $hfs 0 14rem / $hfs 34rem / $hfs;
+				padding: 14rem / $hfs .9rem 14rem / $hfs 34rem / $hfs;
 				text-align: left;
 			}
 		}

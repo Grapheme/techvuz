@@ -56,11 +56,11 @@
                         @if($study->start_status == 0 && $study->over_status == 0)
 
                         @else
-                        <div title="{{ Lang::get('interface.STUDY_PROGRESS.'.getCourseStudyProgress($study)) }}" class="ui-progress-bar bar-1 completed-{{ getCourseStudyProgress($study) }} margin-top-20 clearfix">
-                            <div class="bar-part bar-part-1"></div>
-                            <div class="bar-part bar-part-2"></div>
-                            <div class="bar-part bar-part-3"></div>
-                        </div>
+                            <div title="{{ Lang::get('interface.STUDY_PROGRESS.'.getCourseStudyProgress($study)) }}" class="ui-progress-bar bar-1 completed-{{ getCourseStudyProgress($study) }} margin-top-20 clearfix">
+                                <div class="bar-part bar-part-1"></div>
+                                <div class="bar-part bar-part-2"></div>
+                                <div class="bar-part bar-part-3"></div>
+                            </div>
                         @endif
 
                         @if($study->start_status == 0 && $study->over_status == 0)

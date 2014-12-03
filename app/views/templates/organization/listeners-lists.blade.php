@@ -24,17 +24,19 @@
             <h3 class="margin-bottom-20">Сотрудники</h3>
             <form class="employee-search margin-bottom-20">
                 <fieldset>
-                    <input type="text" placeholder="Укажите ФИО сотрудника, название компании или курса">
+                    <input type="text" placeholder="Найти сотрудника">
                     <button type="submit"><span class="icon icon-search"></span></button>
                 </fieldset>
             </form>
             <table class="tech-table sortable">
-                <tbody>
+                <thead>
                     <tr>
                         <th class="sort listeners-row sort--asc">Ф.И.О. <span class="sort--icon"></span> </th>
                         <th class="sort sort--asc">Название курса <span class="sort--icon"></span> </th>
                         <th class="sort sort--asc">Прогресс <span class="sort--icon"></span> </th>
                     </tr>
+                </thead>
+                <tbody>                    
                 @foreach($listeners as $listener)
                     @if($listener->study->count())
                         @foreach($listener->study as $index => $study)
@@ -42,9 +44,9 @@
                         @endforeach
                     @else
                     <tr>
-                        <td><a href="{{ URL::route('organization-listener-profile',$listener->id) }}">{{ $listener->fio }}</a></td>
-                        <td><span class="no-courses">Для этого сотрудника курсы не покупались</span></td>
-                        <td class="td-status-bar">
+                        <td class="vertical-top"><a href="{{ URL::route('organization-listener-profile',$listener->id) }}">{{ $listener->fio }}</a></td>
+                        <td class="vertical-top"><span class="no-courses">Для этого сотрудника курсы не покупались</span></td>
+                        <td class="td-status-bar vertical-top">
                             <div class="ui-progress-bar bar-1 clearfix">
                                 <div class="bar-part bar-part-1"></div>
                                 <div class="bar-part bar-part-2"></div>
@@ -56,6 +58,7 @@
                 @endforeach
                 </tbody>
             </table>
+            <p class="hidden js-search-table-error font-sm text-center margin-top-20">Ничего не найдено</p>
         </div>
     </div>
 </main>

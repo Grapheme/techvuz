@@ -216,6 +216,34 @@ $('.js-close-notifications').click( function(){
 	});
 });
 
+//Table search
+
+(function(){
+	var $searchForm = $('.employee-search'),
+		$searchInput = $searchForm.find('input[type="text"]'),
+		$searchTbody = $searchForm.next().find('tbody'),
+		$searchError = $('.js-search-table-error');
+
+	$($searchInput).keyup(function(){
+        self = this;
+        // Show only matching TR, hide rest of them
+        $.each($searchTbody.find("tr"), function() {
+
+            if($(this).find('td:first-child').text().toLowerCase().indexOf($(self).val().toLowerCase()) == -1)
+                $(this).hide();
+            else
+                $(this).show();
+        });
+
+        if( !$searchTbody.find("tr:visible")[0] ) {
+			$searchError.removeClass('hidden');
+		} else {
+			$searchError.addClass('hidden');
+		}
+
+    });
+})();
+
 jQuery.fn.notifications = function() {
 	'use strict';
 
@@ -406,11 +434,12 @@ var Popup = (function(){
         //1. Fill active listeners
         $listeners.text( $listenersLength );
         //2. Set price
-        $price.text( ($listenersLength * $priceCount) ? ( ($listenersLength * $priceCount) + '' ).replace(/(\d)(?=(\d{3})+$)/g, '$1 ') + '.-' : $priceCount.replace(/(\d)(?=(\d{3})+$)/g, '$1 ') + '.-' );
+        $price.text( ($listenersLength * $priceCount) ? ( ($listenersLength * $priceCount) + '' ).replace(/(\d)(?=(\d{3})+$)/g, '$1 ') + '.-' : ($priceCount + '').replace(/(\d)(?=(\d{3})+$)/g, '$1 ') + '.-' );
     }
 
     function returnError(text) {
-		$('.purchase-course-dl').after('<p class="error" style="font-size: 14px; color: #bb252d; font-weight: 400;">' + text + '</p>');
+    	$('p.error').remove();
+		$('.purchase-course-dl').append('<p class="error" style="position: relative; top: -1rem; height: 0; font-size: 14px; color: #bb252d; font-weight: 400;">' + text + '</p>');
 
 		setTimeout( function(){ $('p.error').remove(); }, 3000 );
 	}
@@ -435,7 +464,7 @@ var Popup = (function(){
 		}
 
 		if (!finishFlag) {
-			returnError('Слушатели выбраны не для всех курсов в списке');
+			returnError('Пожалуйста, выберите сотрудников для всех курсов');
 			return;
 		} else {
 			$('.purchase-form').submit();

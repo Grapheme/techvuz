@@ -3,6 +3,7 @@
 	width: 34rem / $hfs;
 	height: 34rem / $hfs;
 	margin: 0 auto;
+	border: none;
 	background: url(../img/delete.png) no-repeat center center;
 
 	cursor: pointer;
@@ -77,6 +78,14 @@
 
 	&:hover {
 		opacity: .7;
+	}
+}
+.icon--disabled {
+	color: inherit;
+	opacity: .7;
+
+	&:hover {
+		cursor: default;
 	}
 }
 .icon--danger {

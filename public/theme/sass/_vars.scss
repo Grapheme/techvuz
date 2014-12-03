@@ -43,8 +43,32 @@ a[href^="tel"] {
 	height: 100%;
 }
 
+.vertical-top {
+	vertical-align: top;
+}
+
+//font-styles
+.text-center {
+	text-align: center;
+}
+
+.style-normal {
+	font-style: normal !important;
+}
+.style-italic {
+	font-style: italic !important;
+}
+
+.nowrap {
+	white-space: nowrap;
+}
+
 //Margin classes
 
+.margin-auto {
+	margin-left: auto !important;
+	margin-right: auto !important;
+}
 .margin-top-10 {
 	margin-top: 10rem / $hfs !important;
 }
