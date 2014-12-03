@@ -80,6 +80,13 @@
 		opacity: .7;
 	}
 }
+.icon--disabled {
+	opacity: .7;
+
+	&:hover {
+		cursor: default;
+	}
+}
 .icon--danger {
 	transition: all .4s ease;
 	color: $clr-danger;

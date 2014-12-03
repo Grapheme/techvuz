@@ -7321,6 +7321,13 @@ a[href^="tel"] {
   opacity: .7;
 }
 
+.icon--disabled {
+  opacity: .7;
+}
+.icon--disabled:hover {
+  cursor: default;
+}
+
 .icon--danger {
   transition: all .4s ease;
   color: #bb252d;

@@ -87,7 +87,9 @@
                         Редактировать <span class="icon icon-red"></span>
                     </a>
                 @else
-                    <p>{{ Lang::get('interface.ACCOUNT_STATUS.blocked_edit_listener_profile') }}</p>
+                    <a title="{{ Lang::get('interface.ACCOUNT_STATUS.blocked_edit_listener_profile') }}" class="icon--blue icon--disabled pull-right margin-top-30">
+                        <span class="icon icon-red"></span>
+                    </a>
                 @endif
                 </div>
             </div>            
