@@ -17,7 +17,7 @@
 <script>
     $(document).ready(function(){
         $(".phone").inputmask("mask", {"mask": "[+7] (999) 999 99 99","placeholder": "X"});
-        $('.registration-form input[name="ogrn"]').inputmask("mask", {"mask": " 9999999999999? x99 ","placeholder": "X"});
+        $('.registration-form input[name="ogrn"]').inputmask("mask", {"mask": " 9999999999999?99 ","placeholder": "X"});
     });
 </script>
 @endif
