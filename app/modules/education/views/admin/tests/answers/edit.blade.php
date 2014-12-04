@@ -30,12 +30,19 @@
                             {{ Form::textarea('description',NULL,array('class'=>'redactor')) }}
                         </label>
                     </section>
+                    @if(!$hasCurrentAnswer)
                     <section>
                         <label class="checkbox">
                             {{ Form::checkbox('correct',1) }}
                             <i></i>Установите если ответ является верным
                         </label>
                     </section>
+                    @else
+                    <section>
+                        <label>Верный ответ уже установлен</label>
+                    </section>
+                    {{ Form::hidden('correct',0) }}
+                    @endif
                 </fieldset>
 				<footer>
 					<a class="btn btn-default no-margin regular-10 uppercase pull-left btn-spinner" href="{{ URL::previous() }}">

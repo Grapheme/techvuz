@@ -84,7 +84,8 @@ class AdminEducationTestsAnswersController extends BaseController {
         $chapter = $this->chapter;
         $test = $this->test;
         $question = $this->question;
-        return View::make($this->module['tpl'].'create',compact('direction','course','chapter','test','question'));
+        $hasCurrentAnswer = CoursesTestsQuestions::find($this->question->id)->answers()->where('correct',1)->exists();
+        return View::make($this->module['tpl'].'create',compact('direction','course','chapter','test','question','hasCurrentAnswer'));
     }
 
     public function store($direction_id,$course_id,$chapter_id,$test_id,$question_id){
@@ -119,7 +120,8 @@ class AdminEducationTestsAnswersController extends BaseController {
             $chapter = $this->chapter;
             $test = $this->test;
             $question = $this->question;
-            return View::make($this->module['tpl'].'edit', compact('direction','course','chapter','test','question','answer'));
+            $hasCurrentAnswer = CoursesTestsQuestions::find($this->question->id)->answers()->where('id','!=',$answer_id)->where('correct',1)->exists();
+            return View::make($this->module['tpl'].'edit', compact('direction','course','chapter','test','question','answer','hasCurrentAnswer'));
         else:
             App::abort(404);
         endif;

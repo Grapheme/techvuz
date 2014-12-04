@@ -225,6 +225,7 @@ class AccountsOrganizationController extends BaseController {
             if(Listener::where('organization_id',Auth::user()->id)->where('user_id',$listener_id)->exists()):
                 Listener::where('user_id',$listener_id)->delete();
                 User::where('id',$listener_id)->delete();
+                $json_request['redirect'] = URL::route('organization-listeners');
                 $json_request['status'] = TRUE;
             endif;
         else:
