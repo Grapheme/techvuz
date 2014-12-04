@@ -61,7 +61,7 @@
                         @if($study->start_status == 0 && $study->over_status == 0)
 
                         @elseif($study->start_status == 1 && $study->over_status == 1)
-                           <a class="style-normal" href="#"><span class="icon icon-sertifikat"></span> Загрузить удостоверение</a>
+                           <a class="style-normal" href="#"><span class="icon icon-sertifikat"></span> Удостоверение</a>
                         @else
 
                         @endif
