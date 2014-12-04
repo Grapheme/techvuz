@@ -9,12 +9,12 @@
     <section class="directions">
         <h3><a href="{{ URL::route('page','catalog') }}">Направления</a></h3>
         <ul class="directions-ul clearfix">
-        @foreach(Directions::whereActive(TRUE)->orderBy('order')->with('photo')->with('courses')->limit(6)->get() as $direction)
+        @foreach(Directions::whereActive(TRUE)->orderBy('order')->with('photo')->with('courses')->limit(6)->get() as $key => $direction)
             <li class="directions-li">
             @if(!empty($direction->photo->name))
             {{ HTML::image(Config::get('site.galleries_photo_public_dir').'/'.$direction->photo->name,$direction->title,array('class'=>'directions-img')) }}
             @endif
-                <a class="direction-link" href="{{ URL::route('page','catalog') }}#{{ BaseController::stringTranslite($direction->title) }}"></a>
+                <a class="direction-link" href="{{ URL::route('page','catalog') }}#{{ $key }}"></a>
                 <div class="direction-name">
                     {{ $direction->title }}
                 </div>
