@@ -2,13 +2,19 @@ $('.tabs').tabs();
 
 $('.select').selectmenu();
 $(function(){
-	$('table.sortable').tablesorter(); 
+	$('table.sortable').tablesorter();
 });
 
 $('.accordion').accordion({
+	active: false,
     header: '.accordion-header',
     heightStyle: 'content',
-    collapsible: true
+    collapsible: true,
+    create: function(event, ui){
+		if( window.location.hash ) {
+			$(window.location.hash).trigger('click');
+		}
+    }
 });
 
 $('.js-close-notifications').click( function(){

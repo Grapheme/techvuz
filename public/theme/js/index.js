@@ -197,7 +197,12 @@ $(function(){
 $('.accordion').accordion({
     header: '.accordion-header',
     heightStyle: 'content',
-    collapsible: true
+    collapsible: true,
+    create: function(event, ui){
+		if( window.location.hash ) {
+			$(window.location.hash).trigger('click');
+		}
+    }
 });
 
 $('.js-close-notifications').click( function(){
