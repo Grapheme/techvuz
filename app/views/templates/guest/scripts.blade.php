@@ -27,6 +27,7 @@
                 return false;
             }
         });
+        $('.registration-form input[name="email"]').inputmask("email");
     });
 </script>
 @endif
