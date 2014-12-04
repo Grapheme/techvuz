@@ -49,7 +49,7 @@ var validation_profile_messages_ul = {
     account_kor_number: { required: 'Укажите корреспондентский счет' },
     bank: { required: 'Укажите наименование банка' },
     bik: { required: 'Укажите БИК' },
-    email: { required: 'Укажите контактный E-mail','email': 'Неверно указан формат данных' },
+    email: { required: 'Укажите контактный E-mail','email': 'Некорректный E-mail' },
     name: { required: 'Укажите контактное лицо' },
     phone: { required: 'Укажите контактный номер' }
 };
@@ -98,7 +98,7 @@ var validation_signup_messages_listener_individual = {
     position: { required: 'Укажите должность' },
     inn: { required: 'Укажите ИНН' },
     postaddress: { required: 'Укажите почтовый адрес' },
-    email: { required: 'Укажите контактный E-mail','email': 'Неверно указан формат данных' },
+    email: { required: 'Укажите контактный E-mail','email': 'Некорректный E-mail' },
     phone: { required: 'Укажите контактный номер' }
 };
 
