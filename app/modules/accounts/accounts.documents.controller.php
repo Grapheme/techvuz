@@ -430,17 +430,21 @@ class AccountsDocumentsController extends BaseController {
                     $document_content = isset($fields['content']) ? $fields['content']->value : '';
                     if($page_data = self::parseOrderHTMLDocument($document_content)):
                         $page_data['page_title'] = '';
+                        Helper::tad($page_data['SpisokSluschateley']);
                         foreach($page_data['SpisokSluschateley']['listeners'] as $listener):
                             $page_data['FIO_listener'] = !empty($listener['user_listener']) ? $listener['user_listener']['fio'] : $listener['user_individual']['fio'];
                             $page_data['Phone_listener'] = !empty($listener['user_listener']) ? $listener['user_listener']['phone'] : $listener['user_individual']['phone'];
                             $page_data['Email_listener'] = !empty($listener['user_listener']) ? $listener['user_listener']['email'] : $listener['user_individual']['email'];
                             $page_data['Address_listener'] = !empty($listener['user_listener']) ? $listener['user_listener']['postaddress'] : $listener['user_individual']['postaddress'];
                             $page_data['FIO_initial_listener'] = preg_replace('/(\w+) (\w)\w+ (\w)\w+/iu', '$1 $2. $3.', $page_data['FIO_listener']);
-                            $mpdf->AddPage('P');
-                            $mpdf->WriteHTML(View::make($template, $page_data)->render(), 2);
+                            $page = View::make($template, $page_data)->render();
+                            Helper::ta($listener);
+                            //$mpdf->AddPage('P');
+                            //$mpdf->WriteHTML(View::make($template, $page_data)->render(), 2);
                         endforeach;
                     endif;
-                    return $mpdf->Output('request-№'.getOrderNumber($order).'.pdf', 'D');
+                    return 'yes';
+//                    return $mpdf->Output('request-№'.getOrderNumber($order).'.pdf', 'D');
                 case 'word':
                     return Redirect::back();
                     break;

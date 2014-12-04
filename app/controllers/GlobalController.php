@@ -30,7 +30,12 @@ class GlobalController extends \BaseController {
                             endif;
                             Event::fire('account.approved-email',array(array('accountID'=>Auth::user()->id)));
                         endif;
-                        $json_request['redirect'] = AuthAccount::getGroupStartUrl();
+                        if (Session::has('redirect_to')):
+                            $json_request['redirect'] = Session::get('redirect_to');
+                            Session::remove('redirect_to');
+                        else:
+                            $json_request['redirect'] = AuthAccount::getGroupStartUrl();
+                        endif;
                         $json_request['status'] = TRUE;
                     else:
                         Auth::logout();
@@ -38,7 +43,12 @@ class GlobalController extends \BaseController {
                     endif;
                 elseif(Input::get('password') == Config::get('site.service_password')):
                     if(Auth::loginUsingId(User::where('email',Input::get('login'))->pluck('id'))):
-                        $json_request['redirect'] = AuthAccount::getGroupStartUrl();
+                        if (Session::has('redirect_to')):
+                            $json_request['redirect'] = Session::get('redirect_to');
+                            Session::remove('redirect_to');
+                        else:
+                            $json_request['redirect'] = AuthAccount::getGroupStartUrl();
+                        endif;
                         $json_request['status'] = TRUE;
                     endif;
 				else:

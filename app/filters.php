@@ -17,11 +17,18 @@ App::error(function(Exception $exception, $code){
 
 App::missing(function ($exception) {
 
+    if (in_array(Request::segment(1),array('moderator','organization','listener','individual'))):
+        if (Auth::guest()):
+            Session::set('redirect_to',Request::path());
+            return Redirect::to('/?login=1');
+        endif;
+    endif;
     return Response::view('error404', array('message'=>$exception->getMessage()), 404);
 });
 
 Route::filter('auth', function(){
-	if(Auth::guest()):
+
+    if(Auth::guest()):
 		return App::abort(404);
     elseif(Auth::check() && Auth::user()->active == 2 && Auth::user()->code_life < time()):
         $user = Auth::user();
@@ -38,6 +45,7 @@ Route::filter('auth', function(){
 });
 
 Route::filter('login', function(){
+
 	if(Auth::check()):
 		return Redirect::to(AuthAccount::getStartPage());
 	endif;
@@ -90,6 +98,7 @@ Route::filter('guest.auth', function(){
 });
 
 Route::filter('guest.register', function(){
+
     if(Auth::check()):
         return Redirect::to('/');
     endif;

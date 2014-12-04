@@ -51,4 +51,11 @@
 @section('overlays')
 @stop
 @section('scripts')
+@if(Auth::guest() && Input::has('login'))
+<script>
+    $(function(){
+        $(".js-login").click();
+    });
+</script>
+@endif
 @stop

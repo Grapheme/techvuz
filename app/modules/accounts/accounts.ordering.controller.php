@@ -147,7 +147,7 @@ class AccountsOrderingController extends BaseController {
                     endif;
                 endif;
                 Event::fire('moderator.order.new',array(array('accountID'=>0,'order'=>getOrderNumber($order))));
-                return Redirect::to(AuthAccount::getStartPage());
+                return Redirect::to(AuthAccount::getStartPage().'/#orgNotifications');
             endif;
         else:
             return Redirect::route('ordering-select-courses')->with('message','Не выбраны курсы для покупки');
