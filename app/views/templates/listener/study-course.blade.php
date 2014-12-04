@@ -68,12 +68,8 @@
                         @endif
                     @endforeach
                     <?php
-                        if((int)$module->hours > 0):
-                            $studyTime = ((int)$module->hours)*3600;
-                        else:
-                            $studyTime = Config::get('site.time_to_study_begin');
-                        endif;
-                        $lostTime = myDateTime::getDiffTimeStamp(date("Y-m-d H:i:s",strtotime($study_course->start_date)+$studyTime),date("Y-m-d H:i:s",time()));
+                        $studyHours = !empty($module->hours) ? round($module->hours/8)*86400 : round(Config::get('site.time_to_study_begin')/4)*86400;
+                        $lostTime = myDateTime::getDiffTimeStamp(date("Y-m-d H:i:s",strtotime($study_course->start_date)+$studyHours),date("Y-m-d H:i:s",time()));
                     ?>
                     @if($study_course->start_status == 1 && $lostTime <= 0 && !empty($module->test))
                         <tr>
@@ -83,9 +79,21 @@
                     @elseif($study_course->start_status == 1 && $lostTime > 0)
                         <tr>
                             <?php
-                            $lostDateTime = myDateTime::getDiffDate(date("Y-m-d H:i:s",time()),date("Y-m-d H:i:s",strtotime($study_course->start_date)+Config::get('site.time_to_study_begin')),NULL);
+                            $lostDateTime = myDateTime::getDiffDate(date("Y-m-d H:i:s",time()),date("Y-m-d H:i:s",strtotime($study_course->start_date)+$studyHours),NULL);
                             ?>
-                            <td colspan="4">Итоговое тестирование будет доступно через {{ ($lostDateTime['d']*24)+$lostDateTime['h'].' '.Lang::choice('час|часа|часов', ($lostDateTime['d']*24)+$lostDateTime['h']) }}</td>
+                            <td colspan="4">
+                                @if($lostDateTime['d'] > 2)
+                                    Итоговое тестирование будет доступно через {{ $lostDateTime['d'].' '.Lang::choice('день|дня|дней', $lostDateTime['d']) }}
+                                @elseif($lostDateTime['d'] > 1)
+                                    Итоговое тестирование будет доступно через {{ $lostDateTime['d'].' '.Lang::choice('день|дня|дней', $lostDateTime['d'])}} {{ $lostDateTime['h'].' '.Lang::choice('час|часа|часов', $lostDateTime['h']) }}
+                                @elseif($lostDateTime['h'] > 0 && $lostDateTime['h'] < 23)
+                                    Итоговое тестирование будет доступно через {{ $lostDateTime['h'].' '.Lang::choice('час|часа|часов', $lostDateTime['h']) }} {{ $lostDateTime['i'].' '.Lang::choice('минута|минуты|минут', $lostDateTime['i']) }}
+                                @elseif($lostDateTime['i'] > 0)
+                                    Итоговое тестирование будет доступно через {{ $lostDateTime['i'].' '.Lang::choice('минута|минуты|минут', $lostDateTime['i']) }}
+                                @else
+                                    Итоговое тестирование будет скоро доступно
+                                @endif
+                            </td>
                         </tr>
                     @endif
                     </tbody>

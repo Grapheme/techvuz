@@ -7,7 +7,7 @@ return array(
     'theme_path' => 'theme',
     'service_password' => 'CdPfne2pzDNa',
     'paginate_limit' => 30,
-    'time_to_study_begin' => 259200, #72 часа
+    'time_to_study_begin' => 72,
     'time_zone' => 'Europe/Kiev',
 
     'news_count_on_page' => 5,
