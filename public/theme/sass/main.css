@@ -7183,8 +7183,12 @@ a[href^="tel"] {
   text-align: center;
 }
 
+.style-light {
+  font-weight: 300 !important;
+}
+
 .style-normal {
-  font-style: normal !important;
+  font-weight: normal !important;
 }
 
 .style-italic {

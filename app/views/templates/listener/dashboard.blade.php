@@ -19,6 +19,8 @@
        });
     ?>
     <h2>{{ User_listener::where('id',Auth::user()->id)->pluck('fio') }}</h2>
+    <!-- Сюда нужно вывести название организации -->
+    <p class="style-light style-italic">ООО «Организация»</p>
     <div class="cabinet-tabs">
         @include(Helper::acclayout('menu'))
         <div class="employees">
