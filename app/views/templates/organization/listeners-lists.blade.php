@@ -47,9 +47,7 @@
                         <td class="vertical-top"><a href="{{ URL::route('organization-listener-profile',$listener->id) }}">{{ $listener->fio }}</a></td>
                         <td class="vertical-top"><span class="no-courses">Для этого сотрудника курсы не покупались</span></td>
                         <td class="vertical-top">
-                            {{ Form::open(array('url'=>URL::route('organization-listener-profile-delete',$listener->id), 'style'=>'display:inline-block', 'method'=>'delete')) }}
-                                <button type="submit" class="icon-bag-btn js-delete-listener" autocomplete="off" title="Удалить сотрудника"></button>
-                            {{ Form::close() }}
+                            
                         </td>
                     </tr>
                     @endif
