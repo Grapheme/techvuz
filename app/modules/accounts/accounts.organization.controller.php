@@ -164,7 +164,10 @@ class AccountsOrganizationController extends BaseController {
                     $query->with('course');
                     $query->with('final_test');
                 }))
-                ->firstOrFail();
+                ->first();
+        if (!$page_data['profile']):
+            App::abort(404);
+        endif;
         return View::make(Helper::acclayout('listeners-profile'),$page_data);
     }
 
