@@ -6,13 +6,8 @@
     <h2>{{ User_organization::where('id',Auth::user()->id)->pluck('title') }}</h2>
     <div class="employer margin-bottom-40">
         @include(Helper::acclayout('menu'))
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                    <h3 class="margin-bottom-20">{{ $profile->fio }}</h3>
-                </div>
-            </div>
-        </div>
+        
+        <h3 class="margin-bottom-20">{{ $profile->fio }}</h3>
         @if($profile->study->count())
         <table class="tech-table sortable purchase-table">
             <thead>
@@ -87,7 +82,9 @@
                         Редактировать <span class="icon icon-red"></span>
                     </a>
                 @else
-                    <p>{{ Lang::get('interface.ACCOUNT_STATUS.blocked_edit_listener_profile') }}</p>
+                    <a title="{{ Lang::get('interface.ACCOUNT_STATUS.blocked_edit_listener_profile') }}" class="icon--blue icon--disabled pull-right margin-top-30">
+                        <span class="icon icon-red"></span>
+                    </a>
                 @endif
                 </div>
             </div>            

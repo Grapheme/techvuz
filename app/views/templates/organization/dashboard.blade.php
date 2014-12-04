@@ -90,7 +90,7 @@
             </div>
         </div>
         @if($messages->count())
-        <div {{ $dashboardNotificationBlockTargetValue ? '' : 'class="hidden"' }}>
+        <div {{ $dashboardNotificationBlockTargetValue ? '' : 'class="hidden"' }} id="orgNotifications">
             <h3><a href="{{ URL::route('organization-notifications') }}">Уведомления</a></h3>
             <div class="notifications">
                 <div class="notifications-nav">
