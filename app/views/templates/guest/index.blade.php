@@ -9,6 +9,7 @@
     <section class="directions">
         <h3><a href="{{ URL::route('page','catalog') }}">Направления</a></h3>
         <ul class="directions-ul clearfix">
+        <?php $totalCourses = 0; ?>
         @foreach(Directions::whereActive(TRUE)->orderBy('order')->with('photo')->with('courses')->limit(6)->get() as $key => $direction)
             <li class="directions-li">
             @if(!empty($direction->photo->name))
@@ -21,6 +22,7 @@
                 <div class="courses-count">
                     {{ $direction->courses->count() }} {{ Lang::choice('курс|курса|курсов',$direction->courses->count()); }}
                 </div>
+                <?php $totalCourses += $direction->courses->count(); ?>
             </li>
         @endforeach
         </ul>
@@ -30,7 +32,7 @@
                     <div class="row no-gutter margin-top-20">
                         <div class="col-xs-offset-6 col-sm-offset-6 col-md-offset-6 col-lg-offset-6 col-xs-6 col-sm-6 col-md-6 col-lg-6">
                             <div class="count-add-sign">Всего курсов</div>
-                            <div class="count-add-num">17</div>
+                            <div class="count-add-num">{{ $totalCourses }}</div>
                             <div class="count-add-dots"></div>
                         </div>
                     </div>                                
