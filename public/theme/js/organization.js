@@ -18,7 +18,7 @@ var validation_signup_messages_listener = {
     fio: { required: 'Укажите Ф.И.О.' },
     fio_dat: { required: 'Укажите Ф.И.О. в дат. падеже' },
     position: { required: 'Укажите должность' },
-    email: { required: 'Укажите контактный E-mail','email': 'Неверно указан формат данных' },
+    email: { required: 'Укажите контактный E-mail','email': 'Некорректный E-mail' },
     postaddress: { required: 'Укажите почтовый адрес' },
     phone: { required: 'Укажите контактный номер' },
     education: { required: 'Укажите образование' },
@@ -86,7 +86,7 @@ var validation_profile_messages_ul = {
     account_kor_number: { required: 'Укажите корреспондентский счет' },
     bank: { required: 'Укажите наименование банка' },
     bik: { required: 'Укажите БИК' },
-    email: { required: 'Укажите контактный E-mail','email': 'Неверно указан формат данных' },
+    email: { required: 'Укажите контактный E-mail','email': 'Некорректный E-mail' },
     name: { required: 'Укажите контактное лицо' },
     phone: { required: 'Укажите контактный номер' }
 };
