@@ -3,7 +3,9 @@
 @stop
 @section('content')
 <main class="cabinet">
-    <h2>{{ $profile->fio }}</h2>
+    <h1>{{ $profile->fio }}</h1>
+    <!-- Сюда нужно вывести название организации -->
+    <p class="style-light style-italic">ООО «Организация»</p>
     <div class="cabinet-tabs">
         @include(Helper::acclayout('menu'))
         <div class="employer-anket margin-bottom-40">

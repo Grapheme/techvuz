@@ -2,7 +2,7 @@
     {{ Form::hidden('group_id',@Group::where('name','listener')->pluck('id')) }}
     {{ Form::hidden('organization_id',Auth::user()->id) }}
     <div class="reg-form-alert">
-        Все поля являются обязательными для заполнения!
+        <img class="vertical-text-bot" src="{{ asset('theme/img/triangle.png') }}"> Все поля являются обязательными для заполнения!
     </div>
     <div class="form-element">
         <label>Ф.И.О.</label>{{ Form::text('fio', '',array('placeholder'=>'Иванов Иван Иванович')) }}
