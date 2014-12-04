@@ -302,6 +302,7 @@ class AccountsDocumentsController extends BaseController {
         App::abort(404);
     }
     /****************************************************************************/
+    /****************************************************************************/
     public function moderatorOrderContract($order_id,$format){
 
         $document_type = 'contract';
@@ -396,10 +397,56 @@ class AccountsDocumentsController extends BaseController {
         return $this->moderatorShowDocument($order_id, $format, 'act',$template);
 
     }
-
+    /****************************************************************************/
     public function moderatorOrderRequest($order_id,$format){
 
-        return $order_id;
+        if (!$order = Orders::where('id',$order_id)->where('completed',1)->with('organization','individual')->first()):
+            return Redirect::route('moderator-orders-list');
+        endif;
+        $account = NULL; $account_type = NULL;
+        $template = 'templates.assets.request';
+        $document = Dictionary::valueBySlugs('order-documents','order-documents-request');
+        if (!empty($order->organization)):
+            $account = User_organization::where('id',$order->user_id)->first();
+            $account_type = 4;
+        elseif(!empty($order->individual)):
+            $account = User_individual::where('id',$order->user_id)->first();
+            $account_type = 6;
+        endif;
+        if($document->exists && !empty($document->fields)):
+            $fields = modifyKeys($document->fields,'key');
+            Config::set('show-document.order_id', $order_id);
+            switch($format):
+                case 'html':
+                    $document_content = isset($fields['content']) ? $fields['content']->value : '';
+                    if($page_data = self::parseOrderHTMLDocument($document_content)):
+                        return View::make($template,$page_data);
+                    endif;
+                    break;
+                case 'pdf' :
+                    $mpdf = new mPDF('utf-8', 'A4', '8', '', 10, 10, 7, 7, 10, 10);
+                    $mpdf->charset_in = 'cp1251';
+                    $mpdf->SetDisplayMode('fullpage');
+                    $document_content = isset($fields['content']) ? $fields['content']->value : '';
+                    if($page_data = self::parseOrderHTMLDocument($document_content)):
+                        $page_data['page_title'] = '';
+                        foreach($page_data['SpisokSluschateley']['listeners'] as $listener):
+                            $page_data['FIO_listener'] = !empty($listener['user_listener']) ? $listener['user_listener']['fio'] : $listener['user_individual']['fio'];
+                            $page_data['Phone_listener'] = !empty($listener['user_listener']) ? $listener['user_listener']['phone'] : $listener['user_individual']['phone'];
+                            $page_data['Email_listener'] = !empty($listener['user_listener']) ? $listener['user_listener']['email'] : $listener['user_individual']['email'];
+                            $page_data['Address_listener'] = !empty($listener['user_listener']) ? $listener['user_listener']['postaddress'] : $listener['user_individual']['postaddress'];
+                            $page_data['FIO_initial_listener'] = preg_replace('/(\w+) (\w)\w+ (\w)\w+/iu', '$1 $2. $3.', $page_data['FIO_listener']);
+                            $mpdf->AddPage('P');
+                            $mpdf->WriteHTML(View::make($template, $page_data)->render(), 2);
+                        endforeach;
+                    endif;
+                    return $mpdf->Output('request-№'.getOrderNumber($order).'.pdf', 'D');
+                case 'word':
+                    return Redirect::back();
+                    break;
+            endswitch;
+        endif;
+        App::abort(404);
     }
 
     public function moderatorOrderEnrollment($order_id,$format){
@@ -446,7 +493,8 @@ class AccountsDocumentsController extends BaseController {
 
         return $order_id;
     }
-
+    /****************************************************************************/
+    /****************************************************************************/
     public function moderatorShowDocument($order_id,$format,$document_type,$template){
 
         if (!$order = Orders::where('id',$order_id)->where('completed',1)->with('organization','individual',$document_type)->first()):
@@ -652,6 +700,8 @@ class AccountsDocumentsController extends BaseController {
             'ImyaIndividualnogoZakazchika' => empty($order->individual) ? '' : $order->individual->fio,
 
             'FIO_listener' => '', 'Address_listener' => '',
+            'Phone_listener' => '', 'Email_listener' => '',
+            'FIO_initial_listener' => '',
             'VsegoNaimenovaliy' => 0,'KolichestvoNaimenovaliy' => 0,
         );
         if ($extract):
