@@ -16,8 +16,17 @@
 <script type="text/javascript">guestFormValidation();</script>
 <script>
     $(document).ready(function(){
-        $(".phone").inputmask("mask", {"mask": "[+7] (999) 999 99 99","placeholder": "X"});
-        $('.registration-form input[name="ogrn"]').inputmask("mask", {"mask": " 9999999999999?99 ","placeholder": "X"});
+        $(".phone").inputmask("mask", {"mask": "[+7] (999) 999 99 99","placeholder": "_"});
+        $('.registration-form input[name="ogrn"]').inputmask("mask", {"mask": "9999999999999","placeholder": "_"});
+        $('.registration-form input[name="kpp"]').inputmask("mask", {"mask": "999999999","placeholder": "_"});
+        $('.registration-form input[name="inn"]').inputmask("mask", {"mask": "9999999999","placeholder": "_"});
+
+        $('registration-form input[name="account_number"], registration-form input[name="account_kor_number"]').keypress(function (e) {
+            //if the letter is not digit then display error and don't type anything
+            if (e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57)) {
+                return false;
+            }
+        });
     });
 </script>
 @endif
