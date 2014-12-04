@@ -177,7 +177,7 @@
                 endif;
             endforeach;
         ?>
-            <h3><a href="{{ URL::route('organization-study') }}"Ход обучения</a></h3>
+            <h3><a href="{{ URL::route('organization-study') }}">Ход обучения</a></h3>
         @if($hasStudyProgress)
             <table class="tech-table sortable">
                 <tbody>
