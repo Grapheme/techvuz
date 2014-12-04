@@ -2,7 +2,7 @@
     {{ Form::hidden('group_id',@Group::where('name','organization')->pluck('id')) }}
     {{ Form::hidden('account_type',AccountTypes::pluck('id')) }}
     <div class="reg-form-alert">
-        <img class="vertical-text-bot" src="{{ Config::get('site.theme_path') }}/img/triangle.png"> Все поля являются обязательными для заполнения!
+        <img class="vertical-text-bot" src="{{ asset('theme/img/triangle.png') }}"> Все поля являются обязательными для заполнения!
     </div>
     <fieldset>
         <div class="form-element">
