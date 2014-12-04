@@ -48,7 +48,7 @@ var validation_signup_messages_ul = {
     account_kor_number: { required: 'Укажите корреспондентский счет' },
     bank: { required: 'Укажите наименование банка' },
     bik: { required: 'Укажите БИК' },
-    email: { required: 'Укажите контактный E-mail','email': 'Неверно указан формат данных' },
+    email: { required: 'Укажите контактный E-mail','email': 'Некорректный E-mail' },
     name: { required: 'Укажите контактное лицо' },
     phone: { required: 'Укажите контактный номер' },
     consent: { required: '' }
@@ -77,7 +77,7 @@ var validation_signup_messages_fl = {
     passport_date: { required: 'Укажите дату выдачи паспорта' },
     code: { required: 'Укажите rод подразделения' },
     postaddress: { required: 'Укажите почтовый адрес' },
-    email: { required: 'Укажите контактный E-mail','email': 'Неверно указан формат данных' },
+    email: { required: 'Укажите контактный E-mail','email': 'Некорректный E-mail' },
     phone: { required: 'Укажите контактный номер' },
     consent: { required: '' }
 };
