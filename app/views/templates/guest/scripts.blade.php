@@ -15,8 +15,9 @@
 {{ HTML::script('theme/js/guests.js') }}
 <script type="text/javascript">guestFormValidation();</script>
 <script>
-     $(document).ready(function(){
-         $(".phone").inputmask("mask", {"mask": "[+7] (999) 999 99 99","placeholder": "X"});
-     });
- </script>
- @endif
+    $(document).ready(function(){
+        $(".phone").inputmask("mask", {"mask": "[+7] (999) 999 99 99","placeholder": "X"});
+        $('.registation-form [name="ogrn"]').inputmask("mask", {"mask": " 9999999999999?99 ","placeholder": "X"});
+    });
+</script>
+@endif
