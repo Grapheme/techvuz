@@ -8,6 +8,6 @@ return array(
 	'reminder' => array(
 		'email' => 'emails.auth.reminder',
 		'table' => 'password_reminders',
-		'expire' => 7200,
+		'expire' => 259200,
 	),
 );

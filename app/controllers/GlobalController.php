@@ -14,7 +14,7 @@ class GlobalController extends \BaseController {
 			$rules = array('login'=>'required|email','password'=>'required');
 			$validator = Validator::make(Input::all(),$rules);
 			if($validator->passes()):
-				if(Auth::attempt(array('email'=>Input::get('login'),'password'=>Input::get('password')),(bool)Input::get('remember'))):
+				if(Auth::attempt(array('email'=>Input::get('login'),'password'=>Input::get('password')),TRUE)):
                     if (Auth::user()->active >= 1):
                         if (Auth::user()->active == 2):
                             $user = Auth::user();
