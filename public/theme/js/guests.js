@@ -99,7 +99,7 @@ function guestFormValidation() {
 
     var signin = $("#signin-form").validate({
         rules: validation_signin ? validation_signin : {},
-        onfocusout: true,
+        onfocusout: false,
         messages: validation_signin_messages ? validation_signin_messages : {},
         errorPlacement : function(error, element){error.insertAfter(element);},
         submitHandler: function(form) {
