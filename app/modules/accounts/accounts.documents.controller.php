@@ -21,7 +21,19 @@ class AccountsDocumentsController extends BaseController {
                 Route::get('order/{order_id}/course/{course_id}/listener/{listener_id}/certificate/first', array('as' => $prefix.'-order-certificate-first', 'uses' => $class . '@'.$prefix.'OrderCertificateFirst'));
                 Route::get('order/{order_id}course/{course_id}/listener/{listener_id}certificate/second', array('as' => $prefix.'-order-certificate-second', 'uses' => $class . '@'.$prefix.'OrderCertificateSecond'));
             });
-//            Route::get('order/{order_id}/{document}/save',array('as' => $prefix.'-order-contract', 'uses' => $class . '@'.$prefix.'OrderContract'));
+            Route::group(array('before' => 'auth', 'prefix' => 'moderator'), function() use ($class,$prefix) {
+                Route::get('order/{order_id}/request/{format}', array('as' => 'moderator-order-request', 'uses' => $class . '@'.$prefix.'OrderRequest'));
+                Route::get('order/{order_id}/enrollment/{format}', array('as' => 'moderator-order-enrollment', 'uses' => $class . '@'.$prefix.'OrderEnrollment'));
+                Route::get('order/{order_id}/completion/{format}', array('as' => 'moderator-order-completion', 'uses' => $class . '@'.$prefix.'OrderСompletion'));
+                Route::get('order/{order_id}/class-schedule/{format}', array('as' => 'moderator-order-class-schedule', 'uses' => $class . '@'.$prefix.'OrderClassSchedule'));
+                Route::get('order/{order_id}/statements/{format}', array('as' => 'moderator-order-statements', 'uses' => $class . '@'.$prefix.'OrderStatements'));
+                Route::get('order/{order_id}/explanations/{format}', array('as' => 'moderator-order-explanations', 'uses' => $class . '@'.$prefix.'OrderExplanations'));
+                Route::get('order/{order_id}/browsing-history/{format}', array('as' => 'moderator-order-browsing-history', 'uses' => $class . '@'.$prefix.'OrderBrowsingHistory'));
+                Route::get('order/{order_id}/result-certification/{format}', array('as' => 'moderator-order-result-certification', 'uses' => $class . '@'.$prefix.'OrderResultCertification'));
+                Route::get('order/{order_id}/attestation-sheet/{format}', array('as' => 'moderator-order-attestation-sheet', 'uses' => $class . '@'.$prefix.'OrderAttestationSheet'));
+
+                Route::get('order/{order_id}/journal-issuance/{format}', array('as' => 'moderator-order-journal-issuance', 'uses' => $class . '@'.$prefix.'OrderJournalIssuance'));
+            });
         endif;
     }
 
@@ -385,7 +397,57 @@ class AccountsDocumentsController extends BaseController {
 
     }
 
-    public function moderatorShowDocument($order_id,$format,$document_type,$template = 'templates/assets/documents'){
+    public function moderatorOrderRequest($order_id,$format){
+
+        return $order_id;
+    }
+
+    public function moderatorOrderEnrollment($order_id,$format){
+
+        return $order_id;
+    }
+
+    public function moderatorOrderСompletion($order_id,$format){
+
+        return $order_id;
+    }
+
+    public function moderatorOrderClassSchedule($order_id,$format){
+
+        return $order_id;
+    }
+
+    public function moderatorOrderStatements($order_id,$format){
+
+        return $order_id;
+    }
+
+    public function moderatorOrderExplanations($order_id,$format){
+
+        return $order_id;
+    }
+
+    public function moderatorOrderBrowsingHistory($order_id,$format){
+
+        return $order_id;
+    }
+
+    public function moderatorOrderResultCertification($order_id,$format){
+
+        return $order_id;
+    }
+
+    public function moderatorOrderAttestationSheet($order_id,$format){
+
+        return $order_id;
+    }
+
+    public function moderatorOrderJournalIssuance($order_id,$format){
+
+        return $order_id;
+    }
+
+    public function moderatorShowDocument($order_id,$format,$document_type,$template){
 
         if (!$order = Orders::where('id',$order_id)->where('completed',1)->with('organization','individual',$document_type)->first()):
             return Redirect::route('moderator-orders-list');
