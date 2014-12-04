@@ -20,8 +20,8 @@ var validation_signup_ul = {
     fio_manager_rod: { required: true },
     manager: { required: true },
     statutory: { required: true },
-    ogrn: { required: true },
-    inn: { required: true },
+    ogrn: { required: true, range: [13, 23] },
+    inn: { required: true, range: 10 },
     kpp: {},
     uraddress: { required: true },
     account_number: { required: true },
@@ -99,7 +99,7 @@ function guestFormValidation() {
 
     var signin = $("#signin-form").validate({
         rules: validation_signin ? validation_signin : {},
-        onfocusout: true,
+        onfocusout: false,
         messages: validation_signin_messages ? validation_signin_messages : {},
         errorPlacement : function(error, element){error.insertAfter(element);},
         submitHandler: function(form) {
