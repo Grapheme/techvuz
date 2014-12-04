@@ -211,4 +211,13 @@
 {{ HTML::script('js/vendor/SmartNotification.min.js') }}
 {{ HTML::script('js/system/messages.js') }}
 {{ HTML::script('theme/js/organization.js') }}
+<script>
+    $(function(){
+        $(".more-courses").click(function(){
+            var index = $(this).attr('data-index');
+            $("tr[data-index='"+index+"']:hidden").hide().removeClass('hidden').slideDown(500);
+            $(this).remove();
+        });
+    });
+</script>
 @stop
