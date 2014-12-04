@@ -9,9 +9,9 @@ class SystemMessagesTableSeeder extends Seeder {
 
         $dic_id = Dictionary::where('slug','types-system-messages')->first()->id;
 
-        DicVal::create(array('dic_id'=>$dic_id,'slug'=>'organization.approve-email','name'=> 'Для активации Вашего личного кабинета и получения доступа к документации Вам необходимо подтвердить e-mail, указанный при регистрации.','order'=>1));
-        DicVal::create(array('dic_id'=>$dic_id,'slug'=>'organization.register-listeners','name'=> 'Необходимо добавить слушателей – сотрудников Вашей организации, которых необходимо обучить','order'=>3));
-        DicVal::create(array('dic_id'=>$dic_id,'slug'=>'organization.select-courses','name'=> 'Необходимо выбрать курс(ы) и оформить заказ','order'=>4));
+        DicVal::create(array('dic_id'=>$dic_id,'slug'=>'organization.approve-email','name'=> 'Подтвердите email и сможете заказывать курсы. Ссылка отправлена на Вашу почту.','order'=>1));
+        DicVal::create(array('dic_id'=>$dic_id,'slug'=>'organization.register-listeners','name'=> 'Необходимо добавить слушателей – сотрудников Вашей организации, которых необходимо обучить.','order'=>3));
+        DicVal::create(array('dic_id'=>$dic_id,'slug'=>'organization.select-courses','name'=> 'Необходимо выбрать курс(ы) и оформить заказ.','order'=>4));
         DicVal::create(array('dic_id'=>$dic_id,'slug'=>'organization.account-blocked','name'=> 'Ваша учетная запись заблокирована. За уточнениями обратитесь к администрации системы.','order'=>5));
         DicVal::create(array('dic_id'=>$dic_id,'slug'=>'organization.order-puy','name'=> 'Ваш заказ №[order] оформлен. Для получения доступа к лекционным материалам Вам необходимо оплатить <a href="[link]">счет</a>. Доступ предоставляется в течение 2 часов с момента поступления денежных средств на расчетный счет образовательного портала ТЕХВУЗ.РФ','order'=>6));
 
