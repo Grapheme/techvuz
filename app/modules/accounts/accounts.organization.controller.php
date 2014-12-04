@@ -181,7 +181,10 @@ class AccountsOrganizationController extends BaseController {
         $page_data['profile'] = User_listener::where('id',$listener_id)
                 ->where('organization_id',Auth::user()->id)
                 ->where('active','>=',1)
-                ->firstOrFail();
+            ->first();
+        if (!$page_data['profile']):
+            App::abort(404);
+        endif;
         return View::make(Helper::acclayout('listeners-profile-edit'),$page_data);
     }
 
