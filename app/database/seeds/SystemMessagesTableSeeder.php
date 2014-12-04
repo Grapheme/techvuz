@@ -9,9 +9,9 @@ class SystemMessagesTableSeeder extends Seeder {
 
         $dic_id = Dictionary::where('slug','types-system-messages')->first()->id;
 
-        DicVal::create(array('dic_id'=>$dic_id,'slug'=>'organization.approve-email','name'=> '«Для активации Вашего личного кабинета и получения доступа к документации Вам необходимо подтвердить e-mail, указанный при регистрации.','order'=>1));
-        DicVal::create(array('dic_id'=>$dic_id,'slug'=>'organization.register-listeners','name'=> '«Необходимо добавить слушателей – сотрудников Вашей организации, которых необходимо обучить»','order'=>3));
-        DicVal::create(array('dic_id'=>$dic_id,'slug'=>'organization.select-courses','name'=> '«Необходимо выбрать курс(ы) и оформить заказ»','order'=>4));
+        DicVal::create(array('dic_id'=>$dic_id,'slug'=>'organization.approve-email','name'=> 'Для активации Вашего личного кабинета и получения доступа к документации Вам необходимо подтвердить e-mail, указанный при регистрации.','order'=>1));
+        DicVal::create(array('dic_id'=>$dic_id,'slug'=>'organization.register-listeners','name'=> 'Необходимо добавить слушателей – сотрудников Вашей организации, которых необходимо обучить','order'=>3));
+        DicVal::create(array('dic_id'=>$dic_id,'slug'=>'organization.select-courses','name'=> 'Необходимо выбрать курс(ы) и оформить заказ','order'=>4));
         DicVal::create(array('dic_id'=>$dic_id,'slug'=>'organization.account-blocked','name'=> 'Ваша учетная запись заблокирована. За уточнениями обратитесь к администрации системы.','order'=>5));
         DicVal::create(array('dic_id'=>$dic_id,'slug'=>'organization.order-puy','name'=> 'Ваш заказ №[order] оформлен. Для получения доступа к лекционным материалам Вам необходимо оплатить <a href="[link]">счет</a>. Доступ предоставляется в течение 2 часов с момента поступления денежных средств на расчетный счет образовательного портала ТЕХВУЗ.РФ','order'=>6));
 
@@ -37,7 +37,7 @@ class SystemMessagesTableSeeder extends Seeder {
         DicVal::create(array('dic_id'=>$dic_id,'slug'=>'moderator.order.new','name'=> 'Оформлен заказ №[order]','order'=>23));
         DicVal::create(array('dic_id'=>$dic_id,'slug'=>'moderator.order.closed','name'=> 'Заказ №[order] закрылся','order'=>24));
 
-        DicVal::create(array('dic_id'=>$dic_id,'slug'=>'organization.order.closed','name'=> 'Зазаз <a href="[link]">№[order]</a> закрыт. Все сотрудники Вашей организации успешно прошли итоговые тестирования по заданным курсам.','order'=>25));
+        DicVal::create(array('dic_id'=>$dic_id,'slug'=>'organization.order.closed','name'=> 'Заказ <a href="[link]">№[order]</a> закрыт. Все сотрудники Вашей организации успешно прошли итоговые тестирования по заданным курсам.','order'=>25));
         DicVal::create(array('dic_id'=>$dic_id,'slug'=>'organization.order-puy-no-approve','name'=> 'Ваш заказ <a href="[link]">№[order]</a> оформлен. Для получения договора на обучение и счета на оплату платных образовательных услуг необходимо дождаться окончания проверки администратором сайта. Проверка занимает не более 12 часов с момента активации личного кабинета','order'=>26));
 
         DicVal::create(array('dic_id'=>$dic_id,'slug'=>'account.approved-email','name'=> 'Ваш личный кабинет активирован. Происходит проверка администратором сайта','order'=>27));
