@@ -66,7 +66,7 @@ class AccountGroupsController extends \BaseController {
                 'status'=>FALSE,
                 'code'=>4,
                 'days' => $lostDays,
-                'message'=>Lang::get('interface.ACCOUNT_STATUS.not_active_few_day').' '.$lostDays.' '.Lang::choice('день|дня|дней', $lostDays).'.'
+                'message'=>$lostDays.' '.Lang::choice('день|дня|дней', $lostDays) . ' ' . Lang::get('interface.ACCOUNT_STATUS.not_active_few_day')
             );
         else:
             return FALSE;
