@@ -51,4 +51,8 @@ class Lectures extends BaseModel {
     public function document(){
         return $this->hasOne('Upload','id','document');
     }
+    public function downloaded_lecture(){
+
+        return $this->belongsTo('User_lectures_download','id','lecture_id')->where('user_id',Auth::user()->id);
+    }
 }

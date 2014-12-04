@@ -208,14 +208,13 @@ class AccountsListenerController extends BaseController {
             $query->orderBy('order');
             $query->with(array('lectures'=>function($query_lecture){
                 $query_lecture->orderBy('order');
+                $query_lecture->with('downloaded_lecture');
             }));
             $query->with('test');
         }))->with('test')->with(array('metodicals'=>function($query){
             $query->orderBy('order');
             $query->with('document');
         }))->first();
-
-//        Helper::tad($listenerCourse);
         $page_data = array(
             'page_title'=> Lang::get('seo.COMPANY_LISTENER_STUDY_COURSE.title'),
             'page_description'=> Lang::get('seo.COMPANY_LISTENER_STUDY_COURSE.description'),
@@ -243,6 +242,9 @@ class AccountsListenerController extends BaseController {
                     Event::fire('organization.study.begin',array(array('accountID'=>User_listener::where('id',Auth::user()->id)->first()->organization()->pluck('id'),'course'=>OrderListeners::where('id',$study_course_id)->first()->course()->pluck('code'),'listener'=>User_listener::where('id',Auth::user()->id)->pluck('fio'))));
                 endif;
                 Event::fire('listener.start.course.study', array(array('listener_course_id'=>$study_course_id)));
+                if(!User_lectures_download::where('user_id',Auth::user()->id)->where('lecture_id',$lecture_id)->exists()):
+                    User_lectures_download::create(array('user_id'=>Auth::user()->id,'lecture_id'=>$lecture_id));
+                endif;
                 $headers = returnDownloadHeaders($lecture['document']);
                 return Response::download(public_path($lecture['document']['path']), $lecture['document']['original_name'], $headers);
             else:
@@ -267,6 +269,9 @@ class AccountsListenerController extends BaseController {
             $lectures = Lectures::where('course_id',$listenerCourse->course_id)->with('document')->get();
             $documents = array();
             foreach($lectures as  $lecture):
+                if(!User_lectures_download::where('user_id',Auth::user()->id)->where('lecture_id',$lecture->id)->exists()):
+                    User_lectures_download::create(array('user_id'=>Auth::user()->id,'lecture_id'=>$lecture->id));
+                endif;
                 $lecture = $lecture->toArray();
                 if (isset($lecture['document']['path']) && File::exists(public_path($lecture['document']['path']))):
                     $documents[] = preg_replace('|([/]+)|s', '/', public_path($lecture['document']['path']));
