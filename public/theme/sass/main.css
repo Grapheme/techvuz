@@ -7179,6 +7179,10 @@ a[href^="tel"] {
   vertical-align: top;
 }
 
+.vertical-text-bot {
+  vertical-align: text-bottom;
+}
+
 .text-center {
   text-align: center;
 }

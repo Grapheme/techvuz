@@ -1,7 +1,7 @@
 {{ Form::open(array('url'=>URL::route('signup-fl'), 'class'=>'registration-form', 'id'=>'signup-fl-form', 'method'=>'post')) }}
     {{ Form::hidden('group_id',@Group::where('name','individual')->pluck('id')) }}
     <div class="reg-form-alert">
-        <img src="{{ Config::get('site.theme_path') }}/img/triangle.png"> Все поля являются обязательными для заполнения!
+        <img class="vertical-text-bot" src="{{ Config::get('site.theme_path') }}/img/triangle.png"> Все поля являются обязательными для заполнения!
     </div>
     <fieldset>
         <div class="form-element">
