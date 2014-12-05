@@ -246,19 +246,22 @@ var Popup = (function(){
 		$select.find('option:selected').prop('selected', false);
 
 		//И заполним их данными этого объекта
-		for (var key in orderingObj) {
+		setTimeout( function(){
 
-			//Находим текущую таблицу
-			$workTable = $('.tech-table').filter('[data-courseid="' + key + '"]');
+			for (var key in orderingObj) {
 
-			//И заполняем соседние селекты
-			for (var i=0 ; i < orderingObj[key].length ; i++ ){
-				
-				$workSelect = $workTable.parent().next().find('.chosen-select');
-				$workSelect.find('option[value="' + orderingObj[key][i] + '"]').prop('selected', true);
+				//Находим текущую таблицу
+				$workTable = $('.tech-table').filter('[data-courseid="' + key + '"]');
+
+				//И заполняем соседние селекты
+				for (var i=0 ; i < orderingObj[key].length ; i++ ){
+					
+					$workSelect = $workTable.parent().next().find('.chosen-select');
+					$workSelect.find('option[value="' + orderingObj[key][i] + '"]').prop('selected', true);
+				}
+
 			}
-
-		}
+		}, 100);
 
 		console.log('finished!');
     }
