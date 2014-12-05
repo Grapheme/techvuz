@@ -259,6 +259,8 @@ var Popup = (function(){
 			}
 
 		}
+
+		console.log('finished!');
     }
 
     function makeCoursesJson(elem) {
