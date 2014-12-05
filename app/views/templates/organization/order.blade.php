@@ -71,7 +71,11 @@
                 @foreach($course['listeners'] as $index => $listener)
             <tr>
                 @if($index == 0)
-                <td class="vertical-top">{{ $course['course']['code'] }}. {{{ $course['course']['title'] }}}</td>
+                <td class="vertical-top">
+                    <a href="{{ URL::route('course-page',$course->seo->url) }}">
+                        {{ $course['course']['code'] }}. {{{ $course['course']['title'] }}}
+                    </a>
+                </td>
                 @else
                 <td class="vertical-top"></td>
                 @endif
