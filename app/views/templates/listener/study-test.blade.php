@@ -47,7 +47,7 @@
                             <br> {{ $test->questions->count() }} из {{ $test->questions->count() }}
                         </div> -->
                         <div>
-                            <button type="submit" class="margin-top-40 btn btn--bordered btn--blue">Посмотреть результат</button>
+                            <button type="submit" class="margin-top-10 btn btn--bordered btn--blue">Посмотреть результат</button>
                         </div>
                     </li>
                 </ul>
