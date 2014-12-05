@@ -7159,6 +7159,7 @@ a[href^="tel"] {
 
 .style-normal {
   font-weight: normal !important;
+  font-style: normal !important;
 }
 
 .style-italic {

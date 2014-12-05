@@ -20,14 +20,14 @@
             <tbody>                
                 @foreach($profile->study as $study)
                 <tr {{ ($study->start_status == 1 && $study->over_status == 1) ? 'class="finished-course"' : '' }}>
-                    <td>{{ $study->course->title }}</td>                    
-                    <td>
+                    <td class="vertical-top">{{ $study->course->title }}</td>                    
+                    <td class="vertical-top">
                         <a href="{{ URL::route('organization-order',$study->order->id) }}"> №{{ getOrderNumber($study->order) }}</a>
                         <div class="font-sm nowrap">
                             от {{ myDateTime::SwapDotDateWithOutTime($study->order->created_at) }}
                         </div>
                     </td>
-                    <td class="self-status">
+                    <td class="self-status vertical-top">
                         <span>
                             @if($study->start_status == 0 && $study->over_status == 0)
                                 Не обучается
@@ -61,7 +61,7 @@
                         @if($study->start_status == 0 && $study->over_status == 0)
 
                         @elseif($study->start_status == 1 && $study->over_status == 1)
-                           <a class="style-normal" href="#"><span class="icon icon-sertifikat"></span> Удостоверение</a>
+                           <a class="style-normal nowrap" href="#"><span class="icon icon-sertifikat"></span> Удостоверение</a>
                         @else
 
                         @endif
