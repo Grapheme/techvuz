@@ -27,6 +27,9 @@
                 return false;
             }
         });
+        $('.registration-form input[name="email"]').keyup(function() {
+            this.value = this.value.replace(/[а-яА-яЁё]/i, "");
+        });
     });
 </script>
 @endif
