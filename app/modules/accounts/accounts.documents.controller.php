@@ -470,7 +470,8 @@ class AccountsDocumentsController extends BaseController {
 
     public function moderatorOrderСompletion($order_id,$format){
 
-        return $order_id;
+        $template = 'templates/assets/completion';
+        return $this->moderatorShowCorporativeDocument($order_id,$format,'completion',$template);
     }
 
     public function moderatorOrderClassSchedule($order_id,$format){
