@@ -129,6 +129,15 @@ function getOrderNumber($order){
     endif;
 }
 
+function getShortOrderNumber($order){
+
+    if(is_object($order)):
+        return str_pad($order->number,3,'0',STR_PAD_LEFT);
+    elseif(is_array($order)):
+        return str_pad($order['number'],3,'0',STR_PAD_LEFT);
+    endif;
+}
+
 /****************************************************************************/
 /*********************** ДЛЯ ДОКУМЕНТОВ *************************************/
 /****************************************************************************/

@@ -369,8 +369,13 @@ class AccountsDocumentsController extends BaseController {
                     if($page_data = self::parseOrderHTMLDocument($document_content_consent)):
                         $page_data['page_title'] = '';
                         foreach($page_data['SpisokSluschateley']['listeners'] as $listener):
-                            $page_data['FIO_listener'] = !empty($listener['user_listener']) ? $listener['user_listener']['fio'] : $listener['user_individual']['fio'];
-                            $page_data['Address_listener'] = !empty($listener['user_listener']) ? $listener['user_listener']['postaddress'] : $listener['user_individual']['postaddress'];
+                            $listeners[$listener->user_id]['FIO_listener'] = !empty($listener['user_listener']) ? $listener['user_listener']['fio'] : $listener['user_individual']['fio'];
+                            $listeners[$listener->user_id]['Address_listener'] = !empty($listener['user_listener']) ? $listener['user_listener']['postaddress'] : $listener['user_individual']['postaddress'];
+                        endforeach;
+                        foreach($listeners as $listener_id => $listener):
+                            $page_data['FIO_listener'] = $listener['FIO_listener'];
+                            $page_data['Address_listener'] = $listener['Address_listener'];
+                            $page = View::make('templates/assets/contract-consent', $page_data)->render();
                             $mpdf->AddPage('P');
                             $mpdf->WriteHTML(View::make('templates/assets/contract-consent', $page_data)->render(), 2);
                         endforeach;
@@ -430,21 +435,25 @@ class AccountsDocumentsController extends BaseController {
                     $document_content = isset($fields['content']) ? $fields['content']->value : '';
                     if($page_data = self::parseOrderHTMLDocument($document_content)):
                         $page_data['page_title'] = '';
-                        Helper::tad($page_data['SpisokSluschateley']);
                         foreach($page_data['SpisokSluschateley']['listeners'] as $listener):
-                            $page_data['FIO_listener'] = !empty($listener['user_listener']) ? $listener['user_listener']['fio'] : $listener['user_individual']['fio'];
-                            $page_data['Phone_listener'] = !empty($listener['user_listener']) ? $listener['user_listener']['phone'] : $listener['user_individual']['phone'];
-                            $page_data['Email_listener'] = !empty($listener['user_listener']) ? $listener['user_listener']['email'] : $listener['user_individual']['email'];
-                            $page_data['Address_listener'] = !empty($listener['user_listener']) ? $listener['user_listener']['postaddress'] : $listener['user_individual']['postaddress'];
-                            $page_data['FIO_initial_listener'] = preg_replace('/(\w+) (\w)\w+ (\w)\w+/iu', '$1 $2. $3.', $page_data['FIO_listener']);
+                            $listeners[$listener->user_id]['FIO_listener'] = !empty($listener['user_listener']) ? $listener['user_listener']['fio'] : $listener['user_individual']['fio'];
+                            $listeners[$listener->user_id]['Phone_listener'] = !empty($listener['user_listener']) ? $listener['user_listener']['phone'] : $listener['user_individual']['phone'];
+                            $listeners[$listener->user_id]['Email_listener'] = !empty($listener['user_listener']) ? $listener['user_listener']['email'] : $listener['user_individual']['email'];
+                            $listeners[$listener->user_id]['Address_listener'] = !empty($listener['user_listener']) ? $listener['user_listener']['postaddress'] : $listener['user_individual']['postaddress'];
+                            $listeners[$listener->user_id]['FIO_initial_listener'] = preg_replace('/(\w+) (\w)\w+ (\w)\w+/iu', '$1 $2. $3.', $listeners[$listener->user_id]['FIO_listener']);
+                        endforeach;
+                        foreach($listeners as $listener_id => $listener):
+                            $page_data['FIO_listener'] = $listener['FIO_listener'];
+                            $page_data['Phone_listener'] = $listener['Phone_listener'];
+                            $page_data['Email_listener'] = $listener['Email_listener'];
+                            $page_data['Address_listener'] = $listener['Address_listener'];
+                            $page_data['FIO_initial_listener'] = $listener['FIO_initial_listener'];
                             $page = View::make($template, $page_data)->render();
-                            Helper::ta($listener);
-                            //$mpdf->AddPage('P');
-                            //$mpdf->WriteHTML(View::make($template, $page_data)->render(), 2);
+                            $mpdf->AddPage('P');
+                            $mpdf->WriteHTML(View::make($template, $page_data)->render(), 2);
                         endforeach;
                     endif;
-                    return 'yes';
-//                    return $mpdf->Output('request-№'.getOrderNumber($order).'.pdf', 'D');
+                    return $mpdf->Output('request-№'.getOrderNumber($order).'.pdf', 'D');
                 case 'word':
                     return Redirect::back();
                     break;
@@ -455,7 +464,8 @@ class AccountsDocumentsController extends BaseController {
 
     public function moderatorOrderEnrollment($order_id,$format){
 
-        return $order_id;
+        $template = 'templates/assets/enrollment';
+        return $this->moderatorShowCorporativeDocument($order_id,$format,'enrollment',$template);
     }
 
     public function moderatorOrderСompletion($order_id,$format){
@@ -518,6 +528,54 @@ class AccountsDocumentsController extends BaseController {
             $headers = returnDownloadHeaders($order->contract);
             return Response::download(public_path($order->$document_type->path),$document_type.'-№'.getOrderNumber($order).'.'.$order->$document_type->mime2,$headers);
         elseif($document->exists && !empty($document->fields)):
+            $fields = modifyKeys($document->fields,'key');
+            $word_template = FALSE;
+            if($word_template_id = isset($fields['word_template']) ? $fields['word_template']->value : ''):
+                $word_template = Upload::where('id',$word_template_id)->pluck('path');
+            endif;
+            Config::set('show-document.order_id', $order_id);
+            switch($format):
+                case 'html':
+                    $document_content = isset($fields['content']) ? $fields['content']->value : '';
+                    if($page_data = self::parseOrderHTMLDocument($document_content)):
+                        return View::make($template,$page_data);
+                    endif;
+                    break;
+                case 'pdf' :
+                    $document_content = isset($fields['content']) ? $fields['content']->value : '';
+                    if($page_data = self::parseOrderHTMLDocument($document_content)):
+                        $page_data['page_title'] = '';
+                        $mpdf = new mPDF('utf-8', 'A4', '8', '', 10, 10, 7, 7, 10, 10);
+                        $mpdf->charset_in = 'cp1251';
+                        $mpdf->SetDisplayMode('fullpage');
+                        $mpdf->WriteHTML(View::make($template, $page_data)->render(), 2);
+                        return $mpdf->Output($document_type.'-№'.getOrderNumber($order).'.pdf', 'D');
+                    endif;
+                    break;
+                case 'word':
+                    return Redirect::back();
+                    break;
+            endswitch;
+        endif;
+        App::abort(404);
+    }
+
+    public function moderatorShowCorporativeDocument($order_id,$format,$document_type,$template){
+
+        if (!$order = Orders::where('id',$order_id)->where('completed',1)->with('organization','individual')->first()):
+            return Redirect::route('moderator-orders-list');
+        endif;
+        $account = NULL; $account_type = NULL;
+        if (!empty($order->organization)):
+            $account = User_organization::where('id',$order->user_id)->first();
+            $account_type = 4;
+            $document = Dictionary::valueBySlugs('order-documents','order-documents-'.$document_type);
+        elseif(!empty($order->individual)):
+            $account = User_individual::where('id',$order->user_id)->first();
+            $account_type = 6;
+            $document = Dictionary::valueBySlugs('order-documents','order-documents-'.$document_type);
+        endif;
+        if($document->exists && !empty($document->fields)):
             $fields = modifyKeys($document->fields,'key');
             $word_template = FALSE;
             if($word_template_id = isset($fields['word_template']) ? $fields['word_template']->value : ''):
@@ -673,6 +731,7 @@ class AccountsDocumentsController extends BaseController {
             'stringCompileTemplate' => '',
             'page_title' => '',
             'NomerZakaza' => getOrderNumber($order),
+            'NomerZakazaKorotkiy' => getShortOrderNumber($order),
             'SummaZakaza' => number_format($SummaZakaza,0,'.',' '),
             'SummaZakazaSlovami' => num2str($SummaZakaza),
             'KolichestvoSluschateley' => $order->listeners->count(),
@@ -700,6 +759,7 @@ class AccountsDocumentsController extends BaseController {
             'TablicaSluschateleyDlyaDogovora' => '',
             'SpisokSluschateleyDlyaScheta' => '',
             'SpisokSluschateleyDlyaAkta' => '',
+            'SpisokSluschateleyDlyaPrikaza' => '',
 
             'ImyaIndividualnogoZakazchika' => empty($order->individual) ? '' : $order->individual->fio,
 
