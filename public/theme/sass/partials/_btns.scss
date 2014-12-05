@@ -58,7 +58,7 @@
 
 	&.btn--gray {
 		color: inherit;
-		border-color: #ddd;
+		border-color: #ddd !important;
 
 		&:hover {
 			background: #ddd;
