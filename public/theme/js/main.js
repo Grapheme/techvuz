@@ -34,6 +34,10 @@ $('.js-close-notifications').click( function(){
 	});
 });
 
+$('.js-download-course').click( function(){
+	$(this).removeClass('btn--blue').addClass('btn--gray');
+})
+
 //Test validation
 (function(){
 	var $testParent = $('.questions-ul');

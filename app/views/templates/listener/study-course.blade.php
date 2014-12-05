@@ -56,7 +56,7 @@
                                 <td>{{ $lecture->hours }}</td>
                                 <td>
                                     {{ Form::open(array('url'=>URL::route('listener-study-download-lecture',array('study_course_id'=>$study_course->id,'lecture_id'=>$lecture->id)), 'style'=>'display:inline-block', 'method'=>'POST')) }}
-                                        <input type="submit" value="Скачать" class="btn btn--bordered {{ empty($lecture->downloaded_lecture) ? 'btn--blue' : 'btn--gray'; }} margin-bottom-20 pull-right">
+                                        <input type="submit" value="Скачать" class="js-download-course btn btn--bordered {{ empty($lecture->downloaded_lecture) ? 'btn--blue' : 'btn--gray'; }} margin-bottom-20 pull-right">
                                     {{ Form::close() }}
                                 </td>
                             </tr>
