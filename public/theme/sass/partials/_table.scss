@@ -39,8 +39,12 @@
 				text-align: left;
 			}
 		}
-		
+
 		.purchase-price {
+			white-space: nowrap;
+		}
+		
+		.purchase-price-sum {
 			font-size: 22em / $hfs;
 			font-weight: 600;
 			white-space: nowrap;
