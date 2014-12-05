@@ -480,6 +480,11 @@ var Popup = (function(){
 		btn.parents('.purchase-course-dt').add( btn.parents('.purchase-course-dt').next() ).remove();
 
 		countSum();
+
+		if ( !$('.purchase-course-dt').find('.purchase-table')[0] ) {
+			console.log('we need go back');
+			window.history.back();
+		}
     }
 
     function countSum() {
