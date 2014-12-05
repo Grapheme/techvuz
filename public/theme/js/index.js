@@ -420,7 +420,7 @@ var Popup = (function(){
 
     setTimeout( function(){
 		getOrderUsers();
-	}, 100);
+	}, 1000);
 
     //Также нам нужна функция, которая восстановит данные о курсах и пользователях при загрузке
     function getOrderUsers(){
