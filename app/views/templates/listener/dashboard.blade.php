@@ -107,11 +107,13 @@
             <h3>Ход обучения</h3>
         @if($show_block)
             <table class="tech-table sortable">
-                <tbody>
+                <thead>
                     <tr>
                         <th class="sort sort--asc">Название курса <span class="sort--icon"></span> </th>
                         <th class="sort sort--asc">Прогресс <span class="sort--icon"></span> </th>
                     </tr>
+                </thead>
+                <tbody>
                 @foreach($courses as $listener_course)
                     @if($listener_course->access_status == 1 && $listener_course->start_status == 1 && $listener_course->over_status == 0)
                         @include(Helper::acclayout('assets.course-tr'))

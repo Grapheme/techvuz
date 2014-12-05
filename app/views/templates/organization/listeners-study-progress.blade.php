@@ -29,12 +29,14 @@
             <h3 class="margin-bottom-20">Ход обучения</h3>
         @if($hasStudyProgress)
             <table class="tech-table sortable">
-                <tbody>
+                <thead>
                     <tr>
                         <th class="sort sort--asc">Ф.И.О. <span class="sort--icon"></span> </th>
                         <th class="sort sort--asc">Название курса <span class="sort--icon"></span> </th>
                         <th class="sort sort--asc">Прогресс <span class="sort--icon"></span> </th>
                     </tr>
+                </thead>
+                <tbody>
                 @foreach($listeners as $listener)
 
                     @if($listener->study->count())

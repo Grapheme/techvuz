@@ -38,7 +38,7 @@ return array(
         'blocked' => 'Ваша учетная запись заблокирована.',
         'not_active' => 'Ваша учетная запись не активирована.',
         'not_moderator_approve' => 'Учетная запись активирована, теперь ее проверяет администратор.',
-        'not_active_few_day' => 'осталось до блокировки учетной записи.',
+        'not_active_few_day' => 'до блокировки учетной записи.',
         'blocked_approve' => 'Ознакомительный период завершен, учетная запись заблокирована.',
         'blocked_edit_profile' => 'Изменение регистрационных данных заблокировано до закрытия всех заказов. Для внесения изменений обратитесь к администрации сайта',
         'blocked_edit_listener_profile' => 'Изменение анкеты заблокировано до окончания обучения'
@@ -47,7 +47,7 @@ return array(
     'ACCOUNT_EMAIL_STATUS' => array(
         'active' => 'Ваш Email активирован!',
         'not_active' => 'Подтвердите email и сможете заказывать курсы. Ссылка отправлена на Вашу почту.',
-        'repeated_sending' => '<a href="'.returnRoute('activation-repeated-sending-letter',null,'#').'">Отправить ссылку еще раз</a>'
+        'repeated_sending' => '<a href="'.returnRoute('activation-repeated-sending-letter',null,'#').'">Отправить ссылку еще раз</a>.'
     ),
 
     'PASSWORD_RESTORE' => array(
@@ -57,7 +57,7 @@ return array(
     ),
 
     'PASSWORD_RESET' => array(
-        'success' => 'Пароль сброшен. Можете авторизоваться подновым паролем.',
+        'success' => 'Пароль сброшен. Можете авторизоваться под новым паролем.',
         'fail' => 'Сброс невозможен. Указанный Email не определен!',
         'fail_token' => 'Неверный Token!',
     ),

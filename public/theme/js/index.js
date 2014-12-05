@@ -191,13 +191,15 @@ $('.tabs').tabs();
 
 $('.select').selectmenu();
 $(function(){
-	$('table.sortable').tablesorter(); 
+	$('table.sortable').tablesorter();
 });
 
 $('.accordion').accordion({
     header: '.accordion-header',
     heightStyle: 'content',
     collapsible: true,
+    active: false,
+
     create: function(event, ui){
 		if( window.location.hash ) {
 			$(window.location.hash).trigger('click');
