@@ -420,7 +420,7 @@ var Popup = (function(){
 
     setTimeout( function(){
 		getOrderUsers();
-	}, 1000);
+	}, 100);
 
     //Также нам нужна функция, которая восстановит данные о курсах и пользователях при загрузке
     function getOrderUsers(){
@@ -432,25 +432,22 @@ var Popup = (function(){
 		console.log( orderingObj );
 
 		//Сбросим все селекты
-		//$select.find('option:selected').prop('selected', false);
+		$select.find('option:selected').prop('selected', false);
 
 		//И заполним их данными этого объекта
-		setTimeout( function(){
+		for (var key in orderingObj) {
 
-			for (var key in orderingObj) {
+			//Находим текущую таблицу
+			$workTable = $('.tech-table').filter('[data-courseid="' + key + '"]');
 
-				//Находим текущую таблицу
-				$workTable = $('.tech-table').filter('[data-courseid="' + key + '"]');
-
-				//И заполняем соседние селекты
-				for (var i=0 ; i < orderingObj[key].length ; i++ ){
-					
-					$workSelect = $workTable.parent().next().find('.chosen-select');
-					$workSelect.find('option[value="' + orderingObj[key][i] + '"]').prop('selected', true);
-				}
-
+			//И заполняем соседние селекты
+			for (var i=0 ; i < orderingObj[key].length ; i++ ){
+				
+				$workSelect = $workTable.parent().next().find('.chosen-select');
+				$workSelect.find('option[value="' + orderingObj[key][i] + '"]').prop('selected', true);
 			}
-		}, 100);
+
+		}
 
 		console.log('finished!');
     }
