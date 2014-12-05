@@ -514,6 +514,8 @@ var Popup = (function(){
         var $boundDt = elem.parent().prev();
         //Price-container
         var $price = $boundDt.find('.purchase-price');
+        // Price-sum-container
+        var $priceSum = $boundDt.find('.purchase-price-sum');
         //Price-container text
         var $priceCount = $price.data('price');
         //Listener container
@@ -525,7 +527,7 @@ var Popup = (function(){
         //1. Fill active listeners
         $listeners.text( $listenersLength );
         //2. Set price
-        $price.text( ($listenersLength * $priceCount) ? ( ($listenersLength * $priceCount) + '' ).replace(/(\d)(?=(\d{3})+$)/g, '$1 ') + '.-' : ($priceCount + '').replace(/(\d)(?=(\d{3})+$)/g, '$1 ') + '.-' );
+        $priceSum.text( ($listenersLength * $priceCount) ? ( ($listenersLength * $priceCount) + '' ).replace(/(\d)(?=(\d{3})+$)/g, '$1 ') + '.-' : ($priceCount + '').replace(/(\d)(?=(\d{3})+$)/g, '$1 ') + '.-' );
     }
 
     function returnError(text) {
