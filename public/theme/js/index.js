@@ -425,7 +425,8 @@ var Popup = (function(){
     //Также нам нужна функция, которая восстановит данные о курсах и пользователях при загрузке
     function getOrderUsers(){
 		//Достанем JSON из функции
-		var orderingObj = $.cookie('ordering') ? JSON.parse( $.cookie('ordering') ) : '';
+		var orderingObj = $.cookie('ordering') ? JSON.parse( $.cookie('ordering') ) : 'eblya';
+		console.log(orderingObj, $.cookie('ordering') );
 		var $workTable = '';
 		var $workSelect = '';
 
