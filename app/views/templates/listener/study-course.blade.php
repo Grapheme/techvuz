@@ -56,7 +56,7 @@
                                 <td>{{ $lecture->hours }}</td>
                                 <td>
                                     {{ Form::open(array('url'=>URL::route('listener-study-download-lecture',array('study_course_id'=>$study_course->id,'lecture_id'=>$lecture->id)), 'style'=>'display:inline-block', 'method'=>'POST')) }}
-                                        <input type="submit" value="Скачать" class="btn btn--bordered btn--blue margin-bottom-20 pull-right">
+                                        <input type="submit" value="Скачать" class="btn btn--bordered btn--gray margin-bottom-20 pull-right">
                                     {{ Form::close() }}
                                     <p {{ empty($lecture->downloaded_lecture) ? 'class="hidden"' : ''; }}>Лекция загружена</p>
                                 </td>
@@ -66,7 +66,7 @@
                         @if(!empty($chapter->test))
                         <tr>
                             <td colspan="3">{{ $chapter->test->title }}</td>
-                            <td><a class="btn btn--bordered btn--gray" href="{{ URL::route('listener-study-testing',array('study_course_id'=>$study_course->id.'-'.BaseController::stringTranslite($module->title,100),'study_test_id'=>$chapter->test->id)) }}">Пройти</a></td>
+                            <td><a class="btn btn--bordered btn--blue" href="{{ URL::route('listener-study-testing',array('study_course_id'=>$study_course->id.'-'.BaseController::stringTranslite($module->title,100),'study_test_id'=>$chapter->test->id)) }}">Пройти</a></td>
                         </tr>
                         @endif
                     @endforeach
