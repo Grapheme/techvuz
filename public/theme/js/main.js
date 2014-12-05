@@ -243,7 +243,7 @@ var Popup = (function(){
 		console.log( orderingObj );
 
 		//Сбросим все селекты
-		$select.find('option:selected').prop('selected', false);
+		//$select.find('option:selected').prop('selected', false);
 
 		//И заполним их данными этого объекта
 		setTimeout( function(){
