@@ -41,11 +41,11 @@
                 @endif
             @endforeach
                     <li data-question="finish">
-                        <h4>Результаты тестирования</h4>
+                        <!-- <h4>Результаты тестирования</h4>
                         <div class="margin-top-20 margin-bottom-20">
                             Вы прошли тестирование, ваш результат:
                             <br> {{ $test->questions->count() }} из {{ $test->questions->count() }}
-                        </div>
+                        </div> -->
                         <div>
                             <button type="submit" class="btn btn--bordered btn--blue">Просмотреть результат</button>
                         </div>
