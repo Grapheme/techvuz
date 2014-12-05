@@ -54,7 +54,7 @@
 
                         <td class="purchase-listeners"></td>
                         
-                        <td class="purchase-price-sum">{{ number_format($course->price,0,'.',' ') }}.–</td>
+                        <td class="purchase-price-sum">0.–</td>
                     </tr>
                 </table>
             </dt>
