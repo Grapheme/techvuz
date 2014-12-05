@@ -34,6 +34,45 @@ $('.js-close-notifications').click( function(){
 	});
 });
 
+//Test validation
+(function(){
+	var $testParent = $('.questions-ul');
+	var $question = $testParent.find('.questions-li');
+	var $testBtn = $testParent.find('li[data-question="finish"] button[type="submit"]');
+	var $valid = false;
+
+	//Disable btn at the beginnig
+	$testBtn.addClass('btn--disabled');
+
+	//Click on disabled btn do nothing
+	$('.btn--disabled').click( function(e) {
+		e.preventDefault();
+		return;
+	});
+
+	function validateTest() {
+		$valid = true;
+
+		$question.each( function(){
+			if( !$(this).find('input[type="radio"]:checked')[0] ) {
+				$valid = false;
+				return false;
+			}
+		});
+
+		if($valid) {
+			$testBtn.removeClass('btn--disabled');
+		} else {
+			$testBtn.addClass('btn--disabled');
+		}
+	}
+
+	$question.find('input[type="radio"]').change( function(){
+		validateTest();
+	});
+
+})();
+
 //Table search
 
 (function(){
