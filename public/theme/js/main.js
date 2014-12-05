@@ -293,7 +293,6 @@ var Popup = (function(){
 		countSum();
 
 		if ( !$('.purchase-course-dt').find('.purchase-table')[0] ) {
-			console.log('we need go back');
 			window.history.back();
 		}
     }

@@ -33,7 +33,7 @@
                     <tr>
                         <th>Название</th>
                         <th>Код</th>
-                        <th>Часы</th>
+                        <th>Цена</th>
                         <th>Сотрудники</th>
                         <th>Цена</th>
                     </tr>
@@ -43,7 +43,7 @@
                             {{ $course->title }}
                         </td>
                         <td>{{ $course->code }}</td>
-                        <td>{{ $course->hours }}</td>
+                        <td>{{ number_format($course->price,0,'.',' ') }}</td>
                         <td class="purchase-listeners"></td>
                         <?php
                         $discountPrice = calculateDiscount(array($course->direction->discount,$course->discount,$accountDiscount,$coursesCountDiscount),$course->price);
