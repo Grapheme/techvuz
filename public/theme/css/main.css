@@ -7318,11 +7318,13 @@ a[href^="tel"] {
   background: #bb252d;
 }
 .btn.btn--disabled {
-  opacity: .7;
+  opacity: .5;
+  cursor: default;
 }
 .btn.btn--disabled:hover {
-  color: inherit;
-  background: inherit;
+  color: #33ace4;
+  border-color: #33ace4;
+  background: white;
 }
 
 .icon--blue {
