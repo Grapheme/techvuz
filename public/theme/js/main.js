@@ -6,10 +6,11 @@ $(function(){
 });
 
 $('.accordion').accordion({
-	active: false,
     header: '.accordion-header',
     heightStyle: 'content',
     collapsible: true,
+    active: false,
+
     create: function(event, ui){
 		if( window.location.hash ) {
 			$(window.location.hash).trigger('click');
