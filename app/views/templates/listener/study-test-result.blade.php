@@ -18,13 +18,13 @@
                 <p>{{ Session::get('message.text') }}</p>
             </div>
             @if(Session::has('message.show_repeat'))
-            <a href="{{ URL::route('listener-study-testing',array('study_course_id'=>$study_course->id.'-'.BaseController::stringTranslite($study_test->test->course->title,100),'study_test_id'=>$study_test->test->id)) }}">Пройти еще раз</a>
+            <a class="btn btn--bordered btn--blue" href="{{ URL::route('listener-study-testing',array('study_course_id'=>$study_course->id.'-'.BaseController::stringTranslite($study_test->test->course->title,100),'study_test_id'=>$study_test->test->id)) }}">Новая попытка</a>
             @endif
         @endif
         @if($study_test->test->chapter_id == 0)
-            <a href="{{ URL::route('listener-study') }}">Готово</a>
+            <a class="btn btn--bordered btn--blue" href="{{ URL::route('listener-study') }}">Вернуться к лекциям</a>
         @else
-            <a href="{{ URL::route('listener-study-course',array('course_translite_title'=>$study_course->id.'-'.BaseController::stringTranslite($study_test->test->course->title,100))) }}">Готово</a>
+            <a class="btn btn--bordered btn--blue" href="{{ URL::route('listener-study-course',array('course_translite_title'=>$study_course->id.'-'.BaseController::stringTranslite($study_test->test->course->title,100))) }}">Готово</a>
         @endif
         </div>
     </div>
