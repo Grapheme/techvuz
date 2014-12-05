@@ -56,15 +56,6 @@
 		color: inherit;		
 	}
 
-	&.btn--disabled {
-		opacity: .7;
-
-		&:hover {
-			color: inherit;
-			background: inherit;
-		}
-	}
-
 	&.btn--bordered {
 		border: 2px solid;
 	}
@@ -86,6 +77,15 @@
 		&:hover {
 			color: $clr-white;
 			background: $clr-danger;
+		}
+	}
+	
+	&.btn--disabled {
+		opacity: .7;
+
+		&:hover {
+			color: inherit;
+			background: inherit;
 		}
 	}
 }
