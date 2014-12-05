@@ -234,9 +234,10 @@ $('.js-close-notifications').click( function(){
 	$testBtn.addClass('btn--disabled');
 
 	//Click on disabled btn do nothing
-	$('.btn--disabled').click( function(e) {
-		e.preventDefault();
-		return;
+	$($testBtn).click( function(e) {
+		if( $(this).hasClass('btn--disabled') ) {
+			return;
+		}
 	});
 
 	function validateTest() {
