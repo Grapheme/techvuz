@@ -36,7 +36,10 @@ $('.js-close-notifications').click( function(){
 
 $('.js-download-course').click( function(){
 	$(this).removeClass('btn--blue').addClass('btn--gray');
-})
+});
+$('.js-download-all-courses').click( function(){
+	$('.js-download-course').removeClass('btn--blue').addClass('btn--gray');
+});
 
 //Test validation
 (function(){

@@ -31,7 +31,7 @@
         @if($module->chapters->count())
             <div>
                 {{ Form::open(array('url'=>URL::route('listener-study-download-lectures',array('study_course_id'=>$study_course->id)), 'class'=>'clearfix','style'=>'display:block', 'method'=>'POST')) }}
-                    <input type="submit" value="Скачать все лекции" class="btn btn--bordered btn--blue margin-bottom-20 pull-right">
+                    <input type="submit" value="Скачать все лекции" class="js-download-all-courses btn btn--bordered btn--blue margin-bottom-20 pull-right">
                 {{ Form::close() }}
                 <table class="tech-table sortable">
                     <tbody>
