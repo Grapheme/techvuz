@@ -47,6 +47,7 @@ $('.js-close-notifications').click( function(){
 	//Click on disabled btn do nothing
 	$($testBtn).click( function(e) {
 		if( $(this).hasClass('btn--disabled') ) {
+			e.preventDefault();
 			return;
 		}
 	});
