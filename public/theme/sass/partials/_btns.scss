@@ -56,6 +56,14 @@
 		color: inherit;		
 	}
 
+	&.btn--gray {
+		color: inherit;
+		border-color: #ddd;
+
+		&:hover {
+			background: #ddd;
+		}
+	}
 	&.btn--bordered {
 		border: 2px solid;
 	}

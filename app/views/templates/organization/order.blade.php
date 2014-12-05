@@ -72,7 +72,7 @@
             <tr>
                 @if($index == 0)
                 <td class="vertical-top">
-                    <a href="{{ URL::route('course-page',$course['course']['title']->seo->url) }}">
+                    <a href="#">
                         {{ $course['course']['code'] }}. {{{ $course['course']['title'] }}}
                     </a>
                 </td>

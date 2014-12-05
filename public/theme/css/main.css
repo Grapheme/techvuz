@@ -7297,6 +7297,13 @@ a[href^="tel"] {
 .btn:focus {
   color: inherit;
 }
+.btn.btn--gray {
+  color: inherit;
+  border-color: #ddd;
+}
+.btn.btn--gray:hover {
+  background: #ddd;
+}
 .btn.btn--bordered {
   border: 2px solid;
 }
