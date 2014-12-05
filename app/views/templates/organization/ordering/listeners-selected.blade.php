@@ -53,6 +53,8 @@
                             <td class="purchase-price" data-price="{{ number_format($discountPrice,0,'.','') }}">{{ number_format($discountPrice,0,'.',' ') }}.–</td>
                         @endif
 
+                        <td class="purchase-listeners"></td>
+                        
                         <td class="purchase-price-sum">0.–</td>
                     </tr>
                 </table>
