@@ -34,6 +34,7 @@
 			padding: 14rem / $hfs 10rem / $hfs;
 
 			&:first-child {
+				position: relative;
 				padding: 14rem / $hfs .9rem 14rem / $hfs 34rem / $hfs;
 				text-align: left;
 			}
