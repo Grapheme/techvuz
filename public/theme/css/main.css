@@ -7299,6 +7299,7 @@ a[href^="tel"] {
 }
 .btn.btn--gray {
   color: inherit;
+  background: inherit;
   border-color: #ddd !important;
 }
 .btn.btn--gray:hover {
