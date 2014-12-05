@@ -180,12 +180,14 @@
             <h3><a href="{{ URL::route('organization-study') }}">Ход обучения</a></h3>
         @if($hasStudyProgress)
             <table class="tech-table sortable">
-                <tbody>
+                <thead>
                     <tr>
                         <th class="sort sort--asc">Ф.И.О. <span class="sort--icon"></span> </th>
                         <th class="sort sort--asc">Название курса <span class="sort--icon"></span> </th>
                         <th class="sort sort--asc">Прогресс <span class="sort--icon"></span> </th>
                     </tr>
+                </thead>
+                <tbody>                    
                 @foreach($listeners as $listener)
                     @if($listener->study->count())
                         @foreach($listener->study as $index => $study)
