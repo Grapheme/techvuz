@@ -229,10 +229,12 @@ var Popup = (function(){
 		countSum();
     });
 
-    
+    setTimeout( function(){
+		getOrderUsers();
+	}, 100);
 
     //Также нам нужна функция, которая восстановит данные о курсах и пользователях при загрузке
-    (function(){
+    function getOrderUsers(){
 		//Достанем JSON из функции
 		var orderingObj = $.cookie('ordering') ? JSON.parse( $.cookie('ordering') ) : '';
 		var $workTable = '';
@@ -257,7 +259,7 @@ var Popup = (function(){
 			}
 
 		}
-    })();
+    }
 
     function makeCoursesJson(elem) {
 		var orderingObj = $.cookie('ordering') ? JSON.parse( $.cookie('ordering') ) : '';
