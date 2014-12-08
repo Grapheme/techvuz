@@ -27,6 +27,12 @@
                         </label>
                     </section>
                     <section>
+                        <label class="label">Название промежуточной аттестации</label>
+                        <label class="input">
+                            {{ Form::text('test_title') }}
+                        </label>
+                    </section>
+                    <section>
                         <label class="label">Количество часов</label>
                         <label class="input">
                             {{ Form::text('hours') }}

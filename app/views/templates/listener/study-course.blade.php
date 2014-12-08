@@ -65,7 +65,7 @@
                         @endif
                         @if(!empty($chapter->test))
                         <tr>
-                            <td colspan="3">{{ $chapter->test->title }}</td>
+                            <td colspan="3">{{ !empty($chapter->test_title) ? $chapter->test_title : $chapter->test->title; }}</td>
                             <td><a class="btn btn--bordered btn--blue" href="{{ URL::route('listener-study-testing',array('study_course_id'=>$study_course->id.'-'.BaseController::stringTranslite($module->title,100),'study_test_id'=>$chapter->test->id)) }}">Пройти</a></td>
                         </tr>
                         @endif

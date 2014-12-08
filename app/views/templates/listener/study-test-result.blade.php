@@ -15,7 +15,7 @@
             </div>
         @if(Session::has('message.status') && Session::get('message.status') == 'test-result')
             <div>
-                <p>{{ Session::get('message.text') }}</p>
+                {{ Session::get('message.text') }}
             </div>
             @if(Session::has('message.show_repeat'))
             <a href="{{ URL::route('listener-study-testing',array('study_course_id'=>$study_course->id.'-'.BaseController::stringTranslite($study_test->test->course->title,100),'study_test_id'=>$study_test->test->id)) }}">Пройти еще раз</a>

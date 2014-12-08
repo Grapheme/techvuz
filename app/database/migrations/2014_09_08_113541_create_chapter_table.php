@@ -12,6 +12,7 @@ class CreateChapterTable extends Migration {
                 $table->integer('course_id')->unsigned()->nullable()->index();
                 $table->integer('order')->unsigned()->nullable();
                 $table->string('title',255)->nullable();
+                $table->string('test_title',255)->nullable();
                 $table->text('description')->nullable();
                 $table->integer('hours')->default(0)->unsigned()->nullable();
                 $table->timestamps();
