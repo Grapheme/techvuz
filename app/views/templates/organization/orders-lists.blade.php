@@ -89,7 +89,13 @@
                         @include(Helper::acclayout('assets.temp-order'))
                     @endif
                     @foreach($orders as $order)
-                        @include(Helper::acclayout('assets.order'))
+                        @if(in_array($order->payment->id,array(1,5)))
+                            @include(Helper::acclayout('assets.order'))
+                        @elseif(in_array($order->payment->id,array(3,4)))
+                            @include(Helper::acclayout('assets.order'))
+                        @elseif(in_array($order->payment->id,array(2,6)))
+                            @include(Helper::acclayout('assets.order'))
+                        @endif
                     @endforeach
                     </ul>
                 </div>
