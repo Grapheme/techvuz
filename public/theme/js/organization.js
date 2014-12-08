@@ -156,7 +156,11 @@ $(function(){
                         if(response.status == true){
                             showMessage.constructor('Удаление сотрудника', response.responseText);
                             showMessage.smallSuccess();
-                           $($this).parents('tr').remove();
+                            if(response.redirect !== false){
+                                BASIC.RedirectTO(response.redirect);
+                            }else{
+                                $($this).parents('tr').remove();
+                            }
                         } else {
                             $($this).elementDisabled(false);
                             showMessage.constructor('Удаление сотрудника', 'Возникла ошибка. Обновите страницу и повторите снова.');

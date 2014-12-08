@@ -7,7 +7,7 @@
     <div class="edit-employee-anket">
         @include(Helper::acclayout('menu'))
         <div class="pull-right margin-top-20">
-            {{ Form::open(array('url'=>URL::route('organization-listener-profile-delete',$listener->id), 'style'=>'display:inline-block', 'method'=>'delete')) }}
+            {{ Form::open(array('url'=>URL::route('organization-listener-profile-delete',$profile->id), 'style'=>'display:inline-block', 'method'=>'delete')) }}
                 <button type="submit" class="icon-bag-btn js-delete-listener" autocomplete="off" title="Удалить сотрудника"></button>
             {{ Form::close() }}
         </div>
@@ -21,10 +21,11 @@
 @stop
 @section('scripts')
 {{ HTML::script('js/vendor/jquery-form.min.js') }}
+{{ HTML::script('js/vendor/SmartNotification.min.js') }}
+{{ HTML::script('js/system/messages.js') }}
 {{ HTML::script('js/vendor/jquery.validate.min.js') }}
 {{ HTML::script('js/vendor/jquery.mask.js') }}
 {{ HTML::script('js/system/main.js') }}
-
 {{ HTML::script('theme/js/organization.js') }}
 <script type="text/javascript">organizationFormValidation();</script>
 <script>
