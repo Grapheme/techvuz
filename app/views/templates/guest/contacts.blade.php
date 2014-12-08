@@ -118,6 +118,8 @@
         </div>
     </div>
 </main>
+<script type="text/javascript"
+      src="http://maps.googleapis.com/maps/api/js?key=AIzaSyA4Q5VgK-858jgeSbJKHbclop_XIJs3lXs&sensor=true"></script>
 @stop
 @section('overlays')
 @stop

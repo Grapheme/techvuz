@@ -14,8 +14,6 @@
 {{ HTML::script('js/system/main.js') }}
 {{ HTML::script('theme/js/guests.js') }}
 <script type="text/javascript">guestFormValidation();</script>
-<script type="text/javascript"
-      src="http://maps.googleapis.com/maps/api/js?key=AIzaSyA4Q5VgK-858jgeSbJKHbclop_XIJs3lXs&sensor=true"></script>
 <script>
     $(document).ready(function(){
         $(".phone").inputmask("mask", {"mask": "[+7] (999) 999 99 99","placeholder": "_"});
