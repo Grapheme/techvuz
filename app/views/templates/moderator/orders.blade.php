@@ -140,17 +140,21 @@ $orders = Orders::where('archived',FALSE)->orderBy('payment_status')->orderBy('c
                 </tr>
             </thead>
             <tbody>
-        @foreach($orders as $order)
             @foreach($orders as $order)
                 @if(in_array($order->payment->id,array(1,5)))
-                    @include(Helper::acclayout('assets.order-tr'))
-                @elseif(in_array($order->payment->id,array(3,4)))
-                    @include(Helper::acclayout('assets.order-tr'))
-                @elseif(in_array($order->payment->id,array(2,6)))
-                    @include(Helper::acclayout('assets.order-tr'))
+                    @include(Helper::acclayout('assets.order'))
                 @endif
             @endforeach
-        @endforeach
+            @foreach($orders as $order)
+                @if(in_array($order->payment->id,array(3,4)))
+                    @include(Helper::acclayout('assets.order'))
+                @endif
+            @endforeach
+            @foreach($orders as $order)
+                @if(in_array($order->payment->id,array(2,6)))
+                    @include(Helper::acclayout('assets.order'))
+                @endif
+            @endforeach
             </tbody>
         </table>
     </div>

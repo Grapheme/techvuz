@@ -91,9 +91,15 @@
                     @foreach($orders as $order)
                         @if(in_array($order->payment->id,array(1,5)))
                             @include(Helper::acclayout('assets.order'))
-                        @elseif(in_array($order->payment->id,array(3,4)))
+                        @endif
+                    @endforeach
+                    @foreach($orders as $order)
+                        @if(in_array($order->payment->id,array(3,4)))
                             @include(Helper::acclayout('assets.order'))
-                        @elseif(in_array($order->payment->id,array(2,6)))
+                        @endif
+                    @endforeach
+                    @foreach($orders as $order)
+                        @if(in_array($order->payment->id,array(2,6)))
                             @include(Helper::acclayout('assets.order'))
                         @endif
                     @endforeach
