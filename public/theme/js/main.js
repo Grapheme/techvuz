@@ -277,7 +277,7 @@ var Popup = (function(){
     
 
     //Также нам нужна функция, которая восстановит данные о курсах и пользователях при загрузке
-    (function(){
+    function setSelectBoxes() {
 		//Достанем JSON из функции
 		var orderingObj = $.cookie('ordering') ? JSON.parse( $.cookie('ordering') ) : '';
 		var $workTable = '';
@@ -302,7 +302,8 @@ var Popup = (function(){
 			}
 
 		}
-    })();
+    }
+    setSelectBoxes();
 
     function makeCoursesJson(elem) {
 		var orderingObj = $.cookie('ordering') ? JSON.parse( $.cookie('ordering') ) : '';
@@ -425,6 +426,8 @@ var Popup = (function(){
 		}
 
     });
+
+    setSelectBoxes();
 
 })();
 
