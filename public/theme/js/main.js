@@ -48,8 +48,9 @@ $('.accordion').accordion({
 	}
 
 	btnMap.click( function(){
-		$('#map_canvas').css({ width: '100%', height: '5rem' });
+		$('#map_canvas').css({ width: '100%', height: '10rem' });
 		initializeMap(coords);
+		$(this).hide();
 	});
 
 })();
