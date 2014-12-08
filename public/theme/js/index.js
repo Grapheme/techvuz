@@ -492,7 +492,6 @@ var Popup = (function(){
 
 		}
     }
-    setSelectBoxes();
 
     function makeCoursesJson(elem) {
 		var orderingObj = $.cookie('ordering') ? JSON.parse( $.cookie('ordering') ) : '';
@@ -616,10 +615,7 @@ var Popup = (function(){
 
     });
 
-    setTimeout( function(){
-    	setSelectBoxes();
-    	console.log('try to set checkboxes');
-    }, 500);
+    setSelectBoxes();
     
 
 })();
