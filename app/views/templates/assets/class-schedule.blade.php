@@ -10,7 +10,7 @@
         @if(isset($module))
         <?php
             $studyPeriod = new CalcStudyPeriod();
-            $studyPeriod->config(array('hours'=>0,'hours_total'=>$hours,'start_date'=>$DataOplatuZakaza));
+            $studyPeriod->config(array('start_date'=>$DataOplatuZakaza));
             ob_start();
         ?>
         <table>
@@ -36,11 +36,15 @@
                 </tr>
             @if($chapter->lectures->count())
                 @foreach($chapter->lectures as $lecture)
+                <?php
+                    $lecture->hours = rand(1,10);
+                    //$lecture->hours = rand(1,10);
+                ?>
                 <tr>
                     <td><p align="center">{{ $lecture->order }}</p></td>
                     <td>{{ $lecture->title }}</td>
                     <td><p align="center">{{ $lecture->hours }}</p></td>
-                    <td>{{ $studyPeriod->addHours($lecture->hours)->write() }}</td>
+                    <td>{{ !empty($DataOplatuZakaza) ? $studyPeriod->addHours($lecture->hours)->write() : '-' }}</td>
                 </tr>
                 @endforeach
             @endif
@@ -50,7 +54,7 @@
                         <p align="center">{{ !empty($chapter->test_title) ? $chapter->test_title : $chapter->test->title; }}</p>
                     </td>
                     <td><p align="center">2</p></td>
-                    <td></td>
+                    <td>{{ !empty($DataOplatuZakaza) ? $studyPeriod->addHours(2)->write() : '-' }}</td>
                 </tr>
             @endif
         @endforeach

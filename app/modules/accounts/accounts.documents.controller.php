@@ -528,7 +528,6 @@ class AccountsDocumentsController extends BaseController {
                             $page_data['module'] = $listener['module'];
                             $page_data['hours'] = $listener['hours'];
                             $page = View::make($template, $page_data)->render();
-                            Helper::tad($page);
                             $mpdf->AddPage('P');
                             $mpdf->WriteHTML(View::make($template, $page_data)->render(), 2);
                         endforeach;
@@ -808,8 +807,8 @@ class AccountsDocumentsController extends BaseController {
             'SummaZakaza' => number_format($SummaZakaza,0,'.',' '),
             'SummaZakazaSlovami' => num2str($SummaZakaza),
             'KolichestvoSluschateley' => $order->listeners->count(),
-            'DataOplatuZakaza' => $dateTime->setDateString($order->payment_date)->format('d.m.y'),
-            'DataOformleniyaZakaza' => $order->created_at->format('d.m.y'),
+            'DataOplatuZakaza' => $dateTime->setDateString($order->payment_date)->format('d.m.Y'),
+            'DataOformleniyaZakaza' => $order->created_at->format('d.m.Y'),
             'DataOformleniyaZakazaSlovami' => $dateTime->setDateString($order->created_at)->months(),
             'DataZakrutiyaZakaza' => $dateTime->setDateString($order->close_date)->format('d.m.y'),
             'DataZakrutiyaZakazaSlovami' => $dateTime->setDateString($order->close_date)->months(),
