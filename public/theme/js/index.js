@@ -214,7 +214,7 @@ $('.accordion').accordion({
 	var coords = {
 		x: 47.214637,
 		y: 39.708546,
-		zoom: 14
+		zoom: 11
 	};
 
 	function initializeMap(coords){
@@ -237,7 +237,7 @@ $('.accordion').accordion({
 	}
 
 	btnMap.click( function(){
-		$('#map_canvas').css({ width: '100%', height: '10rem' });
+		$('#map_canvas').css({ width: '100%', height: '15rem' });
 		initializeMap(coords);
 		$(this).hide();
 	});
