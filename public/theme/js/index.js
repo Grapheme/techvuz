@@ -236,7 +236,8 @@ $('.accordion').accordion({
 		});
 	}
 
-	btnMap.click( function(){
+	btnMap.click( function(e){
+		e.preventDefault();
 		$('#map_canvas').css({ width: '100%', height: '15rem' });
 		initializeMap(coords);
 		$(this).hide();
