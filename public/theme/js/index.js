@@ -491,6 +491,8 @@ var Popup = (function(){
 			}
 
 		}
+		
+		$select.trigger("chosen:updated");
     }
 
     function makeCoursesJson(elem) {
