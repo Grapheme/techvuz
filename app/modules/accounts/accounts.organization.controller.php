@@ -279,7 +279,7 @@ class AccountsOrganizationController extends BaseController {
             ->where('user_id',Auth::user()->id)
             ->where('completed',1)
             ->where('archived',0)
-            ->with('listeners.course','listeners.user_listener','payment','payment_numbers')
+            ->with('listeners.course','listeners.course.seo','listeners.user_listener','payment','payment_numbers')
             ->first();
         if (!$order):
             return Redirect::route('organization-orders');

@@ -52,6 +52,7 @@
         foreach($order->listeners as $course):
             $courses_list[$course->course_id]['course']['id'] = $course->course->id;
             $courses_list[$course->course_id]['course']['code'] = $course->course->code;
+            $courses_list[$course->course_id]['course']['url'] = $course->course->seo->url;
             $courses_list[$course->course_id]['course']['title'] = $course->course->title;
             $courses_list[$course->course_id]['course']['price'] = $course->course->price;
             $courses_list[$course->course_id]['listeners'][] = $course;
@@ -72,7 +73,7 @@
             <tr>
                 @if($index == 0)
                 <td class="vertical-top">
-                    <a href="#">
+                    <a href="{{ URL::route('course-page',$course['course']['url']) }}">
                         {{ $course['course']['code'] }}. {{{ $course['course']['title'] }}}
                     </a>
                 </td>
