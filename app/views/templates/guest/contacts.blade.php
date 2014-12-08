@@ -13,7 +13,8 @@
             </div>
             <div class=" col-xs-11 col-sm-11 col-md-11 col-lg-11">
                 {{ $page->block('address') }}<br>
-                <a href="#" class="txt-color-blue font-sm">Показать на карте</a>
+                <a href="#" class="txt-color-blue font-sm js-show-map">Показать на карте</a>
+                <div id="map_canvas"></div>
             </div>
         </div>
         <div class="row margin-bottom-20 no-gutter">

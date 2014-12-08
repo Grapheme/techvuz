@@ -207,6 +207,42 @@ $('.accordion').accordion({
     }
 });
 
+(function(){
+
+	var btnMap = $('.js-show-map');
+
+	var coords = {
+		x: 47.214637,
+		y: 39.708546,
+		zoom: 14
+	};
+
+	function initializeMap(coords){
+		var mapOptions = {
+			zoom: coords.zoom,
+			zoomControl: false,
+			draggable: false,
+			scrollwheel: false,
+			center: new google.maps.LatLng(coords.x, coords.y),
+			mapTypeId: google.maps.MapTypeId.ROADMAP
+		};
+
+		var map = new google.maps.Map(document.getElementById('map_canvas'), mapOptions);
+
+		var marker = new google.maps.Marker({
+			position: mapOptions.center,
+			map: map
+		//	icon: 'images/map.png'
+		});
+	}
+
+	btnMap.click( function(){
+		$('#map_canvas').css({ width: '100%', height: '5rem' });
+		initializeMap(coords);
+	});
+
+})();
+
 $('.js-close-notifications').click( function(){
 	var self = $(this);
 	var url = $(this).data('action');
