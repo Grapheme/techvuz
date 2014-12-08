@@ -11,12 +11,13 @@
 	margin: 1rem 0;
 
 	.answers-li {
-		margin: 0 0 1rem;
+		margin: 0 0 -.4rem;
 
 		label {
 			font-weight: 400;
 			
 			input {
+				margin: 2px 0 0;
 				float: left;
 			}
 		}

@@ -33,9 +33,9 @@
                     <tr>
                         <th>Название</th>
                         <th>Код</th>
-                        <th>Часы</th>
-                        <th>Сотрудники</th>
                         <th>Цена</th>
+                        <th>Сотрудники</th>
+                        <th>Сумма</th>
                     </tr>
                     <tr>
                         <td>
@@ -43,8 +43,7 @@
                             {{ $course->title }}
                         </td>
                         <td>{{ $course->code }}</td>
-                        <td>{{ $course->hours }}</td>
-                        <td class="purchase-listeners"></td>
+
                         <?php
                         $discountPrice = calculateDiscount(array($course->direction->discount,$course->discount,$accountDiscount,$coursesCountDiscount),$course->price);
                         ?>
@@ -53,6 +52,10 @@
                         @else
                             <td class="purchase-price" data-price="{{ number_format($discountPrice,0,'.','') }}">{{ number_format($discountPrice,0,'.',' ') }}.–</td>
                         @endif
+
+                        <td class="purchase-listeners"></td>
+                        
+                        <td class="purchase-price-sum">0.–</td>
                     </tr>
                 </table>
             </dt>

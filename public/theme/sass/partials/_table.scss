@@ -34,13 +34,18 @@
 			padding: 14rem / $hfs 10rem / $hfs;
 
 			&:first-child {
+				position: relative;
 				padding: 14rem / $hfs .9rem 14rem / $hfs 34rem / $hfs;
 				text-align: left;
 			}
 		}
-		
+
 		.purchase-price {
-			font-size: 22em / $hfs;
+			white-space: nowrap;
+		}
+		
+		.purchase-price-sum {
+			font-size: 1em;
 			font-weight: 600;
 			white-space: nowrap;
 		}

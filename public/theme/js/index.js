@@ -223,6 +223,54 @@ $('.js-close-notifications').click( function(){
 	});
 });
 
+$('.js-download-course').click( function(){
+	$(this).removeClass('btn--blue').addClass('btn--gray');
+});
+$('.js-download-all-courses').click( function(){
+	$('.js-download-course').removeClass('btn--blue').addClass('btn--gray');
+});
+
+//Test validation
+(function(){
+	var $testParent = $('.questions-ul');
+	var $question = $testParent.find('.questions-li');
+	var $testBtn = $testParent.find('li[data-question="finish"] button[type="submit"]');
+	var $valid = false;
+
+	//Disable btn at the beginnig
+	$testBtn.addClass('btn--disabled');
+
+	//Click on disabled btn do nothing
+	$($testBtn).click( function(e) {
+		if( $(this).hasClass('btn--disabled') ) {
+			e.preventDefault();
+			return;
+		}
+	});
+
+	function validateTest() {
+		$valid = true;
+
+		$question.each( function(){
+			if( !$(this).find('input[type="radio"]:checked')[0] ) {
+				$valid = false;
+				return false;
+			}
+		});
+
+		if($valid) {
+			$testBtn.removeClass('btn--disabled');
+		} else {
+			$testBtn.addClass('btn--disabled');
+		}
+	}
+
+	$question.find('input[type="radio"]').change( function(){
+		validateTest();
+	});
+
+})();
+
 //Table search
 
 (function(){
@@ -380,7 +428,7 @@ var Popup = (function(){
     
 
     //Также нам нужна функция, которая восстановит данные о курсах и пользователях при загрузке
-    $( function(){
+    (function(){
 		//Достанем JSON из функции
 		var orderingObj = $.cookie('ordering') ? JSON.parse( $.cookie('ordering') ) : '';
 		var $workTable = '';
@@ -405,7 +453,7 @@ var Popup = (function(){
 			}
 
 		}
-    });
+    })();
 
     function makeCoursesJson(elem) {
 		var orderingObj = $.cookie('ordering') ? JSON.parse( $.cookie('ordering') ) : '';
@@ -439,6 +487,10 @@ var Popup = (function(){
 		btn.parents('.purchase-course-dt').add( btn.parents('.purchase-course-dt').next() ).remove();
 
 		countSum();
+
+		if ( !$('.purchase-course-dt').find('.purchase-table')[0] ) {
+			window.history.back();
+		}
     }
 
     function countSum() {
@@ -469,6 +521,8 @@ var Popup = (function(){
         var $boundDt = elem.parent().prev();
         //Price-container
         var $price = $boundDt.find('.purchase-price');
+        // Price-sum-container
+        var $priceSum = $boundDt.find('.purchase-price-sum');
         //Price-container text
         var $priceCount = $price.data('price');
         //Listener container
@@ -480,7 +534,7 @@ var Popup = (function(){
         //1. Fill active listeners
         $listeners.text( $listenersLength );
         //2. Set price
-        $price.text( ($listenersLength * $priceCount) ? ( ($listenersLength * $priceCount) + '' ).replace(/(\d)(?=(\d{3})+$)/g, '$1 ') + '.-' : ($priceCount + '').replace(/(\d)(?=(\d{3})+$)/g, '$1 ') + '.-' );
+        $priceSum.text( ($listenersLength * $priceCount) ? ( ($listenersLength * $priceCount) + '' ).replace(/(\d)(?=(\d{3})+$)/g, '$1 ') + '.-' : '0.-' );
     }
 
     function returnError(text) {

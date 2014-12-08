@@ -56,6 +56,15 @@
 		color: inherit;		
 	}
 
+	&.btn--gray {
+		color: inherit;
+		background: inherit;
+		border-color: #ddd !important;
+
+		&:hover {
+			background: #ddd;
+		}
+	}
 	&.btn--bordered {
 		border: 2px solid;
 	}
@@ -77,6 +86,17 @@
 		&:hover {
 			color: $clr-white;
 			background: $clr-danger;
+		}
+	}
+
+	&.btn--disabled {
+		opacity: .5;
+		cursor: default;
+
+		&:hover {
+			color: $clr-main-bg;
+			border-color: $clr-main-bg;
+			background: $clr-white;
 		}
 	}
 }

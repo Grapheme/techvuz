@@ -24,7 +24,7 @@
                 <ul class="questions-ul" data-questions-count="{{ $test->questions->count() }}">
             @foreach($test->questions as $question)
                 @if($question->answers->count())
-                    <li class="questions-li" data-question="{{ $question->id }}">
+                    <li class="questions-li margin-bottom-30" data-question="{{ $question->id }}">
                         <h4>{{ $question->title }}{{ $question->order }}</h4>
                         <div>{{ $question->description }}</div>
                         <ul class="answers-ul" data-answers-count="{{ $question->answers->count() }}">
@@ -41,13 +41,13 @@
                 @endif
             @endforeach
                     <li data-question="finish">
-                        <h4>Результаты тестирования</h4>
+                        <!-- <h4>Результаты тестирования</h4>
                         <div class="margin-top-20 margin-bottom-20">
                             Вы прошли тестирование, ваш результат:
                             <br> {{ $test->questions->count() }} из {{ $test->questions->count() }}
-                        </div>
+                        </div> -->
                         <div>
-                            <button type="submit" class="btn btn--bordered btn--blue">Просмотреть результат</button>
+                            <button type="submit" class="margin-top-10 btn btn--bordered btn--blue">Посмотреть результат</button>
                         </div>
                     </li>
                 </ul>
