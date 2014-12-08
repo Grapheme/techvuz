@@ -9045,7 +9045,7 @@ section h3, section .h3 {
   position: absolute;
   bottom: 2.0625rem;
   right: 2.0625rem;
-  max-height: 3.7rem;
+  max-height: 4rem;
 }
 .directions-ul .directions-li:nth-child(6n+1) {
   background-color: #bb252d;
