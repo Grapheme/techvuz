@@ -427,7 +427,11 @@ var Popup = (function(){
 
     });
 
-    setSelectBoxes();
+    setTimeout( function(){
+    	setSelectBoxes();
+    	console.log('try to set checkboxes');
+    }, 500);
+    
 
 })();
 
