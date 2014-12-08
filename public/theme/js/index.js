@@ -214,7 +214,7 @@ $('.accordion').accordion({
 	var coords = {
 		x: 47.214637,
 		y: 39.708546,
-		zoom: 11
+		zoom: 17
 	};
 
 	function initializeMap(coords){
