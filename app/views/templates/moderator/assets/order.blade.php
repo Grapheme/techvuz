@@ -33,7 +33,11 @@
         <div class="orders-company">
             Заказчик:
             <div>
-                <a href="#">Ссылка на компанию</a>
+            @if($order->organization->count())
+                <a href="{{ URL::route('moderator-company-profile',$order->organization->id) }}">{{ $order->organization->title }}</a>
+            @elseif($order->individual->count())
+                <a href="{{ URL::route('moderator-individual-profile',$order->individual->id) }}">{{ $order->individual->fio }}</a>
+            @endif
             </div>
         </div>
         <div class="orders-date">
