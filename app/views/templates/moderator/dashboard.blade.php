@@ -28,7 +28,7 @@ endif;
                     <span class="current">1</span> / <span class="all"></span>
                 </span>
                 <span class="icon icon-angle-right js-notif-right">
-                    <a href="{{ URL::route('moderator-notifications') }}" class="margin-left-10">
+                    <a href="{{ URL::route('moderator-notifications') }}" class="all-notifications">
                         Полный список
                     </a>
                 </span>
@@ -54,7 +54,9 @@ endif;
                             </div>
                             <div class="notif-delete js-notif-delete">
                             {{ Form::open(array('url'=>URL::route('moderator-notification-delete',array('notification_id'=>$message->id)), 'style'=>'display:inline-block', 'method'=>'delete')) }}
-                                {{ Form::submit('удалить',array('title'=>'Удалить сообщение')) }}
+                                
+                                <button type="submit" class="icon-bag-btn" title="Удалить"></button>
+
                             {{ Form::close() }}
                             </div>
                         </div>
