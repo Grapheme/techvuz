@@ -9734,6 +9734,12 @@ main.order-page a:hover {
   border: none;
   background: none;
 }
+.moderator-cabinet .moder-order-docs li a {
+  -webkit-transition: all .4s ease;
+  transition: all .4s ease;
+  color: #33ace4;
+  cursor: pointer;
+}
 .moderator-cabinet .employee-search input,
 .moderator-cabinet .company-search input,
 .moderator-cabinet .orders-search input {

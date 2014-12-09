@@ -225,6 +225,17 @@
 		background: none;
 	}
 
+	.moder-order-docs {
+		li {
+			a {
+				-webkit-transition: all .4s ease;
+				transition: all .4s ease;
+				color: #33ace4;
+				cursor: pointer;
+			}
+		}
+	}
+
 	.employee-search,
 	.company-search,
 	.orders-search {
