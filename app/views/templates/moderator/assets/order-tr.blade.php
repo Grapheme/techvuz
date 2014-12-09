@@ -21,9 +21,9 @@
     </td>
     <td>
         @if($order->organization->count())
-            {{ $order->organization->title }}
+            <a href="{{ URL::route('moderator-company-profile',$order->organization->id) }}">{{ $order->organization->title }}</a>
         @elseif($order->individual->count())
-            {{ $order->individual->fio }}
+            <a href="{{ URL::route('moderator-individual-profile',$order->individual->id) }}">{{ $order->individual->fio }}</a>
         @endif
     </td>
     <td>

@@ -577,9 +577,11 @@ class AccountsModeratorController extends BaseController {
 
         if($account = User::where('id',$listener_id)->first()):
             if ($account->group_id = 5):
-                $page_data['profile'] = User_listener::where('id',$listener_id)->first();
+                $page_data['profile'] = User_listener::where('id',$listener_id)->with('organization')->first();
+                $page_data['profile']['group_id'] = 5;
             elseif($account->group_id = 6):
                 $page_data['profile'] = User_individual::where('id',$listener_id)->first();
+                $page_data['profile']['group_id'] = 6;
             endif;
         endif;
         return View::make(Helper::acclayout('listener-profile'),$page_data);

@@ -7,7 +7,15 @@
         <h2 class="margin-bottom-40">Заказ №{{ getOrderNumber($order) }}</h2> {{ $order->created_at->timezone(Config::get('site.time_zone'))->format("d.m.Y в H:i") }}
     </div>
     <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
-         <?php $order_price = 0;?>
+        <?php $order_price = 0;?>
+        <div>
+            Заказчик:
+        @if($order->organization->count())
+            <a href="{{ URL::route('moderator-company-profile',$order->organization->id) }}">{{ $order->organization->title }}</a>
+        @elseif($order->individual->count())
+            <a href="{{ URL::route('moderator-individual-profile',$order->individual->id) }}">{{ $order->individual->fio }}</a>
+        @endif
+        </div>
         @foreach($order->listeners as $listener)
         <?php $order_price += $listener->price;?>
         @endforeach

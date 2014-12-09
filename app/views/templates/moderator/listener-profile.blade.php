@@ -3,6 +3,9 @@
 @stop
 @section('content')
 <h2 class="margin-bottom-40">{{ $profile->fio }}</h2>
+@if($profile['group_id'] == 5 && isset($profile->organization))
+    <p class="style-light style-italic">{{ $profile->organization->title }}</p>
+@endif
 <div class="row">
     <?php $accountStatus = array('Не активный','Активный','Не активирован')?>
     @if(isset($accountStatus[$profile->active]))
