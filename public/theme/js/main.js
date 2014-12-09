@@ -1,4 +1,8 @@
-$('.tabs').tabs();
+$('.tabs').tabs({
+	activate: function( event, ui ) {
+		$('.orders-search').find('input[type="text"]').val('');
+	}
+});
 
 $('.select').selectmenu();
 $(function(){
@@ -180,33 +184,24 @@ $('.js-download-all-courses').click( function(){
 		$searchTbody = $searchForm.next().find('tbody'),
 		$searchError = $('.js-search-table-error');
 
-	$searchForm.each( function(){
-		var self = $(this);
-			$searchInput = self.find('input[type="text"]'),
-			$searchTbody = self.next().find('tbody'),
-			$searchError = self.parent().find('.js-search-table-error');
+	$searchInput.keyup(function(){
+        self = this;
+        // Show only matching TR, hide rest of them
+        $.each($searchTbody.find("tr"), function() {
 
-		$searchInput.keyup(function(){
-	        
-	        // Show only matching TR, hide rest of them
-	        $.each($searchTbody.find("tr"), function() {
+            if($(this).find('td:nth-child(2), td:nth-child(4)').text().toLowerCase().indexOf($(self).val().toLowerCase()) == -1)
+                $(this).hide();
+            else
+                $(this).show();
+        });
 
-	            if($(this).find('td:nth-child(2), td:nth-child(4)').text().toLowerCase().indexOf($(self).val().toLowerCase()) == -1)
-	                $(this).hide();
-	            else
-	                $(this).show();
-	        });
+        if( !$searchTbody.find("tr:visible")[0] ) {
+			$searchError.removeClass('hidden');
+		} else {
+			$searchError.addClass('hidden');
+		}
 
-	        if( !$searchTbody.find("tr:visible")[0] ) {
-				$searchError.removeClass('hidden');
-			} else {
-				$searchError.addClass('hidden');
-			}
-
-	    });
-	});
-
-	
+    });
 })();
 
 jQuery.fn.notifications = function() {
