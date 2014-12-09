@@ -1,6 +1,6 @@
 $('.tabs').tabs({
 	activate: function( event, ui ) {
-		$('.orders-search').find('input[type="text"]').val('');
+		$('.orders-search').find('input[type="text"]').val('').trigger('keyup');
 	}
 });
 
