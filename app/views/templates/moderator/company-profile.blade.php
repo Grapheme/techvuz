@@ -226,6 +226,61 @@
         </div>
     </div>
 @endif
+@if($orders->count())
+    <h3>Заказы</h3>
+    <div class="count-add">
+        <?php $activeOrdersIDs = array(); ?>
+        <?php $closedOrdersIDs = array(); ?>
+        @foreach($orders as $order)
+            @if($order->close_status == 0 && in_array($order->payment_status,array(2,3,4,5)))
+            <?php $activeOrdersIDs[$order->id] = 1; ?>
+            @endif
+            @if($order->close_status == 1)
+            <?php $closedOrdersIDs[$order->id] = 1; ?>
+            @endif
+        @endforeach
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 no-gutter">
+                    <div class="count-add-sign">Активных</div>
+                    <div class="count-add-num">{{ count($activeOrdersIDs) }}</div>
+                    <div class="count-add-dots"></div>
+                </div>
+                <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+                    <div class="count-add-sign">Закрытых</div>
+                    <div class="count-add-num">{{ count($closedOrdersIDs) }}</div>
+                    <div class="count-add-dots"></div>
+                </div>
+                <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+                    <div class="count-add-sign">Всего</div>
+                    <div class="count-add-num">{{ count($orders) }}</div>
+                    <div class="count-add-dots"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container-fluid">
+        <div class="row">
+            <table class="table table-striped table-bordered">
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th>№ заказа</th>
+                        <th>Создан<br>Закрыт</th>
+                        <th>Заказчик</th>
+                        <th>Статус оплаты<br>Дата оплаты</th>
+                        <th>Документы</th>
+                    </tr>
+                </thead>
+                <tbody>
+            @foreach($orders as $order)
+                @include(Helper::acclayout('assets.order-tr'))
+            @endforeach
+                </tbody>
+            </table>
+        </div>
+    </div>
+@endif
 </div>
 @stop
 @section('overlays')
