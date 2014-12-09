@@ -51,7 +51,16 @@ $orders = Orders::where('archived',FALSE)->orderBy('payment_status')->orderBy('c
             </fieldset>
         </form>
         <table class="table table-striped table-bordered">
-            
+            <thead>
+                <tr>
+                    <th></th>
+                    <th>№ заказа</th>
+                    <th>Создан<br>Закрыт</th>
+                    <th>Заказчик</th>
+                    <th>Статус оплаты<br>Дата оплаты</th>
+                    <th>Документы</th>
+                </tr>
+            </thead>
             <tbody>
         @foreach($orders as $order)
             @if($order->payment_status == 1 && $order->close_status == 0)
