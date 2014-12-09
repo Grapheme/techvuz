@@ -683,16 +683,16 @@ class AccountsModeratorController extends BaseController {
         $period_begin = date("d.m.Y",(strtotime('first day of this month', time())));
         $period_end = date("d.m.Y");
         if(Session::has('period_begin')):
-            $period_begin = Session::get('period_begin');
+            $period_begin = date('Y-m-d 00:00:00',strtotime(Session::get('period_begin')));
         endif;
         if(Session::has('period_begin')):
-            $period_end = Session::get('period_end');
+            $period_end = date('Y-m-d 23:59:59',strtotime(Session::get('period_end')));
         endif;
         $users = array(); $index = 0;
-        $closedOrdersUsersIDs = Orders::where('close_status',0)
+        $closedOrdersUsersIDs = Orders::where('close_status',1)
             ->where('completed',1)
-            ->where('close_date','>=',$period_begin.' 00:00:00')
-            ->where('close_date','<=',$period_end.' 23:59:59')
+            ->where('close_date','>=',$period_begin)
+            ->where('close_date','<=',$period_end)
             ->lists('user_id');
         if ($closedOrdersUsersIDs):
             $organizationsLists = User_organization::orderBy('created_at','DESC')
@@ -759,10 +759,10 @@ class AccountsModeratorController extends BaseController {
             endif;
         endif;
 
-        $closedOrdersIDs = Orders::where('close_status',0)
+        $closedOrdersIDs = Orders::where('close_status',1)
             ->where('completed',1)
-            ->where('close_date','>=',$period_begin.' 00:00:00')
-            ->where('close_date','<=',$period_end.' 23:59:59')
+            ->where('close_date','>=',$period_begin)
+            ->where('close_date','<=',$period_end)
             ->lists('id');
         $courses = array();
         if ($closedOrdersIDs && $coursesLists = OrderListeners::where('order_id',$closedOrdersIDs)->with('course')->get()):
@@ -781,8 +781,8 @@ class AccountsModeratorController extends BaseController {
             'page_title'=> 'Статистика',
             'page_description'=> '',
             'page_keywords'=> '',
-            'period_begin' => $period_begin,
-            'period_end' => $period_end,
+            'period_begin' => date('d.m.Y',strtotime($period_begin)),
+            'period_end' => date('d.m.Y',strtotime($period_end)),
             'users' => $users,
             'courses' => $courses,
         );
