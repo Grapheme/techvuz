@@ -12,7 +12,7 @@
 @section('style')
 @stop
 @section('content')
-<main class="catalog">
+<main class="catalog-study-plan">
     <h2>{{ $course->seo->h1 }}</h2>
     <div class="desc">
     {{ $course->description }}
