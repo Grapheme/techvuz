@@ -800,6 +800,10 @@
 
 	.input {
 
+		&.datepicker {
+			width: 272px;
+		}
+
 		&.text {
 			display: inline-block;
 		}

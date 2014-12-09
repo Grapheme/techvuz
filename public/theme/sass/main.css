@@ -10283,6 +10283,9 @@ main.order-page a:hover {
 .moderator-cabinet .checkbox .checkbox {
   margin: 0;
 }
+.moderator-cabinet .input.datepicker {
+  width: 272px;
+}
 .moderator-cabinet .input.text {
   display: inline-block;
 }

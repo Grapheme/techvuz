@@ -16,8 +16,8 @@
                 </section>
             </fieldset>
             <footer>
-                <button type="submit" autocomplete="off" class="btn btn-success no-margin regular-10 uppercase btn-form-submit">
-                    <i class="fa fa-spinner fa-spin hidden"></i> <span class="btn-response-text">Готово</span>
+                <button type="submit" autocomplete="off" class="btn btn-success no-margin margin-top-40 regular-10 uppercase btn-form-submit">
+                    <i class="fa fa-spinner fa-spin hidden"></i> <span class="btn-response-text">Показать</span>
                 </button>
             </footer>
         </div>
