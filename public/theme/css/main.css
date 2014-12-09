@@ -10513,6 +10513,9 @@ main.order-page a:hover {
 .moderator-wrapper aside {
   display: none;
 }
+.moderator-wrapper main {
+  margin: 0;
+}
 
 /* ==========================================================================
    Helper classes
