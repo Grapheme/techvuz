@@ -215,11 +215,13 @@ class AccountsListenerController extends BaseController {
             $query->with(array('test.user_test_has100'=>function($query) use ($listenerCourseID){
                 $query->where('order_listeners_id',$listenerCourseID);
             }));
+            $query->with(array('test.user_test_success'=>function($query) use ($listenerCourseID){
+                $query->where('order_listeners_id',$listenerCourseID);
+            }));
         }))->with('test')->with(array('metodicals'=>function($query){
             $query->orderBy('order');
             $query->with('document');
         }))->first();
-//        Helper::tad($module);
         $page_data = array(
             'page_title'=> Lang::get('seo.COMPANY_LISTENER_STUDY_COURSE.title'),
             'page_description'=> Lang::get('seo.COMPANY_LISTENER_STUDY_COURSE.description'),

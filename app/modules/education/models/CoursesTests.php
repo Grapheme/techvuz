@@ -66,4 +66,9 @@ class CoursesTests extends BaseModel {
 
         return $this->hasOne('OrdersListenersTests','test_id')->where('result_attempt',100);
     }
+
+    public function user_test_success(){
+
+        return $this->hasOne('OrdersListenersTests','test_id')->where('result_attempt','>=',Config::get('site.success_test_percent'))->where('result_attempt','<',100);
+    }
 }
