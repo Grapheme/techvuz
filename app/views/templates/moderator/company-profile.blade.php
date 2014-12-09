@@ -214,12 +214,12 @@
             @endforeach
             <div class="container-fluid">
                 <div class="row">
-                    <div class="col-xs-offset-8 col-sm-offset-8 col-md-offset-8 col-lg-offset-8 col-xs-4 col-sm-4 col-md-4 col-lg-4 no-gutter">
+                    <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 no-gutter">
                         <div class="count-add-sign">Обучается</div>
                         <div class="count-add-num">{{ count($activeListenersIDs) }}</div>
                         <div class="count-add-dots"></div>
                     </div>
-                    <div class="col-xs-offset-8 col-sm-offset-8 col-md-offset-8 col-lg-offset-8 col-xs-4 col-sm-4 col-md-4 col-lg-4">
+                    <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
                         <div class="count-add-sign">Всего</div>
                         <div class="count-add-num">{{ Listener::where('organization_id',$profile->id)->count() }}</div>
                         <div class="count-add-dots"></div>
