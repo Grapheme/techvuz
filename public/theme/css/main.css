@@ -10485,14 +10485,11 @@ main.order-page a:hover {
 .catalog-study-plan table td {
   font-size: 0.875em;
   line-height: 1.42857em;
-  padding: 0.875rem 1rem 0.875rem 2.125rem;
+  padding: 0.875rem 1rem 0.875rem 1rem;
   border-right: 2px solid white;
 }
 .catalog-study-plan table td.td-status-bar {
   vertical-align: top;
-}
-.catalog-study-plan table td:first-child {
-  white-space: nowrap;
 }
 .catalog-study-plan table td:last-child {
   border: none;
@@ -10510,6 +10507,11 @@ main.order-page a:hover {
 }
 .catalog-study-plan table .no-courses {
   opacity: .4;
+}
+
+/* remove aside for moders */
+.moderator-wrapper aside {
+  display: none;
 }
 
 /* ==========================================================================
