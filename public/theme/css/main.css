@@ -9337,13 +9337,15 @@ section h3, section .h3 {
 }
 
 .employee-search,
-.company-search {
+.company-search,
+.orders-search {
   position: relative;
   margin: 0 0 1rem;
   color: #a8a8a8;
 }
 .employee-search input,
-.company-search input {
+.company-search input,
+.orders-search input {
   width: 100%;
   padding: 0.5rem 0 0 1.625rem;
   border: none;
@@ -9353,27 +9355,32 @@ section h3, section .h3 {
   line-height: 1.28571em;
 }
 .employee-search input::-webkit-input-placeholder,
-.company-search input::-webkit-input-placeholder {
+.company-search input::-webkit-input-placeholder,
+.orders-search input::-webkit-input-placeholder {
   font: italic 300 1em 'Open Sans', sans-serif;
   line-height: 1.28571em;
 }
 .employee-search input::-moz-placeholder,
-.company-search input::-moz-placeholder {
+.company-search input::-moz-placeholder,
+.orders-search input::-moz-placeholder {
   font: italic 300 1em 'Open Sans', sans-serif;
   line-height: 1.28571em;
 }
 .employee-search input:-ms-input-placeholder,
-.company-search input:-ms-input-placeholder {
+.company-search input:-ms-input-placeholder,
+.orders-search input:-ms-input-placeholder {
   font: italic 300 1em 'Open Sans', sans-serif;
   line-height: 1.28571em;
 }
 .employee-search input::placeholder,
-.company-search input::placeholder {
+.company-search input::placeholder,
+.orders-search input::placeholder {
   font: italic 300 1em 'Open Sans', sans-serif;
   line-height: 1.28571em;
 }
 .employee-search button,
-.company-search button {
+.company-search button,
+.orders-search button {
   position: absolute;
   bottom: 0.125rem;
   left: 0;
@@ -9382,7 +9389,8 @@ section h3, section .h3 {
   color: #a8a8a8;
 }
 .employee-search button .icon,
-.company-search button .icon {
+.company-search button .icon,
+.orders-search button .icon {
   font-size: .9em;
 }
 
@@ -9739,11 +9747,13 @@ main.order-page a:hover {
   background: none;
 }
 .moderator-cabinet .employee-search input,
-.moderator-cabinet .company-search input {
+.moderator-cabinet .company-search input,
+.moderator-cabinet .orders-search input {
   padding-left: 2rem;
 }
 .moderator-cabinet .employee-search button,
-.moderator-cabinet .company-search button {
+.moderator-cabinet .company-search button,
+.moderator-cabinet .orders-search button {
   bottom: 0.5rem;
   left: 0.3rem;
 }

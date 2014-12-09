@@ -45,9 +45,10 @@ $orders = Orders::where('archived',FALSE)->orderBy('payment_status')->orderBy('c
         </li>
     </ul>
     <div id="tabs-11" class="js-tab-current">
-        <form class="orders-search margin-bottom-20">
+        <form class="orders-search margin-bottom-20">            
             <fieldset>
                 <input type="text" placeholder="Укажите номер заказа или заказчика">
+                <button type="submit"><span class="icon icon-search"></span></button>
             </fieldset>
         </form>
         <table class="table table-striped table-bordered">
@@ -71,9 +72,10 @@ $orders = Orders::where('archived',FALSE)->orderBy('payment_status')->orderBy('c
         </table>
     </div>
     <div id="tabs-12" class="js-tab-current">
-        <form class="employee-search margin-bottom-20">
+        <form class="orders-search margin-bottom-20">            
             <fieldset>
                 <input type="text" placeholder="Укажите номер заказа или заказчика">
+                <button type="submit"><span class="icon icon-search"></span></button>
             </fieldset>
         </form>
         <table class="table table-striped table-bordered">
@@ -97,9 +99,10 @@ $orders = Orders::where('archived',FALSE)->orderBy('payment_status')->orderBy('c
         </table>
     </div>
     <div id="tabs-13" class="js-tab-current">
-        <form class="employee-search margin-bottom-20">
+        <form class="orders-search margin-bottom-20">            
             <fieldset>
                 <input type="text" placeholder="Укажите номер заказа или заказчика">
+                <button type="submit"><span class="icon icon-search"></span></button>
             </fieldset>
         </form>
         <table class="table table-striped table-bordered">
@@ -123,7 +126,7 @@ $orders = Orders::where('archived',FALSE)->orderBy('payment_status')->orderBy('c
         </table>
     </div>
     <div id="tabs-14" class="js-tab-current">
-        <form class="employee-search margin-bottom-20">
+        <form class="orders-search margin-bottom-20">            
             <fieldset>
                 <input type="text" placeholder="Укажите номер заказа или заказчика">
                 <button type="submit"><span class="icon icon-search"></span></button>
