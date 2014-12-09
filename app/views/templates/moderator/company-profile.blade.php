@@ -179,11 +179,12 @@
         <div class="container-fluid">
             <div class="row">
                 <table class="tech-table sortable">
-                    <tbody>
+                    <thead>
                         <tr>
                             <th class="sort sort--asc">Ф.И.О. <span class="sort--icon"></span> </th>
                             <th class="sort sort--asc">Контакты <span class="sort--icon"></span> </th>
                         </tr>
+                    </thead>                        
                     @foreach($listeners as $listener)
                         <tr>
                             <td>
