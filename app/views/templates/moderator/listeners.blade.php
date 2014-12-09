@@ -5,16 +5,14 @@
 <h2 class="margin-bottom-40">Список слушателей</h2>
 <div class="row">
 @if(count($listeners))
-    <div class="employee-search input">
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
         <form class="employee-search margin-bottom-20">
             <fieldset>
-                <input type="text" placeholder="Укажите ФИО слушателя">
+                <input type="text" placeholder="Найти сотрудника">
                 <button type="submit"><span class="icon icon-search"></span></button>
             </fieldset>
         </form>
-    </div>
-    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-        <table class="table table-striped table-bordered">
+        <table class="table table-striped table-bordered sortable">
             <thead>
                 <tr>
                     <th>Ф.И.О.</th>
