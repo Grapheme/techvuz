@@ -7142,7 +7142,7 @@ a[href^="tel"] {
 }
 
 .vertical-top {
-  vertical-align: top;
+  vertical-align: top !important;
 }
 
 .vertical-text-bot {
