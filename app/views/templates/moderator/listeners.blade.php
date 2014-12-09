@@ -12,7 +12,7 @@
                 <button type="submit"><span class="icon icon-search"></span></button>
             </fieldset>
         </form>
-        <table class="table table-striped table-bordered sortable">
+        <table class="tech-table table table-striped table-bordered sortable">
             <thead>
                 <tr>
                     <th class="sort listeners-row sort--asc">Ф.И.О.</th>
