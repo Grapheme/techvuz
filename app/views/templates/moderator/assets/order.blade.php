@@ -1,12 +1,12 @@
 @if(isset($order) && is_object($order))
 <?php $paymentNumbersPrice = 0;?>
 <?php $listenersCount = array();?>
-@if($order->payment_numbers->count())
+@if(count($order->payment_numbers))
     @foreach($order->payment_numbers as $payment_number)
     <?php $paymentNumbersPrice+=$payment_number->price;?>
     @endforeach
 @endif
-@if($order->listeners->count())
+@if(count($order->listeners))
     @foreach($order->listeners as $listener)
     <?php $listenersCount[$listener->user_id]++;?>
     @endforeach
