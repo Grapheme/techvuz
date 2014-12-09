@@ -13,7 +13,7 @@ $messages = Dictionary::valuesBySlug('system-messages',function($query){
 <div class="row">
     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
         <table class="tech-table sortable">
-            <thead>
+            <tbody>
                 <tr>
                     <th class="sort sort--asc">Содержание <span class="sort--icon"></span> </th>
                     <th class="sort sort--asc">Дата <span class="sort--icon"></span> </th>
@@ -21,8 +21,6 @@ $messages = Dictionary::valuesBySlug('system-messages',function($query){
                         
                     </th>
                 </tr>
-            </thead>
-            <tbody>                
             @foreach($messages as $message)
                 <tr>
                     <td>{{ $message->name }}</td>
