@@ -9720,6 +9720,13 @@ main.order-page a:hover {
   border: none;
   background: none;
 }
+.moderator-cabinet .employee-search input {
+  padding-left: 2rem;
+}
+.moderator-cabinet .employee-search button {
+  bottom: 0.5rem;
+  left: 0.3rem;
+}
 .moderator-cabinet .notifications {
   width: 748px;
   margin: 0 0 2.5rem;

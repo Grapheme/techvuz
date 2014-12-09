@@ -218,6 +218,16 @@
 		background: none;
 	}
 
+	.employee-search {
+		input {
+			padding-left: 2rem;
+		}
+		button {
+			bottom: 0.5rem;
+			left: 0.3rem;
+		}
+	}
+
 	.notifications {
 		width: 939px - 191px;
 		margin: 0 0 2.5rem;
