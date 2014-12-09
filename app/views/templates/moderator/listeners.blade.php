@@ -40,6 +40,7 @@
             @endforeach
             </tbody>
         </table>
+        <p class="hidden js-search-table-error font-sm text-center margin-top-20">Ничего не найдено</p>
     </div>
 </div>
 @endif

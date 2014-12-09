@@ -337,6 +337,32 @@ $('.js-download-all-courses').click( function(){
     });
 })();
 
+(function(){
+	var $searchForm = $('.company-search'),
+		$searchInput = $searchForm.find('input[type="text"]'),
+		$searchTbody = $searchForm.next().find('tbody'),
+		$searchError = $('.js-search-table-error');
+
+	$($searchInput).keyup(function(){
+        self = this;
+        // Show only matching TR, hide rest of them
+        $.each($searchTbody.find("tr"), function() {
+
+            if($(this).find('td:first-child, td:nth-child(2)').text().toLowerCase().indexOf($(self).val().toLowerCase()) == -1)
+                $(this).hide();
+            else
+                $(this).show();
+        });
+
+        if( !$searchTbody.find("tr:visible")[0] ) {
+			$searchError.removeClass('hidden');
+		} else {
+			$searchError.addClass('hidden');
+		}
+
+    });
+})();
+
 jQuery.fn.notifications = function() {
 	'use strict';
 
