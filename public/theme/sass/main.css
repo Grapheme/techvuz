@@ -10332,6 +10332,9 @@ main.order-page a:hover {
 .moderator-cabinet .employee-search.input {
   margin: 0 0 0 15px;
 }
+.moderator-cabinet #statistic-form .label {
+  vertical-align: middle;
+}
 .moderator-cabinet #statistic-form footer {
   margin-top: 62px;
 }
