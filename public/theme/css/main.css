@@ -9018,6 +9018,11 @@ section h3, section .h3 {
   right: 2.0625rem;
   max-height: 4rem;
 }
+.directions-ul .directions-li .courses-count {
+  bottom: 1.75rem;
+  left: 2.0625rem;
+  position: absolute;
+}
 .directions-ul .directions-li:nth-child(6n+1) {
   background-color: #bb252d;
 }
