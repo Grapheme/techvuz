@@ -15,9 +15,9 @@
         <table class="tech-table table table-striped table-bordered sortable">
             <thead>
                 <tr>
-                    <th class="sort listeners-row sort--asc">Ф.И.О.</th>
-                    <th class="sort sort--asc">Контактные данные</th>
-                    <th class="sort sort--asc">Компания</th>
+                    <th class="sort listeners-row sort--asc">Ф.И.О. <span class="sort--icon"></span></th>
+                    <th class="sort sort--asc">Контактные данные <span class="sort--icon"></span></th>
+                    <th class="sort sort--asc">Компания <span class="sort--icon"></span></th>
                 </tr>
             </thead>
             <tbody>
