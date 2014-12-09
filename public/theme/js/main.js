@@ -18,6 +18,44 @@ $('.accordion').accordion({
     }
 });
 
+(function(){
+
+	var btnMap = $('.js-show-map');
+
+	var coords = {
+		x: 47.214637,
+		y: 39.708546,
+		zoom: 17
+	};
+
+	function initializeMap(coords){
+		var mapOptions = {
+			zoom: coords.zoom,
+			zoomControl: false,
+			draggable: false,
+			scrollwheel: false,
+			center: new google.maps.LatLng(coords.x, coords.y),
+			mapTypeId: google.maps.MapTypeId.ROADMAP
+		};
+
+		var map = new google.maps.Map(document.getElementById('map_canvas'), mapOptions);
+
+		var marker = new google.maps.Marker({
+			position: mapOptions.center,
+			map: map
+		//	icon: 'images/map.png'
+		});
+	}
+
+	btnMap.click( function(e){
+		e.preventDefault();
+		$('#map_canvas').css({ width: '100%', height: '15rem' });
+		initializeMap(coords);
+		$(this).hide();
+	});
+
+})();
+
 $('.js-close-notifications').click( function(){
 	var self = $(this);
 	var url = $(this).data('action');
@@ -239,7 +277,7 @@ var Popup = (function(){
     
 
     //Также нам нужна функция, которая восстановит данные о курсах и пользователях при загрузке
-    (function(){
+    function setSelectBoxes() {
 		//Достанем JSON из функции
 		var orderingObj = $.cookie('ordering') ? JSON.parse( $.cookie('ordering') ) : '';
 		var $workTable = '';
@@ -264,7 +302,9 @@ var Popup = (function(){
 			}
 
 		}
-    })();
+		
+		$select.trigger("chosen:updated");
+    }
 
     function makeCoursesJson(elem) {
 		var orderingObj = $.cookie('ordering') ? JSON.parse( $.cookie('ordering') ) : '';
@@ -387,6 +427,9 @@ var Popup = (function(){
 		}
 
     });
+
+    setSelectBoxes();
+    
 
 })();
 

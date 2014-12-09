@@ -7,13 +7,14 @@
     {{ $page->block('top_desc') }}
     </div>
     <div class="container-fluid">
-        <div class="row margin-bottom-20 no-gutter">
+        <div class="row margin-bottom-40 no-gutter">
             <div class="col-xs-1 col-sm-1 col-md-1 col-lg-1">
                 <span class="icon icon--blue icon-location"></span>
             </div>
             <div class=" col-xs-11 col-sm-11 col-md-11 col-lg-11">
                 {{ $page->block('address') }}<br>
-                <a href="#" class="txt-color-blue font-sm">Показать на карте</a>
+                <a href="#" class="txt-color-blue js-show-map">Показать на карте</a>
+                <div id="map_canvas"></div>
             </div>
         </div>
         <div class="row margin-bottom-20 no-gutter">
@@ -117,6 +118,8 @@
         </div>
     </div>
 </main>
+<script type="text/javascript"
+      src="http://maps.googleapis.com/maps/api/js?key=AIzaSyA4Q5VgK-858jgeSbJKHbclop_XIJs3lXs&sensor=true"></script>
 @stop
 @section('overlays')
 @stop
