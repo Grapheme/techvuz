@@ -10441,6 +10441,77 @@ main.order-page a:hover {
   padding-left: 0;
 }
 
+.catalog-study-plan table {
+  margin-top: 40px;
+  width: 100%;
+  outline: 1px solid #cbcbcb;
+  font-family: 'Open Sans', sans-serif;
+}
+.catalog-study-plan table tr {
+  position: relative;
+}
+.catalog-study-plan table tr:nth-child(2n+1) {
+  background: #f9f9f9;
+}
+.catalog-study-plan table .sort.sort--asc .sort--icon {
+  cursor: pointer;
+}
+.catalog-study-plan table .sort.sort--asc .sort--icon:before {
+  content: '\e803';
+  font-family: 'fontello';
+  color: #a8a8a8;
+}
+.catalog-study-plan table .sort.sort--desc .sort--icon {
+  cursor: pointer;
+}
+.catalog-study-plan table .sort.sort--desc .sort--icon:before {
+  content: '\e802';
+  font-family: 'fontello';
+  color: #a8a8a8;
+}
+.catalog-study-plan table th {
+  height: 3.75rem;
+  padding: 0 1rem 0 2.125rem;
+  text-align: left;
+  background: #dddddd;
+  border-right: 2px solid white;
+}
+.catalog-study-plan table th:last-child {
+  border-right: none;
+}
+.catalog-study-plan table th.listeners-row {
+  width: 30%;
+}
+.catalog-study-plan table td {
+  font-size: 0.875em;
+  line-height: 1.42857em;
+  padding: 0.875rem 1rem 0.875rem 2.125rem;
+  border-right: 2px solid white;
+}
+.catalog-study-plan table td.td-status-bar {
+  vertical-align: top;
+}
+.catalog-study-plan table td:first-child {
+  white-space: nowrap;
+}
+.catalog-study-plan table td:last-child {
+  border: none;
+}
+.catalog-study-plan table td.equal-padding {
+  padding: 0.875rem 1rem 0.875rem 1rem;
+}
+.catalog-study-plan table a {
+  -webkit-transition: all .4s ease;
+          transition: all .4s ease;
+  color: #33ace4;
+}
+.catalog-study-plan table a:hover {
+  text-decoration: none;
+}
+.catalog-study-plan table .no-courses {
+  opacity: .4;
+}
+
 /* ==========================================================================
    Helper classes
    ========================================================================== */
