@@ -30,6 +30,12 @@
             <span class="start-price">{{ number_format($price,0,'.',' ')  }}.-</span> | <span class="end-price">{{ number_format($paymentNumbersPrice,0,'.',' ')  }}.–</span>
         </div>
         @endif
+        <div class="orders-company">
+            Заказчик:
+            <div>
+                <a href="#">Ссылка на компанию</a>
+            </div>
+        </div>
         <div class="orders-date">
             Заказ создан:
             <div>

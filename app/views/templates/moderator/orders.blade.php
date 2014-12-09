@@ -125,7 +125,7 @@ $orders = Orders::where('archived',FALSE)->orderBy('payment_status')->orderBy('c
     <div id="tabs-14" class="js-tab-current">
         <form class="employee-search margin-bottom-20">
             <fieldset>
-                <input type="text" placeholder="Поиск по слушателям">
+                <input type="text" placeholder="Укажите номер заказа или заказчика">
                 <button type="submit"><span class="icon icon-search"></span></button>
             </fieldset>
         </form>
