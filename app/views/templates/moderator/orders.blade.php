@@ -45,7 +45,7 @@ $orders = Orders::where('archived',FALSE)->orderBy('payment_status')->orderBy('c
         </li>
     </ul>
     <div id="tabs-11" class="js-tab-current">
-        <form class="employee-search margin-bottom-20">
+        <form class="orders-search margin-bottom-20">
             <fieldset>
                 <input type="text" placeholder="Укажите номер заказа или заказчика">
             </fieldset>
