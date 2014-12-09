@@ -8,7 +8,7 @@
     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
         <form class="company-search margin-bottom-20">
             <fieldset>
-                <input type="text" placeholder="Поиск по слушателям">
+                <input type="text" placeholder="Поиск по компаниям">
                 <button type="submit"><span class="icon icon-search"></span></button>
             </fieldset>
         </form>

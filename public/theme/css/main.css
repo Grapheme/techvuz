@@ -9330,12 +9330,14 @@ section h3, section .h3 {
   border: 1px solid #a8a8a8;
 }
 
-.employee-search {
+.employee-search,
+.company-search {
   position: relative;
   margin: 0 0 1rem;
   color: #a8a8a8;
 }
-.employee-search input {
+.employee-search input,
+.company-search input {
   width: 100%;
   padding: 0.5rem 0 0 1.625rem;
   border: none;
@@ -9344,23 +9346,28 @@ section h3, section .h3 {
   font: 300 0.875em "Open Sans", sans-serif;
   line-height: 1.28571em;
 }
-.employee-search input::-webkit-input-placeholder {
+.employee-search input::-webkit-input-placeholder,
+.company-search input::-webkit-input-placeholder {
   font: italic 300 1em 'Open Sans', sans-serif;
   line-height: 1.28571em;
 }
-.employee-search input::-moz-placeholder {
+.employee-search input::-moz-placeholder,
+.company-search input::-moz-placeholder {
   font: italic 300 1em 'Open Sans', sans-serif;
   line-height: 1.28571em;
 }
-.employee-search input:-ms-input-placeholder {
+.employee-search input:-ms-input-placeholder,
+.company-search input:-ms-input-placeholder {
   font: italic 300 1em 'Open Sans', sans-serif;
   line-height: 1.28571em;
 }
-.employee-search input::placeholder {
+.employee-search input::placeholder,
+.company-search input::placeholder {
   font: italic 300 1em 'Open Sans', sans-serif;
   line-height: 1.28571em;
 }
-.employee-search button {
+.employee-search button,
+.company-search button {
   position: absolute;
   bottom: 0.125rem;
   left: 0;
@@ -9368,7 +9375,8 @@ section h3, section .h3 {
   background: none;
   color: #a8a8a8;
 }
-.employee-search button .icon {
+.employee-search button .icon,
+.company-search button .icon {
   font-size: .9em;
 }
 
