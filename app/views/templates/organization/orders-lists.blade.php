@@ -68,7 +68,17 @@
                 <div id="tabs-12" class="js-tab-current">
                     <ul class="orders-ul">
                     @foreach($orders as $order)
-                        @if(in_array($order->payment_status,array(2,3,4,5)) && $order->close_status == 0)
+                        @if($order->close_status == 0 && in_array($order->payment->id,array(5)))
+                            @include(Helper::acclayout('assets.order'))
+                        @endif
+                    @endforeach
+                    @foreach($orders as $order)
+                        @if($order->close_status == 0 && in_array($order->payment->id,array(3,4)))
+                            @include(Helper::acclayout('assets.order'))
+                        @endif
+                    @endforeach
+                    @foreach($orders as $order)
+                        @if($order->close_status == 0 && in_array($order->payment->id,array(2)))
                             @include(Helper::acclayout('assets.order'))
                         @endif
                     @endforeach
@@ -77,7 +87,17 @@
                 <div id="tabs-13" class="js-tab-current">
                     <ul class="orders-ul">
                     @foreach($orders as $order)
-                        @if($order->close_status == 1)
+                        @if($order->close_status == 1 && in_array($order->payment->id,array(1,5)))
+                            @include(Helper::acclayout('assets.order'))
+                        @endif
+                    @endforeach
+                    @foreach($orders as $order)
+                        @if($order->close_status == 1 && in_array($order->payment->id,array(3,4)))
+                            @include(Helper::acclayout('assets.order'))
+                        @endif
+                    @endforeach
+                    @foreach($orders as $order)
+                        @if($order->close_status == 1 && in_array($order->payment->id,array(2,6)))
                             @include(Helper::acclayout('assets.order'))
                         @endif
                     @endforeach
