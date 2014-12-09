@@ -9719,10 +9719,12 @@ main.order-page a:hover {
   border: none;
   background: none;
 }
-.moderator-cabinet .employee-search input {
+.moderator-cabinet .employee-search input,
+.moderator-cabinet .company-search input {
   padding-left: 2rem;
 }
-.moderator-cabinet .employee-search button {
+.moderator-cabinet .employee-search button,
+.moderator-cabinet .company-search button {
   bottom: 0.5rem;
   left: 0.3rem;
 }
