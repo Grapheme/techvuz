@@ -8,16 +8,16 @@
     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
         <form class="employee-search margin-bottom-20">
             <fieldset>
-                <input type="text" placeholder="Найти сотрудника">
+                <input type="text" placeholder="Поиск по слушателям">
                 <button type="submit"><span class="icon icon-search"></span></button>
             </fieldset>
         </form>
         <table class="table table-striped table-bordered sortable">
             <thead>
                 <tr>
-                    <th>Ф.И.О.</th>
-                    <th>Контактные данные</th>
-                    <th>Компания</th>
+                    <th class="sort listeners-row sort--asc">Ф.И.О.</th>
+                    <th class="sort sort--asc">Контактные данные</th>
+                    <th class="sort sort--asc">Компания</th>
                 </tr>
             </thead>
             <tbody>
