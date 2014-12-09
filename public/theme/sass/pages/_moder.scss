@@ -214,6 +214,7 @@
 .moderator-cabinet {
 
 	.notifications {
+		width: 939px - 191px;
 		margin: 0 0 2.5rem;
 	}
 
@@ -1105,15 +1106,11 @@
 		td {
 			font-size: 14em / $hfs;
 			line-height: (20em / 14);
-			padding: 14rem / $hfs 1rem 14rem / $hfs 34rem / $hfs;
+			padding: 14rem / $hfs 1rem 14rem / $hfs 1rem;
 			border-right: 2px solid $clr-white;
 
 			&.td-status-bar {
 				vertical-align: top;
-			}
-
-			&:first-child {
-				white-space: nowrap;
 			}
 
 			&:last-child {
@@ -1138,4 +1135,22 @@
 			opacity: .4;
 		}
 	}
+}
+
+/* remove aside for moders */
+.moderator-wrapper {
+
+	aside {
+    	display: none;
+    }
+
+    main {
+    	margin: 0;
+    }
+
+    .cabinet-menu-ul {
+		.cabinet-menu-li {
+			width: 187.7px;
+		}
+    }
 }
