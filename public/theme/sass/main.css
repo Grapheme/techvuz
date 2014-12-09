@@ -9711,6 +9711,7 @@ main.order-page a:hover {
   /* The MIT License */
 }
 .moderator-cabinet .notifications {
+  width: 748px;
   margin: 0 0 2.5rem;
 }
 .moderator-cabinet [class^="col"] {
@@ -10521,6 +10522,9 @@ main.order-page a:hover {
 }
 .moderator-wrapper main {
   margin: 0;
+}
+.moderator-wrapper .cabinet-menu-ul .cabinet-menu-li {
+  width: 187.7px;
 }
 
 /* ==========================================================================

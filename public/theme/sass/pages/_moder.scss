@@ -214,6 +214,7 @@
 .moderator-cabinet {
 
 	.notifications {
+		width: 939px - 191px;
 		margin: 0 0 2.5rem;
 	}
 
@@ -1138,10 +1139,18 @@
 
 /* remove aside for moders */
 .moderator-wrapper {
+
 	aside {
     	display: none;
     }
+
     main {
     	margin: 0;
+    }
+
+    .cabinet-menu-ul {
+		.cabinet-menu-li {
+			width: 187.7px;
+		}
     }
 }
