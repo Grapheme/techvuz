@@ -426,7 +426,7 @@ class AccountsModeratorController extends BaseController {
                         Event::fire('organization.order.part-puy-not-access', array(array('accountID'=>$order->user_id,'link'=>URL::to('organization/order/'.$order->id),'order'=>getOrderNumber($order))));
                         break;
                     case 4: Orders::where('id',$order_id)->first()->listeners()->update(array('access_status'=>1,'updated_at'=>$now));
-                        Event::fire('organization.order.part-puy-yes-access', array(array('accountID'=>$order->user_id,'order'=>getOrderNumber($order))));
+                        Event::fire('organization.order.part-puy-yes-access', array(array('accountID'=>$order->user_id,'link'=>URL::to('organization/order/'.$order->id),'order'=>getOrderNumber($order))));
                         $order->payment_date = $now;
                         break;
                     case 5: Orders::where('id',$order_id)->first()->listeners()->update(array('access_status'=>1,'updated_at'=>$now));
