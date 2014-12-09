@@ -81,7 +81,7 @@ class AccountsRegisterController extends BaseController {
                         else:
                             $json_request['responseText'] = Lang::get('interface.SIGNUP.success');
                         endif;
-                        $json_request['redirect'] = AuthAccount::getStartPage();
+                        $json_request['redirect'] = AuthAccount::getGroupStartUrl();
                         $json_request['status'] = TRUE;
                     endif;
                 else:
@@ -116,7 +116,7 @@ class AccountsRegisterController extends BaseController {
                         else:
                             $json_request['responseText'] = Lang::get('interface.SIGNUP.success');
                         endif;
-                        $json_request['redirect'] = AuthAccount::getStartPage();
+                        $json_request['redirect'] = AuthAccount::getGroupStartUrl();
                         $json_request['status'] = TRUE;
                     endif;
                 else:
@@ -181,7 +181,7 @@ class AccountsRegisterController extends BaseController {
                 Event::fire('organization.register-listeners',array(array('accountID'=>Auth::user()->id)));
                 Event::fire('account.approved-email',array(array('accountID'=>Auth::user()->id)));
             endif;
-            return Redirect::to(AuthAccount::getStartPage());
+            return Redirect::to(AuthAccount::getGroupStartUrl());
         else:
             return App::abort(404);
         endif;

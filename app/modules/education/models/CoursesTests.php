@@ -56,4 +56,14 @@ class CoursesTests extends BaseModel {
     public function answers(){
         return $this->hasMany('CoursesTestsAnswers','test_id');
     }
+
+    public function user_tests(){
+
+        return $this->hasMany('OrdersListenersTests','test_id');
+    }
+
+    public function user_test_has100(){
+
+        return $this->hasOne('OrdersListenersTests','test_id')->where('result_attempt',100);
+    }
 }

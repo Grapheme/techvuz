@@ -196,7 +196,8 @@ class AccountsListenerController extends BaseController {
 
     public function ListenerStudyCourse($course_translit){
 
-        $listenerCourse = OrderListeners::where('id',(int) $course_translit)
+        $listenerCourseID = (int) $course_translit;
+        $listenerCourse = OrderListeners::where('id',$listenerCourseID)
             ->where('user_id',Auth::user()->id)
             ->where('access_status',1)
             ->with('order')
@@ -204,17 +205,21 @@ class AccountsListenerController extends BaseController {
         if (!$listenerCourse || $listenerCourse->order->close_status == 1):
             return Redirect::route('listener-study');
         endif;
-        $module = Courses::where('id',$listenerCourse->course_id)->with(array('chapters'=>function($query){
+        $module = Courses::where('id',$listenerCourse->course_id)->with(array('chapters'=>function($query) use ($listenerCourseID){
             $query->orderBy('order');
             $query->with(array('lectures'=>function($query_lecture){
                 $query_lecture->orderBy('order');
                 $query_lecture->with('downloaded_lecture');
             }));
             $query->with('test');
+            $query->with(array('test.user_test_has100'=>function($query) use ($listenerCourseID){
+                $query->where('order_listeners_id',$listenerCourseID);
+            }));
         }))->with('test')->with(array('metodicals'=>function($query){
             $query->orderBy('order');
             $query->with('document');
         }))->first();
+//        Helper::tad($module);
         $page_data = array(
             'page_title'=> Lang::get('seo.COMPANY_LISTENER_STUDY_COURSE.title'),
             'page_description'=> Lang::get('seo.COMPANY_LISTENER_STUDY_COURSE.description'),

@@ -34,7 +34,7 @@ class GlobalController extends \BaseController {
                             $json_request['redirect'] = Session::get('redirect_to');
                             Session::remove('redirect_to');
                         else:
-                            $json_request['redirect'] = AuthAccount::getGroupStartUrl();
+                            $json_request['redirect'] = URL::to(AuthAccount::getGroupStartUrl());
                         endif;
                         $json_request['status'] = TRUE;
                     else:
@@ -47,7 +47,7 @@ class GlobalController extends \BaseController {
                             $json_request['redirect'] = Session::get('redirect_to');
                             Session::remove('redirect_to');
                         else:
-                            $json_request['redirect'] = AuthAccount::getGroupStartUrl();
+                            $json_request['redirect'] = URL::to(AuthAccount::getGroupStartUrl());
                         endif;
                         $json_request['status'] = TRUE;
                     endif;
