@@ -2,7 +2,7 @@ $('.tabs').tabs();
 
 $('.select').selectmenu();
 $(function(){
-	$('table.sortable').tablesorter();
+	$('table.sortable').tablesorter({dateFormat: "uk"});
 });
 
 $('.accordion').accordion({
