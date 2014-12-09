@@ -9715,6 +9715,10 @@ main.order-page a:hover {
   /* The MIT License */
   /* The MIT License */
 }
+.moderator-cabinet .count-add .container-fluid {
+  width: 45%;
+  margin-left: 55%;
+}
 .moderator-cabinet .orders-delete {
   border: none;
   background: none;
