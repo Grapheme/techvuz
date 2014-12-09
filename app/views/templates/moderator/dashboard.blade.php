@@ -28,7 +28,7 @@ endif;
                     <span class="current">1</span> / <span class="all"></span>
                 </span>
                 <span class="icon icon-angle-right js-notif-right">
-                    <a href="{{ URL::route('moderator-notifications') }}" class="btn btn--bordered btn--blue">
+                    <a href="{{ URL::route('moderator-notifications') }}" class="margin-left-10">
                         Полный список
                     </a>
                 </span>
