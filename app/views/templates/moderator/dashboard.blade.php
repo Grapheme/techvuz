@@ -28,7 +28,7 @@ endif;
                     <span class="current">1</span> / <span class="all"></span>
                 </span>
                 <span class="icon icon-angle-right js-notif-right">
-                    <a href="{{ URL::route('moderator-notifications') }}" class="btn btn--bordered btn--blue">
+                    <a href="{{ URL::route('moderator-notifications') }}" class="all-notifications">
                         Полный список
                     </a>
                 </span>
@@ -54,7 +54,9 @@ endif;
                             </div>
                             <div class="notif-delete js-notif-delete">
                             {{ Form::open(array('url'=>URL::route('moderator-notification-delete',array('notification_id'=>$message->id)), 'style'=>'display:inline-block', 'method'=>'delete')) }}
-                                {{ Form::submit('удалить',array('title'=>'Удалить сообщение')) }}
+                                
+                                <button type="submit" class="icon-bag-btn" title="Удалить"></button>
+
                             {{ Form::close() }}
                             </div>
                         </div>
@@ -67,7 +69,7 @@ endif;
     @endif
     @if($orders->count())
     <div>
-        <h3>Последние не оплаченные заказы</h3>
+        <h3>Новые заказы</h3>
         <ul class="orders-ul">
         <?php $showed = 0; $maxCourses = 3; ?>
         @foreach($orders as $order)

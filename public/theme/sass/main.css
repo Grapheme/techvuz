@@ -9710,6 +9710,10 @@ main.order-page a:hover {
   /* The MIT License */
   /* The MIT License */
 }
+.moderator-cabinet .orders-delete {
+  border: none;
+  background: none;
+}
 .moderator-cabinet .notifications {
   width: 748px;
   margin: 0 0 2.5rem;
