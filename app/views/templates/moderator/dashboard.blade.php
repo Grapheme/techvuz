@@ -69,7 +69,7 @@ endif;
     @endif
     @if($orders->count())
     <div>
-        <h3>Последние не оплаченные заказы</h3>
+        <h3>Новые заказы</h3>
         <ul class="orders-ul">
         <?php $showed = 0; $maxCourses = 3; ?>
         @foreach($orders as $order)
