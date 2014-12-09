@@ -13,25 +13,25 @@ $messages = Dictionary::valuesBySlug('system-messages',function($query){
 <div class="row">
     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
         <table class="tech-table sortable">
-            <tbody>
+            <thead>
                 <tr>
                     <th class="sort sort--asc">Содержание <span class="sort--icon"></span> </th>
                     <th class="sort sort--asc">Дата <span class="sort--icon"></span> </th>
                     <th>
-                    @if($messages->count())
-                        {{ Form::open(array('url'=>URL::route('moderator-notification-delete',array('notification_id'=>'all')), 'style'=>'display:inline-block', 'method'=>'delete')) }}
-                            {{ Form::submit('удалить все',array('title'=>'Удалить все сообщения')) }}
-                        {{ Form::close() }}
-                    @endif
+                        
                     </th>
                 </tr>
+            </thead>
+            <tbody>                
             @foreach($messages as $message)
                 <tr>
                     <td>{{ $message->name }}</td>
                     <td>{{ $message->updated_at->timezone(Config::get('site.time_zone'))->format('d.m.Y в H:i') }}</td>
                     <td>
                     {{ Form::open(array('url'=>URL::route('moderator-notification-delete',array('notification_id'=>$message->id)), 'style'=>'display:inline-block', 'method'=>'delete')) }}
-                        {{ Form::submit('удалить',array('title'=>'Удалить сообщение')) }}
+                        
+                        <button type="submit" class="icon-bag-btn" title="Удалить"></button>
+
                     {{ Form::close() }}
                     </td>
                 </tr>

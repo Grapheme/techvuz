@@ -26,6 +26,12 @@
 			max-height: 4rem;
 		}
 
+		.courses-count {
+		    bottom: 1.75rem;
+		    left: 2.0625rem;
+		    position: absolute;
+		}
+
 		&:nth-child(6n+1) {
 			background-color: $clr-num-1;
 		}

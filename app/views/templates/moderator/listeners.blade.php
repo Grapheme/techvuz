@@ -5,21 +5,19 @@
 <h2 class="margin-bottom-40">Список слушателей</h2>
 <div class="row">
 @if(count($listeners))
-    <div class="employee-search input">
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
         <form class="employee-search margin-bottom-20">
             <fieldset>
-                <input type="text" placeholder="Укажите ФИО слушателя">
+                <input type="text" placeholder="Поиск по слушателям">
                 <button type="submit"><span class="icon icon-search"></span></button>
             </fieldset>
         </form>
-    </div>
-    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-        <table class="table table-striped table-bordered">
+        <table class="tech-table table table-striped table-bordered sortable">
             <thead>
                 <tr>
-                    <th>Ф.И.О.</th>
-                    <th>Контактные данные</th>
-                    <th>Компания</th>
+                    <th class="sort listeners-row sort--asc">Ф.И.О. <span class="sort--icon"></span></th>
+                    <th class="sort sort--asc">Контактные данные <span class="sort--icon"></span></th>
+                    <th class="sort sort--asc">Компания <span class="sort--icon"></span></th>
                 </tr>
             </thead>
             <tbody>
@@ -42,6 +40,7 @@
             @endforeach
             </tbody>
         </table>
+        <p class="hidden js-search-table-error font-sm text-center margin-top-20">Ничего не найдено</p>
     </div>
 </div>
 @endif

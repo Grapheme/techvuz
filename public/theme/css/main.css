@@ -9018,6 +9018,11 @@ section h3, section .h3 {
   right: 2.0625rem;
   max-height: 4rem;
 }
+.directions-ul .directions-li .courses-count {
+  bottom: 1.75rem;
+  left: 2.0625rem;
+  position: absolute;
+}
 .directions-ul .directions-li:nth-child(6n+1) {
   background-color: #bb252d;
 }
@@ -9330,12 +9335,14 @@ section h3, section .h3 {
   border: 1px solid #a8a8a8;
 }
 
-.employee-search {
+.employee-search,
+.company-search {
   position: relative;
   margin: 0 0 1rem;
   color: #a8a8a8;
 }
-.employee-search input {
+.employee-search input,
+.company-search input {
   width: 100%;
   padding: 0.5rem 0 0 1.625rem;
   border: none;
@@ -9344,23 +9351,28 @@ section h3, section .h3 {
   font: 300 0.875em "Open Sans", sans-serif;
   line-height: 1.28571em;
 }
-.employee-search input::-webkit-input-placeholder {
+.employee-search input::-webkit-input-placeholder,
+.company-search input::-webkit-input-placeholder {
   font: italic 300 1em 'Open Sans', sans-serif;
   line-height: 1.28571em;
 }
-.employee-search input::-moz-placeholder {
+.employee-search input::-moz-placeholder,
+.company-search input::-moz-placeholder {
   font: italic 300 1em 'Open Sans', sans-serif;
   line-height: 1.28571em;
 }
-.employee-search input:-ms-input-placeholder {
+.employee-search input:-ms-input-placeholder,
+.company-search input:-ms-input-placeholder {
   font: italic 300 1em 'Open Sans', sans-serif;
   line-height: 1.28571em;
 }
-.employee-search input::placeholder {
+.employee-search input::placeholder,
+.company-search input::placeholder {
   font: italic 300 1em 'Open Sans', sans-serif;
   line-height: 1.28571em;
 }
-.employee-search button {
+.employee-search button,
+.company-search button {
   position: absolute;
   bottom: 0.125rem;
   left: 0;
@@ -9368,7 +9380,8 @@ section h3, section .h3 {
   background: none;
   color: #a8a8a8;
 }
-.employee-search button .icon {
+.employee-search button .icon,
+.company-search button .icon {
   font-size: .9em;
 }
 
@@ -9716,9 +9729,22 @@ main.order-page a:hover {
   /* The MIT License */
   /* The MIT License */
 }
+.moderator-cabinet .count-add .container-fluid {
+  width: 45%;
+  margin-left: 55%;
+}
 .moderator-cabinet .orders-delete {
   border: none;
   background: none;
+}
+.moderator-cabinet .employee-search input,
+.moderator-cabinet .company-search input {
+  padding-left: 2rem;
+}
+.moderator-cabinet .employee-search button,
+.moderator-cabinet .company-search button {
+  bottom: 0.5rem;
+  left: 0.3rem;
 }
 .moderator-cabinet .notifications {
   width: 748px;
@@ -10216,7 +10242,7 @@ main.order-page a:hover {
   font-family: "Open Sans",sans-serif;
   font-size: 1.5em;
   font-weight: 600;
-  line-height: .75em;
+  line-height: 1.75em;
   margin: 3rem 0 1.75rem;
 }
 .moderator-cabinet section {
@@ -10298,8 +10324,11 @@ main.order-page a:hover {
 .moderator-cabinet .employee-search.input {
   margin: 0 0 0 15px;
 }
+.moderator-cabinet #statistic-form .label {
+  vertical-align: middle;
+}
 .moderator-cabinet #statistic-form footer {
-  margin-top: 32px;
+  margin-top: 62px;
 }
 .moderator-cabinet .note {
   font-size: 12px;
@@ -10334,6 +10363,9 @@ main.order-page a:hover {
   border-color: #33ace4;
   -webkit-box-shadow: inset 0 0 0 2px #33ace4;
           box-shadow: inset 0 0 0 2px #33ace4;
+}
+.moderator-cabinet input.datepicker {
+  width: 272px;
 }
 .moderator-cabinet .btn {
   margin: 0 0.625rem;
