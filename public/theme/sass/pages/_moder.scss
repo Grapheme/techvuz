@@ -1026,6 +1026,10 @@
 			}
 			td {
 				vertical-align: top !important;
+
+				&:last-child {
+					text-align: left !important;
+				}
 			}
 			.btn {
 				display: block;
