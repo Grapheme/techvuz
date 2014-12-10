@@ -2,37 +2,59 @@
 @section('style')
 @stop
 @section('content')
-<div class="row">
+<div class="row moder-order">
     <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
         <a href="{{ URL::route('moderator-order-edit',$order->id) }}" class="icon--blue pull-right">
             <span class="icon icon-red"></span>
         </a>
-        <h2 class="margin-bottom-40">Заказ №{{ getOrderNumber($order) }}</h2> {{ $order->created_at->timezone(Config::get('site.time_zone'))->format("d.m.Y в H:i") }}
     </div>
-    <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
-        <?php $order_price = 0;?>
-        <div>
-            Заказчик:
-        @if($order->organization->count())
-            <a href="{{ URL::route('moderator-company-profile',$order->organization->id) }}">{{ $order->organization->title }}</a>
-        @elseif($order->individual->count())
-            <a href="{{ URL::route('moderator-individual-profile',$order->individual->id) }}">{{ $order->individual->fio }}</a>
-        @endif
+
+    <div>
+        <div class="orders-li-head">
+            <?php $order_price = 0;?>
+            <h2>
+                Заказ №{{ getOrderNumber($order) }}
+            </h2>
+
+            <div>
+                Заказчик:
+            @if($order->organization->count())
+                <a href="{{ URL::route('moderator-company-profile',$order->organization->id) }}">{{ $order->organization->title }}</a>
+            @elseif($order->individual->count())
+                <a href="{{ URL::route('moderator-individual-profile',$order->individual->id) }}">{{ $order->individual->fio }}</a>
+            @endif
+            </div>
+            @foreach($order->listeners as $listener)
+            <?php $order_price += $listener->price;?>
+            @endforeach
+
+            <div class="orders-status">
+                {{ $order->payment->title }}
+            </div>
         </div>
-        @foreach($order->listeners as $listener)
-        <?php $order_price += $listener->price;?>
-        @endforeach
-        <div>Сумма: {{ number_format($order_price,0,'.',' ') }} руб.</div>
-        <div>Статус: {{ $order->payment->title }}</div>
+        <div class="orders-li-body">
+            <div class="orders-price">
+                <span class="start-price">{{ number_format($order_price,0,'.',' ') }}.-</span>
+            </div>
+            <div class="orders-date">
+                Заказ создан: {{ $order->created_at->timezone(Config::get('site.time_zone'))->format("d.m.Y в H:i") }}
+            </div>
+        </div>
+    </div>
+
+
+    <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
         <div class="moder-order-docs margin-top-20">
             Документы:
             @include(Helper::acclayout('assets.documents'))
         </div>
     </div>
+
+
     <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
         <div class="payment-select pull-right">
             {{ Form::select('payments_status',PaymentStatus::lists('title','id'),$order->payment_status,array('class'=>'select js-set-order-payment-status','autocomplete'=>'off','data-action' => URL::route('change-order-status',array('order_id'=>$order->id)))) }}
-            <div class="select-payments margin-top-30 text-right">
+            <div class="select-payments margin-bottom-10 margin-top-30 text-right">
                 <a href="javasccript:void(0);" class="font-sm margin-right-10 js-check-all-payments">Добавить всех</a>
                 <a href="javasccript:void(0);" class="font-sm js-uncheck-all-payments">Убрать всех</a>
             </div>
@@ -87,15 +109,15 @@
         <div class="container-fluid">
             <div class="row no-gutter margin-bottom-20">
                 <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
-                    <div class="count-add-sign">Оплачено</div>
-                    <div class="count-add-num">{{ number_format($payment_summa, 0, ',', ' ') }} руб.</div>
+                    <div class="count-add-sign">Сумма заказа</div>
+                    <div class="count-add-num">{{ number_format($total_summa, 0, ',', ' ') }} руб.</div>
                     <div class="count-add-dots"></div>
                 </div>
             </div>
             <div class="row no-gutter margin-bottom-20">
                 <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
-                    <div class="count-add-sign">Итоговая сумма</div>
-                    <div class="count-add-num">{{ number_format($total_summa, 0, ',', ' ') }} руб.</div>
+                    <div class="count-add-sign">Оплачено</div>
+                    <div class="count-add-num">{{ number_format($payment_summa, 0, ',', ' ') }} руб.</div>
                     <div class="count-add-dots"></div>
                 </div>
             </div>
