@@ -225,6 +225,46 @@
 		background: none;
 	}
 
+	.moder-order-docs {
+		li {
+			a {
+				-webkit-transition: all .4s ease;
+				transition: all .4s ease;
+				color: #33ace4;
+				cursor: pointer;
+			}
+		}
+	}
+
+	.moder-anket {
+		.col-xs-3 {
+			width: 25%;
+		}
+		.col-xs-9 {
+			width: 75%;
+		}
+		.employer-anket {
+			max-width: 760px;
+		}
+	}
+
+	.moder-docs-ul {
+		li {
+			display: inline-block;
+			
+			&:after {
+				content: ', ';
+				color: #33ace4;
+			}
+
+			&:last-child {
+				&:after {
+					content: none;
+				}
+			}
+		}
+	}
+
 	.employee-search,
 	.company-search,
 	.orders-search {
@@ -240,6 +280,15 @@
 	.notifications {
 		width: 939px - 191px;
 		margin: 0 0 2.5rem;
+
+		.notifications-li {
+			.col-xs-9 {
+				width: 75%;
+			}
+			.col-xs-3 {
+				width: 25%;
+			}
+		}
 	}
 
 	[class^="col"] {

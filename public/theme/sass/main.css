@@ -7176,7 +7176,7 @@ a[href^="tel"] {
 }
 
 .vertical-top {
-  vertical-align: top;
+  vertical-align: top !important;
 }
 
 .vertical-text-bot {
@@ -9734,6 +9734,31 @@ main.order-page a:hover {
   border: none;
   background: none;
 }
+.moderator-cabinet .moder-order-docs li a {
+  -webkit-transition: all .4s ease;
+  transition: all .4s ease;
+  color: #33ace4;
+  cursor: pointer;
+}
+.moderator-cabinet .moder-anket .col-xs-3 {
+  width: 25%;
+}
+.moderator-cabinet .moder-anket .col-xs-9 {
+  width: 75%;
+}
+.moderator-cabinet .moder-anket .employer-anket {
+  max-width: 760px;
+}
+.moderator-cabinet .moder-docs-ul li {
+  display: inline-block;
+}
+.moderator-cabinet .moder-docs-ul li:after {
+  content: ', ';
+  color: #33ace4;
+}
+.moderator-cabinet .moder-docs-ul li:last-child:after {
+  content: none;
+}
 .moderator-cabinet .employee-search input,
 .moderator-cabinet .company-search input,
 .moderator-cabinet .orders-search input {
@@ -9748,6 +9773,12 @@ main.order-page a:hover {
 .moderator-cabinet .notifications {
   width: 748px;
   margin: 0 0 2.5rem;
+}
+.moderator-cabinet .notifications .notifications-li .col-xs-9 {
+  width: 75%;
+}
+.moderator-cabinet .notifications .notifications-li .col-xs-3 {
+  width: 25%;
 }
 .moderator-cabinet [class^="col"] {
   width: 100%;

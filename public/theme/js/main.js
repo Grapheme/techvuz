@@ -1,4 +1,8 @@
-$('.tabs').tabs();
+$('.tabs').tabs({
+	activate: function( event, ui ) {
+		$('.orders-search').find('input[type="text"]').val('').keyup();
+	}
+});
 
 $('.select').selectmenu();
 $(function(){
@@ -133,7 +137,7 @@ $('.js-download-all-courses').click( function(){
         // Show only matching TR, hide rest of them
         $.each($searchTbody.find("tr"), function() {
 
-            if($(this).find('td:first-child').text().toLowerCase().indexOf($(self).val().toLowerCase()) == -1)
+            if($(this).find('td:first-child, td:nth-child(2)').text().toLowerCase().indexOf($(self).val().toLowerCase()) == -1)
                 $(this).hide();
             else
                 $(this).show();
@@ -183,7 +187,7 @@ $('.js-download-all-courses').click( function(){
 	$searchInput.keyup(function(){
         self = this;
         // Show only matching TR, hide rest of them
-        $.each( this.paren().next().find( $searchTbody ).find("tr"), function() {
+        $.each($searchTbody.find("tr"), function() {
 
             if($(this).find('td:nth-child(2), td:nth-child(4)').text().toLowerCase().indexOf($(self).val().toLowerCase()) == -1)
                 $(this).hide();

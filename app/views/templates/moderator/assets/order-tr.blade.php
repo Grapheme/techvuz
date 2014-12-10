@@ -1,6 +1,6 @@
 @if(isset($order) && is_object($order))
 <tr class="vertical-middle js-orders-line">
-    <td>
+    <td class="vertical-top">
     @if($order->payment_status == 1)
         <?php $formAction = URL::route('moderator-order-delete',array('order_id'=>$order->id));?>
     @else
@@ -12,28 +12,30 @@
             </button>
         {{ Form::close() }}
     </td>
-    <td><a href="{{ URL::route('moderator-order-extended',$order->id) }}">Заказ №{{ getOrderNumber($order) }}</a></td>
-    <td>
+    <td class="vertical-top">
+        <a class="nowrap" href="{{ URL::route('moderator-order-extended',$order->id) }}">Заказ №{{ getOrderNumber($order) }}</a>
+    </td>
+    <td class="vertical-top">
         {{ myDateTime::SwapDotDateWithTime($order->created_at) }}
         @if($order->close_status == 1)
         <br>{{ myDateTime::SwapDotDateWithTime($order->close_date) }}
         @endif
     </td>
-    <td>
+    <td class="vertical-top">
         @if($order->organization->count())
             <a href="{{ URL::route('moderator-company-profile',$order->organization->id) }}">{{ $order->organization->title }}</a>
         @elseif($order->individual->count())
             <a href="{{ URL::route('moderator-individual-profile',$order->individual->id) }}">{{ $order->individual->fio }}</a>
         @endif
     </td>
-    <td>
+    <td class="vertical-top">
         {{ $order->payment->title }}
         @if($order->payment_status == 2)
         <br>{{ myDateTime::SwapDotDateWithTime($order->payment_date) }}
         @endif
     </td>
-    <td>
-        <ul>
+    <td class="vertical-top">
+        <ul class="moder-docs-ul">
             <li><a href="{{ URL::route('moderator-order-contract',array('order_id'=>$order->id,'format'=>'pdf')) }}">Договор</a></li>
             <li><a href="{{ URL::route('moderator-order-invoice',array('order_id'=>$order->id,'format'=>'pdf')) }}">Счет</a></li>
             <li><a href="{{ URL::route('moderator-order-act',array('order_id'=>$order->id,'format'=>'pdf')) }}">Акт</a></li>
