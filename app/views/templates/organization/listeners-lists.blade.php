@@ -78,7 +78,7 @@
 
         $(document).on('click', '.hide-courses', function(){
             var index = $(this).parents('tr').data('index');
-            var trs = $("tr[data-index='"+index+"']:not(:first-child)").show().slideUp(500).addClass('hidden');
+            var trs = $("tr[data-index='"+index+"']").not(tr["data-index='"+index+"']:first").show().slideUp(500).addClass('hidden');
             $(this).hide();
             $("tr[data-index='"+index+"']:first-child").find('.more-courses').show();
         });
