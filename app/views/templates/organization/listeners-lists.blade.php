@@ -80,7 +80,7 @@
             var index = $(this).parents('tr').data('index');
             var trs = $("tr[data-index='"+index+"']").not("tr[data-index='"+index+"']:first").show().slideUp(500).addClass('hidden');
             $(this).hide();
-            $("tr[data-index='"+index+"']:first-child").find('.more-courses').show();
+            $("tr[data-index='"+index+"']:first").find('.more-courses').show();
         });
 
     });
