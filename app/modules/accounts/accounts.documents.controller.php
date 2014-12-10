@@ -860,7 +860,7 @@ class AccountsDocumentsController extends BaseController {
         App::abort(404);
     }
 
-    public function OrdersJournalIssuance($format){
+    public function moderatorOrdersJournalIssuance($format){
 
         return $format;
     }
