@@ -213,6 +213,13 @@
 
 .moderator-cabinet {
 
+	.modal-dialog {
+		input,
+		textarea {
+			max-width: 100%;
+		}
+	}
+
 	.count-add {
 		.container-fluid {
 			width: 45%;

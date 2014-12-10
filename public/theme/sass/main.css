@@ -9726,6 +9726,10 @@ main.order-page a:hover {
   /* The MIT License */
   /* The MIT License */
 }
+.moderator-cabinet .modal-dialog input,
+.moderator-cabinet .modal-dialog textarea {
+  max-width: 100%;
+}
 .moderator-cabinet .count-add .container-fluid {
   width: 45%;
   margin-left: 55%;
