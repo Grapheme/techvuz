@@ -9740,6 +9740,12 @@ main.order-page a:hover {
   color: #33ace4;
   cursor: pointer;
 }
+.moderator-cabinet .moder-anket .col-xs-3 {
+  width: 25%;
+}
+.moderator-cabinet .moder-anket .col-xs-9 {
+  width: 75%;
+}
 .moderator-cabinet .moder-docs-ul li {
   display: inline-block;
 }
