@@ -10356,7 +10356,7 @@ main.order-page a:hover {
   display: inline-block;
 }
 .moderator-cabinet .checkbox {
-  margin-left: 189px;
+  margin-left: 133px;
 }
 .moderator-cabinet .checkbox .checkbox {
   margin: 0;
@@ -10450,9 +10450,19 @@ main.order-page a:hover {
 .moderator-cabinet input.datepicker {
   width: 272px;
 }
+.moderator-cabinet .table.table-striped td {
+  vertical-align: top !important;
+}
+.moderator-cabinet .table.table-striped .btn {
+  display: block;
+  margin: 0 0 0.625rem !important;
+}
 .moderator-cabinet .btn {
   margin: 0 0.625rem;
   border: 2px solid;
+}
+.moderator-cabinet .btn > br {
+  display: none;
 }
 .moderator-cabinet .btn:first-child {
   margin-left: 0;

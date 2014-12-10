@@ -894,7 +894,7 @@
 	}
 
 	.checkbox {
-		margin-left: 189px;
+		margin-left: 133px;
 
 		.checkbox {
 			margin: 0;
@@ -1018,12 +1018,26 @@
 			width: 272px;
 		}
 	}
-
 	
-
+	.table {
+		&.table-striped {
+			td {
+				vertical-align: top !important;
+			}
+			.btn {
+				display: block;
+				margin: 0 0 10rem / $hfs !important;
+			}
+		}
+	}
+	
 	.btn {
 		margin: 0 10rem / $hfs;
 		border: 2px solid;
+
+		& > br {
+			display: none;
+		}
 
 		&:first-child {
 			margin-left: 0;
