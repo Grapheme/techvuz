@@ -722,6 +722,7 @@ class AccountsDocumentsController extends BaseController {
                             $listeners[$index]['Nazvanie_kursa'] = $listener['course']['title'];
                             $listeners[$index]['DataProvedeniyaAttestacii'] = !empty($listener['final_test']) ? $listener['final_test']['created_at'] : '1970-01-01 00:00:00' ;
                             $listeners[$index]['OcenkaAttestacii'] = !empty($listener['final_test']) ? $listener['final_test']['result_attempt'] : '0' ;
+                            $listeners[$index]['OcenkaAttestaciiSlovami'] = $listeners[$index]['OcenkaAttestacii'] >= $page_data['MinimalnayaOcenkaAttestacii']  ? 'Зачет' : 'Незачет' ;
                         endforeach;
                         foreach($listeners as $listener_id => $listener):
                             $page_data['FIO_listener'] = $listener['FIO_listener'];
@@ -733,6 +734,7 @@ class AccountsDocumentsController extends BaseController {
                             $page_data['Nazvanie_kursa'] = $listener['Nazvanie_kursa'];
                             $page_data['DataProvedeniyaAttestacii'] = (new myDateTime())->setDateString($listener['DataProvedeniyaAttestacii'])->format('d.m.Y');
                             $page_data['OcenkaAttestacii'] = $listener['OcenkaAttestacii'];
+                            $page_data['OcenkaAttestaciiSlovami'] = $listener['OcenkaAttestaciiSlovami'];
                             $page = View::make($template, $page_data)->render();
                             $mpdf->AddPage('P');
                             $mpdf->WriteHTML(View::make($template, $page_data)->render(), 2);
@@ -749,7 +751,113 @@ class AccountsDocumentsController extends BaseController {
 
     public function moderatorOrderResultCertification($order_id,$format){
 
-        return $order_id;
+        if (!$order = Orders::where('id',$order_id)->where('completed',1)->with('organization','individual')->first()):
+            return Redirect::route('moderator-orders-list');
+        endif;
+        $account = NULL; $account_type = NULL;
+        $template = 'templates.assets.result-certification';
+        $document = Dictionary::valueBySlugs('order-documents','order-documents-result-certification');
+        if (!empty($order->organization)):
+            $account = User_organization::where('id',$order->user_id)->first();
+            $account_type = 4;
+        elseif(!empty($order->individual)):
+            $account = User_individual::where('id',$order->user_id)->first();
+            $account_type = 6;
+        endif;
+        if($document->exists && !empty($document->fields)):
+            $fields = modifyKeys($document->fields,'key');
+            Config::set('show-document.order_id', $order_id);
+            switch($format):
+                case 'html':
+                    $document_content = isset($fields['content']) ? $fields['content']->value : '';
+                    if($page_data = self::parseOrderHTMLDocument($document_content)):
+                        return View::make($template,$page_data);
+                    endif;
+                    break;
+                case 'pdf' :
+                    $mpdf = new mPDF('utf-8', 'A4', '8', '', 10, 10, 7, 7, 10, 10);
+                    $mpdf->charset_in = 'cp1251';
+                    $mpdf->SetDisplayMode('fullpage');
+                    $document_content = isset($fields['content']) ? $fields['content']->value : '';
+                    if($page_data = self::parseOrderHTMLDocument($document_content)):
+                        $page_data['page_title'] = '';
+                        foreach($page_data['SpisokSluschateley']['listeners'] as $index => $listener):
+                            $listeners[$index]['FIO_listener'] = !empty($listener['user_listener']) ? $listener['user_listener']['fio'] : $listener['user_individual']['fio'];
+                            $listeners[$index]['Phone_listener'] = !empty($listener['user_listener']) ? $listener['user_listener']['phone'] : $listener['user_individual']['phone'];
+                            $listeners[$index]['Email_listener'] = !empty($listener['user_listener']) ? $listener['user_listener']['email'] : $listener['user_individual']['email'];
+                            $listeners[$index]['Address_listener'] = !empty($listener['user_listener']) ? $listener['user_listener']['postaddress'] : $listener['user_individual']['postaddress'];
+                            $listeners[$index]['FIO_initial_listener'] = preg_replace('/(\w+) (\w)\w+ (\w)\w+/iu', '$1 $2. $3.', $listeners[$index]['FIO_listener']);
+                            $listeners[$index]['Kod_kursa'] = $listener['course']['code'];
+                            $listeners[$index]['Nazvanie_kursa'] = $listener['course']['title'];
+                            $listeners[$index]['DataProvedeniyaAttestacii'] = !empty($listener['final_test']) ? $listener['final_test']['created_at'] : '1970-01-01 00:00:00' ;
+                            $listeners[$index]['OcenkaAttestacii'] = !empty($listener['final_test']) ? $listener['final_test']['result_attempt'] : '0' ;
+                            $listeners[$index]['OcenkaAttestaciiSlovami'] = $listeners[$index]['OcenkaAttestacii'] >= $page_data['MinimalnayaOcenkaAttestacii']  ? 'Зачет' : 'Незачет' ;
+                            $listeners[$index]['VremyaProhojdeniyaAttestacii'] = 0;
+                            $listeners[$index]['DannueResultatovAttestacii'] = array();
+                            if (!empty($listener['final_test']) && $listener['final_test']['result_attempt'] >= Config::get('site.success_test_percent')):
+                                $order_listeners_id = $listener['id'];
+                                $test = CoursesTests::where('id',$listener['final_test']['test_id'])
+                                    ->where('active',1)
+                                    ->with('questions.answers')
+                                    ->with(array('user_final_test_success'=>function($query) use ($order_listeners_id){
+                                        $query->where('order_listeners_id',$order_listeners_id);
+                                    }))->first();
+                                if($test && !empty($test->user_final_test_success)):
+                                    $maxValueTest = array(); $result_attempt = 0;
+                                    foreach ($test->user_final_test_success as $testSuccess):
+                                        if ($testSuccess->result_attempt >= $result_attempt):
+                                            $maxValueTest['id'] = $testSuccess->id;
+                                            $maxValueTest['result_attempt'] = $testSuccess->result_attempt;
+                                            $maxValueTest['time_attempt'] = $testSuccess->time_attempt;
+                                            $maxValueTest['data_results'] = !empty($testSuccess['data_results']) ? json_decode($testSuccess['data_results'], TRUE) : array() ;
+                                            $result_attempt = $testSuccess->result_attempt;
+                                            $listeners[$index]['VremyaProhojdeniyaAttestacii'] = $testSuccess->time_attempt;
+                                        endif;
+                                    endforeach;
+                                    foreach($test->questions as $question):
+                                        $listeners[$index]['DannueResultatovAttestacii'][$question->id]['title'] = $question->title.$question->order;
+                                        $listeners[$index]['DannueResultatovAttestacii'][$question->id]['description'] = $question->description;
+                                        foreach($question->answers as $answer):
+                                            $listeners[$index]['DannueResultatovAttestacii'][$question->id]['answers'][$answer->id]['title'] = $answer->title.$answer->order;
+                                            $listeners[$index]['DannueResultatovAttestacii'][$question->id]['answers'][$answer->id]['description'] = $answer->description;
+                                            $listeners[$index]['DannueResultatovAttestacii'][$question->id]['answers'][$answer->id]['correct'] = $answer->correct;
+                                            $listeners[$index]['DannueResultatovAttestacii'][$question->id]['answers'][$answer->id]['user_correct'] = 0;
+                                        endforeach;
+                                    endforeach;
+                                    if (isset($maxValueTest['data_results']) && !empty($maxValueTest['data_results'])):
+                                        foreach($maxValueTest['data_results'] as $question_id => $answer_id):
+                                            if (isset($listeners[$index]['DannueResultatovAttestacii'][$question_id]['answers'][$answer_id])):
+                                                $listeners[$index]['DannueResultatovAttestacii'][$question_id]['answers'][$answer_id]['user_correct'] = 1;
+                                            endif;
+                                        endforeach;
+                                    endif;
+                                endif;
+                            endif;
+                        endforeach;
+                        foreach($listeners as $listener_id => $listener):
+                            $page_data['FIO_listener'] = $listener['FIO_listener'];
+                            $page_data['Phone_listener'] = $listener['Phone_listener'];
+                            $page_data['Email_listener'] = $listener['Email_listener'];
+                            $page_data['Address_listener'] = $listener['Address_listener'];
+                            $page_data['FIO_initial_listener'] = $listener['FIO_initial_listener'];
+                            $page_data['Kod_kursa'] = $listener['Kod_kursa'];
+                            $page_data['Nazvanie_kursa'] = $listener['Nazvanie_kursa'];
+                            $page_data['DataProvedeniyaAttestacii'] = (new myDateTime())->setDateString($listener['DataProvedeniyaAttestacii'])->format('d.m.Y');
+                            $page_data['OcenkaAttestacii'] = $listener['OcenkaAttestacii'];
+                            $page_data['OcenkaAttestaciiSlovami'] = $listener['OcenkaAttestaciiSlovami'];
+                            $page_data['DannueResultatovAttestacii'] = $listener['DannueResultatovAttestacii'];
+                            $page = View::make($template, $page_data)->render();
+                            $mpdf->AddPage('P');
+                            $mpdf->WriteHTML(View::make($template, $page_data)->render(), 2);
+                        endforeach;
+                    endif;
+                    return $mpdf->Output('certification-№'.getOrderNumber($order).'.pdf', 'D');
+                case 'word':
+                    return Redirect::back();
+                    break;
+            endswitch;
+        endif;
+        App::abort(404);
     }
 
     public function moderatorOrderJournalIssuance($order_id,$format){
@@ -1030,10 +1138,15 @@ class AccountsDocumentsController extends BaseController {
             'Nazvanie_kursa' => '',
             'DataOkonchaniyaObucheniya' => '',
             'KolichestvoChasovObucheniyaPoKursu' => '',
+            'TablicaResultatovAttestacii' => '',
 
             'DataProvedeniyaAttestacii' => '',
             'DataProvedeniyaAttestacii' => '',
             'OcenkaAttestacii' => '',
+            'OcenkaAttestaciiSlovami' => '',
+            'MinimalnayaOcenkaAttestacii' => Config::get('site.success_test_percent') ? Config::get('site.success_test_percent') : 70,
+            'KolichestvoVoprosiv' => 0,
+            'KolichestvoPravilnuhOtvetov' => 0,
 
             'VsegoNaimenovaliy' => 0,'KolichestvoNaimenovaliy' => 0,
         );
