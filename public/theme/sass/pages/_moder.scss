@@ -1035,7 +1035,7 @@
 		margin: 0 10rem / $hfs;
 		border: 2px solid;
 
-		& > br {
+		& + br {
 			display: none;
 		}
 

@@ -10459,7 +10459,7 @@ main.order-page a:hover {
   margin: 0 0.625rem;
   border: 2px solid;
 }
-.moderator-cabinet .btn > br {
+.moderator-cabinet .btn + br {
   display: none;
 }
 .moderator-cabinet .btn:first-child {
