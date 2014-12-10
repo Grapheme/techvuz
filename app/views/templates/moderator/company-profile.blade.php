@@ -2,7 +2,13 @@
 @section('style')
 @stop
 @section('content')
-<h2 class="margin-top-10 margin-bottom-40">{{ $profile->title }}</h2>
+<div>
+    <a class="icon--blue pull-right margin-top-30" href="{{ URL::route('moderator-company-profile-edit',$profile->id) }}">
+        <span class="icon icon-red"></span>
+    </a>
+    <h2 class="margin-top-10 margin-bottom-40">{{ $profile->title }}</h2>
+</div>
+
 
 <div class="container-fluid moder-anket">
     <div class="row">
@@ -22,13 +28,6 @@
             </div>
         @endif
         <div class="employer-anket margin-bottom-40">
-            <div class="row">
-                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                    <a class="icon--blue pull-right margin-top-30" href="{{ URL::route('moderator-company-profile-edit',$profile->id) }}">
-                        <span class="icon icon-red"></span>
-                    </a>
-                </div>
-            </div>
             <div class="row margin-bottom-10">
                 <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
                     <span class="font-sm">Полное наименование организации</span>
