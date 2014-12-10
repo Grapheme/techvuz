@@ -3,32 +3,29 @@
 @stop
 @section('content')
 <div class="row moder-order">
-    <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
-        <a href="{{ URL::route('moderator-order-edit',$order->id) }}" class="icon--blue pull-right">
-            <span class="icon icon-red"></span>
-        </a>
-    </div>
-
     <div>
         <div class="orders-li-head">
             <?php $order_price = 0;?>
+            <a href="{{ URL::route('moderator-order-edit',$order->id) }}" class="icon--blue pull-right">
+                <span class="icon icon-red"></span>
+            </a>
             <h2>
                 Заказ №{{ getOrderNumber($order) }}
             </h2>
 
-            <div>
+            <div class="style-light margin-bottom-10">
                 Заказчик:
             @if($order->organization->count())
-                <a href="{{ URL::route('moderator-company-profile',$order->organization->id) }}">{{ $order->organization->title }}</a>
+                <a class="icon--blue" href="{{ URL::route('moderator-company-profile',$order->organization->id) }}">{{ $order->organization->title }}</a>
             @elseif($order->individual->count())
-                <a href="{{ URL::route('moderator-individual-profile',$order->individual->id) }}">{{ $order->individual->fio }}</a>
+                <a class="icon--blue" href="{{ URL::route('moderator-individual-profile',$order->individual->id) }}">{{ $order->individual->fio }}</a>
             @endif
             </div>
             @foreach($order->listeners as $listener)
             <?php $order_price += $listener->price;?>
             @endforeach
 
-            <div class="orders-status">
+            <div class="orders-status style-light">
                 {{ $order->payment->title }}
             </div>
         </div>
