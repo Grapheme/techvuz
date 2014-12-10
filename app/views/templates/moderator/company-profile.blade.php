@@ -2,9 +2,9 @@
 @section('style')
 @stop
 @section('content')
-<h2 class="margin-bottom-40">{{ $profile->title }}</h2>
+<h2 class="margin-top-10 margin-bottom-40">{{ $profile->title }}</h2>
 
-<div class="container-fluid">
+<div class="container-fluid moder-anket">
     <div class="row">
         <?php $accountStatus = array('Не активный','Активный','Не активирован')?>
         @if(isset($accountStatus[$profile->active]))
