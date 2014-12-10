@@ -116,6 +116,12 @@ class myDateTime {
 
     }
 
+    public function addDays($days = 0){
+
+        $this->date_string->addDays($days);
+        return $this;
+    }
+
     public function format($format){
 
         if ($this->validDate()):

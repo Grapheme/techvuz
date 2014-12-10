@@ -6,17 +6,14 @@ class CalcStudyPeriod {
     protected $prev_hours;
     protected $hours;
     protected $start_date;
-    protected $over_date;
     protected $date_begin;
     protected $date_end;
     private $format;
     private $days;
     private $prev_days;
-    private $hours_summa;
 
     public function __construct(){
         self::setFormat();
-        $this->over_date = new \Carbon\Carbon();
         $this->date_end = new \Carbon\Carbon();
     }
 
@@ -56,9 +53,9 @@ class CalcStudyPeriod {
     public function write(){
 
         if ($this->date_begin == $this->date_end || $this->current_hours == 8 || $this->hours == 8):
-            return $this->prev_hours.' '.$this->hours.' '.$this->days.' '.$this->date_begin->format($this->format);
+            return $this->date_end->format($this->format);
         else:
-            return $this->prev_hours.' '.$this->hours.' '.$this->days.' '.$this->date_begin->format($this->format).'-'.$this->date_end->format($this->format);
+            return $this->date_begin->format($this->format).'-'.$this->date_end->format($this->format);
         endif;
     }
 
@@ -76,7 +73,7 @@ class CalcStudyPeriod {
         endif;
     }
 
-    public function getConfig($item){
+    public function get($item){
 
         return $this->$item;
     }
