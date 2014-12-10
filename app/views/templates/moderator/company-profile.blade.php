@@ -201,7 +201,7 @@
                 </table>
             </div>
         </div>
-        <div class="count-add">
+        <div class="count-add margin-top-40">
             <?php $activeListenersIDs = array(); ?>
             @foreach($orders as $order)
                 @if($order->close_status == 0)
