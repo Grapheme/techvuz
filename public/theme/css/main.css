@@ -9755,29 +9755,29 @@ main.order-page a:hover {
 .moderator-cabinet .ui-selectmenu-button {
   border-color: #cbcbcb;
 }
-.moderator-cabinet .moder-order .moder-order-docs ul {
-  font-weight: 300;
-  list-style-position: inside;
-  padding: 0;
-}
-.moderator-cabinet .orders-li-head {
+.moderator-cabinet .moder-order .orders-li-head {
   padding: 0;
   border: none;
 }
-.moderator-cabinet .orders-li-head h1, .moderator-cabinet .orders-li-head h2 {
+.moderator-cabinet .moder-order .orders-li-head h1, .moderator-cabinet .moder-order .orders-li-head h2 {
   margin: 0 0 0.875rem 0;
   padding: 0;
   line-height: .75;
   font-size: 1.375em;
   font-family: 'Open Sans', sans-serif;
 }
-.moderator-cabinet .orders-li-body {
+.moderator-cabinet .moder-order .orders-li-body {
   padding: 0;
 }
-.moderator-cabinet .orders-li-body .orders-price {
+.moderator-cabinet .moder-order .orders-li-body .orders-price {
   padding: 0;
 }
-.moderator-cabinet .orders-li-body .orders-date {
+.moderator-cabinet .moder-order .orders-li-body .orders-date {
+  padding: 0;
+}
+.moderator-cabinet .moder-order .moder-order-docs ul {
+  font-weight: 300;
+  list-style-position: inside;
   padding: 0;
 }
 .moderator-cabinet .moder-anket .col-xs-3 {

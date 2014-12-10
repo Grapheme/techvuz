@@ -241,35 +241,35 @@
 	}
 
 	.moder-order {
+		.orders-li-head {
+			padding: 0;
+
+			border: none;
+
+			h1,h2 {
+				margin: 0 0 0.875rem 0;
+				padding: 0;
+				line-height: .75;
+				font-size: 1.375em;
+				font-family: 'Open Sans', sans-serif;
+			}
+		}
+
+		.orders-li-body {
+			padding: 0;
+
+			.orders-price {
+				padding: 0;
+			}
+			.orders-date {
+				padding: 0;			
+			}
+		}
+		
 		.moder-order-docs ul {
 		    font-weight: 300;
 		    list-style-position: inside;
 		    padding: 0;
-		}
-	}
-
-	.orders-li-head {
-		padding: 0;
-
-		border: none;
-
-		h1,h2 {
-			margin: 0 0 0.875rem 0;
-			padding: 0;
-			line-height: .75;
-			font-size: 1.375em;
-			font-family: 'Open Sans', sans-serif;
-		}
-	}
-
-	.orders-li-body {
-		padding: 0;
-
-		.orders-price {
-			padding: 0;
-		}
-		.orders-date {
-			padding: 0;			
 		}
 	}
 
