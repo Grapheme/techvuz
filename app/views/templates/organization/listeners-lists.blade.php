@@ -83,7 +83,6 @@
             $(this).hide();
             $("tr[data-index='"+index+"']:first").find('.more-courses').show();
         });
-
     });
 </script>
 @stop
