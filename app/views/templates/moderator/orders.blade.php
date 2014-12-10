@@ -5,7 +5,7 @@
  <?php
 $orders = Orders::where('archived',FALSE)->orderBy('payment_status')->orderBy('created_at','DESC')->with('payment', 'organization', 'individual')->get();
 ?>
-<a href="{{ URL::route('moderator-order-journal-issuance',array('order_id'=>$order->id,'format'=>'pdf')) }}">Журнал выдачи удостоверений</a>
+<a href="{{ URL::route('moderator-order-journal-issuance',array('format'=>'pdf')) }}">Журнал выдачи удостоверений</a>
 <h3>Список заказов</h3>
 <div class="tabs usual-tabs">
     <ul>
