@@ -13,7 +13,7 @@
         {{ Form::close() }}
     </td>
     <td class="vertical-top">
-        <a href="{{ URL::route('moderator-order-extended',$order->id) }}">Заказ №{{ getOrderNumber($order) }}</a>
+        <a class="nowrap" href="{{ URL::route('moderator-order-extended',$order->id) }}">Заказ №{{ getOrderNumber($order) }}</a>
     </td>
     <td class="vertical-top">
         {{ myDateTime::SwapDotDateWithTime($order->created_at) }}
@@ -35,7 +35,7 @@
         @endif
     </td>
     <td class="vertical-top">
-        <ul>
+        <ul class="moder-docs-ul">
             <li><a href="{{ URL::route('moderator-order-contract',array('order_id'=>$order->id,'format'=>'pdf')) }}">Договор</a></li>
             <li><a href="{{ URL::route('moderator-order-invoice',array('order_id'=>$order->id,'format'=>'pdf')) }}">Счет</a></li>
             <li><a href="{{ URL::route('moderator-order-act',array('order_id'=>$order->id,'format'=>'pdf')) }}">Акт</a></li>

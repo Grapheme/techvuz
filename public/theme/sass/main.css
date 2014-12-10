@@ -9740,6 +9740,16 @@ main.order-page a:hover {
   color: #33ace4;
   cursor: pointer;
 }
+.moderator-cabinet .moder-docs-ul li {
+  display: inline-block;
+}
+.moderator-cabinet .moder-docs-ul li:after {
+  content: ', ';
+  color: #33ace4;
+}
+.moderator-cabinet .moder-docs-ul li:last-child:after {
+  content: none;
+}
 .moderator-cabinet .employee-search input,
 .moderator-cabinet .company-search input,
 .moderator-cabinet .orders-search input {

@@ -236,6 +236,23 @@
 		}
 	}
 
+	.moder-docs-ul {
+		li {
+			display: inline-block;
+			
+			&:after {
+				content: ', ';
+				color: #33ace4;
+			}
+
+			&:last-child {
+				&:after {
+					content: none;
+				}
+			}
+		}
+	}
+
 	.employee-search,
 	.company-search,
 	.orders-search {
