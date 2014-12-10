@@ -35,7 +35,7 @@
         @endif
     </td>
     <td class="vertical-top">
-        @include(Helper::acclayout('assests.documents'))
+        @include(Helper::acclayout('assets.documents'))
     </td>
 </tr>
 @endif
