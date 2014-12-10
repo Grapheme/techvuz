@@ -9726,6 +9726,10 @@ main.order-page a:hover {
   /* The MIT License */
   /* The MIT License */
 }
+.moderator-cabinet .modal-dialog input,
+.moderator-cabinet .modal-dialog textarea {
+  max-width: 350px;
+}
 .moderator-cabinet .count-add .container-fluid {
   width: 45%;
   margin-left: 55%;
@@ -9767,6 +9771,13 @@ main.order-page a:hover {
   font-weight: 300;
   list-style-position: inside;
   padding: 0;
+}
+.moderator-cabinet .photo-preview-container {
+  background: #efefef;
+}
+.moderator-cabinet .photo-preview-container .photo-preview-single {
+  background-repeat: no-repeat;
+  background-position: center center;
 }
 .moderator-cabinet .moder-anket .col-xs-3 {
   width: 25%;
@@ -10345,7 +10356,7 @@ main.order-page a:hover {
   display: inline-block;
 }
 .moderator-cabinet .checkbox {
-  margin-left: 189px;
+  margin-left: 133px;
 }
 .moderator-cabinet .checkbox .checkbox {
   margin: 0;
@@ -10439,9 +10450,24 @@ main.order-page a:hover {
 .moderator-cabinet input.datepicker {
   width: 272px;
 }
+.moderator-cabinet .table.table-striped th.col-lg-1 {
+  width: 5%;
+}
+.moderator-cabinet .table.table-striped td {
+  vertical-align: top !important;
+}
+.moderator-cabinet .table.table-striped td:last-child {
+  text-align: left !important;
+}
+.moderator-cabinet .table.table-striped .btn {
+  margin: 0 0.3125rem 0.625rem !important;
+}
 .moderator-cabinet .btn {
   margin: 0 0.625rem;
   border: 2px solid;
+}
+.moderator-cabinet .btn + br {
+  display: none;
 }
 .moderator-cabinet .btn:first-child {
   margin-left: 0;

@@ -71,9 +71,18 @@
         $(".more-courses").click(function(){
             var index = $(this).attr('data-index');
             $("tr[data-index='"+index+"']:hidden").hide().removeClass('hidden').slideDown(500);
-            $(this).remove();
+            $(this).hide();
+
+            $("tr[data-index='"+index+"']").last().find("td:nth-child(2)").append('<a href="#" style="display: block;" class="hide-courses">скрыть</a>');
         });
 
+        $(document).on('click', '.hide-courses', function(e){
+            e.preventDefault();
+            var index = $(this).parents('tr').data('index');
+            var trs = $("tr[data-index='"+index+"']").not("tr[data-index='"+index+"']:first").show().slideUp(500).addClass('hidden');
+            $(this).hide();
+            $("tr[data-index='"+index+"']:first").find('.more-courses').show();
+        });
     });
 </script>
 @stop

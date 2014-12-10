@@ -99,7 +99,25 @@ function scrollToError(elem) {
 
 $(function(){
 
+    $('.orders-li.non-paid-order .js-delete-order').click( function(){
+        var $self = $(this);
+        var $parent = $(this).parents('.orders-li.non-paid-order');
+
+        $.SmartMessageBox({
+            title : "Удалить заказ?",
+            content : "",
+            buttons : '[Нет][Да]'
+        },function(ButtonPressed) {
+            if(ButtonPressed == "Да") {
+                $parent.remove();
+                $.removeCookie('ordering');
+            }
+        });
+    });
+
     $(".js-delete-order").click(function() {
+        if( $(this).parents('.orders-li').hasClass('non-paid-order') ) return;
+
         var $this = this;
         var $order = $($this).data('order-number');
         var currentTabCountOrder = 0;
@@ -125,13 +143,13 @@ $(function(){
                             $(".js-delete-order[data-order-number='"+$order+"']").parents('.js-orders-line').fadeOut(500,function(){$(this).remove();});
                         } else {
                             $($this).elementDisabled(false);
-                            showMessage.constructor('Удаление закза', 'Возникла ошибка. Обновите страницу и повторите снова.');
+                            showMessage.constructor('Удаление заказа', 'Возникла ошибка. Обновите страницу и повторите снова.');
                             showMessage.smallError();
                         }
                     },
                     error: function(xhr, textStatus, errorThrown){
                         $($this).elementDisabled(false);
-                        showMessage.constructor('Удаление закза', 'Возникла ошибка. Повторите снова.');
+                        showMessage.constructor('Удаление заказа', 'Возникла ошибка. Повторите снова.');
                         showMessage.smallError();
                     }
                 });
