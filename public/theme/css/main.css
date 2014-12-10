@@ -9755,10 +9755,6 @@ main.order-page a:hover {
 .moderator-cabinet .ui-selectmenu-button {
   border-color: #cbcbcb;
 }
-.moderator-cabinet .ui-menu-item {
-  width: 31.15rem;
-  border-color: #cbcbcb;
-}
 .moderator-cabinet .orders-li-head {
   padding: 0;
   border: none;
@@ -10607,6 +10603,10 @@ main.order-page a:hover {
 }
 
 /* remove aside for moders */
+.moderator-wrapper + .ui-selectmenu-menu .ui-menu-item {
+  width: 31.15rem;
+  border-color: #cbcbcb;
+}
 .moderator-wrapper aside {
   display: none;
 }
