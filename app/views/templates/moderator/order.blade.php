@@ -51,7 +51,7 @@
 
 
         <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
-            <div class="payment-select pull-right">
+            <div class="payment-select margin-top-10 pull-right">
                 {{ Form::select('payments_status',PaymentStatus::lists('title','id'),$order->payment_status,array('class'=>'select js-set-order-payment-status','autocomplete'=>'off','data-action' => URL::route('change-order-status',array('order_id'=>$order->id)))) }}
                 <div class="select-payments margin-bottom-10 margin-top-30 text-right">
                     <a href="javasccript:void(0);" class="font-sm margin-right-10 js-check-all-payments">Добавить всех</a>
