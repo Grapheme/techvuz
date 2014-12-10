@@ -9743,6 +9743,11 @@ main.order-page a:hover {
 .moderator-cabinet .ui-selectmenu-button {
   border-color: #cbcbcb;
 }
+.moderator-cabinet .moder-order .moder-order-docs ul {
+  font-weight: 300;
+  list-style-position: inside;
+  padding: 0;
+}
 .moderator-cabinet .orders-li-head {
   padding: 0;
   border: none;
@@ -9753,6 +9758,15 @@ main.order-page a:hover {
   line-height: .75;
   font-size: 1.375em;
   font-family: 'Open Sans', sans-serif;
+}
+.moderator-cabinet .orders-li-body {
+  padding: 0;
+}
+.moderator-cabinet .orders-li-body .orders-price {
+  padding: 0;
+}
+.moderator-cabinet .orders-li-body .orders-date {
+  padding: 0;
 }
 .moderator-cabinet .moder-anket .col-xs-3 {
   width: 25%;
