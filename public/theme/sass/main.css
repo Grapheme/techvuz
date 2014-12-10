@@ -9755,6 +9755,12 @@ main.order-page a:hover {
   width: 748px;
   margin: 0 0 2.5rem;
 }
+.moderator-cabinet .notifications .notifications-li .col-xs-9 {
+  width: 75%;
+}
+.moderator-cabinet .notifications .notifications-li .col-xs-3 {
+  width: 25%;
+}
 .moderator-cabinet [class^="col"] {
   width: 100%;
 }
