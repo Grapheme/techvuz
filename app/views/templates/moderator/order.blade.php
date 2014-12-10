@@ -42,7 +42,7 @@
         </div>
 
 
-        <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+        <div>
             <div class="moder-order-docs margin-top-20">
                 Документы:
                 @include(Helper::acclayout('assets.documents'))
