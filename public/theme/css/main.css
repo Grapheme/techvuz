@@ -9752,6 +9752,34 @@ main.order-page a:hover {
   color: #33ace4;
   cursor: pointer;
 }
+.moderator-cabinet .ui-selectmenu-button {
+  border-color: #cbcbcb;
+}
+.moderator-cabinet .moder-order .orders-li-head {
+  padding: 0;
+  border: none;
+}
+.moderator-cabinet .moder-order .orders-li-head h1, .moderator-cabinet .moder-order .orders-li-head h2 {
+  margin: 0 0 0.875rem 0;
+  padding: 0;
+  line-height: .75;
+  font-size: 1.375em;
+  font-family: 'Open Sans', sans-serif;
+}
+.moderator-cabinet .moder-order .orders-li-body {
+  padding: 0;
+}
+.moderator-cabinet .moder-order .orders-li-body .orders-price {
+  padding: 0;
+}
+.moderator-cabinet .moder-order .orders-li-body .orders-date {
+  padding: 0;
+}
+.moderator-cabinet .moder-order .moder-order-docs ul {
+  font-weight: 300;
+  list-style-position: inside;
+  padding: 0;
+}
 .moderator-cabinet .moder-anket .col-xs-3 {
   width: 25%;
 }
@@ -10589,6 +10617,10 @@ main.order-page a:hover {
 }
 
 /* remove aside for moders */
+.moderator-wrapper ~ .ui-selectmenu-menu .ui-menu-item {
+  width: 31.15rem;
+  border-color: #cbcbcb;
+}
 .moderator-wrapper aside {
   display: none;
 }
