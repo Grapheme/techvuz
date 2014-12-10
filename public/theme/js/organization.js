@@ -99,6 +99,22 @@ function scrollToError(elem) {
 
 $(function(){
 
+    $('.orders-li.non-paid-order .js-delete-order').click( function(){
+        var $self = $(this);
+        var $parent = $(this).parents('.orders-li.non-paid-order');
+
+        $.SmartMessageBox({
+            title : "Удалить заказ?",
+            content : "",
+            buttons : '[Нет][Да]'
+        },function(ButtonPressed) {
+            if(ButtonPressed == "Да") {
+                $parent.remove();
+                $.removeCookie('ordering');
+            }
+        });
+    });
+
     $(".js-delete-order").click(function() {
         if( $(this).parents('.orders-li').hasClass('non-paid-order') ) return;
 
