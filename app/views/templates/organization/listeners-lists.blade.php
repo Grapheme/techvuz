@@ -76,7 +76,8 @@
             $("tr[data-index='"+index+"']").last().find("td:nth-child(2)").append('<a href="#" style="display: block;" class="hide-courses">скрыть</a>');
         });
 
-        $(document).on('click', '.hide-courses', function(){
+        $(document).on('click', '.hide-courses', function(e){
+            e.preventDefault();
             var index = $(this).parents('tr').data('index');
             var trs = $("tr[data-index='"+index+"']").not("tr[data-index='"+index+"']:first").show().slideUp(500).addClass('hidden');
             $(this).hide();
