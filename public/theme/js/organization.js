@@ -100,6 +100,8 @@ function scrollToError(elem) {
 $(function(){
 
     $(".js-delete-order").click(function() {
+        if( $(this).parents('.orders-li').hasClass('non-paid-order') ) return;
+
         var $this = this;
         var $order = $($this).data('order-number');
         var currentTabCountOrder = 0;
