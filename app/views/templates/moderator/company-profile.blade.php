@@ -14,11 +14,11 @@
             <?php $activation_date = ''; ?>
             @endif
             <h3>Профиль</h3>
-            <div>
+            <div class="style-light style-italic">
                 {{ $accountStatus[$profile->active] }}{{ $activation_date }}
             </div>
-            <div>
-                Модератором {{ $profile->moderator_approve ? 'подтвержден' : 'не подтвержден' }}.
+            <div class="style-light style-italic">
+                Модератором {{ $profile->moderator_approve ? 'подтвержден' : 'не подтвержден' }}
             </div>
         @endif
         <div class="employer-anket margin-bottom-40">
