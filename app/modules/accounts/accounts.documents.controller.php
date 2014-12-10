@@ -731,7 +731,7 @@ class AccountsDocumentsController extends BaseController {
                             $page_data['FIO_initial_listener'] = $listener['FIO_initial_listener'];
                             $page_data['Kod_kursa'] = $listener['Kod_kursa'];
                             $page_data['Nazvanie_kursa'] = $listener['Nazvanie_kursa'];
-                            $page_data['DataProvedeniyaAttestacii'] = $listener['DataProvedeniyaAttestacii']->format('d.m.Y');
+                            $page_data['DataProvedeniyaAttestacii'] = (new myDateTime())->setDateString($listener['DataProvedeniyaAttestacii'])->format('d.m.Y');
                             $page_data['OcenkaAttestacii'] = $listener['OcenkaAttestacii'];
                             $page = View::make($template, $page_data)->render();
                             $mpdf->AddPage('P');
