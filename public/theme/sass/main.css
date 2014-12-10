@@ -9768,6 +9768,13 @@ main.order-page a:hover {
   list-style-position: inside;
   padding: 0;
 }
+.moderator-cabinet .photo-preview-container {
+  background: #efefef;
+}
+.moderator-cabinet .photo-preview-container .photo-preview-single {
+  background-repeat: no-repeat;
+  background-position: center center;
+}
 .moderator-cabinet .moder-anket .col-xs-3 {
   width: 25%;
 }

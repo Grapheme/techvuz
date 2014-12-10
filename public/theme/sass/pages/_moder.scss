@@ -265,11 +265,20 @@
 				padding: 0;			
 			}
 		}
-		
+
 		.moder-order-docs ul {
 		    font-weight: 300;
 		    list-style-position: inside;
 		    padding: 0;
+		}
+	}
+
+	.photo-preview-container {
+		background: #efefef;
+
+		.photo-preview-single {
+			background-repeat: no-repeat;
+			background-position: center center;
 		}
 	}
 
