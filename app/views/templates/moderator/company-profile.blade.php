@@ -23,7 +23,7 @@
                 Модератором {{ $profile->moderator_approve ? 'подтвержден' : 'не подтвержден' }}
             </div>
         @endif
-        <div class="employer-anket margin-bottom-40">
+        <div class="employer-anket margin-top-30 margin-bottom-40">
             <div class="row margin-bottom-10">
                 <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
                     <span class="font-sm">Полное наименование организации</span>
