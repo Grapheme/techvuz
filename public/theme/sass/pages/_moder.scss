@@ -1021,6 +1021,9 @@
 	
 	.table {
 		&.table-striped {
+			th.col-lg-1 {
+				width: 5%;
+			}
 			td {
 				vertical-align: top !important;
 			}

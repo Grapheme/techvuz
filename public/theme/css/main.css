@@ -10448,6 +10448,9 @@ main.order-page a:hover {
 .moderator-cabinet input.datepicker {
   width: 272px;
 }
+.moderator-cabinet .table.table-striped th.col-lg-1 {
+  width: 5%;
+}
 .moderator-cabinet .table.table-striped td {
   vertical-align: top !important;
 }
