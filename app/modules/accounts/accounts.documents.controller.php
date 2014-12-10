@@ -32,7 +32,7 @@ class AccountsDocumentsController extends BaseController {
                 Route::get('order/{order_id}/result-certification/{format}', array('as' => 'moderator-order-result-certification', 'uses' => $class . '@'.$prefix.'OrderResultCertification'));
                 Route::get('order/{order_id}/attestation-sheet/{format}', array('as' => 'moderator-order-attestation-sheet', 'uses' => $class . '@'.$prefix.'OrderAttestationSheet'));
 
-                Route::get('order/{order_id}/journal-issuance/{format}', array('as' => 'moderator-order-journal-issuance', 'uses' => $class . '@'.$prefix.'OrderJournalIssuance'));
+                Route::get('orders/journal-issuance/{format}', array('as' => 'moderator-order-journal-issuance', 'uses' => $class . '@'.$prefix.'OrdersJournalIssuance'));
             });
         endif;
     }
@@ -860,9 +860,9 @@ class AccountsDocumentsController extends BaseController {
         App::abort(404);
     }
 
-    public function moderatorOrderJournalIssuance($order_id,$format){
+    public function OrdersJournalIssuance($format){
 
-        return $order_id;
+        return $format;
     }
     /****************************************************************************/
     /****************************************************************************/
