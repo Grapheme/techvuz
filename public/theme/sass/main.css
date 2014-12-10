@@ -9746,6 +9746,9 @@ main.order-page a:hover {
 .moderator-cabinet .moder-anket .col-xs-9 {
   width: 75%;
 }
+.moderator-cabinet .moder-anket .employer-anket {
+  max-width: 760px;
+}
 .moderator-cabinet .moder-docs-ul li {
   display: inline-block;
 }

@@ -23,7 +23,7 @@
         @endif
         <div class="employer-anket margin-bottom-40">
             <div class="row">
-                <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9">
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                     <a class="icon--blue pull-right margin-top-30" href="{{ URL::route('moderator-company-profile-edit',$profile->id) }}">
                         <span class="icon icon-red"></span>
                     </a>
@@ -178,7 +178,7 @@
         <h3>Сотрудники</h3>
         <div class="container-fluid">
             <div class="row">
-                <table class="tech-table sortable">
+                <table class="table table-bordered">
                     <tbody>
                         <tr>
                             <th class="sort sort--asc">Ф.И.О. <span class="sort--icon"></span> </th>
@@ -232,7 +232,7 @@
         <h3>Заказы</h3>
         <div class="container-fluid">
             <div class="row">
-                <table class="table table-striped table-bordered">
+                <table class="table table-bordered">
                     <thead>
                         <tr>
                             <th></th>
@@ -251,7 +251,7 @@
                 </table>
             </div>
         </div>
-        <div class="count-add">
+        <div class="count-add margin-bottom-40">
             <?php $activeOrdersIDs = array(); ?>
             <?php $closedOrdersIDs = array(); ?>
             @foreach($orders as $order)
