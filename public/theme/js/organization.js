@@ -143,13 +143,13 @@ $(function(){
                             $(".js-delete-order[data-order-number='"+$order+"']").parents('.js-orders-line').fadeOut(500,function(){$(this).remove();});
                         } else {
                             $($this).elementDisabled(false);
-                            showMessage.constructor('Удаление закза', 'Возникла ошибка. Обновите страницу и повторите снова.');
+                            showMessage.constructor('Удаление заказа', 'Возникла ошибка. Обновите страницу и повторите снова.');
                             showMessage.smallError();
                         }
                     },
                     error: function(xhr, textStatus, errorThrown){
                         $($this).elementDisabled(false);
-                        showMessage.constructor('Удаление закза', 'Возникла ошибка. Повторите снова.');
+                        showMessage.constructor('Удаление заказа', 'Возникла ошибка. Повторите снова.');
                         showMessage.smallError();
                     }
                 });

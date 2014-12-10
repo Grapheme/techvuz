@@ -72,6 +72,8 @@
             var index = $(this).attr('data-index');
             $("tr[data-index='"+index+"']:hidden").hide().removeClass('hidden').slideDown(500);
             $(this).remove();
+
+            $("tr[data-index='"+index+"']").last().find("td:nth-child(2)").append('<a href="#" class="hide-courses">скрыть</a>');
         });
 
     });
