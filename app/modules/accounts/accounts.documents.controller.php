@@ -610,7 +610,8 @@ class AccountsDocumentsController extends BaseController {
 
     public function moderatorOrderExplanations($order_id,$format){
 
-        return $order_id;
+        $template = 'templates/assets/explanations';
+        return $this->moderatorShowCorporativeDocument($order_id,$format,'explanations',$template);
     }
 
     public function moderatorOrderBrowsingHistory($order_id,$format){
