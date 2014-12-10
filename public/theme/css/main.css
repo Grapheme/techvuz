@@ -9740,7 +9740,7 @@ main.order-page a:hover {
 }
 .moderator-cabinet .modal-dialog input,
 .moderator-cabinet .modal-dialog textarea {
-  max-width: 100%;
+  max-width: 350px;
 }
 .moderator-cabinet .count-add .container-fluid {
   width: 45%;
