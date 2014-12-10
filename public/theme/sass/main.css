@@ -9740,6 +9740,16 @@ main.order-page a:hover {
   color: #33ace4;
   cursor: pointer;
 }
+.moderator-cabinet .orders-li-head {
+  border: none;
+}
+.moderator-cabinet .orders-li-head h1 {
+  margin: 0 0 0.875rem 0;
+  padding: 0;
+  line-height: .75;
+  font-size: 1.375em;
+  font-family: 'Open Sans', sans-serif;
+}
 .moderator-cabinet .moder-anket .col-xs-3 {
   width: 25%;
 }

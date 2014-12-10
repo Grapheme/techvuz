@@ -236,6 +236,18 @@
 		}
 	}
 
+	.orders-li-head {
+		border: none;
+		
+		h1 {
+			margin: 0 0 0.875rem 0;
+			padding: 0;
+			line-height: .75;
+			font-size: 1.375em;
+			font-family: 'Open Sans', sans-serif;
+		}
+	}
+
 	.moder-anket {
 		.col-xs-3 {
 			width: 25%;
