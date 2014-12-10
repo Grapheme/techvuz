@@ -2,14 +2,7 @@
 @section('style')
 @stop
 @section('content')
-<div>
-    <a class="icon--blue pull-right margin-top-30" href="{{ URL::route('moderator-company-profile-edit',$profile->id) }}">
-        <span class="icon icon-red"></span>
-    </a>
-    <h2 class="margin-top-10 margin-bottom-40">{{ $profile->title }}</h2>
-</div>
-
-
+<h2 class="margin-top-10 margin-bottom-40">{{ $profile->title }}</h2>
 <div class="container-fluid moder-anket">
     <div class="row">
         <?php $accountStatus = array('Не активный','Активный','Не активирован')?>
@@ -19,6 +12,9 @@
             @else
             <?php $activation_date = ''; ?>
             @endif
+            <a class="icon--blue pull-right margin-top-30" href="{{ URL::route('moderator-company-profile-edit',$profile->id) }}">
+                <span class="icon icon-red"></span>
+            </a>
             <h3>Профиль</h3>
             <div class="style-light style-italic">
                 {{ $accountStatus[$profile->active] }}{{ $activation_date }}
