@@ -202,7 +202,7 @@ class AccountsListenerController extends BaseController {
             ->where('access_status',1)
             ->with('order')
             ->first();
-        if (!$listenerCourse || $listenerCourse->order->close_status == 1):
+        if (!$listenerCourseID || $listenerCourse->order->close_status == 1):
             return Redirect::route('listener-study');
         endif;
         $module = Courses::where('id',$listenerCourse->course_id)->with(array('chapters'=>function($query) use ($listenerCourseID){

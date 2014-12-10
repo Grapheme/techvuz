@@ -22,9 +22,9 @@
             @endif
         @endif
         @if($study_test->test->chapter_id == 0)
-            <a class="btn btn--bordered btn--blue" href="{{ URL::route('listener-study') }}">Вернуться к лекциям</a>
+            <a class="btn btn--bordered btn--blue" href="{{ URL::route('listener-study') }}">Готово</a>
         @else
-            <a class="btn btn--bordered btn--blue" href="{{ URL::route('listener-study-course',array('course_translite_title'=>$study_course->id.'-'.BaseController::stringTranslite($study_test->test->course->title,100))) }}">Готово</a>
+            <a class="btn btn--bordered btn--blue" href="{{ URL::route('listener-study-course',array('course_translite_title'=>$study_course->id.'-'.BaseController::stringTranslite($study_test->test->course->title,100))) }}">Вернуться к лекциям</a>
         @endif
         </div>
     </div>

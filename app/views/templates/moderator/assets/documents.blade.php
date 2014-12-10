@@ -9,6 +9,6 @@
     <li><a href="{{ URL::route('moderator-order-statements',array('order_id'=>$order->id,'format'=>'pdf')) }}">Заявления</a></li>
     <li><a href="{{ URL::route('moderator-order-explanations',array('order_id'=>$order->id,'format'=>'pdf')) }}">Пояснения к документам</a></li>
     <li><a href="{{ URL::route('moderator-order-browsing-history',array('order_id'=>$order->id,'format'=>'pdf')) }}">Журнал посещений</a></li>
-    <li><a href="{{ URL::route('moderator-order-result-certification',array('order_id'=>$order->id,'format'=>'pdf')) }}">Результаты аттестации</a></li>
     <li><a href="{{ URL::route('moderator-order-attestation-sheet',array('order_id'=>$order->id,'format'=>'pdf')) }}">Аттестационные ведомости</a></li>
+    <li><a href="{{ URL::route('moderator-order-result-certification',array('order_id'=>$order->id,'format'=>'pdf')) }}">Результаты аттестации</a></li>
 </ul>
