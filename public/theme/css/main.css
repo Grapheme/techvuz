@@ -10458,7 +10458,7 @@ main.order-page a:hover {
   text-align: left !important;
 }
 .moderator-cabinet .table.table-striped .btn {
-  margin: 0 0 0.625rem !important;
+  margin: 0 0.625rem 0.625rem !important;
 }
 .moderator-cabinet .btn {
   margin: 0 0.625rem;
