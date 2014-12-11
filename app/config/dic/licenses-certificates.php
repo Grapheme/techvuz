@@ -5,16 +5,17 @@ return array(
     'fields' => function () {
 
         return array(
-            'user_avatar' => array(
-                'title' => 'Аватар',
-                'type' => 'image',
-            ),
-            'user_position' => array(
-                'title' => 'Должность',
+            'title' => array(
+                'title' => 'Название',
                 'type' => 'text',
             ),
+            'document' => array(
+                'title' => 'Документ',
+                'type' => 'image',
+            ),
+
             'description' => array(
-                'title' => 'Содержание',
+                'title' => 'Описание',
                 'type' => 'textarea_redactor',
             ),
         );
@@ -30,17 +31,7 @@ return array(
 
     'actions' => function($dic, $dicval) { },
 
-    'hooks' => array(
-        'after_store' => function ($dic, $dicval) {
-            Event::fire('dobavlen-otzuv', array(array('title'=>$dicval->title)));
-        },
-        'after_update' => function ($dic, $dicval) {
-            Event::fire('otredaktirovan-otzuv', array(array('title'=>$dicval->title)));
-        },
-        'after_destroy' => function ($dic, $dicval) {
-            Event::fire('udalen-otzuv', array(array('title'=>$dicval->title)));
-        },
-    ),
+    'hooks' => array(),
 
     'seo' => false,
 );

@@ -8,7 +8,7 @@ return array(
     'service_password' => 'CdPfne2pzDNa',
     'paginate_limit' => 30,
     'time_to_study_begin' => 72,
-    'time_zone' => 'Europe/Moscov',
+    'time_zone' => 'Europe/Moscow',
 
     'news_count_on_page' => 5,
     'news_template' => 'news-list',
