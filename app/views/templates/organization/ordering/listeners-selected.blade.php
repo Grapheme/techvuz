@@ -24,6 +24,7 @@
         <dl class="purchase-course-dl" data-count-discount = "{{ Dictionary::valueBySlugs('properties-site','count-by-course-discount',TRUE)->property }}" data-value-discount = "{{ Dictionary::valueBySlugs('properties-site','count-by-course-discount-percent',TRUE)->property }}">
         <?php
             $accountDiscount = getAccountDiscount();
+            $globalDiscount = getGlobalDiscount();
             $coursesCountDiscount = coursesCountDiscount(Courses::whereIn('id',getJsonCookieData('ordering'))->get());
         ?>
         @foreach(Courses::whereIn('id',getJsonCookieData('ordering'))->with('direction')->get() as $course)
@@ -45,7 +46,7 @@
                         <td>{{ $course->code }}</td>
 
                         <?php
-                        $discountPrice = calculateDiscount(array($course->direction->discount,$course->discount,$accountDiscount,$coursesCountDiscount),$course->price);
+                        $discountPrice = calculateDiscount(array($course->direction->discount,$course->discount,$accountDiscount,$coursesCountDiscount,$globalDiscount),$course->price);
                         ?>
                         @if($discountPrice === FALSE)
                             <td class="purchase-price" data-price="{{ number_format($course->price,0,'.','') }}">{{ number_format($course->price,0,'.',' ') }}.–</td>

@@ -9,7 +9,7 @@ class TablesSeeder extends Seeder{
 		Setting::create(array('id' => 1,'name' => 'language','value' => 'ru'));
         Dictionary::create(array('slug'=>'reviews','name'=>'Отзывы','entity'=> 1,'icon_class'=>'fa-comments-o','hide_slug'=>1,'make_slug_from_name'=>1,'name_title'=>'Имя пользователя оставившего отзыв','pagination'=>30,'view_access'=>0,'sort_by'=>'created_at','sort_order_reverse'=>1,'sortable'=>1,'order'=>0));
 
-        Dictionary::create(array('slug'=>'licenses-certificates','name'=>'Лицензии/сертификаты','entity'=> 1,'icon_class'=>'fa-picture-o','hide_slug'=>1,'make_slug_from_name'=>1,'name_title'=>'Название','pagination'=>0,'view_access'=>0,'sort_by'=>NULL,'sort_order_reverse'=>0,'sortable'=>1,'order'=>0));
+        Dictionary::create(array('slug'=>'licenses-certificates','name'=>'Сертификаты','entity'=> 1,'icon_class'=>'fa-picture-o','hide_slug'=>1,'make_slug_from_name'=>1,'name_title'=>'Название','pagination'=>0,'view_access'=>0,'sort_by'=>NULL,'sort_order_reverse'=>0,'sortable'=>1,'order'=>0));
 
         Dictionary::create(array('slug'=>'information-baners','name'=>'Инф.банеры','entity'=> 1,'icon_class'=>'fa-info','hide_slug'=>1,'make_slug_from_name'=>1,'name_title'=>'Название банера','pagination'=>30,'view_access'=>0,'sort_by'=>'created_at','sort_order_reverse'=>1,'sortable'=>1,'order'=>0));
 
@@ -17,6 +17,7 @@ class TablesSeeder extends Seeder{
         $dic_id = Dictionary::where('slug','properties-site')->pluck('id');
         DicVal::create(array('dic_id'=>$dic_id,'slug'=>'count-by-course-discount','name'=> 'Количество курсов для применения скидки','order'=>1));
         DicVal::create(array('dic_id'=>$dic_id,'slug'=>'count-by-course-discount-percent','name'=> 'Величина скидки при оформлении заказа','order'=>0));
+        DicVal::create(array('dic_id'=>$dic_id,'slug'=>'global-discount-percent','name'=> 'Общая скидка','order'=>0));
 
         Dictionary::create(array('slug'=>'order-documents','name'=>'Документы','entity'=> 1,'icon_class'=>'fa-clipboard','hide_slug'=>1,'make_slug_from_name'=>1,'name_title'=>'Название документа','pagination'=>0,'view_access'=>2,'sort_by'=>'name','sort_order_reverse'=>0,'sortable'=>1,'order'=>0));
         $dic_id = Dictionary::where('slug','order-documents')->pluck('id');

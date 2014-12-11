@@ -109,6 +109,11 @@ function getAccountDiscount(){
     endif;
 }
 
+function getGlobalDiscount(){
+
+    return Dictionary::valueBySlugs('properties-site','global-discount-percent',TRUE)->property;
+}
+
 function coursesCountDiscount($courses){
 
     if (is_array($courses) || is_object($courses)):
