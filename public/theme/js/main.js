@@ -7,6 +7,9 @@ $('.tabs').tabs({
 $('.select').selectmenu();
 $(function(){
 	$('table.sortable').tablesorter();
+	if( !$.cookie('ordering') ) {
+		$.cookie('ordering', '');
+	}
 });
 
 $('.accordion').accordion({
