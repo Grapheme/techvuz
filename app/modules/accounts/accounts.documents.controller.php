@@ -862,7 +862,75 @@ class AccountsDocumentsController extends BaseController {
 
     public function moderatorOrdersJournalIssuance($format){
 
-        return $format;
+        if (!$orders = Orders::where('completed',1)->where('close_status',1)->with('organization','individual')->get()):
+            return Redirect::route('moderator-orders-list');
+        endif;
+        Helper::tad($orders);
+        $account = NULL; $account_type = NULL;
+        $template = 'templates.assets.journal-issuance';
+        $document = Dictionary::valueBySlugs('order-documents','order-documents-result-certification');
+        if (!empty($order->organization)):
+            $account = User_organization::where('id',$order->user_id)->first();
+            $account_type = 4;
+        elseif(!empty($order->individual)):
+            $account = User_individual::where('id',$order->user_id)->first();
+            $account_type = 6;
+        endif;
+        if($document->exists && !empty($document->fields)):
+            $fields = modifyKeys($document->fields,'key');
+            Config::set('show-document.order_id', $order_id);
+            switch($format):
+                case 'html':
+                    $document_content = isset($fields['content']) ? $fields['content']->value : '';
+                    if($page_data = self::parseOrderHTMLDocument($document_content)):
+                        return View::make($template,$page_data);
+                    endif;
+                    break;
+                case 'pdf' :
+                    $mpdf = new mPDF('utf-8', 'A4', '8', '', 10, 10, 7, 7, 10, 10);
+                    $mpdf->charset_in = 'cp1251';
+                    $mpdf->SetDisplayMode('fullpage');
+                    $document_content = isset($fields['content']) ? $fields['content']->value : '';
+                    if($page_data = self::parseOrderHTMLDocument($document_content)):
+                        $page_data['page_title'] = '';
+                        foreach($page_data['SpisokSluschateley']['listeners'] as $index => $listener):
+                            $listeners[$index]['FIO_listener'] = !empty($listener['user_listener']) ? $listener['user_listener']['fio'] : $listener['user_individual']['fio'];
+                            $listeners[$index]['Phone_listener'] = !empty($listener['user_listener']) ? $listener['user_listener']['phone'] : $listener['user_individual']['phone'];
+                            $listeners[$index]['Email_listener'] = !empty($listener['user_listener']) ? $listener['user_listener']['email'] : $listener['user_individual']['email'];
+                            $listeners[$index]['Address_listener'] = !empty($listener['user_listener']) ? $listener['user_listener']['postaddress'] : $listener['user_individual']['postaddress'];
+                            $listeners[$index]['FIO_initial_listener'] = preg_replace('/(\w+) (\w)\w+ (\w)\w+/iu', '$1 $2. $3.', $listeners[$index]['FIO_listener']);
+                            $listeners[$index]['Kod_kursa'] = $listener['course']['code'];
+                            $listeners[$index]['Nazvanie_kursa'] = $listener['course']['title'];
+                            $listeners[$index]['DataProvedeniyaAttestacii'] = !empty($listener['final_test']) ? $listener['final_test']['created_at'] : '1970-01-01 00:00:00' ;
+                            $listeners[$index]['OcenkaAttestacii'] = !empty($listener['final_test']) ? $listener['final_test']['result_attempt'] : '0' ;
+                            $listeners[$index]['OcenkaAttestaciiSlovami'] = $listeners[$index]['OcenkaAttestacii'] >= $page_data['MinimalnayaOcenkaAttestacii']  ? 'Зачет' : 'Незачет' ;
+                            $listeners[$index]['VremyaProhojdeniyaAttestacii'] = 0;
+                            $listeners[$index]['DannueResultatovAttestacii'] = array();
+                        endforeach;
+                        foreach($listeners as $listener_id => $listener):
+                            $page_data['FIO_listener'] = $listener['FIO_listener'];
+                            $page_data['Phone_listener'] = $listener['Phone_listener'];
+                            $page_data['Email_listener'] = $listener['Email_listener'];
+                            $page_data['Address_listener'] = $listener['Address_listener'];
+                            $page_data['FIO_initial_listener'] = $listener['FIO_initial_listener'];
+                            $page_data['Kod_kursa'] = $listener['Kod_kursa'];
+                            $page_data['Nazvanie_kursa'] = $listener['Nazvanie_kursa'];
+                            $page_data['DataProvedeniyaAttestacii'] = (new myDateTime())->setDateString($listener['DataProvedeniyaAttestacii'])->format('d.m.Y');
+                            $page_data['OcenkaAttestacii'] = $listener['OcenkaAttestacii'];
+                            $page_data['OcenkaAttestaciiSlovami'] = $listener['OcenkaAttestaciiSlovami'];
+                            $page_data['DannueResultatovAttestacii'] = $listener['DannueResultatovAttestacii'];
+                            $page = View::make($template, $page_data)->render();
+                            $mpdf->AddPage('P');
+                            $mpdf->WriteHTML(View::make($template, $page_data)->render(), 2);
+                        endforeach;
+                    endif;
+                    return $mpdf->Output('certification-№'.getOrderNumber($order).'.pdf', 'D');
+                case 'word':
+                    return Redirect::back();
+                    break;
+            endswitch;
+        endif;
+        App::abort(404);
     }
     /****************************************************************************/
     /****************************************************************************/
