@@ -110,9 +110,10 @@ class AccountsOrderingController extends BaseController {
             $lastFreeOrderNumber = (new Orders)->getLastFreeOrderNumber();
             if($order = Orders::create(array('user_id'=>Auth::user()->id,'number'=>$lastFreeOrderNumber,'completed'=>Input::get('completed')))):
                 $accountDiscount = getAccountDiscount();
+                $globalDiscount = getGlobalDiscount();
                 $coursesCountDiscount = coursesCountDiscount(Input::get('courses'));
                 foreach(Courses::whereIn('id',Input::get('courses'))->with('direction')->get() as $course):
-                    $discountPrice = calculateDiscount(array($course->direction->discount,$course->discount,$accountDiscount,$coursesCountDiscount),$course->price);
+                    $discountPrice = calculateDiscount(array($course->direction->discount,$course->discount,$accountDiscount,$coursesCountDiscount,$globalDiscount),$course->price);
                     $course_price = $course->price;
                     if ($discountPrice !== FALSE):
                         $course_price = $discountPrice;

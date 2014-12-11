@@ -15,6 +15,7 @@ class CreateDirectionsTable extends Migration {
                 $table->integer('photo_id')->unsigned()->nullable();
                 $table->text('description')->nullable();
                 $table->tinyInteger('discount')->default(0)->nullable();
+                $table->boolean('use_discount')->default(1)->nullable();
                 $table->boolean('active')->default(0)->unsigned()->nullable();
                 $table->timestamps();
             });

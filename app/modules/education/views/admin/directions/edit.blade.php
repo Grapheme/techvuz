@@ -35,6 +35,12 @@
                             {{ Form::text('discount') }}
                         </label>
                     </section>
+                    <section>
+                        <label class="checkbox">
+                            {{ Form::checkbox('use_discount',1) }}
+                            <i></i>Скидка действует
+                        </label>
+                    </section>
 					<section>
                         <label class="label">Логотип</label>
                         <label class="input">

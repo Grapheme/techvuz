@@ -44,10 +44,10 @@
                             {{ $course->title }}
                         </td>
                         <td>{{ $course->code }}</td>
-
-                        <?php
-                        $discountPrice = calculateDiscount(array($course->direction->discount,$course->discount,$accountDiscount,$coursesCountDiscount,$globalDiscount),$course->price);
-                        ?>
+                        <?php $discountPrice = FALSE; ?>
+                        @if($direction->use_discount)
+                            <?php $discountPrice = calculateDiscount(array($direction->discount,$course->discount,$accountDiscount,$globalDiscount),$course->price,FALSE); ?>
+                        @endif
                         @if($discountPrice === FALSE)
                             <td class="purchase-price" data-price="{{ number_format($course->price,0,'.','') }}">{{ number_format($course->price,0,'.',' ') }}.–</td>
                         @else

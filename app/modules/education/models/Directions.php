@@ -25,7 +25,7 @@ class Directions extends BaseModel {
 
     protected $table = 'directions';
 
-    protected $fillable = array('order','code','title','description','discount','photo_id','active');
+    protected $fillable = array('order','code','title','description','discount','photo_id','active','use_discount');
 
     public static $order_by = "order";
 

@@ -99,7 +99,11 @@ class AdminEducationDirectionsController extends BaseController {
         $json_request = array('status'=>FALSE, 'responseText'=>'', 'responseErrorText'=>'', 'redirect'=>FALSE, 'gallery'=>0);
         $validation = Validator::make(Input::all(), Directions::$rules);
         if($validation->passes()):
-            $direction = $this->direction->create(Input::all());
+            $insert = Input::all();
+            if (Input::has('use_discount') === FALSE):
+                $insert['use_discount'] = 0;
+            endif;
+            $direction = $this->direction->create($insert);
             $json_request['responseText'] = self::$entity_name." добавлено";
             $json_request['redirect'] = URL::route('directions.index');
             $json_request['status'] = TRUE;
@@ -122,6 +126,9 @@ class AdminEducationDirectionsController extends BaseController {
                 $update = Input::all();
                 if (Input::has('active') === FALSE):
                     $update['active'] = 0;
+                endif;
+                if (Input::has('use_discount') === FALSE):
+                    $update['use_discount'] = 0;
                 endif;
                 $direction->update($update);
                 $json_request['responseText'] = self::$entity_name." сохранен";

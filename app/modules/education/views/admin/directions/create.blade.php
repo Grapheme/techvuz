@@ -36,6 +36,12 @@
 						</label>
 					</section>
 					<section>
+                        <label class="checkbox">
+                            {{ Form::checkbox('use_discount',1,TRUE) }}
+                            <i></i>Скидка действует
+                        </label>
+                    </section>
+					<section>
 						<label class="label">Логотип</label>
 						<label class="input">
 						    {{ ExtForm::image('photo_id') }}
