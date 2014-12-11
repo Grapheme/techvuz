@@ -202,7 +202,7 @@ function organizationFormValidation() {
     var signupListener = $("#signup-listener-form").validate({
         rules: validation_signup_listener ? validation_signup_listener : {},
         messages: validation_signup_messages_listener ? validation_signup_messages_listener : {},
-        errorPlacement : function(error, element){error.insertAfter(element.parent());},
+        errorPlacement : function(error, element){error.insertAfter(element);},
         submitHandler: function(form) {
             var options = {target:null, dataType:'json', type:'post'};
             options.beforeSubmit = function(formData,jqForm,options){
@@ -245,7 +245,7 @@ function organizationFormValidation() {
     var profileListener = $("#profile-listener-form").validate({
         rules: validation_profile_listener ? validation_profile_listener : {},
         messages: validation_profile_messages_listener ? validation_profile_messages_listener : {},
-        errorPlacement : function(error, element){error.insertAfter(element.parent());},
+        errorPlacement : function(error, element){error.insertAfter(element);},
         submitHandler: function(form) {
             var options = {target:null, dataType:'json', type:'post'};
             options.beforeSubmit = function(formData,jqForm,options){
