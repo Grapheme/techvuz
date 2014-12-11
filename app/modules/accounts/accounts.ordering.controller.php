@@ -113,7 +113,10 @@ class AccountsOrderingController extends BaseController {
                 $globalDiscount = getGlobalDiscount();
                 $coursesCountDiscount = coursesCountDiscount(Input::get('courses'));
                 foreach(Courses::whereIn('id',Input::get('courses'))->with('direction')->get() as $course):
-                    $discountPrice = calculateDiscount(array($course->direction->discount,$course->discount,$accountDiscount,$coursesCountDiscount,$globalDiscount),$course->price);
+                    $discountPrice = FALSE;
+                    if($course->direction->use_discount && $course->use_discount):
+                        $discountPrice = calculateDiscount(array($course->direction->discount,$course->discount,$accountDiscount,$coursesCountDiscount,$globalDiscount),$course->price);
+                    endif;
                     $course_price = $course->price;
                     if ($discountPrice !== FALSE):
                         $course_price = $discountPrice;

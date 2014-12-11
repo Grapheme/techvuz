@@ -62,7 +62,7 @@
                     </td>
                     <td>
                     <?php $discountPrice = FALSE; ?>
-                    @if($direction->use_discount)
+                    @if($direction->use_discount && $course->use_discount)
                         <?php $discountPrice = calculateDiscount(array($direction->discount,$course->discount,$accountDiscount,$globalDiscount),$course->price,FALSE); ?>
                     @endif
                     @if($discountPrice === FALSE)
