@@ -30,14 +30,8 @@
         $('.registration-form input[name="email"]').keyup(function() {
             this.value = this.value.replace(/[а-яА-яЁё]/i, "");
         });
-        $('.registration-form input[name="title"],
-           .registration-form input[name="fio_manager"], 
-           .registration-form input[name="fio_manager_rod"], 
-           .registration-form input[name="manager"], 
-           .registration-form input[name="name"],
-           .registration-form input[name="fio"],
-           .registration-form input[name="fio_rod"], ').keyup( function(e) {
-                this.value = this.value.replace(/[^а-яА-ЯеЁ -]/i, "");
+        $('.registration-form input[name="title"], .registration-form input[name="fio_manager"],  .registration-form input[name="fio_manager_rod"],  .registration-form input[name="manager"],  .registration-form input[name="name"], .registration-form input[name="fio"], .registration-form input[name="fio_rod"], ').keyup( function(e) {
+            this.value = this.value.replace(/[^а-яА-ЯеЁ -]/i, "");
         });
     });
 </script>
