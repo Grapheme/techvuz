@@ -32,7 +32,11 @@ var Courses = (function(){
 		var renderArr = {};
 
 		$checked.each( function(){
-			renderArr[ $(this).val() ] = [];
+			if( $.cookie('ordering')[ $(this).val() ] ) {
+				renderArr[ $(this).val() ] = $.cookie('ordering')[ $(this).val() ];
+			} else {
+				renderArr[ $(this).val() ] = [];
+			}
 		});
 
 		$.cookie('ordering', JSON.stringify(renderArr), { path: '/' });
