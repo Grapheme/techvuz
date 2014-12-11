@@ -25,7 +25,7 @@
         <?php
             $accountDiscount = getAccountDiscount();
             $globalDiscount = getGlobalDiscount();
-            $coursesCountDiscount = coursesCountDiscount(Courses::whereIn('id',getJsonCookieData('ordering'))->get());
+            $coursesCountDiscount = coursesCountDiscount();
         ?>
         @foreach(Courses::whereIn('id',getJsonCookieData('ordering'))->with('direction')->get() as $course)
             {{ Form::hidden('courses[]',$course->id) }}
@@ -45,8 +45,8 @@
                         </td>
                         <td>{{ $course->code }}</td>
                         <?php $discountPrice = FALSE; ?>
-                        @if($direction->use_discount && $course->use_discount)
-                            <?php $discountPrice = calculateDiscount(array($direction->discount,$course->discount,$accountDiscount,$globalDiscount),$course->price,FALSE); ?>
+                        @if($course->direction->use_discount && $course->use_discount)
+                            <?php $discountPrice = calculateDiscount(array($course->direction->discount,$course->discount,$accountDiscount,$globalDiscount,$coursesCountDiscount),$course->price); ?>
                         @endif
                         @if($discountPrice === FALSE)
                             <td class="purchase-price" data-price="{{ number_format($course->price,0,'.','') }}">{{ number_format($course->price,0,'.',' ') }}.–</td>

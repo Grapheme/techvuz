@@ -114,13 +114,21 @@ function getGlobalDiscount(){
     return Dictionary::valueBySlugs('properties-site','global-discount-percent',TRUE)->property;
 }
 
-function coursesCountDiscount($courses){
+function coursesCountDiscount($listeners = NULL){
 
-    if (is_array($courses) || is_object($courses)):
-        $countProperty = Dictionary::valueBySlugs('properties-site','count-by-course-discount',TRUE)->property;
-        if ($countProperty && count($courses) >= $countProperty):
-            return Dictionary::valueBySlugs('properties-site','count-by-course-discount-percent',TRUE)->property;
-        endif;
+    $CountListeners = 0;
+    if (is_null($listeners)):
+        foreach(getJsonCookieData('ordering','values') as $course):
+            $CountListeners += count($course);
+        endforeach;
+    else:
+        foreach($listeners as $course):
+            $CountListeners += count($course);
+        endforeach;
+    endif;
+    $countProperty = Dictionary::valueBySlugs('properties-site','count-by-course-discount',TRUE)->property;
+    if ($countProperty && $CountListeners >= $countProperty):
+        return Dictionary::valueBySlugs('properties-site','count-by-course-discount-percent',TRUE)->property;
     endif;
     return 0;
 }

@@ -97,7 +97,6 @@ class AccountsOrderingController extends BaseController {
         if (!hasCookieData('ordering')):
             return Redirect::route('ordering-select-listeners')->with('message','Не выбраны сотрудники');
         endif;
-
         $validator = Validator::make(Input::all(),array('courses'=>'required','listeners'=>'required','completed'=>'required'));
         if($validator->passes()):
             $listeners = Input::get('listeners');
@@ -111,7 +110,7 @@ class AccountsOrderingController extends BaseController {
             if($order = Orders::create(array('user_id'=>Auth::user()->id,'number'=>$lastFreeOrderNumber,'completed'=>Input::get('completed')))):
                 $accountDiscount = getAccountDiscount();
                 $globalDiscount = getGlobalDiscount();
-                $coursesCountDiscount = coursesCountDiscount(Input::get('courses'));
+                $coursesCountDiscount = coursesCountDiscount(Input::get('listeners'));
                 foreach(Courses::whereIn('id',Input::get('courses'))->with('direction')->get() as $course):
                     $discountPrice = FALSE;
                     if($course->direction->use_discount && $course->use_discount):
