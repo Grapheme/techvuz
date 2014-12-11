@@ -739,7 +739,7 @@ var Courses = (function(){
 		var renderArr = {};
 
 		$checked.each( function(){
-			renderArr[ $(this).val() ] = [];
+			renderArr[ $(this).val() ] = JSON.parse($.cookie('ordering'))[ $(this).val() ] || [];
 		});
 
 		$.cookie('ordering', JSON.stringify(renderArr), { path: '/' });
