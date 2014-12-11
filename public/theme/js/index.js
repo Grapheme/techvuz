@@ -196,9 +196,6 @@ $('.tabs').tabs({
 $('.select').selectmenu();
 $(function(){
 	$('table.sortable').tablesorter();
-	if( !$.cookie('ordering') ) {
-		$.cookie('ordering', '');
-	}
 });
 
 $('.accordion').accordion({
@@ -742,7 +739,7 @@ var Courses = (function(){
 		var renderArr = {};
 
 		$checked.each( function(){
-			renderArr[ $(this).val() ] = JSON.parse($.cookie('ordering')) || [];
+			renderArr[ $(this).val() ] = [];
 		});
 
 		$.cookie('ordering', JSON.stringify(renderArr), { path: '/' });
