@@ -32,7 +32,7 @@ var Courses = (function(){
 		var renderArr = {};
 
 		$checked.each( function(){
-			if( $.cookie('ordering')[ $(this).val() ] ) {
+			if( JSON.parse( $.cookie('ordering') )[ $(this).val() ] !== [] ) {
 				renderArr[ $(this).val() ] = $.cookie('ordering')[ $(this).val() ];
 			} else {
 				renderArr[ $(this).val() ] = [];
