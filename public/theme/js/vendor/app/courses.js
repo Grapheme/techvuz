@@ -30,10 +30,11 @@ var Courses = (function(){
 		var $parent = $('.accordion-form');
 		var $checked = $parent.find('.secondary-checkbox:checked');
 		var renderArr = {};
+		var parsedCookie = JSON.parse( $.cookie('ordering') );
 
 		$checked.each( function(){
-			if( JSON.parse( $.cookie('ordering') )[ $(this).val() ] !== [] ) {
-				renderArr[ $(this).val() ] = $.cookie('ordering')[ $(this).val() ];
+			if( parsedCookie[ $(this).val() ] !== [] ) {
+				renderArr[ $(this).val() ] = parsedCookie[ $(this).val() ];
 			} else {
 				renderArr[ $(this).val() ] = [];
 			}
