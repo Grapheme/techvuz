@@ -44,6 +44,12 @@
                         </label>
                     </section>
                     <section>
+                        <label class="checkbox">
+                            {{ Form::checkbox('use_discount',1) }}
+                            <i></i>Скидка действует
+                        </label>
+                    </section>
+                    <section>
                         <label class="label">Количество часов</label>
                         <label class="input">
                             {{ Form::text('hours') }}

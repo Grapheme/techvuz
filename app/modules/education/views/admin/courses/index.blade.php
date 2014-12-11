@@ -52,7 +52,17 @@
     					<td class="text-center">{{ $course->code }}</td>
     					<td>{{ $course->title }}</td>
     					<td class="text-center">{{ $course->price }} руб.</td>
-    					<td class="text-center">{{ $course->discount }}</td>
+    					<td class="text-center">
+    					@if($direction->use_discount && $course->use_discount)
+    					    @if($direction->discount > $course->discount)
+                            {{ $direction->discount }}
+                            @else
+                            {{ $course->discount }}
+                            @endif
+                        @else
+                            не действует
+                        @endif
+    					</td>
     					<td class="text-center">{{ $course->hours }}</td>
     					<td>
     					    <a href="{{ URL::route('modules.index',array('direction'=>$direction->id,'course'=>$course->id)) }}" class="btn btn-link margin-right-10">Модули ({{ $course->lectures->count() }})</a><br>

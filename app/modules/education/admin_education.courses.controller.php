@@ -155,6 +155,12 @@ class AdminEducationCoursesController extends BaseController {
 
     private function coursesFiles(){
 
+        if (Input::has('use_discount') === FALSE):
+            $input['use_discount'] = 0;
+        else:
+            $input['use_discount'] = Input::get('use_discount');
+        endif;
+
         $input['direction_id'] = Input::get('direction_id');
         $input['order'] = Input::get('order');
         $input['code'] = Input::get('code');
