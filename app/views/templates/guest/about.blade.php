@@ -6,7 +6,6 @@
     <div class="desc">
     {{ $page->block('top_desc') }}
     </div>
-    <h2 class="h3">{{ $page->block('center_h3') }}</h2>
     <?php
         $licenses = Dictionary::whereSlugValues('licenses-certificates');
         $images = array();
@@ -27,6 +26,7 @@
         endif;
     ?>
     @if($licenses->count())
+    <h2 class="h3">{{ $page->block('center_h3') }}</h2>
     <ul class="lic-ul margin-top-30">
         @foreach($licenses as $license)
         <?php $license['fields'] = modifyKeys($license['fields'],'key'); ?>
