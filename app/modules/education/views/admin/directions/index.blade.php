@@ -30,7 +30,13 @@
     					<td>{{ $direction->order }}</td>
     					<td>{{ $direction->code }}</td>
                         <td>{{ $direction->title }}</td>
-                        <td class="text-center">{{ $direction->discount }}</td>
+                        <td class="text-center">
+                        @if($direction->use_discount)
+                            {{ $direction->discount }}
+                        @else
+                            не действует
+                        @endif
+                        </td>
                         <td class="text-center"><a href="{{ URL::route('courses.index',array('directions'=>$direction->id)) }}" class="btn btn-link margin-right-10">Курсы ({{ $direction->courses->count() }})</a></td>
     					<td class="text-center" style="white-space:nowrap;">
         					@if(Allow::action($module['group'], 'edit'))
