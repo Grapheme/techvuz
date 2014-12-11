@@ -22,8 +22,6 @@
 
     @include($module['tpl'].'/menu')
 
-    {{ Helper::ta_($element) }}
-
     {{ Form::model($element, array('url' => $url, 'class' => 'smart-form', 'id' => $module['entity'].'-form', 'role' => 'form', 'method' => $method, 'files' => true)) }}
 
     @if (
@@ -223,8 +221,6 @@
                             @endforeach
                         </ul>
                         @endif
-
-                        {{ Helper::ta_($element) }}
 
                         <div id="myTabContent2" class="tab-content @if(count($locales) > 1) padding-10 @endif">
                             <? $i = 0; ?>

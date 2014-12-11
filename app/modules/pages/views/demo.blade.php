@@ -31,7 +31,6 @@
         <h3>Блоки страницы</h3>
         <hr />
         <div>
-            {{ Helper::ta_($page->blocks) }}
             @foreach($page->blocks as $block)
                 &laquo;<strong>{{ $block->name }}</strong>&raquo; [ <i>{{ $block->slug }}</i> ]<br/>
                 {{ $block->content }}

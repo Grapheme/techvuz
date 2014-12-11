@@ -11,7 +11,6 @@ if (@is_callable($dic_settings['fields_i18n']))
 $element_meta = new DicValMeta;
 if (@is_object($element->metas) && $element->metas->count())
     foreach ($element->metas as $tmp) {
-        #Helper::ta($tmp);
         if ($tmp->language == $locale_sign) {
             $element_meta = $tmp;
             break;
@@ -52,7 +51,6 @@ if (@is_object($element->metas) && $element->metas->count())
             #Helper::ta($tmp);
             if ($tmp->key == @$field_name && $tmp->language == $locale_sign) {
                 $field_meta = $tmp;
-                #Helper::ta($field_meta);
                 break;
             }
         }

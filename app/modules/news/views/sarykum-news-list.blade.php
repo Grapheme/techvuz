@@ -1,8 +1,6 @@
 
 @if(isset($news) && is_object($news) && $news->count())
 
-    {{ Helper::tad_($news) }}
-
     <ul class="actions-ul">
         @foreach($news as $new)
         <?

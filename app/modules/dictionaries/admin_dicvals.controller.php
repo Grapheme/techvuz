@@ -554,7 +554,6 @@ class AdminDicvalsController extends BaseController {
                     $element_meta = DicValMeta::firstOrNew(array('dicval_id' => $id, 'language' => $locale_sign));
                     $element_meta->update($array);
                     $element_meta->save();
-                    Helper::tad($element_meta);
                     unset($element_meta);
                 }
             }
