@@ -30,9 +30,14 @@ var Courses = (function(){
 		var $parent = $('.accordion-form');
 		var $checked = $parent.find('.secondary-checkbox:checked');
 		var renderArr = {};
+		var parsedCookie = JSON.parse( $.cookie('ordering') );
 
 		$checked.each( function(){
-			renderArr[ $(this).val() ] = [];
+			if ( parsedCookie[ $(this).val() ] && parsedCookie[ $(this).val() ].length > 0 ) {
+				renderArr[ $(this).val() ] = parsedCookie[ $(this).val() ];
+			} else {
+				renderArr[ $(this).val() ] = [];
+			}
 		});
 
 		$.cookie('ordering', JSON.stringify(renderArr), { path: '/' });
