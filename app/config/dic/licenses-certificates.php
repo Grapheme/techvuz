@@ -5,10 +5,6 @@ return array(
     'fields' => function () {
 
         return array(
-            'title' => array(
-                'title' => 'Название',
-                'type' => 'text',
-            ),
             'document' => array(
                 'title' => 'Документ',
                 'type' => 'image',
