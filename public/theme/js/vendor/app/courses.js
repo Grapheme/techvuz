@@ -35,9 +35,12 @@ var Courses = (function(){
 		$checked.each( function(){
 			if( parsedCookie[ $(this).val() ] != [] ) {
 				renderArr[ $(this).val() ] = parsedCookie[ $(this).val() ];
+				console.log('is val');
 			} else {
 				renderArr[ $(this).val() ] = [];
+				console.log('no val')
 			}
+			console.log(renderArr);
 		});
 
 		$.cookie('ordering', JSON.stringify(renderArr), { path: '/' });
