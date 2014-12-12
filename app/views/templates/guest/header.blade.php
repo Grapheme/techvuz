@@ -10,7 +10,11 @@
 @if(Session::has('message') && Session::get('message.status') == 'activation')
 <?php $header_notification['show'] = TRUE;?>
 @endif
-
+@if(Session::has('message') && Session::get('message.status') == 'error')
+    <?php $header_notification['message'] = Session::get('message.text');?>
+    <?php $header_notification['show'] = TRUE;?>
+    <?php $header_notification['code'] = 404;?>
+@endif
 <header class="main-header {{ $header_notification['show'] ? 'notificated' : '' }} clearfix">
     <div class="top-dec">
         <div class="top-dec-part part-1"></div>
@@ -45,6 +49,10 @@
     @elseif($header_notification['code'] == 4)
     <div class="notif notif--danger">
         {{ $header_notification['message'] }} {{ Lang::get('interface.ACCOUNT_EMAIL_STATUS.repeated_sending') }}
+    </div>
+    @elseif($header_notification['code'] == 404)
+    <div class="notif notif--danger">
+        {{ $header_notification['message'] }}
     </div>
     @endif
 @endif
