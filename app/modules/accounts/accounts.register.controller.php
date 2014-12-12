@@ -177,11 +177,14 @@ class AccountsRegisterController extends BaseController {
             $account->touch();
             Auth::login($account);
             if(isOrganization()):
-                Event::fire('organization.select-courses',array(array('accountID'=>Auth::user()->id)));
-                Event::fire('organization.register-listeners',array(array('accountID'=>Auth::user()->id)));
-                Event::fire('account.approved-email',array(array('accountID'=>Auth::user()->id)));
+                Event::fire('organization.approved-email',array(array('accountID'=>Auth::user()->id)));
+                #Event::fire('organization.select-courses',array(array('accountID'=>Auth::user()->id)));
+                #Event::fire('organization.register-listeners',array(array('accountID'=>Auth::user()->id)));
+                #Event::fire('account.approved-email',array(array('accountID'=>Auth::user()->id)));
             elseif(isCompanyListener()):
                 Event::fire('listener.approved-email',array(array('accountID'=>Auth::user()->id)));
+            elseif(isIndividual()):
+                Event::fire('individual.approved-email',array(array('accountID'=>Auth::user()->id)));
             endif;
             return Redirect::to(AuthAccount::getGroupStartUrl());
         else:

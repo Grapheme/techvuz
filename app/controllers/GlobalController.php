@@ -24,11 +24,16 @@ class GlobalController extends \BaseController {
                             $user->save();
                             $user->touch();
                             Auth::login($user);
-                            if(isOrganization()):
-                                Event::fire('organization.select-courses',array(array('accountID'=>Auth::user()->id)));
-                                Event::fire('organization.register-listeners',array(array('accountID'=>Auth::user()->id)));
-                            endif;
-                            Event::fire('account.approved-email',array(array('accountID'=>Auth::user()->id)));
+							if(isOrganization()):
+								Event::fire('organization.approved-email',array(array('accountID'=>Auth::user()->id)));
+							#Event::fire('organization.select-courses',array(array('accountID'=>Auth::user()->id)));
+							#Event::fire('organization.register-listeners',array(array('accountID'=>Auth::user()->id)));
+							elseif(isCompanyListener()):
+								Event::fire('listener.approved-email',array(array('accountID'=>Auth::user()->id)));
+							elseif(isIndividual()):
+								Event::fire('individual.approved-email',array(array('accountID'=>Auth::user()->id)));
+							endif;
+							#Event::fire('account.approved-email',array(array('accountID'=>Auth::user()->id)));
                         endif;
                         if (Session::has('redirect_to')):
                             $json_request['redirect'] = Session::get('redirect_to');

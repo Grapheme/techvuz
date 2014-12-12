@@ -173,8 +173,14 @@ class AccountsOrderingController extends BaseController {
             if ($close_allowed):
                 (new AccountsDocumentsController)->generateAllDocuments($order->id);
                 Orders::where('id',$order->id)->update(array('close_status'=>1,'close_date'=>date('Y-m-d H:i:s'),'updated_at'=>date('Y-m-d H:i:s')));
-                Event::fire('organization.order.closed',array(array('accountID'=>User_listener::where('id',Auth::user()->id)->first()->organization()->pluck('id'),'order'=>getOrderNumber($order),'link'=>URL::to('organization/order/'.$order_id))));
-                Event::fire('organization.order.closed-documents',array(array('accountID'=>User_listener::where('id',Auth::user()->id)->first()->organization()->pluck('id'),'order'=>getOrderNumber($order),'link'=>URL::to('organization/order/'.$order_id))));
+                if(isCompanyListener()):
+                    Event::fire('organization.order.closed-join',array(array('accountID'=>User_listener::where('id',Auth::user()->id)->first()->organization()->pluck('id'),'order'=>getOrderNumber($order),'link'=>URL::to('organization/order/'.$order_id))));
+                    #Event::fire('organization.order.closed',array(array('accountID'=>User_listener::where('id',Auth::user()->id)->first()->organization()->pluck('id'),'order'=>getOrderNumber($order),'link'=>URL::to('organization/order/'.$order_id))));
+                    #Event::fire('organization.order.closed-documents',array(array('accountID'=>User_listener::where('id',Auth::user()->id)->first()->organization()->pluck('id'),'order'=>getOrderNumber($order),'link'=>URL::to('organization/order/'.$order_id))));
+                elseif(isIndividual()):
+                    Event::fire('individual.order.closed-join',array(array('accountID'=>Auth::user()->id,'order'=>getOrderNumber($order),'link'=>URL::to('individual/order/'.$order_id))));
+                endif;
+
                 Event::fire('moderator.order.closed',array(array('accountID'=>0,'order'=>getOrderNumber($order))));
             endif;
             return TRUE;
