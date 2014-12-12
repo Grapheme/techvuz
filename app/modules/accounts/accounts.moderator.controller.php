@@ -500,7 +500,7 @@ class AccountsModeratorController extends BaseController {
                 Orders::where('id',$order_id)->first()->listeners()->update(array('access_status'=>1,'updated_at'=>$now));
                 foreach(Orders::where('id',$order_id)->first()->listeners()->with('course')->get() as $listener_course):
                     $studyDays = !empty($listener_course->course->hours) ? floor($listener_course->course->hours/8): floor(Config::get('site.time_to_study_begin')/4);
-                    Event::fire('listener.study-access', array(array('accountID'=>$listener_course->user_id,'link'=>URL::to('listener/study/course/',$listener_course->id.'-'.BaseController::stringTranslite($listener_course->course->title,100)),'course'=>$listener_course->course->code,'date'=>(new myDateTime())->setDateString($now)->addDays($studyDays)->format('d.m.Y'))));
+                    Event::fire('listener.study-access', array(array('accountID'=>$listener_course->user_id,'link'=>URL::to('listener/study/course/'.$listener_course->id.'-'.BaseController::stringTranslite($listener_course->course->title,100)),'course'=>$listener_course->course->code,'date'=>(new myDateTime())->setDateString($now)->addDays($studyDays)->format('d.m.Y'))));
                 endforeach;
                 Event::fire('organization.order.yes-puy-yes-access', array(array('accountID'=>$order->user_id,'link'=>URL::to('organization/order/'.$order->id),'order'=>getOrderNumber($order))));
             elseif($payment_summa > 0 && $payment_summa < $total_summa):
