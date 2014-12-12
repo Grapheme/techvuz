@@ -88,11 +88,8 @@
 
                 </fieldset>
 
-                {{ Helper::dd_($dic_settings) }}
-
                 @if (@is_callable($dic_settings['fields']) && NULL !== ($fields_general = $dic_settings['fields']()) && count($fields_general))
                 <?
-                #Helper::ta($element);
                 $onsuccess_js = array();
                 if (isset($element->fields) && is_object($element->fields) && count($element->fields)) {
                     $element_fields = $element->fields->lists('value', 'key');

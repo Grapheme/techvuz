@@ -21,8 +21,6 @@
                     </thead>
                     <tbody class="dicvals @if($sortable) sortable @endif">
 
-                    {{ Helper::d_(Input::all()) }}
-                    {{ Helper::d_( Helper::multiArrayToAttributes(Input::get('filter'), 'filter') ) }}
 
                     @foreach($elements as $e => $element)
                         <? #continue; ?>

@@ -34,7 +34,9 @@
                     <li>
                         <?php $count_courses = 0; ?>
                         @foreach($courses as $course)
-                            <?php $count_courses++ ; ?>
+                            @if($listener_course->access_status == 1)
+                                <?php $count_courses++ ; ?>
+                            @endif
                         @endforeach
                         <a href="#tabs-14">Все {{ $count_courses ? '<span class="filter-count">'.$count_courses.'</span>' : '' }}</a>
                     </li>
@@ -79,7 +81,9 @@
                                 <th class="sort sort--asc">Прогресс <span class="sort--icon"></span> </th>
                             </tr>
                         @foreach($courses as $listener_course)
-                            @include(Helper::acclayout('assets.course-tr'))
+                            @if($listener_course->access_status == 1)
+                                @include(Helper::acclayout('assets.course-tr'))
+                            @endif
                         @endforeach
                         </tbody>
                     </table>

@@ -44,5 +44,9 @@ class SystemMessagesTableSeeder extends Seeder {
         DicVal::create(array('dic_id'=>$dic_id,'slug'=>'account.approved-profile','name'=> 'Вы успешно прошли проверку администратора сайта ТЕХВУЗ.РФ. Теперь у Вас появился доступ к документации (договоры, счета, акты).','order'=>28));
 
         DicVal::create(array('dic_id'=>$dic_id,'slug'=>'organization.order.closed-documents','name'=> 'Для получения сканированных копий документов Ваших сотрудников пройдите по <a href="[link]">ссылке</a>. Для получения оригиналов документов отправьте Почтой России, подписанные с Вашей стороны в 2-х экземплярах договор на оказание платных образовательных услуг и акт о выполнении работ.','order'=>29));
+
+        DicVal::create(array('dic_id'=>$dic_id,'slug'=>'listener.approved-email','name'=> 'Ваш личный кабинет активирован.','order'=>30));
+        DicVal::create(array('dic_id'=>$dic_id,'slug'=>'listener.study-access','name'=> 'Вам предоставлен доступ к обучению по курсу <a href="[link]">[course]</a>. Вы сможете приступить к итоговому тестированию [date].','order'=>31));
+        DicVal::create(array('dic_id'=>$dic_id,'slug'=>'listener.study-finish','name'=> 'Вы завершили обучение по курсу [course].','order'=>32));
     }
 }

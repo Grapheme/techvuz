@@ -76,7 +76,7 @@
                         @endif
                     @endforeach
                     <?php
-                        $studyHours = !empty($module->hours) ? round($module->hours/8)*86400 : round(Config::get('site.time_to_study_begin')/4)*86400;
+
                         $lostTime = myDateTime::getDiffTimeStamp(date("Y-m-d H:i:s",strtotime($study_course->order->payment_date)+$studyHours),date("Y-m-d H:i:s",time()));
                     ?>
                     @if($study_course->start_status == 1 && $lostTime <= 0 && !empty($module->test))

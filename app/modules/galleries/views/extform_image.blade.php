@@ -4,7 +4,6 @@
 
     <?
     $photo_exists = @is_object($photo) && $photo->id;
-    #Helper::dd($photo_exists);
     ?>
     @if ($photo_exists)
     	<input type="text" name="{{ $name }}" value="{{ $photo->id }}" class="uploaded_image_{{ $photo->id }} uploaded_image_cap" style="position:absolute; left:-10000px;" />

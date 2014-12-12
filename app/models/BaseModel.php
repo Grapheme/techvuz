@@ -10,9 +10,7 @@ class BaseModel extends Eloquent {
     }
 
     public function sort() {
-        Helper::dd(static::$orderBy);
         $return = $this;
-        //if ()
         return static::$rules;
     }
 

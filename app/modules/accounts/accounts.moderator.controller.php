@@ -308,7 +308,7 @@ class AccountsModeratorController extends BaseController {
             $validator = Validator::make(Input::all(),OrderPayments::$rules);
             if($validator->passes()):
                 if (OrderPayments::create(array('order_id'=>$order_id,'price'=>Input::get('price'),'payment_number'=>Input::get('payment_number'),'payment_date'=>date('Y-m-d', strtotime(Input::get('payment_date')))))):
-                    self::authChangeOrderStatus($order_id);
+                    self::autoChangeOrderStatus($order_id);
                     Event::fire(Route::currentRouteName(), array(array('title'=>'Заказ №'.Orders::findOrFail($order_id)->pluck('number').'. Сумма: '.Input::get('price').' руб.')));
                     $json_request['responseText'] = Lang::get('interface.DEFAULT.success_insert');
                     $json_request['redirect'] = URL::route('moderator-order-extended',$order_id);
@@ -336,7 +336,7 @@ class AccountsModeratorController extends BaseController {
                     $order_payment->payment_number = Input::get('payment_number');
                     $order_payment->save();
                     $order_payment->touch();
-                    self::authChangeOrderStatus($order_id);
+                    self::autoChangeOrderStatus($order_id);
                     Event::fire(Route::currentRouteName(), array(array('title'=>'Заказ №'.Orders::findOrFail($order_id)->pluck('number').'. Сумма: '.Input::get('price').' руб.')));
                     $json_request['responseText'] = Lang::get('interface.DEFAULT.success_save');
                     $json_request['redirect'] = URL::route('moderator-order-extended',$order_id);
@@ -356,7 +356,7 @@ class AccountsModeratorController extends BaseController {
 
         Event::fire(Route::currentRouteName(), array(array('title'=>'Заказ №'.Orders::findOrFail($order_id)->pluck('number').'. Сумма: '.OrderPayments::where('id',$payment_order_id)->where('order_id',$order_id)->pluck('price').' руб.')));
         OrderPayments::where('id',$payment_order_id)->where('order_id',$order_id)->delete();
-        self::authChangeOrderStatus($order_id);
+        self::autoChangeOrderStatus($order_id);
         return Redirect::route('moderator-order-extended',$order_id);
     }
 
@@ -367,6 +367,9 @@ class AccountsModeratorController extends BaseController {
             if($orderListener = OrderListeners::where('id',$order_listener_id)->where('order_id',$order_id)->first()):
                 if ($orderListener->access_status == 0):
                     $orderListener->access_status = 1;
+                    $now = date('Y-m-d H:i:s');
+                    $studyDays = !empty($orderListener->course->hours) ? floor($orderListener->course->hours/8): floor(Config::get('site.time_to_study_begin')/4);
+                    Event::fire('listener.study-access', array(array('accountID'=>$orderListener->user_id,'link'=>URL::to('listener/study/course/'.$orderListener->id.'-'.BaseController::stringTranslite($orderListener->course->title,100)),'course'=>$orderListener->course->code,'date'=>(new myDateTime())->setDateString($now)->addDays($studyDays)->format('d.m.Y'))));
                 else:
                     $orderListener->access_status = 0;
                 endif;
@@ -480,7 +483,7 @@ class AccountsModeratorController extends BaseController {
         return Response::json($json_request, 200);
     }
 
-    private function authChangeOrderStatus($order_id){
+    private function autoChangeOrderStatus($order_id){
 
         if ($order = Orders::where('id',$order_id)->with('payment_numbers','listeners')->first()):
             $total_summa = 0;
@@ -495,6 +498,10 @@ class AccountsModeratorController extends BaseController {
             if ($payment_summa >= $total_summa):
                 Orders::where('id',$order_id)->update(array('payment_status'=>2,'payment_date'=>$now,'updated_at'=>$now));
                 Orders::where('id',$order_id)->first()->listeners()->update(array('access_status'=>1,'updated_at'=>$now));
+                foreach(Orders::where('id',$order_id)->first()->listeners()->with('course')->get() as $listener_course):
+                    $studyDays = !empty($listener_course->course->hours) ? floor($listener_course->course->hours/8): floor(Config::get('site.time_to_study_begin')/4);
+                    Event::fire('listener.study-access', array(array('accountID'=>$listener_course->user_id,'link'=>URL::to('listener/study/course/',$listener_course->id.'-'.BaseController::stringTranslite($listener_course->course->title,100)),'course'=>$listener_course->course->code,'date'=>(new myDateTime())->setDateString($now)->addDays($studyDays)->format('d.m.Y'))));
+                endforeach;
                 Event::fire('organization.order.yes-puy-yes-access', array(array('accountID'=>$order->user_id,'link'=>URL::to('organization/order/'.$order->id),'order'=>getOrderNumber($order))));
             elseif($payment_summa > 0 && $payment_summa < $total_summa):
                 Event::fire('organization.order.part-puy-not-access', array(array('accountID'=>$order->user_id,'link'=>URL::to('organization/order/'.$order->id),'order'=>getOrderNumber($order))));

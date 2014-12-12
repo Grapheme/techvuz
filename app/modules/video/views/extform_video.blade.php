@@ -14,7 +14,6 @@
                 {{ Form::checkbox($name . '[delete_image]', 1, null, array('style' => 'display:inline-block; width:20px; height:20px;')) }} Удалить
                 <i></i>
             </label>
-            {{ Helper::d_($value->image->name) }}
             <a href="{{ $value->image->full() }}" target="_blank">
                 <img src="{{ $value->image->thumb() }}" style="width:100px" />
             </a>

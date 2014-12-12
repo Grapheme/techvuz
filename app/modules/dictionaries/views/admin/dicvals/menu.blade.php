@@ -66,7 +66,6 @@
         $menus = array_merge($menus, $tmp);
     }
 
-    #Helper::d($menus);
 ?>
     
     <h1>{{ $dic->name }}{{ $dic->entity && is_numeric($dic_id) ? ' <i class="fa fa-angle-double-right"></i> <a href="' . URL::route('entity.index', $dic->slug) . '" title="Вынесено в отдельную сущность">' . $dic->slug . '</a>' : '' }}</h1>
