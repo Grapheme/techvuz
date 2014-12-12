@@ -185,7 +185,7 @@ class AccountsRegisterController extends BaseController {
             endif;
             return Redirect::to(AuthAccount::getGroupStartUrl());
         else:
-            return Redirect::to('/')->with('message.status','error')->with('message.text','Код активации не действителен!');
+            return Redirect::to('/')->with('message.status','error')->with('message.text','Код активации не действителен.');
         endif;
     }
 
