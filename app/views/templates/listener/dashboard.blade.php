@@ -64,11 +64,10 @@
                         <span class="notifications-count">
                             <span class="current">1</span> / <span class="all"></span>
                         </span>
-                        <span class="icon icon-angle-right js-notif-right">
-                            <a href="{{ URL::route('listener-notifications') }}" class="btn btn--bordered btn--blue">
-                                Полный список
-                            </a>
-                        </span>
+                        <span class="icon icon-angle-right js-notif-right"></span>
+                        <a href="{{ URL::route('listener-notifications') }}" class="btn btn--bordered btn--blue">
+                            Полный список
+                        </a>
                         <span>
                             <a data-action="{{ URL::route('setting-update',array('setting_slug'=>'dashboard-target-notification-block','value'=>$dashboardNotificationBlockTargetValue)) }}" class="white-link pull-right js-close-notifications">закрыть</a>
                         </span>
