@@ -20,7 +20,11 @@ var validation_signup_ul = {
     fio_manager_rod: { required: true },
     manager: { required: true },
     statutory: { required: true },
-    ogrn: { required: true },
+    ogrn: {
+        required: true,
+        minlength: 13,
+        maxlength: 15
+    },
     inn: {
         required: true,
         minlength: 10,
@@ -28,7 +32,11 @@ var validation_signup_ul = {
     },
     kpp: {},
     uraddress: { required: true },
-    account_number: { required: true },
+    account_number: {
+        required: true,
+        minlength: 20,
+        maxlength: 25
+    },
     account_kor_number: { required: true },
     bank: { required: true },
     bik: { required: true },
@@ -47,8 +55,8 @@ var validation_signup_messages_ul = {
     ogrn: { required: 'Укажите ОГРН' },
     inn: {
         required: 'Укажите ИНН',
-        minlength: jQuery.format("Укажите ИНН от 10 до 12 знаков!"),
-        maxlength: jQuery.format("Укажите ИНН от 10 до 12 знаков!")
+        minlength: 'Укажите ИНН от 10 до 12 знаков!',
+        maxlength: 'Укажите ИНН от 10 до 12 знаков!'
     },
     kpp: { required: 'Укажите КПП' },
     uraddress: { required: 'Укажите юридический адрес' },
