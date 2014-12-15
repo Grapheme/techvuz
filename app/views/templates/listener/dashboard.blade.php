@@ -77,9 +77,9 @@
                         <li class="notifications-li container-fluid">
                             <div class="row">
                                 <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9">
-                                    <div class="notif-type">
+                                    <!-- <div class="notif-type">
                                         Системное сообщение {{ $index+1 }}
-                                    </div>
+                                    </div> -->
                                     <div class="notif-cont">
                                         {{ $message->name }}
                                     </div>
