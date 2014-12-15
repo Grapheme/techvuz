@@ -52,7 +52,11 @@ var validation_signup_messages_ul = {
     fio_manager_rod: { required: 'Укажите фамилию, имя и отчество подписанта в род. падеже' },
     manager: { required: 'Укажите должность' },
     statutory: { required: 'Укажите уставной документ' },
-    ogrn: { required: 'Укажите ОГРН' },
+    ogrn: { 
+        required: 'Укажите ОГРН',
+        minlength: 'Укажите ИНН от 13 до 15 знаков!',
+        maxlength: 'Укажите ИНН от 13 до 15 знаков!'
+    },
     inn: {
         required: 'Укажите ИНН',
         minlength: 'Укажите ИНН от 10 до 12 знаков!',
@@ -60,7 +64,11 @@ var validation_signup_messages_ul = {
     },
     kpp: { required: 'Укажите КПП' },
     uraddress: { required: 'Укажите юридический адрес' },
-    account_number: { required: 'Укажите расчетный счет' },
+    account_number: { 
+        required: 'Укажите расчетный счет',
+        minlength: 'Укажите ИНН от 20 до 25 знаков!',
+        maxlength: 'Укажите ИНН от 20 до 25 знаков!'
+    },
     account_kor_number: { required: 'Укажите корреспондентский счет' },
     bank: { required: 'Укажите наименование банка' },
     bik: { required: 'Укажите БИК' },
