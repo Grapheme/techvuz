@@ -36,8 +36,8 @@ var validation_signup_ul = {
 var validation_signup_messages_ul = {
     group_id: { required: 'Укажите группу' },
     title: { required: 'Укажите название' },
-    fio_manager: { required: 'Укажите фамилию, имя и отчество руководителя' },
-    fio_manager_rod: { required: 'Укажите фамилию, имя и отчество руководителя в род. падеже' },
+    fio_manager: { required: 'Укажите фамилию, имя и отчество подписанта' },
+    fio_manager_rod: { required: 'Укажите фамилию, имя и отчество подписанта в род. падеже' },
     manager: { required: 'Укажите должность' },
     statutory: { required: 'Укажите уставной документ' },
     ogrn: { required: 'Укажите ОГРН' },

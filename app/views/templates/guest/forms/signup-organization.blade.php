@@ -33,7 +33,7 @@
             <label>ИНН</label>{{ Form::text('inn', '',array('placeholder'=>'')) }}
         </div>
         <div class="form-element">
-            <label>КПП</label>{{ Form::text('kpp', '',array('placeholder'=>'')) }}
+            <label>КПП (при наличии)</label>{{ Form::text('kpp', '',array('placeholder'=>'')) }}
         </div>
         <div class="form-element">
             <label>Расчетный счет</label>{{ Form::text('account_number', '',array('placeholder'=>'')) }}
