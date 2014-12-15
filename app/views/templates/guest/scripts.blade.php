@@ -17,9 +17,10 @@
 <script>
     $(document).ready(function(){
         $(".phone").inputmask("mask", {"mask": "[+7] (999) 999 99 99","placeholder": "_"});
-        $('.registration-form input[name="ogrn"]').inputmask("mask", {"mask": "9999999999999","placeholder": "_"});
-        $('.registration-form input[name="kpp"]').inputmask("mask", {"mask": "999999999","placeholder": "_"});
-        $('.registration-form input[name="inn"]').inputmask("mask", {"mask": "9999999999","placeholder": "_"});
+        // $('.registration-form input[name="ogrn"]').inputmask("mask", {"mask": "9999999999999","placeholder": "_"});
+        // $('.registration-form input[name="kpp"]').inputmask("mask", {"mask": "999999999","placeholder": "_"});
+        // $('.registration-form input[name="inn"]').inputmask("mask", {"mask": "9999999999","placeholder": "_"});
+        // $('.registration-form input[name="bik"]').inputmask("mask", {"mask": "999999999","placeholder": "_"});
 
         $('.registration-form input[name="account_number"], .registration-form input[name="bik"], .registration-form input[name="account_kor_number"]').keypress(function (e) {
             //if the letter is not digit then display error and don't type anything
@@ -27,10 +28,25 @@
                 return false;
             }
         });
-        $('.registration-form input[name="email"]').keyup(function() {
+        $('.registration-form input[name="email"]').keyup(function(event) {
+            var key = event.keyCode || event.charCode;
+            if( key == 8 || key == 46 || key == 37 || key == 38 || key == 39 || key == 40)
+                return false;
+
             this.value = this.value.replace(/[а-яА-яЁё]/i, "");
         });
-        $('.registration-form input[name="title"], .registration-form input[name="fio_manager"], .registration-form input[name="fio_manager_rod"], .registration-form input[name="manager"], .registration-form input[name="name"], .registration-form input[name="fio"], .registration-form input[name="fio_rod"]').keyup( function(e) {
+        $('.registration-form input[name="title"], .registration-form input[name="uraddress"], .registration-form input[name="postaddress"], .registration-form input[name="bank"]').keyup( function(event){
+            var key = event.keyCode || event.charCode;
+            if( key == 8 || key == 46 || key == 37 || key == 38 || key == 39 || key == 40)
+                return false;
+
+            this.value = this.value.replace(/[a-zA-Z]/i, "");
+        });
+        $('.registration-form input[name="fio_manager"], .registration-form input[name="fio_manager_rod"], .registration-form input[name="manager"], .registration-form input[name="name"], .registration-form input[name="fio"], .registration-form input[name="fio_rod"]').keyup( function(event) {
+            var key = event.keyCode || event.charCode;
+            if( key == 8 || key == 46 || key == 37 || key == 38 || key == 39 || key == 40)
+                return false;
+
             this.value = this.value.replace(/[^а-яА-ЯеЁ -]/i, "");
         });
     });

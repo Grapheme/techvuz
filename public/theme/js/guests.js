@@ -20,14 +20,30 @@ var validation_signup_ul = {
     fio_manager_rod: { required: true },
     manager: { required: true },
     statutory: { required: true },
-    ogrn: { required: true },
-    inn: { required: true },
+    ogrn: {
+        required: true,
+        minlength: 13,
+        maxlength: 15
+    },
+    inn: {
+        required: true,
+        minlength: 10,
+        maxlength: 12
+    },
     kpp: {},
     uraddress: { required: true },
-    account_number: { required: true },
+    account_number: {
+        required: true,
+        minlength: 20,
+        maxlength: 25
+    },
     account_kor_number: { required: true },
     bank: { required: true },
-    bik: { required: true },
+    bik: { 
+        required: true,
+        minlength: 9,
+        maxlength: 9
+    },
     email: { required: true, email: true },
     name: { required: true },
     phone: { required: true },
@@ -36,18 +52,34 @@ var validation_signup_ul = {
 var validation_signup_messages_ul = {
     group_id: { required: 'Укажите группу' },
     title: { required: 'Укажите название' },
-    fio_manager: { required: 'Укажите фамилию, имя и отчество руководителя' },
-    fio_manager_rod: { required: 'Укажите фамилию, имя и отчество руководителя в род. падеже' },
+    fio_manager: { required: 'Укажите фамилию, имя и отчество подписанта' },
+    fio_manager_rod: { required: 'Укажите фамилию, имя и отчество подписанта в род. падеже' },
     manager: { required: 'Укажите должность' },
     statutory: { required: 'Укажите уставной документ' },
-    ogrn: { required: 'Укажите ОГРН' },
-    inn: { required: 'Укажите ИНН' },
+    ogrn: { 
+        required: 'Укажите ОГРН',
+        minlength: 'Укажите ОГРН от 13 до 15 знаков!',
+        maxlength: 'Укажите ОГРН от 13 до 15 знаков!'
+    },
+    inn: {
+        required: 'Укажите ИНН',
+        minlength: 'Укажите ИНН от 10 до 12 знаков!',
+        maxlength: 'Укажите ИНН от 10 до 12 знаков!'
+    },
     kpp: { required: 'Укажите КПП' },
     uraddress: { required: 'Укажите юридический адрес' },
-    account_number: { required: 'Укажите расчетный счет' },
+    account_number: { 
+        required: 'Укажите расчетный счет',
+        minlength: 'Укажите расчетный счет от 20 до 25 знаков!',
+        maxlength: 'Укажите расчетный счет от 20 до 25 знаков!'
+    },
     account_kor_number: { required: 'Укажите корреспондентский счет' },
     bank: { required: 'Укажите наименование банка' },
-    bik: { required: 'Укажите БИК' },
+    bik: { 
+        required: 'Укажите БИК',
+        minlength: 'Укажите БИК 9 знаков!',
+        maxlength: 'Укажите БИК 9 знаков!'
+    },
     email: { required: 'Укажите контактный E-mail','email': 'Некорректный E-mail' },
     name: { required: 'Укажите контактное лицо' },
     phone: { required: 'Укажите контактный номер' },

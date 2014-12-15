@@ -64,11 +64,10 @@
                         <span class="notifications-count">
                             <span class="current">1</span> / <span class="all"></span>
                         </span>
-                        <span class="icon icon-angle-right js-notif-right">
-                            <a href="{{ URL::route('listener-notifications') }}" class="btn btn--bordered btn--blue">
-                                Полный список
-                            </a>
-                        </span>
+                        <span class="icon icon-angle-right js-notif-right"></span>
+                        <a href="{{ URL::route('listener-notifications') }}" class="btn btn--bordered btn--blue">
+                            Полный список
+                        </a>
                         <span>
                             <a data-action="{{ URL::route('setting-update',array('setting_slug'=>'dashboard-target-notification-block','value'=>$dashboardNotificationBlockTargetValue)) }}" class="white-link pull-right js-close-notifications">закрыть</a>
                         </span>
@@ -78,9 +77,9 @@
                         <li class="notifications-li container-fluid">
                             <div class="row">
                                 <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9">
-                                    <div class="notif-type">
+                                    <!-- <div class="notif-type">
                                         Системное сообщение {{ $index+1 }}
-                                    </div>
+                                    </div> -->
                                     <div class="notif-cont">
                                         {{ $message->name }}
                                     </div>
