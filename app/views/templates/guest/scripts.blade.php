@@ -20,7 +20,7 @@
         // $('.registration-form input[name="ogrn"]').inputmask("mask", {"mask": "9999999999999","placeholder": "_"});
         // $('.registration-form input[name="kpp"]').inputmask("mask", {"mask": "999999999","placeholder": "_"});
         // $('.registration-form input[name="inn"]').inputmask("mask", {"mask": "9999999999","placeholder": "_"});
-        $('.registration-form input[name="bik"]').inputmask("mask", {"mask": "999999999","placeholder": "_"});
+        // $('.registration-form input[name="bik"]').inputmask("mask", {"mask": "999999999","placeholder": "_"});
 
         $('.registration-form input[name="account_number"], .registration-form input[name="bik"], .registration-form input[name="account_kor_number"]').keypress(function (e) {
             //if the letter is not digit then display error and don't type anything

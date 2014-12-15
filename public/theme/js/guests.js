@@ -39,7 +39,11 @@ var validation_signup_ul = {
     },
     account_kor_number: { required: true },
     bank: { required: true },
-    bik: { required: true },
+    bik: { 
+        required: true,
+        minlength: 9,
+        maxlength: 9
+    },
     email: { required: true, email: true },
     name: { required: true },
     phone: { required: true },
@@ -54,8 +58,8 @@ var validation_signup_messages_ul = {
     statutory: { required: 'Укажите уставной документ' },
     ogrn: { 
         required: 'Укажите ОГРН',
-        minlength: 'Укажите ИНН от 13 до 15 знаков!',
-        maxlength: 'Укажите ИНН от 13 до 15 знаков!'
+        minlength: 'Укажите ОГРН от 13 до 15 знаков!',
+        maxlength: 'Укажите ОГРН от 13 до 15 знаков!'
     },
     inn: {
         required: 'Укажите ИНН',
@@ -66,12 +70,16 @@ var validation_signup_messages_ul = {
     uraddress: { required: 'Укажите юридический адрес' },
     account_number: { 
         required: 'Укажите расчетный счет',
-        minlength: 'Укажите ИНН от 20 до 25 знаков!',
-        maxlength: 'Укажите ИНН от 20 до 25 знаков!'
+        minlength: 'Укажите расчетный счет от 20 до 25 знаков!',
+        maxlength: 'Укажите расчетный счет от 20 до 25 знаков!'
     },
     account_kor_number: { required: 'Укажите корреспондентский счет' },
     bank: { required: 'Укажите наименование банка' },
-    bik: { required: 'Укажите БИК' },
+    bik: { 
+        required: 'Укажите БИК',
+        minlength: 'Укажите БИК 9 знаков!',
+        maxlength: 'Укажите БИК 9 знаков!'
+    },
     email: { required: 'Укажите контактный E-mail','email': 'Некорректный E-mail' },
     name: { required: 'Укажите контактное лицо' },
     phone: { required: 'Укажите контактный номер' },
