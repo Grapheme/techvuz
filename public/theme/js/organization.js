@@ -99,7 +99,7 @@ function scrollToError(elem) {
 
 $(function(){
 
-    $('.orders-li.non-paid-order .js-delete-order').click( function(){
+    $('js-delete-temp-order').click( function(){
         var $self = $(this);
         var $parent = $(this).parents('.orders-li.non-paid-order');
 
@@ -116,8 +116,6 @@ $(function(){
     });
 
     $(".js-delete-order").click(function() {
-        if( $(this).parents('.orders-li').hasClass('non-paid-order') ) return;
-
         var $this = this;
         var $order = $($this).data('order-number');
         var currentTabCountOrder = 0;
@@ -134,7 +132,7 @@ $(function(){
                     beforeSend: function(){$($this).elementDisabled(true);},
                     success: function(response, textStatus, xhr){
                         if(response.status == true){
-                            showMessage.constructor('Удаление закза', response.responseText);
+                            showMessage.constructor('Удаление заказа', response.responseText);
                             showMessage.smallSuccess();
                             $(".js-delete-order[data-order-number='"+$order+"']").parents('.js-tab-current').each(function(){
                                 currentTabCountOrder = $("a[href='#"+$(this).attr('id')+"']").find('.filter-count').html();

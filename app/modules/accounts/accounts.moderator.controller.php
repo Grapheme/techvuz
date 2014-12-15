@@ -566,8 +566,7 @@ class AccountsModeratorController extends BaseController {
             foreach ($listeners as $key => $row):
                 @$created_at[$key]  = $row['created_at'];
             endforeach;
-            array_multisort($created_at, SORT_ASC, $listeners);
-            $page_data['listeners'] = $listeners;
+            array_multisort($created_at, SORT_DESC, $listeners);
         endif;
         $page_data['listeners'] = $listeners;
         return View::make(Helper::acclayout('listeners'),$page_data);
@@ -583,10 +582,10 @@ class AccountsModeratorController extends BaseController {
         );
 
         if($account = User::where('id',$listener_id)->first()):
-            if ($account->group_id = 5):
+            if ($account->group_id == 5):
                 $page_data['profile'] = User_listener::where('id',$listener_id)->with('organization')->first();
                 $page_data['profile']['group_id'] = 5;
-            elseif($account->group_id = 6):
+            elseif($account->group_id == 6):
                 $page_data['profile'] = User_individual::where('id',$listener_id)->first();
                 $page_data['profile']['group_id'] = 6;
             endif;
@@ -605,10 +604,10 @@ class AccountsModeratorController extends BaseController {
         );
 
         if($account = User::where('id',$listener_id)->first()):
-            if ($account->group_id = 5):
+            if ($account->group_id == 5):
                 $page_data['profile'] = User_listener::where('id',$listener_id)->first();
                 $page_data['profile_group_id'] = 5;
-            elseif($account->group_id = 6):
+            elseif($account->group_id == 6):
                 $page_data['profile'] = User_individual::where('id',$listener_id)->first();
                 $page_data['profile_group_id'] = 6;
             endif;
@@ -620,22 +619,25 @@ class AccountsModeratorController extends BaseController {
 
         $json_request = array('status'=>FALSE,'responseText'=>'','responseErrorText'=>'','redirect'=>FALSE);
         if(Request::ajax()):
-            $validator = Validator::make(Input::all(),Listener::$moderator_rules);
+            $account = User::where('id',$listener_id)->first();
+            if($account && $account->group_id == 5):
+                $validator = Validator::make(Input::all(),Listener::$moderator_rules);
+            elseif($account && $account->group_id == 6):
+                $validator = Validator::make(Input::all(),Individual::$moderator_rules);
+            else:
+                $json_request['responseText'] = Lang::get('interface.UPDATE_PROFILE_LISTENER.fail');
+            endif;
             if($validator->passes()):
-                if($account = User::where('id',$listener_id)->first()):
-                    if ($account->group_id = 5):
-                        self::ListenerCompanyAccountUpdate($account,$listener_id,Input::all());
-                        Event::fire(Route::currentRouteName(), array(array('title'=>'Слушатель: '.User_listener::where('id',$listener_id)->pluck('fio'))));
-                    elseif($account->group_id = 6):
-                        self::ListenerIndividualAccountUpdate($account,$listener_id,Input::all());
-                        Event::fire(Route::currentRouteName(), array(array('title'=>'Слушатель: '.User_individual::where('id',$listener_id)->pluck('fio'))));
-                    endif;
-                    $json_request['status'] = TRUE;
-                    $json_request['responseText'] = Lang::get('interface.UPDATE_PROFILE_LISTENER.success');
-                    $json_request['redirect'] = URL::route('moderator-listener-profile',$listener_id);
-                else:
-                    $json_request['responseText'] = Lang::get('interface.UPDATE_PROFILE_LISTENER.fail');
+                if ($account->group_id == 5):
+                    self::ListenerCompanyAccountUpdate($account,$listener_id,Input::all());
+                    Event::fire(Route::currentRouteName(), array(array('title'=>'Слушатель: '.User_listener::where('id',$listener_id)->pluck('fio'))));
+                elseif($account->group_id == 6):
+                    self::ListenerIndividualAccountUpdate($account,$listener_id,Input::all());
+                    Event::fire(Route::currentRouteName(), array(array('title'=>'Слушатель: '.User_individual::where('id',$listener_id)->pluck('fio'))));
                 endif;
+                $json_request['status'] = TRUE;
+                $json_request['responseText'] = Lang::get('interface.UPDATE_PROFILE_LISTENER.success');
+                $json_request['redirect'] = URL::route('moderator-listener-profile',$listener_id);
             else:
                 $json_request['responseText'] = Lang::get('interface.UPDATE_PROFILE_LISTENER.fail');
                 $json_request['responseErrorText'] = $validator->messages()->all();
@@ -678,11 +680,58 @@ class AccountsModeratorController extends BaseController {
 
             return TRUE;
         endif;
+        return FALSE;
     }
 
     private function ListenerIndividualAccountUpdate($user,$listener_id,$post){
 
-        return TRUE;
+        if($individual = Individual::where('user_id',$user->id)->first()):
+            $fio = explode(' ',$post['fio']);
+            $user->name = (isset($fio[1]))?$fio[1]:'';
+            $user->surname = (isset($fio[0]))?$fio[0]:'';
+            $user->email = $post['email'];
+            if($post['active'] == 1 && ($user->active == 0 || $user->active == 2) ):
+                Event::fire('moderator-listener-profile-activated', array(array('title'=>$post['fio'])));
+            endif;
+            $user->active = $post['active'];
+            if($post['active'] == 1):
+                $user->temporary_code = '';
+                $user->code_life = 0;
+            endif;
+            $user->save();
+            $user->touch();
+
+            $individual->user_id = $user->id;
+            $individual->fio = $post['fio'];
+            $individual->fio_rod = $post['fio_rod'];
+            $individual->passport_seria = $post['passport_seria'];
+            $individual->passport_number = $post['passport_number'];
+            $individual->passport_data = $post['passport_data'];
+            $individual->passport_date = $post['passport_date'];
+            $individual->code = $post['code'];
+
+            $individual->postaddress = $post['postaddress'];
+            $individual->phone = $post['phone'];
+
+            $individual->position = $post['position'];
+            $individual->education = $post['education'];
+            $individual->document_education = $post['document_education'];
+            $individual->specialty = $post['specialty'];
+            $individual->educational_institution = $post['educational_institution'];
+
+            $individual->discount = $post['discount'];
+            if($individual->moderator_approve == 0 && $post['moderator_approve'] == 1):
+                Event::fire('moderator-company-profile-approved', array(array('title'=>$post['title'])));
+                Event::fire('account.approved-profile',array(array('accountID'=>$user->id)));
+            endif;
+            $individual->moderator_approve = $post['moderator_approve'];
+
+            $individual->save();
+            $individual->touch();
+
+            return TRUE;
+        endif;
+        return FALSE;
     }
     /****************************************************************************/
     /***************************** СТАТИСТИКА ***********************************/

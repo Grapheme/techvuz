@@ -19,12 +19,17 @@ class CreateIndividualTable extends Migration {
                 $table->string('code',50)->nullable();
                 $table->string('postaddress',255)->nullable();
                 $table->string('phone',40)->nullable();
+                $table->string('position',255)->nullable();
+                $table->string('education',255)->nullable();
+                $table->string('document_education',255)->nullable();
+                $table->string('specialty',255)->nullable();
+                $table->string('educational_institution',255)->nullable();
                 $table->tinyInteger('discount')->default(0)->nullable();
                 $table->boolean('moderator_approve')->default(0)->nullable();
                 $table->timestamps();
             });
 
-            DB::statement("CREATE VIEW users_individuals AS SELECT users.id, users.email, users.active, users.created_at,individuals.id as individual_id, individuals.fio, individuals.fio_rod, individuals.passport_seria, individuals.passport_number, individuals.passport_data, individuals.passport_date, individuals.code, individuals.postaddress, individuals.phone, individuals.discount, individuals.moderator_approve FROM users LEFT JOIN individuals ON users.id = individuals.user_id WHERE users.group_id = 6");
+            DB::statement("CREATE VIEW users_individuals AS SELECT users.id, users.email, users.active, users.created_at,individuals.id as individual_id, individuals.fio, individuals.fio_rod, individuals.passport_seria, individuals.passport_number, individuals.passport_data, individuals.passport_date, individuals.code, individuals.postaddress, individuals.phone,individuals.position,individuals.education,individuals.document_education,individuals.specialty,individuals.educational_institution, individuals.discount, individuals.moderator_approve FROM users LEFT JOIN individuals ON users.id = individuals.user_id WHERE users.group_id = 6");
 
             echo(' + ' . 'individuals' . PHP_EOL);
         } else {

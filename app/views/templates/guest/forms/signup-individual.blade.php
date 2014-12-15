@@ -34,6 +34,24 @@
         <div class="form-element">
             <label>E-mail</label>{{ Form::email('email', '',array('placeholder'=>'')) }}
         </div>
+
+        <div class="form-element">
+            <label>Должность</label>{{ Form::text('position', '',array('placeholder'=>'Начальник ПТО, ведущий инженер')) }}
+        </div>
+        <div class="form-element">
+            <label>Образование</label>{{ Form::text('education', '',array('placeholder'=>'Высшее, среднее профессиональное')) }}
+        </div>
+        <div class="form-element">
+            <label>Номер и дата выдачи документа об образовании</label>{{ Form::text('document_education', '',array('placeholder'=>'РВ №112233 от 17.06.2003')) }}
+        </div>
+        <div class="form-element">
+            <label>Наименование специальности</label>{{ Form::text('specialty', '',array('placeholder'=>'Промышленное и гражданское строительство')) }}
+        </div>
+        <div class="form-element">
+            <label>Наименование учебного заведения</label>{{ Form::text('educational_institution', '',array('placeholder'=>'Указать как в дипломе')) }}
+        </div>
+
+
     </fieldset>
     <fieldset>
         <div class="form-element">

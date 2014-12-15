@@ -89,7 +89,15 @@ var validation_profile_listener_individual = {
     inn: { required: true },
     postaddress: { required: true },
     email: { required: true, email: true },
-    phone: { required: true }
+    phone: { required: true },
+
+    position: { required: true },
+    education: { required: true },
+    document_education: { required: true },
+    specialty: { required: true },
+    educational_institution: { required: true },
+
+    discount: { required: true }
 };
 var validation_signup_messages_listener_individual = {
     email: { required: 'Укажите Email', email: 'Неверный адрес Email' },
@@ -99,7 +107,14 @@ var validation_signup_messages_listener_individual = {
     inn: { required: 'Укажите ИНН' },
     postaddress: { required: 'Укажите почтовый адрес' },
     email: { required: 'Укажите контактный E-mail','email': 'Некорректный E-mail' },
-    phone: { required: 'Укажите контактный номер' }
+    phone: { required: 'Укажите контактный номер' },
+
+    position: { required: 'Укажите должность' },
+    education: { required: 'Укажите образование' },
+    document_education: { required: 'Укажите номер и дату выдачи' },
+    specialty: { required: 'Укажите наименование специальности' },
+    educational_institution: { required: 'Укажите наименование учебного заведения' },
+    discount: { required: 'Укажите скидку' }
 };
 
 var validation_order_update = {
@@ -118,7 +133,6 @@ function scrollToError(elem) {
 }
 
 $(function(){
-
     function SetListenerAccess($this){
         $.ajax({
             url: $($this).attr('data-action'),
@@ -136,14 +150,12 @@ $(function(){
             error: function(xhr,textStatus,errorThrown){}
         });
     }
-
     $(".js-check-all-payments").click(function(){
         $(".js-set-listener-access").each(function(index,element){SetListenerAccess(element);});
     });
     $(".js-uncheck-all-payments").click(function(){
         $(".js-set-listener-access").each(function(index,element){SetListenerAccess(element);});
     });
-
     $(".js-set-order-payment-status").selectmenu({
         change: function( event, ui ) {
             var $this = this;
@@ -170,9 +182,7 @@ $(function(){
             });
         }
     });
-
     $(".js-set-listener-access").click(function(){SetListenerAccess(this);});
-
     $(".js-delete-order").click(function() {
         var $this = this;
         var $order = $($this).data('order-number');
@@ -381,7 +391,7 @@ function moderatorFormValidation() {
             $(form).ajaxSubmit(options);
         }
     });
-    var profileListenerCompany = $("#individual-profile-listener-form").validate({
+    var profileListenerIndividual = $("#individual-profile-listener-form").validate({
         rules: validation_profile_listener_individual ? validation_profile_listener_individual : {},
         messages: validation_signup_messages_listener_individual ? validation_signup_messages_listener_individual : {},
         errorPlacement : function(error, element){error.insertAfter(element.parent());},

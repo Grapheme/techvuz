@@ -52,7 +52,7 @@ return array(
     ),
 
     'COMPANY_LISTENERS_LIST' => array(
-        'title' => 'Личный кабинет компании. Список слушателейы.',
+        'title' => 'Личный кабинет компании. Список слушателей.',
         'description' => '',
         'keywords' => ''
     ),
@@ -68,7 +68,6 @@ return array(
         'description' => '',
         'keywords' => ''
     ),
-
 
     'COMPANY_LISTENER_DASHBOARD' => array(
         'title' => 'Личный кабинет сотрудника компании.',
@@ -96,6 +95,18 @@ return array(
 
     'COMPANY_LISTENER_STUDY_TEST_RESULT' => array(
         'title' => 'Личный кабинет сотрудника компании. Результат прохождения теста.',
+        'description' => '',
+        'keywords' => ''
+    ),
+
+    'INDIVIDUAL_DASHBOARD' => array(
+        'title' => 'Личный кабинет индивидуального слушателя.',
+        'description' => '',
+        'keywords' => ''
+    ),
+
+    'INDIVIDUAL_PROFILE' => array(
+        'title' => 'Личный кабинет индивидуального слушателя. Профиль.',
         'description' => '',
         'keywords' => ''
     ),

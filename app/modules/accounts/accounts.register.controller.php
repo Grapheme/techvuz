@@ -266,6 +266,7 @@ class AccountsRegisterController extends BaseController {
 
             $individual->user_id = $user->id;
             $individual->fio = $post['fio'];
+            $individual->fio_rod = $post['fio_rod'];
             $individual->passport_seria = $post['passport_seria'];
             $individual->passport_number = $post['passport_number'];
             $individual->passport_data = $post['passport_data'];
@@ -274,6 +275,13 @@ class AccountsRegisterController extends BaseController {
 
             $individual->postaddress = $post['postaddress'];
             $individual->phone = $post['phone'];
+
+            $individual->position = $post['position'];
+            $individual->education = $post['education'];
+            $individual->document_education = $post['document_education'];
+            $individual->specialty = $post['specialty'];
+            $individual->educational_institution = $post['educational_institution'];
+
             $individual->save();
             $individual->touch();
 

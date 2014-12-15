@@ -17,7 +17,7 @@
                         <?php $count_courses = 0; ?>
                         @foreach($courses as $course)
                             @if($course->access_status == 1 && $course->over_status == 0)
-                                <?php $count_courses++ ; ?>
+                                <?php $count_courses++; ?>
                             @endif
                         @endforeach
                         <a href="#tabs-11">Доступно {{ $count_courses ? '<span class="filter-count">'.$count_courses.'</span>' : '' }}</a>
@@ -26,7 +26,7 @@
                         <?php $count_courses = 0; ?>
                         @foreach($courses as $course)
                             @if($course->access_status == 1 && $course->over_status == 1)
-                                <?php $count_courses++ ; ?>
+                                <?php $count_courses++; ?>
                             @endif
                         @endforeach
                         <a href="#tabs-13">Завершено {{ $count_courses ? '<span class="filter-count">'.$count_courses.'</span>' : '' }}</a>
@@ -34,8 +34,8 @@
                     <li>
                         <?php $count_courses = 0; ?>
                         @foreach($courses as $course)
-                            @if($listener_course->access_status == 1)
-                                <?php $count_courses++ ; ?>
+                            @if($course->access_status == 1)
+                                <?php $count_courses++; ?>
                             @endif
                         @endforeach
                         <a href="#tabs-14">Все {{ $count_courses ? '<span class="filter-count">'.$count_courses.'</span>' : '' }}</a>

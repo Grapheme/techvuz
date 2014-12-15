@@ -63,6 +63,7 @@ class BaseController extends Controller {
 
         $page_data = array();
         if (!empty($prefix)):
+            $prefix = str_replace ('-','_',$prefix);
             if (class_exists('AccountGroupsController') && method_exists('AccountGroupsController',$prefix)):
                 $controller = new AccountGroupsController;
                 $page_data = $controller->$prefix();
@@ -70,7 +71,7 @@ class BaseController extends Controller {
         endif;
         $parts = array();
         $parts[] = 'templates';
-        $parts[] = AuthAccount::getGroupName();
+        $parts[] = AuthAccount::getGroupStartUrl();
         $parts[] = 'dashboard';
 
         if ($prefix == 'listener' && Listener::where('user_id',Auth::user()->id)->pluck('approved') == FALSE):

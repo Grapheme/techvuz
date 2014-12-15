@@ -57,6 +57,8 @@ class UserActionsHistoryTableSeeder extends Seeder{
         DicVal::create(array('dic_id'=>$dic_id,'slug'=>'moderator-order-delete','name'=> 'Заказ удален','order'=>31));
 
         DicVal::create(array('dic_id'=>$dic_id,'slug'=>'moderator-order-update','name'=> 'Заказ обновлен','order'=>32));
+
+        DicVal::create(array('dic_id'=>$dic_id,'slug'=>'moderator-listener-profile-approved','name'=> 'Подтвержден аккаунт индивидуального слушателя','order'=>33));
     }
 
 }

@@ -40,8 +40,53 @@ class Individual extends BaseModel {
         'passport_date' => 'required',
         'code' => 'required',
         'postaddress' => 'required',
+        'position' => 'required',
+        'education' => 'required',
+        'document_education' => 'required',
+        'specialty' => 'required',
+        'educational_institution' => 'required',
 
-        'consent' => 'required|integer',
+        'consent' => 'required|integer'
     );
 
+    public static $update_rules = array(
+        'fio' => 'required',
+        'fio_rod' => 'required',
+        'phone' => 'required',
+        'passport_seria' => 'required',
+        'passport_number' => 'required',
+        'passport_data' => 'required',
+        'passport_date' => 'required',
+        'code' => 'required',
+        'postaddress' => 'required',
+
+        'position' => 'required',
+        'education' => 'required',
+        'document_education' => 'required',
+        'specialty' => 'required',
+        'educational_institution' => 'required'
+    );
+
+    public static $moderator_rules = array(
+        'email' => 'required|email',
+        'active' => 'required',
+        'fio' => 'required',
+        'fio_rod' => 'required',
+        'email' => 'required|email',
+        'phone' => 'required',
+        'passport_seria' => 'required',
+        'passport_number' => 'required',
+        'passport_data' => 'required',
+        'passport_date' => 'required',
+        'code' => 'required',
+        'postaddress' => 'required',
+
+        'position' => 'required',
+        'education' => 'required',
+        'document_education' => 'required',
+        'specialty' => 'required',
+        'educational_institution' => 'required',
+
+        'discount' => 'required'
+    );
 }

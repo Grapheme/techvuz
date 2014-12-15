@@ -1,6 +1,6 @@
 <?php
 
-$prefix = AuthAccount::getGroupName();
+$prefix = AuthAccount::getGroupStartUrl();
 
 /*
 | Общие роуты, независящие от условий

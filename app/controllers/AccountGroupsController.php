@@ -8,27 +8,29 @@ class AccountGroupsController extends \BaseController {
 
     public function organization(){
 
-        $page_data = array(
+        return array(
             'page_title'=> Lang::get('seo.COMPANY_DASHBOARD.title'),
             'page_description'=> Lang::get('seo.COMPANY_DASHBOARD.description'),
             'page_keywords'=> Lang::get('seo.COMPANY_DASHBOARD.keywords')
         );
-        return $page_data;
     }
 
     public function listener(){
 
-        $page_data = array(
+        return array(
             'page_title'=> Lang::get('seo.COMPANY_LISTENER_DASHBOARD.title'),
             'page_description'=> Lang::get('seo.COMPANY_LISTENER_DASHBOARD.description'),
             'page_keywords'=> Lang::get('seo.COMPANY_LISTENER_DASHBOARD.keywords')
         );
-        return $page_data;
     }
 
-    public static function individual(){
+    public static function individual_listener(){
 
-        return array('individual');
+        return array(
+            'page_title'=> Lang::get('seo.INDIVIDUAL_DASHBOARD.title'),
+            'page_description'=> Lang::get('seo.INDIVIDUAL_DASHBOARD.description'),
+            'page_keywords'=> Lang::get('seo.INDIVIDUAL_DASHBOARD.keywords')
+        );
     }
 
     public static function validActiveUserAccount($account = NULL){

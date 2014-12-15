@@ -33,6 +33,11 @@ return array(
         'fail' => 'Неверно заполнены поля'
     ),
 
+    'UPDATE_PROFILE_INDIVIDUAl' => array(
+        'success' => 'Сохранено',
+        'fail' => 'Неверно заполнены поля'
+    ),
+
     'ACCOUNT_STATUS' => array(
         'active' => 'Ваша учетная запись активирована.',
         'blocked' => 'Ваша учетная запись заблокирована.',

@@ -7,106 +7,35 @@
     <p class="style-light style-italic">{{ $profile->organization->title }}</p>
 @endif
 <div class="row">
+
     <?php $accountStatus = array('Не активный','Активный','Не активирован')?>
     @if(isset($accountStatus[$profile->active]))
         @if($profile->active == 2)
-        <?php $activation_date = '. До '.date("d.m.Y H:i:s",User::where('id',$profile->id)->pluck('code_life'));?>
+            <?php $activation_date = '. До '.date("d.m.Y H:i:s",User::where('id',$profile->id)->pluck('code_life'));?>
         @else
-        <?php $activation_date = ''; ?>
+            <?php $activation_date = ''; ?>
         @endif
-        <h3>Профиль ({{ $accountStatus[$profile->active] }}{{ $activation_date }})</h3>
-    @endif
-    <div class="employer margin-bottom-40">
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
-                    <a class="icon--blue pull-right" href="{{ URL::route('moderator-listener-profile-edit',$profile->id) }}">
-                        <span class="icon icon-red"></span>
-                    </a>
-                </div>
-            </div>
+        <a class="icon--blue pull-right margin-top-30" href="{{ URL::route('moderator-listener-profile-edit',$profile->id) }}">
+            <span class="icon icon-red"></span>
+        </a>
+        <h3>Профиль</h3>
+        <div class="style-light style-italic">
+            {{ $accountStatus[$profile->active] }}{{ $activation_date }}
         </div>
+        @if($profile->group_id == 6)
+            <div class="style-light style-italic">
+                Модератором {{ $profile->moderator_approve ? 'подтвержден' : 'не подтвержден' }}
+            </div>
+        @endif
+    @endif
+
+    <div class="employer-anket margin-top-30 margin-bottom-40">
         <div class="employer-anket margin-bottom-40">
-            <div class="row margin-bottom-10">
-                <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
-                    <span class="font-sm">Ф.И.О.</span>
-                </div>
-                <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9">
-                    {{ $profile->fio }}
-                </div>
-            </div>
-            <div class="row margin-bottom-10">
-                <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
-                    <span class="font-sm">Ф.И.О. в дат. падеже</span>
-                </div>
-                <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9">
-                    {{ $profile->fio_dat }}
-                </div>
-            </div>
-            <div class="row margin-bottom-10">
-                <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
-                    <span class="font-sm">Должность</span>
-                </div>
-                <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9">
-                    {{ $profile->position }}
-                </div>
-            </div>
-            <div class="row margin-bottom-10">
-                <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
-                    <span class="font-sm">Адрес</span>
-                </div>
-                <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9">
-                    {{ $profile->postaddress }}
-                </div>
-            </div>
-            <div class="row margin-bottom-10">
-                <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
-                    <span class="font-sm">Email</span>
-                </div>
-                <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9">
-                    {{ $profile->email }}
-                </div>
-            </div>
-            <div class="row margin-bottom-10">
-                <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
-                    <span class="font-sm">Телефон</span>
-                </div>
-                <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9">
-                    {{ $profile->phone }}
-                </div>
-            </div>
-            <div class="row margin-bottom-10">
-                <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
-                    <span class="font-sm">Образование</span>
-                </div>
-                <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9">
-                    {{ $profile->education }}
-                </div>
-            </div>
-            <div class="row margin-bottom-10">
-                <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
-                    <span class="font-sm">Номер и дата выдачи документа об образовании</span>
-                </div>
-                <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9">
-                    {{ $profile->education_document_data }}
-                </div>
-            </div>
-            <div class="row margin-bottom-10">
-                <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
-                    <span class="font-sm">Специальность</span>
-                </div>
-                <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9">
-                    {{ $profile->specialty }}
-                </div>
-            </div>
-            <div class="row margin-bottom-10">
-                <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
-                    <span class="font-sm">Наименование учебного заведения</span>
-                </div>
-                <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9">
-                    {{ $profile->educational_institution }}
-                </div>
-            </div>
+        @if($profile->group_id == 5)
+            @include(Helper::acclayout('assets.profiles.listener'))
+        @elseif($profile->group_id == 6)
+            @include(Helper::acclayout('assets.profiles.individual'))
+        @endif
         </div>
     </div>
 </div>

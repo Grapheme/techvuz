@@ -13,7 +13,7 @@ class AccountsOrderingController extends BaseController {
 
         $class = __CLASS__;
         if (isOrganizationORIndividual()):
-            Route::group(array('before' => 'auth.status', 'prefix' => Auth::user()->group()->pluck('name')), function() use ($class) {
+            Route::group(array('before' => 'auth.status', 'prefix' => Auth::user()->group()->pluck('dashboard')), function() use ($class) {
                 Route::get('ordering/select-courses', array('as' => 'ordering-select-courses', 'uses' => $class . '@OrderingSelectCourses'));
                 Route::get('ordering/select-listeners', array('as' => 'ordering-select-listeners', 'uses' => $class . '@OrderingSelectListeners'));
                 Route::post('ordering/courses-store', array('before' => 'csrf', 'as' => 'ordering-courses-store', 'uses' => $class . '@OrderingCoursesStore'));
@@ -86,6 +86,14 @@ class AccountsOrderingController extends BaseController {
 
         $validator = Validator::make(Input::all(),array('courses'=>'required'));
         if($validator->passes() && hasCookieData('ordering')):
+            $accountGroup = User::where('id',Auth::user()->id)->pluck('group_id');
+            if ($accountGroup == 6):
+                $courses = array();
+                foreach (getJsonCookieData('ordering') as $course):
+                    $courses[$course] = array(Auth::user()->id);
+                endforeach;
+                setcookie('ordering',json_encode($courses),0,'/');
+            endif;
             return Redirect::route('ordering-select-listeners');
         else:
             return Redirect::route('ordering-select-courses')->with('message','Не выбраны курсы для покупки');
@@ -140,13 +148,13 @@ class AccountsOrderingController extends BaseController {
                     if ($is_organization):
                         Event::fire('organization.order-puy-no-approve',array(array('accountID'=>Auth::user()->id,'order'=>getOrderNumber($order),'link'=>URL::route('organization-order',$order->id))));
                     else:
-                        Event::fire('organization.order-puy-no-approve',array(array('accountID'=>Auth::user()->id,'order'=>getOrderNumber($order),'link'=>URL::route('individual-order',$order->id))));
+                        Event::fire('individual.order-puy-no-approve',array(array('accountID'=>Auth::user()->id,'order'=>getOrderNumber($order),'link'=>URL::route('individual-order',$order->id))));
                     endif;
                 else:
                     if ($is_organization):
                         Event::fire('organization.order-puy',array(array('accountID'=>Auth::user()->id,'order'=>getOrderNumber($order),'order_link'=>URL::route('organization-order',$order->id),'document_link'=>URL::route('organization-order-invoice',array('order_id'=>$order->id,'format'=>'pdf')))));
                     else:
-                        Event::fire('organization.order-puy',array(array('accountID'=>Auth::user()->id,'order'=>getOrderNumber($order),'order_link'=>URL::route('organization-order',$order->id),'document_link'=>URL::route('individual-order-invoice',array('order_id'=>$order->id,'format'=>'pdf')))));
+                        Event::fire('individual.order-puy',array(array('accountID'=>Auth::user()->id,'order'=>getOrderNumber($order),'order_link'=>URL::route('individual-order',$order->id),'document_link'=>URL::route('individual-order-invoice',array('order_id'=>$order->id,'format'=>'pdf')))));
                     endif;
                 endif;
                 Event::fire('moderator.order.new',array(array('accountID'=>0,'order'=>getOrderNumber($order))));

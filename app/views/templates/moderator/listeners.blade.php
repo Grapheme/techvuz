@@ -34,6 +34,8 @@
                     <td>
                     @if(isset($listener['organization']))
                         <a href="{{ URL::route('moderator-company-profile',$listener['organization']['id']) }}">{{ $listener['organization']['title'] }}</a>
+                    @else
+                        Индивидуальный слушатель
                     @endif
                     </td>
                 </tr>

@@ -10,6 +10,7 @@ class User_listener extends BaseModel {
 
         return $this->hasMany('OrderListeners','user_id');
     }
+
     public function organization(){
 
         return $this->belongsTo('User_organization','organization_id');
