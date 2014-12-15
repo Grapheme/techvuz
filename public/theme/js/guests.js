@@ -21,7 +21,11 @@ var validation_signup_ul = {
     manager: { required: true },
     statutory: { required: true },
     ogrn: { required: true },
-    inn: { required: true },
+    inn: {
+        required: true,
+        minlength: 10,
+        maxlength: 12
+    },
     kpp: {},
     uraddress: { required: true },
     account_number: { required: true },
@@ -41,7 +45,11 @@ var validation_signup_messages_ul = {
     manager: { required: 'Укажите должность' },
     statutory: { required: 'Укажите уставной документ' },
     ogrn: { required: 'Укажите ОГРН' },
-    inn: { required: 'Укажите ИНН' },
+    inn: {
+        required: 'Укажите ИНН',
+        minlength: jQuery.format("Укажите ИНН от 10 до 12 знаков!"),
+        maxlength: jQuery.format("Укажите ИНН от 10 до 12 знаков!")
+    },
     kpp: { required: 'Укажите КПП' },
     uraddress: { required: 'Укажите юридический адрес' },
     account_number: { required: 'Укажите расчетный счет' },
