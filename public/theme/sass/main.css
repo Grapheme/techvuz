@@ -9270,6 +9270,7 @@ section h3, section .h3 {
   display: inline-block;
   vertical-align: middle;
   width: 11.75rem;
+  max-height: 2.1875rem;
   font-size: 0.875em;
   line-height: 1.42857em;
   font-weight: 400;
