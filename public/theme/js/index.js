@@ -644,11 +644,12 @@ var Popup = (function(){
         var $staticDiscount = elem.parents('.purchase-table').data('static-discount');
 
 		if( $staticDiscount < $valueDiscount && $listenersLength >= $countDiscount ) {
+			console.log('true');
 			$priceCount = $realPrice * (100 - $valueDiscount) / 100;
 			$discountField.text( ($priceCount + '').replace(/(\d)(?=(\d{3})+$)/g, '$1 ') + '.-' );
-			console.log( 'ololo' + $priceCount );
 		} else {
-			console.log('wtd false');
+			console.log('false');
+			$discountField.text($priceCount);
 		}
 
 		//2. Set price
