@@ -73,15 +73,17 @@
             <tr>
                 @if($index == 0)
                 <td class="vertical-top">
-                    <a href="{{ URL::route('course-page',$course['course']['url']) }}">
+                    {{ $course['course']['code'] }}. {{{ $course['course']['title'] }}}
+                    <!-- <a href="{{ URL::route('course-page',$course['course']['url']) }}">
                         {{ $course['course']['code'] }}. {{{ $course['course']['title'] }}}
-                    </a>
+                    </a> -->
                 </td>
                 @else
                 <td class="vertical-top"></td>
                 @endif
                 <td class="vertical-top">
-                    <a href="{{ URL::route('organization-listener-profile',$listener['id']) }}">{{ $listener['fio'] }}</a>
+                    <!-- <a href="{{ URL::route('organization-listener-profile',$listener['id']) }}">{{ $listener['fio'] }}</a> -->
+                    {{ $listener['fio'] }}
                 </td>
                 <td class="vertical-top purchase-price">{{ number_format($listener['price'],0,'.',' ') }}.-</td>
                 <td class="vertical-top">
