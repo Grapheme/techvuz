@@ -21,7 +21,7 @@ class AccountsModeratorController extends BaseController {
 
                 Route::get('orders', array('as' => 'moderator-orders-list', 'uses' => $class . '@OrdersList'));
                 Route::get('order/{order_id}/extended', array('as' => 'moderator-order-extended', 'uses' => $class . '@OrderExtendedView'));
-                Route::post('order/{order_id}/extended/set-access/{order_listener_id}', array('as' => 'order-listener-access', 'uses' => $class . '@changeOrderListenerAccess'));
+                Route::post('order/{order_id}/extended/set-access', array('as' => 'order-listener-access', 'uses' => $class . '@changeOrderListenerAccess'));
                 Route::post('order/{order_id}/extended/set-status', array('as' => 'change-order-status', 'uses' => $class . '@changeOrderStatus'));
                 Route::get('order/{order_id}/edit', array('as' => 'moderator-order-edit', 'uses' => $class . '@OrderEdit'));
                 Route::patch('order/{order_id}/update', array('as' => 'moderator-order-update', 'uses' => $class . '@OrderUpdate'));
@@ -301,6 +301,76 @@ class AccountsModeratorController extends BaseController {
 
     }
 
+    public function OrderEdit($order_id){
+
+        $page_data = array(
+            'page_title'=> 'Редактирование заказа',
+            'page_description'=> '',
+            'page_keywords'=> '',
+            'order' => Orders::where('id',$order_id)->with('contract','invoice','act')->first()
+        );
+        return View::make(Helper::acclayout('order-edit'),$page_data);
+    }
+
+    public function OrderUpdate($order_id){
+
+        if(!Request::ajax()) return App::abort(404);
+        $json_request = array('status'=>FALSE, 'responseText'=>'');
+        if($order = Orders::where('id',$order_id)->first()):
+            $date = new myDateTime();
+            $order->number = (int)Input::get('number');
+            $order->created_at = $date->setDateString(Input::get('created_at'))->format('Y-m-d H:i:s');;
+            #$order->payment_date = $date->setDateString(Input::get('payment_date'))->format('Y-m-d H:i:s');
+            $order->study_date = $date->setDateString(Input::get('study_date'))->format('Y-m-d H:i:s');
+            if (!empty($order->study_date)):
+                $order->study_status = 1;
+            else:
+                $order->study_status = 0;
+            endif;
+            $order->contract_id = ExtForm::process('upload', @Input::all()['contract']);
+            $order->invoice_id = ExtForm::process('upload', @Input::all()['invoice']);
+            $order->act_id = ExtForm::process('upload', @Input::all()['act']);
+            $order->save();
+            $order->touch();
+            Event::fire(Route::currentRouteName(), array(array('title'=>'№'.getOrderNumber($order))));
+            $json_request['responseText'] = 'Выполенено';
+            $json_request['status'] = TRUE;
+            $json_request['redirect'] = URL::route('moderator-order-extended',$order_id);
+        endif;
+        return Response::json($json_request, 200);
+    }
+
+    public function arhivedOrder($order_id){
+
+        if(!Request::ajax()) return App::abort(404);
+        $json_request = array('status'=>FALSE, 'responseText'=>'');
+        $order = Orders::findOrFail($order_id);
+        $order->archived = 1;
+        $order->save();
+        $order->touch();
+        Event::fire(Route::currentRouteName(), array(array('title'=>'№'.getOrderNumber($order))));
+        $json_request['responseText'] = 'Выполенено';
+        $json_request['status'] = TRUE;
+        return Response::json($json_request, 200);
+    }
+
+    public function deleteOrder($order_id){
+
+        if(!Request::ajax()) return App::abort(404);
+        $json_request = array('status'=>FALSE, 'responseText'=>'');
+        $order = Orders::findOrFail($order_id);
+        Orders::findOrFail($order_id)->payment_numbers()->delete();
+        if($orderListenersIDs = Orders::findOrFail($order_id)->listeners()->lists('id')):
+            OrdersListenersTests::whereIn('order_listeners_id',$orderListenersIDs)->delete();
+            Orders::findOrFail($order_id)->listeners()->delete();
+        endif;
+        Event::fire(Route::currentRouteName(), array(array('title'=>'№'.getOrderNumber($order))));
+        $order->delete();
+        $json_request['responseText'] = 'Выполенено';
+        $json_request['status'] = TRUE;
+        return Response::json($json_request, 200);
+    }
+
     public function OrderPaymentNumberStore($order_id){
 
         $json_request = array('status'=>FALSE,'responseText'=>'','responseErrorText'=>'','redirect'=>FALSE);
@@ -360,127 +430,46 @@ class AccountsModeratorController extends BaseController {
         return Redirect::route('moderator-order-extended',$order_id);
     }
 
-    public function changeOrderListenerAccess($order_id,$order_listener_id){
+    public function changeOrderListenerAccess($order_id){
 
+        $order_listener_id = 0;
         $json_request = array('status'=>FALSE,'responseText'=>'','responseOrderStatus'=> FALSE);
-        if(Request::ajax()):
-            if($orderListener = OrderListeners::where('id',$order_listener_id)->where('order_id',$order_id)->first()):
-                if ($orderListener->access_status == 0):
-                    $orderListener->access_status = 1;
-                    $now = date('Y-m-d H:i:s');
-                    $studyDays = !empty($orderListener->course->hours) ? floor($orderListener->course->hours/8): floor(Config::get('site.time_to_study_begin')/4);
-                    Event::fire('listener.study-access', array(array('accountID'=>$orderListener->user_id,'link'=>URL::to('listener/study/course/'.$orderListener->id.'-'.BaseController::stringTranslite($orderListener->course->title,100)),'course'=>$orderListener->course->code,'date'=>(new myDateTime())->setDateString($now)->addDays($studyDays)->format('d.m.Y'))));
-                else:
-                    $orderListener->access_status = 0;
-                endif;
-                $orderListener->save();
-                $orderListener->touch();
-                $order = Orders::where('id',$order_id)->first();
-                $countAccess = 0; $total_count = 0;
-                foreach(OrderListeners::where('order_id',$order_id)->get() as $order_listener):
-                    if ($order_listener->access_status == 1):
-                        $countAccess++;
-                    endif;
-                    $total_count++;
+        if(Request::ajax() && Input::has('courses')):
+            $courses = Input::get('courses');
+            $ListenersStatuses = array();
+            if (!empty($courses)):
+                foreach ($courses as $value):
+                    foreach($value as $course_id => $check):
+                        $ListenersStatuses[$course_id] = $check;
+                    endforeach;
                 endforeach;
-                $now = date('Y-m-d H:i:s');
-                if ($order->payment_status == 1 && $countAccess == $total_count):
-                    Orders::where('id',$order_id)->update(array('payment_status'=>5,'payment_date'=>'0000-00-00 00:00:00','updated_at'=>$now));
-                    $json_request['responseOrderStatus'] = 5;
-                elseif ($order->payment_status == 6 && $countAccess == $total_count):
-                    Orders::where('id',$order_id)->update(array('payment_status'=>2,'payment_date'=>$now->getTimestamp(),'updated_at'=>$now));
-                    $json_request['responseOrderStatus'] = 2;
-                elseif ($order->payment_status == 3 && $countAccess == $total_count):
-                    Orders::where('id',$order_id)->update(array('payment_status'=>4,'payment_date'=>'0000-00-00 00:00:00','updated_at'=>$now));
-                    $json_request['responseOrderStatus'] = 4;
-                elseif($order->payment_status == 2 && $countAccess == 0):
-                    Orders::where('id',$order_id)->update(array('payment_status'=>6,'payment_date'=>'0000-00-00 00:00:00','updated_at'=>$now));
-                    $json_request['responseOrderStatus'] = 6;
-                elseif($order->payment_status == 4 && $countAccess == 0):
-                    Orders::where('id',$order_id)->update(array('payment_status'=>3,'payment_date'=>'0000-00-00 00:00:00','updated_at'=>$now));
-                    $json_request['responseOrderStatus'] = 3;
-                elseif($order->payment_status == 5 && $countAccess == 0):
-                    Orders::where('id',$order_id)->update(array('payment_status'=>1,'payment_date'=>'0000-00-00 00:00:00','updated_at'=>$now));
-                    $json_request['responseOrderStatus'] = 1;
+                if (!empty($ListenersStatuses)):
+                    $now = date('Y-m-d H:i:s');
+                    $order = Orders::where('id',$order_id)->first();
+                    foreach(OrderListeners::where('order_id',$order_id)->get() as $orderListener):
+                        if ($orderListener->access_status == 0 && isset($ListenersStatuses[$orderListener->id]) && $ListenersStatuses[$orderListener->id] == 1):
+                            $studyDays = !empty($orderListener->course->hours) ? floor($orderListener->course->hours/8): floor(Config::get('site.time_to_study_begin')/8);
+                            Event::fire('listener.study-access', array(array('accountID'=>$orderListener->user_id,'link'=>URL::to('listener/study/course/'.$orderListener->id.'-'.BaseController::stringTranslite($orderListener->course->title,100)),'course'=>$orderListener->course->code,'date'=>(new myDateTime())->setDateString($now)->addDays($studyDays)->format('d.m.Y'))));
+                            if ($order->study_status == 0):
+                                Orders::where('id',$order_id)->update(array('study_status'=>1,'study_date'=>$now,'updated_at'=>$now));
+                            endif;
+                        endif;
+                        OrderListeners::where('order_id',$order_id)->where('id',$orderListener->id)->update(array('access_status'=>$ListenersStatuses[$orderListener->id],'updated_at'=>$now));
+                    endforeach;
+                    $closeStudyStatus = TRUE;
+                    if(OrderListeners::where('order_id',$order_id)->where('access_status',1)->exists()):
+                        $closeStudyStatus = FALSE;
+                    endif;
+                    if ($closeStudyStatus):
+                        Orders::where('id',$order_id)->update(array('study_status'=>0,'study_date'=>'000-00-00 00:00:00','updated_at'=>$now));
+                    endif;
                 endif;
-
                 $json_request['status'] = TRUE;
             endif;
         else:
             return App::abort(404);
         endif;
         return Response::json($json_request,200);
-    }
-
-    public function changeOrderStatus($order_id){
-
-        $json_request = array('status'=>FALSE,'responseText'=>'');
-        if(Request::ajax() && Input::get('status')):
-            if ($order = Orders::where('id',$order_id)->first()):
-                $order->payment_status = Input::get('status');
-                $order->payment_date = '0000-00-0000:00:00';
-                $now = date('Y-m-d H:i:s');
-                switch(Input::get('status')):
-                    case 2: Orders::where('id',$order_id)->first()->listeners()->update(array('access_status'=>1,'updated_at'=>$now));
-                        $order->payment_date = $now;
-                        Event::fire('organization.order.yes-puy-yes-access', array(array('accountID'=>$order->user_id,'link'=>URL::to('organization/order/'.$order->id),'order'=>getOrderNumber($order))));
-                        break;
-                    case 3:
-                        Event::fire('organization.order.part-puy-not-access', array(array('accountID'=>$order->user_id,'link'=>URL::to('organization/order/'.$order->id),'order'=>getOrderNumber($order))));
-                        break;
-                    case 4: Orders::where('id',$order_id)->first()->listeners()->update(array('access_status'=>1,'updated_at'=>$now));
-                        Event::fire('organization.order.part-puy-yes-access', array(array('accountID'=>$order->user_id,'link'=>URL::to('organization/order/'.$order->id),'order'=>getOrderNumber($order))));
-                        $order->payment_date = $now;
-                        break;
-                    case 5: Orders::where('id',$order_id)->first()->listeners()->update(array('access_status'=>1,'updated_at'=>$now));
-                        Event::fire('organization.order.not-puy-yes-access', array(array('accountID'=>$order->user_id,'link'=>URL::to('organization/order/'.$order->id),'order'=>getOrderNumber($order))));
-                        break;
-                    case 6: Orders::where('id',$order_id)->first()->listeners()->update(array('access_status'=>0,'updated_at'=>$now));
-                        Event::fire('organization.order.not-puy-yes-access', array(array('accountID'=>$order->user_id,'link'=>URL::to('organization/order/'.$order->id),'order'=>getOrderNumber($order))));
-                        $order->payment_date = $now;
-                        break;
-                endswitch;
-                $order->save();
-                $order->touch();
-                Event::fire(Route::currentRouteName(), array(array('title'=>'Заказ №'.$order->number)));
-                $json_request['responseText'] = Lang::get('interface.DEFAULT.success_change');
-                $json_request['status'] = TRUE;
-            endif;
-        else:
-            return App::abort(404);
-        endif;
-        return Response::json($json_request,200);
-    }
-
-    public function deleteOrder($order_id){
-
-        if(!Request::ajax()) return App::abort(404);
-        $json_request = array('status'=>FALSE, 'responseText'=>'');
-        $order = Orders::findOrFail($order_id);
-        Orders::findOrFail($order_id)->payment_numbers()->delete();
-        if($orderListenersIDs = Orders::findOrFail($order_id)->listeners()->lists('id')):
-            OrdersListenersTests::whereIn('order_listeners_id',$orderListenersIDs)->delete();
-            Orders::findOrFail($order_id)->listeners()->delete();
-        endif;
-        Event::fire(Route::currentRouteName(), array(array('title'=>'№'.getOrderNumber($order))));
-        $order->delete();
-        $json_request['responseText'] = 'Выполенено';
-        $json_request['status'] = TRUE;
-        return Response::json($json_request, 200);
-    }
-
-    public function arhivedOrder($order_id){
-
-        if(!Request::ajax()) return App::abort(404);
-        $json_request = array('status'=>FALSE, 'responseText'=>'');
-        $order = Orders::findOrFail($order_id);
-        $order->archived = 1;
-        $order->save();
-        $order->touch();
-        Event::fire(Route::currentRouteName(), array(array('title'=>'№'.getOrderNumber($order))));
-        $json_request['responseText'] = 'Выполенено';
-        $json_request['status'] = TRUE;
-        return Response::json($json_request, 200);
     }
 
     private function autoChangeOrderStatus($order_id){
@@ -497,11 +486,6 @@ class AccountsModeratorController extends BaseController {
             $now = date('Y-m-d H:i:s');
             if ($payment_summa >= $total_summa):
                 Orders::where('id',$order_id)->update(array('payment_status'=>2,'payment_date'=>$now,'updated_at'=>$now));
-                Orders::where('id',$order_id)->first()->listeners()->update(array('access_status'=>1,'updated_at'=>$now));
-                foreach(Orders::where('id',$order_id)->first()->listeners()->with('course')->get() as $listener_course):
-                    $studyDays = !empty($listener_course->course->hours) ? floor($listener_course->course->hours/8): floor(Config::get('site.time_to_study_begin')/4);
-                    Event::fire('listener.study-access', array(array('accountID'=>$listener_course->user_id,'link'=>URL::to('listener/study/course/'.$listener_course->id.'-'.BaseController::stringTranslite($listener_course->course->title,100)),'course'=>$listener_course->course->code,'date'=>(new myDateTime())->setDateString($now)->addDays($studyDays)->format('d.m.Y'))));
-                endforeach;
                 Event::fire('organization.order.yes-puy-yes-access', array(array('accountID'=>$order->user_id,'link'=>URL::to('organization/order/'.$order->id),'order'=>getOrderNumber($order))));
             elseif($payment_summa > 0 && $payment_summa < $total_summa):
                 Event::fire('organization.order.part-puy-not-access', array(array('accountID'=>$order->user_id,'link'=>URL::to('organization/order/'.$order->id),'order'=>getOrderNumber($order))));
@@ -512,38 +496,6 @@ class AccountsModeratorController extends BaseController {
         endif;
     }
 
-    public function OrderEdit($order_id){
-
-        $page_data = array(
-            'page_title'=> 'Редактирование заказа',
-            'page_description'=> '',
-            'page_keywords'=> '',
-            'order' => Orders::where('id',$order_id)->with('contract','invoice','act')->first()
-        );
-        return View::make(Helper::acclayout('order-edit'),$page_data);
-    }
-
-    public function OrderUpdate($order_id){
-
-        if(!Request::ajax()) return App::abort(404);
-        $json_request = array('status'=>FALSE, 'responseText'=>'');
-        if($order = Orders::where('id',$order_id)->first()):
-            $date = new myDateTime();
-            $order->number = (int)Input::get('number');
-            $order->created_at = $date->setDateString(Input::get('created_at'))->format('Y-m-d H:i:s');;
-            $order->payment_date = $date->setDateString(Input::get('payment_date'))->format('Y-m-d H:i:s');
-            $order->contract_id = ExtForm::process('upload', @Input::all()['contract']);
-            $order->invoice_id = ExtForm::process('upload', @Input::all()['invoice']);
-            $order->act_id = ExtForm::process('upload', @Input::all()['act']);
-            $order->save();
-            $order->touch();
-            Event::fire(Route::currentRouteName(), array(array('title'=>'№'.getOrderNumber($order))));
-            $json_request['responseText'] = 'Выполенено';
-            $json_request['status'] = TRUE;
-            $json_request['redirect'] = URL::route('moderator-order-extended',$order_id);
-        endif;
-        return Response::json($json_request, 200);
-    }
     /****************************************************************************/
     /****************************** СЛУШАТЕЛИ ***********************************/
     /****************************************************************************/

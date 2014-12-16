@@ -280,7 +280,6 @@
     @endif
     </div>
 </div>
-
 @stop
 @section('overlays')
 @stop

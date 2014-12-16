@@ -1,4 +1,5 @@
 {{ Form::model($order,array('url'=>URL::route('moderator-order-update',$order->id), 'class'=>'registration-form','id'=>'order-edit-form', 'files'=>TRUE, 'method'=>'PATCH')) }}
+    {{ Form::hidden('payment_date') }}
     <div class="reg-form-alert">
         Все поля являются обязательными для заполнения!
     </div>
@@ -9,7 +10,7 @@
         <label>Дата оформления</label>{{ Form::text('created_at',$order->created_at->format('d.m.Y H:i:s')) }}
     </div>
     <div class="form-element">
-        <label>Дата оплаты</label>{{ Form::text('payment_date',(new myDateTime())->setDateString($order->payment_date)->format('d.m.Y H:i:s')) }}
+        <label>Дата начала обучения</label>{{ Form::text('study_date',(new myDateTime())->setDateString($order->study_date)->format('d.m.Y H:i:s')) }}
     </div>
     <div class="form-element">
         <label>Договор</label>{{ ExtForm::upload('contract',$order->contract_id) }}

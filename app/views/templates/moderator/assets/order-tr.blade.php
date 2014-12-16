@@ -22,10 +22,10 @@
         @endif
     </td>
     <td class="vertical-top">
-        @if($order->organization->count())
+        @if(!empty($order->organization))
             <a href="{{ URL::route('moderator-company-profile',$order->organization->id) }}">{{ $order->organization->title }}</a>
-        @elseif($order->individual->count())
-            <a href="{{ URL::route('moderator-individual-profile',$order->individual->id) }}">{{ $order->individual->fio }}</a>
+        @elseif(!empty($order->individual))
+            <a href="{{ URL::route('moderator-listener-profile',$order->individual->id) }}">{{ $order->individual->fio }}</a>
         @endif
     </td>
     <td class="vertical-top">

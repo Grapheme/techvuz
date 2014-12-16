@@ -8,25 +8,19 @@
         <div>
             <div class="orders-li-head">
                 <?php $order_price = 0;?>
-                <a href="{{ URL::route('moderator-order-edit',$order->id) }}" class="icon--blue pull-right">
-                    <span class="icon icon-red"></span>
-                </a>
-                <h2>
-                    Заказ №{{ getOrderNumber($order) }}
-                </h2>
-
+                <a href="{{ URL::route('moderator-order-edit',$order->id) }}" class="icon--blue pull-right"><span class="icon icon-red"></span></a>
+                <h2>Заказ №{{ getOrderNumber($order) }}</h2>
                 <div class="style-light margin-bottom-10">
                     Заказчик:
-                @if($order->organization->count())
+                @if(!empty($order->organization))
                     <a class="icon--blue" href="{{ URL::route('moderator-company-profile',$order->organization->id) }}">{{ $order->organization->title }}</a>
-                @elseif($order->individual->count())
-                    <a class="icon--blue" href="{{ URL::route('moderator-individual-profile',$order->individual->id) }}">{{ $order->individual->fio }}</a>
+                @elseif(!empty($order->individual))
+                    <a class="icon--blue" href="{{ URL::route('moderator-listener-profile',$order->individual->id) }}">{{ $order->individual->fio }}</a>
                 @endif
                 </div>
                 @foreach($order->listeners as $listener)
                 <?php $order_price += $listener->price;?>
                 @endforeach
-
                 <div class="orders-status style-light">
                     {{ $order->payment->title }}
                 </div>
@@ -40,19 +34,14 @@
                 </div>
             </div>
         </div>
-
-
         <div>
             <div class="moder-order-docs margin-top-20">
                 Документы:
                 @include(Helper::acclayout('assets.documents'))
             </div>
         </div>
-
-
         <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
             <div class="payment-select margin-top-10 pull-right">
-                {{ Form::select('payments_status',PaymentStatus::lists('title','id'),$order->payment_status,array('class'=>'select js-set-order-payment-status','autocomplete'=>'off','data-action' => URL::route('change-order-status',array('order_id'=>$order->id)))) }}
                 <div class="select-payments margin-bottom-10 margin-top-30 text-right">
                     <a href="javasccript:void(0);" class="font-sm margin-right-10 js-check-all-payments">Добавить всех</a>
                     <a href="javasccript:void(0);" class="font-sm js-uncheck-all-payments">Убрать всех</a>
@@ -97,13 +86,16 @@
         </td>
         <td class="purchase-price">{{ $listener->price }} руб.</td>
         <td>
-            {{ Form::checkbox('access_status',1,$listener->access_status,array('class'=>'js-set-listener-access','autocomplete'=>'off','data-action' => URL::route('order-listener-access',array('order_id'=>$order->id,'order_listener_id'=>$listener->id)) )) }}
+            {{ Form::checkbox('access_status',$listener->id,$listener->access_status,array('class'=>'js-set-listener-access','autocomplete'=>'off')) }}
         </td>
     </tr>
         @endforeach
     @endif
 @endforeach
 </table>
+<button type="submit" autocomplete="off" class="btn btn--bordered btn--blue js-set-listeners-access btn-form-submit" data-action = "{{ URL::route('order-listener-access',array('order_id'=>$order->id)) }}">
+    <i class="fa fa-spinner fa-spin hidden"></i> <span class="btn-response-text">Применить</span>
+</button>
 <div class="sum-block margin-bottom-40">
     <div class="count-add">
         <div class="container-fluid">

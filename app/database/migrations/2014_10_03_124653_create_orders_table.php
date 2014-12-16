@@ -18,6 +18,10 @@ class CreateOrdersTable extends Migration {
                 $table->boolean('close_status')->default(0)->nullable();
                 $table->timestamp('close_date');
                 $table->boolean('archived')->default(0)->nullable();
+
+                $table->boolean('study_status')->default(0)->nullable();
+                $table->timestamp('study_date');
+
                 $table->integer('contract_id')->default(1)->nullable()->unsigned()->index();
                 $table->integer('invoice_id')->default(1)->nullable()->unsigned()->index();
                 $table->integer('act_id')->default(1)->nullable()->unsigned()->index();

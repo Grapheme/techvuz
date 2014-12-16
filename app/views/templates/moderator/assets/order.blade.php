@@ -33,10 +33,10 @@
         <div class="orders-company">
             Заказчик:
             <div>
-            @if($order->organization->count())
+            @if(!empty($order->organization))
                 <a href="{{ URL::route('moderator-company-profile',$order->organization->id) }}">{{ $order->organization->title }}</a>
-            @elseif($order->individual->count())
-                <a href="{{ URL::route('moderator-individual-profile',$order->individual->id) }}">{{ $order->individual->fio }}</a>
+            @elseif(!empty($order->individual))
+                <a href="{{ URL::route('moderator-listener-profile',$order->individual->id) }}">{{ $order->individual->fio }}</a>
             @endif
             </div>
         </div>
@@ -60,11 +60,9 @@
         @else
             <?php $formAction = URL::route('moderator-order-arhived',array('order_id'=>$order->id));?>
         @endif
-            {{ Form::open(array('url'=>$formAction, 'style'=>'display:inline-block', 'method'=>'delete')) }}
-                <button type="submit" autocomplete="off" title="Удалить заказ" data-order-number="{{ getOrderNumber($order) }}" class="icon-bag-btn js-delete-order">
-                    
-                </button>
-            {{ Form::close() }}
+        {{ Form::open(array('url'=>$formAction, 'style'=>'display:inline-block', 'method'=>'delete')) }}
+            <button type="submit" autocomplete="off" title="Удалить заказ" data-order-number="{{ getOrderNumber($order) }}" class="icon-bag-btn js-delete-order"></button>
+        {{ Form::close() }}
         </div>
     </div>
 @endif

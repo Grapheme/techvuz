@@ -127,62 +127,55 @@ var validation_order_update_messages = {
 };
 
 function scrollToError(elem) {
-    $('html, body').animate({
-        scrollTop: elem.offset().top
-    }, 200);
+    $('html, body').animate({scrollTop: elem.offset().top}, 200);
 }
 
 $(function(){
     function SetListenerAccess($this){
+
         $.ajax({
             url: $($this).attr('data-action'),
+            data : { 'value' : $value },
             type: 'POST', dataType: 'json',
-            beforeSend: function(){},
-            success: function(response,textStatus,xhr){
-                if(response.status == true) {
-                    if (response.responseOrderStatus !== false){
-                        $(".js-set-order-payment-status").val(response.responseOrderStatus);
-                        $(".js-set-order-payment-status").selectmenu("refresh");
-                        console.log(response.responseOrderStatus);
-                    }
-                }
+            beforeSend: function(){
+                $($($this)).elementDisabled(true);
             },
-            error: function(xhr,textStatus,errorThrown){}
+            success: function(response,textStatus,xhr){
+                $($($this)).elementDisabled(false);
+            },
+            error: function(xhr,textStatus,errorThrown){
+                $($($this)).elementDisabled(false);
+            }
         });
     }
-    $(".js-check-all-payments").click(function(){
-        $(".js-set-listener-access").each(function(index,element){SetListenerAccess(element);});
+    $(".js-set-listeners-access").click(function(){
+
+        var $this = this;
+        var $listeners = '';
+        $(".js-set-listener-access").each(function(index,element){
+            if($(element).is(':checked')){
+                $listeners = $listeners + '{"'+ $(element).val() + '":"' + '1"},';
+            }else{
+                $listeners = $listeners + '{"' + $(element).val() + '":"' + '0"},';
+            }
+        });
+        $listeners = '['+$listeners.slice(0, -1)+']';
+
+        $.ajax({
+            url: $($this).attr('data-action'),
+            data : { courses : $.parseJSON($listeners) },
+            type: 'POST', dataType: 'json',
+            beforeSend: function(){
+                $($this).elementDisabled(true);
+            },
+            success: function(response,textStatus,xhr){
+                $($this).elementDisabled(false);
+            },
+            error: function(xhr,textStatus,errorThrown){
+                $($this).elementDisabled(false);
+            }
+        });
     });
-    $(".js-uncheck-all-payments").click(function(){
-        $(".js-set-listener-access").each(function(index,element){SetListenerAccess(element);});
-    });
-    $(".js-set-order-payment-status").selectmenu({
-        change: function( event, ui ) {
-            var $this = this;
-            var $status = ui.item.value;
-            $.ajax({
-                url: $($this).attr('data-action'),
-                data: { status : $status},
-                type: 'POST', dataType: 'json',
-                beforeSend: function(){},
-                success: function(response,textStatus,xhr){
-                    if(response.status == true) {
-                        if ($status == 2) {
-                            $(".js-set-listener-access").prop('checked', true);
-                        } else if($status == 4) {
-                            $(".js-set-listener-access").prop('checked', true);
-                        } else if($status == 5) {
-                            $(".js-set-listener-access").prop('checked', true);
-                        } else if($status == 6) {
-                            $(".js-set-listener-access").prop('checked', false);
-                        }
-                    }
-                },
-                error: function(xhr,textStatus,errorThrown){}
-            });
-        }
-    });
-    $(".js-set-listener-access").click(function(){SetListenerAccess(this);});
     $(".js-delete-order").click(function() {
         var $this = this;
         var $order = $($this).data('order-number');
