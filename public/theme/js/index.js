@@ -744,8 +744,10 @@ var Courses = (function(){
 		$checked.each( function(){
 			if( existsCookie[ $(this).val() ] && existsCookie[ $(this).val() ].length > 0 ) {
 				renderArr[ $(this).val() ] = existsCookie[ $(this).val() ];
+				console.log('value exists');
 			} else {
 				renderArr[ $(this).val() ] = [];
+				console.log('value does not exist');
 			}
 		});
 
