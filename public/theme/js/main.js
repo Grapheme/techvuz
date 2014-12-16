@@ -453,7 +453,7 @@ var Popup = (function(){
 
 		if( $staticDiscount < $valueDiscount && $listenersLength >= $countDiscount ) {
 			$priceCount = $priceCount * (100 - $valueDiscount) / 100;
-			$staticDiscount.text( ($priceCount + '').replace(/(\d)(?=(\d{3})+$)/g, '$1 ') + '.-' );
+			$discountField.text( ($priceCount + '').replace(/(\d)(?=(\d{3})+$)/g, '$1 ') + '.-' );
 		}
 
 		//2. Set price
