@@ -30,7 +30,7 @@
         @foreach(Courses::whereIn('id',getJsonCookieData('ordering'))->with('direction')->get() as $course)
             {{ Form::hidden('courses[]',$course->id) }}
             <dt class="purchase-course-dt">
-                <table class="tech-table purchase-table" data-courseid="{{ $course->id }}">
+                <table class="tech-table purchase-table" data-static-discount="20" data-courseid="{{ $course->id }}">
                     <tr>
                         <th>Название</th>
                         <th>Код</th>
@@ -52,11 +52,14 @@
                             <td class="purchase-price" data-price="{{ number_format($course->price,0,'.','') }}">
                                 <div class="start-price margin-bottom-10">
                                     {{ number_format($course->price,0,'.',' ') }}.–
-                                </div>                                
+                                </div>
+                                <div class="discount-price">
+                                    
+                                </div>                            
                             </td>
                         @else
                             <td class="purchase-price" data-price="{{ number_format($discountPrice,0,'.','') }}">
-                                <div class="start-price margin-bottom-10" style="text-decoration: line-throught">
+                                <div class="start-price margin-bottom-10" style="text-decoration: line-through;">
                                     {{ number_format($course->price,0,'.',' ') }}.–
                                 </div>
                                 <div class="discount-price">
