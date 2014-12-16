@@ -54,7 +54,6 @@
                                     {{ number_format($course->price,0,'.',' ') }}.–
                                 </div>
                                 <div class="discount-price">
-                                    {{ number_format($course->price,0,'.',' ') }}.–
                                 </div>                            
                             </td>
                         @else
