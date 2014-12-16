@@ -549,8 +549,6 @@ var Popup = (function(){
 		}
 		
 		$select.trigger("chosen:updated");
-		$('.chosen-select').trigger('change');
-		countSum();
     }
 
     function makeCoursesJson(elem) {
