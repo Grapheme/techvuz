@@ -745,9 +745,11 @@ var Courses = (function(){
 			if( existsCookie[ $(this).val() ] && existsCookie[ $(this).val() ].length > 0 ) {
 				renderArr[ $(this).val() ] = existsCookie[ $(this).val() ];
 				console.log('value exists');
+				console.log(renderArr);
 			} else {
 				renderArr[ $(this).val() ] = [];
 				console.log('value does not exist');
+				console.log(renderArr);
 			}
 		});
 
