@@ -637,15 +637,10 @@ var Popup = (function(){
         $listeners.text( $listenersLength );
         
         //2. Search for discount
-        
-
-        console.log('Listeners length' + $listenersLength);
-        console.log('$countDiscount' + $countDiscount);
-        console.log('$valueDiscount' + $valueDiscount);
 
 		if( $listenersLength >= $countDiscount ) {
-			$priceCount = $priceCount * $valueDiscount / 100;
-			console.log('gogo');
+			$priceCount = $priceCount * (100 - $valueDiscount) / 100;
+			console.log($priceCount);
 		}
 
 		//2. Set price
