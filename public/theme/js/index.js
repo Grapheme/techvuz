@@ -715,21 +715,21 @@ var Courses = (function(){
 
 	//Загружаем чекнутые боксы on document ready
 	$( function(){
-		var ordering = $.cookie('ordering') ? JSON.parse( $.cookie('ordering').split(',') ) : '';
+		// var ordering = $.cookie('ordering') ? JSON.parse( $.cookie('ordering').split(',') ) : '';
 
-		//Сбрасываем чекбоксы, которые запомнил браузер
-		$secondaryCheckbox.prop('checked', false);
+		// //Сбрасываем чекбоксы, которые запомнил браузер
+		// $secondaryCheckbox.prop('checked', false);
 
-		for (var key in ordering) {
-			$secondaryCheckbox.filter('[value="' + key + '"]').prop('checked', true);
-		}
+		// for (var key in ordering) {
+		// 	$secondaryCheckbox.filter('[value="' + key + '"]').prop('checked', true);
+		// }
 
-		//Если есть чекнутые чекбоксы - показываем кнопку "Далее"
-		if( jQuery.isEmptyObject( ordering ) || !ordering ) {
-			$accBtn.hide();
-		} else {
-			$accBtn.show();
-		}
+		// //Если есть чекнутые чекбоксы - показываем кнопку "Далее"
+		// if( jQuery.isEmptyObject( ordering ) || !ordering ) {
+		// 	$accBtn.hide();
+		// } else {
+		// 	$accBtn.show();
+		// }
 
 	});
 
