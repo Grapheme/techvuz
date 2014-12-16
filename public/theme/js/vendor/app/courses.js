@@ -33,15 +33,11 @@ var Courses = (function(){
 		var existsCookie = $.cookie('ordering') ? JSON.parse( $.cookie('ordering') ) : {};
 
 		$checked.each( function(){
-			if( existsCookie[ $(this).val() ] && existsCookie[ $(this).val() ].length > 0 ) {
-				renderArr[ $(this).val() ] = existsCookie[ $(this).val() ];
-				console.log('value exists');
-				console.log(renderArr);
-			} else {
+			// if( existsCookie[ $(this).val() ] && existsCookie[ $(this).val() ].length > 0 ) {
+			// 	renderArr[ $(this).val() ] = existsCookie[ $(this).val() ];
+			// } else {
 				renderArr[ $(this).val() ] = [];
-				console.log('value does not exist');
-				console.log(renderArr);
-			}
+			// }
 		});
 
 		$.cookie('ordering', JSON.stringify(renderArr), { path: '/' });
