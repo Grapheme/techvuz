@@ -459,10 +459,16 @@ var Popup = (function(){
 
 			if( $priceCount != $realPrice ) {
 				$discountField.text( ($priceCount + '').replace(/(\d)(?=(\d{3})+$)/g, '$1 ') + '.-' );
+			} else {
+				$discountField.text('');
 			}
 			
 		} else {
-			$discountField.text($priceCount);
+			if( $priceCount != $realPrice ) {
+				$discountField.text( ($priceCount + '').replace(/(\d)(?=(\d{3})+$)/g, '$1 ') + '.-' );
+			} else {
+				$discountField.text('');
+			}
 		}
 
 		//2. Set price
