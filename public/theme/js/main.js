@@ -462,7 +462,7 @@ var Popup = (function(){
 			}
 			
 		} else {
-			$discountField.text($priceCount + '.-');
+			$discountField.text( ($priceCount + '').replace(/(\d)(?=(\d{3})+$)/g, '$1 ') + '.-' );
 		}
 
 		//2. Set price
