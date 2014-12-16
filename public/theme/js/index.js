@@ -637,8 +637,8 @@ var Popup = (function(){
         $listeners.text( $listenersLength );
         
         //2. Search for discount
-        var $discountField = $elem.parents('.purchase-table').find('.discount-price');
-        var $staticDiscount = $elem.parents('.purchase-table').data('static-discount');
+        var $discountField = elem.parents('.purchase-table').find('.discount-price');
+        var $staticDiscount = elem.parents('.purchase-table').data('static-discount');
 
 		if( $staticDiscount < $valueDiscount && $listenersLength >= $countDiscount ) {
 			$priceCount = $priceCount * (100 - $valueDiscount) / 100;
