@@ -54,6 +54,8 @@ Route::group(array('before' => 'guest.auth', 'prefix' => ''), function(){
 Route::get('login', array('before' => 'login', 'as' => 'login', 'uses' => 'GlobalController@loginPage'));
 Route::get('logout', array('as' => 'logout', 'uses' => 'GlobalController@logout'));
 
+Route::post('check-email',array('as' => 'check-email', 'uses' => 'GlobalController@checkEmail'));
+
 #################################################################
 
 

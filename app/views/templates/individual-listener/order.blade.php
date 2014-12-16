@@ -56,7 +56,7 @@
         foreach($courses_list as $course_id => $course):
             $courses[$course_id]['course'] = $course['course'];
             foreach($course['listeners'] as $index => $listener):
-                $courses[$course_id]['listeners'][$index]['id'] = $listener->user_listener->id;
+                $courses[$course_id]['listeners'][$index]['id'] = $listener->id;
                 $courses[$course_id]['listeners'][$index]['price'] = $listener->price;
                 $courses[$course_id]['listeners'][$index]['access_status'] = $listener->access_status;
                 $courses[$course_id]['listeners'][$index]['over_status'] = $listener->over_status;
@@ -68,8 +68,8 @@
                 @foreach($course['listeners'] as $index => $listener)
             <tr>
                 <td class="vertical-top">
-                @if($listener_course->access_status == 1 && $listener_course->over_status == 0)
-                    <a href="{{ URL::route('individual-study-course',$listener_course->id.'-'.BaseController::stringTranslite($listener_course->course->title,100)) }}">{{ $listener_course->course->code }}. {{ $listener_course->course->title }}</a>
+                @if($listener['access_status'] == 1 && $listener['over_status'] == 0)
+                    <a href="{{ URL::route('individual-study-course',$listener['id'].'-'.BaseController::stringTranslite($course['course']['title'],100)) }}">{{ $course['course']['code'] }}. {{{ $course['course']['title'] }}}</a>
                 @else
                     <a href="{{ URL::route('course-page',$course['course']['url']) }}">
                         {{ $course['course']['code'] }}. {{{ $course['course']['title'] }}}

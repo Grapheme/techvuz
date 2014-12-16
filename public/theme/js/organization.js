@@ -4,7 +4,27 @@ var validation_signup_listener = {
     fio: { required: true },
     fio_dat: { required: true },
     position: { required: true },
-    email: { required: true, email: true },
+    email: {
+        required: true,
+        email: true,
+        remote: {
+            url: "/check-email",
+            type: "post",
+            data: {
+                email: function() {
+                    return $("#signup-listener-form input[name='email']").val();
+                }
+            },
+            dataType: "json",
+            success: function (data) {
+                if (data.email == true) {
+                    message: {
+                        name: data.message;
+                    }
+                }
+            }
+        }
+    },
     postaddress: { required: true },
     phone: { required: true },
     education: { required: true },
@@ -18,7 +38,7 @@ var validation_signup_messages_listener = {
     fio: { required: 'Укажите Ф.И.О.' },
     fio_dat: { required: 'Укажите Ф.И.О. в дат. падеже' },
     position: { required: 'Укажите должность' },
-    email: { required: 'Укажите контактный E-mail','email': 'Некорректный E-mail' },
+    email: { required: 'Укажите контактный E-mail','email': 'Некорректный E-mail','remote': 'Email уже зарегистрирован' },
     postaddress: { required: 'Укажите почтовый адрес' },
     phone: { required: 'Укажите контактный номер' },
     education: { required: 'Укажите образование' },

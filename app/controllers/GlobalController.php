@@ -151,4 +151,19 @@ class GlobalController extends \BaseController {
 		return FALSE;
 	}
 
+	public function checkEmail(){
+
+		$json_request = array('email'=> FALSE,'message'=>Lang::get('interface.SIGNUP.email_exist'));
+		if(Request::ajax()):
+			$validator = Validator::make(Input::all(),array('email'=>'required|email'));
+			if($validator->passes()):
+				if(User::where('email',Input::get('email'))->exists()):
+					$json_request['email'] = TRUE;
+				endif;
+			endif;
+		else:
+			return App::abort(404);
+		endif;
+		return Response::json($json_request,200);
+	}
 }

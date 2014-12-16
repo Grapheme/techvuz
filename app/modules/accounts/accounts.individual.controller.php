@@ -21,7 +21,15 @@ class AccountsIndividualController extends BaseController {
                 Route::get('order/{order_id}', array('as' => 'individual-order', 'uses' => $class . '@IndividualOrderShow'));
                 Route::delete('order/{order_id}/delete', array('as' => 'individual-order-delete', 'uses' => $class . '@IndividualDeleteOrder'));
 
-                Route::get('study', array('as' => 'individual-study', 'uses' => $class . '@IndividualStudyProgressList'));
+                Route::get('study', array('as' => 'individual-study', 'uses' => $class . '@ListenerStudyList'));
+                Route::get('study/course/{course_translite_title}', array('as' => 'individual-study-course', 'uses' => $class . '@ListenerStudyCourse'));
+                Route::post('study/course/{study_course_id}/lecture/{lecture_id}/download', array('before' => 'csrf', 'as' => 'listener-study-download-lecture', 'uses' => $class . '@ListenerStudyLectureDownload'));
+                Route::post('study/course/{study_course_id}/lectures/download', array('before' => 'csrf', 'as' => 'listener-study-download-lectures', 'uses' => $class . '@ListenerStudyLecturesDownload'));
+                Route::get('study/course/{course_translite_title}/test/{test_id}', array('as' => 'listener-study-testing', 'uses' => $class . '@ListenerStudyTesting'));
+                Route::post('study/course/{course_id}/test/{test_id}/finish', array('before' => 'csrf', 'as' => 'listener-study-test-finish', 'uses' => $class . '@ListenerStudyTestFinish'));
+                Route::get('study/course/{course_translite_title}/test/{study_test_id}/result', array('as' => 'listener-study-test-result', 'uses' => $class . '@ListenerStudyTestResult'));
+
+
                 Route::get('notifications', array('as' => 'individual-notifications', 'uses' => $class . '@IndividualNotificationsList'));
                 Route::delete('notification/{notification_id}/delete', array('as' => 'individual-notification-delete', 'uses' => $class . '@IndividualNotificationDelete'));
             });
@@ -190,16 +198,6 @@ class AccountsIndividualController extends BaseController {
         return Response::json($json_request, 200);
     }
 
-    public function IndividualStudyProgressList(){
-
-        $page_data = array(
-            'page_title'=> Lang::get('seo.COMPANY_STUDY_PROGRESS_LIST.title'),
-            'page_description'=> Lang::get('seo.COMPANY_STUDY_PROGRESS_LIST.description'),
-            'page_keywords'=> Lang::get('seo.COMPANY_STUDY_PROGRESS_LIST.keywords'),
-        );
-        return View::make(Helper::acclayout('study-progress'),$page_data);
-    }
-
     public function IndividualNotificationsList(){
 
         $page_data = array(
@@ -229,6 +227,18 @@ class AccountsIndividualController extends BaseController {
             DicFieldVal::where('dicval_id',$notification_id)->delete();
         endif;
         return Redirect::back();
+    }
+
+    /**************************************************************************/
+
+    public function ListenerStudyList(){
+
+        $page_data = array(
+            'page_title'=> Lang::get('seo.COMPANY_STUDY_PROGRESS_LIST.title'),
+            'page_description'=> Lang::get('seo.COMPANY_STUDY_PROGRESS_LIST.description'),
+            'page_keywords'=> Lang::get('seo.COMPANY_STUDY_PROGRESS_LIST.keywords'),
+        );
+        return View::make(Helper::acclayout('study-progress'),$page_data);
     }
 
     /**************************************************************************/

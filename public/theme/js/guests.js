@@ -44,7 +44,28 @@ var validation_signup_ul = {
         minlength: 9,
         maxlength: 9
     },
-    email: { required: true, email: true },
+    email: {
+        required: true,
+        email: true,
+        remote: {
+            url: "/check-email",
+            type: "post",
+            data: {
+                email: function() {
+                    return $("#signup-ul-form input[name='email']").val();
+                }
+            },
+            dataType: "json",
+            success: function (data) {
+                if (data.email == true) {
+                    message: {
+                        email: data.message;
+                    }
+                    return false;
+                }
+            }
+        }
+    },
     name: { required: true },
     phone: { required: true },
     consent: { required: true }
@@ -80,7 +101,7 @@ var validation_signup_messages_ul = {
         minlength: 'Укажите БИК 9 знаков!',
         maxlength: 'Укажите БИК 9 знаков!'
     },
-    email: { required: 'Укажите контактный E-mail','email': 'Некорректный E-mail' },
+    email: { required: 'Укажите контактный E-mail','email': 'Некорректный E-mail','remote': 'Email уже зарегистрирован' },
     name: { required: 'Укажите контактное лицо' },
     phone: { required: 'Укажите контактный номер' },
     consent: { required: '' }
@@ -95,7 +116,28 @@ var validation_signup_fl = {
     passport_date: { required: true },
     code: { required: true },
     postaddress: { required: true },
-    email: { required: true, email: true },
+    email: {
+        required: true,
+        email: true,
+        remote: {
+            url: "/check-email",
+            type: "post",
+            data: {
+                email: function() {
+                    return $("#signup-fl-form input[name='email']").val();
+                }
+            },
+            dataType: "json",
+            success: function (data) {
+                if (data.email == true) {
+                    message: {
+                        email: data.message;
+                    }
+                    return false;
+                }
+            }
+        }
+    },
     phone: { required: true },
     consent: { required: true }
 };
@@ -109,7 +151,7 @@ var validation_signup_messages_fl = {
     passport_date: { required: 'Укажите дату выдачи паспорта' },
     code: { required: 'Укажите rод подразделения' },
     postaddress: { required: 'Укажите почтовый адрес' },
-    email: { required: 'Укажите контактный E-mail','email': 'Некорректный E-mail' },
+    email: { required: 'Укажите контактный E-mail','email': 'Некорректный E-mail','remote': 'Email уже зарегистрирован' },
     phone: { required: 'Укажите контактный номер' },
     consent: { required: '' }
 };
