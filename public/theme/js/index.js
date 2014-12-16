@@ -510,6 +510,10 @@ var Popup = (function(){
 	var $finishBtn = $('.js-coursebuy-finish');
 	var $deleteBtn = $('.js-delete-course');
 
+	var $discParent = $('.purchase-course-dl');
+    var $countDiscount = $discParent.data('count-discount');
+    var $valueDiscount = $discParent.data('value-discount');
+
 	$select.chosen({
 		no_results_text: 'Ничего не найдено'
     });
@@ -627,11 +631,30 @@ var Popup = (function(){
         var $listeners = $boundDt.find('.purchase-listeners');
         //Length of active listeners
         var $listenersLength = elem.find('option:selected').length;
+        //Real course price
+        var $realPrice = $price.data('real-price');
         
         //Function actions
         //1. Fill active listeners
         $listeners.text( $listenersLength );
-        //2. Set price
+        
+        //2. Search for discount
+        var $startPrice = $boundDt.find('.start-price');
+        var $discountField = $boundDt.find('.discount-price');
+        var $staticDiscount = elem.parents('.purchase-table').data('static-discount');
+
+		if( $staticDiscount < $valueDiscount && $listenersLength >= $countDiscount ) {
+			$priceCount = $realPrice * (100 - $valueDiscount) / 100;
+
+			if( $priceCount != $realPrice ) {
+				$discountField.text( ($priceCount + '').replace(/(\d)(?=(\d{3})+$)/g, '$1 ') + '.-' );
+			}
+			
+		} else {
+			$discountField.text($priceCount);
+		}
+
+		//2. Set price
         $priceSum.text( ($listenersLength * $priceCount) ? ( ($listenersLength * $priceCount) + '' ).replace(/(\d)(?=(\d{3})+$)/g, '$1 ') + '.-' : '0.-' );
     }
 
