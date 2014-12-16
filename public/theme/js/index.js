@@ -651,7 +651,7 @@ var Popup = (function(){
 			}
 			
 		} else {
-			$discountField.text( ($priceCount + '').replace(/(\d)(?=(\d{3})+$)/g, '$1 ') + '.-' );
+			$discountField.text( (($priceCount + '').replace(/(\d)(?=(\d{3})+$)/g, '$1 ') + '.-') || $realPrice );
 		}
 
 		//2. Set price
