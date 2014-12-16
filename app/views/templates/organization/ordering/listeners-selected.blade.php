@@ -58,7 +58,7 @@
                                 </div>                            
                             </td>
                         @else
-                            <td class="purchase-price" data-price="{{ number_format($discountPrice,0,'.','') }}">
+                            <td class="purchase-price" data-real-price="{{ number_format($course->price,0,'.','') }}" data-price="{{ number_format($discountPrice,0,'.','') }}">
                                 <div class="start-price margin-bottom-10" style="text-decoration: line-through;">
                                     {{ number_format($course->price,0,'.',' ') }}.–
                                 </div>
