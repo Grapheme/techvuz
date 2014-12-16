@@ -651,7 +651,7 @@ var Popup = (function(){
 			}
 			
 		} else {
-			$discountField.text($priceCount);
+			$discountField.text($priceCount + '.-');
 		}
 
 		//2. Set price
