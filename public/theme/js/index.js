@@ -778,6 +778,7 @@ var Courses = (function(){
 	});
 
 })();
+
 var Payments = (function(){
 	var $deletePayment = $('.js-delete-payment');
 	var $editPayment = $('.js-edit-payment');
