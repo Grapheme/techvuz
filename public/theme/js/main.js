@@ -321,6 +321,10 @@ var Popup = (function(){
 	var $finishBtn = $('.js-coursebuy-finish');
 	var $deleteBtn = $('.js-delete-course');
 
+	var $discParent = $('.purchase-course-dl');
+    var $countDiscount = $discParent.data('count-discount');
+    var $valueDiscount = $discParent.data('value-discount');
+
 	$select.chosen({
 		no_results_text: 'Ничего не найдено'
     });
@@ -444,13 +448,11 @@ var Popup = (function(){
         $listeners.text( $listenersLength );
         
         //2. Search for discount
-        var $discParent = $('.purchase-course-dl');
-        var $countDiscount = $discParent.data('count-discount');
-        var $valueDiscount = $discParent.data('value-discount');
+        
 
-        console.log($listenersLength);
-        console.log($countDiscount);
-        console.log($valueDiscount);
+        console.log('Listeners length' + $listenersLength);
+        console.log('$countDiscount' + $countDiscount);
+        console.log('$valueDiscount' + $valueDiscount);
 
 		if( $listenersLength >= $countDiscount ) {
 			$priceCount = $priceCount * $valueDiscount / 100;
