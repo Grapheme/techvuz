@@ -238,7 +238,114 @@ class AccountsIndividualController extends BaseController {
             'page_description'=> Lang::get('seo.COMPANY_STUDY_PROGRESS_LIST.description'),
             'page_keywords'=> Lang::get('seo.COMPANY_STUDY_PROGRESS_LIST.keywords'),
         );
-        return View::make(Helper::acclayout('study-progress'),$page_data);
+        return View::make(Helper::acclayout('study-list'),$page_data);
+    }
+
+    public function ListenerStudyCourse($course_translit){
+
+        $listenerCourseID = (int) $course_translit;
+        $listenerCourse = OrderListeners::where('id',$listenerCourseID)
+            ->where('user_id',Auth::user()->id)
+            ->where('access_status',1)
+            ->with('order')
+            ->first();
+        if (empty($listenerCourse) || !$listenerCourseID || $listenerCourse->order->close_status == 1):
+            return Redirect::route('individual-study');
+        endif;
+        $module = Courses::where('id',$listenerCourse->course_id)->with(array('chapters'=>function($query) use ($listenerCourseID){
+            $query->orderBy('order');
+            $query->with(array('lectures'=>function($query_lecture){
+                $query_lecture->orderBy('order');
+                $query_lecture->with('downloaded_lecture');
+            }));
+            $query->with('test');
+            $query->with(array('test.user_test_has100'=>function($query) use ($listenerCourseID){
+                $query->where('order_listeners_id',$listenerCourseID);
+            }));
+            $query->with(array('test.user_test_success'=>function($query) use ($listenerCourseID){
+                $query->where('order_listeners_id',$listenerCourseID);
+            }));
+        }))->with('test')->with(array('metodicals'=>function($query){
+            $query->orderBy('order');
+            $query->with('document');
+        }))->first();
+        $page_data = array(
+            'page_title'=> Lang::get('seo.COMPANY_LISTENER_STUDY_COURSE.title'),
+            'page_description'=> Lang::get('seo.COMPANY_LISTENER_STUDY_COURSE.description'),
+            'page_keywords'=> Lang::get('seo.COMPANY_LISTENER_STUDY_COURSE.keywords'),
+            'study_course' => $listenerCourse,
+            'module' => $module
+        );
+        return View::make(Helper::acclayout('study-course'),$page_data);
+    }
+
+    public function ListenerStudyLectureDownload($study_course_id,$lecture_id){
+
+        $listenerCourse = OrderListeners::where('id',$study_course_id)
+            ->where('user_id',Auth::user()->id)
+            ->where('access_status',1)
+            ->with('order')
+            ->first();
+        if (empty($listenerCourse)  || $listenerCourse->order->close_status == 1):
+            return Redirect::route('individual-study');
+        endif;
+        if(Lectures::where('id',$lecture_id)->exists()):
+            $lecture = Lectures::where('id',$lecture_id)->with('document')->first()->toArray();
+            if (isset($lecture['document']['path']) && File::exists(public_path($lecture['document']['path']))):
+                if($listenerCourse->start_status == 0):
+                    Event::fire('individual.study.begin',array(array('accountID'=>Auth::user()->id,'course'=>OrderListeners::where('id',$study_course_id)->first()->course()->pluck('code'),'listener'=>User_individual::where('id',Auth::user()->id)->pluck('fio'))));
+                endif;
+                Event::fire('listener.start.course.study', array(array('listener_course_id'=>$study_course_id)));
+                if(!User_lectures_download::where('user_id',Auth::user()->id)->where('lecture_id',$lecture_id)->exists()):
+                    User_lectures_download::create(array('user_id'=>Auth::user()->id,'lecture_id'=>$lecture_id));
+                endif;
+                $headers = returnDownloadHeaders($lecture['document']);
+                return Response::download(public_path($lecture['document']['path']), $lecture['document']['original_name'], $headers);
+            else:
+                return Redirect::back();
+            endif;
+        else:
+            return Redirect::back();
+        endif;
+    }
+
+    public function ListenerStudyLecturesDownload($study_course_id){
+
+        $listenerCourse = OrderListeners::where('id',$study_course_id)
+            ->where('user_id',Auth::user()->id)
+            ->where('access_status',1)
+            ->with('order')
+            ->first();
+        if (empty($listenerCourse)  || $listenerCourse->order->close_status == 1):
+            return Redirect::route('individual-study');
+        endif;
+        if(Lectures::where('course_id',$listenerCourse->course_id)->exists()):
+            $lectures = Lectures::where('course_id',$listenerCourse->course_id)->with('document')->get();
+            $documents = array();
+            foreach($lectures as  $lecture):
+                if(!User_lectures_download::where('user_id',Auth::user()->id)->where('lecture_id',$lecture->id)->exists()):
+                    User_lectures_download::create(array('user_id'=>Auth::user()->id,'lecture_id'=>$lecture->id));
+                endif;
+                $lecture = $lecture->toArray();
+                if (isset($lecture['document']['path']) && File::exists(public_path($lecture['document']['path']))):
+                    $documents[] = preg_replace('|([/]+)|s', '/', public_path($lecture['document']['path']));
+                endif;
+            endforeach;
+            if (!empty($documents)):
+                $zipFilePath = sys_get_temp_dir().'/'.sha1(time().Auth::user()->id).'.zip';
+                $zipper = new \Chumper\Zipper\Zipper();
+                $zipper->make($zipFilePath)->add($documents)->close();
+                if (File::exists($zipFilePath)):
+                    if($listenerCourse->start_status == 0):
+                        Event::fire('individual.study.begin',array(array('accountID'=>User_listener::where('id',Auth::user()->id)->first()->organization()->pluck('id'),'course'=>OrderListeners::where('id',$study_course_id)->first()->course()->pluck('code'),'listener'=>User_listener::where('id',Auth::user()->id)->pluck('fio'))));
+                    endif;
+                    Event::fire('listener.start.course.study', array(array('listener_course_id'=>$study_course_id)));
+                    $headers = returnZipDownloadHeaders($zipFilePath);
+                    return Response::download($zipFilePath, 'all-lectures.zip.', $headers);
+                endif;
+            endif;
+        endif;
+        return Redirect::back();
     }
 
     /**************************************************************************/

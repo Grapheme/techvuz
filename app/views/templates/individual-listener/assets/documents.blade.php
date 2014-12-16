@@ -4,7 +4,7 @@
         <li class="col-xs-4 col-sm-4 col-md-4 col-lg-4 order-docs-li">
             <div class="order-docs-cont">
                 <div class="order-docs-head docs">
-                    <a class="reset-link" href="{{ URL::route('individual-order-contract',array('order_id'=>$order->id,'format'=>'pdf')) }}"></a>
+                    <a class="reset-link" href="{{ URL::route('individual-listener-order-contract',array('order_id'=>$order->id,'format'=>'pdf')) }}"></a>
                 </div>
                 <div class="order-docs-body">
                     <h2>Договор</h2>
@@ -17,7 +17,7 @@
         <li class="col-xs-4 col-sm-4 col-md-4 col-lg-4 order-docs-li">
             <div class="order-docs-cont">
                 <div class="order-docs-head bill">
-                    <a class="reset-link" href="{{ URL::route('individual-order-invoice',array('order_id'=>$order->id,'format'=>'pdf')) }}"></a>
+                    <a class="reset-link" href="{{ URL::route('individual-listener-order-invoice',array('order_id'=>$order->id,'format'=>'pdf')) }}"></a>
                 </div>
                 <div class="order-docs-body">
                     <h2>Счет</h2>
@@ -31,7 +31,7 @@
         <li class="col-xs-4 col-sm-4 col-md-4 col-lg-4 order-docs-li">
             <div class="order-docs-cont">
                 <div class="order-docs-head acts">
-                    <a class="reset-link" href="{{ URL::route('individual-order-act',array('order_id'=>$order->id,'format'=>'pdf')) }}"></a>
+                    <a class="reset-link" href="{{ URL::route('individual-listener-order-act',array('order_id'=>$order->id,'format'=>'pdf')) }}"></a>
                 </div>
                 <div class="order-docs-body">
                     <h2>Акт</h2>

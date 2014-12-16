@@ -38,7 +38,7 @@ class AccountGroupsController extends \BaseController {
         if (is_null($account)):
             $account = Auth::user();
         endif;
-        $lostDays = myDateTime::getDiffDate(date("Y-m-d H:i:s",time()),date("Y-m-d H:i:s",$account->code_life));
+        $lostDays = myDateTime::getDiffDate(date("Y-m-d H:i:s"),date("Y-m-d H:i:s",$account->code_life));
         if($account->active == 0):
             return array('status'=>FALSE,'code'=>0,'days'=>$lostDays,'message'=>Lang::get('interface.ACCOUNT_STATUS.blocked'));
         elseif ($account->active == 1):

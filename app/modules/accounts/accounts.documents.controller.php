@@ -13,7 +13,7 @@ class AccountsDocumentsController extends BaseController {
     public static function returnRoutes($prefix = null) {
         $class = __CLASS__;
         if (Auth::check()):
-            $prefix = Auth::user()->group()->pluck('name');
+            $prefix = Auth::user()->group()->pluck('dashboard');
             Route::group(array('before' => 'auth.status', 'prefix' => $prefix), function() use ($class,$prefix) {
                 Route::get('order/{order_id}/contract/{format}', array('as' => $prefix.'-order-contract', 'uses' => $class . '@'.$prefix.'OrderContract'));
                 Route::get('order/{order_id}/invoice/{format}', array('as' => $prefix.'-order-invoice', 'uses' => $class . '@'.$prefix.'OrderInvoice'));

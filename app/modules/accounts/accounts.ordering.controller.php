@@ -137,24 +137,23 @@ class AccountsOrderingController extends BaseController {
                     endforeach;
                 endforeach;
                 setcookie("ordering", "", time() - 3600,'/');
-                $approve = 0; $is_organization = FALSE;
+                $approve = 0;
                 if (isOrganization()):
                     $approve = User_organization::where('id',Auth::user()->id)->pluck('moderator_approve');
-                    $is_organization = TRUE;
                 elseif(isIndividual()):
                     $approve = User_individual::where('id',Auth::user()->id)->pluck('moderator_approve');
                 endif;
                 if (!$approve):
-                    if ($is_organization):
+                    if (isOrganization()):
                         Event::fire('organization.order-puy-no-approve',array(array('accountID'=>Auth::user()->id,'order'=>getOrderNumber($order),'link'=>URL::route('organization-order',$order->id))));
-                    else:
+                    elseif(isIndividual()):
                         Event::fire('individual.order-puy-no-approve',array(array('accountID'=>Auth::user()->id,'order'=>getOrderNumber($order),'link'=>URL::route('individual-order',$order->id))));
                     endif;
                 else:
-                    if ($is_organization):
+                    if (isOrganization()):
                         Event::fire('organization.order-puy',array(array('accountID'=>Auth::user()->id,'order'=>getOrderNumber($order),'order_link'=>URL::route('organization-order',$order->id),'document_link'=>URL::route('organization-order-invoice',array('order_id'=>$order->id,'format'=>'pdf')))));
-                    else:
-                        Event::fire('individual.order-puy',array(array('accountID'=>Auth::user()->id,'order'=>getOrderNumber($order),'order_link'=>URL::route('individual-order',$order->id),'document_link'=>URL::route('individual-order-invoice',array('order_id'=>$order->id,'format'=>'pdf')))));
+                    elseif(isIndividual()):
+                        Event::fire('individual.order-puy',array(array('accountID'=>Auth::user()->id,'order'=>getOrderNumber($order),'order_link'=>URL::route('individual-order',$order->id),'document_link'=>URL::route('individual-listener-order-invoice',array('order_id'=>$order->id,'format'=>'pdf')))));
                     endif;
                 endif;
                 Event::fire('moderator.order.new',array(array('accountID'=>0,'order'=>getOrderNumber($order))));

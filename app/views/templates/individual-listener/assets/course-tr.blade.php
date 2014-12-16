@@ -1,17 +1,13 @@
-<tr data-index="{{ $listener->id }}" {{ $index >= 1 ? 'class="hidden"' : '' }}>
-    <td class="vertical-top">
-        @if($index == 0)
-        <a href="{{ URL::route('organization-listener-profile',$listener->id) }}">{{ $listener->fio }}</a>
+<tr>
+    <td>
+        @if($listener_course->access_status == 1 && $listener_course->over_status == 0)
+            <a href="{{ URL::route('individual-study-course',$listener_course->id.'-'.BaseController::stringTranslite($listener_course->course->title,100)) }}">{{ $listener_course->course->code }}. {{ $listener_course->course->title }}</a>
+        @else
+            {{ $listener_course->course->code }}. {{ $listener_course->course->title }}
         @endif
     </td>
-    <td class="vertical-top">
-        {{ $study->course->code }}. {{ $study->course->title }}
-        @if($index == 0 && $listener->study->count() > 1)
-        <br><a href="javascript:void(0);" data-index="{{ $listener->id }}" class="more-courses">показать еще {{ $listener->study->count()-1 }} {{ Lang::choice('курс|курса|курсов',$listener->study->count()-1); }}</a>
-        @endif
-    </td>
-    <td class="td-status-bar vertical-top">
-        <div title="{{ Lang::get('interface.STUDY_PROGRESS.'.getCourseStudyProgress($study)) }}" class="ui-progress-bar bar-1 completed-{{ getCourseStudyProgress($study) }} clearfix">
+    <td class="td-status-bar">
+        <div title="{{ Lang::get('interface.STUDY_PROGRESS_LISTENER.'.getCourseStudyProgress($listener_course)) }}" class="ui-progress-bar bar-1 completed-{{ getCourseStudyProgress($listener_course) }} clearfix">
             <div class="bar-part bar-part-1"></div>
             <div class="bar-part bar-part-2"></div>
             <div class="bar-part bar-part-3"></div>

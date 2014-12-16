@@ -16,6 +16,20 @@ class AccountsOperationController extends BaseController {
                 Route::get('repeated-send-mail/activation', array('as'=>'activation-repeated-sending-letter', 'uses' => $class.'@ActivationRepeatedSendingLetter'));
                 Route::any('settings/update/{setting_slug}/{value}', array('as'=>'setting-update', 'uses' => $class.'@saveUserSetting'));
             });
+            Event::listen('listener.start.course.study', function ($data) {
+                OrderListeners::where('id',$data['listener_course_id'])
+                    ->where('access_status',1)
+                    ->where('start_status',0)
+                    ->where('user_id',Auth::user()->id)
+                    ->update(array('start_status'=>1,'start_date'=>date('Y-m-d H:i:s'),'updated_at'=>date('Y-m-d H:i:s')));
+            });
+            Event::listen('listener.over.course.study', function ($data) {
+                OrderListeners::where('id',$data['listener_course_id'])
+                    ->where('access_status',1)
+                    ->where('over_status',0)
+                    ->where('user_id',Auth::user()->id)
+                    ->update(array('start_status'=>1,'over_status'=>1,'over_date'=>date('Y-m-d H:i:s'),'updated_at'=>date('Y-m-d H:i:s')));
+            });
         endif;
     }
 

@@ -75,7 +75,7 @@ class AccountsRegisterController extends BaseController {
                         });
                         Auth::login(User::find($account->id));
                         #Event::fire('organization.approve-email',array(array('accountID'=>$account->id)));
-                        Event::fire('moderator.register-organization',array(array('accountID'=>0,'organization'=>User_organization::where('id',$account->id)->pluck('title'))));
+                        Event::fire('moderator.register-organization',array(array('accountID'=>0,'organization'=>User_organization::where('id',$account->id)->pluck('title'),'link'=>URL::to('moderator/companies/profile/'.$account->id))));
                         if (Auth::check()):
                             $json_request['responseText'] = Lang::get('interface.SIGNUP.success_login');
                         else:
@@ -111,6 +111,7 @@ class AccountsRegisterController extends BaseController {
                             $message->to(Input::get('email'))->subject('ТехВуз.рф - регистрация');
                         });
                         Auth::login(User::find($account->id));
+                        Event::fire('moderator.register-individual',array(array('accountID'=>0,'listener'=>User_individual::where('id',$account->id)->pluck('fio'),'link'=>URL::to('moderator/listeners/profile/'.$account->id))));
                         if (Auth::check()):
                             $json_request['responseText'] = Lang::get('interface.SIGNUP.success_login');
                         else:

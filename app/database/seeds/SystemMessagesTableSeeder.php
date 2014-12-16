@@ -24,7 +24,7 @@ class SystemMessagesTableSeeder extends Seeder {
         DicVal::create(array('dic_id'=>$dic_id,'slug'=>'organization.order.part-puy-not-access','name'=> 'Заказ <a href="[link]">№[order]</a> оплачен частично.','order'=>15));
         DicVal::create(array('dic_id'=>$dic_id,'slug'=>'organization.order.yes-puy-yes-access','name'=> 'Заказ <a href="[link]">№[order]</a> оплачен.','order'=>17));
 
-        DicVal::create(array('dic_id'=>$dic_id,'slug'=>'moderator.register-organization','name'=> 'Зарегистрирована организация [organization]','order'=>19));
+        DicVal::create(array('dic_id'=>$dic_id,'slug'=>'moderator.register-organization','name'=> 'Зарегистрирована организация <a href="[link]">[organization]</a>','order'=>19));
         DicVal::create(array('dic_id'=>$dic_id,'slug'=>'moderator.update-profile-organization','name'=> 'Организация [organization] обновила регистрационные данные','order'=>20));
         DicVal::create(array('dic_id'=>$dic_id,'slug'=>'moderator.register-listener','name'=> '[listener] добавлен(а) к слушателям – сотрудникам [organization]','order'=>21));
         DicVal::create(array('dic_id'=>$dic_id,'slug'=>'moderator.update-profile-listener','name'=> 'Сотрудник организации [organization], [listener],  обновил(а) регистрационные данные','order'=>22));
@@ -57,5 +57,8 @@ class SystemMessagesTableSeeder extends Seeder {
         DicVal::create(array('dic_id'=>$dic_id,'slug'=>'individual.order.part-puy-not-access','name'=> 'Заказ <a href="[link]">№[order]</a> оплачен частично.','order'=>38));
         DicVal::create(array('dic_id'=>$dic_id,'slug'=>'individual.order.yes-puy-yes-access','name'=> 'Заказ <a href="[link]">№[order]</a> оплачен.','order'=>39));
 
+        DicVal::create(array('dic_id'=>$dic_id,'slug'=>'moderator.register-individual','name'=> 'Зарегистрировался индивидуальный слушатель <a href="[link]">[listener]</a>','order'=>40));
+
+        DicVal::create(array('dic_id'=>$dic_id,'slug'=>'individual.study.begin','name'=> '[listener] приступил(а) к обучению по программе [course]. К итоговому тестированию по программе [course] можно будет приступить через 72 академических часа.','order'=>41));
     }
 }

@@ -151,8 +151,8 @@
                     </tr>                   
                 @foreach($courses as $course)
                     @if($course->study->count())
-                        @foreach($course->study as $index => $study)
-                            @include(Helper::acclayout('assets.listener-course-tr'))
+                        @foreach($course->study as $index => $listener_course)
+                            @include(Helper::acclayout('assets.course-tr'))
                         @endforeach
                     @endif
                 @endforeach
