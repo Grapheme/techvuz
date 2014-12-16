@@ -56,7 +56,7 @@
                             </td>
                         @else
                             <td class="purchase-price" data-price="{{ number_format($discountPrice,0,'.','') }}">
-                                <div class="start-price margin-bottom-10">
+                                <div class="start-price margin-bottom-10" style="text-decoration: line-throught">
                                     {{ number_format($course->price,0,'.',' ') }}.–
                                 </div>
                                 <div class="discount-price">

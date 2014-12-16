@@ -442,7 +442,17 @@ var Popup = (function(){
         //Function actions
         //1. Fill active listeners
         $listeners.text( $listenersLength );
-        //2. Set price
+        
+        //2. Search for discount
+        var $discParent = $('.purchase-course-dl');
+        var $countDiscount = $discParent.data('count-discount');
+        var $valueDiscount = $discParent.data('value-discount');
+
+		if( $listenersLength >= $countDiscount ) {
+			$priceCount = $priceCount * $valueDiscount / 100;
+		}
+
+		//2. Set price
         $priceSum.text( ($listenersLength * $priceCount) ? ( ($listenersLength * $priceCount) + '' ).replace(/(\d)(?=(\d{3})+$)/g, '$1 ') + '.-' : '0.-' );
     }
 
