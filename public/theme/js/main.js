@@ -448,6 +448,10 @@ var Popup = (function(){
         var $countDiscount = $discParent.data('count-discount');
         var $valueDiscount = $discParent.data('value-discount');
 
+        console.log($listenersLength);
+        console.log($countDiscount);
+        console.log($valueDiscount);
+
 		if( $listenersLength >= $countDiscount ) {
 			$priceCount = $priceCount * $valueDiscount / 100;
 			console.log('gogo');
