@@ -637,10 +637,12 @@ var Popup = (function(){
         $listeners.text( $listenersLength );
         
         //2. Search for discount
+        var $discountField = $elem.parents('.purchase-table').find('.discount-price');
+        var $staticDiscount = $elem.parents('.purchase-table').data('static-discount');
 
-		if( $listenersLength >= $countDiscount ) {
+		if( $staticDiscount < $valueDiscount && $listenersLength >= $countDiscount ) {
 			$priceCount = $priceCount * (100 - $valueDiscount) / 100;
-			console.log($priceCount);
+			$staticDiscount.text() = ($priceCount + '').replace(/(\d)(?=(\d{3})+$)/g, '$1 ') + '.-';
 		}
 
 		//2. Set price
