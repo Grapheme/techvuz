@@ -450,6 +450,7 @@ var Popup = (function(){
 
 		if( $listenersLength >= $countDiscount ) {
 			$priceCount = $priceCount * $valueDiscount / 100;
+			console.log('gogo');
 		}
 
 		//2. Set price
