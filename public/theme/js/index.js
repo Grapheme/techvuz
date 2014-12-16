@@ -645,6 +645,8 @@ var Popup = (function(){
 			$priceCount = $priceCount * (100 - $valueDiscount) / 100;
 			//$discountField.text( ($priceCount + '').replace(/(\d)(?=(\d{3})+$)/g, '$1 ') + '.-' );
 			console.log( 'ololo' + $priceCount );
+		} else {
+			console.log('wtd false');
 		}
 
 		//2. Set price
