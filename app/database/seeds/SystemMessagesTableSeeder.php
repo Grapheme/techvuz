@@ -21,14 +21,8 @@ class SystemMessagesTableSeeder extends Seeder {
         DicVal::create(array('dic_id'=>$dic_id,'slug'=>'organization.study.fail-finish','name'=> '[listener] неудачно завершил(а) итоговое тестирование по программе [course] с результатом [percent]%.','order'=>9));
         DicVal::create(array('dic_id'=>$dic_id,'slug'=>'organization.study.finish','name'=> '[listener] прошел(а) итоговое тестирование по программе [course] с результатом [percent]%.','order'=>10));
 
-        DicVal::create(array('dic_id'=>$dic_id,'slug'=>'organization.order.new','name'=> 'Новый заказ ожидает отправки','order'=>11));
-        DicVal::create(array('dic_id'=>$dic_id,'slug'=>'organization.order.approve','name'=> 'Заказ <a href="[link]">№[order]</a> ожидает подтверждения администратором','order'=>12));
-        DicVal::create(array('dic_id'=>$dic_id,'slug'=>'organization.order.not-puy-not-access','name'=> 'Заказ <a href="[link]">№[order]</a> не оплачен, доступ к обучению не предоставлен.','order'=>13));
-        DicVal::create(array('dic_id'=>$dic_id,'slug'=>'organization.order.not-puy-yes-access','name'=> 'Заказ <a href="[link]">№[order]</a> не оплачен, но доступ к обучению предоставлен.','order'=>14));
-        DicVal::create(array('dic_id'=>$dic_id,'slug'=>'organization.order.part-puy-not-access','name'=> 'Заказ <a href="[link]">№[order]</a> оплачен частично, доступ к обучению не предоставлен.','order'=>15));
-        DicVal::create(array('dic_id'=>$dic_id,'slug'=>'organization.order.part-puy-yes-access','name'=> 'Заказ <a href="[link]">№[order]</a> оплачен частично, но доступ к обучению предоставлен.','order'=>16));
-        DicVal::create(array('dic_id'=>$dic_id,'slug'=>'organization.order.yes-puy-yes-access','name'=> 'Заказ <a href="[link]">№[order]</a> оплачен. Сотрудники Вашей организации могут приступить к обучению.','order'=>17));
-        DicVal::create(array('dic_id'=>$dic_id,'slug'=>'organization.order.yes-puy-not-access','name'=> 'Заказ <a href="[link]">№[order]</a> оплачен, но доступ к обучению не предоставлен.','order'=>18));
+        DicVal::create(array('dic_id'=>$dic_id,'slug'=>'organization.order.part-puy-not-access','name'=> 'Заказ <a href="[link]">№[order]</a> оплачен частично.','order'=>15));
+        DicVal::create(array('dic_id'=>$dic_id,'slug'=>'organization.order.yes-puy-yes-access','name'=> 'Заказ <a href="[link]">№[order]</a> оплачен.','order'=>17));
 
         DicVal::create(array('dic_id'=>$dic_id,'slug'=>'moderator.register-organization','name'=> 'Зарегистрирована организация [organization]','order'=>19));
         DicVal::create(array('dic_id'=>$dic_id,'slug'=>'moderator.update-profile-organization','name'=> 'Организация [organization] обновила регистрационные данные','order'=>20));
@@ -59,5 +53,9 @@ class SystemMessagesTableSeeder extends Seeder {
 
         DicVal::create(array('dic_id'=>$dic_id,'slug'=>'individual.order-puy-no-approve','name'=> 'Ваш заказ <a href="[link]">№[order]</a> оформлен. Для получения договора на обучение и счета на оплату платных образовательных услуг необходимо дождаться окончания проверки администратором сайта. Проверка занимает не более 12 часов с момента активации личного кабинета','order'=>36));
         DicVal::create(array('dic_id'=>$dic_id,'slug'=>'individual.order-puy','name'=> 'Ваш заказ <a href="[order_link]">№[order]</a> оформлен. Для получения доступа к лекционным материалам Вам необходимо оплатить <a href="[document_link]">счет</a>. Доступ предоставляется в течение 2 часов с момента поступления денежных средств на расчетный счет образовательного портала ТЕХВУЗ.РФ','order'=>37));
+
+        DicVal::create(array('dic_id'=>$dic_id,'slug'=>'individual.order.part-puy-not-access','name'=> 'Заказ <a href="[link]">№[order]</a> оплачен частично.','order'=>38));
+        DicVal::create(array('dic_id'=>$dic_id,'slug'=>'individual.order.yes-puy-yes-access','name'=> 'Заказ <a href="[link]">№[order]</a> оплачен.','order'=>39));
+
     }
 }

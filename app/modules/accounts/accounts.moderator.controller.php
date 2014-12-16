@@ -445,11 +445,15 @@ class AccountsModeratorController extends BaseController {
                 endforeach;
                 if (!empty($ListenersStatuses)):
                     $now = date('Y-m-d H:i:s');
-                    $order = Orders::where('id',$order_id)->first();
+                    $order = Orders::where('id',$order_id)->with('organization','individual')->first();
                     foreach(OrderListeners::where('order_id',$order_id)->get() as $orderListener):
                         if ($orderListener->access_status == 0 && isset($ListenersStatuses[$orderListener->id]) && $ListenersStatuses[$orderListener->id] == 1):
                             $studyDays = !empty($orderListener->course->hours) ? floor($orderListener->course->hours/8): floor(Config::get('site.time_to_study_begin')/8);
-                            Event::fire('listener.study-access', array(array('accountID'=>$orderListener->user_id,'link'=>URL::to('listener/study/course/'.$orderListener->id.'-'.BaseController::stringTranslite($orderListener->course->title,100)),'course'=>$orderListener->course->code,'date'=>(new myDateTime())->setDateString($now)->addDays($studyDays)->format('d.m.Y'))));
+                            if (!empty($order->organization)):
+                                Event::fire('listener.study-access', array(array('accountID'=>$orderListener->user_id,'link'=>URL::to('listener/study/course/'.$orderListener->id.'-'.BaseController::stringTranslite($orderListener->course->title,100)),'course'=>$orderListener->course->code,'date'=>(new myDateTime())->setDateString($now)->addDays($studyDays)->format('d.m.Y'))));
+                            elseif (!empty($order->individual)):
+                                Event::fire('listener.study-access', array(array('accountID'=>$orderListener->user_id,'link'=>URL::to('individual-listener/study/course/'.$orderListener->id.'-'.BaseController::stringTranslite($orderListener->course->title,100)),'course'=>$orderListener->course->code,'date'=>(new myDateTime())->setDateString($now)->addDays($studyDays)->format('d.m.Y'))));
+                            endif;
                             if ($order->study_status == 0):
                                 Orders::where('id',$order_id)->update(array('study_status'=>1,'study_date'=>$now,'updated_at'=>$now));
                             endif;
@@ -474,7 +478,7 @@ class AccountsModeratorController extends BaseController {
 
     private function autoChangeOrderStatus($order_id){
 
-        if ($order = Orders::where('id',$order_id)->with('payment_numbers','listeners')->first()):
+        if ($order = Orders::where('id',$order_id)->with('payment_numbers','listeners','organization','individual')->first()):
             $total_summa = 0;
             $payment_summa = 0;
             foreach($order->listeners as $listener):
@@ -486,9 +490,17 @@ class AccountsModeratorController extends BaseController {
             $now = date('Y-m-d H:i:s');
             if ($payment_summa >= $total_summa):
                 Orders::where('id',$order_id)->update(array('payment_status'=>2,'payment_date'=>$now,'updated_at'=>$now));
-                Event::fire('organization.order.yes-puy-yes-access', array(array('accountID'=>$order->user_id,'link'=>URL::to('organization/order/'.$order->id),'order'=>getOrderNumber($order))));
+                if (!empty($order->organization)):
+                    Event::fire('organization.order.yes-puy-yes-access', array(array('accountID'=>$order->user_id,'link'=>URL::to('organization/order/'.$order->id),'order'=>getOrderNumber($order))));
+                elseif (!empty($order->individual)):
+                    Event::fire('individual.order.yes-puy-yes-access', array(array('accountID'=>$order->user_id,'link'=>URL::to('individual-listener/order/'.$order->id),'order'=>getOrderNumber($order))));
+                endif;
             elseif($payment_summa > 0 && $payment_summa < $total_summa):
-                Event::fire('organization.order.part-puy-not-access', array(array('accountID'=>$order->user_id,'link'=>URL::to('organization/order/'.$order->id),'order'=>getOrderNumber($order))));
+                if (!empty($order->organization)):
+                    Event::fire('organization.order.part-puy-not-access', array(array('accountID'=>$order->user_id,'link'=>URL::to('organization/order/'.$order->id),'order'=>getOrderNumber($order))));
+                elseif (!empty($order->individual)):
+                    Event::fire('individual.order.part-puy-not-access', array(array('accountID'=>$order->user_id,'link'=>URL::to('individual-listener/order/'.$order->id),'order'=>getOrderNumber($order))));
+                endif;
                 Orders::where('id',$order_id)->update(array('payment_status'=>3,'payment_date'=>'0000-00-00 00:00:00','updated_at'=>$now));
             else:
                 Orders::where('id',$order_id)->update(array('payment_status'=>1,'payment_date'=>'0000-00-00 00:00:00','updated_at'=>$now));

@@ -36,25 +36,25 @@
                 @foreach(Courses::whereIn('id',getJsonCookieData('ordering'))->with('direction')->get() as $course)
                     {{ Form::hidden('courses[]',$course->id) }}
                     <tr>
-                                <td>
-                                    <div class="icon-blue-bag-btn js-delete-course"></div>
-                                    {{ $course->title }}
-                                </td>
-                                <td>{{ $course->code }}</td>
-                                <?php $discountPrice = FALSE; ?>
-                                @if($course->direction->use_discount && $course->use_discount)
-                                    <?php $discountPrice = calculateDiscount(array($course->direction->discount,$course->discount,$accountDiscount,$globalDiscount,$coursesCountDiscount),$course->price); ?>
-                                @endif
-                            @if($discountPrice === FALSE)
-                                <?php $totalPrice += $course->price; ?>
-                                <td class="purchase-price" data-price="{{ number_format($course->price,0,'.','') }}">{{ number_format($course->price,0,'.',' ') }}.–</td>
-                                <td class="purchase-price-sum">{{ number_format($course->price,0,'.','') }}.–</td>
-                            @else
-                                <?php $totalPrice += $discountPrice; ?>
-                                <td class="purchase-price" data-price="{{ number_format($discountPrice,0,'.','') }}">{{ number_format($discountPrice,0,'.',' ') }}.–</td>
-                                <td class="purchase-price-sum">{{ number_format($discountPrice,0,'.','') }}.–</td>
-                            @endif
-                            </tr>
+                        <td>
+                            <div class="icon-blue-bag-btn js-delete-course"></div>
+                            {{ $course->title }}
+                        </td>
+                        <td>{{ $course->code }}</td>
+                        <?php $discountPrice = FALSE; ?>
+                        @if($course->direction->use_discount && $course->use_discount)
+                            <?php $discountPrice = calculateDiscount(array($course->direction->discount,$course->discount,$accountDiscount,$globalDiscount),$course->price); ?>
+                        @endif
+                    @if($discountPrice === FALSE)
+                        <?php $totalPrice += $course->price; ?>
+                        <td class="purchase-price" data-price="{{ number_format($course->price,0,'.','') }}">{{ number_format($course->price,0,'.',' ') }}.–</td>
+                        <td class="purchase-price-sum">{{ number_format($course->price,0,'.','') }}.–</td>
+                    @else
+                        <?php $totalPrice += $discountPrice; ?>
+                        <td class="purchase-price" data-price="{{ number_format($discountPrice,0,'.','') }}">{{ number_format($discountPrice,0,'.',' ') }}.–</td>
+                        <td class="purchase-price-sum">{{ number_format($discountPrice,0,'.','') }}.–</td>
+                    @endif
+                    </tr>
                     <dd class="purchase-course-dd hidden">
                         <select name="listeners[{{ $course->id }}][]" multiple="multiple">
                         @foreach($listeners as $listener_id => $listener_fio)
