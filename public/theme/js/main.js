@@ -457,9 +457,8 @@ var Popup = (function(){
 		if( $staticDiscount < $valueDiscount && $listenersLength >= $countDiscount ) {
 			$priceCount = $realPrice * (100 - $valueDiscount) / 100;
 			$discountField.text( ($priceCount + '').replace(/(\d)(?=(\d{3})+$)/g, '$1 ') + '.-' );
-			console.log( 'ololo' + $priceCount );
 		} else {
-			console.log('wtd false');
+			$discountField.text($priceCount);
 		}
 
 		//2. Set price
