@@ -49,7 +49,7 @@
                             <?php $discountPrice = calculateDiscount(array($course->direction->discount,$course->discount,$globalDiscount,$accountDiscount),$course->price); ?>
                         @endif
                         @if($discountPrice === FALSE)
-                            <td class="purchase-price" data-price="{{ number_format($course->price,0,'.','') }}">
+                            <td class="purchase-price" data-real-price="{{ number_format($course->price,0,'.','') }}" data-price="{{ number_format($course->price,0,'.','') }}">
                                 <div class="start-price margin-bottom-10">
                                     {{ number_format($course->price,0,'.',' ') }}.–
                                 </div>
