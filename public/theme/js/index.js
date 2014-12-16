@@ -739,14 +739,9 @@ var Courses = (function(){
 		var $parent = $('.accordion-form');
 		var $checked = $parent.find('.secondary-checkbox:checked');
 		var renderArr = {};
-		var existsCookie = $.cookie('ordering') ? JSON.parse( $.cookie('ordering') ) : {};
 
 		$checked.each( function(){
-			// if( existsCookie[ $(this).val() ] && existsCookie[ $(this).val() ].length > 0 ) {
-			// 	renderArr[ $(this).val() ] = existsCookie[ $(this).val() ];
-			// } else {
-				renderArr[ $(this).val() ] = [];
-			// }
+			renderArr[ $(this).val() ] = [];
 		});
 
 		$.cookie('ordering', JSON.stringify(renderArr), { path: '/' });
