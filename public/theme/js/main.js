@@ -528,16 +528,10 @@ var Popup = (function(){
         makeCoursesJson( $(this) );
         countSum();
 
-        if( $('.purchase-course-dl').data('count-discount') <= listeners ) {
-
-        	console.log('discount on');
-        	
-			$select.each( function(){
-				countPrice( $(this) );
-				countSum();
-			});
-        }
-
+		$select.each( function(){
+			countPrice( $(this) );
+			countSum();
+		});
     });
 
     $deleteBtn.click( function(e) {
