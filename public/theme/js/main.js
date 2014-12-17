@@ -429,7 +429,7 @@ var Popup = (function(){
         });
 
         $purchaseTable.each( function(index){
-			var $sumWODiscount = $(this).find('.purchase-price').data('real-price');
+			var $sumWODiscount += $(this).find('.purchase-price').data('real-price');
         });
 
         $sumWODiscountBlock.text( ($sumWODiscount + '').replace(/(\d)(?=(\d{3})+$)/g, '$1 ') + '.-' );
