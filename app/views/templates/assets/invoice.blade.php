@@ -9,6 +9,9 @@
         main {
             font-family: 'Open Sans';
         }
+        main table {
+            width: 100%;
+        }
     </style>
 </head>
 <body>
