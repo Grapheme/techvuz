@@ -625,12 +625,12 @@ var Popup = (function(){
         console.log($sum == $sumWODiscount);
 
         if( $sum == $sumWODiscount) {
-			$sumWODiscountBlock.addClass('hidden');
-			$finishDiscountBlock.addClass('hidden');
+			$sumWODiscountBlock.parents('.row').addClass('hidden');
+			$finishDiscountBlock.parents('.row').addClass('hidden');
 		} else {
 			console.log('false');
-			$sumWODiscountBlock.removeClass('hidden');
-			$finishDiscountBlock.removeClass('hidden');
+			$sumWODiscountBlock.parents('.row').removeClass('hidden');
+			$finishDiscountBlock.parents('.row').removeClass('hidden');
         }
 
         $sumWODiscountBlock.text( ($sumWODiscount + '').replace(/(\d)(?=(\d{3})+$)/g, '$1 ') + '.-' );
