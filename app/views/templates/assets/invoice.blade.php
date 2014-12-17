@@ -7,7 +7,7 @@
     <link href="http://fonts.googleapis.com/css?family=Open+Sans:300italic,400,600&amp;subset=latin,cyrillic" rel="stylesheet" type="text/css">
 </head>
 <body>
-    <main style="width: 936px;">
+    <main style="width: 936px; font-family: 'Open Sans'">
         @if(isset($SpisokSluschateley))
         <?php
             $spisok = array();
