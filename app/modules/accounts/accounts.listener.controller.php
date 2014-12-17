@@ -369,6 +369,10 @@ class AccountsListenerController extends BaseController {
         if (!$listenerCourse || !$test || $listenerCourse->order->close_status == 1):
             return Redirect::route('listener-study');
         endif;
+
+        (new AccountsDocumentsController)->generateAllDocuments($listenerCourse->order->id);
+        exit;
+
         $validator = Validator::make(Input::all(),array('questions'=>'required','time_attempt'=>'required'));
         if($validator->passes()):
             $questions_answers = array();

@@ -78,7 +78,7 @@
                     <?php
                         $lostTime = FALSE;
                         if($study_course->order->study_status):
-                            $studyHours = !empty($module->hours) ? round($module->hours/8)*86400 : round(Config::get('site.time_to_study_begin')/4)*86400;
+                            $studyHours = !empty($module->hours) ? floor($module->hours/8)*86400 : floor(Config::get('site.time_to_study_begin')/4)*86400;
                             $lostTime = myDateTime::getDiffTimeStamp(date("Y-m-d H:i:s",strtotime($study_course->order->study_date)+$studyHours),date("Y-m-d H:i:s",time()));
                         endif;
                     ?>
@@ -98,8 +98,8 @@
                                     Итоговое тестирование будет доступно через {{ ($lostDateTime['d']+1).' '.Lang::choice('день|дня|дней', $lostDateTime['d']) }}
                                 @elseif($lostDateTime['d'] > 2 && $lostDateTime['h'] < 12)
                                     Итоговое тестирование будет доступно через {{ $lostDateTime['d'].' '.Lang::choice('день|дня|дней', $lostDateTime['d']) }}
-                                @elseif($lostDateTime['d'] > 1)
-                                    Итоговое тестирование будет доступно через {{ $lostDateTime['d'].' '.Lang::choice('день|дня|дней', $lostDateTime['d'])}} {{ $lostDateTime['h'].' '.Lang::choice('час|часа|часов', $lostDateTime['h']) }}
+                                @elseif($lostDateTime['d'] >= 1)
+                                    Итоговое тестирование будет доступно через {{ $lostDateTime['d'].' '.Lang::choice('день|дня|дней', $lostDateTime['d'])}} {{ $lostDateTime['h'] != 0 ? $lostDateTime['h'].' '.Lang::choice('час|часа|часов', $lostDateTime['h']) : '' }}
                                 @elseif($lostDateTime['h'] > 0 && $lostDateTime['h'] < 23)
                                     Итоговое тестирование будет доступно через {{ $lostDateTime['h'].' '.Lang::choice('час|часа|часов', $lostDateTime['h']) }} {{ $lostDateTime['i'].' '.Lang::choice('минута|минуты|минут', $lostDateTime['i']) }}
                                 @elseif($lostDateTime['i'] > 0)
