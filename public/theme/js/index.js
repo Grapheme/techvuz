@@ -612,10 +612,17 @@ var Popup = (function(){
         var $purchaseTable = $('.purchase-table');
 
         $purchaseTable.each( function(index){
+			var $price;
+			var $usesDiscount = $(this).data('use-discount');
+
 			var $listeners = $(this).find('.purchase-listeners').text();
-			var $price = parseFloat( $(this).find('.discount-price').text().replace(' ','') ) ?
-						 parseFloat( $(this).find('.discount-price').text().replace(' ','') ) :
-						 $(this).find('.purchase-price').data('price') ;
+
+			if( $usesDiscount == '0' ) {
+				$price = $(this).find('.purchase-price').data('price');
+			}
+			if( $usesDiscount == '1') {
+				$price = parseFloat( $(this).find('.discount-price').text().replace(' ','') ) ? parseFloat( $(this).find('.discount-price').text().replace(' ','') ) : $(this).find('.purchase-price').data('price');
+			}
 			$sum += $listeners * $price;
         });
 
