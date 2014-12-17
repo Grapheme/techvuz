@@ -11,7 +11,7 @@
         <?php
             $spisok = array();
             foreach($SpisokSluschateley->listeners as $index => $listener):
-                $spisok[$index]['fio'] = $listener->user_listener->fio;
+                $spisok[$index]['fio'] = !empty($listener->user_listener) ? $listener->user_listener->fio : $listener->user_individual->fio;
                 $spisok[$index]['course_code'] = $listener->course->code;
                 $spisok[$index]['course_title'] = $listener->course->title;
             endforeach;

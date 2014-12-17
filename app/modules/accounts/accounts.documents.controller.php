@@ -108,7 +108,6 @@ class AccountsDocumentsController extends BaseController {
                     break;
                 case 'pdf' :
                     $mpdf = new mPDF('utf-8', 'A4', '8', '', 10, 10, 7, 7, 10, 10);
-                    $mpdf->charset_in = 'cp1251';
                     $mpdf->SetDisplayMode('fullpage');
                     $document_content = isset($fields['content']) ? $fields['content']->value : '';
                     if($page_data = self::parseOrderHTMLDocument($document_content)):
@@ -242,7 +241,6 @@ class AccountsDocumentsController extends BaseController {
                     if($page_data = self::parseOrderHTMLDocument($document_content)):
                         $page_data['page_title'] = '';
                         $mpdf = new mPDF('utf-8', 'A4', '8', '', 10, 10, 7, 7, 10, 10);
-                        $mpdf->charset_in = 'cp1251';
                         $mpdf->SetDisplayMode('fullpage');
                         $mpdf->WriteHTML(View::make($template, $page_data)->render(), 2);
                         return $mpdf->Output($document_type.'-№'.getOrderNumber($order).'.pdf', 'D');
@@ -286,54 +284,36 @@ class AccountsDocumentsController extends BaseController {
     /****************************************************************************/
     public function moderatorOrderContract($order_id,$format){
 
-        $document_type = 'contract';
-        if (!$order = Orders::where('id',$order_id)->where('completed',1)->with('organization','individual',$document_type)->first()):
+        if (!$order = Orders::where('id',$order_id)->where('completed',1)->with('organization','individual','contract')->first()):
             return Redirect::route('moderator-orders-list');
         endif;
-        $account = NULL; $account_type = NULL; $template = '';
         if (!empty($order->organization)):
-            $account = User_organization::where('id',$order->user_id)->first();
-            $account_type = 4;
-            $template = 'templates.organization.documents';
-            $document = Dictionary::valueBySlugs('order-documents','order-documents-'.$document_type);
-            $document_app1 = Dictionary::valueBySlugs('order-documents','order-documents-'.$document_type.'-listeners');
-            $document_consent = Dictionary::valueBySlugs('order-documents','order-documents-'.$document_type.'-consent');
+            $document = Dictionary::valueBySlugs('order-documents','order-documents-contract');
+            $document_app1 = Dictionary::valueBySlugs('order-documents','order-documents-contract-listeners');
         elseif(!empty($order->individual)):
-            $account = User_individual::where('id',$order->user_id)->first();
-            $account_type = 6;
-            $template = 'templates.individual.documents';
-            $document = Dictionary::valueBySlugs('order-documents','order-documents-'.$document_type);
+            $document = Dictionary::valueBySlugs('order-documents','fiz-order-documents-contract');
+            $document_app1 = Dictionary::valueBySlugs('order-documents','fiz-order-documents-contract-listeners');
         endif;
-        if ($order->$document_type->exists && File::exists(public_path($order->$document_type->path))):
+        if ($order->contract->exists && File::exists(public_path($order->contract->path))):
             $headers = returnDownloadHeaders($order->contract);
-            return Response::download(public_path($order->$document_type->path),$document_type.'-№'.getOrderNumber($order).'.'.$order->$document_type->mime2,$headers);
+            return Response::download(public_path($order->contract->path),'contract-№'.getOrderNumber($order).'.'.$order->contract->mime2,$headers);
         elseif($document->exists && !empty($document->fields)):
             $fields = modifyKeys($document->fields,'key');
             $fields_app1 = modifyKeys($document_app1->fields,'key');
-            $fields_consent = modifyKeys($document_consent->fields,'key');
-            $word_template = FALSE;
-            if($word_template_id = isset($fields['word_template']) ? $fields['word_template']->value : ''):
-                $word_template = Upload::where('id',$word_template_id)->pluck('path');
-            endif;
             Config::set('show-document.order_id', $order_id);
             switch($format):
                 case 'html':
                     $document_content = isset($fields['content']) ? $fields['content']->value : '';
                     if($page_data = self::parseOrderHTMLDocument($document_content)):
-                        return View::make('templates/assets/documents',$page_data);
+                        #return View::make('templates/assets/documents',$page_data);
                     endif;
                     $document_content_app1 = isset($fields_app1['content']) ? $fields_app1['content']->value : '';
                     if($page_data = self::parseOrderHTMLDocument($document_content_app1)):
-                        #return View::make('templates/assets/contract-app1',$page_data);
-                    endif;
-                    $document_content_consent = isset($fields_consent['content']) ? $fields_consent['content']->value : '';
-                    if($page_data = self::parseOrderHTMLDocument($document_content_consent)):
-                        #return View::make('templates/assets/contract-consent',$page_data);
+                        return View::make('templates/assets/contract-app1',$page_data);
                     endif;
                     break;
                 case 'pdf' :
                     $mpdf = new mPDF('utf-8', 'A4', '8', '', 10, 10, 7, 7, 10, 10);
-                    $mpdf->charset_in = 'cp1251';
                     $mpdf->SetDisplayMode('fullpage');
                     $document_content = isset($fields['content']) ? $fields['content']->value : '';
                     if($page_data = self::parseOrderHTMLDocument($document_content)):
@@ -346,22 +326,7 @@ class AccountsDocumentsController extends BaseController {
                         $mpdf->AddPage('L');
                         $mpdf->WriteHTML(View::make('templates/assets/contract-app1', $page_data)->render(), 2);
                     endif;
-                    $document_content_consent = isset($fields_consent['content']) ? $fields_consent['content']->value : '';
-                    if($page_data = self::parseOrderHTMLDocument($document_content_consent)):
-                        $page_data['page_title'] = '';
-                        foreach($page_data['SpisokSluschateley']['listeners'] as $listener):
-                            $listeners[$listener->user_id]['FIO_listener'] = !empty($listener['user_listener']) ? $listener['user_listener']['fio'] : $listener['user_individual']['fio'];
-                            $listeners[$listener->user_id]['Address_listener'] = !empty($listener['user_listener']) ? $listener['user_listener']['postaddress'] : $listener['user_individual']['postaddress'];
-                        endforeach;
-                        foreach($listeners as $listener_id => $listener):
-                            $page_data['FIO_listener'] = $listener['FIO_listener'];
-                            $page_data['Address_listener'] = $listener['Address_listener'];
-                            $page = View::make('templates/assets/contract-consent', $page_data)->render();
-                            $mpdf->AddPage('P');
-                            $mpdf->WriteHTML(View::make('templates/assets/contract-consent', $page_data)->render(), 2);
-                        endforeach;
-                    endif;
-                    return $mpdf->Output($document_type.'-№'.getOrderNumber($order).'.pdf', 'D');
+                    return $mpdf->Output('contract-№'.getOrderNumber($order).'.pdf', 'D');
                 case 'word':
                     return Redirect::back();
                     break;
@@ -374,31 +339,23 @@ class AccountsDocumentsController extends BaseController {
 
         $template = 'templates/assets/invoice';
         return $this->moderatorShowDocument($order_id,$format,'invoice',$template);
-
     }
 
     public function moderatorOrderAct($order_id,$format){
 
         $template = 'templates/assets/act';
         return $this->moderatorShowDocument($order_id, $format, 'act',$template);
-
     }
+
     /****************************************************************************/
     public function moderatorOrderRequest($order_id,$format){
 
         if (!$order = Orders::where('id',$order_id)->where('completed',1)->with('organization','individual')->first()):
             return Redirect::route('moderator-orders-list');
         endif;
-        $account = NULL; $account_type = NULL;
+        $account_type = NULL;
         $template = 'templates.assets.request';
         $document = Dictionary::valueBySlugs('order-documents','order-documents-request');
-        if (!empty($order->organization)):
-            $account = User_organization::where('id',$order->user_id)->first();
-            $account_type = 4;
-        elseif(!empty($order->individual)):
-            $account = User_individual::where('id',$order->user_id)->first();
-            $account_type = 6;
-        endif;
         if($document->exists && !empty($document->fields)):
             $fields = modifyKeys($document->fields,'key');
             Config::set('show-document.order_id', $order_id);
@@ -411,7 +368,6 @@ class AccountsDocumentsController extends BaseController {
                     break;
                 case 'pdf' :
                     $mpdf = new mPDF('utf-8', 'A4', '8', '', 10, 10, 7, 7, 10, 10);
-                    $mpdf->charset_in = 'cp1251';
                     $mpdf->SetDisplayMode('fullpage');
                     $document_content = isset($fields['content']) ? $fields['content']->value : '';
                     if($page_data = self::parseOrderHTMLDocument($document_content)):
@@ -482,7 +438,6 @@ class AccountsDocumentsController extends BaseController {
                     break;
                 case 'pdf' :
                     $mpdf = new mPDF('utf-8', 'A4', '8', '', 10, 10, 7, 7, 10, 10);
-                    $mpdf->charset_in = 'cp1251';
                     $mpdf->SetDisplayMode('fullpage');
                     $document_content = isset($fields['content']) ? $fields['content']->value : '';
                     if($page_data = self::parseOrderHTMLDocument($document_content)):
@@ -549,7 +504,6 @@ class AccountsDocumentsController extends BaseController {
                     break;
                 case 'pdf' :
                     $mpdf = new mPDF('utf-8', 'A4', '8', '', 10, 10, 7, 7, 10, 10);
-                    $mpdf->charset_in = 'cp1251';
                     $mpdf->SetDisplayMode('fullpage');
                     $document_content = isset($fields['content']) ? $fields['content']->value : '';
                     if($page_data = self::parseOrderHTMLDocument($document_content)):
@@ -621,7 +575,6 @@ class AccountsDocumentsController extends BaseController {
                     break;
                 case 'pdf' :
                     $mpdf = new mPDF('utf-8', 'A4', '8', '', 10, 10, 7, 7, 10, 10);
-                    $mpdf->charset_in = 'cp1251';
                     $mpdf->SetDisplayMode('fullpage');
                     $document_content = isset($fields['content']) ? $fields['content']->value : '';
                     if($page_data = self::parseOrderHTMLDocument($document_content)):
@@ -688,7 +641,6 @@ class AccountsDocumentsController extends BaseController {
                     break;
                 case 'pdf' :
                     $mpdf = new mPDF('utf-8', 'A4', '8', '', 10, 10, 7, 7, 10, 10);
-                    $mpdf->charset_in = 'cp1251';
                     $mpdf->SetDisplayMode('fullpage');
                     $document_content = isset($fields['content']) ? $fields['content']->value : '';
                     if($page_data = self::parseOrderHTMLDocument($document_content)):
@@ -757,7 +709,6 @@ class AccountsDocumentsController extends BaseController {
                     break;
                 case 'pdf' :
                     $mpdf = new mPDF('utf-8', 'A4', '8', '', 10, 10, 7, 7, 10, 10);
-                    $mpdf->charset_in = 'cp1251';
                     $mpdf->SetDisplayMode('fullpage');
                     $document_content = isset($fields['content']) ? $fields['content']->value : '';
                     if($page_data = self::parseOrderHTMLDocument($document_content)):
@@ -869,7 +820,6 @@ class AccountsDocumentsController extends BaseController {
                     break;
                 case 'pdf' :
                     $mpdf = new mPDF('utf-8', 'A4', '8', '', 10, 10, 7, 7, 10, 10);
-                    $mpdf->charset_in = 'cp1251';
                     $mpdf->SetDisplayMode('fullpage');
                     $document_content = isset($fields['content']) ? $fields['content']->value : '';
                     if($page_data = self::parseOrderHTMLDocument($document_content)):
@@ -952,7 +902,6 @@ class AccountsDocumentsController extends BaseController {
                     if($page_data = self::parseOrderHTMLDocument($document_content)):
                         $page_data['page_title'] = '';
                         $mpdf = new mPDF('utf-8', 'A4', '8', '', 10, 10, 7, 7, 10, 10);
-                        $mpdf->charset_in = 'cp1251';
                         $mpdf->SetDisplayMode('fullpage');
                         $mpdf->WriteHTML(View::make($template, $page_data)->render(), 2);
                         return $mpdf->Output($document_type.'-№'.getOrderNumber($order).'.pdf', 'D');
@@ -1000,7 +949,6 @@ class AccountsDocumentsController extends BaseController {
                     if($page_data = self::parseOrderHTMLDocument($document_content)):
                         $page_data['page_title'] = '';
                         $mpdf = new mPDF('utf-8', 'A4', '8', '', 10, 10, 7, 7, 10, 10);
-                        $mpdf->charset_in = 'cp1251';
                         $mpdf->SetDisplayMode('fullpage');
                         $mpdf->WriteHTML(View::make($template, $page_data)->render(), 2);
                         return $mpdf->Output($document_type.'-№'.getOrderNumber($order).'.pdf', 'D');
@@ -1065,7 +1013,6 @@ class AccountsDocumentsController extends BaseController {
         Config::set('show-document.order_id', $order->id);
         if (!empty($contract_content)):
             $mpdf = new mPDF('utf-8', 'A4', '8', '', 10, 10, 7, 7, 10, 10);
-            $mpdf->charset_in = 'cp1251';
             $mpdf->SetDisplayMode('fullpage');
             if($page_data = self::parseOrderHTMLDocument($contract_content)):
                 $page_data['page_title'] = '';
@@ -1095,7 +1042,6 @@ class AccountsDocumentsController extends BaseController {
             $page_data = self::parseOrderHTMLDocument($invoice_content);
             $page_data['page_title'] = '';
             $mpdf = new mPDF('utf-8', 'A4', '8', '', 10, 10, 7, 7, 10, 10);
-            $mpdf->charset_in = 'cp1251';
             $mpdf->SetDisplayMode('fullpage');
             $mpdf->WriteHTML(View::make('templates/assets/invoice', $page_data)->render(), 2);
             $fileName = 'uploads/orders/invoice'.'-'.getOrderNumber($order).'.pdf';
@@ -1115,7 +1061,6 @@ class AccountsDocumentsController extends BaseController {
             $page_data = self::parseOrderHTMLDocument($act_content);
             $page_data['page_title'] = '';
             $mpdf = new mPDF('utf-8', 'A4', '8', '', 10, 10, 7, 7, 10, 10);
-            $mpdf->charset_in = 'cp1251';
             $mpdf->SetDisplayMode('fullpage');
             $mpdf->WriteHTML(View::make('templates/assets/act', $page_data)->render(), 2);
             $fileName = 'uploads/orders/act'.'-'.getOrderNumber($order).'.pdf';
@@ -1160,6 +1105,7 @@ class AccountsDocumentsController extends BaseController {
             'SummaZakazaSlovami' => num2str($SummaZakaza),
             'KolichestvoSluschateley' => $order->listeners->count(),
             'DataOplatuZakaza' => $dateTime->setDateString($order->payment_date)->format('d.m.Y'),
+            'DataNachalaObucheniya' => $dateTime->setDateString($order->study_date)->format('d.m.Y'),
             'DataOformleniyaZakaza' => $order->created_at->format('d.m.Y'),
             'DataOformleniyaZakazaSlovami' => $dateTime->setDateString($order->created_at)->months(),
             'DataZakrutiyaZakaza' => $dateTime->setDateString($order->close_date)->format('d.m.y'),

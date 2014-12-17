@@ -283,7 +283,7 @@ class AccountsModeratorController extends BaseController {
             'order' => array(),
             'courses' => array()
         );
-        if($page_data['order'] = Orders::where('id',$order_id)->with('payment_numbers')->first()):
+        if($page_data['order'] = Orders::where('id',$order_id)->with('payment_numbers','organization','individual')->first()):
             $courses = array();
             foreach(Orders::where('id',$order_id)->first()->listeners()->with('user_listener','course')->get() as $course):
                 $courses[$course->course_id]['course']['code'] = $course->course->code;

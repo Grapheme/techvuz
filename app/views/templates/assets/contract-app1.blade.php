@@ -41,18 +41,18 @@
             @foreach($spisok as $listener_id => $listener)
                 <tr>
                     <td><p align="center">{{ $index }}</p></td>
-                    <td><p align="center">{{ $listener['listener']['fio'] }}</p></td>
-                    <td><p align="center">{{ $listener['listener']['position'] }}</p></td>
-                    <td><p align="center">{{ $listener['listener']['postaddress'] }}</p></td>
+                    <td><p align="center">{{ !empty($listener['listener']) ? $listener['listener']['fio'] : $listener['individual']['fio'] }}</p></td>
+                    <td><p align="center">{{ !empty($listener['listener']) ? $listener['listener']['position'] : $listener['individual']['position'] }}</p></td>
+                    <td><p align="center">{{ !empty($listener['listener']) ? $listener['listener']['postaddress'] : $listener['individual']['postaddress'] }}</p></td>
                     <td>
-                        <p align="center">{{ $listener['listener']['phone'] }}</p>
-                        <p align="center">{{ $listener['listener']['email'] }}</p>
+                        <p align="center">{{ !empty($listener['listener']) ? $listener['listener']['phone'] : $listener['individual']['phone'] }}</p>
+                        <p align="center">{{ !empty($listener['listener']) ? $listener['listener']['email'] : $listener['individual']['email'] }}</p>
                     </td>
                     <td>
-                        <p align="center">{{ $listener['listener']['education'] }}</p>
-                        <p align="center">{{ $listener['listener']['education_document_data'] }}</p>
-                        <p align="center">{{ $listener['listener']['specialty'] }}</p>
-                        <p align="center">{{ $listener['listener']['educational_institution'] }}</p>
+                        <p align="center">{{ !empty($listener['listener']) ? $listener['listener']['education'] : $listener['individual']['education'] }}</p>
+                        <p align="center">{{ !empty($listener['listener']) ? $listener['listener']['education_document_data'] : $listener['individual']['education_document'] }}</p>
+                        <p align="center">{{ !empty($listener['listener']) ? $listener['listener']['specialty'] : $listener['individual']['specialty'] }}</p>
+                        <p align="center">{{ !empty($listener['listener']) ? $listener['listener']['educational_institution'] : $listener['individual']['educational_institution'] }}</p>
                     </td>
                     <td>
                     @if(count($listener['course']))
@@ -76,7 +76,7 @@
         @endif
                 <tr>
                     <td colspan="7">
-                        <p align="center">Я, {{ $listener['listener']['fio'] }}, подтверждаю достоверность вышеуказанной информации,
+                        <p align="center">Я, {{ !empty($listener['listener']) ? $listener['listener']['fio'] : $listener['individual']['fio'] }}, подтверждаю достоверность вышеуказанной информации,
                         с договором ознакомлен ( подпись, дата)</p>
                     </td>
                 </tr>
