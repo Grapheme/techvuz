@@ -15,11 +15,11 @@ class AccountsDocumentsController extends BaseController {
         if (Auth::check()):
             $prefix = Auth::user()->group()->pluck('dashboard');
             Route::group(array('before' => 'auth.status', 'prefix' => $prefix), function() use ($class,$prefix) {
-                Route::get('order/{order_id}/contract/{format}', array('as' => $prefix.'-order-contract', 'uses' => $class . '@'.$prefix.'OrderContract'));
-                Route::get('order/{order_id}/invoice/{format}', array('as' => $prefix.'-order-invoice', 'uses' => $class . '@'.$prefix.'OrderInvoice'));
-                Route::get('order/{order_id}/act/{format}', array('as' => $prefix.'-order-act', 'uses' => $class . '@'.$prefix.'OrderAct'));
-                Route::get('order/{order_id}/course/{course_id}/listener/{listener_id}/certificate/first', array('as' => $prefix.'-order-certificate-first', 'uses' => $class . '@'.$prefix.'OrderCertificateFirst'));
-                Route::get('order/{order_id}course/{course_id}/listener/{listener_id}certificate/second', array('as' => $prefix.'-order-certificate-second', 'uses' => $class . '@'.$prefix.'OrderCertificateSecond'));
+                Route::get('order/{order_id}/contract/{format}', array('as' => $prefix.'-order-contract', 'uses' => $class . '@'.str_replace('-','_',$prefix).'OrderContract'));
+                Route::get('order/{order_id}/invoice/{format}', array('as' => $prefix.'-order-invoice', 'uses' => $class . '@'.str_replace('-','_',$prefix).'OrderInvoice'));
+                Route::get('order/{order_id}/act/{format}', array('as' => $prefix.'-order-act', 'uses' => $class . '@'.str_replace('-','_',$prefix).'OrderAct'));
+                Route::get('order/{order_id}/course/{course_id}/listener/{listener_id}/certificate/first', array('as' => $prefix.'-order-certificate-first', 'uses' => $class . '@'.str_replace('-','_',$prefix).'OrderCertificateFirst'));
+                Route::get('order/{order_id}course/{course_id}/listener/{listener_id}certificate/second', array('as' => $prefix.'-order-certificate-second', 'uses' => $class . '@'.str_replace('-','_',$prefix).'OrderCertificateSecond'));
             });
             Route::group(array('before' => 'auth', 'prefix' => 'moderator'), function() use ($class,$prefix) {
                 Route::get('order/{order_id}/request/{format}', array('as' => 'moderator-order-request', 'uses' => $class . '@'.$prefix.'OrderRequest'));
@@ -254,31 +254,180 @@ class AccountsDocumentsController extends BaseController {
         return Redirect::route('organization-orders');
     }
     /****************************************************************************/
-    public function individualOrderContract($order_id,$format){
+    public function individual_listenerOrderContract($order_id,$format){
 
-        $account = User_individual::where('id',Auth::user()->id)->first();
+        if (!User_individual::where('id',Auth::user()->id)->pluck('moderator_approve')):
+            return Redirect::route('individual-orders');
+        endif;
+        if (!$order = Orders::where('id',$order_id)->where('user_id',Auth::user()->id)->where('completed',1)->where('archived',0)->with('contract')->first()):
+            return Redirect::route('individual-orders');
+        endif;
+        $document = Dictionary::valueBySlugs('order-documents','fiz-order-documents-contract');
+        $document_app1 = Dictionary::valueBySlugs('order-documents','fiz-order-documents-contract-listeners');
+        if ($order->contract->exists && File::exists(public_path($order->contract->path))):
+            $headers = returnDownloadHeaders($order->contract);
+            return Response::download(public_path($order->contract->path),'contract-№'.getOrderNumber($order).'.'.$order->contract->mime2,$headers);
+        elseif($document->exists && !empty($document->fields)):
+            $fields = modifyKeys($document->fields,'key');
+            $fields_app1 = modifyKeys($document_app1->fields,'key');
+            Config::set('show-document.order_id', $order_id);
+            switch($format):
+                case 'html':
+                    $document_content = isset($fields['content']) ? $fields['content']->value : '';
+                    if($page_data = self::parseOrderHTMLDocument($document_content)):
+                        return View::make('templates/assets/documents',$page_data);
+                    endif;
+                    $document_content_app1 = isset($fields_app1['content']) ? $fields_app1['content']->value : '';
+                    if($page_data = self::parseOrderHTMLDocument($document_content_app1)):
+                        #return View::make('templates/assets/contract-app1',$page_data);
+                    endif;
+                    break;
+                case 'pdf' :
+                    $mpdf = new mPDF('utf-8', 'A4', '8', '', 10, 10, 7, 7, 10, 10);
+                    $mpdf->SetDisplayMode('fullpage');
+                    $document_content = isset($fields['content']) ? $fields['content']->value : '';
+                    if($page_data = self::parseOrderHTMLDocument($document_content)):
+                        $page_data['page_title'] = '';
+                        $mpdf->WriteHTML(View::make('templates/assets/documents', $page_data)->render(), 2);
+                    endif;
+                    $document_content_app1 = isset($fields_app1['content']) ? $fields_app1['content']->value : '';
+                    if($page_data = self::parseOrderHTMLDocument($document_content_app1)):
+                        $page_data['page_title'] = '';
+                        $mpdf->AddPage('L');
+                        $mpdf->WriteHTML(View::make('templates/assets/contract-app1', $page_data)->render(), 2);
+                    endif;
+                    return $mpdf->Output('contract-№'.getOrderNumber($order).'.pdf', 'D');
+                case 'word':
+                    return Redirect::back();
+                    break;
+            endswitch;
+        endif;
+        return Redirect::route('individual-orders');
+    }
+
+    public function individual_listenerOrderInvoice($order_id,$format){
+
+        $template = 'templates/assets/invoice';
+        return $this->individual_listenerShowDocument($order_id,$format,'invoice',$template);
+    }
+
+    public function individual_listenerOrderAct($order_id,$format){
+
+        $template = 'templates/assets/act';
+        return $this->individual_listenerShowDocument($order_id, $format, 'act',$template);
+    }
+
+    public function individual_listenerOrderCertificateFirst($order_id,$course_id,$listener_id){
+
+        $account = User_organization::where('id',Auth::user()->id)->first();
         if (!$account->moderator_approve):
-//            return Redirect::route('individual-orders');
+            return Redirect::route('organization-orders');
+        endif;
+        if (!OrderListeners::where('order_id',$order_id)->where('course_id',$course_id)->where('user_id',$listener_id)->where('over_status',1)->exists()):
+            return Redirect::route('organization-orders');
+        endif;
+        if (!$order = Orders::where('id',$order_id)->where('user_id',Auth::user()->id)->where('completed',1)->where('archived',0)->first()):
+            return Redirect::route('organization-orders');
+        endif;
+        if (!$listener = User_listener::where('id',$listener_id)->where('organization_id',Auth::user()->id)->first()):
+            return Redirect::route('organization-orders');
+        endif;
+        if($document = Dictionary::valueBySlugs('order-documents','order-documents-certificate-first')):
+            $fields = modifyKeys($document->fields,'key');
+            $document_content = isset($fields['content']) ? $fields['content']->value : '';
+            if (!empty($document_content)):
+                $page_data = array(
+                    'page_title' => Lang::get('seo.COMPANY_ORDER.title'),
+                    'page_description' => Lang::get('seo.COMPANY_ORDER.description'),
+                    'page_keywords' => Lang::get('seo.COMPANY_ORDER.keywords'),
+                    'order' => $order->toArray(),
+                    'account' => $account->toArray(),
+                    'listener' => $listener->toArray(),
+                    'template' => storage_path('views/'.sha1($order_id.$listener_id.'order-documents-certificate-first'))
+                );
+                self::parseOrderDocument($page_data['template'],$document_content);
+                return View::make(Helper::acclayout('documents'),$page_data);
+            endif;
         endif;
         App::abort(404);
     }
 
-    public function individualOrderInvoice($order_id,$format){
+    public function individual_listenerOrderCertificateSecond($order_id,$course_id,$listener_id){
 
-        $account = User_individual::where('id',Auth::user()->id)->first();
+        $account = User_organization::where('id',Auth::user()->id)->first();
         if (!$account->moderator_approve):
-//            return Redirect::route('individual-orders');
+            return Redirect::route('organization-orders');
+        endif;
+        if (!OrderListeners::where('order_id',$order_id)->where('course_id',$course_id)->where('user_id',$listener_id)->where('over_status',1)->exists()):
+            return Redirect::route('organization-orders');
+        endif;
+        if (!$order = Orders::where('id',$order_id)->where('user_id',Auth::user()->id)->where('completed',1)->where('archived',0)->first()):
+            return Redirect::route('organization-orders');
+        endif;
+        if (!$listener = User_listener::where('id',$listener_id)->where('organization_id',Auth::user()->id)->first()):
+            return Redirect::route('organization-orders');
+        endif;
+        if($document = Dictionary::valueBySlugs('order-documents','order-documents-certificate-first')):
+            $fields = modifyKeys($document->fields,'key');
+            $document_content = isset($fields['content']) ? $fields['content']->value : '';
+            if (!empty($document_content)):
+                $page_data = array(
+                    'page_title' => Lang::get('seo.COMPANY_ORDER.title'),
+                    'page_description' => Lang::get('seo.COMPANY_ORDER.description'),
+                    'page_keywords' => Lang::get('seo.COMPANY_ORDER.keywords'),
+                    'order' => $order->toArray(),
+                    'account' => $account->toArray(),
+                    'listener' => $listener->toArray(),
+                    'template' => storage_path('views/'.sha1($order_id.$listener_id.'order-documents-certificate-first'))
+                );
+                self::parseOrderDocument($page_data['template'],$document_content);
+                return View::make(Helper::acclayout('documents'),$page_data);
+            endif;
         endif;
         App::abort(404);
     }
 
-    public function individualOrderAct($order_id,$format){
+    private function individual_listenerShowDocument($order_id,$format,$document_type,$template){
 
-        $account = User_individual::where('id',Auth::user()->id)->first();
-        if (!$account->moderator_approve):
-//            return Redirect::route('individual-orders');
+        if (!User_individual::where('id',Auth::user()->id)->pluck('moderator_approve')):
+            return Redirect::route('individual-orders');
         endif;
-        App::abort(404);
+        if (!$order = Orders::where('id',$order_id)->where('user_id',Auth::user()->id)->where('completed',1)->where('archived',0)->first()):
+            return Redirect::route('organization-orders');
+        endif;
+        if (!$order->close_status && $document_type == 'act'):
+            return Redirect::route('organization-orders');
+        endif;
+        $document = Dictionary::valueBySlugs('order-documents','order-documents-'.$document_type);
+        if ($order->$document_type->exists && File::exists(public_path($order->$document_type->path))):
+            $headers = returnDownloadHeaders($order->contract);
+            return Response::download(public_path($order->$document_type->path),$document_type.'-№'.getOrderNumber($order).'.'.$order->$document_type->mime2,$headers);
+        elseif($document->exists && !empty($document->fields)):
+            $fields = modifyKeys($document->fields,'key');
+            Config::set('show-document.order_id', $order_id);
+            switch($format):
+                case 'html':
+                    $document_content = isset($fields['content']) ? $fields['content']->value : '';
+                    if($page_data = self::parseOrderHTMLDocument($document_content)):
+                        return View::make($template,$page_data);
+                    endif;
+                    break;
+                case 'pdf' :
+                    $document_content = isset($fields['content']) ? $fields['content']->value : '';
+                    if($page_data = self::parseOrderHTMLDocument($document_content)):
+                        $page_data['page_title'] = '';
+                        $mpdf = new mPDF('utf-8', 'A4', '8', '', 10, 10, 7, 7, 10, 10);
+                        $mpdf->SetDisplayMode('fullpage');
+                        $mpdf->WriteHTML(View::make($template, $page_data)->render(), 2);
+                        return $mpdf->Output($document_type.'-№'.getOrderNumber($order).'.pdf', 'D');
+                    endif;
+                    break;
+                case 'word':
+                    return Redirect::back();
+                    break;
+            endswitch;
+        endif;
+        return Redirect::route('organization-orders');
     }
     /****************************************************************************/
     /****************************************************************************/
@@ -346,7 +495,6 @@ class AccountsDocumentsController extends BaseController {
         $template = 'templates/assets/act';
         return $this->moderatorShowDocument($order_id, $format, 'act',$template);
     }
-
     /****************************************************************************/
     public function moderatorOrderRequest($order_id,$format){
 
@@ -1113,9 +1261,14 @@ class AccountsDocumentsController extends BaseController {
 
             'NazvanieOrganizacii' => empty($order->organization) ? '' : $order->organization->title,
             'FIOIndividualnogoSlushatelya' => empty($order->individual) ? '' : $order->individual->fio,
+            'FIOIndividualnogoSlushatelyaVRoditelnomPadije' => empty($order->individual) ? '' : $order->individual->fio_rod,
             'Zakazchik' => empty($order->organization) ? $order->individual->fio : $order->organization->title,
 
             'ImyaOtvetstvennogoLicaOrganizacii' => empty($order->organization) ? '' : $order->organization->fio_manager,
+
+
+            'ImyaOtvetstvennogoLicaInicialu' => empty($order->organization) ? preg_replace('/(\w+) (\w)\w+ (\w)\w+/iu', '$1 $2. $3.',$order->individual->fio) : preg_replace('/(\w+) (\w)\w+ (\w)\w+/iu', '$1 $2. $3.',$order->organization->fio_manager),
+
             'DoljnostOtvetstvennogoLicaOrganizacii' => empty($order->organization) ? '' : $order->organization->manager,
             'DeystvuyucheeOsnovanieOrganizacii' => empty($order->organization) ? '' : $order->organization->statutory,
             'UridicheskiyAdresOrganizacii' => empty($order->organization) ? '' : $order->organization->uraddress,
@@ -1137,6 +1290,11 @@ class AccountsDocumentsController extends BaseController {
             'RaspisanieObucheniyaPoKursu' => '',
 
             'ImyaIndividualnogoZakazchika' => empty($order->individual) ? '' : $order->individual->fio,
+            'SeriaPasportaIndividualnogoZakazchika' => empty($order->individual) ? '' : $order->individual->passport_seria,
+            'NomerPasportaIndividualnogoZakazchika' => empty($order->individual) ? '' : $order->individual->passport_number,
+            'KemVudanPasportIndividualnogoZakazchika' => empty($order->individual) ? '' : $order->individual->passport_data,
+            'KogdaVadanPasportIndividualnogoZakazchika' => empty($order->individual) ? '' : $order->individual->passport_date,
+            'KodPodrazdeleniyaIndividualnogoZakazchika' => empty($order->individual) ? '' : $order->individual->code,
 
             'FIO_listener' => '', 'Address_listener' => '',
             'Phone_listener' => '', 'Email_listener' => '',

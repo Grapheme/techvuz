@@ -46,25 +46,25 @@ var validation_signup_ul = {
     },
     email: {
         required: true,
-        email: true,
-        remote: {
-            url: "/check-email",
-            type: "post",
-            data: {
-                email: function() {
-                    return $("#signup-ul-form input[name='email']").val();
-                }
-            },
-            dataType: "json",
-            success: function (data) {
-                if (data.email == true) {
-                    message: {
-                        email: data.message;
-                    }
-                    return false;
-                }
-            }
-        }
+        email: true
+        //remote: {
+        //    url: "/check-email",
+        //    type: "post",
+        //    data: {
+        //        email: function() {
+        //            return $("#signup-ul-form input[name='email']").val();
+        //        }
+        //    },
+        //    dataType: "json",
+        //    success: function (data) {
+        //        if (data.email == true) {
+        //            message: {
+        //                email: data.message;
+        //            }
+        //            return false;
+        //        }
+        //    }
+        //}
     },
     name: { required: true },
     phone: { required: true },
@@ -118,25 +118,25 @@ var validation_signup_fl = {
     postaddress: { required: true },
     email: {
         required: true,
-        email: true,
-        remote: {
-            url: "/check-email",
-            type: "post",
-            data: {
-                email: function() {
-                    return $("#signup-fl-form input[name='email']").val();
-                }
-            },
-            dataType: "json",
-            success: function (data) {
-                if (data.email == true) {
-                    message: {
-                        email: data.message;
-                    }
-                    return false;
-                }
-            }
-        }
+        email: true
+        //remote: {
+        //    url: "/check-email",
+        //    type: "post",
+        //    data: {
+        //        email: function() {
+        //            return $("#signup-fl-form input[name='email']").val();
+        //        }
+        //    },
+        //    dataType: "json",
+        //    success: function (data) {
+        //        if (data.email == true) {
+        //            message: {
+        //                email: data.message;
+        //            }
+        //            return false;
+        //        }
+        //    }
+        //}
     },
     phone: { required: true },
     consent: { required: true }

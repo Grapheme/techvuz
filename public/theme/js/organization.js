@@ -6,24 +6,24 @@ var validation_signup_listener = {
     position: { required: true },
     email: {
         required: true,
-        email: true,
-        remote: {
-            url: "/check-email",
-            type: "post",
-            data: {
-                email: function() {
-                    return $("#signup-listener-form input[name='email']").val();
-                }
-            },
-            dataType: "json",
-            success: function (data) {
-                if (data.email == true) {
-                    message: {
-                        name: data.message;
-                    }
-                }
-            }
-        }
+        email: true
+        //remote: {
+        //    url: "/check-email",
+        //    type: "post",
+        //    data: {
+        //        email: function() {
+        //            return $("#signup-listener-form input[name='email']").val();
+        //        }
+        //    },
+        //    dataType: "json",
+        //    success: function (data) {
+        //        if (data.email == true) {
+        //            message: {
+        //                name: data.message;
+        //            }
+        //        }
+        //    }
+        //}
     },
     postaddress: { required: true },
     phone: { required: true },

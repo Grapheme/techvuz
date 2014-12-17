@@ -41,7 +41,7 @@
             <tr>
                 <th> Название курса </th>
                 <th> Сумма </th>
-                <th> Удостоверение </th>
+                <!--<th> Удостоверение </th>-->
             </tr>
         <?php
         $courses = $courses_list = array();
@@ -77,11 +77,11 @@
                 @endif
                 </td>
                 <td class="vertical-top purchase-price">{{ number_format($listener['price'],0,'.',' ') }}.-</td>
-                <td class="vertical-top">
+                <!--<td class="vertical-top">
                 @if($listener['over_status'] == 1)
-                    <a href="{{ URL::route('individual-order-certificate-first',array('order_id'=>$order->id,'course_id'=>$course['course']['id'],'listener_id'=>$listener['id'])) }}">Просмотреть</a>
+                     <a href="{{ URL::route('individual-listener-order-certificate-first',array('order_id'=>$order->id,'course_id'=>$course['course']['id'],'listener_id'=>$listener['id'])) }}">Просмотреть</a>
                 @endif
-                </td>
+                </td>-->
             </tr>
                 @endforeach
             @endif
