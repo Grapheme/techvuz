@@ -436,8 +436,10 @@ var Popup = (function(){
         console.log($sum == $sumWODiscount);
 
         if( $sum == $sumWODiscount) {
-			$sumWODiscountBlock.add($finishDiscountBlock).addClass('hidden');
+			$sumWODiscountBlock.addClass('hidden');
+			$finishDiscountBlock.addClass('hidden')
 		} else {
+			console.log('false');
 			$sumWODiscountBlock.add($finishDiscountBlock).removeClass('hidden');
         }
 
