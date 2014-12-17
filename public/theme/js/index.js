@@ -653,8 +653,12 @@ var Popup = (function(){
         var $listeners = $boundDt.find('.purchase-listeners');
         //Length of active listeners
         var $listenersLength = elem.find('option:selected').length;
+        //Full listeners count
+        var $fullListenersLength = $('.purchase-course-dl').find('option:selected').length;
         //Real course price
         var $realPrice = $price.data('real-price');
+
+        console.log( '' + $fullListenersLength );
         
         //Function actions
         //1. Fill active listeners
