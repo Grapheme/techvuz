@@ -411,6 +411,12 @@ var Popup = (function(){
 		var $sum = 0;
         //Sum
         var $sumBlock = $('.js-count-sum');
+        //Finish sum without discount
+        var $sumWODiscountBlock = $('.js-count-finish-sum-wo-discount');
+        var $sumWODiscount = 0;
+        //Finish discount
+        var $finishDiscountBlock = $('.js-count-finish-discount');
+        var $finishDiscount = 0;
         //Finish sum
         var $sumFinishBlock = $('.js-count-finish-sum');
         //Purchase table
@@ -420,11 +426,14 @@ var Popup = (function(){
 			var $listeners = $(this).find('.purchase-listeners').text();
 			var $price = $(this).find('.purchase-price').data('price');
 			$sum += $listeners * $price;
-			console.log($listeners);
         });
 
-        console.log($sum);
+        $purchaseTable.each( function(index){
+			var $sumWODiscount = $(this).find('.purchase-price').data('real-price');
+        });
 
+        $sumWODiscountBlock.text( ($sumWODiscount + '').replace(/(\d)(?=(\d{3})+$)/g, '$1 ') + '.-' ); );
+        $finishDiscountBlock.text( ($sumWODiscount - $sum).replace(/(\d)(?=(\d{3})+$)/g, '$1 ') + '.-' ); );
         $sumFinishBlock.text( ($sum + '').replace(/(\d)(?=(\d{3})+$)/g, '$1 ') + '.-' );
     }
 
