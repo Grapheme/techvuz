@@ -511,6 +511,7 @@ var Popup = (function(){
 			}
 
 			//Count sum again
+			countPrice( $('.chosen-select') );
 			countSum();
 		}
 
