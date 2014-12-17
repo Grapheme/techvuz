@@ -658,7 +658,7 @@ var Popup = (function(){
         //Real course price
         var $realPrice = $price.data('real-price');
 
-        console.log( '' + $fullListenersLength );
+        console.log( '$fullListenersLength' + $fullListenersLength );
         
         //Function actions
         //1. Fill active listeners
