@@ -5,14 +5,6 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>{{{ isset($page_title) ? $page_title : Config::get('app.default_page_title') }}}</title>
     <link href="http://fonts.googleapis.com/css?family=Open+Sans:300italic,400,600&amp;subset=latin,cyrillic" rel="stylesheet" type="text/css">
-    <style>
-        main {
-            font-family: 'Open Sans';
-        }
-        main table {
-            width: 100%;
-        }
-    </style>
 </head>
 <body>
     <main style="width: 936px;">
@@ -42,7 +34,7 @@
             endforeach;
         ?>
         <?php ob_start();?>
-        <table cellspacing="0" cellpadding="0" border="1" style="margin-bottom: 40px;">
+        <table cellspacing="0" cellpadding="0" border="1" style="margin-bottom: 40px; font-family: 'Open Sans'" >
             <tbody>
                 <tr>
                     <td valign="top" style="padding: 3pt 6pt 3pt 6pt;"><p align="center"><strong>№ п/п</strong></p></td>
