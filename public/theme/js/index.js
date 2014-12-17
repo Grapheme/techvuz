@@ -699,10 +699,8 @@ var Popup = (function(){
 				$discountField.text('');
 			}
 
-			//Count price again
-			// $('.chosen-select').each( function(){
-			// 	countPrice( $(this) );
-			// });
+			//Count sum again
+			countSum();
 		}
 
 		//2. Set price
