@@ -521,9 +521,7 @@ var Popup = (function(){
     $select.each( function(){
 		countPrice( $(this) );
 		countSum();
-    });
-
-    
+    });    
 
     //Также нам нужна функция, которая восстановит данные о курсах и пользователях при загрузке
     function setSelectBoxes() {
@@ -612,8 +610,17 @@ var Popup = (function(){
         var $purchaseTable = $('.purchase-table');
 
         $purchaseTable.each( function(index){
+			var $price;
+			var $usesDiscount = $(this).data('use-discount');
+
 			var $listeners = $(this).find('.purchase-listeners').text();
-			var $price = $(this).find('.purchase-price').data('price');
+
+			if( $usesDiscount == '0' ) {
+				$price = $(this).find('.purchase-price').data('price');
+			}
+			if( $usesDiscount == '1') {
+				$price = parseFloat( $(this).find('.discount-price').text().replace(' ','') ) ? parseFloat( $(this).find('.discount-price').text().replace(' ','') ) : $(this).find('.purchase-price').data('price');
+			}
 			$sum += $listeners * $price;
         });
 
@@ -629,7 +636,6 @@ var Popup = (function(){
 			$sumWODiscountBlock.parents('.row').addClass('hidden');
 			$finishDiscountBlock.parents('.row').addClass('hidden');
 		} else {
-			console.log('false');
 			$sumWODiscountBlock.parents('.row').removeClass('hidden');
 			$finishDiscountBlock.parents('.row').removeClass('hidden');
         }
@@ -653,8 +659,12 @@ var Popup = (function(){
         var $listeners = $boundDt.find('.purchase-listeners');
         //Length of active listeners
         var $listenersLength = elem.find('option:selected').length;
+        //Full listeners count
+        var $fullListenersLength = $('.purchase-course-dl').find('option:selected').length;
         //Real course price
         var $realPrice = $price.data('real-price');
+        //Uses discount
+        var $usesDiscount = $boundDt.find('.purchase-table').data('use-discount');
         
         //Function actions
         //1. Fill active listeners
@@ -665,8 +675,14 @@ var Popup = (function(){
         var $discountField = $boundDt.find('.discount-price');
         var $staticDiscount = elem.parents('.purchase-table').data('static-discount');
 
-		if( $staticDiscount < $valueDiscount && $listenersLength >= $countDiscount ) {
-			$priceCount = $realPrice * (100 - $valueDiscount) / 100;
+		if( $staticDiscount < $valueDiscount && $fullListenersLength >= $countDiscount ) {
+
+			if( $usesDiscount == '0') {
+				$priceCount = $realPrice;
+			}
+			if( $usesDiscount == '1') {
+				$priceCount = $realPrice * (100 - $valueDiscount) / 100;
+			}
 
 			if( $priceCount != $realPrice ) {
 				$discountField.text( ($priceCount + '').replace(/(\d)(?=(\d{3})+$)/g, '$1 ') + '.-' );
@@ -684,6 +700,8 @@ var Popup = (function(){
 
 		//2. Set price
         $priceSum.text( ($listenersLength * $priceCount) ? ( ($listenersLength * $priceCount) + '' ).replace(/(\d)(?=(\d{3})+$)/g, '$1 ') + '.-' : '0.-' );
+		
+		return $fullListenersLength;
     }
 
     function returnError(text) {
@@ -695,10 +713,14 @@ var Popup = (function(){
 
     $('.chosen-select').on('change', function() {
 
-        countPrice( $(this) );
+        var listeners = countPrice( $(this) );
         makeCoursesJson( $(this) );
         countSum();
 
+		$select.each( function(){
+			countPrice( $(this) );
+			countSum();
+		});
     });
 
     $deleteBtn.click( function(e) {

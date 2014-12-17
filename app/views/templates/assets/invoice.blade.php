@@ -10,13 +10,22 @@
         @if(isset($SpisokSluschateley))
         <?php
             $spisok = array();
+            $accountDiscount = User_organization::where('id',$SpisokSluschateley->user_id)->pluck('discount');
+            $coursesCountDiscount = coursesCountDiscount($SpisokSluschateley->listeners);
             foreach($SpisokSluschateley->listeners as $listener):
                 $spisok[$listener->course->id]['count']++;
                 $spisok[$listener->course->id]['code'] = $listener->course->code;
                 $spisok[$listener->course->id]['title'] = $listener->course->title;
                 $spisok[$listener->course->id]['price'] = $listener->course->price;
-                $spisok[$listener->course->id]['discount'] = abs($listener->course->price - $listener->price);
-                $spisok[$listener->course->id]['summa'] = ($spisok[$listener->course->id]['discount'] == 0) ? $spisok[$listener->course->id]['count']*$listener->course->price  : $spisok[$listener->course->id]['count']*abs($listener->course->price - $spisok[$listener->course->id]['discount']) ;
+                $discount = calculateDiscount(array($listener->course->direction->discount,$listener->course->discount,$accountDiscount,$coursesCountDiscount));
+                $spisok[$listener->course->id]['discount'] = 0;
+                if($discount > 0):
+                    $spisok[$listener->course->id]['discount'] = round($spisok[$listener->course->id]['price']*round($discount/100,2));
+                endif;
+                $spisok[$listener->course->id]['summa'] = calculateDiscount(array($listener->course->direction->discount,$listener->course->discount,$accountDiscount,$coursesCountDiscount),$spisok[$listener->course->id]['count']*$spisok[$listener->course->id]['price']);
+                if(empty($spisok[$listener->course->id]['discount'])):
+                    $spisok[$listener->course->id]['discount'] = 0;
+                endif;
             endforeach;
             foreach($spisok as $course):
                 $VsegoNaimenovaliy += $course['count'];
@@ -39,7 +48,7 @@
             @foreach($spisok as $course_id => $course)
                 <tr>
                     <td><p align="center">{{ $index }}</p></td>
-                    <td><p>{{ $course['code'] }}. {{ $course['title'] }}</p></td>
+                    <td><p align="center">{{ $course['code'] }}. {{ $course['title'] }}</p></td>
                     <td><p align="center">{{ $course['count'] }}</p></td>
                     <td><p align="center">курс</p></td>
                     <td><p align="center">{{ number_format($course['price'],2,',',' ') }}</p></td>
