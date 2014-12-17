@@ -618,9 +618,21 @@ var Popup = (function(){
         });
 
         $purchaseTable.each( function(index){
+			var $listeners = $(this).find('.purchase-listeners').text();
 			var $sumWODiscountPrice = $(this).find('.purchase-price').data('real-price');
-			$sumWODiscount +=$sumWODiscountPrice;
+			$sumWODiscount +=$sumWODiscountPrice * $listeners;
         });
+
+        console.log($sum == $sumWODiscount);
+
+        if( $sum == $sumWODiscount) {
+			$sumWODiscountBlock.parents('.row').addClass('hidden');
+			$finishDiscountBlock.parents('.row').addClass('hidden');
+		} else {
+			console.log('false');
+			$sumWODiscountBlock.parents('.row').removeClass('hidden');
+			$finishDiscountBlock.parents('.row').removeClass('hidden');
+        }
 
         $sumWODiscountBlock.text( ($sumWODiscount + '').replace(/(\d)(?=(\d{3})+$)/g, '$1 ') + '.-' );
         $finishDiscountBlock.text( ($sumWODiscount - $sum + '').replace(/(\d)(?=(\d{3})+$)/g, '$1 ') + '.-' );
