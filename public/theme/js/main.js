@@ -332,9 +332,7 @@ var Popup = (function(){
     $select.each( function(){
 		countPrice( $(this) );
 		countSum();
-    });
-
-    
+    });    
 
     //Также нам нужна функция, которая восстановит данные о курсах и пользователях при загрузке
     function setSelectBoxes() {
@@ -513,6 +511,8 @@ var Popup = (function(){
 
 		//2. Set price
         $priceSum.text( ($listenersLength * $priceCount) ? ( ($listenersLength * $priceCount) + '' ).replace(/(\d)(?=(\d{3})+$)/g, '$1 ') + '.-' : '0.-' );
+		
+		return $fullListenersLength;
     }
 
     function returnError(text) {
@@ -524,9 +524,16 @@ var Popup = (function(){
 
     $('.chosen-select').on('change', function() {
 
-        countPrice( $(this) );
+        var listeners = countPrice( $(this) );
         makeCoursesJson( $(this) );
         countSum();
+
+        if( $('.purchase-course-dl').data('count-discount') <= listeners ) {
+			$select.each( function(){
+				countPrice( $(this) );
+				countSum();
+			});
+        }
 
     });
 
