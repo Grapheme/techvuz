@@ -476,6 +476,8 @@ var Popup = (function(){
         var $fullListenersLength = $('.purchase-course-dl').find('option:selected').length;
         //Real course price
         var $realPrice = $price.data('real-price');
+        //Uses discount
+        var $usesDiscount = $boundDt.find('.purchase-table').data('use-discount');
         
         //Function actions
         //1. Fill active listeners
