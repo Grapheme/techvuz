@@ -3,8 +3,7 @@
 @stop
 @section('content')
 <main class="cabinet">
-     <?php $account = User_individual::where('id',Auth::user()->id)->first(); ?>
-    <h1>{{ $account->fio }}</h1>
+    <h1>{{ User_individual::where('id',Auth::user()->id)->pluck('fio'); }}</h1>
     <div class="cabinet-tabs">
         @include(Helper::acclayout('menu'))
         <div>
@@ -75,9 +74,13 @@
                         @endif
                     @endforeach
                     <?php
-                        $studyHours = !empty($module->hours) ? round($module->hours/8)*86400 : round(Config::get('site.time_to_study_begin')/4)*86400;
-                        $lostTime = myDateTime::getDiffTimeStamp(date("Y-m-d H:i:s",strtotime($study_course->order->payment_date)+$studyHours),date("Y-m-d H:i:s",time()));
+                        $lostTime = FALSE;
+                        if($study_course->order->study_status):
+                            $studyHours = !empty($module->hours) ? round($module->hours/8)*86400 : round(Config::get('site.time_to_study_begin')/4)*86400;
+                            $lostTime = myDateTime::getDiffTimeStamp(date("Y-m-d H:i:s",strtotime($study_course->order->study_date)+$studyHours),date("Y-m-d H:i:s",time()));
+                        endif;
                     ?>
+                @if($lostTime !== FALSE)
                     @if($study_course->start_status == 1 && $lostTime <= 0 && !empty($module->test))
                         <tr>
                             <td colspan="3">Итоговое тестирование</td>
@@ -86,10 +89,12 @@
                     @elseif($study_course->start_status == 1 && $lostTime > 0)
                         <tr>
                             <?php
-                            $lostDateTime = myDateTime::getDiffDate(date("Y-m-d H:i:s",time()),date("Y-m-d H:i:s",strtotime($study_course->order->payment_date)+$studyHours),NULL);
+                            $lostDateTime = myDateTime::getDiffDate(date("Y-m-d H:i:s",time()),date("Y-m-d H:i:s",strtotime($study_course->order->study_date)+$studyHours),NULL);
                             ?>
                             <td colspan="4">
-                                @if($lostDateTime['d'] > 2)
+                                @if($lostDateTime['d'] > 2 && $lostDateTime['h'] > 12)
+                                    Итоговое тестирование будет доступно через {{ ($lostDateTime['d']+1).' '.Lang::choice('день|дня|дней', $lostDateTime['d']) }}
+                                @elseif($lostDateTime['d'] > 2 && $lostDateTime['h'] < 12)
                                     Итоговое тестирование будет доступно через {{ $lostDateTime['d'].' '.Lang::choice('день|дня|дней', $lostDateTime['d']) }}
                                 @elseif($lostDateTime['d'] > 1)
                                     Итоговое тестирование будет доступно через {{ $lostDateTime['d'].' '.Lang::choice('день|дня|дней', $lostDateTime['d'])}} {{ $lostDateTime['h'].' '.Lang::choice('час|часа|часов', $lostDateTime['h']) }}
@@ -103,6 +108,7 @@
                             </td>
                         </tr>
                     @endif
+                @endif
                     </tbody>
                 </table>
             </div>

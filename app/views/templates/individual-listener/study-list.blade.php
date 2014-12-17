@@ -4,8 +4,7 @@
 @section('content')
     <main class="cabinet">
         <?php $courses = OrderListeners::where('user_id',Auth::user()->id)->orderBy('access_status','DESC')->with('course')->with('final_test')->get();?>
-        <?php $account = User_individual::where('id',Auth::user()->id)->first(); ?>
-        <h1>{{ $account->fio }}</h1>
+        <h1>{{ User_individual::where('id',Auth::user()->id)->pluck('fio'); }}</h1>
         <div class="cabinet-tabs">
             @include(Helper::acclayout('menu'))
             <div>

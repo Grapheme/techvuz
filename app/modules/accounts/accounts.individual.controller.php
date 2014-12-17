@@ -230,6 +230,8 @@ class AccountsIndividualController extends BaseController {
     }
 
     /**************************************************************************/
+    /******************************* STUDY ************************************/
+    /**************************************************************************/
 
     public function ListenerStudyList(){
 
@@ -293,7 +295,7 @@ class AccountsIndividualController extends BaseController {
             $lecture = Lectures::where('id',$lecture_id)->with('document')->first()->toArray();
             if (isset($lecture['document']['path']) && File::exists(public_path($lecture['document']['path']))):
                 if($listenerCourse->start_status == 0):
-                    Event::fire('individual.study.begin',array(array('accountID'=>Auth::user()->id,'course'=>OrderListeners::where('id',$study_course_id)->first()->course()->pluck('code'),'listener'=>User_individual::where('id',Auth::user()->id)->pluck('fio'))));
+                    #Event::fire('individual.study.begin',array(array('accountID'=>Auth::user()->id,'course'=>OrderListeners::where('id',$study_course_id)->first()->course()->pluck('code'),'listener'=>User_individual::where('id',Auth::user()->id)->pluck('fio'))));
                 endif;
                 Event::fire('listener.start.course.study', array(array('listener_course_id'=>$study_course_id)));
                 if(!User_lectures_download::where('user_id',Auth::user()->id)->where('lecture_id',$lecture_id)->exists()):
@@ -337,7 +339,7 @@ class AccountsIndividualController extends BaseController {
                 $zipper->make($zipFilePath)->add($documents)->close();
                 if (File::exists($zipFilePath)):
                     if($listenerCourse->start_status == 0):
-                        Event::fire('individual.study.begin',array(array('accountID'=>User_listener::where('id',Auth::user()->id)->first()->organization()->pluck('id'),'course'=>OrderListeners::where('id',$study_course_id)->first()->course()->pluck('code'),'listener'=>User_listener::where('id',Auth::user()->id)->pluck('fio'))));
+                        #Event::fire('individual.study.begin',array(array('accountID'=>User_listener::where('id',Auth::user()->id)->first()->organization()->pluck('id'),'course'=>OrderListeners::where('id',$study_course_id)->first()->course()->pluck('code'),'listener'=>User_listener::where('id',Auth::user()->id)->pluck('fio'))));
                     endif;
                     Event::fire('listener.start.course.study', array(array('listener_course_id'=>$study_course_id)));
                     $headers = returnZipDownloadHeaders($zipFilePath);
@@ -346,6 +348,113 @@ class AccountsIndividualController extends BaseController {
             endif;
         endif;
         return Redirect::back();
+    }
+
+    /**************************************************************************/
+    /**************************** TESTING *************************************/
+    /**************************************************************************/
+
+    public function ListenerStudyTesting($course_translit,$test_id){
+
+        $listenerCourse = OrderListeners::where('id',(int) $course_translit)
+            ->where('user_id',Auth::user()->id)
+            ->where('access_status',1)
+            ->with('order')
+            ->first();
+        if (empty($listenerCourse)  || $listenerCourse->order->close_status == 1):
+            return Redirect::route('listener-study');
+        endif;
+        $test = CoursesTests::where('id',$test_id)
+            ->where('course_id',$listenerCourse->course_id)
+            ->where('active',1)
+            ->with('course')
+            ->with('chapter')
+            ->with('questions.answers')
+            ->first();
+        $page_data = array(
+            'page_title'=> Lang::get('seo.COMPANY_LISTENER_STUDY_COURSE.title'),
+            'page_description'=> Lang::get('seo.COMPANY_LISTENER_STUDY_COURSE.description'),
+            'page_keywords'=> Lang::get('seo.COMPANY_LISTENER_STUDY_COURSE.keywords'),
+            'study_course' => $listenerCourse,
+            'test' => $test
+        );
+        return View::make(Helper::acclayout('study-test'),$page_data);
+    }
+
+    public function ListenerStudyTestFinish($study_course_id,$test_id){
+
+        $listenerCourse = OrderListeners::where('id',$study_course_id)->where('user_id',Auth::user()->id)->where('access_status',1)->with('order')->with('course')->first();
+        $test = CoursesTests::where('id',$test_id)->where('course_id',$listenerCourse->course_id)->where('active',1)->with('questions.answers')->first();
+        if (!$listenerCourse || !$test || $listenerCourse->order->close_status == 1):
+            return Redirect::route('individual-study');
+        endif;
+        $validator = Validator::make(Input::all(),array('questions'=>'required','time_attempt'=>'required'));
+        if($validator->passes()):
+            $questions_answers = array();
+            $user_questions_answers = Input::get('questions');
+            foreach($test->questions as $question):
+                foreach($question->answers as $answer):
+                    if ($answer->correct == 1):
+                        $questions_answers[$question->id] = $answer->id;
+                    endif;
+                endforeach;
+            endforeach;
+            $test_max_balls = count($questions_answers);
+            $test_user_balls = 0;
+            foreach($questions_answers as $question_id => $answer_id):
+                if (isset($user_questions_answers[$question_id]) && $user_questions_answers[$question_id] == $answer_id):
+                    $test_user_balls++;
+                endif;
+            endforeach;
+            $success_test_percent = Config::get('site.success_test_percent') ? Config::get('site.success_test_percent') : 70;
+            $insert = array(
+                'order_listeners_id' => $study_course_id,
+                'chapter_id' => $test->chapter_id,
+                'test_id' => $test->id,
+                'data_results' => json_encode($user_questions_answers),
+                'result_attempt' => @round($test_user_balls/$test_max_balls,3)*100,
+                'time_attempt' => Input::get('time_attempt')
+            );
+            $listenerTest = OrdersListenersTests::create($insert);
+            Event::fire('listener.start.course.study', array(array('listener_course_id'=>$study_course_id)));
+            $course_translite_title = $listenerCourse->id.'-'.BaseController::stringTranslite($listenerCourse->course->title,100);
+            if ($listenerTest->result_attempt >= $success_test_percent):
+                if ($test->chapter_id == 0):
+                    Event::fire('listener.over.course.study', array(array('listener_course_id'=>$study_course_id)));
+                    Event::fire('listener.study-finish',array(array('accountID'=>Auth::user()->id,'course'=>OrderListeners::where('id',$study_course_id)->first()->course()->pluck('code'))));
+                    AccountsOrderingController::closeOrder($listenerCourse->order_id);
+                    return Redirect::route('listener-study-test-result',array('course_translite_title'=>$course_translite_title,'study_test_id'=>$listenerTest->id))->with('message.text',Lang::get('interface.COMPANY_LISTENER_STUDY_TEST_FINISH.success_course_test').' '.$listenerTest->result_attempt .'%</h4>')->with('message.status','test-result');
+                else:
+                    return Redirect::route('listener-study-test-result',array('course_translite_title'=>$course_translite_title,'study_test_id'=>$listenerTest->id))->with('message.text',Lang::get('interface.COMPANY_LISTENER_STUDY_TEST_FINISH.success_chapter_test').' '.$listenerTest->result_attempt .'%</h4>')->with('message.status','test-result');
+                endif;
+            else:
+                return Redirect::route('listener-study-test-result',array('course_translite_title'=>$course_translite_title,'study_test_id'=>$listenerTest->id))->with('message.text',Lang::get('interface.COMPANY_LISTENER_STUDY_TEST_FINISH.fail').' '.$listenerTest->result_attempt .'%</h4>')->with('message.status','test-result')->with('message.show_repeat',TRUE);
+            endif;
+        else:
+            return Redirect::back()->with('message',Lang::get('interface.COMPANY_LISTENER_STUDY_TEST_FINISH.empty_answers'));
+        endif;
+    }
+
+    public function ListenerStudyTestResult($course_translit,$study_test_id){
+
+        if (!Session::has('message.status') || Session::get('message.status') != 'test-result'):
+            return Redirect::route('individual-study');
+        endif;
+
+        $listenerCourse = OrderListeners::where('id',(int) $course_translit)->where('user_id',Auth::user()->id)->where('access_status',1)->with('order')->first();
+        $listenerTest = OrdersListenersTests::where('id',$study_test_id)->where('order_listeners_id',$listenerCourse->id)->with('test.course')->first();
+        if (!$listenerCourse || !$listenerTest):
+            return Redirect::route('listener-study');
+        endif;
+        $page_data = array(
+            'page_title'=> Lang::get('seo.COMPANY_LISTENER_STUDY_TEST_RESULT.title'),
+            'page_description'=> Lang::get('seo.COMPANY_LISTENER_STUDY_TEST_RESULT.description'),
+            'page_keywords'=> Lang::get('seo.COMPANY_LISTENER_STUDY_TEST_RESULT.keywords'),
+            'study_course' => $listenerCourse,
+            'study_test' => $listenerTest
+        );
+        return View::make(Helper::acclayout('study-test-result'),$page_data);
+
     }
 
     /**************************************************************************/
