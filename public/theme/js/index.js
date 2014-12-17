@@ -676,7 +676,13 @@ var Popup = (function(){
         var $staticDiscount = elem.parents('.purchase-table').data('static-discount');
 
 		if( $staticDiscount < $valueDiscount && $fullListenersLength >= $countDiscount ) {
-			$priceCount = $realPrice * (100 - $valueDiscount) / 100;
+
+			if( $usesDiscount == '0') {
+				$priceCount = $realPrice;
+			}
+			if( $usesDiscount == '1') {
+				$priceCount = $realPrice * (100 - $valueDiscount) / 100;
+			}
 
 			if( $priceCount != $realPrice ) {
 				$discountField.text( ($priceCount + '').replace(/(\d)(?=(\d{3})+$)/g, '$1 ') + '.-' );
