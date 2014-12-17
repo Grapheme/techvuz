@@ -618,8 +618,9 @@ var Popup = (function(){
         });
 
         $purchaseTable.each( function(index){
+			var $listeners = $(this).find('.purchase-listeners').text();
 			var $sumWODiscountPrice = $(this).find('.purchase-price').data('real-price');
-			$sumWODiscount +=$sumWODiscountPrice;
+			$sumWODiscount +=$sumWODiscountPrice * $listeners;
         });
 
         console.log($sum == $sumWODiscount);
