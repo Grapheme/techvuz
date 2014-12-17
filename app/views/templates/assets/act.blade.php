@@ -4,9 +4,10 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>{{{ isset($page_title) ? $page_title : Config::get('app.default_page_title') }}}</title>
+    <link href="http://fonts.googleapis.com/css?family=Open+Sans:300italic,400,600&amp;subset=latin,cyrillic" rel="stylesheet" type="text/css">
 </head>
 <body>
-    <main>
+    <main style="width: 936px; font-family: 'Open Sans'">
         @if(isset($SpisokSluschateley))
         <?php
             $spisok = array();
@@ -24,27 +25,27 @@
             endforeach;
         ?>
         <?php ob_start();?>
-        <table>
+        <table cellspacing="0" cellpadding="0" border="1" style="margin-bottom: 40px; font-family: 'Open Sans'">
             <tbody>
                 <tr>
-                    <td><p align="center"><strong>№ п/п</strong></p></td>
-                    <td><p align="center"><strong>Наименование курса повышения квалификации</strong></p></td>
-                    <td><p align="center"><strong>Кол-во</strong></p></td>
-                    <td><p align="center"><strong>Ед.</strong></p></td>
-                    <td><p align="center"><strong>Цена (руб)</strong></p></td>
-                    <td><p align="center"><strong>Скидка</strong></p></td>
-                    <td><p align="center"><strong>Сумма (руб)</strong></p></td>
+                    <td style="padding: 3pt 6pt 3pt 6pt;"><p align="center"><strong>№ п/п</strong></p></td>
+                    <td style="padding: 3pt 6pt 3pt 6pt;"><p align="center"><strong>Наименование курса повышения квалификации</strong></p></td>
+                    <td style="padding: 3pt 6pt 3pt 6pt;"><p align="center"><strong>Кол-во</strong></p></td>
+                    <td style="padding: 3pt 6pt 3pt 6pt;"><p align="center"><strong>Ед.</strong></p></td>
+                    <td style="padding: 3pt 6pt 3pt 6pt; white-space: nowrap;"><p align="center"><strong>Цена (руб)</strong></p></td>
+                    <td style="padding: 3pt 6pt 3pt 6pt; white-space: nowrap;"><p align="center"><strong>Скидка</strong></p></td>
+                    <td style="padding: 3pt 6pt 3pt 6pt; white-space: nowrap;"><p align="center"><strong>Сумма (руб)</strong></p></td>
                 </tr>
                 <?php $index = 1;?>
             @foreach($spisok as $course_id => $course)
                 <tr>
-                    <td><p align="center">{{ $index }}</p></td>
-                    <td><p>{{ $course['code'] }}. {{ $course['title'] }}</p></td>
-                    <td><p align="center">{{ $course['count'] }}</p></td>
-                    <td><p align="center">курс</p></td>
-                    <td><p align="center">{{ number_format($course['price'],2,',',' ') }}</p></td>
-                    <td><p align="center">{{ number_format($course['discount'],2,',',' ') }}</p></td>
-                    <td><p align="center">{{ number_format($course['summa'],2,',',' ') }}</p></td>
+                    <td style="padding: 3pt 6pt 3pt 6pt;"><p align="center">{{ $index }}</p></td>
+                    <td style="padding: 3pt 6pt 3pt 6pt;"><p align="center">{{ $course['code'] }}. {{ $course['title'] }}</p></td>
+                    <td style="padding: 3pt 6pt 3pt 6pt;"><p align="center">{{ $course['count'] }}</p></td>
+                    <td style="padding: 3pt 6pt 3pt 6pt;"><p align="center">курс</p></td>
+                    <td style="padding: 3pt 6pt 3pt 6pt; white-space: nowrap;"><p align="center">{{ number_format($course['price'],2,',',' ') }}</p></td>
+                    <td style="padding: 3pt 6pt 3pt 6pt; white-space: nowrap;"><p align="center">{{ number_format($course['discount'],2,',',' ') }}</p></td>
+                    <td style="padding: 3pt 6pt 3pt 6pt; white-space: nowrap;"><p align="center">{{ number_format($course['summa'],2,',',' ') }}</p></td>
                 </tr>
                 <?php $index++; ?>
             @endforeach

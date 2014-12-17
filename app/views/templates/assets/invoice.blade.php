@@ -6,7 +6,7 @@
     <title>{{{ isset($page_title) ? $page_title : Config::get('app.default_page_title') }}}</title>
 </head>
 <body>
-    <main>
+    <main style="width: 936px; font-family: 'Open Sans'">
         @if(isset($SpisokSluschateley))
         <?php
             $spisok = array();
