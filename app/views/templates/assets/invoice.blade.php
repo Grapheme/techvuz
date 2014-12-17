@@ -46,9 +46,9 @@
                     <td valign="top" style="padding: 3pt 6pt 3pt 6pt;"><p align="center"><strong>Наименование курса повышения квалификации</strong></p></td>
                     <td valign="top" style="padding: 3pt 6pt 3pt 6pt;"><p align="center"><strong>Кол-во</strong></p></td>
                     <td valign="top" style="padding: 3pt 6pt 3pt 6pt;"><p align="center"><strong>Ед.</strong></p></td>
-                    <td valign="top" style="padding: 3pt 6pt 3pt 6pt;" style="white-space: nowrap;"><p align="center"><strong>Цена (руб)</strong></p></td>
-                    <td valign="top" style="padding: 3pt 6pt 3pt 6pt;" style="white-space: nowrap;"><p align="center"><strong>Скидка</strong></p></td>
-                    <td valign="top" style="padding: 3pt 6pt 3pt 6pt;" style="white-space: nowrap;"><p align="center"><strong>Сумма (руб)</strong></p></td>
+                    <td valign="top" style="padding: 3pt 6pt 3pt 6pt; white-space: nowrap;"><p align="center"><strong>Цена (руб)</strong></p></td>
+                    <td valign="top" style="padding: 3pt 6pt 3pt 6pt; white-space: nowrap;"><p align="center"><strong>Скидка</strong></p></td>
+                    <td valign="top" style="padding: 3pt 6pt 3pt 6pt; white-space: nowrap;"><p align="center"><strong>Сумма (руб)</strong></p></td>
                 </tr>
                 <?php $index = 1;?>
             @foreach($spisok as $course_id => $course)
@@ -57,9 +57,9 @@
                     <td valign="top" style="padding: 3pt 6pt 3pt 6pt;"><p align="center">{{ $course['code'] }}. {{ $course['title'] }}</p></td>
                     <td valign="top" style="padding: 3pt 6pt 3pt 6pt;"><p align="center">{{ $course['count'] }}</p></td>
                     <td valign="top" style="padding: 3pt 6pt 3pt 6pt;"><p align="center">курс</p></td>
-                    <td valign="top" style="padding: 3pt 6pt 3pt 6pt;" style="white-space: nowrap;"><p align="center">{{ number_format($course['price'],2,',',' ') }}</p></td>
-                    <td valign="top" style="padding: 3pt 6pt 3pt 6pt;" style="white-space: nowrap;"><p align="center">{{ number_format($course['discount'],2,',',' ') }}</p></td>
-                    <td valign="top" style="padding: 3pt 6pt 3pt 6pt;" style="white-space: nowrap;"><p align="center">{{ number_format($course['summa'],2,',',' ') }}</p></td>
+                    <td valign="top" style="padding: 3pt 6pt 3pt 6pt; white-space: nowrap;"><p align="center">{{ number_format($course['price'],2,',',' ') }}</p></td>
+                    <td valign="top" style="padding: 3pt 6pt 3pt 6pt; white-space: nowrap;"><p align="center">{{ number_format($course['discount'],2,',',' ') }}</p></td>
+                    <td valign="top" style="padding: 3pt 6pt 3pt 6pt; white-space: nowrap;"><p align="center">{{ number_format($course['summa'],2,',',' ') }}</p></td>
                 </tr>
                 <?php $index++; ?>
             @endforeach
