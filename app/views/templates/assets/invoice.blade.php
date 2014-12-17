@@ -42,7 +42,7 @@
             endforeach;
         ?>
         <?php ob_start();?>
-        <table cellspacing="0" cellpadding="0" border="1">
+        <table cellspacing="0" cellpadding="0" border="1" style="margin-bottom: 40px;">
             <tbody>
                 <tr>
                     <td valign="top" style="padding: 3pt 6pt 3pt 6pt;"><p align="center"><strong>№ п/п</strong></p></td>
