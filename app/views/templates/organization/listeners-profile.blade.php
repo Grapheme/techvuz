@@ -20,7 +20,7 @@
             <tbody>                
                 @foreach($profile->study as $study)
                 <tr {{ ($study->start_status == 1 && $study->over_status == 1) ? 'class="finished-course"' : '' }}>
-                    <td class="vertical-top">{{ $study->course->title }}</td>                    
+                    <td class="vertical-top">{{ $study->course->code  }}. {{ $study->course->title }}</td>
                     <td class="vertical-top">
                         <a href="{{ URL::route('organization-order',$study->order->id) }}"> №{{ getOrderNumber($study->order) }}</a>
                         <div class="font-sm nowrap">

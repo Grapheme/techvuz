@@ -119,7 +119,7 @@ function scrollToError(elem) {
 
 $(function(){
 
-    $('js-delete-temp-order').click( function(){
+    $('.js-delete-temp-order').click( function(){
         var $self = $(this);
         var $parent = $(this).parents('.orders-li.non-paid-order');
 

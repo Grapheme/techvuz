@@ -87,10 +87,8 @@ class AccountsDocumentsController extends BaseController {
             return Redirect::route('organization-orders');
         endif;
 
-        $template = 'templates.organization.documents';
         $document = Dictionary::valueBySlugs('order-documents','order-documents-contract');
         $document_app1 = Dictionary::valueBySlugs('order-documents','order-documents-contract-listeners');
-        $document_consent = Dictionary::valueBySlugs('order-documents','order-documents-contract-consent');
 
         if ($order->contract->exists && File::exists(public_path($order->contract->path))):
             $headers = returnDownloadHeaders($order->contract);
@@ -98,7 +96,6 @@ class AccountsDocumentsController extends BaseController {
         elseif($document->exists && !empty($document->fields)):
             $fields = modifyKeys($document->fields,'key');
             $fields_app1 = modifyKeys($document_app1->fields,'key');
-            $fields_consent = modifyKeys($document_consent->fields,'key');
             Config::set('show-document.order_id', $order_id);
             switch($format):
                 case 'html':
@@ -109,10 +106,6 @@ class AccountsDocumentsController extends BaseController {
                     $document_content_app1 = isset($fields_app1['content']) ? $fields_app1['content']->value : '';
                     if($page_data = self::parseOrderHTMLDocument($document_content_app1)):
                         #return View::make('templates/assets/contract-app1',$page_data);
-                    endif;
-                    $document_content_consent = isset($fields_consent['content']) ? $fields_consent['content']->value : '';
-                    if($page_data = self::parseOrderHTMLDocument($document_content_consent)):
-                        #return View::make('templates/assets/contract-consent',$page_data);
                     endif;
                     break;
                 case 'pdf' :
@@ -129,16 +122,6 @@ class AccountsDocumentsController extends BaseController {
                         $page_data['page_title'] = '';
                         $mpdf->AddPage('L');
                         $mpdf->WriteHTML(View::make('templates/assets/contract-app1', $page_data)->render(), 2);
-                    endif;
-                    $document_content_consent = isset($fields_consent['content']) ? $fields_consent['content']->value : '';
-                    if($page_data = self::parseOrderHTMLDocument($document_content_consent)):
-                        $page_data['page_title'] = '';
-                        foreach($page_data['SpisokSluschateley']['listeners'] as $listener):
-                            $page_data['FIO_listener'] = $listener['user_listener']['fio'];
-                            $page_data['Address_listener'] = $listener['user_listener']['postaddress'];
-                            $mpdf->AddPage('P');
-                            $mpdf->WriteHTML(View::make('templates/assets/contract-consent', $page_data)->render(), 2);
-                        endforeach;
                     endif;
                     return $mpdf->Output('contract-№'.getOrderNumber($order).'.pdf', 'D');
                 case 'word':
