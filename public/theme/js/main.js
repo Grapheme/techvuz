@@ -440,7 +440,6 @@ var Popup = (function(){
 			$sumWODiscountBlock.parents('.row').addClass('hidden');
 			$finishDiscountBlock.parents('.row').addClass('hidden');
 		} else {
-			console.log('false');
 			$sumWODiscountBlock.parents('.row').removeClass('hidden');
 			$finishDiscountBlock.parents('.row').removeClass('hidden');
         }
@@ -468,8 +467,6 @@ var Popup = (function(){
         var $fullListenersLength = $('.purchase-course-dl').find('option:selected').length;
         //Real course price
         var $realPrice = $price.data('real-price');
-
-        console.log( '$fullListenersLength' + $fullListenersLength );
         
         //Function actions
         //1. Fill active listeners
@@ -480,7 +477,7 @@ var Popup = (function(){
         var $discountField = $boundDt.find('.discount-price');
         var $staticDiscount = elem.parents('.purchase-table').data('static-discount');
 
-		if( $staticDiscount < $valueDiscount && $listenersLength >= $countDiscount ) {
+		if( $staticDiscount < $valueDiscount && $fullListenersLength >= $countDiscount ) {
 			$priceCount = $realPrice * (100 - $valueDiscount) / 100;
 
 			if( $priceCount != $realPrice ) {
