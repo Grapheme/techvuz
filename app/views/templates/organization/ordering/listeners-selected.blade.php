@@ -29,8 +29,13 @@
         ?>
         @foreach(Courses::whereIn('id',getJsonCookieData('ordering'))->with('direction')->get() as $course)
             {{ Form::hidden('courses[]',$course->id) }}
+            <?php $discountPrice = FALSE; ?>
+            @if($course->direction->use_discount && $course->use_discount)
+                <?php $discountPrice = calculateDiscount(array($course->direction->discount,$course->discount,$globalDiscount,$accountDiscount),$course->price); ?>
+                <?php $discountStatic = calculateDiscount(array($course->direction->discount,$course->discount,$globalDiscount,$accountDiscount)); ?>
+            @endif
             <dt class="purchase-course-dt">
-                <table class="tech-table purchase-table" data-static-discount="20" data-courseid="{{ $course->id }}">
+                <table class="tech-table purchase-table" data-static-discount="{{ $discountStatic }}" data-courseid="{{ $course->id }}">
                     <tr>
                         <th>Название</th>
                         <th>Код</th>
@@ -44,12 +49,8 @@
                             {{ $course->title }}
                         </td>
                         <td>{{ $course->code }}</td>
-                        <?php $discountPrice = FALSE; ?>
-                        @if($course->direction->use_discount && $course->use_discount)
-                            <?php $discountPrice = calculateDiscount(array($course->direction->discount,$course->discount,$globalDiscount,$accountDiscount),$course->price); ?>
-                        @endif
                         @if($discountPrice === FALSE)
-                            <td class="purchase-price" data-real-price="{{ number_format($course->price,0,'.','') }}" data-price="{{ number_format($course->price,0,'.','') }}">
+                            <td class="purchase-price" data-real-price="{{ $course->price }}" data-price="{{ $course->price }}">
                                 <div class="start-price margin-bottom-10">
                                     {{ number_format($course->price,0,'.',' ') }}.–
                                 </div>
@@ -57,7 +58,7 @@
                                 </div>                            
                             </td>
                         @else
-                            <td class="purchase-price" data-real-price="{{ number_format($course->price,0,'.','') }}" data-price="{{ number_format($discountPrice,0,'.','') }}">
+                            <td class="purchase-price" data-real-price="{{ $course->price }}" data-price="{{ $discountPrice }}">
                                 <div class="start-price margin-bottom-10" style="text-decoration: line-through;">
                                     {{ number_format($course->price,0,'.',' ') }}.–
                                 </div>
