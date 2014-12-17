@@ -511,9 +511,9 @@ var Popup = (function(){
 			}
 
 			//Count price again
-			$('.chosen-select').each( function(){
-				countPrice( $(this) );
-			});
+			// $('.chosen-select').each( function(){
+			// 	countPrice( $(this) );
+			// });
 		}
 
 		//2. Set price
