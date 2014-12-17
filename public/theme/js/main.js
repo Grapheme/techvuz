@@ -432,8 +432,8 @@ var Popup = (function(){
 			var $sumWODiscount = $(this).find('.purchase-price').data('real-price');
         });
 
-        $sumWODiscountBlock.text( ($sumWODiscount + '').replace(/(\d)(?=(\d{3})+$)/g, '$1 ') + '.-' ); );
-        $finishDiscountBlock.text( ($sumWODiscount - $sum + '').replace(/(\d)(?=(\d{3})+$)/g, '$1 ') + '.-' ); );
+        $sumWODiscountBlock.text( ($sumWODiscount + '').replace(/(\d)(?=(\d{3})+$)/g, '$1 ') + '.-' );
+        $finishDiscountBlock.text( ($sumWODiscount - $sum + '').replace(/(\d)(?=(\d{3})+$)/g, '$1 ') + '.-' );
         $sumFinishBlock.text( ($sum + '').replace(/(\d)(?=(\d{3})+$)/g, '$1 ') + '.-' );
     }
 
