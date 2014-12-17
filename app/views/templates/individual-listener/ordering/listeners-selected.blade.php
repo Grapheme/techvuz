@@ -26,8 +26,8 @@
             $totalPrice = 0;
         ?>
             <dt class="purchase-course-dt">
-                <?php $discountStatic = 0; ?>
-                <table class="tech-table purchase-table" data-static-discount="{{ $discountStatic }}" data-courseid="{{ $course->id }}">
+                <?php $discountStatic = 0; $useCourseDiscount = 0; ?>
+                <table class="tech-table purchase-table" data-use-discount="{{ $notUseCourseDiscount }}" data-static-discount="{{ $discountStatic }}" data-courseid="{{ $course->id }}">
                     <tr>
                         <th>Название</th>
                         <th>Код</th>
@@ -42,8 +42,12 @@
                             {{ $course->title }}
                         </td>
                         <td>{{ $course->code }}</td>
-                        <?php $discountPrice = FALSE; ?>
+                        <?php
+                            $discountPrice = FALSE;
+                            $useCourseDiscount = 0;
+                        ?>
                         @if($course->direction->use_discount && $course->use_discount)
+                            <?php $useCourseDiscount = 1;?>
                             <?php $discountPrice = calculateDiscount(array($course->direction->discount,$course->discount,$accountDiscount,$globalDiscount),$course->price); ?>
                         @endif
                     @if($discountPrice === FALSE)

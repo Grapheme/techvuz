@@ -29,13 +29,17 @@
         ?>
         @foreach(Courses::whereIn('id',getJsonCookieData('ordering'))->with('direction')->get() as $course)
             {{ Form::hidden('courses[]',$course->id) }}
-            <?php $discountPrice = FALSE; ?>
+            <?php
+                $discountPrice = FALSE;
+                $useCourseDiscount = 0;
+            ?>
             @if($course->direction->use_discount && $course->use_discount)
+                <?php $useCourseDiscount = 1;?>
                 <?php $discountPrice = calculateDiscount(array($course->direction->discount,$course->discount,$globalDiscount,$accountDiscount),$course->price); ?>
                 <?php $discountStatic = calculateDiscount(array($course->direction->discount,$course->discount,$globalDiscount,$accountDiscount)); ?>
             @endif
             <dt class="purchase-course-dt">
-                <table class="tech-table purchase-table" data-static-discount="{{ $discountStatic }}" data-courseid="{{ $course->id }}">
+                <table class="tech-table purchase-table" data-use-discount="{{ $useCourseDiscount }}" data-static-discount="{{ $discountStatic }}" data-courseid="{{ $course->id }}">
                     <tr>
                         <th>Название</th>
                         <th>Код</th>
