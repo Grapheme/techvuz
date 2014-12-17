@@ -509,6 +509,11 @@ var Popup = (function(){
 			} else {
 				$discountField.text('');
 			}
+
+			//Count price again
+			$('.chosen-select').each( function(){
+				countPrice( $(this) );
+			});
 		}
 
 		//2. Set price
