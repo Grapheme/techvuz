@@ -86,13 +86,11 @@ class AccountsDocumentsController extends BaseController {
         if (!$order = Orders::where('id',$order_id)->where('user_id',Auth::user()->id)->where('completed',1)->where('archived',0)->with('contract')->first()):
             return Redirect::route('organization-orders');
         endif;
-
         $document = Dictionary::valueBySlugs('order-documents','order-documents-contract');
         $document_app1 = Dictionary::valueBySlugs('order-documents','order-documents-contract-listeners');
-
         if ($order->contract->exists && File::exists(public_path($order->contract->path))):
             $headers = returnDownloadHeaders($order->contract);
-            return Response::download(public_path($order->$document_type->path),$document_type.'-№'.getOrderNumber($order).'.'.$order->$document_type->mime2,$headers);
+            return Response::download(public_path($order->contract->path),'contract-№'.getOrderNumber($order).'.'.$order->contract->mime2,$headers);
         elseif($document->exists && !empty($document->fields)):
             $fields = modifyKeys($document->fields,'key');
             $fields_app1 = modifyKeys($document_app1->fields,'key');
