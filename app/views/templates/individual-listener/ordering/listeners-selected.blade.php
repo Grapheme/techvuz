@@ -26,7 +26,8 @@
             $totalPrice = 0;
         ?>
             <dt class="purchase-course-dt">
-                <table class="tech-table purchase-table" data-courseid="{{ $course->id }}">
+                <?php $discountStatic = 0; ?>
+                <table class="tech-table purchase-table" data-static-discount="{{ $discountStatic }}" data-courseid="{{ $course->id }}">
                     <tr>
                         <th>Название</th>
                         <th>Код</th>
