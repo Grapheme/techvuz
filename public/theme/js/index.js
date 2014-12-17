@@ -613,7 +613,9 @@ var Popup = (function(){
 
         $purchaseTable.each( function(index){
 			var $listeners = $(this).find('.purchase-listeners').text();
-			var $price = $(this).find('.purchase-price').data('price');
+			var $price = parseFloat( $(this).find('.discount-price').text().replace(' ','') ) ?
+						 parseFloat( $(this).find('.discount-price').text().replace(' ','') ) :
+						 $(this).find('.purchase-price').data('price') ;
 			$sum += $listeners * $price;
         });
 
