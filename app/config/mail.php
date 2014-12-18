@@ -10,7 +10,7 @@ return array(
     'host' => 'in.mailjet.com',
     'port' => 587,
     'from' => array(
-        'address' => 'noreply@tehvuz.ru',
+        'address' => 'no-reply@tehvuz.ru',
         'name' => 'ТехВуз'
     ),
     'username' => '0d8dd8623bd38b41c43683c41c0558eb',
