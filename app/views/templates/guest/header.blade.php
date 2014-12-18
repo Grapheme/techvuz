@@ -8,7 +8,9 @@
     @endif
 @endif
 @if(Session::has('message') && Session::get('message.status') == 'activation')
-<?php $header_notification['show'] = TRUE;?>
+    <?php $header_notification['message'] = Session::get('message.text');?>
+    <?php $header_notification['show'] = TRUE;?>
+    <?php $header_notification['code'] = 404;?>
 @endif
 @if(Session::has('message') && Session::get('message.status') == 'error')
     <?php $header_notification['message'] = Session::get('message.text');?>
