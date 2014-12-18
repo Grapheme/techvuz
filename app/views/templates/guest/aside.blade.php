@@ -27,6 +27,6 @@
            </li>
        </ul>
     </nav>
-    @include('sphinxsearch/views/search-form')
+    {{--@include('sphinxsearch/views/search-form')--}}
     @include(Helper::layout('footer'))
 </aside>
