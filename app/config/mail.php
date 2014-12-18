@@ -6,25 +6,16 @@ return array(
         'address' => 'support@grapheme.ru',
     ),
 
-    'driver' => 'sendmail',
-    'host' => '',
-    'port' => 465,
-    'from' => array('address' => 'info@tehvuz.ru', 'name' => 'ТехВуз.рф'),
-    'username' => '',
-    'password' => '',
-
+    'driver' => 'smtp',
+    'host' => 'in.mailjet.com',
+    'port' => 587,
+    'from' => array(
+        'address' => 'noreply@tehvuz.ru',
+        'name' => 'ТехВуз'
+    ),
+    'username' => '0d8dd8623bd38b41c43683c41c0558eb',
+    'password' => '465c500abd5f680f0b20405deb967b36',
     'sendmail' => '/usr/sbin/sendmail -bs',
-    'encryption' => 'ssl',
-
-    'pretend' => FALSE
+    'encryption' => 'tls',
+    'pretend' => FALSE,
 );
-
-//'driver' => 'smtp',
-//'host' => 'smtp.yandex.ru',
-//'port' => 465,
-//'from' => array('address' => 'dah-sl@yandex.ru', 'name' => 'ТехВуз.рф'),
-//'username' => 'dah-sl@yandex.ru',
-//'password' => '534msd8HHS',
-//
-//'sendmail' => '/usr/sbin/sendmail -bs',
-//'encryption' => 'ssl',

@@ -87,8 +87,8 @@ class GlobalController extends \BaseController {
 							endif;
 						endif;
 						Mail::send('emails.auth.signup',array('account'=>$account),function($message){
-							$message->from('support@grapheme.ru','grapheme.ru');
-							$message->to(Input::get('email'))->subject('Monety.pro - регистрация');
+							$message->from(Config::get('mail.from.address'),Config::get('mail.from.name'));
+							$message->to(Input::get('email'))->subject('No Subject');
 						});
 						$json_request['responseText'] = 'Вы зарегистрированы. Мы отправили на email cсылку для активации аккаунта.';
 						$json_request['redirect'] = AuthAccount::getStartPage();
