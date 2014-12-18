@@ -12,7 +12,7 @@ class AccountsOperationController extends BaseController {
     public static function returnRoutes($prefix = null) {
         $class = __CLASS__;
         if (Auth::check()):
-            Route::group(array('before' => 'auth.status', 'prefix' => Auth::user()->group()->pluck('name')), function() use ($class) {
+            Route::group(array('before' => 'auth.status', 'prefix' => Auth::user()->group()->pluck('dashboard')), function() use ($class) {
                 Route::get('repeated-send-mail/activation', array('as'=>'activation-repeated-sending-letter', 'uses' => $class.'@ActivationRepeatedSendingLetter'));
                 Route::any('settings/update/{setting_slug}/{value}', array('as'=>'setting-update', 'uses' => $class.'@saveUserSetting'));
             });
