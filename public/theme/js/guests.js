@@ -46,7 +46,7 @@ var validation_signup_ul = {
     },
     email: {
         required: true,
-        email: true
+        email: true,
         remote: {
            url: "/check-email",
            type: "post",
