@@ -7,6 +7,7 @@
 	color: $clr-white;
 
 	.logo-desc {
+		display: none;
 		margin: 0 0 2.95rem;
 
 		font-size: 0.7875em;
@@ -108,10 +109,10 @@
 .logo {
 	position: relative;
 	width: 214rem / $hfs;
-	height: 123rem / $hfs;
+	height: 11.6875rem;
 	margin: 0 0 12rem / $hfs;
 
-	background: url(../img/logo.png);
+	background: url(../img/logo.svg);
 	background-size: 100% 100%;
 
 	line-height: 119rem / $hfs;
