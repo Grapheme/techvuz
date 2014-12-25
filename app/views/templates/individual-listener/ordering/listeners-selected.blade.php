@@ -50,7 +50,7 @@
                             <?php $useCourseDiscount = 1;?>
                             <?php $discountPrice = calculateDiscount(array($course->direction->discount,$course->discount,$accountDiscount,$globalDiscount),$course->price); ?>
                         @endif
-                    @if($discountPrice === FALSE)
+                    @if($discountPrice === FALSE || $discountPrice == $course->price)
                         <?php $totalPrice += $course->price; ?>
                         <td class="purchase-price" data-price="{{ number_format($course->price,0,'.','') }}">{{ number_format($course->price,0,'.',' ') }}.–</td>
                         <td class="purchase-price-sum">{{ number_format($course->price,0,'.','') }}.–</td>

@@ -65,7 +65,7 @@
                     @if($direction->use_discount && $course->use_discount)
                         <?php $discountPrice = calculateDiscount(array($direction->discount,$course->discount,$accountDiscount,$globalDiscount),$course->price,FALSE); ?>
                     @endif
-                    @if($discountPrice === FALSE)
+                    @if($discountPrice === FALSE || $discountPrice == $course->price)
                         <span class="price">{{ number_format($course->price,0,'.',' ')  }}.–</span>
                     @else
                         <span class="price"><s>{{ number_format($course->price,0,'.',' ')  }}.–</s></span>
