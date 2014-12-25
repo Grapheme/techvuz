@@ -44,7 +44,7 @@
 
             this.value = this.value.replace(/[а-яА-яЁё]/i, "");
         });
-        $('.registration-form input[name="title"], .registration-form input[name="uraddress"], .registration-form input[name="postaddress"], .registration-form input[name="bank"]').keyup( function(event){
+        $('.registration-form input[name="title"], .registration-form input[name="educational_institution"], .registration-form input[name="speciality"], .registration-form input[name="document_education"], .registration-form input[name="education"], .registration-form input[name="position"], .registration-form input[name="code"], .registration-form input[name="passport_date"], .registration-form input[name="passport_data"], .registration-form input[name="uraddress"], .registration-form input[name="postaddress"], .registration-form input[name="bank"]').keyup( function(event){
             var key = event.keyCode || event.charCode;
             if( key == 8 || key == 46 || key == 37 || key == 38 || key == 39 || key == 40)
                 return false;
