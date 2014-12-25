@@ -104,7 +104,7 @@ var validation_signup_messages_ul = {
     email: { required: 'Укажите контактный E-mail','email': 'Некорректный E-mail','remote': 'Email уже зарегистрирован' },
     name: { required: 'Укажите контактное лицо' },
     phone: { required: 'Укажите контактный номер' },
-    consent: { required: '' }
+    consent: { required: 'Для регистрации необходимо дать согласие на обработку' }
 };
 var validation_signup_fl = {
     group_id: { required: true },
