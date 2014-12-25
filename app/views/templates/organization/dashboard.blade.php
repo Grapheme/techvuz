@@ -25,7 +25,7 @@
             <a href="{{ URL::route('signup-listener') }}" class="btn btn-top-margin btn--bordered btn--blue pull-right js-btn-add-emp">
                 <span class="icon icon-slysh_dob"></span> Добавить
             </a>
-            <h3><a href="{{ URL::route('organization-listeners') }}">Сотрудники</a></h3>
+            <h3 class="no-margin"><a href="{{ URL::route('organization-listeners') }}">Сотрудники</a></h3>
             <div class="count-add">
                 <?php $activeListenersIDs = array(); ?>
                 @foreach($orders as $order)
@@ -55,7 +55,7 @@
                     </div>
                 </div>
             </div>
-            <h3>Курсы</h3>
+            <h3 class="no-margin">Курсы</h3>
             <div class="count-add">
                 <?php $activeCoursesIDs = array(); ?>
                 <?php $closedCoursesIDs = array(); ?>
@@ -91,7 +91,7 @@
         </div>
         @if($messages->count())
         <div {{ $dashboardNotificationBlockTargetValue ? '' : 'class="hidden"' }} id="orgNotifications">
-            <h3><a href="{{ URL::route('organization-notifications') }}">Уведомления</a></h3>
+            <h3 class="no-margin"><a href="{{ URL::route('organization-notifications') }}">Уведомления</a></h3>
             <div class="notifications">
                 <div class="notifications-nav">
                     <span class="icon icon-angle-left js-notif-left"></span>
@@ -141,7 +141,7 @@
         @endif
         <div>
             <a href="{{ URL::route('ordering-select-courses') }}" class="btn btn-top-margin btn--bordered btn--blue pull-right">Новый заказ</a>
-            <h3><a href="{{ URL::route('organization-orders') }}">Заказы</a></h3>
+            <h3 class="no-margin"><a href="{{ URL::route('organization-orders') }}">Заказы</a></h3>
             <ul class="orders-ul">
             <?php $showed = 0; $maxCourses = 3; ?>
             @if(hasCookieData('ordering'))
@@ -178,7 +178,7 @@
                 endif;
             endforeach;
         ?>
-            <h3><a href="{{ URL::route('organization-study') }}">Ход обучения</a></h3>
+            <h3 class="no-margin"><a href="{{ URL::route('organization-study') }}">Ход обучения</a></h3>
         @if($hasStudyProgress)
             <table class="tech-table sortable">
                 <tbody>
