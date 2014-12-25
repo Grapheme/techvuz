@@ -54,7 +54,7 @@
 
     </fieldset>
     <fieldset>
-        <div class="form-element">
+        <div class="form-element check-element">
             <label>Даю согласие на обработку персональных данных</label>{{ Form::checkbox('consent',1,FALSE,array('autocomplete'=>'off','id'=>'input-consent-fz')) }}
         </div>
         <div class="form-element">
