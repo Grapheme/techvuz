@@ -32,6 +32,7 @@ var validation_signup_ul = {
     },
     kpp: {},
     uraddress: { required: true },
+    postaddress: { required: true }
     account_number: {
         required: true,
         minlength: 20,
@@ -88,6 +89,7 @@ var validation_signup_messages_ul = {
     },
     kpp: { required: 'Укажите КПП' },
     uraddress: { required: 'Укажите юридический адрес' },
+    postaddress: { required: 'Укажите почтовый адрес' }
     account_number: { 
         required: 'Укажите расчетный счет',
         minlength: 'Укажите расчетный счет от 20 до 25 знаков!',
