@@ -271,7 +271,7 @@ class AccountsListenerController extends BaseController {
                 endif;
             endforeach;
             if (!empty($documents)):
-                $zipFilePath = sys_get_temp_dir().'/'.sha1(time().Auth::user()->id).'.zip';
+                $zipFilePath = storage_path(sha1(time().Auth::user()->id).'.zip');
                 $zipper = new \Chumper\Zipper\Zipper();
                 $zipper->make($zipFilePath)->add($documents)->close();
                 if (File::exists($zipFilePath)):
