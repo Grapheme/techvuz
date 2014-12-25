@@ -34,6 +34,9 @@
             Звонок бесплатный
         </div>
     </div>
+    <div class="print-logo">
+        <img src="{{asset('img/logo-black.svg')}}">
+    </div>
 
 @if($header_notification['show'])
     @if($header_notification['code'] == 1)
