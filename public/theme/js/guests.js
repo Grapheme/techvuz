@@ -100,7 +100,7 @@ var validation_signup_messages_ul = {
         minlength: 'Укажите БИК 9 знаков!',
         maxlength: 'Укажите БИК 9 знаков!'
     },
-    email: { required: 'Укажите контактный E-mail','email': 'Некорректный E-mail','remote': 'Email уже зарегистрирован' },
+    email: { required: 'Укажите контактный E-mail',email: 'Некорректный E-mail',remote: 'Email уже зарегистрирован' },
     name: { required: 'Укажите контактное лицо' },
     phone: { required: 'Укажите контактный номер' },
     consent: { required: 'Для регистрации необходимо дать согласие на обработку' }
