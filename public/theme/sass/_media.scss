@@ -15,8 +15,13 @@
     }
     main {
     	margin: 0;
-        background: url(../img/logo-black.svg) right top;
+        
+        background-color: #fff;
+        background-image: url(../img/logo-black.svg);
         background-size: 7rem auto;
+        background-repeat: no-repeat;
+        background-position: right top;
+
     	&:before {
 			content: none;
     	}
