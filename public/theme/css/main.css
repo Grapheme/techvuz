@@ -10860,6 +10860,8 @@ main.order-page a:hover {
 
   main {
     margin: 0;
+    background: url(../img/logo-black.svg) right top;
+    background-size: 7rem auto;
   }
   main:before {
     content: none;
