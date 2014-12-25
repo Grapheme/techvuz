@@ -57,11 +57,11 @@ var validation_signup_ul = {
            },
            dataType: "json",
            dataFilter: function (data) {
-               if (data.email == true) {
+               if (data["email"] == true) {
                 alert('true');
                    return true;
                } else {
-                 console.log(data);
+                 console.log(data.email);
                    return false;
                }
            }
