@@ -57,9 +57,7 @@ var validation_signup_ul = {
            },
            dataType: "json",
            dataFilter: function (data) {
-            console.log(data);
-               console.log(JSON.parse(data).email, JSON.parse(data)['email']);
-               if (data.email == true) {
+               if (JSON.parse(data).email == false) {
                    return true;
                } else {
                    return false;
