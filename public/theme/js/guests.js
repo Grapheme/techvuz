@@ -61,6 +61,7 @@ var validation_signup_ul = {
                 alert('true');
                    return true;
                } else {
+                 console.log(data);
                    return false;
                }
            }
