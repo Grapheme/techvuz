@@ -33,7 +33,7 @@
 
     <div class="row margin-bottom-10">
         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" style="font-weight: normal; font-size: 12px">
-            Нажимая на кнопку «Подтверждаю», Вы даете согласие на обработку <a href="{{asset('files/agreement.pdf')}}" class="icon--blue">персональных данных</a>.
+            Нажимая на кнопку «Подтверждаю», Вы даете согласие на обработку <a href="{{asset('files/agreement.pdf')}}" target="_blank" class="icon--blue">персональных данных</a>.
         </div>
     </div>
 
