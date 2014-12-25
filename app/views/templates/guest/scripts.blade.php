@@ -33,8 +33,12 @@
             var key = event.keyCode || event.charCode;
             if( key == 8 || key == 46 || key == 37 || key == 38 || key == 39 || key == 40)
                 return false;
+            
+            var start = this.selectionStart;            
 
             this.value = this.value.replace(/[^0123456789]/i, "");
+
+            this.setSelectionRange(start, start);
         });
 
         $('.registration-form input[name="email"]').keyup(function(event) {
