@@ -9243,7 +9243,7 @@ section h3, section .h3 {
   color: #bb252d;
 }
 .registration-form .form-element.state-error.check-element em.invalid {
-  display: none;
+  display: none !important;
 }
 .registration-form .form-element.state-error input {
   border-color: #bb252d;
