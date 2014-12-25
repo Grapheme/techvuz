@@ -92,6 +92,11 @@
                     {{ $profile->educational_institution }}
                 </div>
             </div>
+            <div class="row margin-bottom-10 margin-top-20">
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" style="font-weight: normal; font-size: 12px">
+                    Нажимая на кнопку «Подтверждаю», Вы даете согласие на обработку <a href="{{asset('files/agreement.pdf')}}" target="_blank" class="icon--blue">персональных данных</a>.
+                </div>
+            </div>
             <div class="row margin-bottom-10 margin-top-40">
                 <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                     {{ Form::open(array('url'=>URL::route('listener-profile-approve-store'), 'style'=>'display:inline-block', 'class'=>'margin-right-20','method'=>'patch')) }}

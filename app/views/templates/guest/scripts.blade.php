@@ -28,26 +28,51 @@
                 return false;
             }
         });
+
+        $('.registration-form input[name="ogrn"], .registration-form input[name="kpp"], .registration-form input[name="inn"], .registration-form input[name="bik"]').keyup( function(event){
+            var key = event.keyCode || event.charCode;
+            if( key == 8 || key == 46 || key == 37 || key == 38 || key == 39 || key == 40)
+                return false;
+
+            var start = this.selectionStart;            
+
+            this.value = this.value.replace(/[^0123456789]/i, "");
+
+            this.setSelectionRange(start, start);
+        });
+
         $('.registration-form input[name="email"]').keyup(function(event) {
             var key = event.keyCode || event.charCode;
             if( key == 8 || key == 46 || key == 37 || key == 38 || key == 39 || key == 40)
                 return false;
 
+            var start = this.selectionStart;  
+
             this.value = this.value.replace(/[а-яА-яЁё]/i, "");
+
+            this.setSelectionRange(start, start);
         });
-        $('.registration-form input[name="title"], .registration-form input[name="uraddress"], .registration-form input[name="postaddress"], .registration-form input[name="bank"]').keyup( function(event){
+        $('.registration-form input[name="title"], .registration-form input[name="educational_institution"], .registration-form input[name="specialty"], .registration-form input[name="document_education"], .registration-form input[name="education"], .registration-form input[name="position"], .registration-form input[name="code"], .registration-form input[name="passport_date"], .registration-form input[name="passport_data"], .registration-form input[name="uraddress"], .registration-form input[name="postaddress"], .registration-form input[name="bank"]').keyup( function(event){
             var key = event.keyCode || event.charCode;
             if( key == 8 || key == 46 || key == 37 || key == 38 || key == 39 || key == 40)
                 return false;
+
+            var start = this.selectionStart;
 
             this.value = this.value.replace(/[a-zA-Z]/i, "");
+
+            this.setSelectionRange(start, start);
         });
-        $('.registration-form input[name="fio_manager"], .registration-form input[name="fio_manager_rod"], .registration-form input[name="manager"], .registration-form input[name="name"], .registration-form input[name="fio"], .registration-form input[name="fio_rod"]').keyup( function(event) {
+        $('.registration-form input[name="fio_manager"], .registration-form input[name="fio_manager_rod"], .registration-form input[name="manager"], .registration-form input[name="name"], .registration-form input[name="fio"], .registration-form input[name="fio_rod"], .registration-form input[name="statutory"]').keyup( function(event) {
             var key = event.keyCode || event.charCode;
             if( key == 8 || key == 46 || key == 37 || key == 38 || key == 39 || key == 40)
                 return false;
 
+            var start = this.selectionStart;
+
             this.value = this.value.replace(/[^а-яА-ЯеЁ -]/i, "");
+
+            this.setSelectionRange(start, start);
         });
     });
 </script>

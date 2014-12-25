@@ -19,6 +19,16 @@
 
 		&.state-error {
 
+			&.check-element {
+
+				label {
+					color: $clr-red;
+				}
+				em.invalid {
+					display: none !important;
+				}
+			}
+
 			input {
 				border-color: $clr-red;
 				box-shadow: inset 0 0 0 2px $clr-red;
