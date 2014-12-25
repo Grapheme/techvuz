@@ -10854,6 +10854,9 @@ main.order-page a:hover {
   .main-header .auth {
     display: none;
   }
+  .main-header .contact {
+    padding: 0 0 0 2.75rem;
+  }
 
   main {
     margin: 0;
