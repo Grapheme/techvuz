@@ -59,8 +59,6 @@ var validation_signup_ul = {
            dataFilter: function (data) {
                if (data.email == true) {
                    return true;
-               } else {
-                   return false;
                }
            }
         }
