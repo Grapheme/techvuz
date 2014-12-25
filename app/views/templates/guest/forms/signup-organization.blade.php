@@ -51,7 +51,7 @@
     <fieldset>
         <header class="margin-bottom-20">Контактные данные</header>
         <div class="form-element">
-            <label>E-mail</label>{{ Form::email('email', '',array('placeholder'=>'')) }}
+            <label>E-mail</label>{{ Form::text('email', '',array('placeholder'=>'')) }}
         </div>
         <div class="form-element">
             <label>Ф.И.О.</label>{{ Form::text('name', '',array('placeholder'=>'Иванов Иван Иванович')) }}

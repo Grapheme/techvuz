@@ -32,7 +32,7 @@
             <label>Номер телефона</label>{{ Form::text('phone', '',array('class'=>'phone')) }}
         </div>
         <div class="form-element">
-            <label>E-mail</label>{{ Form::email('email', '',array('placeholder'=>'')) }}
+            <label>E-mail</label>{{ Form::text('email', '',array('placeholder'=>'')) }}
         </div>
 
         <div class="form-element">
