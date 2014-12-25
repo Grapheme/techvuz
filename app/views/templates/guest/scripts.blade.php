@@ -28,6 +28,15 @@
                 return false;
             }
         });
+
+        $('.registration-form input[name="ogrn"], .registration-form input[name="kpp"], .registration-form input[name="inn"], .registration-form input[name="bik"]').keyup( function(event){
+            var key = event.keyCode || event.charCode;
+            if( key == 8 || key == 46 || key == 37 || key == 38 || key == 39 || key == 40)
+                return false;
+
+            this.value = this.value.replace(/[^0123456789]/i, "");
+        });
+
         $('.registration-form input[name="email"]').keyup(function(event) {
             var key = event.keyCode || event.charCode;
             if( key == 8 || key == 46 || key == 37 || key == 38 || key == 39 || key == 40)
@@ -42,7 +51,7 @@
 
             this.value = this.value.replace(/[a-zA-Z]/i, "");
         });
-        $('.registration-form input[name="fio_manager"], .registration-form input[name="fio_manager_rod"], .registration-form input[name="manager"], .registration-form input[name="name"], .registration-form input[name="fio"], .registration-form input[name="fio_rod"]').keyup( function(event) {
+        $('.registration-form input[name="fio_manager"], .registration-form input[name="fio_manager_rod"], .registration-form input[name="manager"], .registration-form input[name="name"], .registration-form input[name="fio"], .registration-form input[name="fio_rod"], .registration-form input[name="statutory"]').keyup( function(event) {
             var key = event.keyCode || event.charCode;
             if( key == 8 || key == 46 || key == 37 || key == 38 || key == 39 || key == 40)
                 return false;
