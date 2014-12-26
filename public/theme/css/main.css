@@ -7235,6 +7235,10 @@ a[href^="tel"] {
   padding: 0 !important;
 }
 
+.no-margin {
+  margin: 0 !important;
+}
+
 .txt-color-blue {
   color: #33ace4;
 }
@@ -10860,17 +10864,22 @@ main.order-page a:hover {
 
   main {
     margin: 0;
-    background-color: #fff;
-    background-image: url(../img/logo-black.svg);
-    background-size: 7rem auto;
-    background-repeat: no-repeat;
-    background-position: right top;
   }
   main:before {
     content: none;
   }
   main:after {
-    content: none;
+    content: '';
+    display: block;
+    top: -4.5rem;
+    width: 7rem;
+    height: 7rem;
+    border: none !important;
+    background-color: #fff !important;
+    background-image: url(../img/logo-black.svg) !important;
+    background-size: 7rem auto !important;
+    background-repeat: no-repeat !important;
+    background-position: right top !important;
   }
 
   .accordion .ui-state-default:after {

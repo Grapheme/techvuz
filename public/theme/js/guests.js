@@ -32,6 +32,7 @@ var validation_signup_ul = {
     },
     kpp: {},
     uraddress: { required: true },
+    postaddress: { required: true },
     account_number: {
         required: true,
         minlength: 20,
@@ -46,25 +47,24 @@ var validation_signup_ul = {
     },
     email: {
         required: true,
-        email: true
-        //remote: {
-        //    url: "/check-email",
-        //    type: "post",
-        //    data: {
-        //        email: function() {
-        //            return $("#signup-ul-form input[name='email']").val();
-        //        }
-        //    },
-        //    dataType: "json",
-        //    success: function (data) {
-        //        if (data.email == true) {
-        //            message: {
-        //                email: data.message;
-        //            }
-        //            return false;
-        //        }
-        //    }
-        //}
+        email: true,
+        remote: {
+           url: "/check-email",
+           type: "post",
+           data: {
+               email: function() {
+                   return $("#signup-ul-form input[name='email']").val();
+               }
+           },
+           dataType: "json",
+           dataFilter: function (data) {
+               if (JSON.parse(data).email == false) {
+                   return true;
+               } else {
+                   return false;
+               }
+           }
+        }
     },
     name: { required: true },
     phone: { required: true },
@@ -89,6 +89,7 @@ var validation_signup_messages_ul = {
     },
     kpp: { required: 'Укажите КПП' },
     uraddress: { required: 'Укажите юридический адрес' },
+    postaddress: { required: 'Укажите почтовый адрес' },
     account_number: { 
         required: 'Укажите расчетный счет',
         minlength: 'Укажите расчетный счет от 20 до 25 знаков!',
@@ -101,7 +102,7 @@ var validation_signup_messages_ul = {
         minlength: 'Укажите БИК 9 знаков!',
         maxlength: 'Укажите БИК 9 знаков!'
     },
-    email: { required: 'Укажите контактный E-mail','email': 'Некорректный E-mail','remote': 'Email уже зарегистрирован' },
+    email: { required: 'Укажите контактный E-mail',email: 'Некорректный E-mail',remote: 'Email уже зарегистрирован' },
     name: { required: 'Укажите контактное лицо' },
     phone: { required: 'Укажите контактный номер' },
     consent: { required: 'Для регистрации необходимо дать согласие на обработку' }
