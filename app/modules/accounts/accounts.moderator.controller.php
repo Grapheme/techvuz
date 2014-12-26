@@ -127,7 +127,7 @@ class AccountsModeratorController extends BaseController {
             foreach($companies_list as $index => $company):
                 $companies[$index]['id'] = $company->id;
                 $companies[$index]['title'] = $company->title;
-                $companies[$index]['created_at'] = $company->created_at->timezone(Config::get('site.time_zone'))->format("d.m.Y");
+                $companies[$index]['created_at'] = $company->created_at->timezone(Config::get('site.time_zone'));
                 $companies[$index]['manager'] = $company->manager;
                 $companies[$index]['fio_manager'] = $company->fio_manager;
                 $companies[$index]['email'] = $company->email;

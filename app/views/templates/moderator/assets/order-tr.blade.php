@@ -16,9 +16,9 @@
         <a class="nowrap" href="{{ URL::route('moderator-order-extended',$order->id) }}">Заказ №{{ getOrderNumber($order) }}</a>
     </td>
     <td class="vertical-top">
-        {{ myDateTime::SwapDotDateWithTime($order->created_at) }}
+        {{ $order->created_at->timezone(Config::get('site.time_zone'))->format("d.m.Y в H:i") }}
         @if($order->close_status == 1)
-        <br>{{ myDateTime::SwapDotDateWithTime($order->close_date) }}
+        <br>{{ (new myDateTime())->setDateString($order->close_date)->format('d.m.Y в H:i') }}
         @endif
     </td>
     <td class="vertical-top">

@@ -25,7 +25,7 @@
                 <tr class="vertical-middle">
                     <td>
                         <a href="{{ URL::route('moderator-listener-profile',$listener['id']) }}">{{ $listener['fio'] }}</a><br>
-                        рег.: {{ myDateTime::SwapDotDateWithTime($listener['created_at']) }}
+                        рег.: {{ (new myDateTime())->setDateString($listener['created_at'])->format('d.m.Y в H:i') }}
                     </td>
                     <td>
                         {{ $listener['email'] }}<br>

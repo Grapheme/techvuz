@@ -43,7 +43,7 @@
         <div class="orders-date">
             Заказ создан:
             <div>
-                {{ myDateTime::SwapDotDateWithTime($order->created_at) }}
+                {{ $order->created_at->timezone(Config::get('site.time_zone'))->format("d.m.Y в H:i") }}
             </div>
         </div>
         <div class="orders-package">
