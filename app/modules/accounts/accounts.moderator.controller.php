@@ -446,10 +446,12 @@ class AccountsModeratorController extends BaseController {
                 if (!empty($ListenersStatuses)):
                     $now = date('Y-m-d H:i:s');
                     $order = Orders::where('id',$order_id)->with('organization','individual')->first();
-                    foreach(OrderListeners::where('order_id',$order_id)->get() as $orderListener):
+                    $listenerIDs = array();
+                    foreach(OrderListeners::where('order_id',$order_id)->with('user_listener','user_individual')->get() as $index => $orderListener):
                         if ($orderListener->access_status == 0 && isset($ListenersStatuses[$orderListener->id]) && $ListenersStatuses[$orderListener->id] == 1):
                             $studyDays = !empty($orderListener->course->hours) ? floor($orderListener->course->hours/8): floor(Config::get('site.time_to_study_begin')/8);
                             if (!empty($order->organization)):
+                                $listenerIDs[$index] = array('accountID'=>$orderListener->user_id,'listener'=>$orderListener->user_listener->fio,'link'=>URL::to('organization/listeners/profile/'.$orderListener->user_id),'course'=>$orderListener->course->code);
                                 Event::fire('listener.study-access', array(array('accountID'=>$orderListener->user_id,'link'=>URL::to('listener/study/course/'.$orderListener->id.'-'.BaseController::stringTranslite($orderListener->course->title,100)),'course'=>$orderListener->course->code,'date'=>(new myDateTime())->setDateString($now)->addDays($studyDays)->format('d.m.Y'))));
                             elseif (!empty($order->individual)):
                                 Event::fire('listener.study-access', array(array('accountID'=>$orderListener->user_id,'link'=>URL::to('individual-listener/study/course/'.$orderListener->id.'-'.BaseController::stringTranslite($orderListener->course->title,100)),'course'=>$orderListener->course->code,'date'=>(new myDateTime())->setDateString($now)->addDays($studyDays)->format('d.m.Y'))));
@@ -460,6 +462,9 @@ class AccountsModeratorController extends BaseController {
                         endif;
                         OrderListeners::where('order_id',$order_id)->where('id',$orderListener->id)->update(array('access_status'=>$ListenersStatuses[$orderListener->id],'updated_at'=>$now));
                     endforeach;
+                    if (!empty($listenerIDs)):
+                        AccountsMessagesController::listenerStudyAccess('organization.study-access',$listenerIDs,$order->user_id);
+                    endif;
                     $closeStudyStatus = TRUE;
                     if(OrderListeners::where('order_id',$order_id)->where('access_status',1)->exists()):
                         $closeStudyStatus = FALSE;

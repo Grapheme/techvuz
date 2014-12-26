@@ -53,6 +53,31 @@ class AccountsMessagesController extends BaseController {
         View::share('module', $this->module);
     }
 
+    public static function listenerStudyAccess($slug,$listenerIDs,$accountID){
+
+        if (is_array($listenerIDs)):
+            $systemMessageText = '';
+            $routeAction = Dictionary::valueBySlugs('types-system-messages',$slug);
+            foreach($listenerIDs as $listener_id => $listener):
+                $messageText = $routeAction->name;
+                foreach($listener as $index => $value):
+                    $messageText = self::setValue($index,$value,$messageText);
+                endforeach;
+                $systemMessageText .= $messageText.'<br>';
+            endforeach;
+            DicVal::inject('system-messages', array(
+                'slug' => $routeAction->slug.'.'.date("Y-m-d H:i:s"),
+                'name' => $systemMessageText,
+                'fields' => array(
+                    'user_id' => $accountID,
+                    'action_id' => $routeAction->id,
+                    'created_time' => date("Y-m-d H:i:s"),
+                )
+            ));
+        endif;
+        return TRUE;
+    }
+
     private static function messages($slug){
 
         if($routeActions = Dictionary::where('slug',$slug)->first()->values()->where('version_of',NULL)->groupBy('slug')->get()):
