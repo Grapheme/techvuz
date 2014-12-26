@@ -322,7 +322,7 @@ class AccountsListenerController extends BaseController {
     public static function activism(){
 
         $result = FALSE;
-        foreach(OrderListeners::where('user_id',Auth::user()->id)->with('order')->get() as $order):
+        foreach(OrderListeners::where('user_id',Auth::user()->id)->where('start_status',1)->with('order')->get() as $order):
             if ($order->order->close_status == 0):
                 $result = TRUE;
                 break;
