@@ -165,7 +165,6 @@
                 $query->orderBy('start_status','DESC');
                 $query->orderBy('access_status','DESC');
                 $query->orderBy('start_date','DESC');
-                $query->limit(3);
                 $query->with('course');
                 $query->with('final_test');
             }))->get();
