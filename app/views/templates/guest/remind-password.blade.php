@@ -3,6 +3,10 @@
 @stop
 @section('content')
 <main>
+	<h1>Восстановление пароля</h1>
+    <div class="desc">
+    	Все поля являются обязательными для заполнения!
+    </div>
     @if(Auth::guest())
         @include(Helper::layout('forms.reset-password'))
     @else
