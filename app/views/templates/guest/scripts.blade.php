@@ -81,7 +81,7 @@
                 return false;
             var start = this.selectionStart;
 
-            this.value = this.value.replace(/[^а-яА-ЯеЁ -№0123456789]/i, "");
+            this.value = this.value.replace(/[a-zA-Z]/i, "");
 
             this.setSelectionRange(start, start);
         });
