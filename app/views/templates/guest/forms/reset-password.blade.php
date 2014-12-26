@@ -1,9 +1,6 @@
 {{ Form::open(array('route'=>array('password-reset.update',$token),'class'=>'auth-form registration-form','id'=>'reset-password-form', 'method'=>'PUT')) }}
     {{ Form::hidden('token',$token) }}
     {{ Form::hidden('email',$email) }}
-    <div class="reg-form-alert">
-        Все поля являются обязательными для заполнения!
-    </div>
     <fieldset>
         <div class="form-element">
             <label>Пароль</label>{{ Form::password('password',array('id'=>'password')) }}

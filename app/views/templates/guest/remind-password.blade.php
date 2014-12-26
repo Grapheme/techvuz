@@ -3,6 +3,7 @@
 @stop
 @section('content')
 <main>
+	<h1>Восстановление пароля</h1>
     @if(Auth::guest())
         @include(Helper::layout('forms.reset-password'))
     @else
