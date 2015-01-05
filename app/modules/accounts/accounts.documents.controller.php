@@ -1266,7 +1266,6 @@ class AccountsDocumentsController extends BaseController {
 
             'ImyaOtvetstvennogoLicaOrganizacii' => empty($order->organization) ? '' : $order->organization->fio_manager,
 
-
             'ImyaOtvetstvennogoLicaInicialu' => empty($order->organization) ? preg_replace('/(\w+) (\w)\w+ (\w)\w+/iu', '$1 $2. $3.',$order->individual->fio) : preg_replace('/(\w+) (\w)\w+ (\w)\w+/iu', '$1 $2. $3.',$order->organization->fio_manager),
 
             'DoljnostOtvetstvennogoLicaOrganizacii' => empty($order->organization) ? '' : $order->organization->manager,
@@ -1290,6 +1289,7 @@ class AccountsDocumentsController extends BaseController {
             'RaspisanieObucheniyaPoKursu' => '',
 
             'ImyaIndividualnogoZakazchika' => empty($order->individual) ? '' : $order->individual->fio,
+            'DoljnostIndividualnogoZakazchika' => empty($order->individual) ? '' : $order->individual->position,
             'SeriaPasportaIndividualnogoZakazchika' => empty($order->individual) ? '' : $order->individual->passport_seria,
             'NomerPasportaIndividualnogoZakazchika' => empty($order->individual) ? '' : $order->individual->passport_number,
             'KemVudanPasportIndividualnogoZakazchika' => empty($order->individual) ? '' : $order->individual->passport_data,
