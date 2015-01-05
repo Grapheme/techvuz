@@ -19,8 +19,8 @@
                 $spisok[$listener->course->id]['summa'] = ($spisok[$listener->course->id]['discount'] == 0) ? $spisok[$listener->course->id]['count']*$listener->course->price  : $spisok[$listener->course->id]['count']*abs($listener->course->price - $spisok[$listener->course->id]['discount']) ;
             endforeach;
             foreach($spisok as $course):
-                $VsegoNaimenovaliy += $course['count'];
-                $KolichestvoNaimenovaliy++;
+                $KolichestvoNaimenovaliy += $course['count'];
+                $VsegoNaimenovaliy++;
             endforeach;
         ?>
         <?php ob_start();?>
