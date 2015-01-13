@@ -55,9 +55,11 @@
                         <td>{{ $course->code }}</td>
                         @if($discountPrice === FALSE || $discountPrice == $course->price)
                             <td class="purchase-price" data-real-price="{{ $course->price }}" data-price="{{ $course->price }}">
-                                <div class="start-price">
+                                <div class="start-price margin-bottom-10">
                                     {{ number_format($course->price,0,'.',' ') }}.–
-                                </div>                           
+                                </div>
+                                <div class="discount-price">
+                                </div>                            
                             </td>
                         @else
                             <td class="purchase-price" data-real-price="{{ $course->price }}" data-price="{{ $discountPrice }}">
