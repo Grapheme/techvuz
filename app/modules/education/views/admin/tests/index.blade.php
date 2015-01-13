@@ -69,7 +69,7 @@
             </tbody>
         </table>
         @if($question->answers->count())
-        <table class="table table-striped table-bordered">
+        <table class="table answers-table table-striped table-bordered">
             <tbody class="sortable" data-question="{{ $question->id  }}">
                 @foreach($question->answers as $answer_index => $answer)
                 <tr data-id="{{ $answer->id }}" class="vertical-middle">
