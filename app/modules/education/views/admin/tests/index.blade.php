@@ -98,7 +98,7 @@
                     @if(Allow::action($module['group'], 'edit'))
                         <a href="{{ URL::route('answers.create',array('directions'=>$direction->id,'course'=>$course->id,'chapter'=>$chapter_id,'test'=>$test->id,'question'=>$question->id)) }}" class="btn btn-success margin-right-10">Добавить ответ</a>
                     @endif
-                        <a href="#" class="btn btn-success margin-right-10 js-show-answers">Все ответы</a>
+                        <a href="#" class="btn btn-success margin-right-10 js-show-answers">Показать ответы</a>
                     </td>
                     <td class="col-lg-2 text-center"> </td>
                 <tr>
@@ -144,7 +144,9 @@ var validation_messages = {};
     }
 </script>
 <script>
-    $('.js-show-answers').click( function(){
+    $('.js-show-answers').click( function(e){
+        e.preventDefault();
+
         if ($(this).parents('.table').prev().is('.answers-table')){
             $(this).parents('.table').prev().slideDown( 400 );
         }

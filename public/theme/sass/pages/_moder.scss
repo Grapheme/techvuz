@@ -1291,6 +1291,10 @@
 }
 
 /* remove aside for moders */
+.answers-table {
+	display: none;
+}
+
 .moderator-wrapper {
 
 	& ~ .ui-selectmenu-menu {
