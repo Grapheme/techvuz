@@ -150,6 +150,8 @@ var validation_messages = {};
         if ($(this).parents('.table').prev().is('.answers-table')){
             $(this).parents('.table').prev().slideDown( 400 );
         }
+
+        $(this).hide();
     });
     $(document).on("mouseover", ".sortable", function(e){
         if ( !$(this).data('sortable') ) {
