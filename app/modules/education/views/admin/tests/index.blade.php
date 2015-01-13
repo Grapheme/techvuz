@@ -153,7 +153,7 @@ var validation_messages = {};
         }
 
         $(this).hide();
-        $('.js-hide-answers').show();
+        $(this).parents('.table').find('.js-hide-answers').show();
     });
     $('.js-hide-answers').click( function(e){
         e.preventDefault();
@@ -163,7 +163,7 @@ var validation_messages = {};
         }
 
         $(this).hide();
-        $('.js-show-answers').show();
+        $(this).parents('.table').find('.js-show-answers').show();
     });
     $(document).on("mouseover", ".sortable", function(e){
         if ( !$(this).data('sortable') ) {
