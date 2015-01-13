@@ -194,7 +194,7 @@ td, th {
 
 @media print {
   * {
-    color: black !important;
+    color: #000 !important;
     text-shadow: none !important;
     background: transparent !important;
     -webkit-box-shadow: none !important;
@@ -244,7 +244,7 @@ td, th {
   }
 
   select {
-    background: white !important;
+    background: #fff !important;
   }
 
   .navbar {
@@ -252,11 +252,11 @@ td, th {
   }
 
   .table td, .table th {
-    background-color: white !important;
+    background-color: #fff !important;
   }
 
   .btn > .caret, .dropup > .btn > .caret {
-    border-top-color: black !important;
+    border-top-color: #000 !important;
   }
 
   .label {
@@ -268,7 +268,7 @@ td, th {
   }
 
   .table-bordered th, .table-bordered td {
-    border: 1px solid #dddddd !important;
+    border: 1px solid #ddd !important;
   }
 }
 @font-face {
@@ -5021,7 +5021,6 @@ a.thumbnail:hover, a.thumbnail:focus, a.thumbnail.active {
   from {
     background-position: 40px 0;
   }
-
   to {
     background-position: 0 0;
   }
@@ -5030,7 +5029,6 @@ a.thumbnail:hover, a.thumbnail:focus, a.thumbnail.active {
   from {
     background-position: 40px 0;
   }
-
   to {
     background-position: 0 0;
   }
@@ -5039,7 +5037,6 @@ a.thumbnail:hover, a.thumbnail:focus, a.thumbnail.active {
   from {
     background-position: 40px 0;
   }
-
   to {
     background-position: 0 0;
   }
@@ -7320,7 +7317,7 @@ a[href^="tel"] {
   padding: 0 1rem;
   font-size: 0.875rem;
   line-height: 2.4375rem;
-  color: white;
+  color: #fff;
   text-transform: uppercase;
   border-radius: 0 !important;
   outline: none;
@@ -7348,19 +7345,19 @@ a[href^="tel"] {
 .btn.btn--blue {
   color: #33ace4;
   border-color: #33ace4;
-  background: white;
+  background: #fff;
 }
 .btn.btn--blue:hover {
-  color: white;
+  color: #fff;
   background: #33ace4;
 }
 .btn.btn--danger {
   color: #bb252d;
   border-color: #bb252d;
-  background: white;
+  background: #fff;
 }
 .btn.btn--danger:hover {
-  color: white;
+  color: #fff;
   background: #bb252d;
 }
 .btn.btn--disabled {
@@ -7370,7 +7367,7 @@ a[href^="tel"] {
 .btn.btn--disabled:hover {
   color: #33ace4;
   border-color: #33ace4;
-  background: white;
+  background: #fff;
 }
 
 .icon--blue {
@@ -7436,7 +7433,7 @@ a[href^="tel"] {
   height: 0;
   border-style: solid;
   border-width: 2.3125rem 2.3125rem 0 0;
-  border-color: white transparent transparent transparent;
+  border-color: #fff transparent transparent transparent;
 }
 .banner:after {
   content: '';
@@ -7451,7 +7448,7 @@ a[href^="tel"] {
 }
 .banner.banner--red {
   border-color: #bb252d;
-  box-shadow: 0 0.3125rem 0rem -0.0625rem #dddddd;
+  box-shadow: 0 0.3125rem 0rem -0.0625rem #ddd;
 }
 
 @media screen and (-webkit-min-device-pixel-ratio: 0) {
@@ -7465,7 +7462,7 @@ a[href^="tel"] {
   }
 }
 .accordion {
-  border: 1px solid #dddddd;
+  border: 1px solid #ddd;
 }
 .accordion .main-checkbox {
   display: none;
@@ -7473,11 +7470,11 @@ a[href^="tel"] {
 .accordion .accordion-header {
   position: relative;
   outline: none;
-  background: #dddddd;
+  background: #ddd;
   cursor: pointer;
 }
 .accordion .accordion-header.odd {
-  background: white;
+  background: #fff;
 }
 .accordion .accordion-header:nth-child(4n+1) {
   background: #eee;
@@ -7504,46 +7501,46 @@ a[href^="tel"] {
   font-weight: normal;
 }
 .accordion .accordion-header.ui-accordion-header-active {
-  color: white;
+  color: #fff;
 }
 .accordion .accordion-header:nth-child(6n+1):hover {
   background-color: #bb252d;
-  color: white;
+  color: #fff;
 }
 .accordion .accordion-header:nth-child(6n+1).ui-accordion-header-active {
   background-color: #bb252d;
 }
 .accordion .accordion-header:nth-child(6n+3):hover {
   background-color: #78a725;
-  color: white;
+  color: #fff;
 }
 .accordion .accordion-header:nth-child(6n+3).ui-accordion-header-active {
   background-color: #78a725;
 }
 .accordion .accordion-header:nth-child(6n+5):hover {
   background-color: #e4b51e;
-  color: white;
+  color: #fff;
 }
 .accordion .accordion-header:nth-child(6n+5).ui-accordion-header-active {
   background-color: #e4b51e;
 }
 .accordion .accordion-header:nth-child(6n+7):hover {
   background-color: #5e52ac;
-  color: white;
+  color: #fff;
 }
 .accordion .accordion-header:nth-child(6n+7).ui-accordion-header-active {
   background-color: #5e52ac;
 }
 .accordion .accordion-header:nth-child(6n+9):hover {
   background-color: #db7336;
-  color: white;
+  color: #fff;
 }
 .accordion .accordion-header:nth-child(6n+9).ui-accordion-header-active {
   background-color: #db7336;
 }
 .accordion .accordion-header:nth-child(6n+11):hover {
   background-color: #4bc8bb;
-  color: white;
+  color: #fff;
 }
 .accordion .accordion-header:nth-child(6n+11).ui-accordion-header-active {
   background-color: #4bc8bb;
@@ -7553,7 +7550,7 @@ a[href^="tel"] {
   background: #f9f9f9;
 }
 .accordion .accordion-body tr {
-  border-bottom: 1px solid #dddddd;
+  border-bottom: 1px solid #ddd;
 }
 .accordion .accordion-body tr:nth-child(2n+3) {
   background: #f4f4f4;
@@ -7597,7 +7594,7 @@ a[href^="tel"] {
   transition: all .4s ease;
   height: 8.8125rem;
   padding: 0 0 0 11.1875rem;
-  border-bottom: 1px solid #dddddd;
+  border-bottom: 1px solid #ddd;
 }
 .accordion .ui-state-default:after {
   transition: all .4s ease;
@@ -7611,7 +7608,7 @@ a[href^="tel"] {
 }
 .accordion .ui-state-active:after {
   content: '\e802';
-  color: white;
+  color: #fff;
 }
 
 .accordion-form .btn {
@@ -7668,7 +7665,7 @@ a[href^="tel"] {
   background: #33ace4;
 }
 .tabs .ui-tabs-nav .ui-tabs-active .ui-tabs-anchor {
-  color: white;
+  color: #fff;
   cursor: default;
 }
 .tabs .ui-tabs-nav li {
@@ -7690,7 +7687,7 @@ a[href^="tel"] {
 }
 .tabs .ui-tabs-nav .ui-tabs-anchor:hover {
   background: #33ace4;
-  color: white;
+  color: #fff;
 }
 .tabs .ui-tabs-panel .orders-ul {
   min-height: 20.9375rem;
@@ -7733,7 +7730,7 @@ a[href^="tel"] {
   margin-top: -0.4375rem;
   border-right: 1px solid;
   border-color: #33ace4;
-  background: white;
+  background: #fff;
   color: #33ace4;
 }
 .tabs.usual-tabs .ui-tabs-nav .ui-tabs-active .filter-count {
@@ -7745,7 +7742,7 @@ a[href^="tel"] {
   height: 45px;
   line-height: 2.875rem;
   color: #33ace4;
-  background: white;
+  background: #fff;
 }
 .tabs.usual-tabs .ui-tabs-nav .ui-tabs-active:last-child {
   border-color: #33ace4;
@@ -7758,10 +7755,10 @@ a[href^="tel"] {
 }
 .tabs.usual-tabs .ui-tabs-nav .ui-tabs-anchor {
   color: #a8a8a8;
-  background: white;
+  background: #fff;
 }
 .tabs.usual-tabs .ui-tabs-nav .ui-tabs-anchor:hover {
-  background: white;
+  background: #fff;
 }
 .tabs.usual-tabs .ui-tabs-nav .filter-count {
   position: absolute;
@@ -7787,7 +7784,7 @@ a[href^="tel"] {
   border-bottom: none;
   border-right: none;
   line-height: 2.375rem;
-  color: #dddddd;
+  color: #ddd;
 }
 .tabs.usual-tabs .ui-tabs-nav li:last-child {
   border: 1px solid #a8a8a8;
@@ -7821,12 +7818,12 @@ a[href^="tel"] {
   width: 21.0625rem !important;
   height: 2.6875rem;
   padding: 0 0.625rem;
-  border: 1px solid #333333;
+  border: 1px solid #333;
   line-height: 2.5rem;
   font-family: 'Geometria';
   font-size: 0.875em;
   font-weight: 500;
-  color: #333333;
+  color: #333;
   cursor: pointer;
 }
 .ui-selectmenu-button.ui-corner-top .ui-icon:before {
@@ -7846,18 +7843,18 @@ a[href^="tel"] {
   width: 21.0625rem;
   height: 2.6875rem;
   padding: 0 0.625rem;
-  border: 1px solid #333333;
+  border: 1px solid #333;
   border-top: none;
-  background: white;
+  background: #fff;
   line-height: 2.5rem;
   font-family: 'Geometria';
   font-size: 0.875em;
   font-weight: 500;
-  color: #333333;
+  color: #333;
   cursor: pointer;
 }
 .ui-menu-item:hover {
-  background: #dddddd;
+  background: #ddd;
 }
 .ui-menu-item:first-child {
   border-top: 1px solid;
@@ -8103,11 +8100,11 @@ This file is generated by `grunt build`, do not edit it by hand.
   border-bottom-right-radius: 0;
   -moz-border-radius-bottomleft: 0;
   border-bottom-left-radius: 0;
-  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(20%, #eeeeee), color-stop(80%, white));
-  background-image: -webkit-linear-gradient(#eeeeee 20%, white 80%);
-  background-image: -moz-linear-gradient(#eeeeee 20%, white 80%);
-  background-image: -o-linear-gradient(#eeeeee 20%, white 80%);
-  background-image: linear-gradient(#eeeeee 20%, white 80%);
+  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(20%, #eeeeee), color-stop(80%, #ffffff));
+  background-image: -webkit-linear-gradient(#eeeeee 20%, #ffffff 80%);
+  background-image: -moz-linear-gradient(#eeeeee 20%, #ffffff 80%);
+  background-image: -o-linear-gradient(#eeeeee 20%, #ffffff 80%);
+  background-image: linear-gradient(#eeeeee 20%, #ffffff 80%);
   box-shadow: 0 1px 0 #fff inset;
 }
 
@@ -8204,7 +8201,7 @@ This file is generated by `grunt build`, do not edit it by hand.
 .orders-li-head {
   height: 6.75rem;
   padding: 1.6875rem 0 2.125rem 2rem;
-  border-bottom: 1px solid #dddddd;
+  border-bottom: 1px solid #ddd;
 }
 .orders-li-head h4 {
   margin: 0 0 0.875rem 0;
@@ -8227,7 +8224,7 @@ This file is generated by `grunt build`, do not edit it by hand.
   line-height: .75;
 }
 .orders-price .end-price {
-  color: #dddddd;
+  color: #ddd;
   font-family: 'Open Sans';
 }
 
@@ -8344,8 +8341,8 @@ This file is generated by `grunt build`, do not edit it by hand.
   height: 3.75rem;
   padding: 0 1rem 0 2.125rem;
   text-align: left;
-  background: #dddddd;
-  border-right: 2px solid white;
+  background: #ddd;
+  border-right: 2px solid #fff;
 }
 .tech-table th:last-child {
   border-right: none;
@@ -8357,7 +8354,7 @@ This file is generated by `grunt build`, do not edit it by hand.
   font-size: 0.875em;
   line-height: 1.42857em;
   padding: 0.875rem 1rem 0.875rem 2.125rem;
-  border-right: 2px solid white;
+  border-right: 2px solid #fff;
 }
 .tech-table td.td-status-bar {
   vertical-align: top;
@@ -8426,22 +8423,22 @@ This file is generated by `grunt build`, do not edit it by hand.
   border: 1px solid #a8a8a8;
 }
 .ui-progress-bar.completed-1 .bar-part-1 {
-  background: #dddddd;
+  background: #ddd;
 }
 .ui-progress-bar.completed-2 .bar-part-1 {
-  background: #dddddd;
+  background: #ddd;
 }
 .ui-progress-bar.completed-2 .bar-part-2 {
-  background: #dddddd;
+  background: #ddd;
 }
 .ui-progress-bar.completed-3 .bar-part-1 {
-  background: #dddddd;
+  background: #ddd;
 }
 .ui-progress-bar.completed-3 .bar-part-2 {
-  background: #dddddd;
+  background: #ddd;
 }
 .ui-progress-bar.completed-3 .bar-part-3 {
-  background: #dddddd;
+  background: #ddd;
 }
 .ui-progress-bar .bar-part {
   float: left;
@@ -8463,7 +8460,7 @@ This file is generated by `grunt build`, do not edit it by hand.
   height: 3.75rem;
   padding: 0 2.0625rem;
   line-height: 3.75rem;
-  color: white;
+  color: #fff;
   background: #33ace4;
 }
 .notifications .notifications-nav .icon {
@@ -8523,8 +8520,8 @@ This file is generated by `grunt build`, do not edit it by hand.
   height: 2.875rem;
   margin: 0.9375rem 0 0 17.875rem;
   padding: 0 0 0 1.875rem;
-  background: white;
-  color: white;
+  background: #fff;
+  color: #fff;
   line-height: 2.875rem;
 }
 .notif a {
@@ -8566,11 +8563,11 @@ This file is generated by `grunt build`, do not edit it by hand.
 }
 .cabinet-menu-ul .cabinet-menu-li a:hover {
   background: #33ace4;
-  color: white;
+  color: #fff;
 }
 .cabinet-menu-ul .cabinet-menu-li a.active {
   background: #33ace4;
-  color: white;
+  color: #fff;
   cursor: default;
 }
 .cabinet-menu-ul .cabinet-menu-li .icon {
@@ -8583,7 +8580,7 @@ This file is generated by `grunt build`, do not edit it by hand.
   width: 11.25rem;
   height: 14.75rem;
   margin: 0 0.875rem 0.875rem 0;
-  border: 0.6875rem solid #dddddd;
+  border: 0.6875rem solid #ddd;
   box-shadow: 4px 4px 0 0 #a8a8a8, inset 4px 4px 0 0 #a8a8a8;
   background-size: 100% 100%;
 }
@@ -8649,7 +8646,7 @@ This file is generated by `grunt build`, do not edit it by hand.
 
 .main-header {
   height: 5.75rem;
-  color: white;
+  color: #fff;
 }
 .main-header.notificated {
   height: 9.5625rem;
@@ -8695,7 +8692,7 @@ This file is generated by `grunt build`, do not edit it by hand.
   top: 5.75rem;
   left: 0;
   width: 17.875rem;
-  color: white;
+  color: #fff;
 }
 .main-aside .logo-desc {
   display: none;
@@ -8716,7 +8713,7 @@ This file is generated by `grunt build`, do not edit it by hand.
 }
 .main-aside .nav-li.active a {
   border: none;
-  color: black;
+  color: #000;
   cursor: default;
 }
 .main-aside .nav-li a {
@@ -8733,7 +8730,7 @@ This file is generated by `grunt build`, do not edit it by hand.
 .main-aside .main-search {
   position: relative;
   margin: 2.25rem 0 8.375rem 0;
-  color: white;
+  color: #fff;
 }
 .main-aside .main-search input {
   width: 10.625rem;
@@ -8743,7 +8740,7 @@ This file is generated by `grunt build`, do not edit it by hand.
   border-color: #fff;
   border-color: rgba(255, 255, 255, 0.5);
   background: none;
-  color: white;
+  color: #fff;
 }
 .main-aside .main-search button {
   position: absolute;
@@ -8751,7 +8748,7 @@ This file is generated by `grunt build`, do not edit it by hand.
   left: 0;
   border: none;
   background: none;
-  color: white;
+  color: #fff;
 }
 .main-aside .main-search button .icon {
   font-size: .9em;
@@ -8835,9 +8832,9 @@ main {
   margin: 0 0 0 17.875rem;
   padding: 0 2.0625rem 2.0625rem;
   border-top: 1px solid transparent;
-  border-bottom: 1px solid white;
+  border-bottom: 1px solid #fff;
   font-size: .875em;
-  background: white;
+  background: #fff;
 }
 main h1.padding-h, main h1:first-child, main h2.padding-h, main h2:first-child {
   padding: 3rem 0 1rem;
@@ -8862,7 +8859,7 @@ main:before {
   height: 0;
   border-style: solid;
   border-width: 2.75rem 0 0 2.75rem;
-  border-color: transparent transparent transparent #dddddd;
+  border-color: transparent transparent transparent #ddd;
 }
 main:after {
   content: '';
@@ -8963,7 +8960,7 @@ section h3, section .h3 {
   width: 32.75rem;
   margin-left: -16.375rem;
   padding: 3.125rem 3.75rem 0;
-  background: white;
+  background: #fff;
 }
 .popup.active {
   display: block;
@@ -9025,7 +9022,7 @@ section h3, section .h3 {
   width: 33.33333%;
   height: 18rem;
   padding: 1.5rem 2.0625rem 0 2.0625rem;
-  color: white;
+  color: #fff;
 }
 .directions-ul .directions-li img {
   position: absolute;
@@ -9285,7 +9282,7 @@ section h3, section .h3 {
   font-size: 0.875em;
   line-height: 1.42857em;
   font-weight: 400;
-  color: #333333;
+  color: #333;
 }
 .registration-form input {
   outline: none;
@@ -9293,12 +9290,12 @@ section h3, section .h3 {
   width: 21.0625rem;
   height: 2.6875rem;
   padding: 0 0.625rem;
-  border: 1px solid #333333;
-  box-shadow: inset 0 0 0 0 white;
+  border: 1px solid #333;
+  box-shadow: inset 0 0 0 0 #fff;
   font-family: 'Geometria';
   font-size: 0.875em;
   font-weight: 400;
-  color: #333333;
+  color: #333;
 }
 .registration-form input[type="checkbox"] {
   width: auto;
@@ -9310,7 +9307,7 @@ section h3, section .h3 {
 }
 .registration-form .btn {
   margin: 0.9375rem 0 0 11.75rem;
-  background: white;
+  background: #fff;
 }
 .registration-form.auth-form label {
   width: 5.5rem;
@@ -9370,7 +9367,7 @@ section h3, section .h3 {
   padding: 0.5rem 0 0 1.625rem;
   border: none;
   background: none;
-  color: #333333;
+  color: #333;
   font: 300 0.875em "Open Sans", sans-serif;
   line-height: 1.28571em;
 }
@@ -9437,7 +9434,7 @@ main.order-page .order-docs-ul .order-docs-head {
   position: relative;
   height: 21rem;
   margin: 0.25rem 0.25rem 1em;
-  border: 1px solid #dddddd;
+  border: 1px solid #ddd;
 }
 main.order-page .order-docs-ul .order-docs-head.docs {
   background: url(../img/document.jpg) no-repeat center top/cover;
@@ -10358,7 +10355,7 @@ main.order-page a:hover {
   font-weight: 400;
   text-align: left;
   white-space: normal;
-  color: #333333;
+  color: #333;
 }
 .moderator-cabinet .label + .checkbox {
   margin: 0;
@@ -10444,12 +10441,12 @@ main.order-page a:hover {
   width: 31.163rem;
   height: 2.6875rem;
   padding: 0 0.625rem;
-  border: 1px solid #333333;
-  box-shadow: inset 0 0 0 0 white;
+  border: 1px solid #333;
+  box-shadow: inset 0 0 0 0 #fff;
   font-family: 'Geometria';
   font-size: 0.875em;
   font-weight: 500;
-  color: #333333;
+  color: #333;
 }
 .moderator-cabinet input[type="checkbox"] {
   width: auto;
@@ -10496,19 +10493,19 @@ main.order-page a:hover {
 .moderator-cabinet .btn.btn-default, .moderator-cabinet .btn.btn-primary, .moderator-cabinet .btn.btn-success {
   color: #33ace4;
   border-color: #33ace4;
-  background: white;
+  background: #fff;
 }
 .moderator-cabinet .btn.btn-default:hover, .moderator-cabinet .btn.btn-primary:hover, .moderator-cabinet .btn.btn-success:hover {
-  color: white;
+  color: #fff;
   background: #33ace4;
 }
 .moderator-cabinet .btn.btn-danger {
-  background: white;
+  background: #fff;
   color: #bb252d;
   border-color: #bb252d;
 }
 .moderator-cabinet .btn.btn-danger:hover {
-  color: white;
+  color: #fff;
   background: #bb252d;
 }
 .moderator-cabinet .table {
@@ -10529,7 +10526,7 @@ main.order-page a:hover {
   background: #f9f9f9;
 }
 .moderator-cabinet .table tr:nth-child(2n+2) {
-  background: white;
+  background: #fff;
 }
 .moderator-cabinet .table .sort.sort--asc .sort--icon {
   cursor: pointer;
@@ -10553,8 +10550,8 @@ main.order-page a:hover {
   text-align: left;
   vertical-align: middle;
   white-space: nowrap;
-  background: #dddddd;
-  border-right: 2px solid white;
+  background: #ddd;
+  border-right: 2px solid #fff;
 }
 .moderator-cabinet .table th:last-child {
   border-right: none;
@@ -10563,7 +10560,7 @@ main.order-page a:hover {
   font-size: 0.875em;
   line-height: 1.42857em;
   padding: .875rem .6rem;
-  border-right: 2px solid white;
+  border-right: 2px solid #fff;
   border-top: none;
   border-bottom: none;
 }
@@ -10619,8 +10616,8 @@ main.order-page a:hover {
   height: 3.75rem;
   padding: 0 1rem 0 2.125rem;
   text-align: left;
-  background: #dddddd;
-  border-right: 2px solid white;
+  background: #ddd;
+  border-right: 2px solid #fff;
 }
 .catalog-study-plan table th:last-child {
   border-right: none;
@@ -10632,7 +10629,7 @@ main.order-page a:hover {
   font-size: 0.875em;
   line-height: 1.42857em;
   padding: 0.875rem 1rem 0.875rem 1rem;
-  border-right: 2px solid white;
+  border-right: 2px solid #fff;
 }
 .catalog-study-plan table td.td-status-bar {
   vertical-align: top;
@@ -10871,6 +10868,7 @@ main.order-page a:hover {
     content: '';
     display: block;
     top: -4.5rem;
+    right: 1rem;
     width: 7rem;
     height: 7rem;
     border: none !important;
@@ -10903,4 +10901,14 @@ main.order-page a:hover {
   .directions-ul .directions-li .directions-img {
     display: none;
   }
+
+  .notif {
+    display: none;
+  }
+
+  .main-header.notificated {
+    height: 5.75rem;
+  }
 }
+
+/*# sourceMappingURL=main.css.map */
