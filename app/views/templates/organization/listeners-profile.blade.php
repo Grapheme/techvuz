@@ -24,7 +24,7 @@
                     <td class="vertical-top">
                         <a href="{{ URL::route('organization-order',$study->order->id) }}"> №{{ getOrderNumber($study->order) }}</a>
                         <div class="font-sm nowrap">
-                            от {{ myDateTime::SwapDotDateWithOutTime($study->order->created_at) }}
+                            от {{ $study->order->created_at->format("d.m.Y") }}
                         </div>
                     </td>
                     <td class="self-status vertical-top">
@@ -37,7 +37,6 @@
                                 Обучается с
                             @endif
                         </span>
-                        
                         <span>
                             @if($study->start_status == 0 && $study->over_status == 0)
 
@@ -61,7 +60,9 @@
                         @if($study->start_status == 0 && $study->over_status == 0)
 
                         @elseif($study->start_status == 1 && $study->over_status == 1)
-                           <a class="style-normal nowrap" href="#"><span class="icon icon-sertifikat"></span> Удостоверение</a>
+                            <a class="style-normal nowrap" href="{{ URL::route('organization-order-certificate',array('order_id'=>$study->order_id,'course_id'=>$study->id,'listener_id'=>$study->user_id,'format'=>'pdf')) }}">
+                                <span class="icon icon-sertifikat"></span> Удостоверение
+                            </a>
                         @else
 
                         @endif
