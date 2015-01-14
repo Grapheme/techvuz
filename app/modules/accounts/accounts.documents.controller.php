@@ -1198,9 +1198,10 @@ class AccountsDocumentsController extends BaseController {
             }))
             ->with('listeners.course.test')
             ->first();
-        $SummaZakaza = 0; $SpisokSluschateleyDlyaDogovora = array();
+        $SummaZakaza = 0; $SpisokSluschateleyDlyaDogovora = array(); $listenersID = array();
         foreach($order->listeners as $listener):
             $SummaZakaza += $listener->price;
+            $listenersID[$listener->user_id] = $listener->user_id;
         endforeach;
         $dateTime = new myDateTime();
         $variables = array(
@@ -1211,7 +1212,7 @@ class AccountsDocumentsController extends BaseController {
             'SummaZakaza' => number_format($SummaZakaza,0,'.',' '),
             'SummaZakazaSlovami' => price2str($SummaZakaza),
             'KolichestvoSluschateley' => $order->listeners->count(),
-            'KolichestvoSluschateleySlovami' => $order->listeners->count().' ('.count2str($order->listeners->count()).') '.Lang::choice('слушателя|слушателей|слушателей',$order->listeners->count()),
+            'KolichestvoSluschateleySlovami' => count($listenersID).' ('.count2str(count($listenersID)).') '.Lang::choice('слушателя|слушателей|слушателей',count($listenersID)),
             'DataOplatuZakaza' => $dateTime->setDateString($order->payment_date)->format('d.m.Y'),
             'DataNachalaObucheniya' => $dateTime->setDateString($order->study_date)->format('d.m.Y'),
             'DataOformleniyaZakaza' => $order->created_at->format('d.m.Y'),
