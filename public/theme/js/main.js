@@ -4,7 +4,7 @@ $('.tabs').tabs({
 	}
 });
 
-$('.select').selectmenu();
+//$('.select').selectmenu();
 $(function(){
 	$('table.sortable').tablesorter();
 });
