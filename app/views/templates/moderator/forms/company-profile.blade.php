@@ -6,7 +6,7 @@
         <label>Email</label>{{ Form::text('email') }}
     </div>
     <div class="form-element">
-        <label>Статус аккаунта</label>{{ Form::select('active',array('Не активный','Активный','Не активирован'),NULL,array('class'=>'select')) }}
+        <label>Статус E-mail адреса</label>{{ Form::select('active',array('Не активный','Активный','Не активирован'),NULL,array('class'=>'select')) }}
     </div>
 
     <div class="form-element">
@@ -64,7 +64,7 @@
         <label>Скидка, %</label>{{ Form::text('discount') }}
     </div>
     <div class="form-element">
-        <label>Статус аккаунта</label>{{ Form::select('moderator_approve',array('Не подтвержден','Подтвержден'),$profile->moderator_approve,array('class'=>'select')) }}
+        <label>Статус аккаунта</label>{{ Form::select('moderator_approve',array('Модератором не подтвержден','Модератором подтвержден'),$profile->moderator_approve,array('class'=>'select')) }}
     </div>
     <div class="form-element">
         <button type="submit" autocomplete="off" class="btn btn--bordered btn--blue btn-form-submit">

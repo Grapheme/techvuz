@@ -50,7 +50,7 @@
                             <div class="count-add-dots"></div>
                         </div>
                         <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 no-gutter no-padding">
-                            
+
                         </div>
                     </div>
                 </div>
@@ -95,7 +95,7 @@
             <div class="notifications">
                 <div class="notifications-nav">
                     <span class="icon icon-angle-left js-notif-left"></span>
-                    
+
                     <span class="notifications-count">
                         <span class="current">1</span> / <span class="all"></span>
                     </span>
@@ -126,7 +126,7 @@
                                 </div>
                                 <div class="notif-delete js-notif-delete">
                                 {{ Form::open(array('url'=>URL::route('organization-notification-delete',array('notification_id'=>$message->id)), 'style'=>'display:inline-block', 'method'=>'delete')) }}
-                                    
+
                                     <button type="submit" class="icon-bag-btn" title="Удалить"></button>
 
                                 {{ Form::close() }}
@@ -185,7 +185,7 @@
                         <th class="sort sort--asc">Ф.И.О. <span class="sort--icon"></span> </th>
                         <th class="sort sort--asc">Название курса <span class="sort--icon"></span> </th>
                         <th class="sort sort--asc">Прогресс <span class="sort--icon"></span> </th>
-                    </tr>                   
+                    </tr>
                 @foreach($listeners as $listener)
                     @if($listener->study->count())
                         @foreach($listener->study as $index => $study)

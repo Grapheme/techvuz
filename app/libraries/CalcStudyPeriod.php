@@ -52,7 +52,9 @@ class CalcStudyPeriod {
 
     public function write(){
 
-        if ($this->date_begin == $this->date_end || $this->current_hours == 8 || $this->hours == 8):
+        if($this->hours == 8):
+            return $this->date_begin->format($this->format);
+        elseif($this->date_begin == $this->date_end || ($this->prev_hours > 0 && ($this->prev_hours % 8) == 0)):
             return $this->date_end->format($this->format);
         else:
             return $this->date_begin->format($this->format).'-'.$this->date_end->format($this->format);

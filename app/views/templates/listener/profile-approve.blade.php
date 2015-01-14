@@ -94,7 +94,7 @@
             </div>
             <div class="row margin-bottom-10 margin-top-20">
                 <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" style="font-weight: normal; font-size: 12px">
-                    Нажимая на кнопку «Подтверждаю», Вы даете согласие на обработку <a href="{{asset('files/agreement.pdf')}}" target="_blank" class="icon--blue">персональных данных</a>.
+                    Нажимая на кнопку «Подтверждаю», Вы даете согласие на обработку <a href="{{asset('files/agreement.pdf')}}" target="_blank" class="icon--blue">персональных данных</a> и подтверждаете, что ознакомлены с <a href="{{asset('files/documents.pdf')}}" target="_blank" class="icon--blue">документами, регламентирующими образовательный процесс</a>.
                 </div>
             </div>
             <div class="row margin-bottom-10 margin-top-40">

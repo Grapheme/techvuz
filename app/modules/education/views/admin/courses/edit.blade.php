@@ -26,6 +26,12 @@
                         </label>
                     </section>
                     <section>
+                        <label class="label">Название итоговой аттестации</label>
+                        <label class="input">
+                            {{ Form::text('test_title') }}
+                        </label>
+                    </section>
+                    <section>
                         <label class="label">Описание</label>
                         <label class="textarea">
                             {{ Form::textarea('description',NULL,array('class'=>'redactor')) }}

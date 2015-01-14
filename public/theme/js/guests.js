@@ -19,6 +19,7 @@ var validation_signup_ul = {
     fio_manager: { required: true },
     fio_manager_rod: { required: true },
     manager: { required: true },
+    manager_rod: { required: true },
     statutory: { required: true },
     ogrn: {
         required: true,
@@ -76,6 +77,7 @@ var validation_signup_messages_ul = {
     fio_manager: { required: 'Укажите фамилию, имя и отчество подписанта' },
     fio_manager_rod: { required: 'Укажите фамилию, имя и отчество подписанта в род. падеже' },
     manager: { required: 'Укажите должность' },
+    manager_rod: { required: 'Укажите должность в род. падеже' },
     statutory: { required: 'Укажите уставной документ' },
     ogrn: { 
         required: 'Укажите ОГРН',

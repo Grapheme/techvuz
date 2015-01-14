@@ -2,9 +2,9 @@
 
 class AccountsOrganizationController extends BaseController {
 
-    public static $name = 'organization';
+    public static $name = 'company';
     public static $group = 'accounts';
-    public static $entity = 'organization';
+    public static $entity = 'company';
     public static $entity_name = 'Действия организации';
 
     /****************************************************************************/
@@ -12,7 +12,7 @@ class AccountsOrganizationController extends BaseController {
     public static function returnRoutes($prefix = null) {
         $class = __CLASS__;
         if (isOrganization()):
-            Route::group(array('before' => 'auth.status', 'prefix' => 'organization'), function() use ($class) {
+            Route::group(array('before' => 'auth.status', 'prefix' => 'company'), function() use ($class) {
                 Route::get('registration/listener', array('as' => 'signup-listener', 'uses' => $class . '@signupListener'));
 
                 Route::get('profile', array('as' => 'organization-profile', 'uses' => $class . '@CompanyProfile'));
@@ -130,7 +130,9 @@ class AccountsOrganizationController extends BaseController {
 
             $organization->title = $post['title'];
             $organization->fio_manager = $post['fio_manager'];
+            $organization->fio_manager_rod = $post['fio_manager_rod'];
             $organization->manager = $post['manager'];
+            $organization->manager_rod = $post['manager_rod'];
             $organization->statutory = $post['statutory'];
             $organization->inn = $post['inn'];
             $organization->kpp = $post['kpp'];
@@ -382,12 +384,14 @@ class AccountsOrganizationController extends BaseController {
         elseif(is_array($listenerIDs) == FALSE):
             $listenerIDs = array($listenerIDs);
         endif;
-        foreach(OrderListeners::whereIn('user_id',$listenerIDs)->with('order')->get() as $order):
-            if ($order->order->close_status == 0):
-                $result = TRUE;
-                break;
-            endif;
-        endforeach;
+        if (!empty($listenerIDs)):
+            foreach(OrderListeners::whereIn('user_id',$listenerIDs)->with('order')->get() as $order):
+                if ($order->order->close_status == 0):
+                    $result = TRUE;
+                    break;
+                endif;
+            endforeach;
+        endif;
         return $result;
     }
 }

@@ -17,10 +17,10 @@
             </a>
             <h3>Профиль</h3>
             <div class="style-light style-italic">
-                {{ $accountStatus[$profile->active] }}{{ $activation_date }}
+                E-mail адрес: {{ $accountStatus[$profile->active] }}{{ $activation_date }}
             </div>
             <div class="style-light style-italic">
-                Модератором {{ $profile->moderator_approve ? 'подтвержден' : 'не подтвержден' }}
+                Аккаунт:  Модератором {{ $profile->moderator_approve ? 'подтвержден' : 'не подтвержден' }}
             </div>
         @endif
         <div class="employer-anket margin-top-30 margin-bottom-40">

@@ -85,8 +85,14 @@
                 @if($lostTime !== FALSE)
                     @if($study_course->start_status == 1 && $lostTime <= 0 && !empty($module->test))
                         <tr>
-                            <td colspan="3">Итоговое тестирование</td>
+                        @if($study_course->start_final_test)
+                            <td colspan="3">{{ !empty($module->test_title) ? $module->test_title : 'Итоговое тестирование'; }}</td>
                             <td><a class="btn btn--bordered btn--blue" href="{{ URL::route('listener-study-testing',array('study_course_id'=>$study_course->id.'-'.BaseController::stringTranslite($module->title,100),'study_test_id'=>$module->test->id)) }}">Пройти</a></td>
+                        @else
+                            <td colspan="4">
+                                Нажимая кнопку <a class="btn btn--bordered btn--blue" href="{{ URL::route('listener-start-study-testing',array('study_course_id'=>$study_course->id.'-'.BaseController::stringTranslite($module->title,100),'study_test_id'=>$module->test->id)) }}">Подтверждаю</a>, Вы подтвержаете, что освоили все учебные модули по соответствующей дополнительной профессиональной программе.
+                            </td>
+                        @endif
                         </tr>
                     @elseif($study_course->start_status == 1 && $lostTime > 0)
                         <tr>

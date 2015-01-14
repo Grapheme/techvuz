@@ -2,15 +2,15 @@
 <tr class="vertical-middle js-orders-line">
     <td class="vertical-top">
     @if($order->payment_status == 1)
-        <?php $formAction = URL::route('moderator-order-delete',array('order_id'=>$order->id));?>
-    @else
-        <?php $formAction = URL::route('moderator-order-arhived',array('order_id'=>$order->id));?>
-    @endif
-        {{ Form::open(array('url'=>$formAction, 'style'=>'display:inline-block', 'method'=>'delete')) }}
-            <button type="submit" autocomplete="off" title="Удалить заказ" data-order-number="{{ getOrderNumber($order) }}" class="icon-bag-btn js-delete-order">
-                
-            </button>
+        {{ Form::open(array('url'=>URL::route('moderator-order-delete',array('order_id'=>$order->id)), 'style'=>'display:inline-block', 'method'=>'delete')) }}
+        <button type="submit" autocomplete="off" title="Удалить заказ" data-order-number="{{ getOrderNumber($order) }}" class="icon-bag-btn js-delete-order"></button>
         {{ Form::close() }}
+    @elseif(Input::has('delete') && Input::get('delete') == 1)
+        {{ Form::open(array('url'=>URL::route('moderator-order-arhived',array('order_id'=>$order->id)), 'style'=>'display:inline-block', 'method'=>'delete')) }}
+        <button type="submit" autocomplete="off" title="Удалить заказ" data-order-number="{{ getOrderNumber($order) }}" class="icon-bag-btn js-delete-order"></button>
+        {{ Form::close() }}
+    @endif
+
     </td>
     <td class="vertical-top">
         <a class="nowrap" href="{{ URL::route('moderator-order-extended',$order->id) }}">Заказ №{{ getOrderNumber($order) }}</a>

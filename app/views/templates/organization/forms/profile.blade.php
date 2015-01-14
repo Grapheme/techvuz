@@ -1,5 +1,7 @@
 {{ Form::model($profile,array('url'=>URL::route('organization-profile-update'), 'class'=>'registration-form listener-add-form', 'id'=>'profile-company-form', 'method'=>'PATCH')) }}
     {{ Form::hidden('account_type',AccountTypes::pluck('id')) }}
+    {{ Form::hidden('fio_manager_rod') }}
+    {{ Form::hidden('manager_rod') }}
     <div class="reg-form-alert">
         Все поля являются обязательными для заполнения!
     </div>
@@ -8,9 +10,6 @@
     </div>
     <div class="form-element">
         <label>ФИО подписанта договора</label>{{ Form::text('fio_manager') }}
-    </div>
-    <div class="form-element">
-        <label>ФИО подписанта договора в род. падеже</label>{{ Form::text('fio_manager_rod') }}
     </div>
     <div class="form-element">
         <label>Должность подписанта договора</label>{{ Form::text('manager') }}

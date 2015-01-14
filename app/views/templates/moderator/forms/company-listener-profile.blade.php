@@ -6,7 +6,7 @@
         <label>Email</label>{{ Form::text('email') }}
     </div>
     <div class="form-element">
-        <label>Статус аккаунта</label>{{ Form::select('active',array('Не активный','Активный','Не активирован'),NULL,array('class'=>'select')) }}
+        <label>Статус E-mail адреса</label>{{ Form::select('active',array('Не активный','Активный','Не активирован'),NULL,array('class'=>'select')) }}
     </div>
     <div class="form-element">
         <label>Ф.И.О.</label>{{ Form::text('fio') }}

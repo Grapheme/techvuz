@@ -13,6 +13,7 @@ class CreateCoursesTable extends Migration {
                 $table->integer('order')->unsigned()->nullable();
                 $table->string('code',10)->nullable();
                 $table->string('title',255)->nullable();
+                $table->string('test_title',255)->nullable();
                 $table->text('description')->nullable();
                 $table->text('curriculum')->nullable();
                 $table->float('price')->default(0)->unsigned()->nullable();

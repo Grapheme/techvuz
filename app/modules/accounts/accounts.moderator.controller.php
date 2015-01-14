@@ -322,10 +322,10 @@ class AccountsModeratorController extends BaseController {
             $order->created_at = $date->setDateString(Input::get('created_at'))->format('Y-m-d H:i:s');;
             #$order->payment_date = $date->setDateString(Input::get('payment_date'))->format('Y-m-d H:i:s');
             $order->study_date = $date->setDateString(Input::get('study_date'))->format('Y-m-d H:i:s');
-            if (!empty($order->study_date)):
-                $order->study_status = 1;
-            else:
+            if (Input::get('study_date') == ''):
                 $order->study_status = 0;
+            else:
+                $order->study_status = 1;
             endif;
             $order->contract_id = ExtForm::process('upload', @Input::all()['contract']);
             $order->invoice_id = ExtForm::process('upload', @Input::all()['invoice']);
@@ -451,7 +451,7 @@ class AccountsModeratorController extends BaseController {
                         if ($orderListener->access_status == 0 && isset($ListenersStatuses[$orderListener->id]) && $ListenersStatuses[$orderListener->id] == 1):
                             $studyDays = !empty($orderListener->course->hours) ? floor($orderListener->course->hours/8): floor(Config::get('site.time_to_study_begin')/8);
                             if (!empty($order->organization)):
-                                $listenerIDs[$index] = array('accountID'=>$orderListener->user_id,'listener'=>$orderListener->user_listener->fio,'link'=>URL::to('organization/listeners/profile/'.$orderListener->user_id),'course'=>$orderListener->course->code);
+                                $listenerIDs[$index] = array('accountID'=>$orderListener->user_id,'listener'=>$orderListener->user_listener->fio,'link'=>URL::to('company/listeners/profile/'.$orderListener->user_id),'course'=>$orderListener->course->code);
                                 Event::fire('listener.study-access', array(array('accountID'=>$orderListener->user_id,'link'=>URL::to('listener/study/course/'.$orderListener->id.'-'.BaseController::stringTranslite($orderListener->course->title,100)),'course'=>$orderListener->course->code,'date'=>(new myDateTime())->setDateString($now)->addDays($studyDays)->format('d.m.Y'))));
                             elseif (!empty($order->individual)):
                                 Event::fire('listener.study-access', array(array('accountID'=>$orderListener->user_id,'link'=>URL::to('individual-listener/study/course/'.$orderListener->id.'-'.BaseController::stringTranslite($orderListener->course->title,100)),'course'=>$orderListener->course->code,'date'=>(new myDateTime())->setDateString($now)->addDays($studyDays)->format('d.m.Y'))));
@@ -496,13 +496,13 @@ class AccountsModeratorController extends BaseController {
             if ($payment_summa >= $total_summa):
                 Orders::where('id',$order_id)->update(array('payment_status'=>2,'payment_date'=>$now,'updated_at'=>$now));
                 if (!empty($order->organization)):
-                    Event::fire('organization.order.yes-puy-yes-access', array(array('accountID'=>$order->user_id,'link'=>URL::to('organization/order/'.$order->id),'order'=>getOrderNumber($order))));
+                    Event::fire('organization.order.yes-puy-yes-access', array(array('accountID'=>$order->user_id,'link'=>URL::to('company/order/'.$order->id),'order'=>getOrderNumber($order))));
                 elseif (!empty($order->individual)):
                     Event::fire('individual.order.yes-puy-yes-access', array(array('accountID'=>$order->user_id,'link'=>URL::to('individual-listener/order/'.$order->id),'order'=>getOrderNumber($order))));
                 endif;
             elseif($payment_summa > 0 && $payment_summa < $total_summa):
                 if (!empty($order->organization)):
-                    Event::fire('organization.order.part-puy-not-access', array(array('accountID'=>$order->user_id,'link'=>URL::to('organization/order/'.$order->id),'order'=>getOrderNumber($order))));
+                    Event::fire('organization.order.part-puy-not-access', array(array('accountID'=>$order->user_id,'link'=>URL::to('company/order/'.$order->id),'order'=>getOrderNumber($order))));
                 elseif (!empty($order->individual)):
                     Event::fire('individual.order.part-puy-not-access', array(array('accountID'=>$order->user_id,'link'=>URL::to('individual-listener/order/'.$order->id),'order'=>getOrderNumber($order))));
                 endif;

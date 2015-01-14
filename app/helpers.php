@@ -109,7 +109,7 @@ function returnRoute($routeName,$vars = [],$default = ''){
     endif;
 }
 
-function num2str($num) {
+function price2str($num) {
     $nul='ноль';
     $ten=array(
         array('','один','два','три','четыре','пять','шесть','семь', 'восемь','девять'),

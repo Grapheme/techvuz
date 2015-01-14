@@ -71,13 +71,12 @@ class BaseController extends Controller {
         endif;
         $parts = array();
         $parts[] = 'templates';
-        $parts[] = AuthAccount::getGroupStartUrl();
+        $parts[] = AuthAccount::getGroupName();
         $parts[] = 'dashboard';
 
         if ($prefix == 'listener' && Listener::where('user_id',Auth::user()->id)->pluck('approved') == FALSE):
             return Redirect::route('listener-profile-approve')->with('message','YES');
         endif;
-
         return View::make(implode('.', $parts),$page_data);
     }
 

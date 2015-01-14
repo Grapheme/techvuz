@@ -2,7 +2,7 @@
 
 return array(
 
-    'success_test_percent' => 70,
+    'success_test_percent' => Dictionary::valueBySlugs('properties-site','success-test-percent',TRUE)->property,
 
     'theme_path' => 'theme',
     'service_password' => 'CdPfne2pzDNa',

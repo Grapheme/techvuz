@@ -80,7 +80,7 @@ class Helper {
     }
 
     public static function acclayout($file = '') {
-        $layout = AuthAccount::getStartPage();
+        $layout = AuthAccount::getGroupName();
         if (!$layout) {
             $layout = 'default';
         }

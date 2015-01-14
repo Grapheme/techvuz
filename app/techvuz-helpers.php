@@ -44,14 +44,21 @@ function isCompanyListener(){
     return FALSE;
 }
 
-function getCourseStudyProgress($listenerCourse = NULL){
+function isModerator(){
+    if (Auth::check() && Auth::user()->group()->pluck('name') == 'moderator'):
+        return TRUE;
+    endif;
+    return FALSE;
+}
 
+function getCourseStudyProgress($listenerCourse = NULL){
     $progress = 0;
     if (!is_null($listenerCourse) && is_object($listenerCourse)):
         if($listenerCourse->start_status == 1):
             $progress++;
         endif;
-        if(isset($listenerCourse->final_test) && !empty($listenerCourse->final_test)):
+        $success_test_percent = Config::get('site.success_test_percent') ? Config::get('site.success_test_percent') : 70;
+        if(OrdersListenersTests::where('order_listeners_id',$listenerCourse->id)->where('result_attempt','>=',$success_test_percent)->exists()):
             $progress++;
         endif;
         if($listenerCourse->over_status):
@@ -149,6 +156,42 @@ function getShortOrderNumber($order){
     elseif(is_array($order)):
         return str_pad($order['number'],3,'0',STR_PAD_LEFT);
     endif;
+}
+
+function count2str($num) {
+    $nul='ноль';
+    $ten=array(
+        array('','одного','двух','трёх','четырех','пятерых','шестерых','семерых', 'восьмерых','девятерых'),
+        array('','одного','двух','трёх','четырех','пятерых','шестерых','семерых', 'восьмерых','девятерых'),
+    );
+    $a20=array('десять','одиннадцать','двенадцать','тринадцать','четырнадцать' ,'пятнадцать','шестнадцать','семнадцать','восемнадцать','девятнадцать');
+    $tens=array(2=>'двадцать','тридцать','сорок','пятьдесят','шестьдесят','семьдесят' ,'восемьдесят','девяносто');
+    $hundred=array('','сто','двести','триста','четыреста','пятьсот','шестьсот', 'семьсот','восемьсот','девятьсот');
+    $unit=array( // Units
+        array('копейка' ,'копейки' ,'копеек',	 1),
+        array('рубль'   ,'рубля'   ,'рублей'    ,0),
+        array('тысяча'  ,'тысячи'  ,'тысяч'     ,1),
+        array('миллион' ,'миллиона','миллионов' ,0),
+        array('миллиард','милиарда','миллиардов',0),
+    );
+    list($rub,$kop) = explode('.',sprintf("%015.2f", floatval($num)));
+    $out = array();
+    if (intval($rub)>0) {
+        foreach(str_split($rub,3) as $uk=>$v) { // by 3 symbols
+            if (!intval($v)) continue;
+            $uk = sizeof($unit)-$uk-1; // unit key
+            $gender = $unit[$uk][3];
+            list($i1,$i2,$i3) = array_map('intval',str_split($v,1));
+            // mega-logic
+            $out[] = $hundred[$i1]; # 1xx-9xx
+            if ($i2>1) $out[]= $tens[$i2].' '.$ten[$gender][$i3]; # 20-99
+            else $out[]= $i2>0 ? $a20[$i3] : $ten[$gender][$i3]; # 10-19 | 1-9
+            // units without rub & kop
+            if ($uk>1) $out[]= morph($v,$unit[$uk][0],$unit[$uk][1],$unit[$uk][2]);
+        } //foreach
+    }
+    else $out[] = $nul;
+    return trim(preg_replace('/ {2,}/', ' ', join(' ',$out)));
 }
 
 /****************************************************************************/

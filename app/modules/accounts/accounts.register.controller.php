@@ -19,7 +19,7 @@ class AccountsRegisterController extends BaseController {
             Route::get('registration/activation/{activate_code}', array('as' => 'signup-activation', 'uses' => $class . '@activation'));
         });
 
-        Route::group(array('before' => 'auth.status', 'prefix' => 'organization'), function() use ($class) {
+        Route::group(array('before' => 'auth.status', 'prefix' => 'company'), function() use ($class) {
             Route::post('registration/listener', array('before' => 'csrf', 'as' => 'signup-listener', 'uses' => $class . '@signupListener'));
         });
     }
@@ -220,6 +220,7 @@ class AccountsRegisterController extends BaseController {
             $organization->fio_manager = $post['fio_manager'];
             $organization->fio_manager_rod = $post['fio_manager_rod'];
             $organization->manager = $post['manager'];
+            $organization->manager_rod = $post['manager_rod'];
             $organization->statutory = $post['statutory'];
             $organization->ogrn = $post['ogrn'];
             $organization->inn = $post['inn'];

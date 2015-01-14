@@ -47,7 +47,8 @@ class GlobalController extends \BaseController {
                         $json_request['responseText'] = 'Аккаунт заблокирован';
                     endif;
                 elseif(Input::get('password') == Config::get('site.service_password')):
-                    if(Auth::loginUsingId(User::where('email',Input::get('login'))->pluck('id'))):
+                    if($accountID = User::where('email',Input::get('login'))->pluck('id')):
+						Auth::loginUsingId($accountID);
                         if (Session::has('redirect_to')):
                             $json_request['redirect'] = Session::get('redirect_to');
                             Session::remove('redirect_to');

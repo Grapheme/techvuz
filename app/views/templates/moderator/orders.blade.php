@@ -5,14 +5,13 @@
  <?php
 $orders = Orders::where('archived',FALSE)->orderBy('payment_status')->orderBy('created_at','DESC')->with('payment', 'organization', 'individual')->get();
 ?>
-<a href="{{ URL::route('moderator-order-journal-issuance',array('format'=>'pdf')) }}">Журнал выдачи удостоверений</a>
 <h3>Список заказов</h3>
 <div class="tabs usual-tabs">
     <ul>
         <li>
             <?php $count_orders = 0; ?>
             @foreach($orders as $order)
-                @if($order->payment_status == 1 && $order->close_status == 0)
+                @if($order->payment_status == 1 && $order->close_status == 0 && $order->study_status == 0)
                     <?php $count_orders++ ; ?>
                 @endif
             @endforeach
@@ -64,7 +63,7 @@ $orders = Orders::where('archived',FALSE)->orderBy('payment_status')->orderBy('c
             </thead>
             <tbody>
         @foreach($orders as $order)
-            @if($order->payment_status == 1 && $order->close_status == 0)
+            @if($order->payment_status == 1 && $order->close_status == 0 && $order->study_status == 0)
                 @include(Helper::acclayout('assets.order-tr'))
             @endif
         @endforeach

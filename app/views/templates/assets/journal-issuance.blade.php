@@ -7,44 +7,46 @@
 </head>
 <body>
     <main>
-        @if(isset($DannueResultatovAttestacii))
+        @if(isset($SpisokSluschateley))
             <?php
-                ob_start();
+            $spisok = array();
+            foreach($SpisokSluschateley->listeners as $index => $listener):
+                $spisok[$listener->user_id]['fio'] = !empty($listener->user_listener) ? $listener->user_listener->fio : $listener->user_individual->fio ;
+                $spisok[$listener->user_id]['courses'][$listener->course->id]['certificate_number'] = $listener->certificate_number;
+                $spisok[$listener->user_id]['courses'][$listener->course->id]['certificate_date'] = $listener->certificate_date;
+                $spisok[$listener->user_id]['courses'][$listener->course->id]['course_code'] = $listener->course->code;
+                $spisok[$listener->user_id]['courses'][$listener->course->id]['course_title'] = $listener->course->title;
+            endforeach;
             ?>
+            <?php ob_start(); ?>
             <table>
                 <tbody>
-            @foreach($DannueResultatovAttestacii as $question_id => $question)
-                <?php $KolichestvoVoprosiv++; ?>
-                    <tr>
-                        <td colspan="3">
-                            <p><strong>{{ $question['title'] }}</strong></p>
-                            {{ $question['description'] }}
-                        </td>
-                    </tr>
-                @if(count($question['answers']))
-                    <?php $index = 1; ?>
-                    @foreach($question['answers'] as $answer_is => $answer)
-                    <tr>
-                        <td><p align="center">{{ $index }}</p></td>
-                        <td>{{ $answer['description'] }}</td>
-                        <td>
-                        @if($answer['correct'] == 1 && $answer['user_correct'] == 1)
-                            <p align="center">Ваш ответ (верный)</p>
-                            <?php $KolichestvoPravilnuhOtvetov++; ?>
-                        @elseif($answer['correct'] == 0 && $answer['user_correct'] == 1)
-                            <p align="center">Ваш ответ (неверный)</p>
-                        @elseif($answer['correct'] == 1 && $answer['user_correct'] == 0)
-                            <p align="center">Правильный ответ</p>
-                        @endif
-                        </td>
-                    </tr>
-                        <?php $index++; ?>
+                <tr>
+                    <td><p align="center"><strong>№ п/п</strong></p></td>
+                    <td><p align="center"><strong>ФИО слушателя</strong></p></td>
+                    <td><p align="center"><strong>Наименование программы</strong></p></td>
+                    <td><p align="center"><strong>Номер и дата удостоверения о повышении квалификации</strong></p></td>
+                    <td><p align="center"><strong>Вручено</strong></p></td>
+                    <td><p align="center"><strong>Подпись / дата отправки и почтовый идентификатор</strong></p></td>
+                </tr>
+                <?php $listener_index = 0 ;?>
+                @foreach($spisok as $listener)
+                    <?php $course_index = 0 ;?>
+                    @foreach($listener['courses'] as $course_id => $course_info)
+                        <tr>
+                            <td>@if($course_index == 0)<p align="center">{{ ++$listener_index }}</p>@endif</td>
+                            <td>@if($course_index == 0){{ $listener['fio'] }}@endif</td>
+                            <td>{{ $course_info['course_code'] }} {{ $course_info['course_title'] }}</td>
+                            <td>У-{{ str_pad($course_info['certificate_number'],4,'0',STR_PAD_LEFT) }} от {{ (new myDateTime())->setDateString($course_info['certificate_date'])->format('d.m.Y') }}</td>
+                            <td>&nbsp;</td>
+                            <td>&nbsp;</td>
+                        </tr>
+                        <?php $course_index++; ?>
                     @endforeach
-                @endif
-            @endforeach
-                </table>
-            </tbody>
-            <?php $TablicaResultatovAttestacii = ob_get_clean(); ?>
+                @endforeach
+                </tbody>
+            </table>
+            <?php $SpisokSluschateleyDlyaJurnala = ob_get_clean(); ?>
         @endif
         @if(isset($template) && File::exists($template))
             <?php require($template);?>

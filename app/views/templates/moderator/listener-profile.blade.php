@@ -14,16 +14,16 @@
     @else
         <?php $activation_date = ''; ?>
     @endif
-    <a class="icon--blue pull-right margin-top-30" href="{{ URL::route('moderator-listener-profile-edit',$profile->id) }}">
-        <span class="icon icon-red"></span>
+    <a class="icon--blue pull-right margin-top-30 style-normal" href="{{ URL::route('moderator-listener-profile-edit',$profile->id) }}">
+        <span class="icon icon-red"></span> Редактировать
     </a>
     <h3>Профиль</h3>
     <div class="style-light style-italic">
-        {{ $accountStatus[$profile->active] }}{{ $activation_date }}
+        E-mail адрес: {{ $accountStatus[$profile->active] }}{{ $activation_date }}
     </div>
     @if($profile->group_id == 6)
         <div class="style-light style-italic">
-            Модератором {{ $profile->moderator_approve ? 'подтвержден' : 'не подтвержден' }}
+            Аккаунт:  Модератором {{ $profile->moderator_approve ? 'подтвержден' : 'не подтвержден' }}
         </div>
     @endif
 @endif

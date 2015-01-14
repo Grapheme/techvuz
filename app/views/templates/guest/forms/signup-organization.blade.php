@@ -1,6 +1,8 @@
 {{ Form::open(array('url'=>URL::route('signup-ul'), 'class'=>'registration-form', 'id'=>'signup-ul-form', 'method'=>'post')) }}
     {{ Form::hidden('group_id',@Group::where('name','organization')->pluck('id')) }}
     {{ Form::hidden('account_type',AccountTypes::pluck('id')) }}
+    {{ Form::hidden('fio_manager_rod','Не указано') }}
+    {{ Form::hidden('manager_rod','Не указано') }}
     <div class="reg-form-alert">
         <img class="vertical-text-bot" src="{{ asset('theme/img/triangle.png') }}"> Все поля являются обязательными для заполнения!
     </div>
@@ -10,9 +12,6 @@
         </div>
         <div class="form-element">
             <label>ФИО подписанта договора</label>{{ Form::text('fio_manager', '',array('placeholder'=>'Иванов Иван Иванович')) }}
-        </div>
-        <div class="form-element">
-            <label>ФИО подписанта договора в род. падеже</label>{{ Form::text('fio_manager_rod', '',array('placeholder'=>'Иванова Ивана Ивановича')) }}
         </div>
         <div class="form-element">
             <label>Должность подписанта договора</label>{{ Form::text('manager', '',array('placeholder'=>'Директор, менеджер, заместитель генерального директора')) }}

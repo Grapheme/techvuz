@@ -23,7 +23,7 @@ class GroupsTableSeeder extends Seeder{
         Group::create(array(
             'name' => 'organization',
             'desc' => 'Юридическое лицо',
-            'dashboard' => 'organization'
+            'dashboard' => 'company'
         ));
         Group::create(array(
             'name' => 'listener',

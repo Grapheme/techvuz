@@ -18,6 +18,7 @@ class TablesSeeder extends Seeder{
         DicVal::create(array('dic_id'=>$dic_id,'slug'=>'count-by-course-discount','name'=> 'Количество позиций для применения скидки','order'=>1));
         DicVal::create(array('dic_id'=>$dic_id,'slug'=>'count-by-course-discount-percent','name'=> 'Величина скидки при оформлении заказа','order'=>0));
         DicVal::create(array('dic_id'=>$dic_id,'slug'=>'global-discount-percent','name'=> 'Общая скидка','order'=>0));
+        DicVal::create(array('dic_id'=>$dic_id,'slug'=>'success-test-percent','name'=> 'Процент успешных ответов','order'=>0));
 
         Dictionary::create(array('slug'=>'order-documents','name'=>'Документы','entity'=> 1,'icon_class'=>'fa-clipboard','hide_slug'=>1,'make_slug_from_name'=>1,'name_title'=>'Название документа','pagination'=>0,'view_access'=>2,'sort_by'=>'name','sort_order_reverse'=>0,'sortable'=>1,'order'=>0));
         $dic_id = Dictionary::where('slug','order-documents')->pluck('id');

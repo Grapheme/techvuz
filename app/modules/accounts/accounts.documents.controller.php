@@ -12,27 +12,41 @@ class AccountsDocumentsController extends BaseController {
 
     public static function returnRoutes($prefix = null) {
         $class = __CLASS__;
-        if (Auth::check()):
-            $prefix = Auth::user()->group()->pluck('dashboard');
-            Route::group(array('before' => 'auth.status', 'prefix' => $prefix), function() use ($class,$prefix) {
-                Route::get('order/{order_id}/contract/{format}', array('as' => $prefix.'-order-contract', 'uses' => $class . '@'.str_replace('-','_',$prefix).'OrderContract'));
-                Route::get('order/{order_id}/invoice/{format}', array('as' => $prefix.'-order-invoice', 'uses' => $class . '@'.str_replace('-','_',$prefix).'OrderInvoice'));
-                Route::get('order/{order_id}/act/{format}', array('as' => $prefix.'-order-act', 'uses' => $class . '@'.str_replace('-','_',$prefix).'OrderAct'));
-                Route::get('order/{order_id}/course/{course_id}/listener/{listener_id}/certificate/first', array('as' => $prefix.'-order-certificate-first', 'uses' => $class . '@'.str_replace('-','_',$prefix).'OrderCertificateFirst'));
-                Route::get('order/{order_id}course/{course_id}/listener/{listener_id}certificate/second', array('as' => $prefix.'-order-certificate-second', 'uses' => $class . '@'.str_replace('-','_',$prefix).'OrderCertificateSecond'));
+        if (isOrganization()):
+            Route::group(array('before' => 'auth.status', 'prefix' => 'company'), function() use ($class) {
+                Route::get('order/{order_id}/contract/{format}', array('as' => 'organization-order-contract', 'uses' => $class . '@organizationOrderContract'));
+                Route::get('order/{order_id}/invoice/{format}', array('as' => 'organization-order-invoice', 'uses' => $class . '@organizationOrderInvoice'));
+                Route::get('order/{order_id}/act/{format}', array('as' => 'organization-order-act', 'uses' => $class . '@organizationOrderAct'));
+                Route::get('order/{order_id}/course/{course_id}/listener/{listener_id}/certificate/first', array('as' => 'organization-order-certificate-first', 'uses' => $class . '@organizationOrderCertificateFirst'));
+                Route::get('order/{order_id}course/{course_id}/listener/{listener_id}certificate/second', array('as' => 'organization-order-certificate-second', 'uses' => $class . '@organizationOrderCertificateSecond'));
             });
-            Route::group(array('before' => 'auth', 'prefix' => 'moderator'), function() use ($class,$prefix) {
-                Route::get('order/{order_id}/request/{format}', array('as' => 'moderator-order-request', 'uses' => $class . '@'.$prefix.'OrderRequest'));
-                Route::get('order/{order_id}/enrollment/{format}', array('as' => 'moderator-order-enrollment', 'uses' => $class . '@'.$prefix.'OrderEnrollment'));
-                Route::get('order/{order_id}/completion/{format}', array('as' => 'moderator-order-completion', 'uses' => $class . '@'.$prefix.'OrderСompletion'));
-                Route::get('order/{order_id}/class-schedule/{format}', array('as' => 'moderator-order-class-schedule', 'uses' => $class . '@'.$prefix.'OrderClassSchedule'));
-                Route::get('order/{order_id}/statements/{format}', array('as' => 'moderator-order-statements', 'uses' => $class . '@'.$prefix.'OrderStatements'));
-                Route::get('order/{order_id}/explanations/{format}', array('as' => 'moderator-order-explanations', 'uses' => $class . '@'.$prefix.'OrderExplanations'));
-                Route::get('order/{order_id}/browsing-history/{format}', array('as' => 'moderator-order-browsing-history', 'uses' => $class . '@'.$prefix.'OrderBrowsingHistory'));
-                Route::get('order/{order_id}/result-certification/{format}', array('as' => 'moderator-order-result-certification', 'uses' => $class . '@'.$prefix.'OrderResultCertification'));
-                Route::get('order/{order_id}/attestation-sheet/{format}', array('as' => 'moderator-order-attestation-sheet', 'uses' => $class . '@'.$prefix.'OrderAttestationSheet'));
-
-                Route::get('orders/journal-issuance/{format}', array('as' => 'moderator-order-journal-issuance', 'uses' => $class . '@'.$prefix.'OrdersJournalIssuance'));
+        endif;
+        if (isIndividual()):
+            Route::group(array('before' => 'auth.status', 'prefix' => 'individual'), function() use ($class) {
+                Route::get('order/{order_id}/contract/{format}', array('as' => 'individual-listener-order-contract', 'uses' => $class . '@individual_listenerOrderContract'));
+                Route::get('order/{order_id}/invoice/{format}', array('as' => 'individual-listener-order-invoice', 'uses' => $class . '@individual_listenerOrderInvoice'));
+                Route::get('order/{order_id}/act/{format}', array('as' => 'individual-listener-order-act', 'uses' => $class . '@individual_listenerOrderAct'));
+                Route::get('order/{order_id}/course/{course_id}/listener/{listener_id}/certificate/first', array('as' => 'individual-listener-order-certificate-first', 'uses' => $class . '@individual_listenerOrderCertificateFirst'));
+                Route::get('order/{order_id}course/{course_id}/listener/{listener_id}certificate/second', array('as' => 'individual-listener-order-certificate-second', 'uses' => $class . '@individual_listenerOrderCertificateSecond'));
+            });
+        endif;
+        if (isModerator()):
+            Route::group(array('before' => 'auth', 'prefix' => 'moderator'), function() use ($class) {
+                Route::get('order/{order_id}/contract/{format}', array('as' => 'moderator-order-contract', 'uses' => $class . '@moderatorOrderContract'));
+                Route::get('order/{order_id}/invoice/{format}', array('as' => 'moderator-order-invoice', 'uses' => $class . '@moderatorOrderInvoice'));
+                Route::get('order/{order_id}/act/{format}', array('as' => 'moderator-order-act', 'uses' => $class . '@moderatorOrderAct'));
+                Route::get('order/{order_id}/course/{course_id}/listener/{listener_id}/certificate/first', array('as' => 'moderator-order-certificate-first', 'uses' => $class . '@moderatorOrderCertificateFirst'));
+                Route::get('order/{order_id}course/{course_id}/listener/{listener_id}certificate/second', array('as' => 'moderator-order-certificate-second', 'uses' => $class . '@moderatorOrderCertificateSecond'));
+                Route::get('order/{order_id}/request/{format}', array('as' => 'moderator-order-request', 'uses' => $class . '@moderatorOrderRequest'));
+                Route::get('order/{order_id}/enrollment/{format}', array('as' => 'moderator-order-enrollment', 'uses' => $class . '@moderatorOrderEnrollment'));
+                Route::get('order/{order_id}/completion/{format}', array('as' => 'moderator-order-completion', 'uses' => $class . '@moderatorOrderСompletion'));
+                Route::get('order/{order_id}/class-schedule/{format}', array('as' => 'moderator-order-class-schedule', 'uses' => $class . '@moderatorOrderClassSchedule'));
+                Route::get('order/{order_id}/statements/{format}', array('as' => 'moderator-order-statements', 'uses' => $class . '@moderatorOrderStatements'));
+                Route::get('order/{order_id}/explanations/{format}', array('as' => 'moderator-order-explanations', 'uses' => $class . '@moderatorOrderExplanations'));
+                Route::get('order/{order_id}/browsing-history/{format}', array('as' => 'moderator-order-browsing-history', 'uses' => $class . '@moderatorOrderBrowsingHistory'));
+                Route::get('order/{order_id}/result-certification/{format}', array('as' => 'moderator-order-result-certification', 'uses' => $class . '@moderatorOrderResultCertification'));
+                Route::get('order/{order_id}/attestation-sheet/{format}', array('as' => 'moderator-order-attestation-sheet', 'uses' => $class . '@moderatorOrderAttestationSheet'));
+                Route::get('order/{order_id}/journal-issuance/{format}', array('as' => 'moderator-order-journal-issuance', 'uses' => $class . '@moderatorOrdersJournalIssuance'));
             });
         endif;
     }
@@ -600,6 +614,8 @@ class AccountsDocumentsController extends BaseController {
                             $listeners[$listener->course_id]['Nazvanie_kursa'] = $listener->course->title;
                             $listeners[$listener->course_id]['hours'] = $listener->course->hours;
                             $listeners[$listener->course_id]['module'] = $listener->course->chapters;
+                            $listeners[$listener->course_id]['final_test'] = $listener->course->test;
+                            $listeners[$listener->course_id]['final_test']['test_title'] = $listener->course->test_title;
                         endforeach;
                         foreach($listeners as $listener_id => $listener):
                             $page_data['FIO_listener'] = $listener['FIO_listener'];
@@ -610,6 +626,7 @@ class AccountsDocumentsController extends BaseController {
                             $page_data['Kod_kursa'] = $listener['Kod_kursa'];
                             $page_data['Nazvanie_kursa'] = $listener['Nazvanie_kursa'];
                             $page_data['module'] = $listener['module'];
+                            $page_data['final_test'] = $listener['final_test'];
                             $page_data['hours'] = $listener['hours'];
                             $page = View::make($template, $page_data)->render();
                             $mpdf->AddPage('P');
@@ -737,6 +754,8 @@ class AccountsDocumentsController extends BaseController {
                             $listeners[$listener->course_id]['Nazvanie_kursa'] = $listener->course->title;
                             $listeners[$listener->course_id]['hours'] = $listener->course->hours;
                             $listeners[$listener->course_id]['module'] = $listener->course->chapters;
+                            $listeners[$listener->course_id]['final_test'] = $listener->course->test;
+                            $listeners[$listener->course_id]['final_test']['test_title'] = $listener->course->test_title;
                         endforeach;
                         foreach($listeners as $listener_id => $listener):
                             $page_data['FIO_listener'] = $listener['FIO_listener'];
@@ -747,6 +766,7 @@ class AccountsDocumentsController extends BaseController {
                             $page_data['Kod_kursa'] = $listener['Kod_kursa'];
                             $page_data['Nazvanie_kursa'] = $listener['Nazvanie_kursa'];
                             $page_data['module'] = $listener['module'];
+                            $page_data['final_test'] = $listener['final_test'];
                             $page_data['hours'] = $listener['hours'];
                             $page = View::make($template, $page_data)->render();
                             $mpdf->AddPage('P');
@@ -817,8 +837,10 @@ class AccountsDocumentsController extends BaseController {
                             $page_data['OcenkaAttestacii'] = $listener['OcenkaAttestacii'];
                             $page_data['OcenkaAttestaciiSlovami'] = $listener['OcenkaAttestaciiSlovami'];
                             $page = View::make($template, $page_data)->render();
-                            $mpdf->AddPage('P');
-                            $mpdf->WriteHTML(View::make($template, $page_data)->render(), 2);
+                            if ($page_data['OcenkaAttestacii'] >= Config::get('site.success_test_percent')):
+                                $mpdf->AddPage('P');
+                                $mpdf->WriteHTML(View::make($template, $page_data)->render(), 2);
+                            endif;
                         endforeach;
                     endif;
                     return $mpdf->Output('attestation-№'.getOrderNumber($order).'.pdf', 'D');
@@ -926,9 +948,10 @@ class AccountsDocumentsController extends BaseController {
                             $page_data['OcenkaAttestacii'] = $listener['OcenkaAttestacii'];
                             $page_data['OcenkaAttestaciiSlovami'] = $listener['OcenkaAttestaciiSlovami'];
                             $page_data['DannueResultatovAttestacii'] = $listener['DannueResultatovAttestacii'];
-                            $page = View::make($template, $page_data)->render();
-                            $mpdf->AddPage('P');
-                            $mpdf->WriteHTML(View::make($template, $page_data)->render(), 2);
+                            if ($page_data['OcenkaAttestacii'] >= Config::get('site.success_test_percent')):
+                                $mpdf->AddPage('P');
+                                $mpdf->WriteHTML(View::make($template, $page_data)->render(), 2);
+                            endif;
                         endforeach;
                     endif;
                     return $mpdf->Output('certification-№'.getOrderNumber($order).'.pdf', 'D');
@@ -940,76 +963,11 @@ class AccountsDocumentsController extends BaseController {
         App::abort(404);
     }
 
-    public function moderatorOrdersJournalIssuance($format){
+    public function moderatorOrdersJournalIssuance($order_id,$format){
 
-        if (!$orders = Orders::where('completed',1)->where('close_status',1)->with('organization','individual')->get()):
-            return Redirect::route('moderator-orders-list');
-        endif;
-        Helper::tad($orders);
-        $account = NULL; $account_type = NULL;
-        $template = 'templates.assets.journal-issuance';
-        $document = Dictionary::valueBySlugs('order-documents','order-documents-result-certification');
-        if (!empty($order->organization)):
-            $account = User_organization::where('id',$order->user_id)->first();
-            $account_type = 4;
-        elseif(!empty($order->individual)):
-            $account = User_individual::where('id',$order->user_id)->first();
-            $account_type = 6;
-        endif;
-        if($document->exists && !empty($document->fields)):
-            $fields = modifyKeys($document->fields,'key');
-            Config::set('show-document.order_id', $order_id);
-            switch($format):
-                case 'html':
-                    $document_content = isset($fields['content']) ? $fields['content']->value : '';
-                    if($page_data = self::parseOrderHTMLDocument($document_content)):
-                        return View::make($template,$page_data);
-                    endif;
-                    break;
-                case 'pdf' :
-                    $mpdf = new mPDF('utf-8', 'A4', '8', '', 10, 10, 7, 7, 10, 10);
-                    $mpdf->SetDisplayMode('fullpage');
-                    $document_content = isset($fields['content']) ? $fields['content']->value : '';
-                    if($page_data = self::parseOrderHTMLDocument($document_content)):
-                        $page_data['page_title'] = '';
-                        foreach($page_data['SpisokSluschateley']['listeners'] as $index => $listener):
-                            $listeners[$index]['FIO_listener'] = !empty($listener['user_listener']) ? $listener['user_listener']['fio'] : $listener['user_individual']['fio'];
-                            $listeners[$index]['Phone_listener'] = !empty($listener['user_listener']) ? $listener['user_listener']['phone'] : $listener['user_individual']['phone'];
-                            $listeners[$index]['Email_listener'] = !empty($listener['user_listener']) ? $listener['user_listener']['email'] : $listener['user_individual']['email'];
-                            $listeners[$index]['Address_listener'] = !empty($listener['user_listener']) ? $listener['user_listener']['postaddress'] : $listener['user_individual']['postaddress'];
-                            $listeners[$index]['FIO_initial_listener'] = preg_replace('/(\w+) (\w)\w+ (\w)\w+/iu', '$1 $2. $3.', $listeners[$index]['FIO_listener']);
-                            $listeners[$index]['Kod_kursa'] = $listener['course']['code'];
-                            $listeners[$index]['Nazvanie_kursa'] = $listener['course']['title'];
-                            $listeners[$index]['DataProvedeniyaAttestacii'] = !empty($listener['final_test']) ? $listener['final_test']['created_at'] : '1970-01-01 00:00:00' ;
-                            $listeners[$index]['OcenkaAttestacii'] = !empty($listener['final_test']) ? $listener['final_test']['result_attempt'] : '0' ;
-                            $listeners[$index]['OcenkaAttestaciiSlovami'] = $listeners[$index]['OcenkaAttestacii'] >= $page_data['MinimalnayaOcenkaAttestacii']  ? 'Зачет' : 'Незачет' ;
-                            $listeners[$index]['VremyaProhojdeniyaAttestacii'] = 0;
-                            $listeners[$index]['DannueResultatovAttestacii'] = array();
-                        endforeach;
-                        foreach($listeners as $listener_id => $listener):
-                            $page_data['FIO_listener'] = $listener['FIO_listener'];
-                            $page_data['Phone_listener'] = $listener['Phone_listener'];
-                            $page_data['Email_listener'] = $listener['Email_listener'];
-                            $page_data['Address_listener'] = $listener['Address_listener'];
-                            $page_data['FIO_initial_listener'] = $listener['FIO_initial_listener'];
-                            $page_data['Kod_kursa'] = $listener['Kod_kursa'];
-                            $page_data['Nazvanie_kursa'] = $listener['Nazvanie_kursa'];
-                            $page_data['DataProvedeniyaAttestacii'] = (new myDateTime())->setDateString($listener['DataProvedeniyaAttestacii'])->format('d.m.Y');
-                            $page_data['OcenkaAttestacii'] = $listener['OcenkaAttestacii'];
-                            $page_data['OcenkaAttestaciiSlovami'] = $listener['OcenkaAttestaciiSlovami'];
-                            $page_data['DannueResultatovAttestacii'] = $listener['DannueResultatovAttestacii'];
-                            $page = View::make($template, $page_data)->render();
-                            $mpdf->AddPage('P');
-                            $mpdf->WriteHTML(View::make($template, $page_data)->render(), 2);
-                        endforeach;
-                    endif;
-                    return $mpdf->Output('certification-№'.getOrderNumber($order).'.pdf', 'D');
-                case 'word':
-                    return Redirect::back();
-                    break;
-            endswitch;
-        endif;
-        App::abort(404);
+        $template = 'templates/assets/journal-issuance';
+        return $this->moderatorShowCorporativeDocument($order_id,$format,'journal-issuance',$template);
+
     }
     /****************************************************************************/
     /****************************************************************************/
@@ -1238,6 +1196,7 @@ class AccountsDocumentsController extends BaseController {
                 }));
                 $query->with('test');
             }))
+            ->with('listeners.course.test')
             ->first();
         $SummaZakaza = 0; $SpisokSluschateleyDlyaDogovora = array();
         foreach($order->listeners as $listener):
@@ -1250,8 +1209,9 @@ class AccountsDocumentsController extends BaseController {
             'NomerZakaza' => getOrderNumber($order),
             'NomerZakazaKorotkiy' => getShortOrderNumber($order),
             'SummaZakaza' => number_format($SummaZakaza,0,'.',' '),
-            'SummaZakazaSlovami' => num2str($SummaZakaza),
+            'SummaZakazaSlovami' => price2str($SummaZakaza),
             'KolichestvoSluschateley' => $order->listeners->count(),
+            'KolichestvoSluschateleySlovami' => $order->listeners->count().' ('.count2str($order->listeners->count()).') '.Lang::choice('слушателя|слушателей|слушателей',$order->listeners->count()),
             'DataOplatuZakaza' => $dateTime->setDateString($order->payment_date)->format('d.m.Y'),
             'DataNachalaObucheniya' => $dateTime->setDateString($order->study_date)->format('d.m.Y'),
             'DataOformleniyaZakaza' => $order->created_at->format('d.m.Y'),
@@ -1287,6 +1247,7 @@ class AccountsDocumentsController extends BaseController {
             'SpisokSluschateleyDlyaAkta' => '',
             'SpisokSluschateleyDlyaPrikaza' => '',
             'RaspisanieObucheniyaPoKursu' => '',
+            'SpisokSluschateleyDlyaJurnala' => '',
 
             'ImyaIndividualnogoZakazchika' => empty($order->individual) ? '' : $order->individual->fio,
             'DoljnostIndividualnogoZakazchika' => empty($order->individual) ? '' : $order->individual->position,

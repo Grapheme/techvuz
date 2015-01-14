@@ -77,7 +77,7 @@
                 <tr>
                     <td colspan="7">
                         <p align="center">Я, {{ !empty($listener['listener']) ? $listener['listener']['fio'] : $listener['individual']['fio'] }}, подтверждаю достоверность вышеуказанной информации,
-                        с договором ознакомлен ( подпись, дата)</p>
+                        с договором ознакомлен(а) (подпись, дата)</p>
                     </td>
                 </tr>
                 <?php $index++; ?>

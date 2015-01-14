@@ -42,9 +42,13 @@ class CreateOrdersTable extends Migration {
                 $table->float('price')->default(0)->unsigned()->nullable();
                 $table->boolean('access_status')->default(0)->nullable()->unsigned();
                 $table->boolean('start_status')->default(0)->nullable()->unsigned();
-                $table->boolean('over_status')->default(0)->nullable()->unsigned();
                 $table->timestamp('start_date');
+                $table->boolean('over_status')->default(0)->nullable()->unsigned();
                 $table->timestamp('over_date');
+                $table->boolean('start_final_test')->default(0)->nullable()->unsigned();
+                $table->timestamp('start_final_test_date');
+                $table->integer('certificate_number')->default(0)->nullable()->unsigned();
+                $table->timestamp('certificate_date');
                 $table->timestamps();
             });
 

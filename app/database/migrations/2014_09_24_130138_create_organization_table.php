@@ -14,6 +14,7 @@ class CreateOrganizationTable extends Migration {
                 $table->string('fio_manager',160)->nullable();
                 $table->string('fio_manager_rod',160)->nullable();
                 $table->string('manager',255)->nullable();
+                $table->string('manager_rod',255)->nullable();
                 $table->string('statutory',255)->nullable();
                 $table->string('ogrn',40)->nullable();
                 $table->string('inn',40)->nullable();
@@ -32,7 +33,7 @@ class CreateOrganizationTable extends Migration {
                 $table->timestamps();
             });
 
-            DB::statement("CREATE VIEW users_organizations AS SELECT users.id, users.email, users.active, users.created_at,organizations.id as organization_id, organizations.title, organizations.fio_manager, organizations.fio_manager_rod, organizations.manager, organizations.statutory, organizations.inn, organizations.ogrn, organizations.kpp, organizations.postaddress, organizations.uraddress, organizations.account_type as account_type_id, organizations.account_number, organizations.account_kor_number, organizations.bank, organizations.bik, organizations.name, organizations.phone, organizations.discount, organizations.moderator_approve, account_types.title as account_type FROM organizations LEFT JOIN users ON users.id = organizations.user_id INNER JOIN account_types ON organizations.account_type = account_types.id WHERE users.group_id = 4");
+            DB::statement("CREATE VIEW users_organizations AS SELECT users.id, users.email, users.active, users.created_at,organizations.id as organization_id, organizations.title, organizations.fio_manager, organizations.fio_manager_rod, organizations.manager, organizations.manager_rod, organizations.statutory, organizations.inn, organizations.ogrn, organizations.kpp, organizations.postaddress, organizations.uraddress, organizations.account_type as account_type_id, organizations.account_number, organizations.account_kor_number, organizations.bank, organizations.bik, organizations.name, organizations.phone, organizations.discount, organizations.moderator_approve, account_types.title as account_type FROM organizations LEFT JOIN users ON users.id = organizations.user_id INNER JOIN account_types ON organizations.account_type = account_types.id WHERE users.group_id = 4");
 
             echo(' + ' . 'organizations' . PHP_EOL);
         } else {

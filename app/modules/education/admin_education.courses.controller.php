@@ -165,6 +165,7 @@ class AdminEducationCoursesController extends BaseController {
         $input['order'] = Input::get('order');
         $input['code'] = Input::get('code');
         $input['title'] = Input::get('title');
+        $input['test_title'] = Input::get('test_title');
         $input['description'] = Input::get('description');
         $input['price'] = Input::get('price');
         $input['discount'] = Input::get('discount');

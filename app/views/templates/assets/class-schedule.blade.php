@@ -54,6 +54,15 @@
                 </tr>
             @endif
         @endforeach
+            @if(!empty($final_test))
+                <tr>
+                    <td colspan="2">
+                        <p align="center">{{ !empty($final_test->test_title) ? $final_test->test_title : $final_test->title; }}</p>
+                    </td>
+                    <td><p align="center">2</p></td>
+                    <td>{{ !empty($DataNachalaObucheniya) ? $studyPeriod->addHours(2)->write() : '-' }}</td>
+                </tr>
+            @endif
                 <tr>
                     <td colspan="2">
                         <p align="center">Итого</p>

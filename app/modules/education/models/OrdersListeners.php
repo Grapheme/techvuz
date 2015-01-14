@@ -65,4 +65,16 @@ class OrderListeners extends BaseModel {
 
         return $this->belongsTo('OrdersListenersTests','id','order_listeners_id')->where('chapter_id',0);
     }
+
+    public function getLastCertificateNumber($next = FALSE){
+
+        $lastNumber = (int) $this->where('access_status',1)->where('start_status',1)->where('start_final_test',1)
+            ->orderBy('certificate_number','DESC')
+            ->pluck('certificate_number');
+        if ($next):
+            return $lastNumber+1;
+        else:
+            return $lastNumber;
+        endif;
+    }
 }

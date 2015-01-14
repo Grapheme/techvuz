@@ -10,7 +10,7 @@
     @if(isset($module))
         <?php
             $studyPeriod = new CalcStudyPeriod();
-            $studyPeriod->config(array('start_date'=>$DataOplatuZakaza));
+            $studyPeriod->config(array('start_date'=>$DataNachalaObucheniya));
             ob_start();
         ?>
         <table>
@@ -40,7 +40,7 @@
                     <td><p align="center">{{ $lecture->order }}</p></td>
                     <td>{{ $lecture->title }}</td>
                     <td><p align="center">{{ $lecture->hours }}</p></td>
-                    <td>{{ !empty($DataOplatuZakaza) ? $studyPeriod->addHours($lecture->hours)->write() : '-' }}</td>
+                    <td>{{ !empty($DataNachalaObucheniya) ? $studyPeriod->addHours($lecture->hours)->write() : '-' }}</td>
                 </tr>
                 @endforeach
             @endif
@@ -50,10 +50,19 @@
                         <p align="center">{{ !empty($chapter->test_title) ? $chapter->test_title : $chapter->test->title; }}</p>
                     </td>
                     <td><p align="center">2</p></td>
-                    <td>{{ !empty($DataOplatuZakaza) ? $studyPeriod->addHours(2)->write() : '-' }}</td>
+                    <td>{{ !empty($DataNachalaObucheniya) ? $studyPeriod->addHours(2)->write() : '-' }}</td>
                 </tr>
             @endif
         @endforeach
+            @if(!empty($final_test))
+                <tr>
+                    <td colspan="2">
+                        <p align="center">{{ !empty($final_test->test_title) ? $final_test->test_title : $final_test->title; }}</p>
+                    </td>
+                    <td><p align="center">2</p></td>
+                    <td>{{ !empty($DataNachalaObucheniya) ? $studyPeriod->addHours(2)->write() : '-' }}</td>
+                </tr>
+            @endif
                 <tr>
                     <td colspan="2">
                         <p align="center">Итого</p>

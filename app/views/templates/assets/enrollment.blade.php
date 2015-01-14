@@ -11,9 +11,9 @@
         <?php
             $spisok = array();
             foreach($SpisokSluschateley->listeners as $index => $listener):
-                $spisok[$index]['fio'] = !empty($listener->user_listener) ? $listener->user_listener->fio : $listener->user_individual->fio ;
-                $spisok[$index]['course_code'] = $listener->course->code;
-                $spisok[$index]['course_title'] = $listener->course->title;
+                $spisok[$listener->user_id]['fio'] = !empty($listener->user_listener) ? $listener->user_listener->fio : $listener->user_individual->fio ;
+                $spisok[$listener->user_id]['courses'][$listener->course->id]['course_code'] = $listener->course->code;
+                $spisok[$listener->user_id]['courses'][$listener->course->id]['course_title'] = $listener->course->title;
             endforeach;
         ?>
         <?php ob_start();?>
@@ -24,12 +24,17 @@
                     <td><p align="center"><strong>ФИО</strong></p></td>
                     <td><p align="center"><strong>Наименование программы</strong></p></td>
                 </tr>
-            @foreach($spisok as $index => $course)
+                <?php $listener_index = 0 ;?>
+            @foreach($spisok as $listener)
+                <?php $course_index = 0 ;?>
+                @foreach($listener['courses'] as $course_id => $course_info)
                 <tr>
-                    <td><p align="center">{{ $index+1 }}</p></td>
-                    <td>{{ $course['fio'] }}</td>
-                    <td>{{ $course['course_code'] }} {{ $course['course_title'] }}</td>
+                    <td>@if($course_index == 0)<p align="center">{{ ++$listener_index }}</p>@endif</td>
+                    <td>@if($course_index == 0){{ $listener['fio'] }}@endif</td>
+                    <td>{{ $course_info['course_code'] }} {{ $course_info['course_title'] }}</td>
                 </tr>
+                    <?php $course_index++; ?>
+                @endforeach
             @endforeach
             </tbody>
         </table>
