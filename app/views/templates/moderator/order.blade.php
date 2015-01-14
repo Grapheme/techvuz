@@ -8,7 +8,7 @@
         <div>
             <div class="orders-li-head">
                 <?php $order_price = 0;?>
-                <a href="{{ URL::route('moderator-order-edit',$order->id) }}" class="icon--blue pull-right"><span class="icon icon-red"></span></a>
+                <a href="{{ URL::route('moderator-order-edit',$order->id) }}" class="icon--blue pull-right"><span class="icon icon-red"></span> Редактировать</a>
                 <h2>Заказ №{{ getOrderNumber($order) }}</h2>
                 <div class="style-light margin-bottom-10">
                     Заказчик:
