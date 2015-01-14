@@ -115,7 +115,7 @@ var validation_rules = {
 var validation_messages = {
     direction_id: { required: 'Укажите направление обучения' },
     code: { required: 'Укажите код' },
-    title: { required: 'Укажите название' },
+    title: { required: 'Укажите название' }
 };
 </script>
 {{ HTML::script('js/modules/standard.js') }}
