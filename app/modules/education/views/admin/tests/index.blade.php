@@ -69,7 +69,7 @@
             </tbody>
         </table>
         @if($question->answers->count())
-        <table class="table table-striped table-bordered">
+        <table class="table answers-table table-striped table-bordered">
             <tbody class="sortable" data-question="{{ $question->id  }}">
                 @foreach($question->answers as $answer_index => $answer)
                 <tr data-id="{{ $answer->id }}" class="vertical-middle">
@@ -98,6 +98,8 @@
                     @if(Allow::action($module['group'], 'edit'))
                         <a href="{{ URL::route('answers.create',array('directions'=>$direction->id,'course'=>$course->id,'chapter'=>$chapter_id,'test'=>$test->id,'question'=>$question->id)) }}" class="btn btn-success margin-right-10">Добавить ответ</a>
                     @endif
+                        <a href="#" class="btn btn-success margin-right-10 js-show-answers">Показать ответы</a>
+                        <a href="#" class="btn btn-success margin-right-10 js-hide-answers" style="display: none;">Скрыть ответы</a>
                     </td>
                     <td class="col-lg-2 text-center"> </td>
                 <tr>
@@ -143,6 +145,26 @@ var validation_messages = {};
     }
 </script>
 <script>
+    $('.js-show-answers').click( function(e){
+        e.preventDefault();
+
+        if ($(this).parents('.table').prev().is('.answers-table')){
+            $(this).parents('.table').prev().slideDown( 400 );
+        }
+
+        $(this).hide();
+        $(this).parents('.table').find('.js-hide-answers').show();
+    });
+    $('.js-hide-answers').click( function(e){
+        e.preventDefault();
+
+        if ($(this).parents('.table').prev().is('.answers-table')){
+            $(this).parents('.table').prev().slideUp( 400 );
+        }
+
+        $(this).hide();
+        $(this).parents('.table').find('.js-show-answers').show();
+    });
     $(document).on("mouseover", ".sortable", function(e){
         if ( !$(this).data('sortable') ) {
             $(this).sortable({

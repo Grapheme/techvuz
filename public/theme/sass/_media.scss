@@ -25,6 +25,7 @@
 			content: '';
             display: block;
             top: -4.5rem;
+            right: 1rem;
             width: 7rem;
             height: 7rem;
             border: none !important;
@@ -59,5 +60,17 @@
 				display: none;
 			}
 		}
+    }
+
+    .notif {
+        display: none;
+    }
+
+    .main-header.notificated {
+        height: 5.75rem;
+    }
+
+    .popup {
+        background: #fff !important;
     }
 }
