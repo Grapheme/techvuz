@@ -51,7 +51,7 @@ return array(
 
     'ACCOUNT_EMAIL_STATUS' => array(
         'active' => 'Ваш Email активирован!',
-        'not_active' => 'Подтвердите email и сможете заказывать курсы. Ссылка отправлена на Вашу почту.',
+        'not_active' => 'Подтвердите email. Ссылка отправлена на Вашу почту.',
         'repeated_sending' => '<a href="'.returnRoute('activation-repeated-sending-letter',null,'#').'">Отправить ссылку еще раз</a>.'
     ),
 
