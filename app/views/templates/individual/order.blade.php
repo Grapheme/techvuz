@@ -4,7 +4,8 @@
 @section('content')
 
 <main class="cabinet order-page">
-    <h2>{{ User_individual::where('id',Auth::user()->id)->pluck('fio') }}</h2>
+    <?php $account = User_individual::where('id',Auth::user()->id)->first(); ?>
+    <h2>{{ $account->fio }}</h2>
     <div class="cabinet-tabs">
         @include(Helper::acclayout('menu'))
         <div>
@@ -41,7 +42,7 @@
             <tr>
                 <th> Название курса </th>
                 <th> Сумма </th>
-                <!--<th> Удостоверение </th>-->
+                <th> Удостоверение </th>
             </tr>
         <?php
         $courses = $courses_list = array();
@@ -58,6 +59,8 @@
             foreach($course['listeners'] as $index => $listener):
                 $courses[$course_id]['listeners'][$index]['id'] = $listener->id;
                 $courses[$course_id]['listeners'][$index]['price'] = $listener->price;
+                $courses[$course_id]['listeners'][$index]['start_status'] = $listener->start_status;
+                $courses[$course_id]['listeners'][$index]['start_date'] = $listener->start_date;
                 $courses[$course_id]['listeners'][$index]['access_status'] = $listener->access_status;
                 $courses[$course_id]['listeners'][$index]['over_status'] = $listener->over_status;
             endforeach;
@@ -77,11 +80,17 @@
                 @endif
                 </td>
                 <td class="vertical-top purchase-price">{{ number_format($listener['price'],0,'.',' ') }}.-</td>
-                <!--<td class="vertical-top">
-                @if($listener['over_status'] == 1)
-                     <a href="{{ URL::route('individual-listener-order-certificate-first',array('order_id'=>$order->id,'course_id'=>$course['course']['id'],'listener_id'=>$listener['id'])) }}">Просмотреть</a>
+                <td class="vertical-top">
+                @if($account->moderator_approve == 0)
+                    Проверяет администратор
+                @elseif($listener['start_status'] == 0 && $listener['over_status'] == 0)
+                    Не обучается
+                @elseif($listener['start_status'] == 1 && $listener['over_status'] == 1 && $account->moderator_approve)
+                    <a href="{{ URL::route('individual-listener-order-certificate',array('order_id'=>$order->id,'course_id'=>$listener['id'],'listener_id'=>Auth::user()->id,'format'=>'pdf')) }}">Просмотреть</a>
+                @elseif($listener['start_status'] == 1 && $listener['over_status'] == 0)
+                    Обучается с {{ myDateTime::SwapDotDateWithOutTime($listener->start_date) }}
                 @endif
-                </td>-->
+                </td>
             </tr>
                 @endforeach
             @endif

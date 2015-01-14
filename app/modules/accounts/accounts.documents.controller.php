@@ -320,34 +320,54 @@ class AccountsDocumentsController extends BaseController {
 
     public function individual_listenerOrderCertificate($order_id,$course_id,$listener_id,$format){
 
-        $account = User_organization::where('id',Auth::user()->id)->first();
-        if (!$account->moderator_approve):
-            return Redirect::route('organization-orders');
+        $listener = User_individual::where('id',Auth::user()->id)->first();
+        if (!$listener->moderator_approve):
+            return Redirect::route('individual-orders');
         endif;
-        if (!OrderListeners::where('order_id',$order_id)->where('course_id',$course_id)->where('user_id',$listener_id)->where('over_status',1)->exists()):
-            return Redirect::route('organization-orders');
+        if (!$OrderListener = OrderListeners::where('id',$course_id)->where('order_id',$order_id)->where('user_id',$listener_id)->where('over_status',1)->first()):
+            return Redirect::route('individual-orders');
         endif;
         if (!$order = Orders::where('id',$order_id)->where('user_id',Auth::user()->id)->where('completed',1)->where('archived',0)->first()):
-            return Redirect::route('organization-orders');
+            return Redirect::route('individual-orders');
         endif;
-        if (!$listener = User_listener::where('id',$listener_id)->where('organization_id',Auth::user()->id)->first()):
-            return Redirect::route('organization-orders');
+        if (!$course = OrderListeners::where('id',$course_id)->first()->course):
+            return Redirect::route('individual-orders');
         endif;
-        if($document = Dictionary::valueBySlugs('order-documents','order-documents-certificate-first')):
-            $fields = modifyKeys($document->fields,'key');
+        $template = 'templates/assets/certificates/certificate-';
+        $slug = DicVal::where('id',$course->certificate)->pluck('slug');
+        if (!empty($slug)):
+            $words = explode('-',$slug);
+            if (is_array($words) && isset($words[3])):
+                $template .= $words[3];
+            else:
+                App::abort(404);
+            endif;
+        endif;
+        if($document = DicVal::where('id',$course->certificate)->first()->allfields):
+            $fields = modifyKeys($document,'key');
             $document_content = isset($fields['content']) ? $fields['content']->value : '';
             if (!empty($document_content)):
-                $page_data = array(
-                    'page_title' => Lang::get('seo.COMPANY_ORDER.title'),
-                    'page_description' => Lang::get('seo.COMPANY_ORDER.description'),
-                    'page_keywords' => Lang::get('seo.COMPANY_ORDER.keywords'),
-                    'order' => $order->toArray(),
-                    'account' => $account->toArray(),
-                    'listener' => $listener->toArray(),
-                    'template' => storage_path('views/'.sha1($order_id.$listener_id.'order-documents-certificate-first'))
-                );
-                self::parseOrderDocument($page_data['template'],$document_content);
-                return View::make(Helper::acclayout('documents'),$page_data);
+                Config::set('show-document.order_id', $order_id);
+                if($page_data = self::parseOrderHTMLDocument($document_content)):
+                    $page_data['NomerUdostovereniya'] = str_pad($OrderListener->certificate_number,4,'0',STR_PAD_LEFT);
+                    $page_data['Nazvanie_kursa'] = $course->title;
+                    $page_data['KolichestvoChasovObucheniyaPoKursu'] = $course->hours.' '.Lang::choice('час|часов|часов',$course->hours);
+                    switch($format):
+                        case 'html':
+                            return View::make($template,$page_data);
+                            break;
+                        case 'pdf' :
+                            $mpdf = new mPDF('utf-8', 'A4', '8', '', 10, 10, 7, 7, 10, 10);
+                            $mpdf->SetDisplayMode('fullpage');
+                            $mpdf->AddPage('L');
+                            $page_data['page_title'] = '';
+                            $mpdf->WriteHTML(View::make($template, $page_data)->render(), 2);
+                            return $mpdf->Output('certificate-№'.$page_data['NomerUdostovereniya'].'.pdf', 'D');
+                        case 'word':
+                            return Redirect::back();
+                            break;
+                    endswitch;
+                endif;
             endif;
         endif;
         App::abort(404);
@@ -465,33 +485,47 @@ class AccountsDocumentsController extends BaseController {
     public function moderatorOrderCertificate($order_id,$course_id,$listener_id,$format){
 
         $account = User_organization::where('id',Auth::user()->id)->first();
-        if (!$account->moderator_approve):
+        if (!$OrderListener = OrderListeners::where('id',$course_id)->where('order_id',$order_id)->where('user_id',$listener_id)->where('over_status',1)->first()):
             return Redirect::route('organization-orders');
         endif;
-        if (!OrderListeners::where('order_id',$order_id)->where('course_id',$course_id)->where('user_id',$listener_id)->where('over_status',1)->exists()):
+        if (!$course = OrderListeners::where('id',$course_id)->first()->course):
             return Redirect::route('organization-orders');
         endif;
-        if (!$order = Orders::where('id',$order_id)->where('user_id',Auth::user()->id)->where('completed',1)->where('archived',0)->first()):
-            return Redirect::route('organization-orders');
+        $template = 'templates/assets/certificates/certificate-';
+        $slug = DicVal::where('id',$course->certificate)->pluck('slug');
+        if (!empty($slug)):
+            $words = explode('-',$slug);
+            if (is_array($words) && isset($words[3])):
+                $template .= $words[3];
+            else:
+                App::abort(404);
+            endif;
         endif;
-        if (!$listener = User_listener::where('id',$listener_id)->where('organization_id',Auth::user()->id)->first()):
-            return Redirect::route('organization-orders');
-        endif;
-        if($document = Dictionary::valueBySlugs('order-documents','order-documents-certificate-first')):
-            $fields = modifyKeys($document->fields,'key');
+        if($document = DicVal::where('id',$course->certificate)->first()->allfields):
+            $fields = modifyKeys($document,'key');
             $document_content = isset($fields['content']) ? $fields['content']->value : '';
             if (!empty($document_content)):
-                $page_data = array(
-                    'page_title' => Lang::get('seo.COMPANY_ORDER.title'),
-                    'page_description' => Lang::get('seo.COMPANY_ORDER.description'),
-                    'page_keywords' => Lang::get('seo.COMPANY_ORDER.keywords'),
-                    'order' => $order->toArray(),
-                    'account' => $account->toArray(),
-                    'listener' => $listener->toArray(),
-                    'template' => storage_path('views/'.sha1($order_id.$listener_id.'order-documents-certificate-first'))
-                );
-                self::parseOrderDocument($page_data['template'],$document_content);
-                return View::make(Helper::acclayout('documents'),$page_data);
+                Config::set('show-document.order_id', $order_id);
+                if($page_data = self::parseOrderHTMLDocument($document_content)):
+                    $page_data['NomerUdostovereniya'] = str_pad($OrderListener->certificate_number,4,'0',STR_PAD_LEFT);
+                    $page_data['Nazvanie_kursa'] = $course->title;
+                    $page_data['KolichestvoChasovObucheniyaPoKursu'] = $course->hours.' '.Lang::choice('час|часов|часов',$course->hours);
+                    switch($format):
+                        case 'html':
+                            return View::make($template,$page_data);
+                            break;
+                        case 'pdf' :
+                            $mpdf = new mPDF('utf-8', 'A4', '8', '', 10, 10, 7, 7, 10, 10);
+                            $mpdf->SetDisplayMode('fullpage');
+                            $mpdf->AddPage('L');
+                            $page_data['page_title'] = '';
+                            $mpdf->WriteHTML(View::make($template, $page_data)->render(), 2);
+                            return $mpdf->Output('certificate-№'.$page_data['NomerUdostovereniya'].'.pdf', 'D');
+                        case 'word':
+                            return Redirect::back();
+                            break;
+                    endswitch;
+                endif;
             endif;
         endif;
         App::abort(404);

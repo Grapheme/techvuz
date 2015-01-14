@@ -26,6 +26,7 @@ class AccountsIndividualController extends BaseController {
                 Route::post('study/course/{study_course_id}/lecture/{lecture_id}/download', array('before' => 'csrf', 'as' => 'listener-study-download-lecture', 'uses' => $class . '@ListenerStudyLectureDownload'));
                 Route::post('study/course/{study_course_id}/lectures/download', array('before' => 'csrf', 'as' => 'listener-study-download-lectures', 'uses' => $class . '@ListenerStudyLecturesDownload'));
                 Route::get('study/course/{course_translite_title}/test/{test_id}', array('as' => 'listener-study-testing', 'uses' => $class . '@ListenerStudyTesting'));
+                Route::get('study/course/{course_translite_title}/test/{test_id}/confirm', array('as' => 'listener-start-study-testing', 'uses' => $class . '@ListenerStartStudyTesting'));
                 Route::post('study/course/{course_id}/test/{test_id}/finish', array('before' => 'csrf', 'as' => 'listener-study-test-finish', 'uses' => $class . '@ListenerStudyTestFinish'));
                 Route::get('study/course/{course_translite_title}/test/{study_test_id}/result', array('as' => 'listener-study-test-result', 'uses' => $class . '@ListenerStudyTestResult'));
 
@@ -379,6 +380,26 @@ class AccountsIndividualController extends BaseController {
             'test' => $test
         );
         return View::make(Helper::acclayout('study-test'),$page_data);
+    }
+
+    public function ListenerStartStudyTesting($course_translite_title,$test_id){
+
+        $listenerCourse = OrderListeners::where('id',(int) $course_translite_title)
+            ->where('user_id',Auth::user()->id)
+            ->where('access_status',1)
+            ->where('start_final_test',0)
+            ->where('over_status',0)
+            ->first();
+        if ($listenerCourse):
+            $listenerCourse->start_final_test = 1;
+            $listenerCourse->start_final_test_date = date('Y-m-d H:i:s');
+            $listenerCourse->save();
+            $listenerCourse->touch();
+            return Redirect::back();
+        else:
+            return Redirect::route('listener-study');
+        endif;
+
     }
 
     public function ListenerStudyTestFinish($study_course_id,$test_id){

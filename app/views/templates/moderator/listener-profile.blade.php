@@ -35,6 +35,71 @@
     @endif
     </div>
 
+@if($profile->group_id == 5)
+    @if($orderListeners = OrderListeners::where('user_id',$profile->id)->get())
+    <table class="tech-table sortable purchase-table">
+        <thead>
+        <tr>
+            <th class="sort sort--asc">Название курса <span class="sort--icon"></span> </th>
+            <th class="sort sort--asc">Заказ <span class="sort--icon"></span> </th>
+            <th class="sort sort--asc">Статус <span class="sort--icon"></span> </th>
+        </tr>
+        </thead>
+        <tbody>
+        @foreach($orderListeners as $study)
+            <tr {{ ($study->start_status == 1 && $study->over_status == 1) ? 'class="finished-course"' : '' }}>
+                <td class="vertical-top">{{ $study->course->code  }}. {{ $study->course->title }}</td>
+                <td class="vertical-top">
+                    <a href="{{ URL::route('moderator-order-extended',$study->order->id) }}"> №{{ getOrderNumber($study->order) }}</a>
+                    <div class="font-sm nowrap">
+                        от {{ $study->order->created_at->format("d.m.Y") }}
+                    </div>
+                </td>
+                <td class="self-status vertical-top">
+                <span>
+                    @if($study->start_status == 0 && $study->over_status == 0)
+                        Не обучается
+                    @elseif($study->start_status == 1 && $study->over_status == 1)
+                        Обучение завершено
+                    @else
+                        Обучается с
+                    @endif
+                </span>
+                <span>
+                    @if($study->start_status == 0 && $study->over_status == 0)
+
+                    @elseif($study->start_status == 1 && $study->over_status == 1)
+                        {{ myDateTime::SwapDotDateWithOutTime($study->over_date) }}
+                    @else
+                        {{ myDateTime::SwapDotDateWithOutTime($study->start_date) }}
+                    @endif
+                </span>
+                    @if($study->start_status == 0 && $study->over_status == 0)
+
+                    @else
+                        <div title="{{ Lang::get('interface.STUDY_PROGRESS.'.getCourseStudyProgress($study)) }}" class="ui-progress-bar bar-1 completed-{{ getCourseStudyProgress($study) }} margin-top-20 margin-bottom-20 margin-auto clearfix">
+                            <div class="bar-part bar-part-1"></div>
+                            <div class="bar-part bar-part-2"></div>
+                            <div class="bar-part bar-part-3"></div>
+                        </div>
+                    @endif
+
+                    @if($study->start_status == 0 && $study->over_status == 0)
+
+                    @elseif($study->start_status == 1 && $study->over_status == 1)
+                        <a class="style-normal nowrap" href="{{ URL::route('moderator-order-certificate',array('order_id'=>$study->order_id,'course_id'=>$study->id,'listener_id'=>$study->user_id,'format'=>'pdf')) }}">
+                            <span class="icon icon-sertifikat"></span> Удостоверение
+                        </a>
+                    @else
+
+                    @endif
+                </td>
+            </tr>
+        @endforeach
+        </tbody>
+    </table>
+    @endif
+@endif
 @if($profile->group_id == 6)
     @if($orders = Orders::where('user_id',$profile->id)->with('payment')->with('listeners')->get())
     <h3>Заказы</h3>
