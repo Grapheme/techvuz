@@ -10682,8 +10682,9 @@ main.order-page a:hover {
   width: 8rem;
   height: 5.75rem;
   background: url(../img/logo.svg);
-  background-size: auto 100%;
+  background-size: auto 80%;
   background-repeat: no-repeat;
+  background-position: 0 center;
 }
 .moderator-wrapper .cabinet-menu-ul .cabinet-menu-li {
   width: 187.7px;
