@@ -13,6 +13,9 @@
 		position: absolute;
 		left: 0;
 		bottom: 2em;
+
+		font-size: 0.8125em;
+    	font-weight: normal;
 	}
 	html, body {
     	margin: 0;
@@ -41,7 +44,7 @@
   		vertical-align: middle;
   	}
   	.contact {
-		margin: 1rem 0 0 0;
+		margin: 1rem 0 1rem 0;
   	}
   	.phone {
 		font-size: 1.2em;
