@@ -625,20 +625,20 @@ class AccountsDocumentsController extends BaseController {
                     $document_content = isset($fields['content']) ? $fields['content']->value : '';
                     if($page_data = self::parseOrderHTMLDocument($document_content)):
                         $page_data['page_title'] = '';
-                        foreach($page_data['SpisokSluschateley']['listeners'] as $listener):
-                            $listeners[$listener->course_id]['FIO_listener'] = !empty($listener['user_listener']) ? $listener['user_listener']['fio'] : $listener['user_individual']['fio'];
-                            $listeners[$listener->course_id]['Phone_listener'] = !empty($listener['user_listener']) ? $listener['user_listener']['phone'] : $listener['user_individual']['phone'];
-                            $listeners[$listener->course_id]['Email_listener'] = !empty($listener['user_listener']) ? $listener['user_listener']['email'] : $listener['user_individual']['email'];
-                            $listeners[$listener->course_id]['Address_listener'] = !empty($listener['user_listener']) ? $listener['user_listener']['postaddress'] : $listener['user_individual']['postaddress'];
-                            $listeners[$listener->course_id]['FIO_initial_listener'] = preg_replace('/(\w+) (\w)\w+ (\w)\w+/iu', '$1 $2. $3.', $listeners[$listener->user_id]['FIO_listener']);
-                            $listeners[$listener->course_id]['Kod_kursa'] = $listener->course->code;
-                            $listeners[$listener->course_id]['Nazvanie_kursa'] = $listener->course->title;
-                            $listeners[$listener->course_id]['hours'] = $listener->course->hours;
-                            $listeners[$listener->course_id]['module'] = $listener->course->chapters;
-                            $listeners[$listener->course_id]['final_test'] = $listener->course->test;
-                            $listeners[$listener->course_id]['final_test']['test_title'] = $listener->course->test_title;
+                        foreach($page_data['SpisokSluschateley']['listeners'] as $listener_index =>  $listener):
+                            $listeners[$listener_index]['FIO_listener'] = !empty($listener['user_listener']) ? $listener['user_listener']['fio'] : $listener['user_individual']['fio'];
+                            $listeners[$listener_index]['Phone_listener'] = !empty($listener['user_listener']) ? $listener['user_listener']['phone'] : $listener['user_individual']['phone'];
+                            $listeners[$listener_index]['Email_listener'] = !empty($listener['user_listener']) ? $listener['user_listener']['email'] : $listener['user_individual']['email'];
+                            $listeners[$listener_index]['Address_listener'] = !empty($listener['user_listener']) ? $listener['user_listener']['postaddress'] : $listener['user_individual']['postaddress'];
+                            $listeners[$listener_index]['FIO_initial_listener'] = preg_replace('/(\w+) (\w)\w+ (\w)\w+/iu', '$1 $2. $3.', $listeners[$listener->user_id]['FIO_listener']);
+                            $listeners[$listener_index]['Kod_kursa'] = $listener->course->code;
+                            $listeners[$listener_index]['Nazvanie_kursa'] = $listener->course->title;
+                            $listeners[$listener_index]['hours'] = $listener->course->hours;
+                            $listeners[$listener_index]['module'] = $listener->course->chapters;
+                            $listeners[$listener_index]['final_test'] = $listener->course->test;
+                            $listeners[$listener_index]['final_test']['test_title'] = $listener->course->test_title;
                         endforeach;
-                        foreach($listeners as $listener_id => $listener):
+                        foreach($listeners as $course_id => $listener):
                             $page_data['FIO_listener'] = $listener['FIO_listener'];
                             $page_data['Phone_listener'] = $listener['Phone_listener'];
                             $page_data['Email_listener'] = $listener['Email_listener'];
