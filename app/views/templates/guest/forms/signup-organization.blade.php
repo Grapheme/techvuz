@@ -17,7 +17,7 @@
             <label>Должность подписанта договора</label>{{ Form::text('manager', '',array('placeholder'=>'Директор, менеджер, заместитель генерального директора')) }}
         </div>
         <div class="form-element">
-            <label>Документ, на основании которого действует подписант</label>{{ Form::text('statutory', '',array('placeholder'=>'Устав, доверенность №… от …')) }}
+            <label>Подписант действует на основании</label>{{ Form::text('statutory', '',array('placeholder'=>'Устав, доверенность №… от …')) }}
         </div>
          <div class="form-element">
             <label>Юридический адрес</label>{{ Form::text('uraddress', '',array('placeholder'=>'123022, г. Москва, ул. Красная Пресня, 46')) }}
