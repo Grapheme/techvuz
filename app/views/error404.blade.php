@@ -51,37 +51,49 @@
 
 </head>
 <body>
-	<aside class="aside-404">
-
-		<div class="contact">
-	        <div class="phone">
-	            <a href="tel:+78004400000">8 (800) 440 00 00</a>
-	        </div>
-	        <div class="phone-desc">
-	            Звонок бесплатный
-	        </div>
+	<div class="main-wrapper">
+		<div class="top-dec">
+	        <div class="top-dec-part part-1"></div>
+	        <div class="top-dec-part part-2"></div>
+	        <div class="top-dec-part part-3"></div>
+	        <div class="top-dec-part part-4"></div>
+	        <div class="top-dec-part part-5"></div>
+	        <div class="top-dec-part part-6"></div>
 	    </div>
+		
+		<aside class="aside-404">
 
-		<div class="logo"></div>
-
-		<footer class="main-footer">
-		    <div class="copy">
-		        © АНО ДПО «ЦКС», 2012 - {{ date("Y") }}
+			<div class="contact">
+		        <div class="phone">
+		            <a href="tel:+78004400000">8 (800) 440 00 00</a>
+		        </div>
+		        <div class="phone-desc">
+		            Звонок бесплатный
+		        </div>
 		    </div>
-		    <div class="dev">
-		        Сделано в <a href="http://grapheme.ru">ГРАФЕМА</a>
-		    </div>
-		</footer>
-	</aside>
 
-	<div class="container-404">
-		<h1>
-			404 Ошибка
-		</h1>
-		<div class="desc-404">
-			Запрашиваемая вами страница не найдена. Ознакомиться
-			с нашими курсами вы можете в разделе «Каталог курсов»
+			<div class="logo"></div>
+
+			<footer class="main-footer">
+			    <div class="copy">
+			        © АНО ДПО «ЦКС», 2012 - {{ date("Y") }}
+			    </div>
+			    <div class="dev">
+			        Сделано в <a href="http://grapheme.ru">ГРАФЕМА</a>
+			    </div>
+			</footer>
+		</aside>
+
+		<div class="container-404">
+			<h1>
+				404 Ошибка
+			</h1>
+			<div class="desc-404">
+				Запрашиваемая вами страница не найдена. Ознакомиться<br>
+				с нашими курсами вы можете в разделе «Каталог курсов»
+			</div>
 		</div>
 	</div>
+	
 </body>
 </html>
