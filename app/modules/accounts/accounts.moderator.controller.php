@@ -723,14 +723,38 @@ class AccountsModeratorController extends BaseController {
         if(Session::has('period_begin')):
             $period_end = date('Y-m-d 23:59:59',strtotime(Session::get('period_end')));
         endif;
-
+        $ordersIDs = array();
+        if ($direction_id):
+            if($coursesIDs = Directions::where('id',$direction_id)->first()->courses()->lists('id','code')):
+                $OrderListeners = OrderListeners::whereIn('course_id',$coursesIDs)->with(array('order'=>function($query) use ($account_id){
+                    if ($account_id):
+                        $query->where('user_id',$account_id);
+                    endif;
+                }))->get();
+                if ($OrderListeners->count()):
+                    foreach($OrderListeners as $OrderListener):
+                        if (!empty($OrderListener->order)):
+                            $ordersIDs[$OrderListener->order_id] = $OrderListener->order_id;
+                        endif;
+                    endforeach;
+                endif;
+            endif;
+        endif;
         $all_orders_query = Orders::where('completed',1)->where('created_at','>=',$period_begin)->where('created_at','<=',$period_end);
         if($account_id):
             $all_orders_query = $all_orders_query->where('user_id',$account_id);
         endif;
-        $all_orders_query = $all_orders_query->with('organization','individual','payment_numbers');
-        $all_orders = $all_orders_query->get();
-
+        $all_orders_query = $all_orders_query->with('payment_numbers');
+        if ($direction_id && !empty($ordersIDs)):
+            $all_orders_query = $all_orders_query->whereIn('id',$ordersIDs);
+            $all_orders = $all_orders_query->get();
+        endif;
+        if ($direction_id && empty($ordersIDs)):
+            $all_orders = array();
+        endif;
+        if (!$direction_id):
+            $all_orders = $all_orders_query->get();
+        endif;
         $diffMonths = myDateTime::getDiffDate($period_end,$period_begin,'%m%');
         $format = 'd.m';
         if ($diffMonths >= 3):
@@ -738,7 +762,7 @@ class AccountsModeratorController extends BaseController {
         endif;
         $index_start = (new myDateTime())->setDateString($period_begin)->format($format);
         $index_end = (new myDateTime())->setDateString($period_end)->format($format);
-        $orders = $payments = array($index_start=>0);
+        $orders = $payments = array($index_start=>0); $payments_list = array();
         $tmp_orders = array();
         foreach($all_orders as $order_index => $order):
             $tmp_orders[$order_index] = $order->toArray();
@@ -746,6 +770,7 @@ class AccountsModeratorController extends BaseController {
             if ($order->payment_numbers->count()):
                 foreach($order->payment_numbers as $payment_number_index => $payment_number):
                     $tmp_orders[$order_index]['payment_numbers'][$payment_number_index]['payment_date'] = (new myDateTime())->setDateString($payment_number->payment_date)->format($format);
+                    $payments_list[getOrderNumber($order)][$payment_number_index] = $payment_number->toArray();
                 endforeach;
             endif;
         endforeach;
@@ -765,11 +790,6 @@ class AccountsModeratorController extends BaseController {
         if (!isset($payments[$index_end])):
             $payments[$index_end] = 0;
         endif;
-
-//        Helper::ta($orders);
-//        Helper::tad($payments);
-
-
         $page_data = array(
             'page_title'=> 'Статистика',
             'page_description'=> '',
@@ -778,8 +798,9 @@ class AccountsModeratorController extends BaseController {
             'direction_selected' => $direction_id,
             'period_begin' => date('d.m.Y',strtotime($period_begin)),
             'period_end' => date('d.m.Y',strtotime($period_end)),
-            'orders' => $orders,
-            'payments' => $payments
+            'orders_chart' => $orders,
+            'payments_chart' => $payments,
+            'payments_list' => $payments_list
         );
         return View::make(Helper::acclayout('statistic'),$page_data);
     }

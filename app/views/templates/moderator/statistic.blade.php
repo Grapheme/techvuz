@@ -12,6 +12,40 @@
 <div id="orderschart" style="width:848px;height: 300px;" class="chart"></div>
 <h3 class="margin-bottom-40">Статистика платежей</h3>
 <div id="paymentschart" style="width:848px;height: 300px;" class="chart"></div>
+
+@if($account_selected)
+<h3 class="margin-bottom-40">Список платежных поручением</h3>
+<div class="row">
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+        <table class="table table-striped table-bordered">
+            <thead>
+            <tr>
+                <th>№ п.п</th>
+                <th>Заказ</th>
+                <th>Номер поручения</th>
+                <th>Сумма</th>
+                <th>Дата</th>
+            </tr>
+            </thead>
+            <tbody>
+            <?php $index = 0; ?>
+            @foreach($payments_list as $order_number => $payments)
+                @foreach($payments as $payment)
+                <tr class="vertical-middle">
+                    <td>{{ ++$index; }}</td>
+                    <td><a class="nowrap" href="{{ URL::route('moderator-order-extended',$payment['order_id']) }}">{{ $order_number }}</a></td>
+                    <td>{{ $payment['payment_number'] }}</td>
+                    <td>{{ $payment['price'] }}</td>
+                    <td>{{ myDateTime::SwapDotDateWithOutTime($payment['payment_date']) }}</td>
+                </tr>
+                @endforeach
+            @endforeach
+            </tbody>
+        </table>
+    </div>
+</div>
+@endif
+
 @section('overlays')
 @stop
 @section('scripts')
@@ -54,52 +88,27 @@
     var $color_paymetns        = "#ff0000";
 
     var $orders = [];
-    @foreach($orders as $date => $count)
+    @foreach($orders_chart as $date => $count)
         $orders.push([ "{{ $date }}" , {{ $count }} ])
     @endforeach
     var $payments = [];
-    @foreach($payments as $date => $summa)
+    @foreach($payments_chart as $date => $summa)
     $payments.push([ "{{ $date }}" , {{ $summa }} ])
     @endforeach
 
     var $options = {
-        xaxis : {
-            mode: "categories",
-            tickLength: 0
-        },
-        yaxis : {
-            show : true
-        },
+        xaxis : {mode: "categories",tickLength: 0},
+        yaxis : {show : true},
         series : {
-            bars : {
-                show : true,
-                barWidth: 0.3,
-                align: "center"
-            },
-            lines : {
-                show : true,
-                barWidth: 0.6,
-                align: "center"
-            },
-            points: {
-                show: false
-            },
+            bars : {show : true,barWidth: 0.3,align: "center"},
+            lines : {show : true,barWidth: 0.6,align: "center"},
+            points: {show: false},
             shadowSize : 0
         },
-        selection : {
-            mode : "x"
-        },
-        grid : {
-            hoverable : true,
-            clickable : true,
-            tickColor : $chrt_border_color,
-            borderWidth : 0,
-            borderColor : $chrt_border_color
-        },
+        selection : {mode : "x"},
+        grid : {hoverable : true,clickable : true,tickColor : $chrt_border_color,borderWidth : 0,borderColor : $chrt_border_color},
         tooltip : true,
-        tooltipOpts : {
-            content : "Заказов - %y"
-        },
+        tooltipOpts : {content : "Заказов - %y"},
         colors : [$color_orders,$color_paymetns]
     };
     var $orders_plot = $.plot($("#orderschart"),[{data : $orders,label : "Количество заказов"}] , $options);

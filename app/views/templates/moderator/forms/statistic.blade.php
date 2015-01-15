@@ -13,10 +13,10 @@
 ?>
 {{ Form::open(array('url'=>URL::route('moderator-statistic-set-period'), 'class'=>'auth-form registration-form clearfix margin-bottom-30', 'id'=>'statistic-form', 'role'=>'form', 'method'=>'post')) }}
     <div class="form-element">
-        <label>Заказчик</label>{{ Form::select('account_id',$accounts,$account_selected) }}
+        <label>Заказчик</label>{{ Form::select('account_id',$accounts,$account_selected,array('autocomplete'=>'off')) }}
     </div>
     <div class="form-element">
-        <label>Направления</label>{{ Form::select('direction_id',$directions,$direction_selected) }}
+        <label>Направления</label>{{ Form::select('direction_id',$directions,$direction_selected,array('autocomplete'=>'off')) }}
     </div>
     <div class="form-element">
         <label>От</label>{{ Form::text('period_begin',$period_begin, array('id'=>'select-period-begin','class' => 'datepicker text-center','autocomplete'=>'off','data-mask'=>'99.99.9999')) }}
