@@ -1249,7 +1249,7 @@ class AccountsDocumentsController extends BaseController {
             'ImyaOtvetstvennogoLicaOrganizacii' => empty($order->organization) ? '' : $order->organization->fio_manager,
 
             'ImyaOtvetstvennogoLicaInicialu' => empty($order->organization) ? preg_replace('/(\w+) (\w)\w+ (\w)\w+/iu', '$1 $2. $3.',$order->individual->fio) : preg_replace('/(\w+) (\w)\w+ (\w)\w+/iu', '$1 $2. $3.',$order->organization->fio_manager),
-            'ImyaOtvetstvennogoLicaObratnueInicialu' => empty($order->organization) ? preg_replace('/(\w+) (\w)\w+ (\w)\w+/iu', '$2. $3. $1',$order->individual->fio) : preg_replace('/(\w+) (\w)\w+ (\w)\w+/iu', '$1 $2. $3.',$order->organization->fio_manager),
+            'ImyaOtvetstvennogoLicaObratnueInicialu' => empty($order->organization) ? preg_replace('/(\w+) (\w)\w+ (\w)\w+/iu', '$2. $3. $1',$order->individual->fio) : preg_replace('/(\w+) (\w)\w+ (\w)\w+/iu', '$2. $3. $1',$order->organization->fio_manager),
 
             'DoljnostOtvetstvennogoLicaOrganizacii' => empty($order->organization) ? '' : $order->organization->manager,
             'DeystvuyucheeOsnovanieOrganizacii' => empty($order->organization) ? '' : $order->organization->statutory,
