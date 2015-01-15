@@ -8,81 +8,17 @@
         @include(Helper::acclayout('forms.statistic'))
     </div>
 </div>
-@if(count($users))
 <h3 class="margin-bottom-40">Статистика заказов</h3>
-<div class="row">
-    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-        <table class="table table-striped table-bordered">
-            <thead>
-                <tr>
-                    <th>Название/ФИО</th>
-                    <th>Руководитель/Должность</th>
-                    <th>Заказы</th>
-                    <th>Доход</th>
-                </tr>
-            </thead>
-            <tbody>
-            @foreach($users as $user)
-                <tr class="vertical-middle">
-                    <td>
-                    @if($user['group'] == 4)
-                        <a href="{{ URL::route('moderator-company-profile',$user['id']) }}">{{ $user['title'] }}</a>
-                    @elseif($user['group'] == 6)
-                        <a href="javascript:void(0)">{{ $user['title'] }}</a>
-                    @endif
-                        <br>рег.: {{ $user['created_at'] }}
-                    </td>
-                    <td>
-                        {{ $user['manager'] }}<br>
-                        {{ $user['fio_manager'] }}<br>
-                        {{ $user['email'] }}
-                        {{ $user['phone'] }}
-                    </td>
-                    <td>{{ $user['orders_count'] }}</td>
-                    <td>
-                        всего: {{ number_format($user['real_earnings'], 0, ',', ' ') }} руб.<br>
-                        скидка: {{ $user['discount'] }}%.
-                    </td>
-                </tr>
-            @endforeach
-            </tbody>
-        </table>
-    </div>
-</div>
-@endif
-@if(count($courses))
-<h3 class="margin-bottom-40">Статистика курсов</h3>
-<div class="row">
-    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-        <table class="table table-striped table-bordered">
-            <thead>
-                <tr>
-                    <th>Код. Название</th>
-                    <th>Цена/Скидка</th>
-                    <th>Доход</th>
-                </tr>
-            </thead>
-            <tbody>
-            @foreach($courses as $course)
-                <tr class="vertical-middle">
-                    <td>{{ $course['code'] }}. {{ $course['title'] }}</td>
-                    <td>
-                        {{ number_format($course['price'], 0, ',', ' ') }} руб.<br>
-                        {{ $course['discount'] }}%.
-                    </td>
-                    <td>{{ number_format($course['real_earnings'], 0, ',', ' ') }} руб.</td>
-                </tr>
-            @endforeach
-            </tbody>
-        </table>
-    </div>
-</div>
-@endif
-@stop
+<div id="orderschart" style="width:848px;height: 300px;" class="chart"></div>
+<h3 class="margin-bottom-40">Статистика платежей</h3>
+<div id="paymentschart" style="width:848px;height: 300px;" class="chart"></div>
 @section('overlays')
 @stop
 @section('scripts')
 {{ HTML::script('js/vendor/jquery.ui.datepicker-ru.js') }}
+{{ HTML::script('js/flot/jquery.flot.js') }}
+{{ HTML::script('js/flot/jquery.flot.categories.js') }}
+{{ HTML::script('js/flot/jquery.flot.tooltip.js') }}
 <script>
     $(function(){
         $("#select-period-begin").datepicker({
@@ -112,6 +48,65 @@
             }
         });
     });
+
+    var $chrt_border_color  = "#efefef";
+    var $color_orders        = "#FFCC00";
+    var $color_paymetns        = "#ff0000";
+
+    var $orders = [];
+    @foreach($orders as $date => $count)
+        $orders.push([ "{{ $date }}" , {{ $count }} ])
+    @endforeach
+    var $payments = [];
+    @foreach($payments as $date => $summa)
+    $payments.push([ "{{ $date }}" , {{ $summa }} ])
+    @endforeach
+
+    var options = {
+        xaxis : {
+            mode: "categories",
+            tickLength: 0
+        },
+        yaxis : {
+            show : true
+        },
+        series : {
+            bars : {
+                show : true,
+                barWidth: 0.3,
+                align: "center"
+            },
+            lines : {
+                show : true,
+                barWidth: 0.6,
+                align: "center"
+            },
+            points: {
+                show: false
+            },
+            shadowSize : 0
+        },
+        selection : {
+            mode : "x"
+        },
+        grid : {
+            hoverable : true,
+            clickable : true,
+            tickColor : $chrt_border_color,
+            borderWidth : 0,
+            borderColor : $chrt_border_color
+        },
+        tooltip : true,
+        tooltipOpts : {
+            content : "Заказов - %y"
+        },
+        colors : [$color_orders,$color_paymetns]
+    };
+
+    var $orders_plot = $.plot($("#orderschart"),[{data : $orders,label : "Количество заказов"}] , options);
+
+    console.log($orders);
+    console.log($payments);
 </script>
 @stop
 @stop

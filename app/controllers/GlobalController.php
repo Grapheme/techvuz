@@ -56,6 +56,8 @@ class GlobalController extends \BaseController {
                             $json_request['redirect'] = URL::to(AuthAccount::getGroupStartUrl());
                         endif;
                         $json_request['status'] = TRUE;
+					else:
+						$json_request['responseText'] = 'Неверное имя пользователя или пароль';
                     endif;
 				else:
 					$json_request['responseText'] = 'Неверное имя пользователя или пароль';

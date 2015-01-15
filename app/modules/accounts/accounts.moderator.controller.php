@@ -707,117 +707,76 @@ class AccountsModeratorController extends BaseController {
     /****************************************************************************/
     public function statistic(){
 
-        $period_begin = date("d.m.Y",(strtotime('first day of this month', time())));
-        $period_end = date("d.m.Y");
+        $period_begin = date("Y-m-d 00:00:00",(strtotime('first day of this month', time())));
+        $period_end = date("Y-m-d 23:59:59");
+        $account_id = 0;
+        $direction_id = 0;
+        if(Session::has('account_id')):
+            $account_id = Session::get('account_id');
+        endif;
+        if(Session::has('direction_id')):
+            $direction_id = Session::get('direction_id');
+        endif;
         if(Session::has('period_begin')):
             $period_begin = date('Y-m-d 00:00:00',strtotime(Session::get('period_begin')));
         endif;
         if(Session::has('period_begin')):
             $period_end = date('Y-m-d 23:59:59',strtotime(Session::get('period_end')));
         endif;
-        $users = array(); $index = 0;
-        $closedOrdersUsersIDs = Orders::where('close_status',1)
-            ->where('completed',1)
-            ->where('close_date','>=',$period_begin)
-            ->where('close_date','<=',$period_end)
-            ->lists('user_id');
-        if ($closedOrdersUsersIDs):
-            $organizationsLists = User_organization::orderBy('created_at','DESC')
-                ->whereIn('id',$closedOrdersUsersIDs)
-                ->with(array('orders'=>function($query) {
-                    $query->where('close_status', 0);
-                    $query->with('payment_numbers');
-                }))->get();
-            if ($organizationsLists):
-                foreach($organizationsLists as $company):
-                    $users[$index]['group'] = 4;
-                    $users[$index]['id'] = $company->id;
-                    $users[$index]['title'] = $company->title;
-                    $users[$index]['created_at'] = $company->created_at->timezone(Config::get('site.time_zone'))->format("d.m.Y");
-                    $users[$index]['manager'] = $company->manager;
-                    $users[$index]['fio_manager'] = $company->fio_manager;
-                    $users[$index]['email'] = $company->email;
-                    $users[$index]['phone'] = $company->phone;
-                    $users[$index]['orders_count'] = $company->orders->count();
-                    $users[$index]['discount'] = $company->discount;
-                    $users[$index]['real_earnings'] = 0;
-                    if ($company->orders->count()):
-                        foreach ($company->orders as $order):
-                            if ($order->payment_numbers->count()):
-                                foreach ($order->payment_numbers as $payment_number):
-                                    $users[$index]['real_earnings'] += $payment_number->price;
-                                endforeach;
-                            endif;
-                        endforeach;
-                    endif;
-                    $index++;
+
+        $all_orders_query = Orders::where('completed',1)->where('created_at','>=',$period_begin)->where('created_at','<=',$period_end);
+        if($account_id):
+            $all_orders_query = $all_orders_query->where('user_id',$account_id);
+        endif;
+        $all_orders_query = $all_orders_query->with('organization','individual','payment_numbers');
+        $all_orders = $all_orders_query->get();
+
+        $tmp_orders = $orders = $payments = array();
+        foreach($all_orders as $order_index => $order):
+            $tmp_orders[$order_index] = $order->toArray();
+            $tmp_orders[$order_index]['created_at'] = $order->created_at->format('d.m.Y');
+            if ($order->payment_numbers->count()):
+                foreach($order->payment_numbers as $payment_number_index => $payment_number):
+                    $tmp_orders[$order_index]['payment_numbers'][$payment_number_index]['payment_date'] = myDateTime::SwapDotDateWithOutTime($payment_number->payment_date);
                 endforeach;
             endif;
-            $individualsLists = User_individual::orderBy('created_at','DESC')
-                ->whereIn('id',$closedOrdersUsersIDs)
-                ->with(array('orders'=>function($query) {
-                    $query->where('close_status', 0);
-                    $query->with('payment_numbers');
-                }))->get();
-            if ($individualsLists):
-                foreach($individualsLists as $individual):
-                    $users[$index]['group'] = 6;
-                    $users[$index]['id'] = $individual->id;
-                    $users[$index]['title'] = $individual->fio;
-                    $users[$index]['created_at'] = $individual->created_at->timezone(Config::get('site.time_zone'))->format("d.m.Y");
-                    $users[$index]['manager'] = $individual->position;
-                    $users[$index]['fio_manager'] = '';
-                    $users[$index]['email'] = $individual->email;
-                    $users[$index]['phone'] = $individual->phone;
-                    $users[$index]['orders_count'] = $individual->orders->count();
-                    $users[$index]['discount'] = $individual->discount;
-                    $users[$index]['real_earnings'] = 0;
-                    if ($company->orders->count()):
-                        foreach ($individual->orders as $order):
-                            if ($order->payment_numbers->count()):
-                                foreach ($order->payment_numbers as $payment_number):
-                                    $users[$index]['real_earnings'] += $payment_number->price;
-                                endforeach;
-                            endif;
-                        endforeach;
-                    endif;
-                    $index++;
-                endforeach;
-            endif;
+        endforeach;
+        if (!empty($tmp_orders)):
+            foreach($tmp_orders as $order):
+                $orders[$order['created_at']] += 1;
+                if (count($order['payment_numbers'])):
+                    foreach($order['payment_numbers'] as $payment_number):
+                        $payments[$payment_number['payment_date']] += $payment_number['price'];
+                    endforeach;
+                endif;
+            endforeach;
         endif;
 
-        $closedOrdersIDs = Orders::where('close_status',1)
-            ->where('completed',1)
-            ->where('close_date','>=',$period_begin)
-            ->where('close_date','<=',$period_end)
-            ->lists('id');
-        $courses = array();
-        if ($closedOrdersIDs && $coursesLists = OrderListeners::where('order_id',$closedOrdersIDs)->with('course')->get()):
-            foreach($coursesLists as $course):
-                $courses[$course->course->id]['code'] = $course->course->code;
-                $courses[$course->course->id]['title'] = $course->course->title;
-                $courses[$course->course->id]['price'] = $course->course->price;
-                $courses[$course->course->id]['discount'] = $course->course->discount;
-                $courses[$course->course->id]['real_earnings'] = 0;
-            endforeach;
-            foreach($coursesLists as $course):
-                $courses[$course->course->id]['real_earnings'] += $course->price;
-            endforeach;
-        endif;
+
+//        Helper::ta($orders);
+//        Helper::tad($payments);
+
+
         $page_data = array(
             'page_title'=> 'Статистика',
             'page_description'=> '',
             'page_keywords'=> '',
+            'account_selected' => $account_id,
+            'direction_selected' => $direction_id,
             'period_begin' => date('d.m.Y',strtotime($period_begin)),
             'period_end' => date('d.m.Y',strtotime($period_end)),
-            'users' => $users,
-            'courses' => $courses,
+            'orders' => $orders,
+            'payments' => $payments
         );
         return View::make(Helper::acclayout('statistic'),$page_data);
     }
 
     public function statisticSetPeriod(){
 
-        return Redirect::route('moderator-statistic')->with('period_begin',Input::get('period_begin'))->with('period_end',Input::get('period_end'));
+        return Redirect::route('moderator-statistic')
+            ->with('period_begin',Input::get('period_begin'))
+            ->with('period_end',Input::get('period_end'))
+            ->with('account_id',Input::get('account_id'))
+            ->with('direction_id',Input::get('direction_id'));
     }
 }
