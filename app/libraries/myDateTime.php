@@ -35,6 +35,7 @@ class myDateTime {
 	}
 
     public static function SwapDotDateWithOutTime($date_time) {
+
         if ($date_time != '0000-00-00 00:00:00'):
             $list = preg_split("/-/",$date_time);
             $pattern = "/(\d+)(-)(\w+)(-)(\d+) (\d+)(:)(\d+)(:)(\d+)/i";
@@ -43,7 +44,6 @@ class myDateTime {
         else:
             return '';
         endif;
-
 	}
 	
 	public function months(){
@@ -112,8 +112,8 @@ class myDateTime {
     }
 
     public static function getDiffTimeStamp($date_begin,$date_over){
-        return strtotime($date_begin) - strtotime($date_over);
 
+        return strtotime($date_begin) - strtotime($date_over);
     }
 
     public function addDays($days = 0){

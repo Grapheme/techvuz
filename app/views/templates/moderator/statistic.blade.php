@@ -62,7 +62,7 @@
     $payments.push([ "{{ $date }}" , {{ $summa }} ])
     @endforeach
 
-    var options = {
+    var $options = {
         xaxis : {
             mode: "categories",
             tickLength: 0
@@ -102,9 +102,9 @@
         },
         colors : [$color_orders,$color_paymetns]
     };
-
-    var $orders_plot = $.plot($("#orderschart"),[{data : $orders,label : "Количество заказов"}] , options);
-
+    var $orders_plot = $.plot($("#orderschart"),[{data : $orders,label : "Количество заказов"}] , $options);
+    $options['tooltipOpts']['content'] = "%y руб.";
+    var $payments_plot = $.plot($("#paymentschart"),[{data : $payments,label : "Сумма платежей"}] , $options);
     console.log($orders);
     console.log($payments);
 </script>

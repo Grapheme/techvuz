@@ -731,13 +731,21 @@ class AccountsModeratorController extends BaseController {
         $all_orders_query = $all_orders_query->with('organization','individual','payment_numbers');
         $all_orders = $all_orders_query->get();
 
-        $tmp_orders = $orders = $payments = array();
+        $diffMonths = myDateTime::getDiffDate($period_end,$period_begin,'%m%');
+        $format = 'd.m';
+        if ($diffMonths >= 3):
+            $format = 'm.y';
+        endif;
+        $index_start = (new myDateTime())->setDateString($period_begin)->format($format);
+        $index_end = (new myDateTime())->setDateString($period_end)->format($format);
+        $orders = $payments = array($index_start=>0);
+        $tmp_orders = array();
         foreach($all_orders as $order_index => $order):
             $tmp_orders[$order_index] = $order->toArray();
-            $tmp_orders[$order_index]['created_at'] = $order->created_at->format('d.m.Y');
+            $tmp_orders[$order_index]['created_at'] = $order->created_at->format($format);
             if ($order->payment_numbers->count()):
                 foreach($order->payment_numbers as $payment_number_index => $payment_number):
-                    $tmp_orders[$order_index]['payment_numbers'][$payment_number_index]['payment_date'] = myDateTime::SwapDotDateWithOutTime($payment_number->payment_date);
+                    $tmp_orders[$order_index]['payment_numbers'][$payment_number_index]['payment_date'] = (new myDateTime())->setDateString($payment_number->payment_date)->format($format);
                 endforeach;
             endif;
         endforeach;
@@ -751,7 +759,12 @@ class AccountsModeratorController extends BaseController {
                 endif;
             endforeach;
         endif;
-
+        if (!isset($orders[$index_end])):
+            $orders[$index_end] = 0;
+        endif;
+        if (!isset($payments[$index_end])):
+            $payments[$index_end] = 0;
+        endif;
 
 //        Helper::ta($orders);
 //        Helper::tad($payments);
