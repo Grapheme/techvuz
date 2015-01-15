@@ -39,6 +39,13 @@
     	background: #33ace4;
     	color: #fff;
     }
+    .logo a {
+    	position: absolute;
+    	top: 0;
+    	left: 0;
+    	width: 100%;
+    	height: 100%;
+    }
     .aside-404 {
    		position: absolute;
     	top: 0;
@@ -78,7 +85,7 @@
 		background-size: 100% 100%;
   	}
   	.container-404-cell h1 {
-  		margin-bottom: 1.25rem;
+  		margin-bottom: 1.5rem;
   	}
   	.desc-404 {
   		font-weight: 300;
@@ -108,7 +115,7 @@
 		        </div>
 		    </div>
 
-			<div class="logo"></div>
+			<div class="logo"><a href="/"></a></div>
 
 			<footer class="main-footer">
 			    <div class="copy">
