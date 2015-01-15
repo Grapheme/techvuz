@@ -10667,6 +10667,25 @@ main.order-page a:hover {
 .moderator-wrapper main {
   margin: 0;
 }
+.moderator-wrapper .main-header {
+  position: relative;
+}
+.moderator-wrapper .main-header .contact {
+  margin-left: 9rem;
+}
+.moderator-wrapper .main-header .contact:before {
+  content: '';
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 8rem;
+  height: 5.75rem;
+  background: url(../img/logo.svg);
+  background-size: auto 80%;
+  background-repeat: no-repeat;
+  background-position: 0 center;
+}
 .moderator-wrapper .cabinet-menu-ul .cabinet-menu-li {
   width: 187.7px;
 }
