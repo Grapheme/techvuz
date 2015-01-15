@@ -44,7 +44,7 @@
 		height: 11.6875rem;
 		margin: 0 0 2.95rem;
 
-		background: url( Config::get('site.theme_path').'/img/logo.svg' );
+		background: url( {{ Config::get('site.theme_path').'/img/logo.svg' }} );
 		background-size: 100% 100%;
   	}
 </style>
