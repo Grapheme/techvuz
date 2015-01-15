@@ -17,6 +17,19 @@
 		font-size: 0.8125em;
     	font-weight: normal;
 	}
+	.main-footer .copy {
+		margin: 0 0 1.05rem;
+    	text-transform: uppercase;
+	}
+	.main-footer .dev a {
+		border-bottom: 1px solid rgba(255, 255, 255, 0.5);
+    	border-color: rgba(255, 255, 255, 0.5);
+    	text-decoration: none;
+    	transition: border-color 0.4s ease 0s;
+	}
+	.main-footer .dev a:hover {
+		border-color: transparent;
+	}
 	html, body {
     	margin: 0;
     	padding: 0;
