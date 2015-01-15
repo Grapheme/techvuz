@@ -77,6 +77,12 @@
 		background: url( {{ Config::get('site.theme_path').'/img/logo.svg' }} );
 		background-size: 100% 100%;
   	}
+  	.container-404-cell h1 {
+  		margin-bottom: 1.25rem;
+  	}
+  	.desc-404 {
+  		font-weight: 300;
+  	}
 </style>
 
 </head>
