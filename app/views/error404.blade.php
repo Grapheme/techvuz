@@ -28,7 +28,7 @@ input::-moz-focus-inner { padding: 0; border: 0; }
 </head>
 <body>
 	<div class="container">
-		<h1>Not found <span>:(</span></h1>
+		<h1>Not found 404 <span>:(</span></h1>
 		<p>Sorry, but the page you were trying to view does not exist.</p>
 		<p>It looks like this was the result of either:</p>
 		<ul>
