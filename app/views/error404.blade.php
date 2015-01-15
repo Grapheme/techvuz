@@ -6,6 +6,9 @@
 <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400,600&subset=latin,cyrillic' rel='stylesheet' type='text/css'>
 {{ HTML::style(Config::get('site.theme_path').'/css/main.css') }}
 <style>
+	.main-wrapper {
+		height: 100%;
+	}
 	html, body {
     	margin: 0;
     	padding: 0;
@@ -24,7 +27,13 @@
     	height: 100%;
     }
   	.container-404 {
-    	padding: 0 0 0 250px;
+  		display: table;
+  		height: 100%;
+    	padding: 0 0 0 300px;
+  	}
+  	.container-404-cell {
+  		display: table-cell;
+  		vertical-align: middle;
   	}
   	.contact {
 		margin: 1rem 0 0 0;
@@ -60,7 +69,7 @@
 	        <div class="top-dec-part part-5"></div>
 	        <div class="top-dec-part part-6"></div>
 	    </div>
-		
+
 		<aside class="aside-404">
 
 			<div class="contact">
@@ -85,13 +94,18 @@
 		</aside>
 
 		<div class="container-404">
-			<h1>
-				404 Ошибка
-			</h1>
-			<div class="desc-404">
-				Запрашиваемая вами страница не найдена. Ознакомиться<br>
-				с нашими курсами вы можете в разделе «Каталог курсов»
-			</div>
+
+			<div class="container-404-cell">
+
+				<h1>
+					404 Ошибка
+				</h1>
+
+				<div class="desc-404">
+					Запрашиваемая вами страница не найдена. Ознакомиться<br>
+					с нашими курсами вы можете в разделе «Каталог курсов»
+				</div>
+			</div>			
 		</div>
 	</div>
 	
