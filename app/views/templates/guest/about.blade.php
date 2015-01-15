@@ -32,7 +32,7 @@
         <?php $license['fields'] = modifyKeys($license['fields'],'key'); ?>
         @if(isset($license->fields['document']->value) && isset($images[$license->fields['document']->value]))
             <li class="lic-li">
-                <a src="{{ asset(Config::get('site.galleries_photo_public_dir').'/'.$images[$license->fields['document']->value]->name) }}" alt="{{ $license->name }}">{{ $license->name }}</a>
+                <img src="{{ asset(Config::get('site.galleries_photo_public_dir').'/'.$images[$license->fields['document']->value]->name) }}" alt="{{ $license->name }}">
             </li>
         @endif
         @endforeach
