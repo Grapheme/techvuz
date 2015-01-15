@@ -10,7 +10,7 @@
 </div>
 <h3 class="margin-bottom-40">Статистика заказов</h3>
 <div id="orderschart" style="width:848px;height: 300px;" class="chart"></div>
-<h3 class="margin-bottom-40">Статистика платежей</h3>
+<h3 class="margin-bottom-40 margin-top-40">Статистика платежей</h3>
 <div id="paymentschart" style="width:848px;height: 300px;" class="chart"></div>
 
 @if($account_selected)
