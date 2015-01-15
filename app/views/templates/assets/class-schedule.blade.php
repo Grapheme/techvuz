@@ -40,7 +40,7 @@
                     <td><p align="center">{{ $lecture->order }}</p></td>
                     <td>{{ $lecture->title }}</td>
                     <td><p align="center">{{ $lecture->hours }}</p></td>
-                    <td>{{ !empty($DataNachalaObucheniya) ? $studyPeriod->addHours($lecture->hours)->write() : '-' }}</td>
+                    <td>{{ !empty($DataNachalaObucheniya) ? $studyPeriod->addHours($lecture->hours)->write() : '-' }}, {{ $studyPeriod->get('hours') }}</td>
                 </tr>
                 @endforeach
             @endif
@@ -50,7 +50,7 @@
                         <p align="center">{{ !empty($chapter->test_title) ? $chapter->test_title : $chapter->test->title; }}</p>
                     </td>
                     <td><p align="center">2</p></td>
-                    <td>{{ !empty($DataNachalaObucheniya) ? $studyPeriod->addHours(2)->write() : '-' }}</td>
+                    <td>{{ !empty($DataNachalaObucheniya) ? $studyPeriod->addHours(2)->write() : '-' }}, {{ $studyPeriod->get('hours') }}</td>
                 </tr>
             @endif
         @endforeach
@@ -60,7 +60,7 @@
                         <p align="center">{{ !empty($final_test->test_title) ? $final_test->test_title : $final_test->title; }}</p>
                     </td>
                     <td><p align="center">2</p></td>
-                    <td>{{ !empty($DataNachalaObucheniya) ? $studyPeriod->addHours(2)->write() : '-' }}</td>
+                    <td>{{ !empty($DataNachalaObucheniya) ? $studyPeriod->addHours(2)->write() : '-' }}, {{ $studyPeriod->get('hours') }}</td>
                 </tr>
             @endif
                 <tr>
