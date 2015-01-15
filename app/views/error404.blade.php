@@ -44,7 +44,7 @@
 		height: 11.6875rem;
 		margin: 0 0 2.95rem;
 
-		background: url(../img/logo.svg);
+		background: url( Config::get('site.theme_path').'/img/logo.svg' );
 		background-size: 100% 100%;
   	}
 </style>
@@ -60,7 +60,7 @@
 	        <div class="top-dec-part part-5"></div>
 	        <div class="top-dec-part part-6"></div>
 	    </div>
-		
+
 		<aside class="aside-404">
 
 			<div class="contact">
