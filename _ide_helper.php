@@ -1,7 +1,7 @@
 <?php
 /**
  * An helper file for Laravel 4, to provide autocomplete information to your IDE
- * Generated for Laravel 4.2.11 on 2014-12-15.
+ * Generated for Laravel 4.2.16 on 2015-01-16.
  *
  * @author Barry vd. Heuvel <barryvdh@gmail.com>
  * @see https://github.com/barryvdh/laravel-ide-helper
@@ -366,7 +366,7 @@ namespace {
         }
         
         /**
-         * Terminate the request and send the response to the browser.
+         * Call the "finish" and "shutdown" callbacks assigned to the application.
          *
          * @param \Symfony\Component\HttpFoundation\Request $request
          * @param \Symfony\Component\HttpFoundation\Response $response
@@ -1095,7 +1095,7 @@ namespace {
         }
         
         /**
-         * Set an input definition set to be used with this application
+         * Set an input definition set to be used with this application.
          *
          * @param \Symfony\Component\Console\InputDefinition $definition The input definition
          * @api 
@@ -1351,7 +1351,7 @@ namespace {
         }
         
         /**
-         * Tries to figure out the terminal dimensions based on the current environment
+         * Tries to figure out the terminal dimensions based on the current environment.
          *
          * @return array Array containing width and height
          * @static 
@@ -3106,7 +3106,7 @@ namespace {
          *
          * @param string $query
          * @param array $bindings
-         * @param $time
+         * @param float|null $time
          * @return void 
          * @static 
          */
@@ -3918,12 +3918,25 @@ namespace {
          * @param string $operator
          * @param int $count
          * @param string $boolean
-         * @param \Closure $callback
+         * @param \Closure|null $callback
          * @return \Illuminate\Database\Eloquent\Builder|static 
          * @static 
          */
         public static function has($relation, $operator = '>=', $count = 1, $boolean = 'and', $callback = null){
             return \Illuminate\Database\Eloquent\Builder::has($relation, $operator, $count, $boolean, $callback);
+        }
+        
+        /**
+         * Add a relationship count condition to the query.
+         *
+         * @param string $relation
+         * @param string $boolean
+         * @param \Closure|null $callback
+         * @return \Illuminate\Database\Eloquent\Builder|static 
+         * @static 
+         */
+        public static function doesntHave($relation, $boolean = 'and', $callback = null){
+            return \Illuminate\Database\Eloquent\Builder::doesntHave($relation, $boolean, $callback);
         }
         
         /**
@@ -3938,6 +3951,18 @@ namespace {
          */
         public static function whereHas($relation, $callback, $operator = '>=', $count = 1){
             return \Illuminate\Database\Eloquent\Builder::whereHas($relation, $callback, $operator, $count);
+        }
+        
+        /**
+         * Add a relationship count condition to the query with where clauses.
+         *
+         * @param string $relation
+         * @param \Closure|null $callback
+         * @return \Illuminate\Database\Eloquent\Builder|static 
+         * @static 
+         */
+        public static function whereDoesntHave($relation, $callback = null){
+            return \Illuminate\Database\Eloquent\Builder::whereDoesntHave($relation, $callback);
         }
         
         /**
@@ -4441,6 +4466,20 @@ namespace {
         }
         
         /**
+         * Add a "where date" statement to the query.
+         *
+         * @param string $column
+         * @param string $operator
+         * @param int $value
+         * @param string $boolean
+         * @return \Illuminate\Database\Query\Builder|static 
+         * @static 
+         */
+        public static function whereDate($column, $operator, $value, $boolean = 'and'){
+            return \Illuminate\Database\Query\Builder::whereDate($column, $operator, $value, $boolean);
+        }
+        
+        /**
          * Add a "where day" statement to the query.
          *
          * @param string $column
@@ -4497,6 +4536,7 @@ namespace {
         /**
          * Add a "group by" clause to the query.
          *
+         * @param array|string $column,...
          * @return $this 
          * @static 
          */
@@ -5054,6 +5094,16 @@ namespace {
             return \Illuminate\Database\Query\Builder::getGrammar();
         }
         
+        /**
+         * Use the write pdo for query.
+         *
+         * @return $this 
+         * @static 
+         */
+        public static function useWritePdo(){
+            return \Illuminate\Database\Query\Builder::useWritePdo();
+        }
+        
     }
 
 
@@ -5262,11 +5312,12 @@ namespace {
          *
          * @param string $path
          * @param string $contents
+         * @param bool $lock
          * @return int 
          * @static 
          */
-        public static function put($path, $contents){
-            return \Illuminate\Filesystem\Filesystem::put($path, $contents);
+        public static function put($path, $contents, $lock = false){
+            return \Illuminate\Filesystem\Filesystem::put($path, $contents, $lock);
         }
         
         /**
@@ -5326,6 +5377,17 @@ namespace {
          */
         public static function copy($path, $target){
             return \Illuminate\Filesystem\Filesystem::copy($path, $target);
+        }
+        
+        /**
+         * Extract the file name from a file path.
+         *
+         * @param string $path
+         * @return string 
+         * @static 
+         */
+        public static function name($path){
+            return \Illuminate\Filesystem\Filesystem::name($path);
         }
         
         /**
@@ -5967,6 +6029,17 @@ namespace {
          */
         public static function needsRehash($hashedValue, $options = array()){
             return \Illuminate\Hashing\BcryptHasher::needsRehash($hashedValue, $options);
+        }
+        
+        /**
+         * Set the default crypt cost factor.
+         *
+         * @param int $rounds
+         * @return void 
+         * @static 
+         */
+        public static function setRounds($rounds){
+            \Illuminate\Hashing\BcryptHasher::setRounds($rounds);
         }
         
     }
@@ -7282,7 +7355,7 @@ namespace {
          *
          * @return string The request method
          * @api 
-         * @see getRealMethod
+         * @see getRealMethod()
          * @static 
          */
         public static function getMethod(){
@@ -7294,7 +7367,7 @@ namespace {
          * Gets the "real" request method.
          *
          * @return string The request method
-         * @see getMethod
+         * @see getMethod()
          * @static 
          */
         public static function getRealMethod(){
@@ -7538,7 +7611,7 @@ namespace {
         }
         
         /**
-         * Gets a list of content types acceptable by the client browser
+         * Gets a list of content types acceptable by the client browser.
          *
          * @return array List of content types in preferable order
          * @api 
@@ -8613,7 +8686,7 @@ namespace {
         }
         
         /**
-         * Push a new an array of jobs onto the queue.
+         * Push an array of jobs onto the queue.
          *
          * @param array $jobs
          * @param mixed $data
@@ -9917,7 +9990,7 @@ namespace {
          *
          * @return string The request method
          * @api 
-         * @see getRealMethod
+         * @see getRealMethod()
          * @static 
          */
         public static function getMethod(){
@@ -9929,7 +10002,7 @@ namespace {
          * Gets the "real" request method.
          *
          * @return string The request method
-         * @see getMethod
+         * @see getMethod()
          * @static 
          */
         public static function getRealMethod(){
@@ -10173,7 +10246,7 @@ namespace {
         }
         
         /**
-         * Gets a list of content types acceptable by the client browser
+         * Gets a list of content types acceptable by the client browser.
          *
          * @return array List of content types in preferable order
          * @api 
@@ -11056,7 +11129,7 @@ namespace {
         }
         
         /**
-         * Sets the session ID
+         * Sets the session ID.
          *
          * @param string $id
          * @api 
@@ -11106,9 +11179,9 @@ namespace {
          * session and deletes the old session from persistence.
          *
          * @param int $lifetime Sets the cookie lifetime for the session cookie. A null value
-         *                          will leave the system settings unchanged, 0 sets the cookie
-         *                          to expire with browser session. Time is in seconds, and is
-         *                          not a Unix timestamp.
+         *                      will leave the system settings unchanged, 0 sets the cookie
+         *                      to expire with browser session. Time is in seconds, and is
+         *                      not a Unix timestamp.
          * @return bool True if session invalidated, false if error.
          * @api 
          * @static 
@@ -11123,9 +11196,9 @@ namespace {
          *
          * @param bool $destroy Whether to delete the old session or leave it to garbage collection.
          * @param int $lifetime Sets the cookie lifetime for the session cookie. A null value
-         *                          will leave the system settings unchanged, 0 sets the cookie
-         *                          to expire with browser session. Time is in seconds, and is
-         *                          not a Unix timestamp.
+         *                       will leave the system settings unchanged, 0 sets the cookie
+         *                       to expire with browser session. Time is in seconds, and is
+         *                       not a Unix timestamp.
          * @return bool True if session migrated, false if error.
          * @api 
          * @static 
@@ -12671,425 +12744,7 @@ namespace {
     }
 
 
-    class Bugsnag extends \Bugsnag\BugsnagLaravel\BugsnagFacade{
-        
-        /**
-         * Set your release stage, eg "production" or "development"
-         *
-         * @param String $releaseStage the app's current release stage
-         * @static 
-         */
-        public static function setReleaseStage($releaseStage){
-            return \Bugsnag_Client::setReleaseStage($releaseStage);
-        }
-        
-        /**
-         * Set your app's semantic version, eg "1.2.3"
-         *
-         * @param String $appVersion the app's version
-         * @static 
-         */
-        public static function setAppVersion($appVersion){
-            return \Bugsnag_Client::setAppVersion($appVersion);
-        }
-        
-        /**
-         * Set which release stages should be allowed to notify Bugsnag
-         * eg array("production", "development")
-         *
-         * @param Array $notifyReleaseStages array of release stages to notify for
-         * @static 
-         */
-        public static function setNotifyReleaseStages($notifyReleaseStages){
-            return \Bugsnag_Client::setNotifyReleaseStages($notifyReleaseStages);
-        }
-        
-        /**
-         * Set which Bugsnag endpoint to send errors to.
-         *
-         * @param String $endpoint endpoint URL
-         * @static 
-         */
-        public static function setEndpoint($endpoint){
-            return \Bugsnag_Client::setEndpoint($endpoint);
-        }
-        
-        /**
-         * Set whether or not to use SSL when notifying bugsnag
-         *
-         * @param Boolean $useSSL whether to use SSL
-         * @static 
-         */
-        public static function setUseSSL($useSSL){
-            return \Bugsnag_Client::setUseSSL($useSSL);
-        }
-        
-        /**
-         * Set the desired timeout for cURL connection when notifying bugsnag
-         *
-         * @param Integer $timeout the desired timeout in seconds
-         * @static 
-         */
-        public static function setTimeout($timeout){
-            return \Bugsnag_Client::setTimeout($timeout);
-        }
-        
-        /**
-         * Set the absolute path to the root of your application.
-         * 
-         * We use this to help with error grouping and to highlight "in project"
-         * stacktrace lines.
-         *
-         * @param String $projectRoot the root path for your application
-         * @static 
-         */
-        public static function setProjectRoot($projectRoot){
-            return \Bugsnag_Client::setProjectRoot($projectRoot);
-        }
-        
-        /**
-         * Set the path that should be stripped from the beginning of
-         * any stacktrace file line. This helps to normalise filenames
-         * for grouping and reduces the noise in stack traces.
-         *
-         * @param String $stripPath the path to strip from filenames
-         * @static 
-         */
-        public static function setStripPath($stripPath){
-            return \Bugsnag_Client::setStripPath($stripPath);
-        }
-        
-        /**
-         * Set the a regular expression for matching filenames in stacktrace lines
-         * that are part of your application.
-         *
-         * @param String $projectRootRegex regex matching paths belong to your project
-         * @static 
-         */
-        public static function setProjectRootRegex($projectRootRegex){
-            return \Bugsnag_Client::setProjectRootRegex($projectRootRegex);
-        }
-        
-        /**
-         * Set the strings to filter out from metaData arrays before sending then
-         * to Bugsnag. Eg. array("password", "credit_card")
-         *
-         * @param Array $filters an array of metaData filters
-         * @static 
-         */
-        public static function setFilters($filters){
-            return \Bugsnag_Client::setFilters($filters);
-        }
-        
-        /**
-         * Set information about the current user of your app, including
-         * id, name and email.
-         *
-         * @param Array $user an array of user information. Eg:
-         *        array(
-         *            'name' => 'Bob Hoskins',
-         *            'email' => 'bob@hoskins.com'
-         *        )
-         * @static 
-         */
-        public static function setUser($user){
-            return \Bugsnag_Client::setUser($user);
-        }
-        
-        /**
-         * 
-         *
-         * @deprecated deprecated since version 2.1
-         * @static 
-         */
-        public static function setUserId($userId){
-            return \Bugsnag_Client::setUserId($userId);
-        }
-        
-        /**
-         * Set a context representing the current type of request, or location in code.
-         *
-         * @param String $context the current context
-         * @static 
-         */
-        public static function setContext($context){
-            return \Bugsnag_Client::setContext($context);
-        }
-        
-        /**
-         * Set the type of application executing the code. This is usually used to
-         * represent if you are running plain PHP code "php", via a framework,
-         * eg "laravel", or executing through delayed worker code, eg "resque".
-         *
-         * @param String $type the current type
-         * @static 
-         */
-        public static function setType($type){
-            return \Bugsnag_Client::setType($type);
-        }
-        
-        /**
-         * Set custom metadata to send to Bugsnag with every error. You can use
-         * this to add custom tabs of data to each error on your Bugsnag dashboard
-         *
-         * @param Array $metaData an array of arrays of custom data. Eg:
-         *        array(
-         *            "user" => array(
-         *                "name" => "James",
-         *                "email" => "james@example.com"
-         *            )
-         *        )
-         * @static 
-         */
-        public static function setMetaData($metaData){
-            return \Bugsnag_Client::setMetaData($metaData);
-        }
-        
-        /**
-         * Set proxy configuration
-         *
-         * @param Array $proxySettings an array with proxy settings. Eg:
-         *        array(
-         *            'host'     => "bugsnag.com",
-         *            'port'     => 42,
-         *            'user'     => "username"
-         *            'password' => "password123"
-         *            )
-         * @static 
-         */
-        public static function setProxySettings($proxySettings){
-            return \Bugsnag_Client::setProxySettings($proxySettings);
-        }
-        
-        /**
-         * Set a custom function to call before notifying Bugsnag of an error.
-         * 
-         * You can use this to call your own error handling functions, or to add
-         * custom tabs of data to each error on your Bugsnag dashboard.
-         * 
-         * // Adding meta-data example
-         * function before_bugsnag_notify($error) {
-         *     $error->addMetaData(array(
-         *         "user" => array(
-         *             "name" => "James"
-         *         )
-         *     ));
-         * }
-         * $bugsnag->setBeforeNotifyFunction("before_bugsnag_notify");
-         *
-         * @static 
-         */
-        public static function setBeforeNotifyFunction($beforeNotifyFunction){
-            return \Bugsnag_Client::setBeforeNotifyFunction($beforeNotifyFunction);
-        }
-        
-        /**
-         * Set Bugsnag's error reporting level.
-         * 
-         * If this is not set, we'll use your current PHP error_reporting value
-         * from your ini file or error_reporting(...) calls.
-         *
-         * @param Integer $errorReportingLevel the error reporting level integer
-         *                exactly as you would pass to PHP's error_reporting
-         * @static 
-         */
-        public static function setErrorReportingLevel($errorReportingLevel){
-            return \Bugsnag_Client::setErrorReportingLevel($errorReportingLevel);
-        }
-        
-        /**
-         * Sets whether Bugsnag should be automatically notified of unhandled
-         * exceptions and errors.
-         *
-         * @param Boolean $autoNotify whether to auto notify or not
-         * @static 
-         */
-        public static function setAutoNotify($autoNotify){
-            return \Bugsnag_Client::setAutoNotify($autoNotify);
-        }
-        
-        /**
-         * Sets whether errors should be batched together and send at the end of
-         * each request.
-         *
-         * @param Boolean $batchSending whether to batch together errors
-         * @static 
-         */
-        public static function setBatchSending($batchSending){
-            return \Bugsnag_Client::setBatchSending($batchSending);
-        }
-        
-        /**
-         * Sets the notifier to report as to Bugsnag. This should only be
-         * set by other notifier libraries.
-         *
-         * @param Array $notifier an array of name, version, url.
-         * @static 
-         */
-        public static function setNotifier($notifier){
-            return \Bugsnag_Client::setNotifier($notifier);
-        }
-        
-        /**
-         * Sets whether Bugsnag should send $_ENV with each error.
-         *
-         * @param Boolean $sendEnvironment whether to send the environment
-         * @static 
-         */
-        public static function setSendEnvironment($sendEnvironment){
-            return \Bugsnag_Client::setSendEnvironment($sendEnvironment);
-        }
-        
-        /**
-         * Notify Bugsnag of a non-fatal/handled exception
-         *
-         * @param \Exception $exception the exception to notify Bugsnag about
-         * @param Array $metaData optional metaData to send with this error
-         * @param String $severity optional severity of this error (fatal/error/warning/info)
-         * @static 
-         */
-        public static function notifyException($exception, $metaData = null, $severity = null){
-            return \Bugsnag_Client::notifyException($exception, $metaData, $severity);
-        }
-        
-        /**
-         * Notify Bugsnag of a non-fatal/handled error
-         *
-         * @param String $errorName the name of the error, a short (1 word) string
-         * @param String $errorMessage the error message
-         * @param Array $metaData optional metaData to send with this error
-         * @param String $severity optional severity of this error (fatal/error/warning/info)
-         * @static 
-         */
-        public static function notifyError($name, $message, $metaData = null, $severity = null){
-            return \Bugsnag_Client::notifyError($name, $message, $metaData, $severity);
-        }
-        
-        /**
-         * 
-         *
-         * @static 
-         */
-        public static function exceptionHandler($exception){
-            return \Bugsnag_Client::exceptionHandler($exception);
-        }
-        
-        /**
-         * 
-         *
-         * @static 
-         */
-        public static function errorHandler($errno, $errstr, $errfile = '', $errline = 0){
-            return \Bugsnag_Client::errorHandler($errno, $errstr, $errfile, $errline);
-        }
-        
-        /**
-         * 
-         *
-         * @static 
-         */
-        public static function shutdownHandler(){
-            return \Bugsnag_Client::shutdownHandler();
-        }
-        
-        /**
-         * Batches up errors into notifications for later sending
-         *
-         * @param \Bugsnag_Error $error the error to batch up
-         * @param array $metaData optional meta data to send with the error
-         * @static 
-         */
-        public static function notify($error, $metaData = array()){
-            return \Bugsnag_Client::notify($error, $metaData);
-        }
-        
-    }
-
-
     class Collection extends \Illuminate\Database\Eloquent\Collection{
-        
-    }
-
-
-    class PDF extends \Lowerends\Mpdf\Facades\Pdf{
-        
-        /**
-         * Load a HTML string
-         *
-         * @param string $string
-         * @return static 
-         * @static 
-         */
-        public static function loadHTML($string){
-            return \Lowerends\Mpdf\PdfWrapper::loadHTML($string);
-        }
-        
-        /**
-         * Load a HTML file
-         *
-         * @param string $file
-         * @return static 
-         * @static 
-         */
-        public static function loadFile($file){
-            return \Lowerends\Mpdf\PdfWrapper::loadFile($file);
-        }
-        
-        /**
-         * Load a View and convert to HTML
-         *
-         * @param string $view
-         * @param array $data
-         * @param array $mergeData
-         * @return static 
-         * @static 
-         */
-        public static function loadView($view, $data = array(), $mergeData = array()){
-            return \Lowerends\Mpdf\PdfWrapper::loadView($view, $data, $mergeData);
-        }
-        
-        /**
-         * Output the PDF as a string.
-         *
-         * @return string The rendered PDF as string
-         * @static 
-         */
-        public static function output(){
-            return \Lowerends\Mpdf\PdfWrapper::output();
-        }
-        
-        /**
-         * Save the PDF to a file
-         *
-         * @param $filename
-         * @return static 
-         * @static 
-         */
-        public static function save($filename){
-            return \Lowerends\Mpdf\PdfWrapper::save($filename);
-        }
-        
-        /**
-         * Make the PDF downloadable by the user
-         *
-         * @param string $filename
-         * @return \Symfony\Component\HttpFoundation\Response 
-         * @static 
-         */
-        public static function download($filename = 'document.pdf'){
-            return \Lowerends\Mpdf\PdfWrapper::download($filename);
-        }
-        
-        /**
-         * Return a response with the PDF to show in the browser
-         *
-         * @param string $filename
-         * @return \Symfony\Component\HttpFoundation\Response 
-         * @static 
-         */
-        public static function stream($filename = 'document.pdf'){
-            return \Lowerends\Mpdf\PdfWrapper::stream($filename);
-        }
         
     }
 
@@ -13166,6 +12821,18 @@ namespace {
          */
         public static function add($pathToAdd){
             return \Chumper\Zipper\Zipper::add($pathToAdd);
+        }
+        
+        /**
+         * Add a file to the zip using its contents
+         *
+         * @param $filename string The name of the file to create
+         * @param $content string The file contents
+         * @return $this Zipper instance
+         * @static 
+         */
+        public static function addString($filename, $content){
+            return \Chumper\Zipper\Zipper::addString($filename, $content);
         }
         
         /**

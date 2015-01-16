@@ -62,7 +62,6 @@ return array(
         'Illuminate\Custom\CustomUrlServiceProvider',
         'Flynsarmy\DbBladeCompiler\DbBladeCompilerServiceProvider',
         'Scalia\SphinxSearch\SphinxSearchServiceProvider',
-        'Bugsnag\BugsnagLaravel\BugsnagLaravelServiceProvider',
         'Chumper\Zipper\ZipperServiceProvider',
         'Lowerends\Mpdf\ServiceProvider'
 
@@ -112,7 +111,6 @@ return array(
 
 		'ImageManipulation' => 'Intervention\Image\Facades\Image',
         'SphinxSearch'      => 'Scalia\SphinxSearch\SphinxSearchFacade',
-        'Bugsnag'           => 'Bugsnag\BugsnagLaravel\BugsnagFacade',
 
         'Collection'        => 'Illuminate\Database\Eloquent\Collection',
         'PDF'               => 'Lowerends\Mpdf\Facades\Pdf'
