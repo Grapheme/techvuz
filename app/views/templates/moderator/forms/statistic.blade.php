@@ -16,7 +16,7 @@
         <label>Заказчик</label>{{ Form::select('account_id',$accounts,$account_selected,array('autocomplete'=>'off')) }}
     </div>
     <div class="form-element">
-        <label>Направления</label>{{ Form::select('direction_id',$directions,$direction_selected,array('autocomplete'=>'off')) }}
+        <label style="display: block;">Направления</label>{{ Form::select('direction_id',$directions,$direction_selected,array('autocomplete'=>'off')) }}
     </div>
     <div class="form-element">
         <label>От</label>{{ Form::text('period_begin',$period_begin, array('id'=>'select-period-begin','class' => 'datepicker text-center','autocomplete'=>'off','data-mask'=>'99.99.9999')) }}

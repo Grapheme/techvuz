@@ -3,42 +3,145 @@
 <head>
 <meta charset="utf-8">
 <title>Страница не найдена :(</title>
+<link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400,600&subset=latin,cyrillic' rel='stylesheet' type='text/css'>
+{{ HTML::style(Config::get('site.theme_path').'/css/main.css') }}
 <style>
-::-moz-selection { background: #fe57a1; color: #fff; text-shadow: none; }
-::selection { background: #fe57a1; color: #fff; text-shadow: none; }
-html { padding: 30px 10px; font-size: 20px; line-height: 1.4; color: #737373; background: #f0f0f0; -webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%; }
-html, input { font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; }
-body { max-width: 500px; _width: 500px; padding: 30px 20px 50px; border: 1px solid #b3b3b3; border-radius: 4px; margin: 0 auto; box-shadow: 0 1px 10px #a7a7a7, inset 0 1px 0 #fff; background: #fcfcfc; }
-h1 { margin: 0 10px; font-size: 50px; text-align: center; }
-h1 span { color: #bbb; }
-h3 { margin: 1.5em 0 0.5em; }
-p { margin: 1em 0; }
-ul { padding: 0 0 0 40px; margin: 1em 0; }
-.container { max-width: 380px; _width: 380px; margin: 0 auto; }
-/* google search */
-#goog-fixurl ul { list-style: none; padding: 0; margin: 0; }
-#goog-fixurl form { margin: 0; }
-#goog-wm-qt, #goog-wm-sb { border: 1px solid #bbb; font-size: 16px; line-height: normal; vertical-align: top; color: #444; border-radius: 2px; }
-#goog-wm-qt { width: 220px; height: 20px; padding: 5px; margin: 5px 10px 0 0; box-shadow: inset 0 1px 1px #ccc; }
-#goog-wm-sb { display: inline-block; height: 32px; padding: 0 10px; margin: 5px 0 0; white-space: nowrap; cursor: pointer; background-color: #f5f5f5; background-image: -webkit-linear-gradient(rgba(255,255,255,0), #f1f1f1); background-image: -moz-linear-gradient(rgba(255,255,255,0), #f1f1f1); background-image: -ms-linear-gradient(rgba(255,255,255,0), #f1f1f1); background-image: -o-linear-gradient(rgba(255,255,255,0), #f1f1f1); -webkit-appearance: none; -moz-appearance: none; appearance: none; *overflow: visible; *display: inline; *zoom: 1; }
-#goog-wm-sb:hover, #goog-wm-sb:focus { border-color: #aaa; box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1); background-color: #f8f8f8; }
-#goog-wm-qt:focus, #goog-wm-sb:focus { border-color: #105cb6; outline: 0; color: #222; }
-input::-moz-focus-inner { padding: 0; border: 0; }
+	.main-wrapper {
+		height: 100%;
+	}
+	.main-footer {
+		position: absolute;
+		left: 0;
+		bottom: 2em;
+
+		font-size: 0.8125em;
+    	font-weight: normal;
+	}
+	.main-footer .copy {
+		margin: 0 0 1.05rem;
+    	text-transform: uppercase;
+	}
+	.main-footer .dev a {
+		border-bottom: 1px solid rgba(255, 255, 255, 0.5);
+    	border-color: rgba(255, 255, 255, 0.5);
+    	text-decoration: none;
+    	transition: border-color 0.4s ease 0s;
+	}
+	.main-footer .dev a:hover {
+		border-color: transparent;
+	}
+	html, body {
+    	margin: 0;
+    	padding: 0;
+   		height: 100%; 
+    }
+  	body {
+    	background: #33ace4;
+    	color: #fff;
+    }
+    .logo a {
+    	position: absolute;
+    	top: 0;
+    	left: 0;
+    	width: 100%;
+    	height: 100%;
+    }
+    .aside-404 {
+   		position: absolute;
+    	top: 0;
+    	left: 0;
+    
+    	width: 250px;
+    	height: 100%;
+    }
+  	.container-404 {
+  		display: table;
+  		height: 100%;
+    	padding: 0 0 0 300px;
+  	}
+  	.container-404-cell {
+  		display: table-cell;
+  		vertical-align: middle;
+  	}
+  	.contact {
+		margin: 1rem 0 1rem 0;
+  	}
+  	.phone {
+		font-size: 1.2em;
+		line-height: 1.9em;
+		font-weight: 400;
+  	}
+  	.phone-desc {
+		font-size: 12em / $hfs;
+		line-height: (14.4em / 12);
+  	}
+  	.logo {
+		position: relative;
+		width: 187px;
+		height: 11.6875rem;
+		margin: 0 0 2.95rem;
+
+		background: url( {{ Config::get('site.theme_path').'/img/logo.svg' }} );
+		background-size: 100% 100%;
+  	}
+  	.container-404-cell h1 {
+  		margin-bottom: 1.5rem;
+  	}
+  	.desc-404 {
+  		font-weight: 300;
+  	}
 </style>
+
 </head>
 <body>
-	<div class="container">
-		<h1>Not found <span>:(</span></h1>
-		<p>Sorry, but the page you were trying to view does not exist.</p>
-		<p>It looks like this was the result of either:</p>
-		<ul>
-			<li>a mistyped address</li>
-			<li>an out-of-date link</li>
-		</ul>
-		<script>
-			var GOOG_FIXURL_LANG = (navigator.language || '').slice(0,2),GOOG_FIXURL_SITE = location.host;
-		</script>
-		<script src="http://linkhelp.clients.google.com/tbproxy/lh/wm/fixurl.js"></script>
+	<div class="main-wrapper">
+		<div class="top-dec">
+	        <div class="top-dec-part part-1"></div>
+	        <div class="top-dec-part part-2"></div>
+	        <div class="top-dec-part part-3"></div>
+	        <div class="top-dec-part part-4"></div>
+	        <div class="top-dec-part part-5"></div>
+	        <div class="top-dec-part part-6"></div>
+	    </div>
+
+		<aside class="aside-404">
+
+			<div class="contact">
+		        <div class="phone">
+		            <a href="tel:+78004400000">8 (800) 440 00 00</a>
+		        </div>
+		        <div class="phone-desc">
+		            Звонок бесплатный
+		        </div>
+		    </div>
+
+			<div class="logo"><a href="/"></a></div>
+
+			<footer class="main-footer">
+			    <div class="copy">
+			        © АНО ДПО «ЦКС», 2012 - {{ date("Y") }}
+			    </div>
+			    <div class="dev">
+			        Сделано в <a href="http://grapheme.ru">ГРАФЕМА</a>
+			    </div>
+			</footer>
+		</aside>
+
+		<div class="container-404">
+
+			<div class="container-404-cell">
+
+				<h1>
+					404 Ошибка
+				</h1>
+
+				<div class="desc-404">
+					Запрашиваемая вами страница не найдена. Ознакомиться<br>
+					с нашими курсами вы можете в разделе «Каталог курсов»
+				</div>
+			</div>			
+		</div>
 	</div>
+	
 </body>
 </html>
