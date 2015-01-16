@@ -9,7 +9,6 @@
 		"intervention/image": "2.*",
         "doctrine/dbal": "2.*",
 		"barryvdh/laravel-ide-helper": "1.*",
-		"barryvdh/laravel-debugbar": "*",
 		"scalia/sphinxsearch": "*",
 		"flynsarmy/db-blade-compiler": "1.*",
 		"chumper/zipper": "*",
@@ -39,7 +38,6 @@
 		"post-update-cmd": [
 			"php artisan clear-compiled",
             "php artisan ide-helper:generate",
-            "php artisan debugbar:publish",
 			"php artisan optimize"
 		],
 		"post-create-project-cmd": [

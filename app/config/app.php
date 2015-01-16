@@ -58,7 +58,6 @@ return array(
 		'Way\Generators\GeneratorsServiceProvider',
 		'Intervention\Image\ImageServiceProvider',
         'Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider',
-        'Barryvdh\Debugbar\ServiceProvider',
         'Illuminate\Custom\CustomUrlServiceProvider',
         'Flynsarmy\DbBladeCompiler\DbBladeCompilerServiceProvider',
         'Scalia\SphinxSearch\SphinxSearchServiceProvider',
