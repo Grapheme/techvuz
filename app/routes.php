@@ -213,7 +213,28 @@ Config::set('mod_new', $mod_new);
 
 Route::group(array('before' => 'admin.auth', 'prefix' => 'admin'), function(){
     Route::get('clear/db/{code}', function($code){
-        Helper::dd($code);
+        if ($code == Config::get('app.key')):
+//            $index = 1;
+//            foreach(DicFieldVal::all() as $dicFieldVal):
+//                DicFieldVal::where('id',$dicFieldVal->id)->update(array('id'=>$index++));
+//            endforeach;
+            /*$index = 1;
+            foreach(DicVal::all() as $dicVal):
+                DicVal::where('id',$dicVal->id)->update(array('id'=>$index));
+                DicFieldVal::where('dicval_id',$dicVal->id)->update(array('dicval_id'=>$index));
+                $index++;
+            endforeach;*/
+//            $IDs = DicVal::where('dic_id',2)->lists('id');
+//            if (count($IDs)):
+//                DicFieldVal::whereIn('dicval_id',$IDs)->delete();
+//                DicVal::where('dic_id',2)->delete();
+//            endif;
+//            $IDs = DicVal::where('dic_id',8)->lists('id');
+//            if (count($IDs)):
+//                DicFieldVal::whereIn('dicval_id',$IDs)->delete();
+//                DicVal::where('dic_id',8)->delete();
+//            endif;
+        endif;
     });
 });
 
