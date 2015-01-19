@@ -6,6 +6,10 @@
 
 	color: $clr-white;
 
+	@media screen and ($maxWidth1024) {
+		padding-left: 10rem / $hfs;
+	}
+
 	.logo-desc {
 		display: none;
 		margin: 0 0 2.95rem;
