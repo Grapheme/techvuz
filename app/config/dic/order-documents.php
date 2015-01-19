@@ -17,14 +17,14 @@ return array(
                 'title' => 'Содержание',
                 'type' => 'textarea_redactor',
             ),
-            'word_template' => array(
-                'title' => 'Шаблон Microsoft WORD 2007 и выше(.docx).',
-                'type' => 'upload',
-                'label_class' => 'input-file',
-                'others' => [
-                    'id' => 'select-template',
-                    'accept' => 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'
-                ],
+            #'word_template' => array(
+            #    'title' => 'Шаблон Microsoft WORD 2007 и выше(.docx).',
+            #    'type' => 'upload',
+            #    'label_class' => 'input-file',
+            #    'others' => [
+            #        'id' => 'select-template',
+            #        'accept' => 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'
+            #    ],
                 'handler' => function($value, $element = false) {
                     if (@is_object($element) && @is_array($value)) {
                         $value['module'] = 'dicval';
