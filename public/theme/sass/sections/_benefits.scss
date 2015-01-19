@@ -12,6 +12,17 @@
 		line-height: (24em / 16);
 		font-weight: 400;
 
+		@media screen and ($laptop) {
+			margin: 0 2% 8% 0;
+
+			&:nth-child(n) {
+				padding-right: 1rem;
+			}
+			&:nth-child(2n) {
+				padding-left: 1rem;
+			}
+		}
+
 		strong {
 			font-weight: 500;
 		}

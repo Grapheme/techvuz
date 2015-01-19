@@ -9111,6 +9111,17 @@ section h3, section .h3 {
   line-height: 1.5em;
   font-weight: 400;
 }
+@media screen and (max-width: 768px) {
+  .benefits-ul .benefits-li {
+    margin: 0 2% 8% 0;
+  }
+  .benefits-ul .benefits-li:nth-child(n) {
+    padding-right: 1rem;
+  }
+  .benefits-ul .benefits-li:nth-child(2n) {
+    padding-left: 1rem;
+  }
+}
 .benefits-ul .benefits-li strong {
   font-weight: 500;
 }
