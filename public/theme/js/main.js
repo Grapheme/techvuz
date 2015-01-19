@@ -22,6 +22,19 @@ $('.accordion').accordion({
     }
 });
 
+//moderator filter selects
+(function(){
+	var $mainSelect = $('.moderator-cabinet select[name="course_id"]');
+	var $secSelect = $('.moderator-cabinet select[name="chapter_id"]');
+
+	var $secOptions = $secSelect.find('option');
+
+	$mainSelect.select( function(){
+		console.log( $(this).find(':selected').attr('value') );
+	});
+
+})();
+
 (function(){
 
 	var btnMap = $('.js-show-map');
