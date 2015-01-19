@@ -20,7 +20,7 @@
         <div class="pull-left margin-right-10">
             <a class="btn btn-default" href="{{ URL::route('modules.index',array('direction'=>$direction->id,'course'=>$course->id)) }}">Модули</a>
         </div>
-        <div class="btn-group pull-right margin-right-10">
+        <div class="btn-group margin-top-40 margin-right-10">
             {{ Form::open(array('url'=>URL::route('testing.dublicate',array('directions'=>$direction->id,'course_id'=>$course->id,'chapter_id'=>$chapter_id)), 'role'=>'form', 'class'=>'smart-form', 'method'=>'post')) }}
                 {{ Form::select('course_id',Courses::orderBy('code')->lists('code','id')) }}
             <?php
