@@ -5,14 +5,14 @@ return array(
     'fields' => function () {
 
         return array(
-            'variables' => array(
-                'title' => 'Список доступных переменных',
-                'type' => 'textarea',
-                'others' => array(
-                    #'readonly' => 'readonly',
-                    'class' => 'readonly',
-                ),
-            ),
+            #'variables' => array(
+            #    'title' => 'Список доступных переменных',
+            #    'type' => 'textarea',
+            #    'others' => array(
+            #        #'readonly' => 'readonly',
+            #        'class' => 'readonly',
+            #    ),
+            #),
             'content' => array(
                 'title' => 'Содержание',
                 'type' => 'textarea_redactor',
