@@ -6,6 +6,13 @@
 
 	color: $clr-white;
 
+	@media screen and ($desktop) {		
+		padding-left: 10rem / $hfs;
+	}
+	@media screen and ($laptop) {
+		left: 100%;
+	}
+
 	.logo-desc {
 		display: none;
 		margin: 0 0 2.95rem;

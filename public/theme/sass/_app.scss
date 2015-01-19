@@ -42,6 +42,10 @@ main {
 
 	background: $clr-white;
 
+	@media screen and ($laptop) {
+		margin: 0;
+	}
+
 	h1, h2 {
 		&.padding-h,
 		&:first-child {

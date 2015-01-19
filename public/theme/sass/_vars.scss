@@ -1,3 +1,14 @@
+//Media queries widths
+$maxWidth320: 'max-width: 320px';
+$maxWidth480: 'max-width: 480px';
+$maxWidth768: 'max-width: 768px';
+$maxWidth1024: 'max-width: 1024px';
+
+$desktop: $maxWidth1024;
+$laptop: $maxWidth768;
+$mobileLand: $maxWidth480;
+$mobilePort: $maxWidth320;
+
 $hfs: 16;
 
 * {
