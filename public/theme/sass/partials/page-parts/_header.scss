@@ -3,6 +3,10 @@
 	top: 0;
 	left: 0;
 	width: 100%;
+
+	@media screen and ($desktop) {
+		display: none;
+	}
 }
 
 .top-dec-part {
@@ -34,6 +38,10 @@
 	height: 92rem / $hfs;
 
 	color: $clr-white;
+
+	@media screen and ($maxWidth1024) {
+		padding: 0 10rem / $hfs;
+	}
 
 	&.notificated {
 		height: 153rem / $hfs;
