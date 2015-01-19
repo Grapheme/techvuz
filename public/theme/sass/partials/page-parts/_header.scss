@@ -34,6 +34,45 @@
 	}
 }
 
+.mobile-menu {
+
+	.burger-cont {
+
+	}
+
+	.burger {
+		width: 30px;
+		height: 6px;
+		margin: 36px 0;
+
+		background: #fff;
+
+		&:before {
+			content: '';
+			position: absolute;
+			top: -10px;
+			left: 0;
+
+			width: 100%;
+			height: 100%;
+
+			background: #fff;
+		}
+
+		&:after {
+			content: '';
+			position: absolute;
+			bottom: -10px;
+			left: 0;
+
+			width: 100%;
+			height: 100%;
+
+			background: #fff;
+		}
+	}
+}
+
 .main-header {
 	height: 92rem / $hfs;
 
