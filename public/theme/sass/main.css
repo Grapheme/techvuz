@@ -8849,12 +8849,6 @@ html {
   font-size: .875em;
 }
 
-@media screen and (max-width: 768px) {
-  body {
-    overflow: hidden;
-  }
-}
-
 h1, h2, h3 {
   margin: 0;
 }
@@ -8875,6 +8869,11 @@ a:focus {
   position: relative;
   max-width: 71.25rem;
   margin: 0 auto;
+}
+@media screen and (max-width: 768px) {
+  .main-wrapper {
+    overflow: hidden;
+  }
 }
 
 main {
