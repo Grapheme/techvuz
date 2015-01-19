@@ -210,6 +210,13 @@ Config::set('mod_new', $mod_new);
 #View::share('mod_actions', $mod_actions);
 #print_r($app);
 
+
+Route::group(array('before' => 'admin.auth', 'prefix' => 'admin'), function(){
+    Route::get('clear/db/{code}', function($code){
+        Helper::dd($code);
+    });
+});
+
 /***********************************************************************/
 
 
