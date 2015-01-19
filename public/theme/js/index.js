@@ -218,9 +218,14 @@ $('.accordion').accordion({
 
 	var $secOptions = $secSelect.find('option');
 
-	$mainSelect.select( function(){
-		console.log( $(this).find(':selected').attr('value') );
+	$mainSelect.change( function(){
+		var currIndex = $(this).find(':selected').attr('value');
+		$secSelect.find('option').hide();
+		$secSelect.find('option').filter('[data-course="' + currIndex + '"]').show();
+		$secSelect.val($('.moderator-cabinet select[name="chapter_id"] option:first').val());
 	});
+
+	$mainSelect.trigger('change');
 
 })();
 
