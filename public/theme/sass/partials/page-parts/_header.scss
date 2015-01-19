@@ -37,13 +37,19 @@
 .mobile-menu {
 
 	.burger-cont {
+		display: inline-block;
+		margin: 28px 0 0 20px;
+		height: 25px;
 
+		cursor: pointer;
 	}
 
 	.burger {
+		position: relative;
+		display: inline-block;
 		width: 30px;
 		height: 6px;
-		margin: 36px 0;
+		line-height: 30px;
 
 		background: #fff;
 
@@ -70,6 +76,14 @@
 
 			background: #fff;
 		}
+	}
+
+	.mobile-logo {
+		float: right;
+		margin: 0 20px 0 0;
+		text-transform: uppercase;
+		line-height: 92rem / $hfs;
+		font-size: 1.5em;
 	}
 }
 
@@ -100,6 +114,9 @@
 			line-height: (14.4em / 12);
 		}
 
+		@media screen and ($laptop) {
+			display: none;
+		}
 	}
 
 	.auth {
@@ -127,6 +144,9 @@
 			color: #7dcaee;
 			color: rgba(255, 255, 255, .5);
 			text-transform: uppercase;
+		}
+		@media screen and ($laptop) {
+			display: none;
 		}
 	}
 

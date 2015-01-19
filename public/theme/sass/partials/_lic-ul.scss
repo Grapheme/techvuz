@@ -23,5 +23,13 @@
 			bottom: 11rem / $hfs;
 			left: 11rem / $hfs;
 		}
+
+		@media screen and ($laptop) {
+			margin: 0.875rem;
+
+			&:nth-child(4n) {
+				margin: 0.875rem;
+			}
+		}
 	}
 }
