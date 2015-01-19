@@ -25,14 +25,14 @@ return array(
             #        'id' => 'select-template',
             #        'accept' => 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'
             #    ],
-                'handler' => function($value, $element = false) {
-                    if (@is_object($element) && @is_array($value)) {
-                        $value['module'] = 'dicval';
-                        $value['unit_id'] = $element->id;
-                    }
-                    return ExtForm::process('upload', $value);
-                },
-            ),
+            #    'handler' => function($value, $element = false) {
+            #        if (@is_object($element) && @is_array($value)) {
+            #            $value['module'] = 'dicval';
+            #            $value['unit_id'] = $element->id;
+            #        }
+            #        return ExtForm::process('upload', $value);
+            #    },
+            #)
         );
 
     },
