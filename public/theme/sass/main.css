@@ -9113,13 +9113,13 @@ section h3, section .h3 {
 }
 @media screen and (max-width: 768px) {
   .benefits-ul .benefits-li {
-    margin: 0 2% 8% 0;
+    width: 44%;
   }
   .benefits-ul .benefits-li:nth-child(n) {
-    padding-right: 1rem;
+    margin: 0 6% 8% 0;
   }
   .benefits-ul .benefits-li:nth-child(2n) {
-    padding-left: 1rem;
+    margin: 0 0 8% 6%;
   }
 }
 .benefits-ul .benefits-li strong {
