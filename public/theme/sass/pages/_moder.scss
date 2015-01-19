@@ -218,6 +218,11 @@
 		padding-bottom: 0;
 	}
 
+	.smart-form select[name="course_id"],
+	.smart-form select[name="chapter_id"] {
+		height: 28px;
+	}
+
 	.modal-dialog {
 		input,
 		textarea {

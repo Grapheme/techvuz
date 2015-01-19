@@ -9876,6 +9876,10 @@ main.order-page a:hover {
   padding-top: 0;
   padding-bottom: 0;
 }
+.moderator-cabinet .smart-form select[name="course_id"],
+.moderator-cabinet .smart-form select[name="chapter_id"] {
+  height: 28px;
+}
 .moderator-cabinet .modal-dialog input,
 .moderator-cabinet .modal-dialog textarea {
   max-width: 350px;
