@@ -8841,6 +8841,11 @@ main {
   font-size: .875em;
   background: #fff;
 }
+@media screen and (max-width: 768px) {
+  main {
+    margin: 0;
+  }
+}
 main h1.padding-h, main h1:first-child, main h2.padding-h, main h2:first-child {
   padding: 3rem 0 1rem;
   font-size: 2.5em;
