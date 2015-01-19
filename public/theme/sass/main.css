@@ -9201,6 +9201,11 @@ section h3, section .h3 {
   padding: 0 3rem 0 0;
   margin: 0 0 3.4375rem;
 }
+@media screen and (max-width: 768px) {
+  .news-ul .news-li {
+    width: 100%;
+  }
+}
 .news-ul .news-date {
   margin: 0 0 0.875rem;
   font-size: 0.75em;
@@ -9232,9 +9237,19 @@ section h3, section .h3 {
   font-weight: 600;
   font-family: 'Open Sans';
 }
+@media screen and (max-width: 768px) {
+  .reviews-ul .reviews-author-name {
+    margin: 0 0 0 5rem;
+  }
+}
 .reviews-ul .reviews-author-spec {
   margin: 0 0 0 4.375rem;
   font-family: 'Open Sans';
+}
+@media screen and (max-width: 768px) {
+  .reviews-ul .reviews-author-spec {
+    margin: 0 0 0 5rem;
+  }
 }
 .reviews-ul .reviews-li:nth-child(6n+1) .reviews-text {
   border-color: #bb252d;

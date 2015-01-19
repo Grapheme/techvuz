@@ -12,6 +12,10 @@
 		width: (100% / 3);
 		padding: 0 48rem / $hfs 0 0;
 		margin: 0 0 55rem / $hfs;
+
+		@media screen and ($laptop) {
+			width: 100%;
+		}
 	}
 	.news-date {
 		margin: 0 0 14rem / $hfs;
