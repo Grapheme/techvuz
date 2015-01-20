@@ -33,10 +33,11 @@ $('.accordion').accordion({
 		var currIndex = $(this).find(':selected').attr('value');
 		$secSelect.find('option').not('[value="0"]').hide();
 		$secSelect.find('option').filter('[data-course="' + currIndex + '"]').show();
-		$secSelect.val($('.moderator-cabinet select[name="chapter_id"] option:first').val());
+
+		$secSelect.val( $secSelect.find('option:visible').eq(0).attr('value') );
 	});
 
-	$secSelect.val( $secSelect.find('option:visible').eq(0).attr('value') );
+	//$secSelect.val( $secSelect.find('option:visible').eq(0).attr('value') );
 
 })();
 
