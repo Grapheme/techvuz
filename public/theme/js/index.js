@@ -226,6 +226,8 @@ $('.accordion').accordion({
 		$secSelect.val( $secSelect.find('option:visible').eq(0).attr('value') ).trigger('change');
 	});
 
+	$mainSelect.change();
+
 })();
 
 (function(){
