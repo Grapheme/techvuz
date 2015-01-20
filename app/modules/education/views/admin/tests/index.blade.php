@@ -2,6 +2,7 @@
 @section('content')
 <h1>Направления и курсы: Курсы. </h1>
 <h4>Направление обучения &laquo;{{ $direction->title }}&raquo;</h4>
+<h4>Курс {{ $course->code }}. &laquo;{{ $course->title }}&raquo;</h4>
 @if(!is_null($chapter))
 <h4>Глава &laquo;{{ $chapter->title }}&raquo;. {{ $test->title }}</h4>
 <?php $chapter_id = $chapter->id?>
@@ -24,13 +25,15 @@
             {{ Form::open(array('url'=>URL::route('testing.dublicate',array('directions'=>$direction->id,'course_id'=>$course->id,'chapter_id'=>$chapter_id)), 'role'=>'form', 'class'=>'smart-form', 'method'=>'post')) }}
                 {{ Form::select('course_id',Courses::orderBy('code')->lists('code','id')) }}
             <?php
-                $chapters_select = Chapter::orderBy('order')->select('id','course_id','title')->get();
+            $chapters_select = Chapter::where('id','!=',$chapter_id)->orderBy('order')->select('id','course_id','title')->get();
             ?>
                 <select name="chapter_id">
                 @foreach($chapters_select as $chapter_select)
                     <option data-course="{{ $chapter_select->course_id }}" value="{{ $chapter_select->id }}">{{ $chapter_select->title }}</option>
                 @endforeach
+                @if($chapter_id != 0)
                     <option value="0">Итоговый тест</option>
+                @endif
                 </select>
                 <button type="submit" autocomplete="off" class="btn btn-success create-dublicate-test">Создать копию</button>
             {{ Form::close() }}
