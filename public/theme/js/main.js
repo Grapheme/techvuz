@@ -33,7 +33,7 @@ $('.accordion').accordion({
 		var currIndex = $(this).find(':selected').attr('value');
 
 		$secSelect.find('option').not('[value="0"]').remove();
-		$(secSelect.append($secOptions.filter('[data-course="' + currIndex + '"]'))); 
+		$secSelect.append($secOptions.filter('[data-course="' + currIndex + '"]'))); 
 
 		$secSelect.val( $secSelect.find('option:visible').eq(0).attr('value') ).trigger('change');
 	});
