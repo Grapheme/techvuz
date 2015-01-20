@@ -226,6 +226,8 @@ $('.accordion').accordion({
 		$secSelect.prepend($secOptions.filter('[data-course="' + currIndex + '"]'));
 
 		$secSelect.val( $secSelect.find('option:visible').eq(0).attr('value') ).trigger('change');
+		$secSelect.removeAttr('size');
+		$secSelect.attr('size',1);
 	});
 
 	$mainSelect.change();
