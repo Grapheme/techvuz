@@ -31,9 +31,7 @@
                 @foreach($chapters_select as $chapter_select)
                     <option data-course="{{ $chapter_select->course_id }}" value="{{ $chapter_select->id }}">{{ $chapter_select->title }}</option>
                 @endforeach
-                @if($chapter_id != 0)
                     <option value="0">Итоговый тест</option>
-                @endif
                 </select>
                 <button type="submit" autocomplete="off" class="btn btn-success create-dublicate-test">Создать копию</button>
             {{ Form::close() }}
