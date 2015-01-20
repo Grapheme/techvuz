@@ -36,6 +36,10 @@
 			font-size: 22em / $hfs;
 			font-family: 'Open Sans', sans-serif;
 			font-weight: 600;
+
+			@media screen and (max-width: 560px) {
+				font-size: 1.1em;
+			}
 		}
 
 		.acc-courses {
@@ -144,7 +148,11 @@
 			font-size: 16em / $hfs;
 			font-weight: normal;
 			line-height: (22.4em / 16);
-			text-align: center;		
+			text-align: center;	
+
+			@media screen and (max-width: 560px) {
+				font-size: .85em;
+			}	
 
 			&:first-child {
 				width: 66%;

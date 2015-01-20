@@ -20,10 +20,18 @@
 		margin: 0 0 0 70rem / $hfs;
 		font-weight: 600;
 		font-family: 'Open Sans';
+
+		@media screen and ($laptop) {
+			margin: 0 0 0 5rem;
+		}
 	}
 	.reviews-author-spec {
 		margin: 0 0 0 70rem / $hfs;
 		font-family: 'Open Sans';
+
+		@media screen and ($laptop) {
+			margin: 0 0 0 5rem;
+		}
 	}
 
 	.reviews-li {

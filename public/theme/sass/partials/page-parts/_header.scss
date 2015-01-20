@@ -34,6 +34,64 @@
 	}
 }
 
+.mobile-menu {
+	display: none;
+
+	@media screen and ($laptop) {
+		display: block;
+	}
+
+	.burger-cont {
+		display: inline-block;
+		margin: 28rem / $hfs 0 0 20rem / $hfs;
+		height: 25rem / $hfs;
+
+		cursor: pointer;
+	}
+
+	.burger {
+		position: relative;
+		display: inline-block;
+		width: 30rem / $hfs;
+		height: 6rem / $hfs;
+		line-height: 30rem / $hfs;
+
+		background: #fff;
+
+		&:before {
+			content: '';
+			position: absolute;
+			top: -10rem / $hfs;
+			left: 0;
+
+			width: 100%;
+			height: 100%;
+
+			background: #fff;
+		}
+
+		&:after {
+			content: '';
+			position: absolute;
+			bottom: -10rem / $hfs;
+			left: 0;
+
+			width: 100%;
+			height: 100%;
+
+			background: #fff;
+		}
+	}
+
+	.mobile-logo {
+		float: right;
+		margin: 0 20rem / $hfs 0 0;
+		text-transform: uppercase;
+		line-height: 92rem / $hfs;
+		font-size: 1.5em;
+	}
+}
+
 .main-header {
 	height: 92rem / $hfs;
 
@@ -61,6 +119,9 @@
 			line-height: (14.4em / 12);
 		}
 
+		@media screen and ($laptop) {
+			display: none;
+		}
 	}
 
 	.auth {
@@ -88,6 +149,9 @@
 			color: #7dcaee;
 			color: rgba(255, 255, 255, .5);
 			text-transform: uppercase;
+		}
+		@media screen and ($laptop) {
+			display: none;
 		}
 	}
 

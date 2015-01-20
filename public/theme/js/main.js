@@ -22,6 +22,24 @@ $('.accordion').accordion({
     }
 });
 
+//moderator filter selects
+(function(){
+	var $mainSelect = $('.moderator-cabinet select[name="course_id"]');
+	var $secSelect = $('.moderator-cabinet select[name="chapter_id"]');
+
+	var $secOptions = $secSelect.find('option');
+
+	$mainSelect.change( function(){
+		var currIndex = $(this).find(':selected').attr('value');
+		$secSelect.find('option').hide();
+		$secSelect.find('option').filter('[data-course="' + currIndex + '"]').show();
+		$secSelect.val($('.moderator-cabinet select[name="chapter_id"] option:first').val());
+	});
+
+	$mainSelect.trigger('change');
+
+})();
+
 (function(){
 
 	var btnMap = $('.js-show-map');

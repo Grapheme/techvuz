@@ -70,4 +70,13 @@
         <a class="login-link" href="{{ URL::route('logout') }}">Выйти</a>
     @endif
     </div>
+
+    <div class="mobile-menu">
+        <div class="burger-cont">
+            <div class="burger">
+
+            </div>
+        </div>
+        <div class="mobile-logo">Техвуз.рф</div>
+    </div>
 </header>
