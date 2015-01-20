@@ -36,7 +36,7 @@ $('.accordion').accordion({
 		$secSelect.val($('.moderator-cabinet select[name="chapter_id"] option:first').val());
 	});
 
-	$mainSelect.val( $secSelect.find('option[style="display: block;]"')[0].attr('value') );
+	$mainSelect.val( $secSelect.find('option:visible').eq(0).attr('value') );
 
 })();
 
