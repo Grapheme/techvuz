@@ -225,7 +225,7 @@ $('.accordion').accordion({
 		$secSelect.val($('.moderator-cabinet select[name="chapter_id"] option:first').val());
 	});
 
-	$mainSelect.val( $secSelect.find('option:visible').eq(0).attr('value') );
+	$secSelect.val( $secSelect.find('option:visible').eq(0).attr('value') );
 
 })();
 
