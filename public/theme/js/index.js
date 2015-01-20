@@ -220,12 +220,12 @@ $('.accordion').accordion({
 
 	$mainSelect.change( function(){
 		var currIndex = $(this).find(':selected').attr('value');
-		$secSelect.find('option').hide();
+		$secSelect.find('option').not('[value="0"]').hide();
 		$secSelect.find('option').filter('[data-course="' + currIndex + '"]').show();
 		$secSelect.val($('.moderator-cabinet select[name="chapter_id"] option:first').val());
 	});
 
-	$mainSelect.trigger('change');
+	$mainSelect.val( $secSelect.find('option[style="display: block;]"')[0].attr('value') );
 
 })();
 
