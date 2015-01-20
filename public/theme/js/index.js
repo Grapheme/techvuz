@@ -223,8 +223,11 @@ $('.accordion').accordion({
 		$secSelect.find('option').not('[value="0"]').hide();
 		$secSelect.find('option').filter('[data-course="' + currIndex + '"]').show();
 
-		$secSelect.val( $secSelect.find('option:visible').eq(0).attr('value') ).trigger('change');
+		//$secSelect.val( $secSelect.find('option:visible').eq(0).attr('value') ).trigger('change');
 	});
+
+	$secSelect.change( function(){
+	})
 
 	//$secSelect.val( $secSelect.find('option:visible').eq(0).attr('value') );
 
