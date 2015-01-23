@@ -59,10 +59,10 @@ main {
 		&.padding-h,
 		&:first-child {
 			padding: 3rem 0 16rem / $hfs;
-			font-size: 40em / $hfs;
+			font-size: 40rem / $hfs;
 			font-weight: 400;
 
-			line-height: 48em / 40;			
+			line-height: 48rem / 40;			
 			letter-spacing: -1px;
 		}
 	}
@@ -71,8 +71,8 @@ main {
 		margin: 0 0 2.5rem;
 		padding: 0 32rem / $hfs 0 0;
 
-		font-size: 18em / $hfs;
-		line-height: (28em / 18);
+		font-size: 18rem / $hfs;
+		line-height: (28rem / 18);
 		font-weight: 400;
 	}
 

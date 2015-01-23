@@ -8,6 +8,10 @@
 	line-height: (16.8em / 14);
 	font-weight: 400;
 
+	@media screen and ($laptop) {
+		display: none;
+	}
+
 	a {
 		transition: border-color .4s ease;
 		margin: 0 .5em 0 0;

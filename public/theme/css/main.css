@@ -9018,16 +9018,16 @@ main {
 }
 main h1.padding-h, main h1:first-child, main h2.padding-h, main h2:first-child {
   padding: 3rem 0 1rem;
-  font-size: 2.5em;
+  font-size: 2.5rem;
   font-weight: 400;
-  line-height: 48em / 40;
+  line-height: 48rem / 40;
   letter-spacing: -1px;
 }
 main .desc {
   margin: 0 0 2.5rem;
   padding: 0 2rem 0 0;
-  font-size: 1.125em;
-  line-height: 1.55556em;
+  font-size: 1.125rem;
+  line-height: 1.55556rem;
   font-weight: 400;
 }
 main:before {
@@ -9444,6 +9444,11 @@ section h3, section .h3 {
   font-size: 0.875em;
   line-height: 1.2em;
   font-weight: 400;
+}
+@media screen and (max-width: 768px) {
+  .print-link {
+    display: none;
+  }
 }
 .print-link a {
   -webkit-transition: border-color .4s ease;
