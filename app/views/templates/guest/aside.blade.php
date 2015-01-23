@@ -1,4 +1,14 @@
 <aside class="main-aside">
+    <div class="mobile-aside-header">
+        <div class="phone">
+            <a href="tel:+78004400000">8 (800) 440 00 00</a>
+        </div>
+        <div class="phone-desc">
+            Звонок бесплатный
+        </div>
+        <div class="mobile-aside-close"></div>
+    </div>
+
     @if (Request::is('/'))
     <div class="logo"></div>
     @else
@@ -24,6 +34,9 @@
            </li>
            <li class="nav-li{{ Helper::isRoute('page', 'contacts',' active') }}">
                <a href="{{ URL::route('page', 'contacts') }}">Контактная информация</a>
+           </li>
+           <li class="nav-li mobile-full-version">
+               <a href="#">Перейти к полной версии</a>
            </li>
        </ul>
     </nav>
