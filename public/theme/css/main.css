@@ -7469,6 +7469,7 @@ a[href^="tel"] {
 @media screen and (max-width: 560px) {
   .accordion .accordion-header h3 {
     font-size: 1.1em;
+    line-height: 1.2em;
   }
 }
 .accordion .accordion-header .acc-courses {
@@ -7589,6 +7590,11 @@ a[href^="tel"] {
   right: 1.625rem;
   margin: -.5em 0 0;
   font-size: 3em;
+}
+@media screen and (max-width: 480px) {
+  .accordion .ui-state-default:after {
+    display: none;
+  }
 }
 .accordion .ui-state-active:after {
   content: '\e802';

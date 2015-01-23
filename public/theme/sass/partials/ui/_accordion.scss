@@ -39,6 +39,7 @@
 
 			@media screen and (max-width: 560px) {
 				font-size: 1.1em;
+				line-height: 1.2em;
 			}
 		}
 
@@ -189,6 +190,10 @@
 			right: 26rem / $hfs;
 			margin: -.5em 0 0;
 			font-size: 3em;
+
+			@media screen and ($mobileLand) {
+				display: none;
+			}
 		}
 	}
 
