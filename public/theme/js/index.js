@@ -211,6 +211,22 @@ $('.accordion').accordion({
     }
 });
 
+//mobile controllers
+(function(){
+	var $burger = $('.mobile-menu .burger-cont');
+	var $aside = $('.main-aside');
+	var $close = $('.mobile-aside-close');
+
+	$burger.click( function(){
+		$('html').css({ overflow: 'hidden' });
+		$aside.addClass('active');
+	});
+	$close.click( function(){
+		$('html').removeAttr('style');
+		$aside.removeClass('active');
+	});
+})();
+
 //moderator filter selects
 (function(){
 	var $mainSelect = $('.moderator-cabinet select[name="course_id"]');
