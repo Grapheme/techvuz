@@ -89,7 +89,7 @@
 
     
      $('[data-toggle="tooltip"]').tooltip();
-     $('.course-in-progress > a').click( function(e){
+     $('.course-in-progress a').click( function(e){
         e.preventDefault();
      });
      $('.direction-in-progress .direction-link').click( function(e){
