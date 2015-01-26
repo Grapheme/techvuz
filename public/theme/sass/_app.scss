@@ -15,6 +15,14 @@ h1, h2, h3 {
 	margin: 0; 
 }
 
+.directions-li.direction-in-progress {
+	opacity: .3;
+
+	.direction-link {
+		cursor: default !important;
+	}
+}
+
 tr.course-in-progress {
 	opacity: .3;
 

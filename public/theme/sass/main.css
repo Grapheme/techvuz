@@ -7473,6 +7473,15 @@ a[href^="tel"] {
   background: #ddd;
   cursor: pointer;
 }
+.accordion .accordion-header.direction-in-progress {
+  opacity: .3;
+}
+.accordion .accordion-header.direction-in-progress:hover {
+  background: #ddd;
+}
+.accordion .accordion-header.direction-in-progress:hover:nth-child(4n+1) {
+  background: #eee;
+}
 .accordion .accordion-header.odd {
   background: #fff;
 }
@@ -8998,6 +9007,13 @@ html {
 
 h1, h2, h3 {
   margin: 0;
+}
+
+.directions-li.direction-in-progress {
+  opacity: .3;
+}
+.directions-li.direction-in-progress .direction-link {
+  cursor: default !important;
 }
 
 tr.course-in-progress {

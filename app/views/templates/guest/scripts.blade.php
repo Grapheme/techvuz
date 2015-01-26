@@ -92,5 +92,9 @@
      $('.course-in-progress > a').click( function(e){
         e.preventDefault();
      });
+     $('.direction-in-progress .direction-link').click( function(e){
+        e.preventDefault();
+     });
+     $('.accordion-header.direction-in-progress').addClass('ui-state-disabled');
 </script>
 @endif

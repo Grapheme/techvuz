@@ -10,6 +10,18 @@
 		outline: none;
 		background: $clr-gray;
 
+		&.direction-in-progress {
+			opacity: .3;
+
+			&:hover {
+				background: $clr-gray;
+				
+				&:nth-child(4n+1) {
+					background: #eee;
+				}
+			}
+		}
+
 		cursor: pointer;
 
 		&.odd {
