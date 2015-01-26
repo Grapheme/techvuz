@@ -17,6 +17,7 @@ class CreateDirectionsTable extends Migration {
                 $table->tinyInteger('discount')->default(0)->nullable();
                 $table->boolean('use_discount')->default(1)->nullable();
                 $table->boolean('active')->default(0)->unsigned()->nullable();
+                $table->boolean('in_progress')->default(0)->unsigned()->nullable();
                 $table->timestamps();
             });
             echo(' + ' . 'directions' . PHP_EOL);

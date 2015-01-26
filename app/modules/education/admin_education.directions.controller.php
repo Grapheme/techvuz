@@ -103,6 +103,9 @@ class AdminEducationDirectionsController extends BaseController {
             if (Input::has('use_discount') === FALSE):
                 $insert['use_discount'] = 0;
             endif;
+            if (Input::has('in_progress') === FALSE):
+                $insert['in_progress'] = 0;
+            endif;
             $direction = $this->direction->create($insert);
             $json_request['responseText'] = self::$entity_name." добавлено";
             $json_request['redirect'] = URL::route('directions.index');
@@ -126,6 +129,9 @@ class AdminEducationDirectionsController extends BaseController {
                 $update = Input::all();
                 if (Input::has('active') === FALSE):
                     $update['active'] = 0;
+                endif;
+                if (Input::has('in_progress') === FALSE):
+                    $update['in_progress'] = 0;
                 endif;
                 if (Input::has('use_discount') === FALSE):
                     $update['use_discount'] = 0;

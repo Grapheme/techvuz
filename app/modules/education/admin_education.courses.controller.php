@@ -177,6 +177,11 @@ class AdminEducationCoursesController extends BaseController {
         else:
             $input['active'] = 1;
         endif;
+        if (Input::has('in_progress') === FALSE):
+            $input['in_progress'] = 0;
+        else:
+            $input['in_progress'] = 1;
+        endif;
         return $input;
     }
 

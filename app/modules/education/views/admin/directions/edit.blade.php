@@ -53,6 +53,12 @@
                             <i></i>Доступен пользователям
                         </label>
                     </section>
+					<section>
+                        <label class="checkbox">
+                            {{ Form::checkbox('in_progress',1) }}
+                            <i></i>Направление находится в разработке
+                        </label>
+                    </section>
 				</fieldset>
 				<footer>
 					<a class="btn btn-default no-margin regular-10 uppercase pull-left btn-spinner" href="{{ URL::previous() }}">
