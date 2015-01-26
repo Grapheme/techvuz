@@ -86,5 +86,11 @@
             this.setSelectionRange(start, start);
         });
     });
+
+    
+     $('[data-toggle="tooltip"]').tooltip();
+     $('.course-in-progress > a').click( function(e){
+        e.preventDefault();
+     });
 </script>
 @endif
