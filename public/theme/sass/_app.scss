@@ -15,6 +15,21 @@ h1, h2, h3 {
 	margin: 0; 
 }
 
+.course-in-progress {
+	&tr {
+		opacity: .3;
+
+		a {
+			cursor: default;
+		}
+
+		a:hover {
+			border: none;
+			text-decoration: none;
+		}
+	}
+}
+
 a {
 	color: inherit;
 

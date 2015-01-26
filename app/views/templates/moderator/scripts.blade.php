@@ -31,5 +31,9 @@
 <script>
      $(document).ready(function(){
          $(".phone").inputmask("mask", {"mask": "[+7] (999) 999 99 99","placeholder": "X"});
+         $('[data-toggle="tooltip"]').tooltip();
+         $('.course-in-progress > a').click( function(e){
+         	e.preventDefault();
+         });
      });
  </script>
