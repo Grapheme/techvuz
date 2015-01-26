@@ -8992,13 +8992,13 @@ h1, h2, h3 {
   margin: 0;
 }
 
-.course-in-progresstr {
+tr.course-in-progress {
   opacity: .3;
 }
-.course-in-progresstr a {
+tr.course-in-progress a {
   cursor: default;
 }
-.course-in-progresstr a:hover {
+tr.course-in-progress a:hover {
   border: none;
   text-decoration: none;
 }
