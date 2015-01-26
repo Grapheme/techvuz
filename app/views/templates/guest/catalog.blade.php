@@ -27,6 +27,9 @@
             }))->get();
     ?>
     @foreach($directions as $direction)
+        @if($direction->in_progress)
+            <!-- это условие говорит о том что направление находится в разработке! -->
+        @endif
         <div class="accordion-header">
         @if(!empty($direction->photo->name))
             <div class="accordion-img" style="background-image: url('{{ Config::get('site.galleries_photo_public_dir').'/'.$direction->photo->name }}');"></div>
@@ -37,7 +40,7 @@
             </div>
         </div>
         <div class="accordion-body">
-        @if($direction->courses->count())        
+        @if($direction->courses->count())
             <table>
                 <tr>
                     <th>Название</th>
@@ -50,6 +53,9 @@
                 $globalDiscount = getGlobalDiscount();
             ?>
             @foreach($direction->courses as $course)
+                @if($course->in_progress)
+                    <!-- это условие говорит о том что курс находится в разработке! -->
+                @endif
                 <tr>
                     <td>
                     @if(!empty($course->seo))

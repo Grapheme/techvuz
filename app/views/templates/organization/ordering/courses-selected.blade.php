@@ -12,9 +12,10 @@
     {{ Form::open(array('route'=>'ordering-courses-store','class'=>'authenticated accordion-form clearfix')) }}
     <div class="accordion">
     <?php
-        $directions = Directions::whereActive(TRUE)->orderBy('order')->with('photo')
+        $directions = Directions::whereActive(TRUE)->where('in_progress',0)->orderBy('order')->with('photo')
             ->with(array('courses'=>function($query){
                 $query->where('active',1);
+                $query->where('in_progress',0);
                 $query->with('seo');
             }))->get();
     ?>

@@ -19,6 +19,9 @@
                 <div class="direction-name">
                     {{ $direction->title }}
                 </div>
+                @if($direction->in_progress)
+                    <!-- это условие говорит о том что направление находится в разработке! -->
+                @endif
                 <div class="courses-count">
                     {{ $direction->courses->count() }} {{ Lang::choice('курс|курса|курсов',$direction->courses->count()); }}
                 </div>
