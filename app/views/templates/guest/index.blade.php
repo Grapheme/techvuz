@@ -15,13 +15,10 @@
                 @if($direction->in_progress) 
                     class="directions-li direction-in-progress"
                     data-toggle="tooltip"
-                    data-placement="left"
+                    data-placement="top"
                     title="Направление находится в разработке"
                 @else
                     class="directions-li"
-                    data-toggle="tooltip"
-                    data-placement="left"
-                    title="Направление находится в разработке"
                 @endif
             >
             @if(!empty($direction->photo->name))
