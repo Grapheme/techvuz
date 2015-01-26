@@ -7478,6 +7478,7 @@ a[href^="tel"] {
 }
 .accordion .accordion-header.direction-in-progress:hover {
   background: #ddd;
+  color: inherit !important;
 }
 .accordion .accordion-header.direction-in-progress:hover:nth-child(4n+1) {
   background: #eee;

@@ -15,7 +15,8 @@
 
 			&:hover {
 				background: $clr-gray;
-				
+				color: inherit !important; 
+
 				&:nth-child(4n+1) {
 					background: #eee;
 				}
