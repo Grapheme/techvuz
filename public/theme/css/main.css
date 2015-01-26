@@ -9020,6 +9020,11 @@ tr.course-in-progress a:hover {
   text-decoration: none;
 }
 
+.btn.create-intermediate-test.btn-info {
+  border-color: #33ace4;
+  color: #fff;
+}
+
 a {
   color: inherit;
 }
