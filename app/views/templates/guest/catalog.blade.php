@@ -38,6 +38,9 @@
                 title="Направление находится в разработке"
             @else
                 class="accordion-header"
+                data-toggle="tooltip"
+                data-placement="left"
+                title="Направление находится в разработке"
             @endif
         >
         @if(!empty($direction->photo->name))
