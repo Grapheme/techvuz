@@ -36,7 +36,7 @@
                <a href="{{ URL::route('page', 'contacts') }}">Контактная информация</a>
            </li>
            <li class="nav-li mobile-full-version">
-               <a href="#">Перейти к полной версии</a>
+               <a href="#">Полная версия</a>
            </li>
        </ul>
     </nav>

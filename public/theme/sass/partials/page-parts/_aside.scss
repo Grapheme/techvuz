@@ -108,6 +108,7 @@
 
 		&.mobile-full-version {
 			display: none;
+			margin-top: 6rem;
 
 			@media screen and ($laptop) {
 				display: block;

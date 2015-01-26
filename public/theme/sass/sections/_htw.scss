@@ -19,6 +19,10 @@
 
     		font-size: 40em / $hfs;
     		line-height: .8em;
+
+    		@media screen and ($mobileLand) {
+    			font-size: 1.5em;
+    		}
 		}
 
 		&:nth-child(6n+1),

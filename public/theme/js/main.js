@@ -36,6 +36,9 @@ $('.accordion').accordion({
 		$('html').removeAttr('style');
 		$aside.removeClass('active');
 	});
+	$('.mobile-full-version').click( function(){
+		$('meta[name="viewport"]').remove();
+	});
 })();
 
 //moderator filter selects
