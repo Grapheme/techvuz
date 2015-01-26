@@ -211,21 +211,42 @@ $('.accordion').accordion({
     }
 });
 
+//mobile controllers
+(function(){
+	var $burger = $('.mobile-menu .burger-cont');
+	var $aside = $('.main-aside');
+	var $close = $('.mobile-aside-close');
+
+	$burger.click( function(){
+		$('html').css({ overflow: 'hidden' });
+		$aside.addClass('active');
+	});
+	$close.click( function(){
+		$('html').removeAttr('style');
+		$aside.removeClass('active');
+	});
+})();
+
 //moderator filter selects
 (function(){
 	var $mainSelect = $('.moderator-cabinet select[name="course_id"]');
 	var $secSelect = $('.moderator-cabinet select[name="chapter_id"]');
 
-	var $secOptions = $secSelect.find('option');
+	var $secOptions = $secSelect.find('option').clone();
 
 	$mainSelect.change( function(){
 		var currIndex = $(this).find(':selected').attr('value');
-		$secSelect.find('option').not('[value="0"]').hide();
-		$secSelect.find('option').filter('[data-course="' + currIndex + '"]').show();
-		$secSelect.val($('.moderator-cabinet select[name="chapter_id"] option:first').val());
+    
+		$secSelect.find('option').not('[value="0"]').remove();
+    
+		$secSelect.prepend($secOptions.filter('[data-course="' + currIndex + '"]'));
+
+		$secSelect.val( $secSelect.find('option:visible').eq(0).attr('value') ).trigger('change');
+		$secSelect.removeAttr('size');
+		$secSelect.attr('size',1);
 	});
 
-	$mainSelect.val( $secSelect.find('option[style="display: block;]"')[0].attr('value') );
+	$mainSelect.change();
 
 })();
 

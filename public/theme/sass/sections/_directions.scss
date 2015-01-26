@@ -9,6 +9,13 @@
 		padding: 24rem / $hfs 33rem / $hfs 0 33rem / $hfs;
 		color: $clr-white;
 
+		@media screen and ($laptop) {
+			width: 50%;
+		}
+		@media screen and ($mobileLand) {
+			width: 100%;
+		}
+
 		img {
 			position: absolute;
 			bottom: 33rem / $hfs;
