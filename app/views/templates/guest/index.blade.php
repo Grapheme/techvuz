@@ -11,7 +11,13 @@
         <ul class="directions-ul clearfix">
         <?php $totalCourses = 0; ?>
         @foreach(Directions::whereActive(TRUE)->orderBy('order')->with('photo')->with('courses')->limit(6)->get() as $key => $direction)
-            <li class="directions-li">
+            <li
+                @if($direction->in_progress) 
+                    class="directions-li direction-in-progress" 
+                @else
+                    class="directions-li"
+                @endif
+            >
             @if(!empty($direction->photo->name))
             {{ HTML::image(Config::get('site.galleries_photo_public_dir').'/'.$direction->photo->name,$direction->title,array('class'=>'directions-img')) }}
             @endif

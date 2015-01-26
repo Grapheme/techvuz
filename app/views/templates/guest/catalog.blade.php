@@ -30,7 +30,13 @@
         @if($direction->in_progress)
             <!-- это условие говорит о том что направление находится в разработке! -->
         @endif
-        <div class="accordion-header">
+        <div
+            @if($direction->in_progress)
+                class="accordion-header direction-in-progress"
+            @else
+                class="accordion-header"
+            @endif
+        >
         @if(!empty($direction->photo->name))
             <div class="accordion-img" style="background-image: url('{{ Config::get('site.galleries_photo_public_dir').'/'.$direction->photo->name }}');"></div>
         @endif
@@ -58,7 +64,7 @@
                 @endif
                 <tr @if($course->in_progress)
                         data-toggle="tooltip"
-                        data-placement="top"
+                        data-placement="left"
                         title="Курс находится в разработке"
                         class="course-in-progress" 
                     @endif
