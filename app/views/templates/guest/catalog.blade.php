@@ -56,7 +56,13 @@
                 @if($course->in_progress)
                     <!-- это условие говорит о том что курс находится в разработке! -->
                 @endif
-                <tr>
+                <tr @if($course->in_progress)
+                        data-toggle="tooltip"
+                        data-placement="top"
+                        title="Курс находится в разработке"
+                        class="course-in-progress" 
+                    @endif
+                >
                     <td>
                     @if(!empty($course->seo))
                         <a href="{{ URL::route('course-page',$course->seo->url) }}">{{ $course->title }}</a>
