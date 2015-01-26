@@ -13,7 +13,10 @@
         @foreach(Directions::whereActive(TRUE)->orderBy('order')->with('photo')->with('courses')->limit(6)->get() as $key => $direction)
             <li
                 @if($direction->in_progress) 
-                    class="directions-li direction-in-progress" 
+                    class="directions-li direction-in-progress"
+                    data-toggle="tooltip"
+                    data-placement="left"
+                    title="Направление находится в разработке"
                 @else
                     class="directions-li"
                 @endif

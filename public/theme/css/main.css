@@ -7449,7 +7449,7 @@ a[href^="tel"] {
   opacity: .3;
 }
 .accordion .accordion-header.direction-in-progress:hover {
-  background: #ddd;
+  background: #ddd !important;
   color: inherit !important;
 }
 .accordion .accordion-header.direction-in-progress:hover:nth-child(4n+1) {

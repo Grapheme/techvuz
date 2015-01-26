@@ -14,7 +14,7 @@
 			opacity: .3;
 
 			&:hover {
-				background: $clr-gray;
+				background: $clr-gray !important;
 				color: inherit !important; 
 
 				&:nth-child(4n+1) {
