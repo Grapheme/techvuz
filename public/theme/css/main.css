@@ -9024,6 +9024,9 @@ tr.course-in-progress a:hover {
   border-color: #33ace4;
   color: #fff;
 }
+.btn.create-intermediate-test.btn-info:hover {
+  color: #fff;
+}
 
 a {
   color: inherit;

@@ -39,6 +39,10 @@ tr.course-in-progress {
 .btn.create-intermediate-test.btn-info {
     border-color: #33ace4;
     color: #fff;
+
+    &:hover {
+    	color: #fff;
+    }
 }
 
 a {
