@@ -93,6 +93,7 @@
         e.preventDefault();
      });
      $('.direction-in-progress .direction-link').click( function(e){
+        $(this).attr('href', '#');
         e.preventDefault();
      });
      $('.accordion-header.direction-in-progress').addClass('ui-state-disabled');
