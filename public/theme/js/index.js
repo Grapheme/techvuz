@@ -284,9 +284,16 @@ $('.accordion').accordion({
 
 	btnMap.click( function(e){
 		e.preventDefault();
-		$('#map_canvas').css({ width: '100%', height: '15rem' });
-		initializeMap(coords);
-		$(this).hide();
+
+		if( $('.mobile-aside-header').is(':visible') ) {
+			window.open("https://www.google.com.au/maps/place/47%C2%B012'52.7%22N+39%C2%B042'30.8%22E/@47.214637,39.708546,17z/data=!3m1!4b1!4m2!3m1!1s0x0:0x0", "_blank");
+		}
+		else {
+			$('#map_canvas').css({ width: '100%', height: '15rem' });
+			initializeMap(coords);
+			$(this).hide();
+		}
+		
 	});
 
 })();
