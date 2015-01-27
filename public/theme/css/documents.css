@@ -1,0 +1,25 @@
+body {
+    font-size: 16px;
+    font-famliy: Arial, sans-serif;
+}
+.sert-doc-wrapper {
+    width: 1200px;
+    height: 852px;
+    background: url(/theme/img/sertificate-doc.jpg) no-repeat 0 0;
+    background-size: 100% 100%;
+}
+.sert-doc-wrapper table {
+    width: 100%;
+    height: 100%;
+}
+.sert-doc-wrapper table td {
+    vertical-align: top;
+    width: 50%;
+}
+.sert-doc-wrapper table td#first-td {
+    padding-left: 320px;
+    padding-top: 445px;
+}
+.sert-doc-wrapper table td#second-td {
+    padding-top: 250px;
+}

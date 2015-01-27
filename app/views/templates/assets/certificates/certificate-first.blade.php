@@ -1,10 +1,10 @@
 <!doctype html>
 <html class="no-js">
-    <head>
+<head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>{{{ isset($page_title) ? $page_title : Config::get('app.default_page_title') }}}</title>
-    <link media="all" type="text/css" rel="stylesheet" href="/theme/css/main.css">
+    {{ HTML::style(Config::get('site.theme_path').'/css/documents.css') }}
 </head>
 <body>
     <main>

@@ -528,7 +528,7 @@ class AccountsDocumentsController extends BaseController {
                             $mpdf->SetDisplayMode('fullpage');
                             $mpdf->AddPage('L');
                             $page_data['page_title'] = '';
-                            $stylesheet = file_get_contents(Config::get('site.theme_path').'/css/main.css');
+                            $stylesheet = file_get_contents(Config::get('site.theme_path').'/css/documents.css');
                             $mpdf->WriteHTML($stylesheet,1);
                             $mpdf->WriteHTML(View::make($template, $page_data)->render(), 2);
                             return $mpdf->Output('certificate-№'.$page_data['NomerUdostovereniya'].'.pdf', 'D');
