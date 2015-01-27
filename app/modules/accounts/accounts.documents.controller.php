@@ -188,6 +188,7 @@ class AccountsDocumentsController extends BaseController {
             if (!empty($document_content)):
                 Config::set('show-document.order_id', $order_id);
                 if($page_data = self::parseOrderHTMLDocument($document_content)):
+                    $page_data['FIO_listener'] = $listener->fio;
                     $page_data['NomerUdostovereniya'] = str_pad($OrderListener->certificate_number,4,'0',STR_PAD_LEFT);
                     $page_data['Nazvanie_kursa'] = $course->title;
                     $page_data['KolichestvoChasovObucheniyaPoKursu'] = $course->hours.' '.Lang::choice('час|часов|часов',$course->hours);
@@ -349,6 +350,7 @@ class AccountsDocumentsController extends BaseController {
             if (!empty($document_content)):
                 Config::set('show-document.order_id', $order_id);
                 if($page_data = self::parseOrderHTMLDocument($document_content)):
+                    $page_data['FIO_listener'] = $listener->fio;
                     $page_data['NomerUdostovereniya'] = str_pad($OrderListener->certificate_number,4,'0',STR_PAD_LEFT);
                     $page_data['Nazvanie_kursa'] = $course->title;
                     $page_data['KolichestvoChasovObucheniyaPoKursu'] = $course->hours.' '.Lang::choice('час|часов|часов',$course->hours);
@@ -484,7 +486,6 @@ class AccountsDocumentsController extends BaseController {
 
     public function moderatorOrderCertificate($order_id,$course_id,$listener_id,$format){
 
-        $account = User_organization::where('id',Auth::user()->id)->first();
         if (!$OrderListener = OrderListeners::where('id',$course_id)->where('order_id',$order_id)->where('user_id',$listener_id)->where('over_status',1)->first()):
             return Redirect::route('organization-orders');
         endif;
@@ -501,12 +502,20 @@ class AccountsDocumentsController extends BaseController {
                 App::abort(404);
             endif;
         endif;
+        $FIO_listener = '';
+        $group_id = User::where('id',$listener_id)->first()->group->id;
+        if ($group_id == 5):
+            $FIO_listener = User_listener::where('id',$listener_id)->pluck('fio');
+        else:
+            $FIO_listener = User_individual::where('id',$listener_id)->pluck('fio');
+        endif;
         if($document = DicVal::where('id',$course->certificate)->first()->allfields):
             $fields = modifyKeys($document,'key');
             $document_content = isset($fields['content']) ? $fields['content']->value : '';
             if (!empty($document_content)):
                 Config::set('show-document.order_id', $order_id);
                 if($page_data = self::parseOrderHTMLDocument($document_content)):
+                    $page_data['FIO_listener'] = @$FIO_listener;
                     $page_data['NomerUdostovereniya'] = str_pad($OrderListener->certificate_number,4,'0',STR_PAD_LEFT);
                     $page_data['Nazvanie_kursa'] = $course->title;
                     $page_data['KolichestvoChasovObucheniyaPoKursu'] = $course->hours.' '.Lang::choice('час|часов|часов',$course->hours);
@@ -519,6 +528,8 @@ class AccountsDocumentsController extends BaseController {
                             $mpdf->SetDisplayMode('fullpage');
                             $mpdf->AddPage('L');
                             $page_data['page_title'] = '';
+                            $stylesheet = file_get_contents(Config::get('site.theme_path').'/css/main.css');
+                            $mpdf->WriteHTML($stylesheet,1);
                             $mpdf->WriteHTML(View::make($template, $page_data)->render(), 2);
                             return $mpdf->Output('certificate-№'.$page_data['NomerUdostovereniya'].'.pdf', 'D');
                         case 'word':
