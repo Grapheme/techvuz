@@ -22,6 +22,9 @@ body {
 }
 .sert-doc-wrapper table td#second-td {
     padding-top: 250px;
+    width: 45%;
+    padding-left: 2.5%;
+    padding-right: 2.5%;
 }
 p {
     margin: 0 0 10px;
