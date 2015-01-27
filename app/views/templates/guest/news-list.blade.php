@@ -1,5 +1,5 @@
 <?php
-    $news_list = News::with('meta.seo')->limit(12)->get();
+    $news_list = News::with('meta.seo')->limit(12)->orderBy('published_at','DESC')->get();
 ?>
 @if($news_list->count())
 <section class="news">
