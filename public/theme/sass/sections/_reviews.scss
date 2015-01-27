@@ -15,6 +15,10 @@
 		float: left;
 		width: 70rem / $hfs;
 		text-align: center;
+
+		& > img {
+			max-height: 3rem;
+		}
 	}
 	.reviews-author-name {
 		margin: 0 0 0 70rem / $hfs;

@@ -9371,6 +9371,9 @@ section h3, section .h3 {
   width: 4.375rem;
   text-align: center;
 }
+.reviews-ul .reviews-author-ava > img {
+  max-height: 3rem;
+}
 .reviews-ul .reviews-author-name {
   margin: 0 0 0 4.375rem;
   font-weight: 600;
