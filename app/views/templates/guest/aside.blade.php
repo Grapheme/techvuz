@@ -35,9 +35,6 @@
            <li class="nav-li{{ Helper::isRoute('page', 'contacts',' active') }}">
                <a href="{{ URL::route('page', 'contacts') }}">Контактная информация</a>
            </li>
-           <li class="nav-li mobile-full-version">
-               <a href="#">Полная версия</a>
-           </li>
        </ul>
     </nav>
     @include('sphinxsearch/views/search-form')
