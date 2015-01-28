@@ -59,9 +59,9 @@
                         <td class="purchase-price" data-price="{{ number_format($discountPrice,0,'.','') }}">{{ number_format($discountPrice,0,'.',' ') }}.–</td>
                         <td class="purchase-price-sum">{{ number_format($discountPrice,0,'.','') }}.–</td>
                     @endif
-                    <td class="purchase-listeners"></td>
-                        
-                        <td class="purchase-price-sum">0.–</td>
+                    <td class="purchase-listeners hidden"></td>
+                    <td class="purchase-price-sum">0.–</td>
+
                     </tr>
                     <dd class="purchase-course-dd hidden">
                         <select name="listeners[{{ $course->id }}][]" multiple="multiple">
