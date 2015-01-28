@@ -1,7 +1,7 @@
 <aside class="main-aside">
     <div class="mobile-aside-header">
         <div class="phone">
-            <a href="tel:+78004400000">8 (800) 440 00 00</a>
+            <a href="tel:+78632990714">8 (863) 299 07 14</a>
         </div>
         <div class="phone-desc">
             Звонок бесплатный
@@ -34,9 +34,6 @@
            </li>
            <li class="nav-li{{ Helper::isRoute('page', 'contacts',' active') }}">
                <a href="{{ URL::route('page', 'contacts') }}">Контактная информация</a>
-           </li>
-           <li class="nav-li mobile-full-version">
-               <a href="#">Полная версия</a>
            </li>
        </ul>
     </nav>

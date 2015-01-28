@@ -56,7 +56,14 @@
                         <td class="purchase-price-sum">{{ number_format($course->price,0,'.','') }}.–</td>
                     @else
                         <?php $totalPrice += $discountPrice; ?>
-                        <td class="purchase-price" data-price="{{ number_format($discountPrice,0,'.','') }}">{{ number_format($discountPrice,0,'.',' ') }}.–</td>
+                        <td class="purchase-price" data-price="{{ number_format($discountPrice,0,'.','') }}">
+                            <div class="start-price margin-bottom-10" style="text-decoration: line-through;">
+                                    {{ number_format($course->price,0,'.',' ') }}.–
+                                </div>
+                                <div class="discount-price">
+                                    {{ number_format($discountPrice,0,'.',' ') }}.–
+                                </div> 
+                        </td>
                         <td class="purchase-price-sum">{{ number_format($discountPrice,0,'.','') }}.–</td>
                     @endif
                     </tr>
@@ -76,8 +83,22 @@
                 <div class="container-fluid">
                     <div class="row no-gutter margin-bottom-20">
                         <div class="col-xs-offset-6 col-sm-offset-6 col-md-offset-6 col-lg-offset-6 col-xs-6 col-sm-6 col-md-6 col-lg-6">
-                            <div class="count-add-sign">Итоговая сумма</div>
-                            <div class="count-add-num js-count-finish-sum">{{ number_format($totalPrice,0,'.','') }}.–</div>
+                            <div class="count-add-sign">Сумма</div>
+                            <div class="count-add-num"></div>
+                            <div class="count-add-dots"></div>
+                        </div>
+                    </div>
+                    <div class="row no-gutter margin-bottom-20">
+                        <div class="col-xs-offset-6 col-sm-offset-6 col-md-offset-6 col-lg-offset-6 col-xs-6 col-sm-6 col-md-6 col-lg-6 icon--blue">
+                            <div class="count-add-sign">Скидка</div>
+                            <div class="count-add-num"></div>
+                            <div class="count-add-dots"></div>
+                        </div>
+                    </div> 
+                    <div class="row no-gutter margin-bottom-20">
+                        <div class="col-xs-offset-6 col-sm-offset-6 col-md-offset-6 col-lg-offset-6 col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                            <div class="count-add-sign">К оплате</div>
+                            <div class="count-add-num">{{ number_format($totalPrice,0,'.','') }}.–</div>
                             <div class="count-add-dots"></div>
                         </div>
                     </div>                                

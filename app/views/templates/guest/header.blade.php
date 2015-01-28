@@ -17,7 +17,14 @@
     <?php $header_notification['show'] = TRUE;?>
     <?php $header_notification['code'] = 404;?>
 @endif
-<header class="main-header {{ $header_notification['show'] ? 'notificated' : '' }} clearfix">
+<header class="main-header {{ $header_notification['show'] ? 'notificated' : '' }} clearfix">    
+    
+    @if (Request::is('/'))
+    <div class="moder-logo"></div>
+    @else
+    <div class="moder-logo"><a class="moder-logo-link" href="{{ URL::route('mainpage') }}"></a></div>
+    @endif
+    
     <div class="top-dec">
         <div class="top-dec-part part-1"></div>
         <div class="top-dec-part part-2"></div>
