@@ -226,7 +226,7 @@ $('.accordion').accordion({
 		$aside.removeClass('active');
 	});
 	$('.mobile-full-version').click( function(){
-		$('meta[name="viewport"]').attr('content', 'width=1200, initial-scale=0.6, minimal-ui');
+		$('meta[name="viewport"]').attr('content', 'width=1200, initial-scale=0.6, maximum-scale=1, minimal-ui');
 	});
 })();
 
