@@ -88,7 +88,7 @@
                             <div class="count-add-dots"></div>
                         </div>
                     </div>
-                    <div class="row no-gutter margin-bottom-20 hidden">
+                    <div class="row no-gutter margin-bottom-20">
                         <div class="col-xs-offset-6 col-sm-offset-6 col-md-offset-6 col-lg-offset-6 col-xs-6 col-sm-6 col-md-6 col-lg-6 icon--blue">
                             <div class="count-add-sign">Скидка</div>
                             <div class="count-add-num"></div>
