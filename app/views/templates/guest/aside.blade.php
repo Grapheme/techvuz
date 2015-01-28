@@ -1,7 +1,10 @@
 <aside class="main-aside">
+    <div class="moder-logo hidden">
+
+    </div>
     <div class="mobile-aside-header">
         <div class="phone">
-            <a href="tel:+78004400000">8 (800) 440 00 00</a>
+            <a href="tel:+78632990714">8 (863) 299 07 14</a>
         </div>
         <div class="phone-desc">
             Звонок бесплатный
