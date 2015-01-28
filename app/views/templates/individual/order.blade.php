@@ -88,7 +88,7 @@
                 @elseif($listener['start_status'] == 1 && $listener['over_status'] == 1 && $account->moderator_approve)
                     <a href="{{ URL::route('individual-listener-order-certificate',array('order_id'=>$order->id,'course_id'=>$listener['id'],'listener_id'=>Auth::user()->id,'format'=>'pdf')) }}">Просмотреть</a>
                 @elseif($listener['start_status'] == 1 && $listener['over_status'] == 0)
-                    Обучается с {{ myDateTime::SwapDotDateWithOutTime($listener->start_date) }}
+                    Обучение не завершено
                 @endif
                 </td>
             </tr>
