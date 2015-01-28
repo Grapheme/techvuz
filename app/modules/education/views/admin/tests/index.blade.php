@@ -4,10 +4,13 @@
 <h4>Направление обучения &laquo;{{ $direction->title }}&raquo;</h4>
 <h4>Курс {{ $course->code }}. &laquo;{{ $course->title }}&raquo;</h4>
 @if(!is_null($chapter))
-<h4>Глава &laquo;{{ $chapter->title }}&raquo;. {{ $test->title }}</h4>
+<h4>
+    Глава &laquo;{{ $chapter->title }}&raquo;
+    @if(!empty($chapter->test_title)){{ $chapter->test_title }}@else{{ $test->title }}@endif
+</h4>
 <?php $chapter_id = $chapter->id?>
 @else
-<h4>{{ $test->title }}</h4>
+<h4>@if(!empty($chapter->test_title)){{ $chapter->test_title }}@else{{ $test->title }}@endif</h4>
 <?php $chapter_id = 0; ?>
 @endif
 <div class="row">
