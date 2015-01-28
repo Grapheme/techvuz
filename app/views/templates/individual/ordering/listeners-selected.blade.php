@@ -56,7 +56,14 @@
                         <td class="purchase-price-sum">{{ number_format($course->price,0,'.','') }}.–</td>
                     @else
                         <?php $totalPrice += $discountPrice; ?>
-                        <td class="purchase-price" data-price="{{ number_format($discountPrice,0,'.','') }}">{{ number_format($discountPrice,0,'.',' ') }}.–</td>
+                        <td class="purchase-price" data-price="{{ number_format($discountPrice,0,'.','') }}">
+                            <div class="start-price margin-bottom-10" style="text-decoration: line-through;">
+                                    {{ number_format($course->price,0,'.',' ') }}.–
+                                </div>
+                                <div class="discount-price">
+                                    {{ number_format($discountPrice,0,'.',' ') }}.–
+                                </div> 
+                        </td>
                         <td class="purchase-price-sum">{{ number_format($discountPrice,0,'.','') }}.–</td>
                     @endif
                     </tr>
