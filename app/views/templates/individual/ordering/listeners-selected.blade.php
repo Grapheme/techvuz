@@ -59,9 +59,6 @@
                         <td class="purchase-price" data-price="{{ number_format($discountPrice,0,'.','') }}">{{ number_format($discountPrice,0,'.',' ') }}.–</td>
                         <td class="purchase-price-sum">{{ number_format($discountPrice,0,'.','') }}.–</td>
                     @endif
-                    <td class="purchase-listeners hidden"></td>
-                    <td class="purchase-price-sum">0.–</td>
-
                     </tr>
                     <dd class="purchase-course-dd hidden">
                         <select name="listeners[{{ $course->id }}][]" multiple="multiple">
@@ -80,7 +77,7 @@
                     <div class="row no-gutter margin-bottom-20">
                         <div class="col-xs-offset-6 col-sm-offset-6 col-md-offset-6 col-lg-offset-6 col-xs-6 col-sm-6 col-md-6 col-lg-6">
                             <div class="count-add-sign">Итоговая сумма</div>
-                            <div class="count-add-num js-count-finish-sum">{{ number_format($totalPrice,0,'.','') }}.–</div>
+                            <div class="count-add-num">{{ number_format($totalPrice,0,'.','') }}.–</div>
                             <div class="count-add-dots"></div>
                         </div>
                     </div>                                
