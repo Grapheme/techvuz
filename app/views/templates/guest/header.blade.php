@@ -17,7 +17,10 @@
     <?php $header_notification['show'] = TRUE;?>
     <?php $header_notification['code'] = 404;?>
 @endif
-<header class="main-header {{ $header_notification['show'] ? 'notificated' : '' }} clearfix">
+<header class="main-header {{ $header_notification['show'] ? 'notificated' : '' }} clearfix">    
+    <div class="moder-logo">
+
+    </div>
     <div class="top-dec">
         <div class="top-dec-part part-1"></div>
         <div class="top-dec-part part-2"></div>
