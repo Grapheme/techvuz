@@ -51,14 +51,21 @@
                             <?php $discountPrice = calculateDiscount(array($course->direction->discount,$course->discount,$accountDiscount,$globalDiscount),$course->price); ?>
                         @endif
                     @if($discountPrice === FALSE || $discountPrice == $course->price)
-                        <?php $totalPrice += $course->price; ?>
-                        <td class="purchase-price" data-price="{{ number_format($course->price,0,'.','') }}">{{ number_format($course->price,0,'.',' ') }}.–</td>
-                        <td class="purchase-price-sum">{{ number_format($course->price,0,'.','') }}.–</td>
-                    @else
-                        <?php $totalPrice += $discountPrice; ?>
-                        <td class="purchase-price" data-price="{{ number_format($discountPrice,0,'.','') }}">{{ number_format($discountPrice,0,'.',' ') }}.–</td>
-                        <td class="purchase-price-sum">{{ number_format($discountPrice,0,'.','') }}.–</td>
-                    @endif
+                            <td class="purchase-price" data-real-price="{{ $course->price }}" data-price="{{ $course->price }}">
+                                <div class="start-price">
+                                    {{ number_format($course->price,0,'.',' ') }}.–
+                                </div>                          
+                            </td>
+                        @else
+                            <td class="purchase-price" data-real-price="{{ $course->price }}" data-price="{{ $discountPrice }}">
+                                <div class="start-price margin-bottom-10" style="text-decoration: line-through;">
+                                    {{ number_format($course->price,0,'.',' ') }}.–
+                                </div>
+                                <div class="discount-price">
+                                    {{ number_format($discountPrice,0,'.',' ') }}.–
+                                </div>                                
+                            </td>
+                        @endif
                     </tr>
                     <dd class="purchase-course-dd hidden">
                         <select name="listeners[{{ $course->id }}][]" multiple="multiple">
