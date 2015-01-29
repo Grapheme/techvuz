@@ -10,15 +10,11 @@ php_value max_input_time 500
 <IfModule mod_rewrite.c>
     RewriteEngine on
 
-    #RewriteCond %{HTTP_HOST} ^www.tehvuz.ru [NC]
-    #RewriteRule ^(.*)$ http://tehvuz.ru/$1 [R=301,L]
-
-    #RewriteCond %{HTTP_HOST} ^www.техвуз.рф [NC]
-    #RewriteRule ^(.*)$ http://техвуз.рф/$1 [R=301,L]
-
-    RewriteRule ^([^/]+) $1 [L]
-    RewriteCond %{HTTP_HOST} ^(www\.)?техвуз\.рф$
+    RewriteCond %{HTTP_HOST} ^www.tehvuz.ru [NC]
     RewriteRule ^(.*)$ http://tehvuz.ru/$1 [R=301,L]
+
+    RewriteCond %{HTTP_HOST} ^www.техвуз.рф [NC]
+    RewriteRule ^(.*)$ http://техвуз.рф/$1 [R=301,L]z
 
 	RewriteCond %{REQUEST_URI} !static/
 	RewriteRule (.*) /public/$1 [L]
