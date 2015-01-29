@@ -4,7 +4,7 @@ return array(
 
 	'connections' => array(
 		'mysql' => array(
-			'database'  => 'techvuz',
+			'database'  => 'tehvuz',
 			'username'  => 'root',
 			'password'  => 'k.,jdmythtdyetnyfghfcyj',
 		),
