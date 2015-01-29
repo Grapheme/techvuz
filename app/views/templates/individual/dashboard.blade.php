@@ -22,7 +22,7 @@
     <div class="cabinet-tabs">
         @include(Helper::acclayout('menu'))
         <div class="employees">
-            <h3>Курсы</h3>
+            <h3 class="no-margin">Курсы</h3>
             <div class="count-add">
                 <?php $activeCoursesIDs = array(); ?>
                 <?php $closedCoursesIDs = array(); ?>
