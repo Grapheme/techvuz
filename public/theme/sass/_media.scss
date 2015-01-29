@@ -53,6 +53,13 @@
     }
     .accordion .ui-accordion-header {
         padding: 0 0 0 1.2875rem;
+
+        table {
+            width: 100%;
+        }
+        tr.course-in-progress {
+            display: none;
+        }
     }
     .accordion-body {
     	display: block !important;
