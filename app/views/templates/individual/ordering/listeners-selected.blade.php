@@ -82,6 +82,7 @@
         <div class="sum-block margin-bottom-40">
             <div class="count-add">
                 <div class="container-fluid">
+                @if((int)($coursesPrice-$totalPrice) > 0)
                     <div class="row no-gutter margin-bottom-20">
                         <div class="col-xs-offset-6 col-sm-offset-6 col-md-offset-6 col-lg-offset-6 col-xs-6 col-sm-6 col-md-6 col-lg-6">
                             <div class="count-add-sign">Сумма</div>
@@ -95,7 +96,8 @@
                             <div class="count-add-num">{{ number_format($coursesPrice-$totalPrice,0,'.',' ') }}.–</div>
                             <div class="count-add-dots"></div>
                         </div>
-                    </div> 
+                    </div>
+                @endif
                     <div class="row no-gutter margin-bottom-20">
                         <div class="col-xs-offset-6 col-sm-offset-6 col-md-offset-6 col-lg-offset-6 col-xs-6 col-sm-6 col-md-6 col-lg-6">
                             <div class="count-add-sign">К оплате</div>
