@@ -12,8 +12,13 @@
 		background: $clr-main-bg;
 
 		.icon {
+			transition: all .4s ease;
 			margin: 0;
 			cursor: pointer;
+
+			&:hover {
+				opacity: .5;
+			}
 		}
 		.notifications-count {
 			margin: 0 .25rem;
@@ -27,6 +32,11 @@
 			text-decoration: underline;
 
 			cursor: pointer;
+		}
+		.js-notif-close {
+			&:hover {
+				text-decoration: none;
+			}
 		}
 	}
 
@@ -55,6 +65,8 @@
 		}
 		.notif-cont {
 			margin: 0 0 28rem / $hfs;
+			font-size: 0.9em;
+			line-height: 1.6em;
 		}
 		.notif-date {
 			text-align: right;
@@ -71,6 +83,7 @@
 			cursor: pointer;
 
 			&:hover {
+				opacity: .5;
 				border-color: transparent;
 			}
 		}
