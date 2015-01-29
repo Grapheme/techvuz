@@ -2,6 +2,7 @@
 	@extend .list-unstyled;
 
 	.directions-li {
+		transition: all .4s ease;
 		position: relative;
 		float: left;
 		width: (100% / 3);
@@ -16,6 +17,10 @@
 			width: 100%;
 		}
 
+		&:hover {
+			box-shadow: 0 0 10rem 20rem rgba(0, 0, 0, 0.1) inset;
+		}
+
 		img {
 			position: absolute;
 			bottom: 33rem / $hfs;
@@ -23,12 +28,7 @@
 		}
 
 		.direction-link {
-			transition: all .4s ease;
 			@extend .full-abs;
-
-			&:hover {
-				background: rgba(0, 0, 0, .1);
-			}
 		}
 
 		.directions-img {
