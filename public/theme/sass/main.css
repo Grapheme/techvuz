@@ -9806,6 +9806,9 @@ main.order-page a:hover {
 .contacts {
   font-weight: 400;
 }
+.contacts .map-col {
+  width: 1.333333%;
+}
 
 .divMessageBox {
   background: none repeat scroll 0 0 rgba(0, 0, 0, 0.6);
