@@ -142,20 +142,18 @@
         <div>
             <a href="{{ URL::route('ordering-select-courses') }}" class="btn btn-top-margin btn--bordered btn--blue pull-right">Новый заказ</a>
             <h3 class="no-margin"><a href="{{ URL::route('organization-orders') }}">Заказы</a></h3>
-            <ul class="orders-ul">
-            <?php $showed = 0; $maxCourses = 3; ?>
-            @if(hasCookieData('ordering'))
-                <?php $maxCourses = 2; ?>
-                @include(Helper::acclayout('assets.temp-order'))
-            @endif
-            @foreach($orders as $order)
-                @if($showed >= $maxCourses)
-                    <?php break; ?>
+            <ul class="orders-ul"><?php $showed = 0; $maxCourses = 3; ?>
+                @if(hasCookieData('ordering'))
+                    <?php $maxCourses = 2; ?>
+                    @include(Helper::acclayout('assets.temp-order'))
                 @endif
-                @include(Helper::acclayout('assets.order'))
-                <?php $showed++; ?>
-            @endforeach
-            </ul>
+                @foreach($orders as $order)
+                    @if($showed >= $maxCourses)
+                        <?php break; ?>
+                    @endif
+                    @include(Helper::acclayout('assets.order'))
+                    <?php $showed++; ?>
+                @endforeach</ul>
         </div>
         <div>
         <?php
