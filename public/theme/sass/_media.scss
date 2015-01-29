@@ -10,8 +10,15 @@
     		display: none;
     	}
         .contact {
+            position: relative;
             padding: 0 0 0 2.75rem;
         }
+    }
+    .catalog .desc {
+        display: none;
+    }
+    .banner {
+        display: none;
     }
     main {
     	margin: 0;

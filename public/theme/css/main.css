@@ -11255,7 +11255,16 @@ main.order-page a:hover {
     display: none;
   }
   .main-header .contact {
+    position: relative;
     padding: 0 0 0 2.75rem;
+  }
+
+  .catalog .desc {
+    display: none;
+  }
+
+  .banner {
+    display: none;
   }
 
   main {
