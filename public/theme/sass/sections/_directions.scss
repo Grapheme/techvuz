@@ -2,6 +2,7 @@
 	@extend .list-unstyled;
 
 	.directions-li {
+		transition: all .4s ease;
 		position: relative;
 		float: left;
 		width: (100% / 3);
@@ -14,6 +15,10 @@
 		}
 		@media screen and ($mobileLand) {
 			width: 100%;
+		}
+
+		&:hover {
+			box-shadow: 0 0 10rem 20rem rgba(0, 0, 0, 0.1) inset;
 		}
 
 		img {

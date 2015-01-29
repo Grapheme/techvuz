@@ -6,9 +6,9 @@
     <div class="desc">
     {{ $page->block('top_desc') }}
     </div>
-    <div class="container-fluid">
+    <div class="container-fluid map-container-fluid">
         <div class="row margin-bottom-40 no-gutter">
-            <div class="col-xs-1 col-sm-1 col-md-1 col-lg-1">
+            <div class="map-col-1 col-xs-1 col-sm-1 col-md-1 col-lg-1">
                 <span class="icon icon--blue icon-location"></span>
             </div>
             <div class=" col-xs-11 col-sm-11 col-md-11 col-lg-11">
@@ -18,7 +18,7 @@
             </div>
         </div>
         <div class="row margin-bottom-20 no-gutter">
-            <div class="col-xs-1 col-sm-1 col-md-1 col-lg-1">
+            <div class="map-col-1 col-xs-1 col-sm-1 col-md-1 col-lg-1">
                 <span class="icon icon--blue icon-mobile"></span>
             </div>
             <div class=" col-xs-11 col-sm-11 col-md-11 col-lg-11">
@@ -26,7 +26,7 @@
             </div>
         </div>
         <div class="row margin-bottom-20 no-gutter">
-            <div class="col-xs-1 col-sm-1 col-md-1 col-lg-1">
+            <div class="map-col-1 col-xs-1 col-sm-1 col-md-1 col-lg-1">
                 <span class="icon icon--blue icon-mail"></span>
             </div>
             <div class=" col-xs-11 col-sm-11 col-md-11 col-lg-11">

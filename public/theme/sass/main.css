@@ -9300,6 +9300,7 @@ section h3, section .h3 {
 }
 
 .directions-ul .directions-li {
+  transition: all .4s ease;
   position: relative;
   float: left;
   width: 33.33333%;
@@ -9316,6 +9317,9 @@ section h3, section .h3 {
   .directions-ul .directions-li {
     width: 100%;
   }
+}
+.directions-ul .directions-li:hover {
+  box-shadow: 0 0 10rem 20rem rgba(0, 0, 0, 0.1) inset;
 }
 .directions-ul .directions-li img {
   position: absolute;
@@ -9467,6 +9471,7 @@ section h3, section .h3 {
   left: -4.375rem;
   width: 1.8125rem;
   height: 100%;
+  text-indent: -3px;
   border-right: 5px solid;
   font-size: 2.5em;
   line-height: .8em;
@@ -9800,6 +9805,10 @@ main.order-page a:hover {
 
 .contacts {
   font-weight: 400;
+}
+.contacts .map-col-1 {
+  width: 1.333333%;
+  padding: 0;
 }
 
 .divMessageBox {

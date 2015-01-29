@@ -32,7 +32,7 @@
         <?php $license['fields'] = modifyKeys($license['fields'],'key'); ?>
         @if(isset($license->fields['document']->value) && isset($images[$license->fields['document']->value]))
             <li class="lic-li" style="background-image: url({{ asset(Config::get('site.galleries_thumb_public_dir').'/'.$images[$license->fields['document']->value]->name) }})" title="{{ $license->name }}">
-                <a class="fancybox" href="{{ asset(Config::get('site.galleries_photo_public_dir').'/'.$images[$license->fields['document']->value]->name) }}"></a>
+                <a class="fancybox" rel="group" href="{{ asset(Config::get('site.galleries_photo_public_dir').'/'.$images[$license->fields['document']->value]->name) }}"></a>
             </li>
         @endif
         @endforeach
