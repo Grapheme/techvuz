@@ -9758,6 +9758,7 @@ section h3, section .h3 {
   top: 0;
   left: 0;
   margin: 0.4rem 0 0 0.2rem;
+  padding: 0;
   border: none;
   background: none;
   outline: none;
