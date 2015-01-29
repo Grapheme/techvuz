@@ -10,8 +10,15 @@
     		display: none;
     	}
         .contact {
+            position: relative;
             padding: 0 0 0 2.75rem;
         }
+    }
+    .catalog .desc {
+        display: none;
+    }
+    .banner {
+        display: none;
     }
     main {
     	margin: 0;
@@ -44,7 +51,9 @@
     .accordion .ui-state-active:after {
 		content: none;
     }
-
+    .accordion .ui-accordion-header {
+        padding: 0 0 0 1.2875rem;
+    }
     .accordion-body {
     	display: block !important;
     }
