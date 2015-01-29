@@ -11283,6 +11283,10 @@ main.order-page a:hover {
     content: none;
   }
 
+  .accordion .ui-accordion-header {
+    padding: 0 0 0 1.2875rem;
+  }
+
   .accordion-body {
     display: block !important;
   }
