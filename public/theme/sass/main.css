@@ -11038,6 +11038,7 @@ main.order-page a:hover {
   position: relative;
 }
 .moderator-wrapper .main-header .contact {
+  position: static;
   margin-left: 9rem;
 }
 .moderator-wrapper .main-header .contact:before {
