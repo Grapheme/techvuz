@@ -9829,6 +9829,7 @@ main.order-page a:hover {
 }
 .contacts .map-col-1 {
   width: 1.333333%;
+  padding: 0;
 }
 
 .divMessageBox {
