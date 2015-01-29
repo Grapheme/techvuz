@@ -8,14 +8,14 @@ php_value max_execution_time 500
 php_value max_input_time 500
 
 <IfModule mod_rewrite.c>
-    RewriteEngine on
+    RewriteEngine On
+    RewriteBase /
 
-    RewriteCond %{HTTP_HOST} ^www.tehvuz.ru [NC]
-    RewriteRule ^(.*)$ http://tehvuz.ru/$1 [R=301,L]
+    RewriteCond %{HTTP_HOST} ^xn--b1afh5bhk.xn--p1ai$ [NC,OR]
+    RewriteCond %{HTTP_HOST} ^www.xn--b1afh5bhk.xn--p1ai$ [NC,OR]
+    RewriteCond %{HTTP_HOST} ^www.tehvuz.ru$ [NC]
+    RewriteRule ^(.*)$ http://tehvuz.ru/$1 [R=301,NC,L]
 
-    RewriteCond %{HTTP_HOST} ^www.техвуз.рф [NC]
-    RewriteRule ^(.*)$ http://техвуз.рф/$1 [R=301,L]
-
-	RewriteCond %{REQUEST_URI} !static/
-	RewriteRule (.*) /public/$1 [L]
+    RewriteCond %{REQUEST_URI} !static/
+    RewriteRule (.*) /public/$1 [L]
 </IfModule>
