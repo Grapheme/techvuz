@@ -9471,6 +9471,7 @@ section h3, section .h3 {
   left: -4.375rem;
   width: 1.8125rem;
   height: 100%;
+  text-indent: -3px;
   border-right: 5px solid;
   font-size: 2.5em;
   line-height: .8em;
