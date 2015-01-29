@@ -9,7 +9,8 @@
 	input {
 		width: 100%;
 		padding: .5rem 0 .5rem 26rem / $hfs;
-		border: none;
+		border: none;		
+		outline: none;
 
 		background: none;
 		
@@ -33,7 +34,6 @@
 
 		border: none;
 		background: none;
-		outline: none;
 		color: $clr-mid-gray;
 
 		.icon {
