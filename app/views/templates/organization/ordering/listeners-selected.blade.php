@@ -49,7 +49,7 @@
                     </tr>
                     <tr>
                         <td>
-                            <div class="icon-blue-bag-btn js-delete-course"></div>
+                            <div class="icon-blue-bag-btn js-delete-course" title="Удалить курс"></div>
                             {{ $course->title }}
                         </td>
                         <td>{{ $course->code }}</td>
