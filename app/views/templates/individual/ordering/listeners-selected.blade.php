@@ -23,7 +23,7 @@
             $accountDiscount = getAccountDiscount();
             $globalDiscount = getGlobalDiscount();
             $coursesCountDiscount = coursesCountDiscount();
-            $totalPrice = 0;
+            $totalPrice = $coursesPrice = 0;
         ?>
             <dt class="purchase-course-dt">
                 <?php $discountStatic = 0; $useCourseDiscount = 0; ?>
@@ -35,6 +35,7 @@
                         <th>Сумма</th>
                     </tr>
                 @foreach(Courses::whereIn('id',getJsonCookieData('ordering'))->with('direction')->get() as $course)
+                    <?php $coursesPrice += $course->price; ?>
                     {{ Form::hidden('courses[]',$course->id) }}
                     <tr>
                         <td>
@@ -84,14 +85,14 @@
                     <div class="row no-gutter margin-bottom-20">
                         <div class="col-xs-offset-6 col-sm-offset-6 col-md-offset-6 col-lg-offset-6 col-xs-6 col-sm-6 col-md-6 col-lg-6">
                             <div class="count-add-sign">Сумма</div>
-                            <div class="count-add-num"></div>
+                            <div class="count-add-num">{{ number_format($coursesPrice,0,'.',' ') }}.–</div>
                             <div class="count-add-dots"></div>
                         </div>
                     </div>
                     <div class="row no-gutter margin-bottom-20">
                         <div class="col-xs-offset-6 col-sm-offset-6 col-md-offset-6 col-lg-offset-6 col-xs-6 col-sm-6 col-md-6 col-lg-6 icon--blue">
                             <div class="count-add-sign">Скидка</div>
-                            <div class="count-add-num"></div>
+                            <div class="count-add-num">{{ number_format($coursesPrice-$totalPrice,0,'.',' ') }}.–</div>
                             <div class="count-add-dots"></div>
                         </div>
                     </div> 
