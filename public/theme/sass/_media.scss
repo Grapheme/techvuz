@@ -61,6 +61,13 @@
         tr.course-in-progress {
             display: none;
         }
+        .ui-state-disabled {
+            display: none;
+
+            & + div {
+                display: none;
+            }
+        }
     }
     .accordion-body {
     	display: block !important;

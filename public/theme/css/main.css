@@ -11306,6 +11306,12 @@ main.order-page a:hover {
   .accordion tr.course-in-progress {
     display: none;
   }
+  .accordion .ui-state-disabled {
+    display: none;
+  }
+  .accordion .ui-state-disabled + div {
+    display: none;
+  }
 
   .accordion-body {
     display: block !important;
