@@ -1,9 +1,14 @@
 .registration-form {
 
 	.reg-form-alert {
-		margin: 0 0 43rem / $hfs;
+		margin: -2.6rem 0 43rem / $hfs;
 		font-size: 19em / $hfs;
 		line-height: (29em / 19);
+		font-weight: 500;
+
+		img {
+			margin: 0 .75rem 0 0;
+		}
 	}
 
 	&.listener-add-form {

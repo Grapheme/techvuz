@@ -4,7 +4,7 @@
     {{ Form::hidden('fio_manager_rod','Не указано') }}
     {{ Form::hidden('manager_rod','Не указано') }}
     <div class="reg-form-alert">
-        <img class="vertical-text-bot" src="{{ asset('theme/img/triangle.png') }}"> Все поля являются обязательными для заполнения!
+        <img class="vertical-text-bot" src="{{ asset('theme/img/triangle.png') }}"> Все поля являются обязательными для заполнения
     </div>
     <fieldset>
         <div class="form-element">
