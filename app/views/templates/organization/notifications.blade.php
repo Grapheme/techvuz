@@ -14,7 +14,7 @@
     <div class="cabinet-tabs">
         @include(Helper::acclayout('menu'))
         <div class="employees">
-            <h3>Уведомления</h3>
+            <h3 class="no-margin">Уведомления</h3>
         </div>
         <table class="tech-table sortable notif-table">
             <tbody>
