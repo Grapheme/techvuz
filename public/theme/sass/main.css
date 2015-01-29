@@ -7281,6 +7281,7 @@ a[href^="tel"] {
 }
 
 .icon-bag-btn {
+  transition: all .4s ease;
   display: block;
   width: 2.125rem;
   height: 2.125rem;
@@ -7288,6 +7289,9 @@ a[href^="tel"] {
   border: none;
   background: url(../img/delete.png) no-repeat center center;
   cursor: pointer;
+}
+.icon-bag-btn:hover {
+  opacity: .5;
 }
 
 .icon-blue-bag-btn {

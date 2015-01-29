@@ -13,8 +13,8 @@
     <h2>{{ User_organization::where('id',Auth::user()->id)->pluck('title') }}</h2>
     <div class="cabinet-tabs">
         @include(Helper::acclayout('menu'))
-        <div class="employees margin-bottom-40">
-            <h3 class="margin-bottom-20">Уведомления</h3>
+        <div class="employees">
+            <h3>Уведомления</h3>
         </div>
         <table class="tech-table sortable notif-table">
             <tbody>

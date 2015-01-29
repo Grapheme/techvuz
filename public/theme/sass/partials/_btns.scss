@@ -1,4 +1,5 @@
 .icon-bag-btn {
+	transition: all .4s ease;
 	display: block;
 	width: 34rem / $hfs;
 	height: 34rem / $hfs;
@@ -7,6 +8,10 @@
 	background: url(../img/delete.png) no-repeat center center;
 
 	cursor: pointer;
+
+	&:hover {
+		opacity: .5;
+	}
 }
 .icon-blue-bag-btn {
 	transition: all .4s ease;
