@@ -8,7 +8,7 @@
 
 	input {
 		width: 100%;
-		padding: .5rem 0 0 26rem / $hfs;
+		padding: .5rem 0 .5rem 26rem / $hfs;
 		border: none;
 
 		background: none;
@@ -26,11 +26,13 @@
 
 	button {
 		position: absolute;
-		bottom: 2rem / $hfs;
+		top: 0;
 		left: 0;
+		margin: 0.4rem 0 0 0.2rem;
 
 		border: none;
 		background: none;
+		outline: none;
 		color: $clr-mid-gray;
 
 		.icon {
