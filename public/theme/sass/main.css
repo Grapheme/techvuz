@@ -11287,6 +11287,19 @@ main.order-page a:hover {
     padding: 0 0 0 1.2875rem;
   }
 
+  .accordion table {
+    width: 100%;
+  }
+  .accordion tr.course-in-progress {
+    display: none;
+  }
+  .accordion .ui-state-disabled {
+    display: none;
+  }
+  .accordion .ui-state-disabled + div {
+    display: none;
+  }
+
   .accordion-body {
     display: block !important;
   }
