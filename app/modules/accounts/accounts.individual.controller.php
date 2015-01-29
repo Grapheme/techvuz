@@ -335,13 +335,10 @@ class AccountsIndividualController extends BaseController {
                 endif;
             endforeach;
             if (!empty($documents)):
-                $zipFilePath = sys_get_temp_dir().'/'.sha1(time().Auth::user()->id).'.zip';
+                $zipFilePath = storage_path(sha1(time().Auth::user()->id).'.zip');
                 $zipper = new \Chumper\Zipper\Zipper();
                 $zipper->make($zipFilePath)->add($documents)->close();
                 if (File::exists($zipFilePath)):
-                    if($listenerCourse->start_status == 0):
-                        #Event::fire('individual.study.begin',array(array('accountID'=>User_listener::where('id',Auth::user()->id)->first()->organization()->pluck('id'),'course'=>OrderListeners::where('id',$study_course_id)->first()->course()->pluck('code'),'listener'=>User_listener::where('id',Auth::user()->id)->pluck('fio'))));
-                    endif;
                     Event::fire('listener.start.course.study', array(array('listener_course_id'=>$study_course_id)));
                     $headers = returnZipDownloadHeaders($zipFilePath);
                     return Response::download($zipFilePath, 'all-lectures.zip.', $headers);
