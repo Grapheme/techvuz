@@ -63,8 +63,8 @@
                             </tbody>
                         </table>
                         @else
-                            <p>Нет доступных курсов для обучения. </p>
-                            <p><a href="{{ URL::route('ordering-select-courses') }}" class="btn btn-top-margin btn--bordered btn--blue pull-right">Новый заказ</a></p>
+                            <p>Вы не подписаны ни на один курс.</p>
+                            <p>Доступные курсы появятся на данной странице после Вашей оплаты выбранного курса.</p>
                         @endif
                     </div>
                     <div id="tabs-13">
@@ -89,7 +89,7 @@
                             </tbody>
                         </table>
                         @else
-                            <p>Вы не завершили обучение не по одному из курсов</p>
+                            <p>Вы еще не завершили обучение ни по одному из курсов.</p>
                         @endif
                     </div>
                     <div id="tabs-14">

@@ -8,6 +8,15 @@ $prefix = AuthAccount::getGroupStartUrl();
 Route::get('redactor/get-uploaded-images', 'DownloadsController@redactorUploadedImages');
 Route::post('redactor/upload', 'DownloadsController@redactorUploadImage');
 
+
+Route::get('sitemap',function(){
+
+    $xml = File::get(public_path('sitemap.xml'));
+    $response = Response::make($xml, 200);
+    $response->header('Content-Type', 'text/xml');
+    return $response;
+});
+
 #################################################################
 ## Все, что ниже - можно вынести в модуль system - Пользователи.
 ## Но, возможно, придется следить за порядком загрузки модулей...
