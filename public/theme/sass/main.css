@@ -9322,6 +9322,12 @@ section h3, section .h3 {
   bottom: 2.0625rem;
   right: 2.0625rem;
 }
+.directions-ul .directions-li .direction-link {
+  transition: all .4s ease;
+}
+.directions-ul .directions-li .direction-link:hover {
+  background: rgba(0, 0, 0, 0.1);
+}
 .directions-ul .directions-li .directions-img {
   position: absolute;
   bottom: 2.0625rem;

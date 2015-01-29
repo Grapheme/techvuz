@@ -23,7 +23,12 @@
 		}
 
 		.direction-link {
+			transition: all .4s ease;
 			@extend .full-abs;
+
+			&:hover {
+				background: rgba(0, 0, 0, .1);
+			}
 		}
 
 		.directions-img {
