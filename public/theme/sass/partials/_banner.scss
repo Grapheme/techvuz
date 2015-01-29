@@ -5,7 +5,7 @@
 	height: 123rem / $hfs;
 	border: 2rem / $hfs solid;
 	margin: 0 0 50rem / $hfs;
-	padding: 0 0 .5rem 67rem / $hfs;
+	padding: 0 0 0 67rem / $hfs;
 
 	border-radius: 1rem / $hfs;
 	color: $clr-danger;
@@ -14,7 +14,7 @@
 		display: table-cell;
 		vertical-align: middle;
 
-		font-size: 34em / $hfs;
+		font-size: 1.75em;
 		font-weight: 400;
 		line-height: (40.8em / 34);
 	}
@@ -50,6 +50,14 @@
 		box-shadow: 0 5rem / $hfs 0rem / $hfs -1rem / $hfs $clr-gray;
 	}
 
+	p {
+		margin: 0;
+	}
+
+}
+
+.desc + .banner {
+	margin: 2.625rem 0 3.125rem;
 }
 
 @media screen and (-webkit-min-device-pixel-ratio:0) {

@@ -7413,14 +7413,14 @@ a[href^="tel"] {
   height: 7.6875rem;
   border: 0.125rem solid;
   margin: 0 0 3.125rem;
-  padding: 0 0 0.5rem 4.1875rem;
+  padding: 0 0 0 4.1875rem;
   border-radius: 0.0625rem;
   color: #bb252d;
 }
 .banner > span {
   display: table-cell;
   vertical-align: middle;
-  font-size: 2.125em;
+  font-size: 1.75em;
   font-weight: 400;
   line-height: 1.2em;
 }
@@ -7449,6 +7449,13 @@ a[href^="tel"] {
 .banner.banner--red {
   border-color: #bb252d;
   box-shadow: 0 0.3125rem 0rem -0.0625rem #ddd;
+}
+.banner p {
+  margin: 0;
+}
+
+.desc + .banner {
+  margin: 2.625rem 0 3.125rem;
 }
 
 @media screen and (-webkit-min-device-pixel-ratio: 0) {
