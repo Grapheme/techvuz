@@ -11299,10 +11299,11 @@ main.order-page a:hover {
   .accordion .ui-accordion-header {
     padding: 0 0 0 1.2875rem;
   }
-  .accordion .ui-accordion-header table {
+
+  .accordion table {
     width: 100%;
   }
-  .accordion .ui-accordion-header tr.course-in-progress {
+  .accordion tr.course-in-progress {
     display: none;
   }
 
