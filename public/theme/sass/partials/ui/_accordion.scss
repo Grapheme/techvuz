@@ -6,9 +6,14 @@
 	}
 
 	.accordion-header {
+		transition: all .4s ease;
 		position: relative;
 		outline: none;
 		background: $clr-gray;
+
+		&:hover {
+			box-shadow: 0 0 20rem 10rem rgba(0, 0, 0, 0.1) inset;
+		}
 
 		&.direction-in-progress {
 			opacity: .3;
@@ -187,7 +192,6 @@
 		transition: all .4s ease;
 		height: 141rem / $hfs;
 		padding: 0 0 0 179rem / $hfs;
-		border-bottom: 1px solid $clr-gray;
 	}
 
 	.ui-state-default {

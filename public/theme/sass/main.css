@@ -7468,10 +7468,14 @@ a[href^="tel"] {
   display: none;
 }
 .accordion .accordion-header {
+  transition: all .4s ease;
   position: relative;
   outline: none;
   background: #ddd;
   cursor: pointer;
+}
+.accordion .accordion-header:hover {
+  box-shadow: 0 0 20rem 10rem rgba(0, 0, 0, 0.1) inset;
 }
 .accordion .accordion-header.direction-in-progress {
   opacity: .3;
@@ -7620,7 +7624,6 @@ a[href^="tel"] {
   transition: all .4s ease;
   height: 8.8125rem;
   padding: 0 0 0 11.1875rem;
-  border-bottom: 1px solid #ddd;
 }
 .accordion .ui-state-default:after {
   transition: all .4s ease;
