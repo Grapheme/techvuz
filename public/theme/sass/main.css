@@ -7451,7 +7451,7 @@ a[href^="tel"] {
   box-shadow: 0 0.3125rem 0rem -0.0625rem #ddd;
 }
 .banner p {
-  margin: 0;
+  margin: 1em 0;
 }
 
 .desc + .banner {
