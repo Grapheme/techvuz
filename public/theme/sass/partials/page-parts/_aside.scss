@@ -1,7 +1,6 @@
 .main-aside {
-	position: absolute;
+	position: fixed;
 	top: 92rem / $hfs;
-	left: 0;
 	width: 286rem / $hfs;
 
 	color: $clr-white;
@@ -118,7 +117,7 @@
 		&.active {
 			a {
 				border: none;
-				color: $clr-black;
+				color: #333;
 				cursor: default;
 			}
 		}
