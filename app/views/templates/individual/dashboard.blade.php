@@ -19,6 +19,9 @@
     endif;
     ?>
     <h2>{{ User_individual::where('id',Auth::user()->id)->pluck('fio') }}</h2>
+    <div class="margin-bottom-20">
+        <a class="icon--blue" href="{{ URL::route('individual-profile') }}">Профиль</a>
+    </div> 
     <div class="cabinet-tabs">
         @include(Helper::acclayout('menu'))
         <div class="employees">

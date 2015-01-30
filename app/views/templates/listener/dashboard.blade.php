@@ -20,6 +20,9 @@
     ?>
     <?php $account = User_listener::where('id',Auth::user()->id)->with('organization')->first(); ?>
     <h1>{{ $account->fio }}</h1>
+    <div class="margin-bottom-20">
+        <a class="icon--blue" href="{{ URL::route('listener-profile') }}">Профиль</a>
+    </div>  
     <p class="style-light style-italic">{{ $account->organization->title }}</p>
     <div class="cabinet-tabs">
         @include(Helper::acclayout('menu'))
