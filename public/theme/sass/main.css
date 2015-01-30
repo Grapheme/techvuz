@@ -9591,7 +9591,7 @@ section h3, section .h3 {
 }
 
 .registration-form .reg-form-alert {
-  margin: -2.6rem 0 2.6875rem;
+  margin: 0.4rem 0 2.6875rem;
   font-size: 1.1875em;
   line-height: 1.52632em;
   font-weight: 500;
