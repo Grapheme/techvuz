@@ -8,7 +8,7 @@
         <div class="cabinet-tabs">
             @include(Helper::acclayout('menu'))
             <div>
-                <h3>Ход обучения</h3>
+                <h3 class="no-margin margin-bottom-20">Ход обучения</h3>
                 <div class="tabs usual-tabs">
                     <ul>
                         <li>
