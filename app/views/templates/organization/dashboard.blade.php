@@ -20,7 +20,7 @@
     ?>
     <h2>{{ User_organization::where('id',Auth::user()->id)->pluck('title') }}</h2>
     <div class="margin-bottom-20">
-        <a class="icon--blue" href="{{ URL::route('profile') }}">Профиль компании</a>
+        <a class="icon--blue" href="#">Профиль компании</a>
     </div>    
     <div class="cabinet-tabs">
         @include(Helper::acclayout('menu'))
