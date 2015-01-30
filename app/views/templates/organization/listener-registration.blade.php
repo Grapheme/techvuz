@@ -7,7 +7,7 @@
     <div class="cabinet-tabs">
         @include(Helper::acclayout('menu'))
         <div class="edit-employee-anket">
-            <h2 class="h3">Регистрация нового сотрудника</h2 class="h3">
+            <h2 class="h3 no-margin">Регистрация нового сотрудника</h2 class="h3">
             @include(Helper::acclayout('forms.signup-listener'))
         </div>
     </div>
