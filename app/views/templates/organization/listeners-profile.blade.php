@@ -74,10 +74,10 @@
         @endif
         <div class="employer-anket margin-top-20 margin-bottom-40">
             <div class="row margin-bottom-10">
-                <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9">
+                <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
                     <h3 class="no-margin">Анкета сотрудника</h3>
                 </div>
-                <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+                <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
                 @if(AccountsOrganizationController::activism($profile->id) === FALSE)
                     <a class="icon--blue pull-right margin-top-30" href="{{ URL::route('organization-listener-profile-edit',$profile->id) }}">
                         Редактировать <span class="icon icon-red"></span>
