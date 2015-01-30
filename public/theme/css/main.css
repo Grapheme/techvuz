@@ -7237,6 +7237,10 @@ a[href^="tel"] {
   margin: 0 !important;
 }
 
+.padding-right-20 {
+  padding-right: 1.25rem !important;
+}
+
 .txt-color-blue {
   color: #33ace4;
 }
