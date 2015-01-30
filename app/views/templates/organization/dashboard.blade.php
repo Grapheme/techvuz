@@ -19,6 +19,7 @@
     endif;
     ?>
     <h2>{{ User_organization::where('id',Auth::user()->id)->pluck('title') }}</h2>
+    <a href="{{ URL::route('signup-listener') }}">Профиль компании</a>
     <div class="cabinet-tabs">
         @include(Helper::acclayout('menu'))
         <div class="employees">
