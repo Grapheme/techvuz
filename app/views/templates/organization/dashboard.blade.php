@@ -19,7 +19,9 @@
     endif;
     ?>
     <h2>{{ User_organization::where('id',Auth::user()->id)->pluck('title') }}</h2>
-    <a href="{{ URL::route('signup-listener') }}">Профиль компании</a>
+    <div class="margin-bottom-20">
+        <a class="icon--blue" href="{{ URL::route('profile') }}">Профиль компании</a>
+    </div>    
     <div class="cabinet-tabs">
         @include(Helper::acclayout('menu'))
         <div class="employees">
