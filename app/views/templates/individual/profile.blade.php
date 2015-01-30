@@ -9,16 +9,16 @@
         <div class="employer-anket margin-bottom-40">
             <div class="row">
                 <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
-                    <h3>Профиль</h3>
+                    <h3 class="no-margin">Профиль</h3>
                 </div>
                 <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9">
                  @if(AccountsIndividualController::activism() === FALSE)
                     <a class="icon--blue pull-right margin-top-30" href="{{ URL::route('individual-profile-edit') }}">
-                        <span class="icon icon-red"></span>
+                        Редактировать <span class="icon icon-red"></span>
                     </a>
                 @else
                     <a title="{{ Lang::get('interface.ACCOUNT_STATUS.blocked_edit_profile') }}" class="icon--blue icon--disabled pull-right margin-top-30">
-                        <span class="icon icon-red"></span>
+                        Редактирование заблокировано <span class="icon icon-red"></span>
                     </a>
                 @endif
                 </div>
