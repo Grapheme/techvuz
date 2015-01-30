@@ -15,8 +15,8 @@
         @include(Helper::acclayout('menu'))
         <div>
             <a href="{{ URL::route('ordering-select-courses') }}" class="btn btn-top-margin btn--bordered btn--blue pull-right">Новый заказ</a>
-            <h3>Заказы</h3>
-            <div class="tabs usual-tabs">
+            <h3 class="no-margin">Заказы</h3>
+            <div class="tabs usual-tabs margin-top-20">
                 <ul>
                     <li>
                         <?php $count_orders = 0; ?>
