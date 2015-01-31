@@ -26,8 +26,7 @@
             $totalPrice = $coursesPrice = 0;
         ?>
             <dt class="purchase-course-dt">
-                <?php $discountStatic = 0; $useCourseDiscount = 0; ?>
-                <table class="tech-table purchase-table" data-use-discount="{{ $notUseCourseDiscount }}" data-static-discount="{{ $discountStatic }}" data-courseid="{{ $course->id }}">
+                <table class="tech-table purchase-table" data-count-discount = "{{ Dictionary::valueBySlugs('properties-site','count-by-course-discount',TRUE)->property }}" data-value-discount = "{{ Dictionary::valueBySlugs('properties-site','count-by-course-discount-percent',TRUE)->property }}">
                     <tr>
                         <th>Название</th>
                         <th>Код</th>
@@ -35,22 +34,20 @@
                         <th>Сумма</th>
                     </tr>
                 @foreach(Courses::whereIn('id',getJsonCookieData('ordering'))->with('direction')->get() as $course)
-                    <?php $coursesPrice += $course->price; ?>
+                <?php $discountPrice = FALSE; $useCourseDiscount = 0; $coursesPrice += $course->price;?>
+                    @if($course->direction->use_discount && $course->use_discount)
+                        <?php $useCourseDiscount = 1;?>
+                        <?php $discountPrice = calculateDiscount(array($course->direction->discount,$course->discount,$globalDiscount,$accountDiscount),$course->price); ?>
+                        <?php $discountStatic = calculateDiscount(array($course->direction->discount,$course->discount,$globalDiscount,$accountDiscount)); ?>
+                    @endif
                     {{ Form::hidden('courses[]',$course->id) }}
-                    <tr>
+                    <tr data-use-discount="{{ $useCourseDiscount }}" data-static-discount="{{ $discountStatic }}" data-courseid="{{ $course->id }}">
                         <td>
                             <div class="icon-blue-bag-btn js-delete-course" title="Удалить курс"></div>
                             {{ $course->title }}
                         </td>
                         <td>{{ $course->code }}</td>
-                        <?php
-                            $discountPrice = FALSE;
-                            $useCourseDiscount = 0;
-                        ?>
-                        @if($course->direction->use_discount && $course->use_discount)
-                            <?php $useCourseDiscount = 1;?>
-                            <?php $discountPrice = calculateDiscount(array($course->direction->discount,$course->discount,$accountDiscount,$globalDiscount),$course->price); ?>
-                        @endif
+
                     @if($discountPrice === FALSE || $discountPrice == $course->price)
                         <?php $totalPrice += $course->price; ?>
                         <td class="purchase-price" data-price="{{ number_format($course->price,0,'.','') }}">{{ number_format($course->price,0,'.',' ') }}.–</td>
