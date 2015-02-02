@@ -39,13 +39,17 @@
             <table class="tech-table purchase-table table-{{ $key }}" data-use-discount="{{ $useCourseDiscount }}" data-static-discount="{{ $discountStatic }}" data-courseid="{{ $course->id }}">
                 @if($key == 0)
                 <tr>
+                @else 
+                <tr class="hidden">    
+                @endif
+                
                     <th>Название</th>
                     <th>Код</th>
                     <th>Цена</th>
                     <th>Сотрудники</th>
                     <th>Сумма</th>
                 </tr>
-                @endif
+                
                 <tr>
                     <td>
                         <div class="icon-blue-bag-btn js-delete-course" title="Удалить курс"></div>
