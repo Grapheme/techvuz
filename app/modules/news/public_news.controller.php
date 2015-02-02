@@ -13,8 +13,6 @@ class PublicNewsController extends BaseController {
     ## Routing rules of module
     public static function returnRoutes($prefix = null) {
 
-        return false;
-
         $class = __CLASS__;
         ## УРЛЫ С ЯЗЫКОВЫМИ ПРЕФИКСАМИ ДОЛЖНЫ ИДТИ ПЕРЕД ОБЫЧНЫМИ!
         ## Если в конфиге прописано несколько языковых версий...
@@ -44,7 +42,7 @@ class PublicNewsController extends BaseController {
         $tpl = static::returnTpl();
 
     	shortcode::add("news",
-        
+
             function($params = null) use ($tpl) {
 
                 #print_r($params); die;
@@ -177,7 +175,7 @@ class PublicNewsController extends BaseController {
                 return View::make($tpl.$params['tpl'], compact('news'));
     	    }
         );
-        
+
     }
 
     ## Actions of module (for distribution rights of users)

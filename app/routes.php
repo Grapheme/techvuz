@@ -1,13 +1,9 @@
 <?php
 
 $prefix = AuthAccount::getGroupStartUrl();
-/*
-| Общие роуты, независящие от условий
-*/
-//Route::get('image/{image_group}/{id}', 'ImageController@showImage')->where('id','\d+');
+
 Route::get('redactor/get-uploaded-images', 'DownloadsController@redactorUploadedImages');
 Route::post('redactor/upload', 'DownloadsController@redactorUploadImage');
-
 
 Route::get('sitemap',function(){
 
@@ -22,11 +18,6 @@ Route::get('sitemap',function(){
 ## Но, возможно, придется следить за порядком загрузки модулей...
 #################################################################
 
-## В случае, если неавторизованный пользователь зайдет на /admin, то он будет переадресован на /login.
-//Route::get('admin', array('before' => 'auth2login', 'uses' => 'BaseController@redirectToLogin'));
-/*
-| Роуты, доступные для всех авторизованных пользователей - dashboard
-*/
 Route::group(array('before' => 'auth.status', 'prefix' => $prefix), function() use ($prefix){
 
     Route::get('/', function() use ($prefix){
@@ -193,59 +184,38 @@ foreach ($files as $file) {
     
     if ($load_debug) echo "<br/>\n";
 }
-#Helper::dd($mod_actions);
-#Helper::dd($mod_info);
-#Helper::dd($mod_menu);
-
-/*
-foreach ($mod_actions as $module_name => $actions) {
-    if (!count($actions))
-        continue;
-    $title = isset($mod_info[$module_name]['title']) ? $mod_info[$module_name]['title'] : $module_name;
-    echo "<h2>{$title} - ОТКЛЮЧИТЬ МОДУЛЬ ДЛЯ ТЕКУЩЕЙ ГРУППЫ | РАЗРЕШИТЬ / ЗАПРЕТИТЬ ВСЕ ДЕЙСТВИЯ</h2>\n";
-    foreach ($actions as $a => $action) {
-        echo "<p>{$action} - РАЗРЕШЕНО / ЗАПРЕЩЕНО</p>";
-    }
-}
-*/
-#Helper::dd($mod_info);
-#Helper::dd($mod_actions);
-#Helper::dd($mod_menu);
 
 Config::set('mod_info', $mod_info);
 Config::set('mod_actions', $mod_actions);
 Config::set('mod_menu', $mod_menu);
 Config::set('mod_new', $mod_new);
-#View::share('mod_actions', $mod_actions);
-#print_r($app);
 
-
-Route::group(array('before' => 'admin.auth', 'prefix' => 'admin'), function(){
+/*Route::group(array('before' => 'admin.auth', 'prefix' => 'admin'), function(){
     Route::get('clear/db/{code}', function($code){
         if ($code == Config::get('app.key')):
-//            $index = 1;
-//            foreach(DicFieldVal::all() as $dicFieldVal):
-//                DicFieldVal::where('id',$dicFieldVal->id)->update(array('id'=>$index++));
-//            endforeach;
-            /*$index = 1;
+            $index = 1;
+            foreach(DicFieldVal::all() as $dicFieldVal):
+                DicFieldVal::where('id',$dicFieldVal->id)->update(array('id'=>$index++));
+            endforeach;
+            $index = 1;
             foreach(DicVal::all() as $dicVal):
                 DicVal::where('id',$dicVal->id)->update(array('id'=>$index));
                 DicFieldVal::where('dicval_id',$dicVal->id)->update(array('dicval_id'=>$index));
                 $index++;
-            endforeach;*/
-//            $IDs = DicVal::where('dic_id',2)->lists('id');
-//            if (count($IDs)):
-//                DicFieldVal::whereIn('dicval_id',$IDs)->delete();
-//                DicVal::where('dic_id',2)->delete();
-//            endif;
-//            $IDs = DicVal::where('dic_id',8)->lists('id');
-//            if (count($IDs)):
-//                DicFieldVal::whereIn('dicval_id',$IDs)->delete();
-//                DicVal::where('dic_id',8)->delete();
-//            endif;
+            endforeach;
+            $IDs = DicVal::where('dic_id',2)->lists('id');
+            if (count($IDs)):
+                DicFieldVal::whereIn('dicval_id',$IDs)->delete();
+                DicVal::where('dic_id',2)->delete();
+            endif;
+            $IDs = DicVal::where('dic_id',8)->lists('id');
+            if (count($IDs)):
+                DicFieldVal::whereIn('dicval_id',$IDs)->delete();
+                DicVal::where('dic_id',8)->delete();
+            endif;
         endif;
     });
-});
+}); */
 
 /***********************************************************************/
 
