@@ -37,13 +37,15 @@
             @endif
             <dt class="purchase-course-dt">
             <table class="tech-table purchase-table table-{{ $key }}" data-use-discount="{{ $useCourseDiscount }}" data-static-discount="{{ $discountStatic }}" data-courseid="{{ $course->id }}">
-                <tr class="hidden">
+                @if($key == 0)
+                <tr>
                     <th>Название</th>
                     <th>Код</th>
                     <th>Цена</th>
                     <th>Сотрудники</th>
                     <th>Сумма</th>
                 </tr>
+                @endif
                 <tr>
                     <td>
                         <div class="icon-blue-bag-btn js-delete-course" title="Удалить курс"></div>
