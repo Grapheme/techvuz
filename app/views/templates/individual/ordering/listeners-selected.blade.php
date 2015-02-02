@@ -24,7 +24,7 @@
         $globalDiscount = getGlobalDiscount();
         $coursesCountDiscount = coursesCountDiscount();
         ?>
-        @foreach(Courses::whereIn('id',getJsonCookieData('ordering'))->with('direction')->get() as $course)
+        @foreach(Courses::whereIn('id',getJsonCookieData('ordering'))->with('direction')->get() as $key => $course)
             {{ Form::hidden('courses[]',$course->id) }}
             <?php
             $discountPrice = FALSE;
@@ -36,7 +36,7 @@
                 <?php $discountStatic = calculateDiscount(array($course->direction->discount,$course->discount,$globalDiscount,$accountDiscount)); ?>
             @endif
             <dt class="purchase-course-dt">
-            <table class="tech-table purchase-table" data-use-discount="{{ $useCourseDiscount }}" data-static-discount="{{ $discountStatic }}" data-courseid="{{ $course->id }}">
+            <table class="tech-table purchase-table table-{{ $key }}" data-use-discount="{{ $useCourseDiscount }}" data-static-discount="{{ $discountStatic }}" data-courseid="{{ $course->id }}">
                 <tr>
                     <th>Название</th>
                     <th>Код</th>
