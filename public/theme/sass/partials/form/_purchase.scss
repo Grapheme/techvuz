@@ -8,9 +8,17 @@
 	margin: 0;
 }
 
+.individual {
+
+	border: 1px solid #eee;
+	border-bottom: none;
+
+	.purchase-course-dt {
+		border-bottom: 1px solid #eee;
+	}
+}
 .individual .tech-table {
-	position: relative;
-	top: -1px;
+	outline: none;
 }
 .individual .purchase-listeners {
 	width: 15%;
