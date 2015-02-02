@@ -519,8 +519,14 @@ var Popup = (function(){
         var $listeners = $boundDt.find('.purchase-listeners');
         //Length of active listeners
         var $listenersLength = elem.find('option:selected').length;
+
         //Full listeners count
         var $fullListenersLength = $('.purchase-course-dl').find('option:selected').length;
+        //Нужно считать количество курсов, а не слушателей - это для индивидуалки
+        if( $('.js-individual')[0] ) {
+        	$fullListenersLength = $('.purchase-table').length;
+        } 
+
         //Real course price
         var $realPrice = $price.data('real-price');
         //Uses discount
