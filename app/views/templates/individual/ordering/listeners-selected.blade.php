@@ -18,7 +18,7 @@
         </a>
     </div>
     {{ Form::open(array('route'=>'ordering-listeners-store','class'=>'purchase-form clearfix')) }}
-    <dl class="purchase-course-dl" data-count-discount = "{{ Dictionary::valueBySlugs('properties-site','count-by-course-discount',TRUE)->property }}" data-value-discount = "{{ Dictionary::valueBySlugs('properties-site','count-by-course-discount-percent',TRUE)->property }}">
+    <dl class="purchase-course-dl js-individual individual" data-count-discount = "{{ Dictionary::valueBySlugs('properties-site','count-by-course-discount',TRUE)->property }}" data-value-discount = "{{ Dictionary::valueBySlugs('properties-site','count-by-course-discount-percent',TRUE)->property }}">
         <?php
         $accountDiscount = getAccountDiscount();
         $globalDiscount = getGlobalDiscount();
