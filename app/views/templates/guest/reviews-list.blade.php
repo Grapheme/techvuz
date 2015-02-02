@@ -18,6 +18,7 @@ endif;
 @if($reviews->count())
 <section class="reviews">
     <h3>Отзывы</h3>
+    <!-- <h3><a href="{{ URL::route('page','reviews') }}">Отзывы</a></h3> -->
     <ul class="reviews-ul">
     @foreach($reviews as $review)
     <?php $review['fields'] = modifyKeys($review['fields'],'key'); ?>
