@@ -1,25 +1,5 @@
 .purchase-course-dl {
-	&.individual {
-		.purchase-course-dt {
-			&:first-child {
-				.tech-table {
-					border-top: 1px solid;
-					
-					tr:first-child {
-						display: block;
-					}
-				}
-			}
-			.tech-table {
-				display: none;
-				border-top: none;
 
-				tr:first-child {
-					display: none;
-				}
-			}
-		}
-	}
 }
 .purchase-course-dt {
 
