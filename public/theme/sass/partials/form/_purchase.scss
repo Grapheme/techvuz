@@ -10,7 +10,25 @@
 
 .individual .tech-table tr {
     background: none repeat scroll 0 0 #fff;
-    border-bottom: 2px solid #000;
+    border-bottom: 2px solid transparent;
+}
+.individual .tech-table tr {
+
+	td:nth-child(1) {
+		width: 60%;
+	}
+	td:nth-child(2) {
+		width: 10%;
+	}
+	td:nth-child(3) {
+		width: 10%;
+	}
+	td:nth-child(4) {
+		width: 10%;
+	}
+	td:nth-child(5) {
+		width: 10%;
+	}
 }
 
 .container-fluid {
