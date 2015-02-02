@@ -36,7 +36,7 @@
                 <?php $discountStatic = calculateDiscount(array($course->direction->discount,$course->discount,$globalDiscount,$accountDiscount)); ?>
             @endif
             <dt class="purchase-course-dt">
-            <table class="tech-table purchase-table table-{{ $key }}" data-use-discount="{{ $useCourseDiscount }}" data-static-discount="{{ $discountStatic }}" data-courseid="{{ $course->id }}">
+            <table class="tech-table purchase-table table-{{ if( $key == 1 ) 'first' }}" data-use-discount="{{ $useCourseDiscount }}" data-static-discount="{{ $discountStatic }}" data-courseid="{{ $course->id }}">
                 <tr>
                     <th>Название</th>
                     <th>Код</th>
