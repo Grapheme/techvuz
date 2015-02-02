@@ -18,13 +18,6 @@
 			left: 0;
 		}
 
-		&[class^='table-'] {
-			border-top: none;
-
-			tr:first-child {
-				display: none;
-			}
-		}
 		&.table-0 {
 			border-top: 1px solid;
 

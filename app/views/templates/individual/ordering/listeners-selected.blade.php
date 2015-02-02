@@ -37,7 +37,7 @@
             @endif
             <dt class="purchase-course-dt">
             <table class="tech-table purchase-table table-{{ $key }}" data-use-discount="{{ $useCourseDiscount }}" data-static-discount="{{ $discountStatic }}" data-courseid="{{ $course->id }}">
-                <tr>
+                <tr class="hidden">
                     <th>Название</th>
                     <th>Код</th>
                     <th>Цена</th>
