@@ -10,7 +10,7 @@ return array(
     'time_to_study_begin' => 72,
     'time_zone' => 'Europe/Moscow',
 
-    'news_page_limit' => 3,
+    'news_page_limit' => 8,
     'news_template' => 'news-list',
     'articles_count_on_page' => 5,
     'articles_template' => 'articles-list',
