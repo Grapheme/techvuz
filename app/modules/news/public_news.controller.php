@@ -30,7 +30,7 @@ class PublicNewsController extends BaseController {
 
         ## Генерим роуты без префикса, и назначаем before-фильтр i18n_url.
         ## Это позволяет нам делать редирект на урл с префиксом только для этих роутов, не затрагивая, например, /admin и /login
-        Route::group(array('before' => 'i18n_url'), function() {
+        Route::group(array('before' => ''), function() {
             Route::get('/news/{url}', array('as' => 'news_full', 'uses' => __CLASS__.'@showFullNews'));
             Route::get('/news/',      array('as' => 'news',      'uses' => __CLASS__.'@showNews'));
         });
@@ -53,7 +53,7 @@ class PublicNewsController extends BaseController {
                 ## Параметры по-умолчанию
                 $default = array(
                     'tpl' => Config::get('app-default.news_template', 'default'),
-                    'limit' => Config::get('app-default.news_count_on_page', 3),
+                    'limit' => Config::get('app-default.news_page_limit', 3),
                     'order' => Helper::stringToArray(News::$order_by),
                     'pagination' => 1,
                     'type' => false,
@@ -190,13 +190,6 @@ class PublicNewsController extends BaseController {
 
 	public function __construct(News $news, NewsMeta $news_meta){
 
-        /*
-        View::share('module_name', self::$name);
-        $this->tpl = $this->gtpl = static::returnTpl();
-        View::share('module_tpl', $this->tpl);
-        View::share('module_gtpl', $this->gtpl);
-        */
-
         $this->news = $news;
         $this->news_meta = $news_meta;
         $this->locales = Config::get('app.locales');
@@ -204,13 +197,9 @@ class PublicNewsController extends BaseController {
         $this->module = array(
             'name' => self::$name,
             'group' => self::$group,
-            #'rest' => self::$group,
             'tpl' => static::returnTpl('admin'),
             'gtpl' => static::returnTpl(),
             'class' => __CLASS__,
-
-            #'entity' => self::$entity,
-            #'entity_name' => self::$entity_name,
         );
         View::share('module', $this->module);
 	}
@@ -231,17 +220,11 @@ class PublicNewsController extends BaseController {
             ->take($limit)
             ->paginate($limit);
 
-        #Helper::tad($news);
-
         if (!@count($news))
             App::abort(404);
 
         if (!$tpl)
             $tpl = 'news-list-page';
-
-        #Helper::tad($news);
-
-        #Helper::dd( $this->module['gtpl'].$tpl );
 
         if(empty($tpl) || !View::exists($this->module['gtpl'].$tpl))
             throw new Exception('Template [' . $this->module['gtpl'].$tpl . '] not found.');

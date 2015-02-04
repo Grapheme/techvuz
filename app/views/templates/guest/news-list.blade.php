@@ -3,8 +3,7 @@
 ?>
 @if($news_list->count())
 <section class="news">
-    <h3>Новости</h3>
-    <!-- <h3><a href="{{ URL::route('page','news') }}">Новости</a></h3> -->
+    <h3><a href="{{ URL::route('news') }}">Новости</a></h3>
     <ul class="news-ul clearfix">
     @foreach($news_list as $news)
         <li class="news-li">

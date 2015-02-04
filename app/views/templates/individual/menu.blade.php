@@ -1,6 +1,6 @@
 <ul class="cabinet-menu-ul clearfix margin-top-20 margin-bottom-40">
     <li class="cabinet-menu-li">
-    	<a {{ Helper::isRoute('individual-orders') }} {{ Helper::isRoute('individual-order') }} href="{{ URL::route('individual-orders') }}"><span class="icon icon-zakaz"></span> Заказы</a>
+    	<a {{ Helper::isRoute('individual-orders') }} href="{{ URL::route('individual-orders') }}"><span class="icon icon-zakaz"></span> Заказы</a>
     </li>
     <li class="cabinet-menu-li">
     	<a {{ Helper::isRoute('individual-study') }} href="{{ URL::route('individual-study') }}"><span class="icon icon-obych"></span> Обучение</a>

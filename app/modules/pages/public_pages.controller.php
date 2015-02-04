@@ -68,7 +68,6 @@ class PublicPagesController extends BaseController {
 
         ## Если в конфиге прописано несколько языковых версий - генерим роуты с языковым префиксом
         if (is_array(Config::get('app.locales')) && count(Config::get('app.locales')) > 1) {
-
             $default_locale_mainpage = ( Config::get('app.default_locale') == Config::get('app.locale') );
 
             ## Генерим роуты только для текущего языка
@@ -104,7 +103,6 @@ class PublicPagesController extends BaseController {
                 ));
 
         } else {
-
             ## Генерим роуты без языкового префикса
             Route::group(array('before' => 'pages_right_url'), function() use ($class) {
 
@@ -341,7 +339,7 @@ class PublicPagesController extends BaseController {
             }
         }
 
-        #Helper::tad($page);
+        #Helper::tad($template);
 
         return View::make($template, compact('page'));
 
