@@ -20,7 +20,7 @@ $orders = Orders::where('archived',FALSE)->orderBy('payment_status')->orderBy('c
         <li>
             <?php $count_orders = 0; ?>
             @foreach($orders as $order)
-                @if(in_array($order->payment_status,array(2,3,4,5)) && $order->close_status == 0)
+                @if((in_array($order->payment_status,array(2,3,4,5)) || $order->study_status == 1) && $order->close_status == 0)
                     <?php $count_orders++ ; ?>
                 @endif
             @endforeach
@@ -90,7 +90,7 @@ $orders = Orders::where('archived',FALSE)->orderBy('payment_status')->orderBy('c
             </thead>
             <tbody>
         @foreach($orders as $order)
-            @if(in_array($order->payment_status,array(2,3,4,5)) && $order->close_status == 0)
+            @if((in_array($order->payment_status,array(2,3,4,5)) || $order->study_status == 1) && $order->close_status == 0)
                 @include(Helper::acclayout('assets.order-tr'))
             @endif
         @endforeach
