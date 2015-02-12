@@ -96,17 +96,18 @@
         e.preventDefault();
      });
      $('.accordion-header.direction-in-progress').addClass('ui-state-disabled');
-
-    <!-- Yandex.Metrika counter -->
-    <script type="text/javascript">
+</script>
+<!-- Yandex.Metrika counter -->
+<script type="text/javascript">
     (function (d, w, c) {
         (w[c] = w[c] || []).push(function() {
             try {
-                w.yaCounter28376641 = new Ya.Metrika({id:28376641,
+                w.yaCounter28373826 = new Ya.Metrika({id:28373826,
                     webvisor:true,
                     clickmap:true,
                     trackLinks:true,
-                    accurateTrackBounce:true});
+                    accurateTrackBounce:true,
+                    trackHash:true});
             } catch(e) { }
         });
 
@@ -122,7 +123,6 @@
         } else { f(); }
     })(document, window, "yandex_metrika_callbacks");
 </script>
-<noscript><div><img src="//mc.yandex.ru/watch/28376641" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+<noscript><div><img src="//mc.yandex.ru/watch/28373826" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
 <!-- /Yandex.Metrika counter -->
-</script>
 @endif
