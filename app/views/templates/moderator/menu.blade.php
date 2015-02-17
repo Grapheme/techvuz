@@ -30,10 +30,10 @@
         <a {{ in_array(Request::segment(3),array('reviews')) ? 'class="active"' : '' }} href="{{ link::auth('entity/reviews') }}"><span class="fa fa-lg fa-fw fa-comments-o"></span> Отзывы</a>
     </li>
     <li class="cabinet-menu-li">
-        <a href="{{ URL::route('moderator-listeners-list') }}"><i class="fa fa-lg fa-fw fa-group"></i> Слушатели</a>
+        <a {{ in_array(Request::segment(2),array('listeners')) ? 'class="active"' : '' }} href="{{ URL::route('moderator-listeners-list') }}"><i class="fa fa-lg fa-fw fa-group"></i> Слушатели</a>
     </li>
     <li class="cabinet-menu-li">
-        <a href="{{ URL::route('moderator-statistic') }}"><i class="fa fa-lg fa-fw fa-bar-chart"></i> Статистика</a>
+        <a {{ in_array(Request::segment(2),array('statistic')) ? 'class="active"' : '' }} href="{{ URL::route('moderator-statistic') }}"><i class="fa fa-lg fa-fw fa-bar-chart"></i> Статистика</a>
     </li>
 </ul>
 
