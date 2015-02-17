@@ -4,7 +4,7 @@
 
     $menus = array();
 
-    if (Allow::action($module['group'], 'view')) {
+    if (Allow::action($module['group'], 'view') && Route::currentRouteName() != 'news.index') {
         $menus[] = array(
             'link' => action($module['entity'].'.index'),
             'title' => 'Все новости',

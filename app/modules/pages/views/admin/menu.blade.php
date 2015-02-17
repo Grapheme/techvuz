@@ -1,11 +1,14 @@
 <?
 
     $menus = array();
-    $menus[] = array(
-        'link' => URL::route($module['entity'] . '.index', array()),
-        'title' => 'Страницы',
-        'class' => 'btn btn-default'
-    );
+    if (Route::currentRouteName() != 'page.index'):
+        $menus[] = array(
+                'link' => URL::route($module['entity'] . '.index', array()),
+                'title' => 'Страницы',
+                'class' => 'btn btn-default'
+        );
+    endif;
+
     if (isset($element) && is_object($element) && $element->id) {
 //        $menus[] = array(
 //            'link' => URL::route($module['entity'] . '.edit', array($element->id)),
