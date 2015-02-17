@@ -325,20 +325,33 @@ class AccountsIndividualController extends BaseController {
         if(Lectures::where('course_id',$listenerCourse->course_id)->exists()):
             $lectures = Lectures::where('course_id',$listenerCourse->course_id)->with('document')->get();
             $documents = array();
-            foreach($lectures as  $lecture):
+            foreach($lectures as $index => $lecture):
                 if(!User_lectures_download::where('user_id',Auth::user()->id)->where('lecture_id',$lecture->id)->exists()):
                     User_lectures_download::create(array('user_id'=>Auth::user()->id,'lecture_id'=>$lecture->id));
                 endif;
                 $lecture = $lecture->toArray();
                 if (isset($lecture['document']['path']) && File::exists(public_path($lecture['document']['path']))):
-                    $documents[] = preg_replace('|([/]+)|s', '/', public_path($lecture['document']['path']));
+                    $documents[$index]['original_name'] = BaseController::stringTranslite($lecture['document']['original_name'],NULL,'/[^a-z0-9-\.]/');
+                    $documents[$index]['module_title'] = $lecture['title'];
+                    $documents[$index]['path'] = preg_replace('|([/]+)|s', '/', public_path($lecture['document']['path']));
                 endif;
             endforeach;
             if (!empty($documents)):
+                $readme = "Список файлов:\n";
+                foreach($documents as $index => $document):
+                    File::copy($document['path'],storage_path($document['original_name']));
+                    $modules_documents[$index] = storage_path($document['original_name']);
+                    $readme .= ($index+1).") ".$document['original_name']." - ".$documents[$index]['module_title']."\n";
+                endforeach;
                 $zipFilePath = storage_path(sha1(time().Auth::user()->id).'.zip');
                 $zipper = new \Chumper\Zipper\Zipper();
-                $zipper->make($zipFilePath)->add($documents)->close();
+                $zipper->make($zipFilePath)->add($modules_documents)->addString('README.txt',$readme)->close();
                 if (File::exists($zipFilePath)):
+                    foreach($modules_documents as $index => $document):
+                        if (File::exists($document)):
+                            File::delete($document);
+                        endif;
+                    endforeach;
                     Event::fire('listener.start.course.study', array(array('listener_course_id'=>$study_course_id)));
                     $headers = returnZipDownloadHeaders($zipFilePath);
                     return Response::download($zipFilePath, 'all-lectures.zip.', $headers);
