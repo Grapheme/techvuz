@@ -85,7 +85,7 @@
                 <td class="vertical-top purchase-price">{{ number_format($listener['price'],0,'.',' ') }}.-</td>
                 <!-- <td class="vertical-top">
                 @if($listener['over_status'] == 1)
-                    <a href="{{ URL::route('organization-order-certificate-first',array('order_id'=>$order->id,'course_id'=>$course['course']['id'],'listener_id'=>$listener['id'])) }}">Просмотреть</a>
+                    <a href="{{ URL::route('organization-order-certificate',array('order_id'=>$order->id,'course_id'=>$course['course']['id'],'listener_id'=>$listener['id'],'format'=>'pdf')) }}">Просмотреть</a>
                 @endif
                 </td>-->
             </tr>
