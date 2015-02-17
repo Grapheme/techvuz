@@ -13,7 +13,7 @@
                     <thead>
                         <tr>
                             <th class="text-center" style="width:40px">#</th>
-                            <th style="width:100%;"class="text-center">{{ $dic->name_title ?: 'Название' }}</th>
+                            <th style="width:100%;" class="text-center">{{ $dic->name_title ?: 'Название' }}</th>
                             @if ($actions_column)
                             <th colspan="2" class="width-250 text-center">Действия</th>
                             @endif
