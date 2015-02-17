@@ -77,9 +77,11 @@
                     @endforeach
                     <?php
                         $lostTime = FALSE;
+                            Helper::ta(date("Y-m-d H:i:s"));
                         if($study_course->order->study_status):
                             $studyHours = !empty($module->hours) ? floor($module->hours/8)*86400 : floor(Config::get('site.time_to_study_begin')/4)*86400;
-                            $lostTime = myDateTime::getDiffTimeStamp(date("Y-m-d H:i:s",strtotime($study_course->order->study_date)+$studyHours),date("Y-m-d H:i:s",time()));
+                            $studyDate = (new myDateTime())->setDateString($study_course->order->study_date)->format('Y-m-d H:i:s');
+                            $lostTime = myDateTime::getDiffTimeStamp(date("Y-m-d H:i:s",strtotime($studyDate)+$studyHours),date("Y-m-d H:i:s",time()));
                         endif;
                     ?>
                 @if($lostTime !== FALSE)
@@ -97,7 +99,7 @@
                     @elseif($study_course->start_status == 1 && $lostTime > 0)
                         <tr>
                             <?php
-                            $lostDateTime = myDateTime::getDiffDate(date("Y-m-d H:i:s",time()),date("Y-m-d H:i:s",strtotime($study_course->order->study_date)+$studyHours),NULL);
+                            $lostDateTime = myDateTime::getDiffDate(date("Y-m-d H:i:s",time()),date("Y-m-d H:i:s",strtotime($studyDate)+$studyHours),NULL);
                             ?>
                             <td colspan="4">
                                 @if($lostDateTime['d'] > 2 && $lostDateTime['h'] > 12)

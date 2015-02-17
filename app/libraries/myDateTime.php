@@ -125,7 +125,7 @@ class myDateTime {
     public function format($format){
 
         if ($this->validDate()):
-            return $this->date_string->format($format);
+            return $this->date_string->timezone(Config::get('site.time_zone'))->format($format);
         else:
             return '';
         endif;
