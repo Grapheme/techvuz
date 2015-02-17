@@ -17,7 +17,7 @@
                         {{{ $single_news->meta->title }}}
                     </div>
                     <div class="news-text">
-                        {{{ $single_news->meta->content }}}
+                        {{ $single_news->meta->content }}
                     </div>
                 </div>
             </div>
