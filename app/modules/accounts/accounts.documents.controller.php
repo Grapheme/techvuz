@@ -1106,7 +1106,7 @@ class AccountsDocumentsController extends BaseController {
 
     public function generateAllDocuments($order_id){
 
-        $order = Orders::where('id',$order_id)->where('close_status',0)->with('contract','invoice','act','organization','individual')->first();
+        $order = Orders::where('id',$order_id)->where('close_status',1)->with('contract','invoice','act','organization','individual')->first();
         $contract_content = $contract_app1_content = $invoice_content = $act_content = '';
         if (!empty($order->organization)):
             $account_type = 4;
