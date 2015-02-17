@@ -77,7 +77,6 @@
                     @endforeach
                     <?php
                         $lostTime = FALSE;
-                            Helper::ta(date("Y-m-d H:i:s"));
                         if($study_course->order->study_status):
                             $studyHours = !empty($module->hours) ? floor($module->hours/8)*86400 : floor(Config::get('site.time_to_study_begin')/4)*86400;
                             $studyDate = (new myDateTime())->setDateString($study_course->order->study_date)->format('Y-m-d H:i:s');
