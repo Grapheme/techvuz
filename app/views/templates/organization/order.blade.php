@@ -45,7 +45,7 @@
                 <th> Название курса </th>
                 <th> Сотрудники </th>
                 <th> Сумма </th>
-                <!--<th> Удостоверение </th>-->
+                <th> Удостоверение </th>
             </tr>
         <?php
         $courses = $courses_list = array();
@@ -79,7 +79,6 @@
                 <td class="vertical-top"></td>
                 @endif
                 <td class="vertical-top">
-                    <!-- <a href="{{ URL::route('organization-listener-profile',$listener['id']) }}">{{ $listener['fio'] }}</a> -->
                     <a href="{{ URL::route('organization-listener-profile',$listener['id']) }}">{{ $listener['fio'] }}</a>
                 </td>
                 <td class="vertical-top purchase-price">{{ number_format($listener['price'],0,'.',' ') }}.-</td>
