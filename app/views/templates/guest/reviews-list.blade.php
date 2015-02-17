@@ -1,19 +1,21 @@
 <?php
-$reviews = Dictionary::whereSlugValues('reviews');
+$dic_reviews = Dictionary::where('slug','reviews')->with('random_values')->first();
+$reviews = $dic_reviews->random_values;
 $images_ids = array();
-foreach($reviews as $index => $review):
-    $review['fields'] = modifyKeys($review['fields'],'key');
-    if(!empty($review->fields['user_avatar']->value)):
-        $images_ids[] = $review->fields['user_avatar']->value;
+if(count($reviews)):
+    foreach($reviews as $index => $review):
+        $review['fields'] = modifyKeys($review['fields'],'key');
+        if(!empty($review->fields['user_avatar']->value)):
+            $images_ids[] = $review->fields['user_avatar']->value;
+        endif;
+    endforeach;
+    if(!empty($images_ids)):
+        $images = Photo::whereIn('id',$images_ids)->get();
+        $images = modifyKeys($images,'id',true);
+    else:
+        $images = array();
     endif;
-endforeach;
-if(!empty($images_ids)):
-    $images = Photo::whereIn('id',$images_ids)->get();
-    $images = modifyKeys($images,'id',true);
-else:
-    $images = array();
 endif;
-
 ?>
 @if($reviews->count())
 <section class="reviews">

@@ -44,6 +44,15 @@ class Dictionary extends BaseModel {
         ;
     }
 
+    public function random_values() {
+        return $this->hasMany('DicVal', 'dic_id', 'id')
+            ->where('version_of', NULL)
+            ->with('meta', 'fields')
+            ->orderByRaw("RAND()")
+            ->limit(3)
+        ;
+    }
+
     public function values_no_conditions() {
 
         $tbl_dicval = (new DicVal())->getTable();
