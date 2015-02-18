@@ -50,7 +50,7 @@ return array(
         },
     ),
 
-    'versions' => 1,
+    'versions' => FALSE,
 
     'actions' => function($dic, $dicval) { },
 
