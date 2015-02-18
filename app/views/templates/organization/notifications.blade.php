@@ -15,22 +15,35 @@
         @include(Helper::acclayout('menu'))
         <div class="employees">
             <h3 class="no-margin">Уведомления</h3>
+            @if(count($messages))
+            <div class="pull-right">
+                <div class="select-payments margin-bottom-10 text-right">
+                    <a href="javasccript:void(0);" class="font-sm margin-right-10 js-check-all-payments">Выбрать все</a>
+                    <a href="javasccript:void(0);" class="font-sm js-uncheck-all-payments">Убрать все</a>
+                </div>
+            </div>
+            @endif
         </div>
-        <table class="tech-table sortable notif-table">
+        @if(count($messages))
+        {{ Form::open(array('url'=>URL::route('organization-notification-delete',array('notification_id'=>'selected')), 'style'=>'display:inline-block; width: 100%;', 'method'=>'delete')) }}
+            {{ Form::submit('Удалить сообщения',array('title'=>'Удалить сообщение','class'=>'btn btn-danger pull-right')) }}
+        <table class="tech-table payments-table sortable notif-table">
             <tbody>
             @foreach($messages as $message)
                 <tr>
                     <td>{{ $message->name }}</td>
                     <td class="vertical-top">{{ $message->updated_at->timezone(Config::get('site.time_zone'))->format('d.m.Y в H:i') }}</td>
                     <td class="equal-padding vertical-top">
-                    {{ Form::open(array('url'=>URL::route('organization-notification-delete',array('notification_id'=>$message->id)), 'style'=>'display:inline-block; width: 100%;', 'method'=>'delete')) }}
-                        <button type="submit" title="Удалить сообщение" class="icon-bag-btn"></button>
-                    {{ Form::close() }}
+                        {{ Form::checkbox('messages[]',$message->id,NULL,array('class'=>'js-set-listener-access','autocomplete'=>'off')) }}
                     </td>
                 </tr>
             @endforeach
             </tbody>
         </table>
+        {{ Form::close() }}
+        @else
+            <p>Уведомления отсутствуют</p>
+        @endif
     </div>
 </main>
 @stop

@@ -357,6 +357,20 @@ class AccountsOrganizationController extends BaseController {
             if($IDs = array_keys(modifyKeys($messages,'id'))):
                 DicFieldVal::whereIn('id',$IDs)->delete();
             endif;
+        elseif($notification_id == 'selected' && Input::has('messages')):
+            $notificationIDs = Input::get('messages');
+            $messages = Dictionary::valuesBySlug('system-messages',function($query) use ($notificationIDs) {
+                $query->whereIn('dictionary_values.id',$notificationIDs);
+                $query->filter_by_field('user_id',Auth::user()->id);
+            });
+            foreach($messages as $message):
+                if($IDs = array_keys(modifyKeys($message->fields,'id'))):
+                    DicFieldVal::whereIn('id',$IDs)->delete();
+                endif;
+            endforeach;
+            if($IDs = array_keys(modifyKeys($messages,'id'))):
+                DicFieldVal::whereIn('id',$IDs)->delete();
+            endif;
         else:
             DicVal::where('id',$notification_id)->delete();
             DicFieldVal::where('dicval_id',$notification_id)->delete();
