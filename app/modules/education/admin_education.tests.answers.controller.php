@@ -103,6 +103,7 @@ class AdminEducationTestsAnswersController extends BaseController {
                 $chapter_id = $this->chapter->id;
             endif;
             $json_request['redirect'] = URL::route('testing.index',array('directions'=>$this->direction->id,'course'=>$this->course->id,'chapter'=>$chapter_id));
+            $json_request['redirect'] = URL::to($json_request['redirect'].'#question_'.Input::get('test_question_id'));
             $json_request['status'] = TRUE;
         else:
             $json_request['responseText'] = 'Неверно заполнены поля';
@@ -145,6 +146,7 @@ class AdminEducationTestsAnswersController extends BaseController {
                     $chapter_id = $this->chapter->id;
                 endif;
                 $json_request['redirect'] = URL::route('testing.index',array('directions'=>$this->direction->id,'course'=>$this->course->id,'chapter'=>$chapter_id));
+                $json_request['redirect'] = URL::to($json_request['redirect'].'#question_'.Input::get('test_question_id'));
                 $json_request['status'] = TRUE;
             endif;
         else:

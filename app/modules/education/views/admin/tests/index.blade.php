@@ -50,10 +50,10 @@
     </div>
 </div>
 <div class="row">
-
 @if($test->questions->count())
     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
     @foreach($test->questions as $question_index => $question)
+        <a name="question_{{ $question->id }}"></a>
         <table class="table table-striped table-bordered">
             <tbody>
                 <tr class="vertical-middle">
