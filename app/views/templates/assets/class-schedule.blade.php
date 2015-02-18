@@ -40,7 +40,7 @@
                     <td><p align="center">{{ $lecture->order }}</p></td>
                     <td>{{ $lecture->title }}</td>
                     <td><p align="center">{{ $lecture->hours }}</p></td>
-                    <td>{{ !empty($DataNachalaObucheniya) ? $studyPeriod->addHours($lecture->hours)->write() : '-' }}, {{ $studyPeriod->get('prev_hours') }}, {{ $studyPeriod->get('hours') }}</td>
+                    <td>{{ !empty($DataNachalaObucheniya) ? $studyPeriod->addHours($lecture->hours)->write() : '-' }}</td>
                 </tr>
                 @endforeach
             @endif
@@ -49,8 +49,8 @@
                     <td colspan="2">
                         <p align="center">{{ !empty($chapter->test_title) ? $chapter->test_title : $chapter->test->title; }}</p>
                     </td>
-                    <td><p align="center">2</p></td>
-                    <td>{{ !empty($DataNachalaObucheniya) ? $studyPeriod->addHours(2)->write() : '-' }}, {{ $studyPeriod->get('prev_hours') }}, {{ $studyPeriod->get('hours') }}</td>
+                    <td><p align="center">{{ $chapter->test_hours }}</p></td>
+                    <td>{{ !empty($DataNachalaObucheniya) ? $studyPeriod->addHours($chapter->test_hours)->write() : '-' }}</td>
                 </tr>
             @endif
         @endforeach
@@ -59,8 +59,8 @@
                     <td colspan="2">
                         <p align="center">{{ !empty($final_test->test_title) ? $final_test->test_title : $final_test->title; }}</p>
                     </td>
-                    <td><p align="center">2</p></td>
-                    <td>{{ !empty($DataNachalaObucheniya) ? $studyPeriod->addHours(2)->write() : '-' }}, {{ $studyPeriod->get('prev_hours') }}, {{ $studyPeriod->get('hours') }}</td>
+                    <td><p align="center">{{ $final_test->test_hours }}</p></td>
+                    <td>{{ !empty($DataNachalaObucheniya) ? $studyPeriod->addHours($final_test->test_hours)->write() : '-' }}</td>
                 </tr>
             @endif
                 <tr>

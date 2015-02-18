@@ -32,6 +32,12 @@
                             {{ Form::text('test_title', '') }}
                         </label>
                     </section>
+                    <section>
+                        <label class="label">Количество часов промежуточной аттестации</label>
+                        <label class="input">
+                            {{ Form::text('test_hours','2') }}
+                        </label>
+                    </section>
 					<section>
                         <label class="label">Количество часов</label>
                         <label class="input">

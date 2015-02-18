@@ -27,7 +27,7 @@ class Chapter extends BaseModel {
 
     protected $table = 'chapters';
 
-    protected $fillable = array('course_id','order','title','test_title','description','order','hours');
+    protected $fillable = array('course_id','order','title','test_title','test_hours','description','order','hours');
 
     public static $order_by = "order";
 

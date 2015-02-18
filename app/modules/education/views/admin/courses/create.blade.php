@@ -32,6 +32,12 @@
 						</label>
 					</section>
                     <section>
+						<label class="label">Количество часов итоговой аттестации</label>
+						<label class="input">
+							{{ Form::text('test_hours', '2') }}
+						</label>
+					</section>
+                    <section>
 						<label class="label">Описание</label>
 						<label class="textarea">
 							{{ Form::textarea('description', '',array('class'=>'redactor')) }}

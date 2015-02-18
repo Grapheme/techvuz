@@ -652,6 +652,7 @@ class AccountsDocumentsController extends BaseController {
                             $listeners[$listener_index]['module'] = $listener->course->chapters;
                             $listeners[$listener_index]['final_test'] = $listener->course->test;
                             $listeners[$listener_index]['final_test']['test_title'] = $listener->course->test_title;
+                            $listeners[$listener_index]['final_test']['test_hours'] = $listener->course->test_hours;
                         endforeach;
                         foreach($listeners as $course_id => $listener):
                             $page_data['FIO_listener'] = $listener['FIO_listener'];
