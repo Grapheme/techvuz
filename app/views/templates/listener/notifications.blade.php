@@ -29,7 +29,7 @@
         @if(count($messages))
         {{ Form::open(array('url'=>URL::route('listener-notification-delete',array('notification_id'=>'selected')), 'style'=>'display:inline-block; width: 100%;', 'method'=>'delete')) }}
         {{ Form::submit('Удалить сообщения',array('title'=>'Удалить сообщение','class'=>'btn btn-danger pull-right')) }}
-        <table class="tech-table sortable notif-table">
+        <table class="tech-table payments-table sortable notif-table">
             <tbody>
             @foreach($messages as $message)
                 <tr>
