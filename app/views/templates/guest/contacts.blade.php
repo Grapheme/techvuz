@@ -117,6 +117,10 @@
             </div>
         </div>
     </div>
+    <h2 class="margin-top-40 margin-bottom-20">Информация о сотрудничестве</h2>
+    <div class="desc">
+        {{ $page->block('informaciya-o-sotrudnichestve') }}
+    </div>
 </main>
 <script type="text/javascript"
       src="http://maps.googleapis.com/maps/api/js?key=AIzaSyA4Q5VgK-858jgeSbJKHbclop_XIJs3lXs&sensor=true"></script>
