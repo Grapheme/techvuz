@@ -20,15 +20,14 @@
                     <td><a class="nowrap" href="{{ $order['link'] }}" target="_blank">№{{ $order['number'] }}</a></td>
                     <td><a href="{{ $order['purchaser']['link'] }}" target="_blank">{{ $order['purchaser']['name'] }}</a></td>
                     <td>
-                    @if(count($order['payment_numbers']))
-                        @foreach($order['payment_numbers'] as $payment)
-                            @if($date == $payment['payment_date'] )
-                            Номер поручения: {{ $payment['payment_number'] }}<br>
-                            Сумма: {{ $payment['price'] }}<br>
-                            Дата поступления: {{ (new myDateTime())->setDateString($payment['created_at'])->format('d.m.Y H:i') }}<br>
-                            @endif
-                        @endforeach
-                    @endif
+                @if(count($order['payment_numbers']))
+                    @foreach($order['payment_numbers'] as $payment)
+                        @if($date == $payment['payment_date'] )
+                        <nobr>пп. {{ $payment['payment_number'] }} от {{ (new myDateTime())->setDateString($payment['created_at'])->format('d.m.Y') }}</nobr><br>
+                        <nobr>на сумму {{ number_format($payment['price'],0,'.',' ') }} руб.</nobr><br>
+                        @endif
+                    @endforeach
+                @endif
                     </td>
                     <td>{{ number_format($order['price'],0,'.',' ') }} руб.</td>
                     <td>{{ $order['created'] }}</td>
