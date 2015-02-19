@@ -21,8 +21,8 @@
 <div id="paymentschart" style="width:848px;height: 300px;" class="chart"></div>
 @if(count($payments_extended))
 <div id="paymentschartextended" class="margin-top-20 margin-bottom-20">
-@foreach($payments_extended as $payment_extended)
-    {{ Helper::ta($payment_extended); }}
+@foreach($payments_extended as $index => $payment_extended)
+    <div data-order-date="{{ $index }}" class="payment-extended hidden">{{ $payment_extended }}</div>
 @endforeach
 </div>
 @endif
@@ -132,6 +132,13 @@
             var $dataIndex = item.dataIndex;
             $(".order-extended").addClass('hidden');
             $(".order-extended[data-order-date='"+$orders[$dataIndex][0]+"']").removeClass('hidden');
+        }
+    });
+    $("#paymentschart").on("plotclick", function (event, pos, item){
+        if(item){
+            var $dataIndex = item.dataIndex;
+            $(".payment-extended").addClass('hidden');
+            $(".payment-extended[data-order-date='"+$payments[$dataIndex][0]+"']").removeClass('hidden');
         }
     });
 </script>
