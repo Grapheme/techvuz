@@ -58,6 +58,7 @@
     </section>
     @include(Helper::layout('reviews-list'))
     @include(Helper::layout('news-list'))
+    <div class="seo">{{ $page->block('seo') }}</div>
 </main>
 @stop
 @section('overlays')

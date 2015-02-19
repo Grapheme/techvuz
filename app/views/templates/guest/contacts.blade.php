@@ -121,6 +121,7 @@
     <div class="desc">
         {{ $page->block('informaciya-o-sotrudnichestve') }}
     </div>
+    <div class="seo">{{ $page->block('seo') }}</div>
 </main>
 <script type="text/javascript"
       src="http://maps.googleapis.com/maps/api/js?key=AIzaSyA4Q5VgK-858jgeSbJKHbclop_XIJs3lXs&sensor=true"></script>

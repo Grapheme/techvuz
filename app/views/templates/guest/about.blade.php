@@ -38,6 +38,7 @@
         @endforeach
     </ul>
     @endif
+    <div class="seo">{{ $page->block('seo') }}</div>
 </main>
 @stop
 @section('overlays')

@@ -51,6 +51,7 @@ endif;
                 {{ $reviews->links(); }}
             </div>
         </div>
+        <div class="seo">{{ $page->block('seo') }}</div>
     </main>
 @stop
 @section('overlays')

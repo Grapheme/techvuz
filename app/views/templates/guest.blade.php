@@ -23,9 +23,6 @@
         @include(Helper::layout('header'))
         @include(Helper::layout('aside'))
         @yield('content', @$content)
-        <div class="seo">
-            {{ $page->block('seo') }}
-        </div>
         <div class="overlay">
             @yield('overlays')
             @if(Auth::guest())

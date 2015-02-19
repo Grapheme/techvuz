@@ -24,6 +24,7 @@
     @else
         <p>Авторизованные пользователи не могут оформлять заявки на регистрацию</p>
     @endif
+    <div class="seo">{{ $page->block('seo') }}</div>
 </main>
 @stop
 @section('overlays')
