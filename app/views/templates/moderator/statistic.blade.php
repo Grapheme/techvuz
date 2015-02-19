@@ -4,7 +4,7 @@
 @section('content')
 <h2>Статистика</h2>
 <div class="row">
-    <div class="employee-search input">
+    <div class="input">
         @include(Helper::acclayout('forms.statistic'))
     </div>
 </div>
@@ -114,8 +114,33 @@
     var $orders_plot = $.plot($("#orderschart"),[{data : $orders,label : "Количество заказов"}] , $options);
     $options['tooltipOpts']['content'] = "%y руб.";
     var $payments_plot = $.plot($("#paymentschart"),[{data : $payments,label : "Сумма платежей"}] , $options);
-    console.log($orders);
-    console.log($payments);
+
+    @if($diffMonths >= 3)
+    $("#orderschart").on("plotclick", function (event, pos, item){
+        if(item){
+            var dataIndex = item.dataIndex;
+            $.ajax({
+                url: "{{ URL::route('moderator-statistic-extend-request') }}",
+                data: {'month': $orders[dataIndex][0]},
+                type: 'POST',dataType: 'json',
+                beforeSend: function(){
+
+                },
+                success: function(response,textStatus,xhr){
+                    if(response.status == true){
+
+                    }
+                },
+                error: function(xhr,textStatus,errorThrown){}
+            });
+
+            console.log($orders[dataIndex][0]);
+//            console.log(item);
+            //alert(item.series.label);
+        }
+    });
+    @endif
+
 </script>
 @stop
 @stop

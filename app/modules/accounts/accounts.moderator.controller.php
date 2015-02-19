@@ -41,6 +41,7 @@ class AccountsModeratorController extends BaseController {
 
                 Route::get('statistic', array('as' => 'moderator-statistic', 'uses' => $class . '@statistic'));
                 Route::post('statistic-set-period', array('as' => 'moderator-statistic-set-period', 'uses' => $class . '@statisticSetPeriod'));
+                Route::post('statistic-extend-request', array('as' => 'moderator-statistic-extend-request', 'uses' => $class . '@statisticExtendRequest'));
 
                 Route::get('notifications', array('as' => 'moderator-notifications', 'uses' => $class . '@NotificationsList'));
                 Route::delete('notification/{notification_id}/delete', array('as' => 'moderator-notification-delete', 'uses' => $class . '@NotificationDelete'));
@@ -723,6 +724,7 @@ class AccountsModeratorController extends BaseController {
 
         $period_begin = date("Y-m-d 00:00:00",(strtotime('first day of this month', time())));
         $period_end = date("Y-m-d 23:59:59");
+        $month = array();
         $account_id = 0;
         $direction_id = 0;
         if(Session::has('account_id')):
@@ -769,7 +771,12 @@ class AccountsModeratorController extends BaseController {
         if (!$direction_id):
             $all_orders = $all_orders_query->get();
         endif;
-        $diffMonths = myDateTime::getDiffDate($period_end,$period_begin,'%m%');
+        $diffMonthsData = myDateTime::getDiffDate($period_end,$period_begin,NULL);
+        if ($diffMonthsData['y'] > 0):
+            $diffMonths = ($diffMonthsData['y']*12) + $diffMonthsData['m'];
+        else:
+            $diffMonths = $diffMonthsData['m'];
+        endif;
         $format = 'd.m';
         if ($diffMonths >= 3):
             $format = 'm.y';
@@ -814,7 +821,8 @@ class AccountsModeratorController extends BaseController {
             'period_end' => date('d.m.Y',strtotime($period_end)),
             'orders_chart' => $orders,
             'payments_chart' => $payments,
-            'payments_list' => $payments_list
+            'payments_list' => $payments_list,
+            'diffMonths' => $diffMonths
         );
         return View::make(Helper::acclayout('statistic'),$page_data);
     }
@@ -826,5 +834,39 @@ class AccountsModeratorController extends BaseController {
             ->with('period_end',Input::get('period_end'))
             ->with('account_id',Input::get('account_id'))
             ->with('direction_id',Input::get('direction_id'));
+    }
+
+    public function statisticExtendRequest(){
+
+        if (Request::ajax()):
+//            try{
+                if (Input::has('month')):
+                    $period = explode('.',Input::get('month'));
+                    $firstDayMonthTimeStamp = (new \Carbon\Carbon('01.'.@$period[0].'.20'.$period[1]))->timestamp;
+                    $firstDayMonth = \Carbon\Carbon::createFromTimestamp(strtotime('first day of this month',$firstDayMonthTimeStamp))->hour(0)->minute(0)->second(0);
+                    $lastDayMonth = \Carbon\Carbon::createFromTimestamp(strtotime('last day of this month',$firstDayMonthTimeStamp))->hour(23)->minute(59)->second(59);
+                    if ($lastDayMonth >= \Carbon\Carbon::now()):
+                        $lastDayMonth = \Carbon\Carbon::now();
+                    endif;
+                    $orders = array();
+                    foreach(Orders::where('completed',1)->where('created_at','>=',$firstDayMonth)->where('created_at','<=',$lastDayMonth)->with('organization','individual')->get() as $index => $order):
+                        $orders[$index]['number'] = getOrderNumber($order);
+                        if (!empty($order->organization)):
+                            $orders[$index]['purchaser'] = array('id'=> $order->organization->id,'name'=>$order->organization->title);
+                        elseif(!empty($order->individual)):
+                            $orders[$index]['purchaser'] = array('id'=> $order->individual->id,'name'=>$order->individual->fio);
+                        endif;
+                    endforeach;
+                    Helper::ta($orders);
+                else:
+                    return Response::json(array('status'=> FALSE));
+                endif;
+                return Response::json(array('status'=>TRUE,'result'=>$orders));
+//            } catch (Exception $e){
+//                return Response::json(array('status'=> FALSE));
+//            }
+        else:
+            return Response::json(array('status'=>FALSE));
+        endif;
     }
 }
