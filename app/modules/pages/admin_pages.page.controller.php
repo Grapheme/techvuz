@@ -158,7 +158,7 @@ class AdminPagesPageController extends BaseController {
             @$templates_module[$template] = $template;
 
         foreach ($this->templates(Helper::theme_dir(), '') as $key => $template)
-            @$templates_theme[$key] = $template;
+            @$templates_theme[$template] = $template;
 
         $templates = array();
         if (@count($templates_theme)) {
