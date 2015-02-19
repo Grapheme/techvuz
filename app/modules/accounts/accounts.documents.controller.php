@@ -189,6 +189,7 @@ class AccountsDocumentsController extends BaseController {
                 Config::set('show-document.order_id', $order_id);
                 if($page_data = self::parseOrderHTMLDocument($document_content)):
                     $page_data['FIO_listener'] = $listener->fio;
+                    $page_data['FIO_listener_dat'] = $listener->fio_dat;
                     $page_data['NomerUdostovereniya'] = str_pad($OrderListener->certificate_number,4,'0',STR_PAD_LEFT);
                     $page_data['Nazvanie_kursa'] = $course->title;
                     $page_data['KolichestvoChasovObucheniyaPoKursu'] = $course->hours.' '.Lang::choice('час|часов|часов',$course->hours);
@@ -353,6 +354,7 @@ class AccountsDocumentsController extends BaseController {
                 Config::set('show-document.order_id', $order_id);
                 if($page_data = self::parseOrderHTMLDocument($document_content)):
                     $page_data['FIO_listener'] = $listener->fio;
+                    $page_data['FIO_listener_dat'] = $listener->fio_rod;
                     $page_data['NomerUdostovereniya'] = str_pad($OrderListener->certificate_number,4,'0',STR_PAD_LEFT);
                     $page_data['Nazvanie_kursa'] = $course->title;
                     $page_data['KolichestvoChasovObucheniyaPoKursu'] = $course->hours.' '.Lang::choice('час|часов|часов',$course->hours);
@@ -922,6 +924,7 @@ class AccountsDocumentsController extends BaseController {
                         $page_data['page_title'] = '';
                         foreach($page_data['SpisokSluschateley']['listeners'] as $index => $listener):
                             $listeners[$index]['FIO_listener'] = !empty($listener['user_listener']) ? $listener['user_listener']['fio'] : $listener['user_individual']['fio'];
+                            $listeners[$index]['FIO_listener_dat'] = !empty($listener['user_listener']) ? $listener['user_listener']['fio_dat'] : $listener['user_individual']['fio_rod'];
                             $listeners[$index]['Phone_listener'] = !empty($listener['user_listener']) ? $listener['user_listener']['phone'] : $listener['user_individual']['phone'];
                             $listeners[$index]['Email_listener'] = !empty($listener['user_listener']) ? $listener['user_listener']['email'] : $listener['user_individual']['email'];
                             $listeners[$index]['Address_listener'] = !empty($listener['user_listener']) ? $listener['user_listener']['postaddress'] : $listener['user_individual']['postaddress'];
@@ -975,6 +978,7 @@ class AccountsDocumentsController extends BaseController {
                         endforeach;
                         foreach($listeners as $listener_id => $listener):
                             $page_data['FIO_listener'] = $listener['FIO_listener'];
+                            $page_data['FIO_listener_dat'] = $listener['FIO_listener_dat'];
                             $page_data['Phone_listener'] = $listener['Phone_listener'];
                             $page_data['Email_listener'] = $listener['Email_listener'];
                             $page_data['Address_listener'] = $listener['Address_listener'];
