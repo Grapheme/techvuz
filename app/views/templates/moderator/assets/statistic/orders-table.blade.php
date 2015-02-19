@@ -1,11 +1,7 @@
 @if(count($orders))
 <div class="row">
     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-        @if($period_month >= 3)
-        <h3>Заказы за период с {{ $firstDayMonth->format('d.m.Y') }} по {{ $lastDayMonth->format('d.m.Y') }}</h3>
-        @else
-        <h3>Заказы за {{ $firstDayMonth->format('d.m.Y') }}</h3>
-        @endif
+        <h3>Заказы за {{ $date }}</h3>
         <table class="table table-striped table-bordered">
             <thead>
             <tr>

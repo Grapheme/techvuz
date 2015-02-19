@@ -760,7 +760,7 @@ class AccountsModeratorController extends BaseController {
         if($account_id):
             $all_orders_query = $all_orders_query->where('user_id',$account_id);
         endif;
-        $all_orders_query = $all_orders_query->with('payment_numbers');
+        $all_orders_query = $all_orders_query->with('payment_numbers','listeners','organization','individual');
         if ($direction_id && !empty($ordersIDs)):
             $all_orders_query = $all_orders_query->whereIn('id',$ordersIDs);
             $all_orders = $all_orders_query->get();
@@ -784,9 +784,11 @@ class AccountsModeratorController extends BaseController {
         $index_start = (new myDateTime())->setDateString($period_begin)->format($format);
         $index_end = (new myDateTime())->setDateString($period_end)->format($format);
         $orders = $payments = array($index_start=>0); $payments_list = array();
+        $orders_extended = $payments_extended = array();
         $tmp_orders = array();
         foreach($all_orders as $order_index => $order):
             $tmp_orders[$order_index] = $order->toArray();
+            $tmp_orders[$order_index]['created_at_origin'] = $tmp_orders[$order_index]['created_at'];
             $tmp_orders[$order_index]['created_at'] = $order->created_at->format($format);
             if ($order->payment_numbers->count()):
                 foreach($order->payment_numbers as $payment_number_index => $payment_number):
@@ -796,15 +798,27 @@ class AccountsModeratorController extends BaseController {
             endif;
         endforeach;
         if (!empty($tmp_orders)):
+            $tmp_order_extended = $temp_payments_extended = array();
             foreach($tmp_orders as $order):
                 $orders[$order['created_at']] += 1;
+                $tmp_order_extended[$order['created_at']][] = self::getStatisticOrdersExtended($order);
                 if (count($order['payment_numbers'])):
                     foreach($order['payment_numbers'] as $payment_number):
                         $payments[$payment_number['payment_date']] += $payment_number['price'];
                     endforeach;
+//                    Helper::ta($order['payment_numbers']);
+                    foreach($order['payment_numbers'] as $payment_number):
+                        $temp_payments_extended[$payment_number['payment_date']] = self::getStatisticPaymentsExtended($order);
+                    endforeach;
                 endif;
             endforeach;
+            if (count($tmp_order_extended)):
+                foreach($tmp_order_extended as $index => $order_extended):
+                    $orders_extended[$index] = View::make(Helper::acclayout('assets.statistic.orders-table'),array('orders'=>$order_extended,'date'=>$index))->render();
+                endforeach;
+            endif;
         endif;
+//        Helper::tad($temp_payments_extended);
         if (!isset($orders[$index_end])):
             $orders[$index_end] = 0;
         endif;
@@ -822,7 +836,9 @@ class AccountsModeratorController extends BaseController {
             'orders_chart' => $orders,
             'payments_chart' => $payments,
             'payments_list' => $payments_list,
-            'diffMonths' => $diffMonths
+            'diffMonths' => $diffMonths,
+            'orders_extended' => $orders_extended,
+            'payments_extended' => $payments_extended
         );
         return View::make(Helper::acclayout('statistic'),$page_data);
     }
@@ -836,66 +852,70 @@ class AccountsModeratorController extends BaseController {
             ->with('direction_id',Input::get('direction_id'));
     }
 
-    public function statisticExtendRequest(){
+    private function getStatisticOrdersExtended($order){
 
-        if (Request::ajax()):
-            try{
-                if (Input::has('month') && Input::has('period')):
-                    $period_month = Input::get('period');
-                    if ($period_month >= 3):
-                        $period = explode('.',Input::get('month'));
-                        $firstDayMonthTimeStamp = (new \Carbon\Carbon('01.'.@$period[0].'.20'.$period[1]))->timestamp;
-                        $firstDayMonth = \Carbon\Carbon::createFromTimestamp(strtotime('first day of this month',$firstDayMonthTimeStamp))->hour(0)->minute(0)->second(0);
-                        $lastDayMonth = \Carbon\Carbon::createFromTimestamp(strtotime('last day of this month',$firstDayMonthTimeStamp))->hour(23)->minute(59)->second(59);
-                        if ($lastDayMonth >= \Carbon\Carbon::now()):
-                            $lastDayMonth = \Carbon\Carbon::now();
-                        endif;
-                    else:
-                        $period = explode('.',Input::get('month'));
-                        $firstDayMonthTimeStamp = (new \Carbon\Carbon(@$period[0].'.'.@$period[1].'.20'.$period[2]))->timestamp;
-                        $firstDayMonth = \Carbon\Carbon::createFromTimestamp($firstDayMonthTimeStamp)->hour(0)->minute(0)->second(0);
-                        $lastDayMonth = \Carbon\Carbon::createFromTimestamp($firstDayMonthTimeStamp)->hour(23)->minute(59)->second(59);
-                    endif;
-
-                    $orders = array();
-                    foreach(Orders::where('completed',1)->where('created_at','>=',$firstDayMonth)->where('created_at','<=',$lastDayMonth)->with('listeners','organization','individual')->get() as $index => $order):
-                        $orders[$index]['number'] = getOrderNumber($order);
-                        $orders[$index]['link'] = URL::route('moderator-order-extended',$order->id);
-                        $orders[$index]['listeners'] = 0;
-                        $orders[$index]['price'] = 0;
-                        $orders[$index]['created'] = $order->created_at->format('d.m.Y H:i');
-                        if (count($order->listeners)):
-                            foreach($order->listeners as $listener):
-                                $orders[$index]['listeners'] += 1;
-                                $orders[$index]['price'] += $listener->price;
-                            endforeach;
-                        endif;
-                        if (!empty($order->organization)):
-                            $orders[$index]['purchaser'] = array(
-                                'id'=> $order->organization->id,
-                                'group_id'=>4,
-                                'name'=>$order->organization->title,
-                                'link' => URL::route('moderator-company-profile',$order->organization->id)
-                            );
-                        elseif(!empty($order->individual)):
-                            $orders[$index]['purchaser'] = array(
-                                'id'=> $order->individual->id,
-                                'group_id'=>6,
-                                'name'=>$order->individual->fio,
-                                'link' => URL::route('moderator-listener-profile',$order->individual->id)
-                            );
-                        endif;
-                    endforeach;
-                    $html_view = View::make(Helper::acclayout('assets.statistic.orders-table'),compact('orders','firstDayMonth','lastDayMonth','period_month'))->render();
-                    return Response::json(array('status'=>TRUE,'html'=>$html_view));
-                else:
-                    return Response::json(array('status'=> FALSE));
-                endif;
-            } catch (Exception $e){
-                return Response::json(array('status'=> FALSE));
-            }
-        else:
-            return Response::json(array('status'=>FALSE));
+        $result_orders['number'] = getOrderNumber($order);
+        $result_orders['link'] = URL::route('moderator-order-extended',$order['id']);
+        $result_orders['listeners'] = 0;
+        $result_orders['price'] = 0;
+        $result_orders['created'] = (new myDateTime())->setDateString($order['created_at_origin'])->format('d.m.Y H:i');
+        if (count($order['listeners'])):
+            foreach($order['listeners'] as $listener):
+                $result_orders['listeners'] += 1;
+                $result_orders['price'] += $listener['price'];
+            endforeach;
         endif;
+        if (!empty($order['organization'])):
+            $result_orders['purchaser'] = array(
+                'id'=> $order['organization']['id'],
+                'group_id'=>4,
+                'name'=>$order['organization']['title'],
+                'link' => URL::route('moderator-company-profile',$order['organization']['id'])
+            );
+        elseif(!empty($order['individual'])):
+            $result_orders['purchaser'] = array(
+                'id'=> $order['individual']['id'],
+                'group_id'=>6,
+                'name'=>$order['individual']['fio'],
+                'link' => URL::route('moderator-listener-profile',$order['individual']['id'])
+            );
+        endif;
+        return $result_orders;
+    }
+
+    private function getStatisticPaymentsExtended($order){
+
+        $result_orders['number'] = getOrderNumber($order);
+        $result_orders['link'] = URL::route('moderator-order-extended',$order['id']);
+        $result_orders['listeners'] = 0;
+        $result_orders['price'] = 0;
+        $result_orders['created'] = (new myDateTime())->setDateString($order['created_at_origin'])->format('d.m.Y H:i');
+        if (count($order['listeners'])):
+            foreach($order['listeners'] as $listener):
+                $result_orders['listeners'] += 1;
+                $result_orders['price'] += $listener['price'];
+            endforeach;
+        endif;
+        if (!empty($order['organization'])):
+            $result_orders['purchaser'] = array(
+                'id'=> $order['organization']['id'],
+                'group_id'=>4,
+                'name'=>$order['organization']['title'],
+                'link' => URL::route('moderator-company-profile',$order['organization']['id'])
+            );
+        elseif(!empty($order['individual'])):
+            $result_orders['purchaser'] = array(
+                'id'=> $order['individual']['id'],
+                'group_id'=>6,
+                'name'=>$order['individual']['fio'],
+                'link' => URL::route('moderator-listener-profile',$order['individual']['id'])
+            );
+        endif;
+        if (count($order['payment_numbers'])):
+            foreach($order['payment_numbers'] as $payment_number):
+                $result_orders['payment_numbers'][] = $payment_number;
+            endforeach;
+        endif;
+        return $result_orders;
     }
 }

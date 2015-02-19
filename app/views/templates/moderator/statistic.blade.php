@@ -10,10 +10,22 @@
 </div>
 <h3 class="margin-bottom-40">Статистика заказов</h3>
 <div id="orderschart" style="width:848px;height: 300px;" class="chart"></div>
-<div id="orderschartextended" class="margin-top-20 margin-bottom-20"></div>
+@if(count($orders_extended))
+<div id="orderschartextended" class="margin-top-20 margin-bottom-20">
+@foreach($orders_extended as $index => $order_extended)
+    <div data-order-date="{{ $index }}" class="order-extended hidden">{{ $order_extended }}</div>
+@endforeach
+</div>
+@endif
 <h3 class="margin-bottom-40 margin-top-40">Статистика платежей</h3>
 <div id="paymentschart" style="width:848px;height: 300px;" class="chart"></div>
-<div id="paymentschartextended" class="margin-top-20 margin-bottom-20"></div>
+@if(count($payments_extended))
+<div id="paymentschartextended" class="margin-top-20 margin-bottom-20">
+@foreach($payments_extended as $payment_extended)
+    {{ Helper::ta($payment_extended); }}
+@endforeach
+</div>
+@endif
 @if($account_selected)
 <h3 class="margin-bottom-40">Список платежных поручением</h3>
 <div class="row">
@@ -88,11 +100,10 @@
     var $color_orders        = "#FFCC00";
     var $color_paymetns        = "#ff0000";
 
-    var $orders = [];
+    var $orders = []; var $payments = [];
     @foreach($orders_chart as $date => $count)
-        $orders.push([ "{{ $date }}" , {{ $count }} ])
+    $orders.push([ "{{ $date }}" , {{ $count }} ])
     @endforeach
-    var $payments = [];
     @foreach($payments_chart as $date => $summa)
     $payments.push([ "{{ $date }}" , {{ $summa }} ])
     @endforeach
@@ -119,25 +130,8 @@
     $("#orderschart").on("plotclick", function (event, pos, item){
         if(item){
             var $dataIndex = item.dataIndex;
-            var $period = {{ $diffMonths }};
-            $.ajax({
-                url: "{{ URL::route('moderator-statistic-extend-request') }}",
-                data: {'month': $orders[$dataIndex][0],'period' : $period },
-                type: 'POST',dataType: 'json',
-                beforeSend: function(){
-                    $("#orderschartextended").html('<p>Ожидайте...</p>');
-                },
-                success: function(response,textStatus,xhr){
-                    if(response.status == true){
-                        $("#orderschartextended").html(response.html);
-                    }
-                },
-                error: function(xhr,textStatus,errorThrown){}
-            });
-
-            console.log($orders[$dataIndex][0]);
-//            console.log(item);
-            //alert(item.series.label);
+            $(".order-extended").addClass('hidden');
+            $(".order-extended[data-order-date='"+$orders[$dataIndex][0]+"']").removeClass('hidden');
         }
     });
 </script>
