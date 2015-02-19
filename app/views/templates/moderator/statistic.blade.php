@@ -10,9 +10,10 @@
 </div>
 <h3 class="margin-bottom-40">Статистика заказов</h3>
 <div id="orderschart" style="width:848px;height: 300px;" class="chart"></div>
+<div id="orderschartextended" class="margin-top-20 margin-bottom-20"></div>
 <h3 class="margin-bottom-40 margin-top-40">Статистика платежей</h3>
 <div id="paymentschart" style="width:848px;height: 300px;" class="chart"></div>
-
+<div id="paymentschartextended" class="margin-top-20 margin-bottom-20"></div>
 @if($account_selected)
 <h3 class="margin-bottom-40">Список платежных поручением</h3>
 <div class="row">
@@ -115,32 +116,30 @@
     $options['tooltipOpts']['content'] = "%y руб.";
     var $payments_plot = $.plot($("#paymentschart"),[{data : $payments,label : "Сумма платежей"}] , $options);
 
-    @if($diffMonths >= 3)
     $("#orderschart").on("plotclick", function (event, pos, item){
         if(item){
-            var dataIndex = item.dataIndex;
+            var $dataIndex = item.dataIndex;
+            var $period = {{ $diffMonths }};
             $.ajax({
                 url: "{{ URL::route('moderator-statistic-extend-request') }}",
-                data: {'month': $orders[dataIndex][0]},
+                data: {'month': $orders[$dataIndex][0],'period' : $period },
                 type: 'POST',dataType: 'json',
                 beforeSend: function(){
-
+                    $("#orderschartextended").html('<p>Ожидайте...</p>');
                 },
                 success: function(response,textStatus,xhr){
                     if(response.status == true){
-
+                        $("#orderschartextended").html(response.html);
                     }
                 },
                 error: function(xhr,textStatus,errorThrown){}
             });
 
-            console.log($orders[dataIndex][0]);
+            console.log($orders[$dataIndex][0]);
 //            console.log(item);
             //alert(item.series.label);
         }
     });
-    @endif
-
 </script>
 @stop
 @stop

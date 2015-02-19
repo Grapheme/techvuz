@@ -777,7 +777,7 @@ class AccountsModeratorController extends BaseController {
         else:
             $diffMonths = $diffMonthsData['m'];
         endif;
-        $format = 'd.m';
+        $format = 'd.m.y';
         if ($diffMonths >= 3):
             $format = 'm.y';
         endif;
@@ -839,32 +839,61 @@ class AccountsModeratorController extends BaseController {
     public function statisticExtendRequest(){
 
         if (Request::ajax()):
-//            try{
-                if (Input::has('month')):
-                    $period = explode('.',Input::get('month'));
-                    $firstDayMonthTimeStamp = (new \Carbon\Carbon('01.'.@$period[0].'.20'.$period[1]))->timestamp;
-                    $firstDayMonth = \Carbon\Carbon::createFromTimestamp(strtotime('first day of this month',$firstDayMonthTimeStamp))->hour(0)->minute(0)->second(0);
-                    $lastDayMonth = \Carbon\Carbon::createFromTimestamp(strtotime('last day of this month',$firstDayMonthTimeStamp))->hour(23)->minute(59)->second(59);
-                    if ($lastDayMonth >= \Carbon\Carbon::now()):
-                        $lastDayMonth = \Carbon\Carbon::now();
+            try{
+                if (Input::has('month') && Input::has('period')):
+                    $period_month = Input::get('period');
+                    if ($period_month >= 3):
+                        $period = explode('.',Input::get('month'));
+                        $firstDayMonthTimeStamp = (new \Carbon\Carbon('01.'.@$period[0].'.20'.$period[1]))->timestamp;
+                        $firstDayMonth = \Carbon\Carbon::createFromTimestamp(strtotime('first day of this month',$firstDayMonthTimeStamp))->hour(0)->minute(0)->second(0);
+                        $lastDayMonth = \Carbon\Carbon::createFromTimestamp(strtotime('last day of this month',$firstDayMonthTimeStamp))->hour(23)->minute(59)->second(59);
+                        if ($lastDayMonth >= \Carbon\Carbon::now()):
+                            $lastDayMonth = \Carbon\Carbon::now();
+                        endif;
+                    else:
+                        $period = explode('.',Input::get('month'));
+                        $firstDayMonthTimeStamp = (new \Carbon\Carbon(@$period[0].'.'.@$period[1].'.20'.$period[2]))->timestamp;
+                        $firstDayMonth = \Carbon\Carbon::createFromTimestamp($firstDayMonthTimeStamp)->hour(0)->minute(0)->second(0);
+                        $lastDayMonth = \Carbon\Carbon::createFromTimestamp($firstDayMonthTimeStamp)->hour(23)->minute(59)->second(59);
                     endif;
+
                     $orders = array();
-                    foreach(Orders::where('completed',1)->where('created_at','>=',$firstDayMonth)->where('created_at','<=',$lastDayMonth)->with('organization','individual')->get() as $index => $order):
+                    foreach(Orders::where('completed',1)->where('created_at','>=',$firstDayMonth)->where('created_at','<=',$lastDayMonth)->with('listeners','organization','individual')->get() as $index => $order):
                         $orders[$index]['number'] = getOrderNumber($order);
+                        $orders[$index]['link'] = URL::route('moderator-order-extended',$order->id);
+                        $orders[$index]['listeners'] = 0;
+                        $orders[$index]['price'] = 0;
+                        $orders[$index]['created'] = $order->created_at->format('d.m.Y H:i');
+                        if (count($order->listeners)):
+                            foreach($order->listeners as $listener):
+                                $orders[$index]['listeners'] += 1;
+                                $orders[$index]['price'] += $listener->price;
+                            endforeach;
+                        endif;
                         if (!empty($order->organization)):
-                            $orders[$index]['purchaser'] = array('id'=> $order->organization->id,'name'=>$order->organization->title);
+                            $orders[$index]['purchaser'] = array(
+                                'id'=> $order->organization->id,
+                                'group_id'=>4,
+                                'name'=>$order->organization->title,
+                                'link' => URL::route('moderator-company-profile',$order->organization->id)
+                            );
                         elseif(!empty($order->individual)):
-                            $orders[$index]['purchaser'] = array('id'=> $order->individual->id,'name'=>$order->individual->fio);
+                            $orders[$index]['purchaser'] = array(
+                                'id'=> $order->individual->id,
+                                'group_id'=>6,
+                                'name'=>$order->individual->fio,
+                                'link' => URL::route('moderator-listener-profile',$order->individual->id)
+                            );
                         endif;
                     endforeach;
-                    Helper::ta($orders);
+                    $html_view = View::make(Helper::acclayout('assets.statistic.orders-table'),compact('orders','firstDayMonth','lastDayMonth','period_month'))->render();
+                    return Response::json(array('status'=>TRUE,'html'=>$html_view));
                 else:
                     return Response::json(array('status'=> FALSE));
                 endif;
-                return Response::json(array('status'=>TRUE,'result'=>$orders));
-//            } catch (Exception $e){
-//                return Response::json(array('status'=> FALSE));
-//            }
+            } catch (Exception $e){
+                return Response::json(array('status'=> FALSE));
+            }
         else:
             return Response::json(array('status'=>FALSE));
         endif;
