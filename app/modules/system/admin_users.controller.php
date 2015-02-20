@@ -114,7 +114,7 @@ class AdminUsersController extends BaseController {
 
 			$json_request['responseText'] = "Пользователь добавлен";
 			#$json_request['responseText'] = print_r(Input::get('actions'), 1);
-			$json_request['redirect'] = link::auth('system/users?group_id'.$input['group_id']);
+			$json_request['redirect'] = link::auth('system/users?group_id='.$input['group_id']);
 			$json_request['status'] = TRUE;
 
 		} else {
