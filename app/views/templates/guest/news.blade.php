@@ -26,7 +26,9 @@
                 {{ $news->links(); }}
             </div>
         </div>
-        <div class="seo">{{ $page->block('seo') }}</div>
+        @if(count($page->blocks))
+        <div class="seo">{{ @$page->block('seo') }}</div>
+        @endif
     </main>
 @stop
 @section('overlays')
