@@ -2,10 +2,6 @@
 
 class RemindersController extends BaseController {
 
-	public function index(){
-		return View::make('password.remind');
-	}
-
 	public function store(){
 
         $json_request = array('status'=>FALSE,'responseText'=>'','responseErrorText'=>'');

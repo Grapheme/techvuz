@@ -35,9 +35,8 @@ Route::group(array('before' => 'guest.auth', 'prefix' => ''), function(){
 	#Route::get('activation', array('as' => 'activation', 'uses' => 'GlobalController@activation'));
     Route::resource('restore-password','RemindersController',
         array(
-            'only'=>array('index','store','show','update'),
+            'only'=>array('store','show','update'),
             'names' => array(
-                'index'  => 'password-reset.create',
                 'store'  => 'password-reset.store',
                 'show'   => 'password-reset.show',
                 'update' => 'password-reset.update',
