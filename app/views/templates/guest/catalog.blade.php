@@ -3,7 +3,7 @@
 @stop
 @section('content')
 <main class="catalog">
-    {{ $page->block('top_h2') }}
+    @if(!empty($page->seo->h1))<h1>{{ $page->seo->h1 }}</h1>@endif
     <div class="print-link">
         <a href="#" onclick="window.print();return false;">Распечатать каталог</a> <span class="icon icon-print"></span>
     </div>
