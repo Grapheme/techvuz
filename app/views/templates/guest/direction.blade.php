@@ -3,16 +3,9 @@
 @stop
 @section('content')
 <main class="catalog">
-    @if(!empty($page->seo->h1))<h1>{{ $page->seo->h1 }}</h1>@endif
-    <div class="print-link">
-        <a href="#" onclick="window.print();return false;">Распечатать каталог</a> <span class="icon icon-print"></span>
-    </div>
+@if(!empty($page->seo->h1))<h1>{{ $page->seo->h1 }}</h1>@endif
     <div class="desc">
-@if (count($page->blocks))
-    @foreach ($page->blocks as $block)
-        {{ $page->block($block->slug) }}
-    @endforeach
-@endif
+        {{ $page->block('seo') }}
     </div>
     <div class="accordion">
     <?php
@@ -101,6 +94,15 @@
 @else
     <p>Неверно указан идентификатор страницы</p>
 @endif
+    <div class="desc">
+        @if (count($page->blocks))
+            @foreach ($page->blocks as $block)
+                @if($block->slug != 'seo')
+                    {{ $page->block($block->slug) }}
+                @endif
+            @endforeach
+        @endif
+    </div>
 </main>
 @stop
 @section('overlays')
