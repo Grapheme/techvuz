@@ -95,7 +95,7 @@
 @else
     <p>Неверно указан идентификатор страницы</p>
 @endif
-    <div class="desc">
+    <div class="desc margin-top-20">
         @if (count($page->blocks))
             @foreach ($page->blocks as $block)
                 @if($block->slug != 'seo')
