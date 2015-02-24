@@ -7,7 +7,6 @@
     <div class="desc">
         {{ $page->block('seo') }}
     </div>
-    <div class="accordion">
     <?php
         $path = Request::path();
         $segments = explode('-',$path);
@@ -26,16 +25,17 @@
         endif;
     ?>
 @if($direction)
-    <div
-    @if($direction->in_progress)
-        class="accordion-header direction-in-progress"
-        data-toggle="tooltip"
-        data-placement="top"
-        title="Направление находится в разработке"
+    <div class="accordion">
+        <div
+        @if($direction->in_progress)
+            class="accordion-header direction-in-progress"
+            data-toggle="tooltip"
+            data-placement="top"
+            title="Направление находится в разработке"
         @else
-        class="accordion-header"
-            @endif
-    >
+            class="accordion-header"
+        @endif
+        >
             @if(!empty($direction->photo->name))
                 <div class="accordion-img" style="background-image: url('{{ Config::get('site.galleries_photo_public_dir').'/'.$direction->photo->name }}');"></div>
             @endif
@@ -43,53 +43,54 @@
             <div class="acc-courses">
                 {{ $direction->courses->count() }} {{ Lang::choice('курс|курса|курсов',$direction->courses->count()); }}
             </div>
-    </div>
-    <div class="accordion-body">
-    @if($direction->courses->count())
-        <table>
-            <tr>
-                <th>Название</th>
-                <th>Код</th>
-                <th>Часы</th>
-                <th>Цена</th>
-            </tr>
-            <?php
-            $accountDiscount = getAccountDiscount();
-            $globalDiscount = getGlobalDiscount();
-            ?>
-            @foreach($direction->courses as $course)
-                <tr @if($course->in_progress)
-                    data-toggle="tooltip"
-                    data-placement="left"
-                    title="Курс находится в разработке"
-                    class="course-in-progress"
-                        @endif
-                        >
-                    <td>
-                        @if(!empty($course->seo))
-                            <a href="{{ URL::route('course-page',$course->seo->url) }}">{{ $course->title }}</a>
-                        @else
-                            {{ $course->title }}
-                        @endif
-                    </td>
-                    <td><span class="code">{{ $course->code }}</span></td>
-                    <td><span class="code">{{ $course->hours }}</span></td>
-                    <td>
-                        <?php $discountPrice = FALSE; ?>
-                        @if($direction->use_discount && $course->use_discount)
-                            <?php $discountPrice = calculateDiscount(array($direction->discount,$course->discount,$accountDiscount,$globalDiscount),$course->price,FALSE); ?>
-                        @endif
-                        @if($discountPrice === FALSE || $discountPrice == $course->price)
-                            <span class="price">{{ number_format($course->price,0,'.',' ')  }}.–</span>
-                        @else
-                            <span class="price"><s>{{ number_format($course->price,0,'.',' ')  }}.–</s></span>
-                            <br><span class="price">{{ number_format($discountPrice,0,'.',' ')  }}.–</span>
-                        @endif
-                    </td>
+        </div>
+        <div class="accordion-body">
+        @if($direction->courses->count())
+            <table>
+                <tr>
+                    <th>Название</th>
+                    <th>Код</th>
+                    <th>Часы</th>
+                    <th>Цена</th>
                 </tr>
-            @endforeach
-        </table>
-    @endif
+                <?php
+                $accountDiscount = getAccountDiscount();
+                $globalDiscount = getGlobalDiscount();
+                ?>
+                @foreach($direction->courses as $course)
+                    <tr @if($course->in_progress)
+                        data-toggle="tooltip"
+                        data-placement="left"
+                        title="Курс находится в разработке"
+                        class="course-in-progress"
+                            @endif
+                            >
+                        <td>
+                            @if(!empty($course->seo))
+                                <a href="{{ URL::route('course-page',$course->seo->url) }}">{{ $course->title }}</a>
+                            @else
+                                {{ $course->title }}
+                            @endif
+                        </td>
+                        <td><span class="code">{{ $course->code }}</span></td>
+                        <td><span class="code">{{ $course->hours }}</span></td>
+                        <td>
+                            <?php $discountPrice = FALSE; ?>
+                            @if($direction->use_discount && $course->use_discount)
+                                <?php $discountPrice = calculateDiscount(array($direction->discount,$course->discount,$accountDiscount,$globalDiscount),$course->price,FALSE); ?>
+                            @endif
+                            @if($discountPrice === FALSE || $discountPrice == $course->price)
+                                <span class="price">{{ number_format($course->price,0,'.',' ')  }}.–</span>
+                            @else
+                                <span class="price"><s>{{ number_format($course->price,0,'.',' ')  }}.–</s></span>
+                                <br><span class="price">{{ number_format($discountPrice,0,'.',' ')  }}.–</span>
+                            @endif
+                        </td>
+                    </tr>
+                @endforeach
+            </table>
+        @endif
+        </div>
     </div>
 @else
     <p>Неверно указан идентификатор страницы</p>
