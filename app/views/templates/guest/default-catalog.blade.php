@@ -13,14 +13,6 @@
             {{ $page->block($block->slug) }}
         @endforeach
     @endif
-    @foreach(Dictionary::valuesBySlug('information-baners') as $baner)
-        <?php $fields = modifyKeys($baner->fields,'key');?>
-        @if(isset($fields['active']) && $fields['active']['value'] == 1 )
-            <div class="banner banner--red">
-                <span>{{ $fields['content']['value'] }}</span>
-            </div>
-        @endif
-    @endforeach
     <div class="accordion">
         <?php
         $directions = Directions::whereActive(TRUE)->orderBy('order')->with('photo')
