@@ -1,11 +1,11 @@
-@if (@is_object($page->meta->seo))
-    @section('title'){{ $page->meta->seo->title ? $page->meta->seo->title : $page->name }}@stop
-    @section('description'){{ $page->meta->seo->description }}@stop
-    @section('keywords'){{ $page->meta->seo->keywords }}@stop
-@elseif(@is_object($page->seo))
+@if(@is_object($page->seo))
     @section('title'){{ $page->seo->title ? $page->seo->title : $page->name }}@stop
     @section('description'){{ $page->seo->description }}@stop
     @section('keywords'){{ $page->seo->keywords }}@stop
+@elseif (@is_object($page->meta->seo))
+    @section('title'){{ $page->meta->seo->title ? $page->meta->seo->title : $page->name }}@stop
+    @section('description'){{ $page->meta->seo->description }}@stop
+    @section('keywords'){{ $page->meta->seo->keywords }}@stop
 @elseif (@is_object($page->meta))
     @section('title'){{{ $page->name }}}@stop
 @elseif (@is_object($seo))
