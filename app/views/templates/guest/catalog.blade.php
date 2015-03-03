@@ -50,12 +50,12 @@
         @if(!empty($direction->photo->name))
             <div class="accordion-img" style="background-image: url('{{ Config::get('site.galleries_photo_public_dir').'/'.$direction->photo->name }}');"></div>
         @endif
-            <h3>{{ $direction->title }}</h3>
+            <h3>{{ $direction->title }}<a href="#" class="js-print-part print-link" data-id="print-{{ $direction->id }}"><span class="icon icon-print"></span></a></h3>
             <div class="acc-courses">
                 {{ $direction->courses->count() }} {{ Lang::choice('курс|курса|курсов',$direction->courses->count()); }}
             </div>
         </div>
-        <div class="accordion-body">
+        <div class="accordion-body" id="print-{{ $direction->id }}">
         @if($direction->courses->count())
             <table>
                 <tr>

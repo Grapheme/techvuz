@@ -7592,11 +7592,24 @@ a[href^="tel"] {
   font-family: 'Open Sans', sans-serif;
   font-weight: 600;
 }
+.accordion .accordion-header h3 .print-link {
+  opacity: 0;
+  border: none;
+  text-decoration: none;
+  color: #fff;
+  transition: opacity .25s ease;
+}
 @media screen and (max-width: 560px) {
   .accordion .accordion-header h3 {
     font-size: 1.1em;
     line-height: 1.2em;
   }
+}
+.accordion .accordion-header.ui-state-active .print-link {
+  opacity: 1;
+}
+.accordion .accordion-header.ui-state-active .print-link:hover {
+  opacity: .75;
 }
 .accordion .accordion-header .acc-courses {
   line-height: 1.625rem;
@@ -9243,7 +9256,7 @@ main a[href]:hover, main a[href]:focus {
   text-decoration: none;
   outline: none;
 }
-main h1 a, main h2 a, main h3 a, main h4 a, main h5 a, main h6 a {
+main h1 a, main h2 a, main h3 a, main h4 a, main h5 a, main h6 a, main table a {
   border-bottom: none;
 }
 main .desc {
