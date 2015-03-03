@@ -9176,9 +9176,11 @@ main h1.padding-h, main h1:first-child, main h2.padding-h, main h2:first-child {
 }
 main a[href] {
   border-bottom: 1px solid;
+  outline: none;
 }
 main a[href]:hover, main a[href]:focus {
   border: none;
+  outline: none;
 }
 main .desc {
   margin: 0 0 2.5rem;
