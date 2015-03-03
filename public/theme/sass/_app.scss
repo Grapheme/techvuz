@@ -58,14 +58,6 @@ a {
 	}
 }
 
-a[href] {
-	border-bottom: 1px solid;
-
-	&:hover, &:focus {
-		border: none;
-	}
-}
-
 .main-wrapper {
 	position: relative;
 	max-width: 1140rem / $hfs;
@@ -102,6 +94,14 @@ main {
 
 			line-height: 48rem / 40;			
 			letter-spacing: -1px;
+		}
+	}
+
+	a[href] {
+		border-bottom: 1px solid;
+
+		&:hover, &:focus {
+			border: none;
 		}
 	}
 
