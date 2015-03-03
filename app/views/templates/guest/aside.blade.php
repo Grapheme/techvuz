@@ -2,7 +2,7 @@
     <div class="mobile-aside-header">
         <div class="phone phone-stack">
             <a class="js-phone" data-type="moscow" href="tel:+74997058688">8 (499) 705-86-88</a>
-            <a class="js-phone" data-type="rostov" href="tel:+78632990714">8 (863) 299 07 14</a>
+            <a class="js-phone" data-type="rostov" href="tel:+78632990714">8 (863) 299-07-14</a>
             <a class="js-phone" data-type="other" href="tel:+78003338654">8 (800) 333-86-54</a>
         </div>
         <div class="phone-desc phone-links">
