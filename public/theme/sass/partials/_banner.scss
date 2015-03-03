@@ -1,3 +1,12 @@
+.banners-cont {
+	position: relative;
+	margin: 0 0 50rem / $hfs;
+
+	.banner {
+		position: absolute;
+	}
+}
+
 .banner {
 	position: relative;
 	display: table;

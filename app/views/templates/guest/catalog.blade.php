@@ -10,14 +10,16 @@
     <div class="desc">
     {{ $page->block('top_desc') }}
     </div>
-@foreach(Dictionary::valuesBySlug('information-baners') as $baner)
-    <?php $fields = modifyKeys($baner->fields,'key');?>
-    @if(isset($fields['active']) && $fields['active']['value'] == 1 )
-    <div class="banner banner--red">
-        <span>{{ $fields['content']['value'] }}</span>
+    <div class="js-banners banners-cont">
+    @foreach(Dictionary::valuesBySlug('information-baners') as $baner)
+        <?php $fields = modifyKeys($baner->fields,'key');?>
+        @if(isset($fields['active']) && $fields['active']['value'] == 1 )
+        <div class="js-banner banner banner--red">
+            <span>{{ $fields['content']['value'] }}</span>
+        </div>
+        @endif
+    @endforeach
     </div>
-    @endif
-@endforeach
     <div class="accordion">
     <?php
         $directions = Directions::whereActive(TRUE)->orderBy('order')->with('photo')

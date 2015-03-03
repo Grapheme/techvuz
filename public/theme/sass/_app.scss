@@ -54,7 +54,7 @@ a {
 	}
 	&:focus {
 		outline: none;
-		color: inherit;		
+		color: inherit;	
 	}
 }
 
@@ -94,6 +94,23 @@ main {
 
 			line-height: 48rem / 40;			
 			letter-spacing: -1px;
+		}
+	}
+
+	a[href] {
+		border-bottom: 1px solid;
+		outline: none;
+
+		&:hover, &:focus {
+			border: none;
+			text-decoration: none;
+			outline: none;
+		}
+	}
+
+	h1, h2, h3, h4, h5, h6 {
+		a {
+			border-bottom: none;
 		}
 	}
 

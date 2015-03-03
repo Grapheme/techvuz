@@ -118,10 +118,34 @@
 			font-size: 1.2em;
 			line-height: 1.9em;
 			font-weight: 400;
+
+			&.phone-stack {
+				a {
+					display: none;
+
+					&.active {
+						display: inline-block;
+						vertical-align: top;
+					}
+				}
+			}
 		}
 		.phone-desc {
-			font-size: 12em / $hfs;
+			font-size: 11em / $hfs;
 			line-height: (14.4em / 12);
+
+			&.phone-links {
+				a {
+					margin-right: 5px;
+					font-weight: 300;
+					text-decoration: none;
+					border-bottom: 1px dotted;
+
+					&.active {
+						border: none;
+					}
+				}
+			}
 		}
 
 		@media screen and ($laptop) {

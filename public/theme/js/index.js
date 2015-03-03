@@ -810,6 +810,59 @@ var Popup = (function(){
 
 $('.notifications').notifications();
 
+var city_phone = function() {
+    var links = $('.js-phone-link');
+    var phones = $('.js-phone');
+    var show = function(city) {
+        links.filter('[data-type="' + city + '"]').addClass('active')
+            .siblings().removeClass('active');
+        phones.filter('[data-type="' + city + '"]').addClass('active')
+            .siblings().removeClass('active');
+    }
+    links.on('click', function(){
+        show($(this).attr('data-type'));
+        return false;
+    });
+    show(links.eq(0).attr('data-type'));
+}
+var banners = function() {
+    var parent = $('.js-banners');
+    var banner = parent.find('.js-banner');
+    var active_id = -1;
+    var init = function() {
+        setHeight();
+        banner.hide();
+        auto();
+    }
+    var show = function(id) {
+        if(id == banner.length) id = 0;
+        banner.eq(id).fadeIn()
+            .siblings().fadeOut();
+        active_id = id;
+    }
+    var auto = function() {
+        show(active_id + 1);
+        setTimeout(function(){
+            auto();
+        }, 5000);
+    }
+    var setHeight = function() {
+        var height = 0;
+        banner.each(function(){
+            if($(this).height() > height) {
+                height = $(this).height();
+            }
+        });
+        parent.css('height', height);
+    }
+    init();
+}
+$(function(){
+    city_phone();
+    banners();
+});
+
+
 // Avoid `console` errors in browsers that lack a console.
 (function() {
     var method;
