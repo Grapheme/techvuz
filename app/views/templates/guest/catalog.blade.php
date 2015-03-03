@@ -1,5 +1,6 @@
 @extends(Helper::layout())
 @section('style')
+    <link href='css/fotorama.css' rel='stylesheet' type='text/css'>
 @stop
 @section('content')
 <main class="catalog">
@@ -10,13 +11,17 @@
     <div class="desc">
     {{ $page->block('top_desc') }}
     </div>
-    <div class="js-banners banners-cont">
+    <div class="js-fotorama banners-cont">
+    <?php $banner_id = 1; ?>
     @foreach(Dictionary::valuesBySlug('information-baners') as $baner)
-        <?php $fields = modifyKeys($baner->fields,'key');?>
+        <?php $fields = modifyKeys($baner->fields,'key'); ?>
         @if(isset($fields['active']) && $fields['active']['value'] == 1 )
-        <div class="js-banner banner banner--red">
-            <span>{{ $fields['content']['value'] }}</span>
+        <div class="fotorama-item">
+            <div class="banner banner--red banner-{{ $banner_id }}">
+                <span>{{ $fields['content']['value'] }}</span>
+            </div>
         </div>
+        <?php $banner_id++; ?>
         @endif
     @endforeach
     </div>
@@ -108,4 +113,26 @@
 @section('overlays')
 @stop
 @section('scripts')
+    <script src="{{URL::to('js/vendor/fotorama.js')}}"></script>
+    <script>
+        var banner_fotorama = function() {
+            var mheight = 0;
+            $('.fotorama-item').each(function(){
+                var this_height = $(this).height();
+                if(this_height > mheight) {
+                    mheight = this_height;
+                }
+            });
+            $('.js-fotorama').fotorama({
+                width: '100%',
+                height: mheight,
+                arrows: false,
+                nav: false,
+                click: false,
+                swipe: false,
+                autoplay: 5000
+            });
+        }
+        banner_fotorama();
+    </script>
 @stop

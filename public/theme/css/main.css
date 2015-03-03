@@ -7398,24 +7398,27 @@ a[href^="tel"] {
   position: relative;
   margin: 0 0 3.125rem;
 }
-.banners-cont .banner {
-  position: absolute;
-}
 
 .banner {
   position: relative;
-  display: table;
-  width: 100%;
-  height: 7.6875rem;
-  border: 0.125rem solid;
-  margin: 0 0 3.125rem;
-  padding: 0 0 0 4.1875rem;
+  padding: 1px 10px 1px 67px;
+  margin-bottom: 3.125rem;
   border-radius: 0.0625rem;
   color: #bb252d;
+  border: 0.125rem solid;
+  	/* display: table;
+  	width: 100%;
+  	height: 123rem / $hfs;
+  	border: 2rem / $hfs solid;
+  	margin: 0 0 50rem / $hfs;
+  	padding: 0 0 0 67rem / $hfs;
+  
+  	border-radius: 1rem / $hfs;
+  	color: $clr-danger; */
 }
 .banner > span {
-  display: table-cell;
-  vertical-align: middle;
+  /* display: table-cell;
+  vertical-align: middle; */
   font-size: 1.75em;
   font-weight: 400;
   line-height: 1.2em;
@@ -7446,6 +7449,48 @@ a[href^="tel"] {
   border-color: #bb252d;
   -webkit-box-shadow: 0 0.3125rem 0rem -0.0625rem #dddddd;
           box-shadow: 0 0.3125rem 0rem -0.0625rem #dddddd;
+}
+.banner.banner-1 {
+  color: #bb252d;
+  border-color: #bb252d;
+}
+.banner.banner-1:after {
+  border-color: transparent transparent #bb252d transparent;
+}
+.banner.banner-2 {
+  color: #78a725;
+  border-color: #78a725;
+}
+.banner.banner-2:after {
+  border-color: transparent transparent #78a725 transparent;
+}
+.banner.banner-3 {
+  color: #e4b51e;
+  border-color: #e4b51e;
+}
+.banner.banner-3:after {
+  border-color: transparent transparent #e4b51e transparent;
+}
+.banner.banner-4 {
+  color: #5e52ac;
+  border-color: #5e52ac;
+}
+.banner.banner-4:after {
+  border-color: transparent transparent #5e52ac transparent;
+}
+.banner.banner-5 {
+  color: #db7336;
+  border-color: #db7336;
+}
+.banner.banner-5:after {
+  border-color: transparent transparent #db7336 transparent;
+}
+.banner.banner-6 {
+  color: #4bc8bb;
+  border-color: #4bc8bb;
+}
+.banner.banner-6:after {
+  border-color: transparent transparent #4bc8bb transparent;
 }
 .banner p {
   margin: 1em 0;
@@ -11347,6 +11392,7 @@ main.order-page a:hover {
     display: none;
   }
   .main-header .contact {
+    display: none;
     position: relative;
     padding: 0 0 0 2.75rem;
   }
@@ -11355,8 +11401,8 @@ main.order-page a:hover {
     display: none;
   }
 
-  .banner {
-    display: none;
+  .banners-cont {
+    display: none !important;
   }
 
   main {
