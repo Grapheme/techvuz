@@ -194,7 +194,7 @@ td, th {
 
 @media print {
   * {
-    color: #000 !important;
+    color: black !important;
     text-shadow: none !important;
     background: transparent !important;
     -webkit-box-shadow: none !important;
@@ -244,7 +244,7 @@ td, th {
   }
 
   select {
-    background: #fff !important;
+    background: white !important;
   }
 
   .navbar {
@@ -252,11 +252,11 @@ td, th {
   }
 
   .table td, .table th {
-    background-color: #fff !important;
+    background-color: white !important;
   }
 
   .btn > .caret, .dropup > .btn > .caret {
-    border-top-color: #000 !important;
+    border-top-color: black !important;
   }
 
   .label {
@@ -268,7 +268,7 @@ td, th {
   }
 
   .table-bordered th, .table-bordered td {
-    border: 1px solid #ddd !important;
+    border: 1px solid #dddddd !important;
   }
 }
 @font-face {
@@ -276,6 +276,7 @@ td, th {
   src: url(../fonts/glyphicons-halflings-regular.eot);
   src: url(../fonts/glyphicons-halflings-regular.eot?#iefix) format("embedded-opentype"), url(../fonts/glyphicons-halflings-regular.woff) format("woff"), url(../fonts/glyphicons-halflings-regular.ttf) format("truetype"), url(../fonts/glyphicons-halflings-regular.svg#glyphicons_halflingsregular) format("svg");
 }
+
 .glyphicon {
   position: relative;
   top: 1px;
@@ -1102,7 +1103,7 @@ td, th {
 
 html {
   font-size: 10px;
-  -webkit-tap-highlight-color: transparent;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 }
 
 body {
@@ -5021,26 +5022,32 @@ a.thumbnail:hover, a.thumbnail:focus, a.thumbnail.active {
   from {
     background-position: 40px 0;
   }
+
   to {
     background-position: 0 0;
   }
 }
+
 @-o-keyframes progress-bar-stripes {
   from {
     background-position: 40px 0;
   }
+
   to {
     background-position: 0 0;
   }
 }
+
 @keyframes progress-bar-stripes {
   from {
     background-position: 40px 0;
   }
+
   to {
     background-position: 0 0;
   }
 }
+
 .progress {
   height: 20px;
   margin-bottom: 20px;
@@ -6274,7 +6281,7 @@ button.close {
   text-indent: -999px;
   cursor: pointer;
   background-color: #000 \9;
-  background-color: transparent;
+  background-color: rgba(0, 0, 0, 0);
   border: 1px solid #fff;
   border-radius: 10px;
 }
@@ -6387,6 +6394,7 @@ button.close {
 @-ms-viewport {
   width: device-width;
 }
+
 .visible-xs, .visible-sm, .visible-md, .visible-lg {
   display: none !important;
 }
@@ -6693,6 +6701,7 @@ textarea {
   font-weight: 500;
   font-style: normal;
 }
+
 @font-face {
   font-family: 'Geometria';
   src: url("../fonts/Geometria/brownfox_-_geometria-webfont.eot");
@@ -6700,6 +6709,7 @@ textarea {
   font-weight: normal;
   font-style: normal;
 }
+
 @font-face {
   font-family: 'fontello';
   src: url("../fonts/fontello/fontello.eot?91810787");
@@ -6707,6 +6717,7 @@ textarea {
   font-weight: normal;
   font-style: normal;
 }
+
 /* Chrome hack: SVG is rendered more smooth in Windozze. 100% magic, uncomment if you need it. */
 /* Note, that will break hinting! In other OS-es font will be not as sharp as it could be */
 /*
@@ -6974,7 +6985,7 @@ textarea {
   text-decoration: none;
   background: transparent url("blank.gif");
   /* helps IE */
-  -webkit-tap-highlight-color: transparent;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
   z-index: 8040;
 }
 
@@ -7329,7 +7340,7 @@ a[href^="tel"] {
   padding: 0 1rem;
   font-size: 0.875rem;
   line-height: 2.4375rem;
-  color: #fff;
+  color: white;
   text-transform: uppercase;
   border-radius: 0 !important;
   outline: none;
@@ -7357,19 +7368,19 @@ a[href^="tel"] {
 .btn.btn--blue {
   color: #33ace4;
   border-color: #33ace4;
-  background: #fff;
+  background: white;
 }
 .btn.btn--blue:hover {
-  color: #fff;
+  color: white;
   background: #33ace4;
 }
 .btn.btn--danger {
   color: #bb252d;
   border-color: #bb252d;
-  background: #fff;
+  background: white;
 }
 .btn.btn--danger:hover {
-  color: #fff;
+  color: white;
   background: #bb252d;
 }
 .btn.btn--disabled {
@@ -7379,7 +7390,7 @@ a[href^="tel"] {
 .btn.btn--disabled:hover {
   color: #33ace4;
   border-color: #33ace4;
-  background: #fff;
+  background: white;
 }
 
 .icon--blue {
@@ -7419,6 +7430,14 @@ a[href^="tel"] {
   opacity: 0.7;
 }
 
+.banners-cont {
+  position: relative;
+  margin: 0 0 3.125rem;
+}
+.banners-cont .banner {
+  position: absolute;
+}
+
 .banner {
   position: relative;
   display: table;
@@ -7446,7 +7465,7 @@ a[href^="tel"] {
   height: 0;
   border-style: solid;
   border-width: 2.3125rem 2.3125rem 0 0;
-  border-color: #fff transparent transparent transparent;
+  border-color: white transparent transparent transparent;
 }
 .banner:after {
   content: '';
@@ -7461,7 +7480,7 @@ a[href^="tel"] {
 }
 .banner.banner--red {
   border-color: #bb252d;
-  box-shadow: 0 0.3125rem 0rem -0.0625rem #ddd;
+  box-shadow: 0 0.3125rem 0rem -0.0625rem #dddddd;
 }
 .banner p {
   margin: 1em 0;
@@ -7482,7 +7501,7 @@ a[href^="tel"] {
   }
 }
 .accordion {
-  border: 1px solid #ddd;
+  border: 1px solid #dddddd;
 }
 .accordion .main-checkbox {
   display: none;
@@ -7491,7 +7510,7 @@ a[href^="tel"] {
   transition: all .4s ease;
   position: relative;
   outline: none;
-  background: #ddd;
+  background: #dddddd;
   cursor: pointer;
 }
 .accordion .accordion-header:hover {
@@ -7501,14 +7520,14 @@ a[href^="tel"] {
   opacity: .3;
 }
 .accordion .accordion-header.direction-in-progress:hover {
-  background: #ddd !important;
+  background: #dddddd !important;
   color: inherit !important;
 }
 .accordion .accordion-header.direction-in-progress:hover:nth-child(4n+1) {
   background: #eee;
 }
 .accordion .accordion-header.odd {
-  background: #fff;
+  background: white;
 }
 .accordion .accordion-header:nth-child(4n+1) {
   background: #eee;
@@ -7541,46 +7560,46 @@ a[href^="tel"] {
   font-weight: normal;
 }
 .accordion .accordion-header.ui-accordion-header-active {
-  color: #fff;
+  color: white;
 }
 .accordion .accordion-header:nth-child(6n+1) {
   background-color: #bb252d;
-  color: #fff;
+  color: white;
 }
 .accordion .accordion-header:nth-child(6n+1).ui-accordion-header-active {
   background-color: #bb252d;
 }
 .accordion .accordion-header:nth-child(6n+3) {
   background-color: #78a725;
-  color: #fff;
+  color: white;
 }
 .accordion .accordion-header:nth-child(6n+3).ui-accordion-header-active {
   background-color: #78a725;
 }
 .accordion .accordion-header:nth-child(6n+5) {
   background-color: #e4b51e;
-  color: #fff;
+  color: white;
 }
 .accordion .accordion-header:nth-child(6n+5).ui-accordion-header-active {
   background-color: #e4b51e;
 }
 .accordion .accordion-header:nth-child(6n+7) {
   background-color: #5e52ac;
-  color: #fff;
+  color: white;
 }
 .accordion .accordion-header:nth-child(6n+7).ui-accordion-header-active {
   background-color: #5e52ac;
 }
 .accordion .accordion-header:nth-child(6n+9) {
   background-color: #db7336;
-  color: #fff;
+  color: white;
 }
 .accordion .accordion-header:nth-child(6n+9).ui-accordion-header-active {
   background-color: #db7336;
 }
 .accordion .accordion-header:nth-child(6n+11) {
   background-color: #4bc8bb;
-  color: #fff;
+  color: white;
 }
 .accordion .accordion-header:nth-child(6n+11).ui-accordion-header-active {
   background-color: #4bc8bb;
@@ -7595,7 +7614,7 @@ a[href^="tel"] {
   }
 }
 .accordion .accordion-body tr {
-  border-bottom: 1px solid #ddd;
+  border-bottom: 1px solid #dddddd;
 }
 .accordion .accordion-body tr:nth-child(2n+3) {
   background: #f4f4f4;
@@ -7662,7 +7681,7 @@ a[href^="tel"] {
 }
 .accordion .ui-state-active:after {
   content: '\e802';
-  color: #fff;
+  color: white;
 }
 
 .accordion-form .btn {
@@ -7719,7 +7738,7 @@ a[href^="tel"] {
   background: #33ace4;
 }
 .tabs .ui-tabs-nav .ui-tabs-active .ui-tabs-anchor {
-  color: #fff;
+  color: white;
   cursor: default;
 }
 .tabs .ui-tabs-nav li {
@@ -7741,7 +7760,7 @@ a[href^="tel"] {
 }
 .tabs .ui-tabs-nav .ui-tabs-anchor:hover {
   background: #33ace4;
-  color: #fff;
+  color: white;
 }
 .tabs .ui-tabs-panel .orders-ul {
   min-height: 20.9375rem;
@@ -7784,7 +7803,7 @@ a[href^="tel"] {
   margin-top: -0.4375rem;
   border-right: 1px solid;
   border-color: #33ace4;
-  background: #fff;
+  background: white;
   color: #33ace4;
 }
 .tabs.usual-tabs .ui-tabs-nav .ui-tabs-active .filter-count {
@@ -7796,7 +7815,7 @@ a[href^="tel"] {
   height: 45px;
   line-height: 2.875rem;
   color: #33ace4;
-  background: #fff;
+  background: white;
 }
 .tabs.usual-tabs .ui-tabs-nav .ui-tabs-active:last-child {
   border-color: #33ace4;
@@ -7809,10 +7828,10 @@ a[href^="tel"] {
 }
 .tabs.usual-tabs .ui-tabs-nav .ui-tabs-anchor {
   color: #a8a8a8;
-  background: #fff;
+  background: white;
 }
 .tabs.usual-tabs .ui-tabs-nav .ui-tabs-anchor:hover {
-  background: #fff;
+  background: white;
 }
 .tabs.usual-tabs .ui-tabs-nav .filter-count {
   position: absolute;
@@ -7838,7 +7857,7 @@ a[href^="tel"] {
   border-bottom: none;
   border-right: none;
   line-height: 2.375rem;
-  color: #ddd;
+  color: #dddddd;
 }
 .tabs.usual-tabs .ui-tabs-nav li:last-child {
   border: 1px solid #a8a8a8;
@@ -7872,12 +7891,12 @@ a[href^="tel"] {
   width: 21.0625rem !important;
   height: 2.6875rem;
   padding: 0 0.625rem;
-  border: 1px solid #333;
+  border: 1px solid #333333;
   line-height: 2.5rem;
   font-family: 'Geometria';
   font-size: 0.875em;
   font-weight: 500;
-  color: #333;
+  color: #333333;
   cursor: pointer;
 }
 .ui-selectmenu-button.ui-corner-top .ui-icon:before {
@@ -7897,18 +7916,18 @@ a[href^="tel"] {
   width: 21.0625rem;
   height: 2.6875rem;
   padding: 0 0.625rem;
-  border: 1px solid #333;
+  border: 1px solid #333333;
   border-top: none;
-  background: #fff;
+  background: white;
   line-height: 2.5rem;
   font-family: 'Geometria';
   font-size: 0.875em;
   font-weight: 500;
-  color: #333;
+  color: #333333;
   cursor: pointer;
 }
 .ui-menu-item:hover {
-  background: #ddd;
+  background: #dddddd;
 }
 .ui-menu-item:first-child {
   border-top: 1px solid;
@@ -8154,11 +8173,11 @@ This file is generated by `grunt build`, do not edit it by hand.
   border-bottom-right-radius: 0;
   -moz-border-radius-bottomleft: 0;
   border-bottom-left-radius: 0;
-  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(20%, #eeeeee), color-stop(80%, #ffffff));
-  background-image: -webkit-linear-gradient(#eeeeee 20%, #ffffff 80%);
-  background-image: -moz-linear-gradient(#eeeeee 20%, #ffffff 80%);
-  background-image: -o-linear-gradient(#eeeeee 20%, #ffffff 80%);
-  background-image: linear-gradient(#eeeeee 20%, #ffffff 80%);
+  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(20%, #eeeeee), color-stop(80%, white));
+  background-image: -webkit-linear-gradient(#eeeeee 20%, white 80%);
+  background-image: -moz-linear-gradient(#eeeeee 20%, white 80%);
+  background-image: -o-linear-gradient(#eeeeee 20%, white 80%);
+  background-image: linear-gradient(#eeeeee 20%, white 80%);
   box-shadow: 0 1px 0 #fff inset;
 }
 
@@ -8267,7 +8286,7 @@ This file is generated by `grunt build`, do not edit it by hand.
 .orders-li-head {
   height: 6.75rem;
   padding: 1.6875rem 0 2.125rem 2rem;
-  border-bottom: 1px solid #ddd;
+  border-bottom: 1px solid #dddddd;
 }
 .orders-li-head h4 {
   margin: 0 0 0.875rem 0;
@@ -8290,7 +8309,7 @@ This file is generated by `grunt build`, do not edit it by hand.
   line-height: .75;
 }
 .orders-price .end-price {
-  color: #ddd;
+  color: #dddddd;
   font-family: 'Open Sans';
 }
 
@@ -8407,8 +8426,8 @@ This file is generated by `grunt build`, do not edit it by hand.
   height: 3.75rem;
   padding: 0 1rem 0 2.125rem;
   text-align: left;
-  background: #ddd;
-  border-right: 2px solid #fff;
+  background: #dddddd;
+  border-right: 2px solid white;
 }
 .tech-table th:last-child {
   border-right: none;
@@ -8420,7 +8439,7 @@ This file is generated by `grunt build`, do not edit it by hand.
   font-size: 0.875em;
   line-height: 1.42857em;
   padding: 0.875rem 1rem 0.875rem 2.125rem;
-  border-right: 2px solid #fff;
+  border-right: 2px solid white;
 }
 .tech-table td.td-status-bar {
   vertical-align: top;
@@ -8489,22 +8508,22 @@ This file is generated by `grunt build`, do not edit it by hand.
   border: 1px solid #a8a8a8;
 }
 .ui-progress-bar.completed-1 .bar-part-1 {
-  background: #ddd;
+  background: #dddddd;
 }
 .ui-progress-bar.completed-2 .bar-part-1 {
-  background: #ddd;
+  background: #dddddd;
 }
 .ui-progress-bar.completed-2 .bar-part-2 {
-  background: #ddd;
+  background: #dddddd;
 }
 .ui-progress-bar.completed-3 .bar-part-1 {
-  background: #ddd;
+  background: #dddddd;
 }
 .ui-progress-bar.completed-3 .bar-part-2 {
-  background: #ddd;
+  background: #dddddd;
 }
 .ui-progress-bar.completed-3 .bar-part-3 {
-  background: #ddd;
+  background: #dddddd;
 }
 .ui-progress-bar .bar-part {
   float: left;
@@ -8526,7 +8545,7 @@ This file is generated by `grunt build`, do not edit it by hand.
   height: 3.75rem;
   padding: 0 2.0625rem;
   line-height: 3.75rem;
-  color: #fff;
+  color: white;
   background: #33ace4;
 }
 .notifications .notifications-nav .icon {
@@ -8596,8 +8615,8 @@ This file is generated by `grunt build`, do not edit it by hand.
   height: 2.875rem;
   margin: 0.9375rem 0 0 17.875rem;
   padding: 0 0 0 1.875rem;
-  background: #fff;
-  color: #fff;
+  background: white;
+  color: white;
   line-height: 2.875rem;
 }
 .notif a {
@@ -8639,11 +8658,11 @@ This file is generated by `grunt build`, do not edit it by hand.
 }
 .cabinet-menu-ul .cabinet-menu-li a:hover {
   background: #33ace4;
-  color: #fff;
+  color: white;
 }
 .cabinet-menu-ul .cabinet-menu-li a.active {
   background: #33ace4;
-  color: #fff;
+  color: white;
   cursor: default;
 }
 .cabinet-menu-ul .cabinet-menu-li .icon {
@@ -8656,7 +8675,7 @@ This file is generated by `grunt build`, do not edit it by hand.
   width: 11.25rem;
   height: 14.75rem;
   margin: 0 0.875rem 0.875rem 0;
-  border: 0.6875rem solid #ddd;
+  border: 0.6875rem solid #dddddd;
   box-shadow: 4px 4px 0 0 #a8a8a8, inset 4px 4px 0 0 #a8a8a8;
   background-size: cover;
   background-position: center center;
@@ -8795,7 +8814,7 @@ This file is generated by `grunt build`, do not edit it by hand.
 
 .main-header {
   height: 5.75rem;
-  color: #fff;
+  color: white;
 }
 @media screen and (max-width: 1024px) {
   .main-header {
@@ -8815,9 +8834,25 @@ This file is generated by `grunt build`, do not edit it by hand.
   line-height: 1.9em;
   font-weight: 400;
 }
+.main-header .contact .phone.phone-stack a {
+  display: none;
+}
+.main-header .contact .phone.phone-stack a.active {
+  display: inline-block;
+  vertical-align: top;
+}
 .main-header .contact .phone-desc {
   font-size: 0.75em;
   line-height: 1.2em;
+}
+.main-header .contact .phone-desc.phone-links a {
+  margin-right: 5px;
+  font-weight: 300;
+  text-decoration: none;
+  border-bottom: 1px dotted;
+}
+.main-header .contact .phone-desc.phone-links a.active {
+  border: none;
 }
 @media screen and (max-width: 768px) {
   .main-header .contact {
@@ -8856,7 +8891,7 @@ This file is generated by `grunt build`, do not edit it by hand.
   position: fixed;
   top: 5.75rem;
   width: 17.875rem;
-  color: #fff;
+  color: white;
 }
 @media screen and (max-width: 1024px) {
   .main-aside {
@@ -8897,9 +8932,25 @@ This file is generated by `grunt build`, do not edit it by hand.
   font-size: 1.125em;
   line-height: 38.57 / 18;
 }
+.main-aside .mobile-aside-header .phone.phone-stack a {
+  display: none;
+}
+.main-aside .mobile-aside-header .phone.phone-stack a.active {
+  display: inline-block;
+  vertical-align: top;
+}
 .main-aside .mobile-aside-header .phone-desc {
   margin: 0 0 2rem;
   font-size: .6em;
+}
+.main-aside .mobile-aside-header .phone-desc.phone-links a {
+  margin-right: 5px;
+  font-weight: 300;
+  text-decoration: none;
+  border-bottom: 1px dotted;
+}
+.main-aside .mobile-aside-header .phone-desc.phone-links a.active {
+  border: none;
 }
 .main-aside .mobile-aside-header .mobile-aside-close {
   position: absolute;
@@ -8974,7 +9025,7 @@ This file is generated by `grunt build`, do not edit it by hand.
 .main-aside .main-search {
   position: relative;
   margin: 2.25rem 0 8.375rem 0;
-  color: #fff;
+  color: white;
 }
 @media screen and (max-width: 768px) {
   .main-aside .main-search {
@@ -8989,7 +9040,7 @@ This file is generated by `grunt build`, do not edit it by hand.
   border-color: #fff;
   border-color: rgba(255, 255, 255, 0.5);
   background: none;
-  color: #fff;
+  color: white;
 }
 .main-aside .main-search button {
   position: absolute;
@@ -8997,7 +9048,7 @@ This file is generated by `grunt build`, do not edit it by hand.
   left: 0;
   border: none;
   background: none;
-  color: #fff;
+  color: white;
 }
 .main-aside .main-search button .icon {
   font-size: .9em;
@@ -9105,6 +9156,13 @@ a:focus {
   color: inherit;
 }
 
+a[href] {
+  border-bottom: 1px solid;
+}
+a[href]:hover, a[href]:focus {
+  border: none;
+}
+
 .main-wrapper {
   position: relative;
   max-width: 71.25rem;
@@ -9122,9 +9180,9 @@ main {
   margin: 0 0 0 17.875rem;
   padding: 0 2.0625rem 2.0625rem;
   border-top: 1px solid transparent;
-  border-bottom: 1px solid #fff;
+  border-bottom: 1px solid white;
   font-size: .875em;
-  background: #fff;
+  background: white;
 }
 @media screen and (max-width: 768px) {
   main {
@@ -9154,7 +9212,7 @@ main:before {
   height: 0;
   border-style: solid;
   border-width: 2.75rem 0 0 2.75rem;
-  border-color: transparent transparent transparent #ddd;
+  border-color: transparent transparent transparent #dddddd;
 }
 main:after {
   content: '';
@@ -9277,7 +9335,7 @@ section h3, section .h3 {
   width: 32.75rem;
   margin-left: -16.375rem;
   padding: 3.125rem 3.75rem 0;
-  background: #fff;
+  background: white;
 }
 .popup.active {
   display: block;
@@ -9351,7 +9409,7 @@ section h3, section .h3 {
   width: 33.33333%;
   height: 18rem;
   padding: 1.5rem 2.0625rem 0 2.0625rem;
-  color: #fff;
+  color: white;
 }
 @media screen and (max-width: 768px) {
   .directions-ul .directions-li {
@@ -9657,7 +9715,7 @@ section h3, section .h3 {
   font-size: 0.875em;
   line-height: 1.42857em;
   font-weight: 400;
-  color: #333;
+  color: #333333;
 }
 .registration-form input {
   outline: none;
@@ -9665,12 +9723,12 @@ section h3, section .h3 {
   width: 21.0625rem;
   height: 2.6875rem;
   padding: 0 0.625rem;
-  border: 1px solid #333;
-  box-shadow: inset 0 0 0 0 #fff;
+  border: 1px solid #333333;
+  box-shadow: inset 0 0 0 0 white;
   font-family: 'Geometria';
   font-size: 0.875em;
   font-weight: 400;
-  color: #333;
+  color: #333333;
 }
 .registration-form input[type="checkbox"] {
   width: auto;
@@ -9682,7 +9740,7 @@ section h3, section .h3 {
 }
 .registration-form .btn {
   margin: 0.9375rem 0 0 11.75rem;
-  background: #fff;
+  background: white;
 }
 .registration-form.auth-form label {
   width: 5.5rem;
@@ -9743,7 +9801,7 @@ section h3, section .h3 {
   border: none;
   outline: none;
   background: none;
-  color: #333;
+  color: #333333;
   font: 300 0.875em "Open Sans", sans-serif;
   line-height: 1.28571em;
 }
@@ -9808,7 +9866,7 @@ main.order-page .order-docs-ul .order-docs-head {
   position: relative;
   height: 21rem;
   margin: 0.25rem 0.25rem 1em;
-  border: 1px solid #ddd;
+  border: 1px solid #dddddd;
 }
 main.order-page .order-docs-ul .order-docs-head.docs {
   background: url(../img/document.jpg) no-repeat center top/cover;
@@ -10401,12 +10459,12 @@ main.order-page a:hover {
   filter: none;
 }
 .moderator-cabinet .dropzone.dz-drag-hover {
-  background-image: -webkit-gradient(linear, left top, right bottom, color-stop(0.25, rgba(0, 0, 0, 0.03)), color-stop(0.25, transparent), color-stop(0.5, transparent), color-stop(0.5, rgba(0, 0, 0, 0.03)), color-stop(0.75, rgba(0, 0, 0, 0.03)), color-stop(0.75, transparent), to(transparent));
-  background-image: -webkit-linear-gradient(135deg, rgba(0, 0, 0, 0.03) 25%, transparent 25%, transparent 50%, rgba(0, 0, 0, 0.03) 50%, rgba(0, 0, 0, 0.03) 75%, transparent 75%, transparent);
+  background-image: -webkit-gradient(linear, left top, right bottom, color-stop(0.25, rgba(0, 0, 0, 0.03)), color-stop(0.25, rgba(0, 0, 0, 0)), color-stop(0.5, rgba(0, 0, 0, 0)), color-stop(0.5, rgba(0, 0, 0, 0.03)), color-stop(0.75, rgba(0, 0, 0, 0.03)), color-stop(0.75, rgba(0, 0, 0, 0)), to(rgba(0, 0, 0, 0)));
+  background-image: -webkit-linear-gradient(135deg, rgba(0, 0, 0, 0.03) 25%, rgba(0, 0, 0, 0) 25%, rgba(0, 0, 0, 0) 50%, rgba(0, 0, 0, 0.03) 50%, rgba(0, 0, 0, 0.03) 75%, rgba(0, 0, 0, 0) 75%, rgba(0, 0, 0, 0));
   background-image: -moz-linear-gradient(135deg, rgba(0, 0, 0, 0.03) 25%, transparent 25%, transparent 50%, rgba(0, 0, 0, 0.03) 50%, rgba(0, 0, 0, 0.03) 75%, transparent 75%, transparent);
   background-image: -ms-linear-gradient(135deg, rgba(0, 0, 0, 0.03) 25%, transparent 25%, transparent 50%, rgba(0, 0, 0, 0.03) 50%, rgba(0, 0, 0, 0.03) 75%, transparent 75%, transparent);
   background-image: -o-linear-gradient(135deg, rgba(0, 0, 0, 0.03) 25%, transparent 25%, transparent 50%, rgba(0, 0, 0, 0.03) 50%, rgba(0, 0, 0, 0.03) 75%, transparent 75%, transparent);
-  background-image: linear-gradient(135deg, rgba(0, 0, 0, 0.03) 25%, transparent 25%, transparent 50%, rgba(0, 0, 0, 0.03) 50%, rgba(0, 0, 0, 0.03) 75%, transparent 75%, transparent);
+  background-image: linear-gradient(135deg, rgba(0, 0, 0, 0.03) 25%, rgba(0, 0, 0, 0) 25%, rgba(0, 0, 0, 0) 50%, rgba(0, 0, 0, 0.03) 50%, rgba(0, 0, 0, 0.03) 75%, rgba(0, 0, 0, 0) 75%, rgba(0, 0, 0, 0));
   background-color: #fafafa;
   background-size: 22px 22px;
   border: 5px dashed #ccc;
@@ -10741,7 +10799,7 @@ main.order-page a:hover {
   font-weight: 400;
   text-align: left;
   white-space: normal;
-  color: #333;
+  color: #333333;
 }
 .moderator-cabinet .label + .checkbox {
   margin: 0;
@@ -10827,12 +10885,12 @@ main.order-page a:hover {
   width: 31.163rem;
   height: 2.6875rem;
   padding: 0 0.625rem;
-  border: 1px solid #333;
-  box-shadow: inset 0 0 0 0 #fff;
+  border: 1px solid #333333;
+  box-shadow: inset 0 0 0 0 white;
   font-family: 'Geometria';
   font-size: 0.875em;
   font-weight: 500;
-  color: #333;
+  color: #333333;
 }
 .moderator-cabinet input[type="checkbox"] {
   width: auto;
@@ -10879,19 +10937,19 @@ main.order-page a:hover {
 .moderator-cabinet .btn.btn-default, .moderator-cabinet .btn.btn-primary, .moderator-cabinet .btn.btn-success {
   color: #33ace4;
   border-color: #33ace4;
-  background: #fff;
+  background: white;
 }
 .moderator-cabinet .btn.btn-default:hover, .moderator-cabinet .btn.btn-primary:hover, .moderator-cabinet .btn.btn-success:hover {
-  color: #fff;
+  color: white;
   background: #33ace4;
 }
 .moderator-cabinet .btn.btn-danger {
-  background: #fff;
+  background: white;
   color: #bb252d;
   border-color: #bb252d;
 }
 .moderator-cabinet .btn.btn-danger:hover {
-  color: #fff;
+  color: white;
   background: #bb252d;
 }
 .moderator-cabinet .table {
@@ -10912,7 +10970,7 @@ main.order-page a:hover {
   background: #f9f9f9;
 }
 .moderator-cabinet .table tr:nth-child(2n+2) {
-  background: #fff;
+  background: white;
 }
 .moderator-cabinet .table .sort.sort--asc .sort--icon {
   cursor: pointer;
@@ -10936,8 +10994,8 @@ main.order-page a:hover {
   text-align: left;
   vertical-align: middle;
   white-space: nowrap;
-  background: #ddd;
-  border-right: 2px solid #fff;
+  background: #dddddd;
+  border-right: 2px solid white;
 }
 .moderator-cabinet .table th:last-child {
   border-right: none;
@@ -10946,7 +11004,7 @@ main.order-page a:hover {
   font-size: 0.875em;
   line-height: 1.42857em;
   padding: .875rem .6rem;
-  border-right: 2px solid #fff;
+  border-right: 2px solid white;
   border-top: none;
   border-bottom: none;
 }
@@ -11002,8 +11060,8 @@ main.order-page a:hover {
   height: 3.75rem;
   padding: 0 1rem 0 2.125rem;
   text-align: left;
-  background: #ddd;
-  border-right: 2px solid #fff;
+  background: #dddddd;
+  border-right: 2px solid white;
 }
 .catalog-study-plan table th:last-child {
   border-right: none;
@@ -11015,7 +11073,7 @@ main.order-page a:hover {
   font-size: 0.875em;
   line-height: 1.42857em;
   padding: 0.875rem 1rem 0.875rem 1rem;
-  border-right: 2px solid #fff;
+  border-right: 2px solid white;
 }
 .catalog-study-plan table td.td-status-bar {
   vertical-align: top;
@@ -11255,7 +11313,8 @@ main.order-page a:hover {
 
   @page {
     margin: 0.5cm;
-  }
+}
+
   p,
   h2,
   h3 {
@@ -11366,5 +11425,3 @@ main.order-page a:hover {
     background: #fff !important;
   }
 }
-
-/*# sourceMappingURL=main.css.map */

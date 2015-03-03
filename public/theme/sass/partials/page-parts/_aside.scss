@@ -44,10 +44,34 @@
 		.phone {
 			font-size: 18em / $hfs;
 			line-height: 38.57 / 18;
+
+			&.phone-stack {
+				a {
+					display: none;
+
+					&.active {
+						display: inline-block;
+						vertical-align: top;
+					}
+				}
+			}
 		}
 		.phone-desc {			
 			margin: 0 0 2rem;
 			font-size: .6em;
+
+			&.phone-links {
+				a {
+					margin-right: 5px;
+					font-weight: 300;
+					text-decoration: none;
+					border-bottom: 1px dotted;
+
+					&.active {
+						border: none;
+					}
+				}
+			}
 		}
 		.mobile-aside-close {
 			position: absolute;

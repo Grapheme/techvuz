@@ -54,7 +54,15 @@ a {
 	}
 	&:focus {
 		outline: none;
-		color: inherit;		
+		color: inherit;	
+	}
+}
+
+a[href] {
+	border-bottom: 1px solid;
+
+	&:hover, &:focus {
+		border: none;
 	}
 }
 
