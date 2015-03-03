@@ -9195,6 +9195,7 @@ main a[href] {
 }
 main a[href]:hover, main a[href]:focus {
   border: none;
+  text-decoration: none;
   outline: none;
 }
 main .desc {
