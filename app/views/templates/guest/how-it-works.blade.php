@@ -10,7 +10,7 @@
     <section class="htw">
     {{ $page->block('content') }}
     </section>
-    <div class="seo">{{ $page->block('seo') }}</div>
+    <div class="desc">{{ $page->block('seo') }}</div>
 </main>
 @stop
 @section('overlays')

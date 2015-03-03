@@ -27,7 +27,7 @@
             </div>
         </div>
         @if(count($page->blocks))
-        <div class="seo">{{ @$page->block('seo') }}</div>
+        <div class="desc">{{ @$page->block('seo') }}</div>
         @endif
     </main>
 @stop
