@@ -99,9 +99,11 @@ main {
 
 	a[href] {
 		border-bottom: 1px solid;
+		outline: none;
 
 		&:hover, &:focus {
 			border: none;
+			outline: none;
 		}
 	}
 
