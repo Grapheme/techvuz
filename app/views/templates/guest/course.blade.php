@@ -20,7 +20,7 @@
     {{ $course->curriculum }}
     <div>
     @if(Auth::guest())
-        <a href="{{ URL::route('page', 'registration') }}">Оформить заявку</a>
+        <!-- <a href="{{ URL::route('page', 'registration') }}">Оформить заявку</a> -->
     @endif
     </div>
 </main>
