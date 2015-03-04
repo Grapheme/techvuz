@@ -7434,24 +7434,27 @@ a[href^="tel"] {
   position: relative;
   margin: 0 0 3.125rem;
 }
-.banners-cont .banner {
-  position: absolute;
-}
 
 .banner {
   position: relative;
-  display: table;
-  width: 100%;
-  height: 7.6875rem;
-  border: 0.125rem solid;
-  margin: 0 0 3.125rem;
-  padding: 0 0 0 4.1875rem;
+  padding: 1px 10px 1px 67px;
+  margin-bottom: 3.125rem;
   border-radius: 0.0625rem;
   color: #bb252d;
+  border: 0.125rem solid;
+  	/* display: table;
+  	width: 100%;
+  	height: 123rem / $hfs;
+  	border: 2rem / $hfs solid;
+  	margin: 0 0 50rem / $hfs;
+  	padding: 0 0 0 67rem / $hfs;
+  
+  	border-radius: 1rem / $hfs;
+  	color: $clr-danger; */
 }
 .banner > span {
-  display: table-cell;
-  vertical-align: middle;
+  /* display: table-cell;
+  vertical-align: middle; */
   font-size: 1.75em;
   font-weight: 400;
   line-height: 1.2em;
@@ -7481,6 +7484,48 @@ a[href^="tel"] {
 .banner.banner--red {
   border-color: #bb252d;
   box-shadow: 0 0.3125rem 0rem -0.0625rem #dddddd;
+}
+.banner.banner-1 {
+  color: #bb252d;
+  border-color: #bb252d;
+}
+.banner.banner-1:after {
+  border-color: transparent transparent #bb252d transparent;
+}
+.banner.banner-2 {
+  color: #78a725;
+  border-color: #78a725;
+}
+.banner.banner-2:after {
+  border-color: transparent transparent #78a725 transparent;
+}
+.banner.banner-3 {
+  color: #e4b51e;
+  border-color: #e4b51e;
+}
+.banner.banner-3:after {
+  border-color: transparent transparent #e4b51e transparent;
+}
+.banner.banner-4 {
+  color: #5e52ac;
+  border-color: #5e52ac;
+}
+.banner.banner-4:after {
+  border-color: transparent transparent #5e52ac transparent;
+}
+.banner.banner-5 {
+  color: #db7336;
+  border-color: #db7336;
+}
+.banner.banner-5:after {
+  border-color: transparent transparent #db7336 transparent;
+}
+.banner.banner-6 {
+  color: #4bc8bb;
+  border-color: #4bc8bb;
+}
+.banner.banner-6:after {
+  border-color: transparent transparent #4bc8bb transparent;
 }
 .banner p {
   margin: 1em 0;
@@ -7547,11 +7592,24 @@ a[href^="tel"] {
   font-family: 'Open Sans', sans-serif;
   font-weight: 600;
 }
+.accordion .accordion-header h3 .print-link {
+  opacity: 0;
+  border: none;
+  text-decoration: none;
+  color: #fff;
+  transition: opacity .25s ease;
+}
 @media screen and (max-width: 560px) {
   .accordion .accordion-header h3 {
     font-size: 1.1em;
     line-height: 1.2em;
   }
+}
+.accordion .accordion-header.ui-state-active .print-link {
+  opacity: 1;
+}
+.accordion .accordion-header.ui-state-active .print-link:hover {
+  opacity: .75;
 }
 .accordion .accordion-header .acc-courses {
   line-height: 1.625rem;
@@ -9198,7 +9256,7 @@ main a[href]:hover, main a[href]:focus {
   text-decoration: none;
   outline: none;
 }
-main h1 a, main h2 a, main h3 a, main h4 a, main h5 a, main h6 a {
+main h1 a, main h2 a, main h3 a, main h4 a, main h5 a, main h6 a, main table a {
   border-bottom: none;
 }
 main .desc {
@@ -11345,6 +11403,7 @@ main.order-page a:hover {
     display: none;
   }
   .main-header .contact {
+    display: none;
     position: relative;
     padding: 0 0 0 2.75rem;
   }
@@ -11353,8 +11412,8 @@ main.order-page a:hover {
     display: none;
   }
 
-  .banner {
-    display: none;
+  .banners-cont {
+    display: none !important;
   }
 
   main {

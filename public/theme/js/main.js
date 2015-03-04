@@ -668,7 +668,22 @@ var banners = function() {
     }
     init();
 }
+var print_part = function() {
+    $('.js-print-part').on('click', function(){
+        print_it($(this).attr('data-id'));
+        return false;
+    });
+    var print_it = function(id) {
+        $('#' + id).show()
+            .siblings().hide();
+        $('#' + id).prev('.accordion-header').show();
+        window.print();
+        $('#' + id).siblings().show()
+            .filter('.accordion-body').hide();
+    }
+}
 $(function(){
     city_phone();
     banners();
+    print_part();
 });

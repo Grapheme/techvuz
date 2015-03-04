@@ -55,9 +55,27 @@
 			font-family: 'Open Sans', sans-serif;
 			font-weight: 600;
 
+			.print-link {
+				opacity: 0;
+				border: none;
+				text-decoration: none;
+				color: #fff;
+				transition: opacity .25s ease;
+			}
+
 			@media screen and (max-width: 560px) {
 				font-size: 1.1em;
 				line-height: 1.2em;
+			}
+		}
+
+		&.ui-state-active {
+			.print-link {
+				opacity: 1;
+
+				&:hover {
+					opacity: .75;
+				}
 			}
 		}
 

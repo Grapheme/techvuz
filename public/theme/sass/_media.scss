@@ -10,6 +10,7 @@
     		display: none;
     	}
         .contact {
+            display: none;
             position: relative;
             padding: 0 0 0 2.75rem;
         }
@@ -17,8 +18,8 @@
     .catalog .desc {
         display: none;
     }
-    .banner {
-        display: none;
+    .banners-cont {
+        display: none !important;
     }
     main {
     	margin: 0;
