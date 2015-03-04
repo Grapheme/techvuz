@@ -20,7 +20,7 @@
     {{ $course->curriculum }}
     <div>
     @if(Auth::guest())
-        <a class="btn btn--bordered" href="{{ URL::route('page', 'registration') }}">Оформить заявку</a>
+        <a href="{{ URL::route('page', 'registration') }}">Оформить заявку</a>
     @endif
     </div>
 </main>
