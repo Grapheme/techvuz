@@ -27,7 +27,7 @@
         @if(count($courses))
             @foreach($courses as $course)
                 <li>
-                    <a href="{{ URL::route('course-page',$course->seo->url) }}" target="_blank">{{ $course->seo->title }}</a>
+                    <a href="{{ URL::route('course-page',$course->seo->url) }}" target="_blank">{{ !empty($course->seo->title) ? $course->seo->title : $course->title }}</a>
                 </li>
             @endforeach
         @endif
