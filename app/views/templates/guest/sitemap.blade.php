@@ -22,13 +22,15 @@
                 <li>
                     <a href="{{ URL::route('page', $page_link) }}" target="_blank">{{ $page_title }}</a>
                 </li>
-            @endforeach
-        @endif
-        @if(count($courses))
-            @foreach($courses as $course)
-                <li>
-                    <a href="{{ URL::route('course-page',$course->seo->url) }}" target="_blank">{{ !empty($course->seo->title) ? $course->seo->title : $course->title }}</a>
-                </li>
+                @if($page_link == 'catalog' && count($courses))
+                    <ul>
+                    @foreach($courses as $course)
+                        <li>
+                            <a href="{{ URL::route('course-page',$course->seo->url) }}" target="_blank">{{ !empty($course->seo->title) ? $course->seo->title : $course->title }}</a>
+                        </li>
+                    @endforeach
+                    </ul>
+                @endif
             @endforeach
         @endif
             </ul>
