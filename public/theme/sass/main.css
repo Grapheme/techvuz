@@ -7603,6 +7603,7 @@ a[href^="tel"] {
   .accordion .accordion-header h3 {
     font-size: 1.1em;
     line-height: 1.2em;
+    padding-top: 0.8125rem;
   }
 }
 .accordion .accordion-header.ui-state-active .print-link {
@@ -9256,8 +9257,8 @@ main a[href]:hover, main a[href]:focus {
   text-decoration: none;
   outline: none;
 }
-main h1 a, main h2 a, main h3 a, main h4 a, main h5 a, main h6 a, main table a {
-  border-bottom: none;
+main h1 a[href], main h2 a[href], main h3 a[href], main h4 a[href], main h5 a[href], main h6 a[href], main table a[href] {
+  border-bottom: none !important;
 }
 main .desc {
   margin: 0 0 2.5rem;
