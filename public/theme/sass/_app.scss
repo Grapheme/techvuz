@@ -99,7 +99,7 @@ main {
 
 	.desc {
 		a[href] {
-			border-bottom: 1px solid;
+			border-bottom: 1px solid grey;
 			outline: none;
 
 			&:hover, &:focus {
@@ -107,6 +107,12 @@ main {
 				text-decoration: none;
 				outline: none;
 			}
+		}
+
+		h2, h3 {
+			font-size: 27px;
+			font-weight: 400;
+			padding: 3rem 0 1rem;
 		}
 	}
 

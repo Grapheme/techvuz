@@ -819,6 +819,9 @@ var city_phone = function() {
         phones.filter('[data-type="' + city + '"]').addClass('active')
             .siblings().removeClass('active');
     }
+    var autoSelect = function() {
+        
+    }
     links.on('click', function(){
         show($(this).attr('data-type'));
         return false;

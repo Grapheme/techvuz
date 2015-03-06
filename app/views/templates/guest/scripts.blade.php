@@ -123,6 +123,7 @@
         } else { f(); }
     })(document, window, "yandex_metrika_callbacks");
 </script>
+<script src="//api-maps.yandex.ru/2.0/?load=package.standard&lang=ru-RU" type="text/javascript"></script>
 <script src="http://api-maps.yandex.ru/2.0/?load=package.standard&lang=ru-RU" type="text/javascript"></script>
 <script>
     $(document).ready(function() {
