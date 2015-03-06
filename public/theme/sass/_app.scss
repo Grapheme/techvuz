@@ -97,20 +97,22 @@ main {
 		}
 	}
 
-	a[href] {
-		border-bottom: 1px solid;
-		outline: none;
-
-		&:hover, &:focus {
-			border: none;
-			text-decoration: none;
+	.desc {
+		a[href] {
+			border-bottom: 1px solid;
 			outline: none;
+
+			&:hover, &:focus {
+				border: none;
+				text-decoration: none;
+				outline: none;
+			}
 		}
 	}
 
 	h1, h2, h3, h4, h5, h6, table {
-		a {
-			border-bottom: none;
+		a[href] {
+			border-bottom: none !important;
 		}
 	}
 
