@@ -10,11 +10,8 @@
             <div class="news-date">
                 {{ Helper::rdate("j M Y", strtotime($news->published_at)) }}
             </div>
-            <div class="news-title">
-                {{ strip_tags($news->meta->title) }}
-            </div>
             <div class="news-text">
-                {{ strip_tags($news->meta->preview) }}
+                <a href="{{ URL::route('news') }}">{{ strip_tags($news->meta->preview) }}</a>
             </div>
    @endforeach
    </ul>

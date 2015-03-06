@@ -1,8 +1,14 @@
-@section('title')Новости@stop
-@section('description')Полный список новостий@stop
-@section('keywords')@stop
+@section('title')
+    Новости
+@stop
+@section('description')
+    Полный список новостий
+@stop
+@section('keywords')
+@stop
 @extends(Helper::layout())
-@section('style') @stop
+@section('style')
+@stop
 @section('content')
     <main>
         <h2>Новости</h2>
