@@ -112,7 +112,7 @@ main {
 		h2, h3 {
 			font-size: 27px;
 			font-weight: 400;
-			padding: 3rem 0 1rem;
+			padding: 2rem 0 1rem;
 		}
 	}
 
@@ -223,4 +223,9 @@ section {
 		line-height: 28.8em / 22;
 	}
 
+}
+
+.news-title {
+	font-weight: 500;
+	margin-bottom: 20px;
 }

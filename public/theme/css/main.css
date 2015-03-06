@@ -9250,7 +9250,7 @@ main .desc a[href]:hover, main .desc a[href]:focus {
 main .desc h2, main .desc h3 {
   font-size: 27px;
   font-weight: 400;
-  padding: 3rem 0 1rem;
+  padding: 2rem 0 1rem;
 }
 main h1 a[href], main h2 a[href], main h3 a[href], main h4 a[href], main h5 a[href], main h6 a[href], main table a[href] {
   border-bottom: none !important;
@@ -9335,6 +9335,11 @@ section h3, section .h3 {
   font-size: 1.375em;
   font-weight: 500;
   line-height: 28.8em / 22;
+}
+
+.news-title {
+  font-weight: 500;
+  margin-bottom: 20px;
 }
 
 .overlay {
@@ -9504,22 +9509,22 @@ section h3, section .h3 {
   position: absolute;
 }
 .directions-ul .directions-li:nth-child(6n+1) {
-  background-color: #bb252d !important;
+  background-color: #bb252d;
 }
 .directions-ul .directions-li:nth-child(6n+2) {
-  background-color: #78a725 !important;
+  background-color: #78a725;
 }
 .directions-ul .directions-li:nth-child(6n+3) {
-  background-color: #e4b51e !important;
+  background-color: #e4b51e;
 }
 .directions-ul .directions-li:nth-child(6n+4) {
-  background-color: #5e52ac !important;
+  background-color: #5e52ac;
 }
 .directions-ul .directions-li:nth-child(6n+5) {
-  background-color: #db7336 !important;
+  background-color: #db7336;
 }
 .directions-ul .directions-li:nth-child(6n+6) {
-  background-color: #4bc8bb !important;
+  background-color: #4bc8bb;
 }
 .directions-ul .direction-name {
   margin: 0 0 1.3rem;
@@ -11485,6 +11490,7 @@ main.order-page a:hover {
 
   .directions-ul .directions-li {
     height: 13rem;
+    background: #ccc !important;
     /* .directions-img {
     	display: none;
     } */
