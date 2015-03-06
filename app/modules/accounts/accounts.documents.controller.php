@@ -1259,7 +1259,7 @@ class AccountsDocumentsController extends BaseController {
             'DataNachalaObucheniya' => $dateTime->setDateString($order->study_date)->format('d.m.Y'),
             'DataOformleniyaZakaza' => $order->created_at->format('d.m.Y'),
             'DataOformleniyaZakazaSlovami' => $dateTime->setDateString($order->created_at)->months(),
-            'DataZakrutiyaZakaza' => $dateTime->setDateString($order->close_date)->format('d.m.y'),
+            'DataZakrutiyaZakaza' => $dateTime->setDateString($order->close_date)->format('d.m.Y'),
             'DataZakrutiyaZakazaSlovami' => $dateTime->setDateString($order->close_date)->months(),
 
             'NazvanieOrganizacii' => empty($order->organization) ? '' : $order->organization->title,
