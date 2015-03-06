@@ -92,51 +92,51 @@
 		}
 
 		&:nth-child(6n+1) {				
-			background-color: $clr-num-1;
+			background-color: $clr-num-1 !important;
 			color: $clr-white;
 			
 			&.ui-accordion-header-active {
-				background-color: $clr-num-1;
+				background-color: $clr-num-1 !important;
 			}
 		}
 		&:nth-child(6n+3) {			
-			background-color: $clr-num-2;
+			background-color: $clr-num-2 !important;
 			color: $clr-white;
 			
 			&.ui-accordion-header-active {
-				background-color: $clr-num-2;
+				background-color: $clr-num-2 !important;
 			}
 		}
 		&:nth-child(6n+5) {			
-			background-color: $clr-num-3;
+			background-color: $clr-num-3 !important;
 			color: $clr-white;
 			
 			&.ui-accordion-header-active {
-				background-color: $clr-num-3;
+				background-color: $clr-num-3 !important;
 			}
 		}
 		&:nth-child(6n+7) {			
-			background-color: $clr-num-4;
+			background-color: $clr-num-4 !important;
 			color: $clr-white;
 			
 			&.ui-accordion-header-active {
-				background-color: $clr-num-4;
+				background-color: $clr-num-4 !important;
 			}
 		}
 		&:nth-child(6n+9) {			
-			background-color: $clr-num-5;
+			background-color: $clr-num-5 !important;
 			color: $clr-white;
 			
 			&.ui-accordion-header-active {
-				background-color: $clr-num-5;
+				background-color: $clr-num-5 !important;
 			}
 		}
 		&:nth-child(6n+11) {			
-			background-color: $clr-num-6;
+			background-color: $clr-num-6 !important;
 			color: $clr-white;
 			
 			&.ui-accordion-header-active {
-				background-color: $clr-num-6;
+				background-color: $clr-num-6 !important;
 			}
 		}
 	}

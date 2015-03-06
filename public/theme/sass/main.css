@@ -7601,7 +7601,7 @@ a[href^="tel"] {
 }
 @media screen and (max-width: 560px) {
   .accordion .accordion-header h3 {
-    font-size: 1.1em;
+    font-size: 1em;
     line-height: 1.2em;
     padding-top: 0.8125rem;
   }
@@ -7622,46 +7622,46 @@ a[href^="tel"] {
   color: white;
 }
 .accordion .accordion-header:nth-child(6n+1) {
-  background-color: #bb252d;
+  background-color: #bb252d !important;
   color: white;
 }
 .accordion .accordion-header:nth-child(6n+1).ui-accordion-header-active {
-  background-color: #bb252d;
+  background-color: #bb252d !important;
 }
 .accordion .accordion-header:nth-child(6n+3) {
-  background-color: #78a725;
+  background-color: #78a725 !important;
   color: white;
 }
 .accordion .accordion-header:nth-child(6n+3).ui-accordion-header-active {
-  background-color: #78a725;
+  background-color: #78a725 !important;
 }
 .accordion .accordion-header:nth-child(6n+5) {
-  background-color: #e4b51e;
+  background-color: #e4b51e !important;
   color: white;
 }
 .accordion .accordion-header:nth-child(6n+5).ui-accordion-header-active {
-  background-color: #e4b51e;
+  background-color: #e4b51e !important;
 }
 .accordion .accordion-header:nth-child(6n+7) {
-  background-color: #5e52ac;
+  background-color: #5e52ac !important;
   color: white;
 }
 .accordion .accordion-header:nth-child(6n+7).ui-accordion-header-active {
-  background-color: #5e52ac;
+  background-color: #5e52ac !important;
 }
 .accordion .accordion-header:nth-child(6n+9) {
-  background-color: #db7336;
+  background-color: #db7336 !important;
   color: white;
 }
 .accordion .accordion-header:nth-child(6n+9).ui-accordion-header-active {
-  background-color: #db7336;
+  background-color: #db7336 !important;
 }
 .accordion .accordion-header:nth-child(6n+11) {
-  background-color: #4bc8bb;
+  background-color: #4bc8bb !important;
   color: white;
 }
 .accordion .accordion-header:nth-child(6n+11).ui-accordion-header-active {
-  background-color: #4bc8bb;
+  background-color: #4bc8bb !important;
 }
 .accordion .accordion-body table {
   font-family: 'Open Sans', sans-serif;
@@ -9248,11 +9248,11 @@ main h1.padding-h, main h1:first-child, main h2.padding-h, main h2:first-child {
   line-height: 48rem / 40;
   letter-spacing: -1px;
 }
-main a[href] {
+main .desc a[href] {
   border-bottom: 1px solid;
   outline: none;
 }
-main a[href]:hover, main a[href]:focus {
+main .desc a[href]:hover, main .desc a[href]:focus {
   border: none;
   text-decoration: none;
   outline: none;
@@ -9505,22 +9505,22 @@ section h3, section .h3 {
   position: absolute;
 }
 .directions-ul .directions-li:nth-child(6n+1) {
-  background-color: #bb252d;
+  background-color: #bb252d !important;
 }
 .directions-ul .directions-li:nth-child(6n+2) {
-  background-color: #78a725;
+  background-color: #78a725 !important;
 }
 .directions-ul .directions-li:nth-child(6n+3) {
-  background-color: #e4b51e;
+  background-color: #e4b51e !important;
 }
 .directions-ul .directions-li:nth-child(6n+4) {
-  background-color: #5e52ac;
+  background-color: #5e52ac !important;
 }
 .directions-ul .directions-li:nth-child(6n+5) {
-  background-color: #db7336;
+  background-color: #db7336 !important;
 }
 .directions-ul .directions-li:nth-child(6n+6) {
-  background-color: #4bc8bb;
+  background-color: #4bc8bb !important;
 }
 .directions-ul .direction-name {
   margin: 0 0 1.3rem;
@@ -11472,10 +11472,10 @@ main.order-page a:hover {
   }
 
   .directions-ul .directions-li {
-    height: 8rem;
-  }
-  .directions-ul .directions-li .directions-img {
-    display: none;
+    height: 13rem;
+    /* .directions-img {
+    	display: none;
+    } */
   }
 
   .notif {
