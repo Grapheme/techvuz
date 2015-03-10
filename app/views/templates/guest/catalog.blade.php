@@ -127,6 +127,9 @@
                     }
                 });
             }
+            $(window).on('load', function(){
+                $('.js-fotorama').find('.banner').addClass('loaded');
+            });
             setTimeout(function(){
                 setHeight();
                 $fotoramaDiv = $('.js-fotorama').fotorama({

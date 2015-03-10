@@ -1206,6 +1206,16 @@
 }
 
 .catalog-study-plan {
+	h1 {
+		font-size: 1.8em !important;
+		text-align: center;
+	}
+
+	.study-plan-desc {
+		text-align: center;
+		margin: 0;
+		padding: 40px 0 20px;
+	}
 	
 	table {
 		margin-top: 40px;

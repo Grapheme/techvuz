@@ -7404,9 +7404,11 @@ a[href^="tel"] {
   position: relative;
   padding: 0 10px 1px 67px;
   margin-bottom: 3.125rem;
+  margin-right: 1%;
   border-radius: 0.0625rem;
   color: #bb252d;
   border: 0.125rem solid;
+  visibility: hidden;
   	/* display: table;
   	width: 100%;
   	height: 123rem / $hfs;
@@ -7416,6 +7418,9 @@ a[href^="tel"] {
   
   	border-radius: 1rem / $hfs;
   	color: $clr-danger; */
+}
+.banner.loaded {
+  visibility: visible;
 }
 .banner > span {
   /* display: table-cell;
@@ -9718,6 +9723,7 @@ section h3, section .h3 {
   font-size: 0.875em;
   line-height: 1.2em;
   font-weight: 400;
+  z-index: 1;
 }
 @media screen and (max-width: 768px) {
   .print-link {
@@ -11107,6 +11113,15 @@ main.order-page a:hover {
   padding-left: 0;
 }
 
+.catalog-study-plan h1 {
+  font-size: 1.8em !important;
+  text-align: center;
+}
+.catalog-study-plan .study-plan-desc {
+  text-align: center;
+  margin: 0;
+  padding: 40px 0 20px;
+}
 .catalog-study-plan table {
   margin-top: 40px;
   width: 100%;
@@ -11486,6 +11501,10 @@ main.order-page a:hover {
 
   .print-link {
     display: none;
+  }
+
+  .print-hidden {
+    display: none !important;
   }
 
   .directions-ul .directions-li {

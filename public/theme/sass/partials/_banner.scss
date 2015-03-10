@@ -8,9 +8,15 @@
 	position: relative;
 	padding: 0 10px 1px 67px;
 	margin-bottom: 50rem / $hfs;
+	margin-right: 1%;
 	border-radius: 1rem / $hfs;
 	color: $clr-danger;
 	border: 2rem / $hfs solid;
+	visibility: hidden;
+
+	&.loaded {
+		visibility: visible;
+	}
 	/* display: table;
 	width: 100%;
 	height: 123rem / $hfs;

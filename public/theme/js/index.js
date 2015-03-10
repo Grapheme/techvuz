@@ -802,10 +802,7 @@ var Popup = (function(){
 		}
 
     });
-
     setSelectBoxes();
-    
-
 })();
 
 $('.notifications').notifications();
@@ -889,12 +886,14 @@ var print_part = function() {
         return false;
     });
     var print_it = function(id) {
-        $('#' + id).show()
-            .siblings().hide();
-        $('#' + id).prev('.accordion-header').show();
-        window.print();
-        $('#' + id).siblings().show()
-            .filter('.accordion-body').hide();
+        $('#' + id).removeClass('print-hidden')
+            .siblings().addClass('print-hidden');
+        $('#' + id).prev('.accordion-header').removeClass('print-hidden');
+        setTimeout(function(){
+            window.print();
+        }, 100);
+        $('#' + id).siblings().removeClass('print-hidden')
+            .filter('.accordion-body').addClass('print-hidden');
     }
 }
 $(function(){

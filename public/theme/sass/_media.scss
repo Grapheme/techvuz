@@ -74,7 +74,9 @@
     .print-link {
     	display: none;
     }
-
+    .print-hidden {
+        display: none !important;
+    }
     .directions-ul {
 		.directions-li {
 			height: 13rem;
