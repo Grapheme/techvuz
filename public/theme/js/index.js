@@ -809,7 +809,22 @@ var Popup = (function(){
 })();
 
 $('.notifications').notifications();
-
+var questions_hide = function() {
+    var check = function() {
+        $('.js-question').each(function(){
+            var radio = $(this).find('[type="radio"]');
+            if(radio.is(':checked')) {
+                $(this).css('opacity', 0.6);
+            } else {
+                $(this).css('opacity', 1);
+            }
+        });
+    }
+    check();
+    $('.js-question').find('[type="radio"]').on('change', function(){
+        check();
+    });
+}
 var city_phone = function() {
     var links = $('.js-phone-link');
     var phones = $('.js-phone');
@@ -819,11 +834,22 @@ var city_phone = function() {
         phones.filter('[data-type="' + city + '"]').addClass('active')
             .siblings().removeClass('active');
     }
+    var autoSelect = function() {
+        var geolocation = ymaps.geolocation;
+        var city = geolocation.city;
+        var city_link = $('.js-phone-link[data-name="' + city + '"]');
+        if(city_link.length){
+            show(city_link.attr('data-type'));
+        }
+    }
     links.on('click', function(){
         show($(this).attr('data-type'));
         return false;
     });
-    show(links.eq(0).attr('data-type'));
+    show(links.eq(2).attr('data-type'));
+    $(window).on('load', function(){
+        autoSelect();
+    });
 }
 var banners = function() {
     var parent = $('.js-banners');

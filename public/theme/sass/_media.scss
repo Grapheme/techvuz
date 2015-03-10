@@ -24,8 +24,6 @@
     main {
     	margin: 0;
 
-        
-
     	&:before {
 			content: none;
     	}
@@ -80,7 +78,7 @@
     .directions-ul {
 		.directions-li {
 			height: 13rem;
-
+            background: #ccc !important;
 			/* .directions-img {
 				display: none;
 			} */

@@ -3,6 +3,10 @@
 	outline: 1px solid #cbcbcb;
 	font-family: 'Open Sans', sans-serif;
 
+	td {
+		vertical-align: top;
+	}
+
 	&.notif-table {
 		outline: none; 
 

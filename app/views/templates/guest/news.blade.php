@@ -19,9 +19,11 @@
                     {{ Helper::rdate("j M Y", strtotime($single_news->published_at)) }}
                 </div>
                 <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9 style-light no-padding padding-right-20">
+                    @if($single_news->meta->title != '')
                     <div class="news-title">
                         {{{ $single_news->meta->title }}}
                     </div>
+                    @endif
                     <div class="news-text">
                         {{ $single_news->meta->content }}
                     </div>

@@ -117,22 +117,38 @@
     <script>
         var banner_fotorama = function() {
             var mheight = 0;
-            $('.fotorama-item').each(function(){
-                var this_height = $(this).height();
-                if(this_height > mheight) {
-                    mheight = this_height;
-                }
-            });
-            $('.js-fotorama').fotorama({
-                width: '100%',
-                height: mheight,
-                arrows: false,
-                nav: false,
-                click: false,
-                swipe: false,
-                autoplay: 5000
-            });
+            var $fotoramaDiv;
+            var fotorama;
+            var setHeight = function() {
+                $('.banner').each(function(){
+                    var this_height = $(this).height() +6;
+                    if(this_height > mheight) {
+                        mheight = this_height;
+                    }
+                });
+            }
+            setTimeout(function(){
+                setHeight();
+                $fotoramaDiv = $('.js-fotorama').fotorama({
+                    width: '100%',
+                    height: mheight,
+                    arrows: false,
+                    nav: false,
+                    click: false,
+                    swipe: false,
+                    autoplay: 5000
+                });
+                fotorama = $fotoramaDiv.data('fotorama');
+                $(window).on('resize', function(){
+                    setHeight();
+                    fotorama.resize({
+                        height: mheight
+                    });
+                });
+            }, 500);
         }
-        banner_fotorama();
+        $(function(){
+            banner_fotorama();
+        });
     </script>
 @stop

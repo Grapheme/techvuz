@@ -28,6 +28,7 @@
 
 {{ HTML::script('theme/js/moderator.js') }}
 <script type="text/javascript">moderatorFormValidation();</script>
+<script src="//api-maps.yandex.ru/2.0/?load=package.standard&lang=ru-RU" type="text/javascript"></script>
 <script>
      $(document).ready(function(){
          $(".phone").inputmask("mask", {"mask": "[+7] (999) 999 99 99","placeholder": "X"});
