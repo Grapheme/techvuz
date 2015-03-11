@@ -10251,6 +10251,18 @@ main.order-page a:hover {
   border-left-width: 1px;
 }
 
+.cabinet .btn-danger, .moderator-cabinet .btn-danger {
+  background: white;
+  color: #bb252d;
+  border-color: #bb252d;
+  border-width: 2px;
+  margin-bottom: 15px;
+}
+.cabinet .btn-danger:hover, .moderator-cabinet .btn-danger:hover {
+  color: white;
+  background: #bb252d;
+}
+
 .moderator-cabinet {
   /* The MIT License */
   /* The MIT License */
@@ -10963,7 +10975,7 @@ main.order-page a:hover {
 .moderator-cabinet textarea {
   width: 31.163rem;
 }
-.moderator-cabinet input {
+.moderator-cabinet input:not(.btn-danger) {
   outline: none;
   transition: all .4s ease;
   width: 31.163rem;
@@ -10976,15 +10988,15 @@ main.order-page a:hover {
   font-weight: 500;
   color: #333333;
 }
-.moderator-cabinet input[type="checkbox"] {
+.moderator-cabinet input:not(.btn-danger)[type="checkbox"] {
   width: auto;
   height: auto;
 }
-.moderator-cabinet input:focus {
+.moderator-cabinet input:not(.btn-danger):focus {
   border-color: #33ace4;
   box-shadow: inset 0 0 0 2px #33ace4;
 }
-.moderator-cabinet input.datepicker {
+.moderator-cabinet input:not(.btn-danger).datepicker {
   width: 272px;
 }
 .moderator-cabinet .table.table-striped th.col-lg-1 {
@@ -10999,42 +11011,33 @@ main.order-page a:hover {
 .moderator-cabinet .table.table-striped .btn {
   margin: 0 0.3125rem 0.625rem !important;
 }
-.moderator-cabinet .btn {
+.moderator-cabinet .btn:not(.btn-danger) {
   margin: 0 0.625rem;
   border: 2px solid;
 }
-.moderator-cabinet .btn + br {
+.moderator-cabinet .btn:not(.btn-danger) + br {
   display: none;
 }
-.moderator-cabinet .btn:first-child {
+.moderator-cabinet .btn:not(.btn-danger):first-child {
   margin-left: 0;
 }
-.moderator-cabinet .btn:last-child {
+.moderator-cabinet .btn:not(.btn-danger):last-child {
   margin-right: 0.625rem;
 }
-.moderator-cabinet .btn:hover {
+.moderator-cabinet .btn:not(.btn-danger):hover {
   color: inherit;
 }
-.moderator-cabinet .btn:focus {
+.moderator-cabinet .btn:not(.btn-danger):focus {
   color: inherit;
 }
-.moderator-cabinet .btn.btn-default, .moderator-cabinet .btn.btn-primary, .moderator-cabinet .btn.btn-success {
+.moderator-cabinet .btn:not(.btn-danger).btn-default, .moderator-cabinet .btn:not(.btn-danger).btn-primary, .moderator-cabinet .btn:not(.btn-danger).btn-success {
   color: #33ace4;
   border-color: #33ace4;
   background: white;
 }
-.moderator-cabinet .btn.btn-default:hover, .moderator-cabinet .btn.btn-primary:hover, .moderator-cabinet .btn.btn-success:hover {
+.moderator-cabinet .btn:not(.btn-danger).btn-default:hover, .moderator-cabinet .btn:not(.btn-danger).btn-primary:hover, .moderator-cabinet .btn:not(.btn-danger).btn-success:hover {
   color: white;
   background: #33ace4;
-}
-.moderator-cabinet .btn.btn-danger {
-  background: white;
-  color: #bb252d;
-  border-color: #bb252d;
-}
-.moderator-cabinet .btn.btn-danger:hover {
-  color: white;
-  background: #bb252d;
 }
 .moderator-cabinet .table {
   width: 100%;

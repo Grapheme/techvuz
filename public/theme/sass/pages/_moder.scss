@@ -210,7 +210,20 @@
 	border-left-width: 1px;
 }
 
+.cabinet, .moderator-cabinet {
+	.btn-danger {
+		background: $clr-white;
+		color: $clr-danger;
+		border-color: $clr-danger;
+		border-width: 2px;
+		margin-bottom: 15px;
 
+		&:hover {
+			color: $clr-white;
+			background: $clr-danger;
+		}
+	}
+}
 .moderator-cabinet {
 
 	.smart-form .btn {
@@ -999,7 +1012,7 @@
 		width: 31.163rem;
 	}
 
-	input {
+	input:not(.btn-danger) {
 		outline: none;
 		transition: all .4s ease;
 		width: 31.163rem;
@@ -1047,7 +1060,7 @@
 		}
 	}
 	
-	.btn {
+	.btn:not(.btn-danger) {
 		margin: 0 10rem / $hfs;
 		border: 2px solid;
 
@@ -1080,17 +1093,6 @@
 			&:hover {
 				color: $clr-white;
 				background: $clr-main-bg;
-			}
-		}
-
-		&.btn-danger {
-			background: $clr-white;
-			color: $clr-danger;
-			border-color: $clr-danger;
-
-			&:hover {
-				color: $clr-white;
-				background: $clr-danger;
 			}
 		}
 	}
