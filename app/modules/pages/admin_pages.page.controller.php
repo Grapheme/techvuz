@@ -207,7 +207,7 @@ class AdminPagesPageController extends BaseController {
         $input['slug'] = @$input['slug'] ? $input['slug'] : $input['name'];
         $input['slug'] = Helper::translit($input['slug']);
 
-        $input['start_page'] = @$input['start_page'] ? 1 : NULL;
+        #$input['start_page'] = @$input['start_page'] ? 1 : NULL;
 
         #$json_request['responseText'] = "<pre>" . print_r(Input::all(), 1) . "</pre>";
         $json_request['responseText'] = "<pre>" . print_r($input, 1) . print_r($locales, 1) . print_r($blocks, 1) . print_r($blocks_new, 1) . "</pre>";
