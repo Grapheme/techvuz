@@ -13,7 +13,8 @@
 @stop
 @section('content')
 <main class="catalog-study-plan">
-    <h2>{{ $course->seo->h1 }}</h2>
+    <p class="study-plan-desc">Учебный план<br>дополнительной профессиональной программы</p>
+    <h1>{{ $course->seo->h1 }}</h1>
     <div class="desc">
     {{ $course->description }}
     </div>

@@ -7404,9 +7404,11 @@ a[href^="tel"] {
   position: relative;
   padding: 0 10px 1px 67px;
   margin-bottom: 3.125rem;
+  margin-right: 1%;
   border-radius: 0.0625rem;
   color: #bb252d;
   border: 0.125rem solid;
+  visibility: hidden;
   	/* display: table;
   	width: 100%;
   	height: 123rem / $hfs;
@@ -7416,6 +7418,9 @@ a[href^="tel"] {
   
   	border-radius: 1rem / $hfs;
   	color: $clr-danger; */
+}
+.banner.loaded {
+  visibility: visible;
 }
 .banner > span {
   /* display: table-cell;
@@ -9718,6 +9723,7 @@ section h3, section .h3 {
   font-size: 0.875em;
   line-height: 1.2em;
   font-weight: 400;
+  z-index: 1;
 }
 @media screen and (max-width: 768px) {
   .print-link {
@@ -10259,6 +10265,18 @@ main.order-page a:hover {
 .ui-datepicker-rtl .ui-datepicker-group-middle .ui-datepicker-header {
   border-right-width: 0;
   border-left-width: 1px;
+}
+
+.cabinet .btn-danger, .moderator-cabinet .btn-danger {
+  background: white;
+  color: #bb252d;
+  border-color: #bb252d;
+  border-width: 2px;
+  margin-bottom: 15px;
+}
+.cabinet .btn-danger:hover, .moderator-cabinet .btn-danger:hover {
+  color: white;
+  background: #bb252d;
 }
 
 .moderator-cabinet {
@@ -10954,7 +10972,7 @@ main.order-page a:hover {
 .moderator-cabinet textarea {
   width: 31.163rem;
 }
-.moderator-cabinet input {
+.moderator-cabinet input:not(.btn-danger) {
   outline: none;
   -webkit-transition: all .4s ease;
           transition: all .4s ease;
@@ -10969,16 +10987,16 @@ main.order-page a:hover {
   font-weight: 500;
   color: #333333;
 }
-.moderator-cabinet input[type="checkbox"] {
+.moderator-cabinet input:not(.btn-danger)[type="checkbox"] {
   width: auto;
   height: auto;
 }
-.moderator-cabinet input:focus {
+.moderator-cabinet input:not(.btn-danger):focus {
   border-color: #33ace4;
   -webkit-box-shadow: inset 0 0 0 2px #33ace4;
           box-shadow: inset 0 0 0 2px #33ace4;
 }
-.moderator-cabinet input.datepicker {
+.moderator-cabinet input:not(.btn-danger).datepicker {
   width: 272px;
 }
 .moderator-cabinet .table.table-striped th.col-lg-1 {
@@ -10993,42 +11011,33 @@ main.order-page a:hover {
 .moderator-cabinet .table.table-striped .btn {
   margin: 0 0.3125rem 0.625rem !important;
 }
-.moderator-cabinet .btn {
+.moderator-cabinet .btn:not(.btn-danger) {
   margin: 0 0.625rem;
   border: 2px solid;
 }
-.moderator-cabinet .btn + br {
+.moderator-cabinet .btn:not(.btn-danger) + br {
   display: none;
 }
-.moderator-cabinet .btn:first-child {
+.moderator-cabinet .btn:not(.btn-danger):first-child {
   margin-left: 0;
 }
-.moderator-cabinet .btn:last-child {
+.moderator-cabinet .btn:not(.btn-danger):last-child {
   margin-right: 0.625rem;
 }
-.moderator-cabinet .btn:hover {
+.moderator-cabinet .btn:not(.btn-danger):hover {
   color: inherit;
 }
-.moderator-cabinet .btn:focus {
+.moderator-cabinet .btn:not(.btn-danger):focus {
   color: inherit;
 }
-.moderator-cabinet .btn.btn-default, .moderator-cabinet .btn.btn-primary, .moderator-cabinet .btn.btn-success {
+.moderator-cabinet .btn:not(.btn-danger).btn-default, .moderator-cabinet .btn:not(.btn-danger).btn-primary, .moderator-cabinet .btn:not(.btn-danger).btn-success {
   color: #33ace4;
   border-color: #33ace4;
   background: white;
 }
-.moderator-cabinet .btn.btn-default:hover, .moderator-cabinet .btn.btn-primary:hover, .moderator-cabinet .btn.btn-success:hover {
+.moderator-cabinet .btn:not(.btn-danger).btn-default:hover, .moderator-cabinet .btn:not(.btn-danger).btn-primary:hover, .moderator-cabinet .btn:not(.btn-danger).btn-success:hover {
   color: white;
   background: #33ace4;
-}
-.moderator-cabinet .btn.btn-danger {
-  background: white;
-  color: #bb252d;
-  border-color: #bb252d;
-}
-.moderator-cabinet .btn.btn-danger:hover {
-  color: white;
-  background: #bb252d;
 }
 .moderator-cabinet .table {
   width: 100%;
@@ -11107,6 +11116,15 @@ main.order-page a:hover {
   padding-left: 0;
 }
 
+.catalog-study-plan h1 {
+  font-size: 1.8em !important;
+  text-align: center;
+}
+.catalog-study-plan .study-plan-desc {
+  text-align: center;
+  margin: 0;
+  padding: 40px 0 20px;
+}
 .catalog-study-plan table {
   margin-top: 40px;
   width: 100%;
@@ -11486,6 +11504,10 @@ main.order-page a:hover {
 
   .print-link {
     display: none;
+  }
+
+  .print-hidden {
+    display: none !important;
   }
 
   .directions-ul .directions-li {
