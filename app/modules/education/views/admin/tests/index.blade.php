@@ -10,7 +10,7 @@
 </h4>
 <?php $chapter_id = $chapter->id?>
 @else
-<h4>@if(!empty($chapter->test_title)){{ $chapter->test_title }}@else{{ $test->title }}@endif</h4>
+<h4>@if(!empty($course->test_title)){{ $course->test_title }}@else{{ $test->title }}@endif</h4>
 <?php $chapter_id = 0; ?>
 @endif
 <div class="row">
