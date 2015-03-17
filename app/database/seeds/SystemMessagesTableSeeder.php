@@ -62,5 +62,6 @@ class SystemMessagesTableSeeder extends Seeder {
         DicVal::create(array('dic_id'=>$dic_id,'slug'=>'individual.study.begin','name'=> '[listener] приступил(а) к обучению по программе [course]. К итоговому тестированию по программе [course] можно будет приступить через 72 академических часа.','order'=>41));
 
         DicVal::create(array('dic_id'=>$dic_id,'slug'=>'organization.study-access','name'=> '<a href="[link]">[listener]</a> может приступить к обучению по программе [course].','order'=>42));
-    }
+
+        DicVal::create(array('dic_id'=>$dic_id,'slug'=>'moderator.study.finish','name'=> '<a href="[link]">[listener]</a> прошел(а) итоговое тестирование по программе [course] с результатом [percent]%.','order'=>10));   }
 }
