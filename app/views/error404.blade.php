@@ -122,7 +122,7 @@
 			        © АНО ДПО «ЦКС», 2012 - {{ date("Y") }}
 			    </div>
 			    <div class="dev">
-			        Сделано в <a href="http://grapheme.ru">ГРАФЕМА</a>
+			        Сделано в <a href="http://grapheme.ru" target="_blank">ГРАФЕМА</a>
 			    </div>
 			</footer>
 		</aside>

@@ -29,7 +29,7 @@ endif;
                 </span>
                 <span class="icon icon-angle-right js-notif-right"></span>
                 <a href="{{ URL::route('moderator-notifications') }}" class="all-notifications">
-                    Полный список
+                    Уведомления
                 </a>
                 <span>
                     <a data-action="{{ URL::route('setting-update',array('setting_slug'=>'dashboard-target-notification-block','value'=>$dashboardNotificationBlockTargetValue)) }}" class="white-link pull-right js-close-notifications">закрыть</a>

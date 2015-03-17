@@ -10396,9 +10396,6 @@ main.order-page a:hover {
 .moderator-cabinet .notifications .notifications-li .col-xs-3 {
   width: 25%;
 }
-.moderator-cabinet [class^="col"] {
-  width: 100%;
-}
 .moderator-cabinet .dropzone,
 .moderator-cabinet .dropzone *,
 .moderator-cabinet .dropzone-previews,
