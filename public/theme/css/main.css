@@ -11515,7 +11515,7 @@ main.order-page a:hover {
   }
 
   .accordion .ui-accordion-header {
-    padding: 0 0 0 1.2875rem;
+    padding: 0 0 0 1.2875rem !important;
   }
 
   .accordion table {
