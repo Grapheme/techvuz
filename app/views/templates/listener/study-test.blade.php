@@ -9,7 +9,7 @@
     <div class="cabinet-tabs">
         @include(Helper::acclayout('menu'))
         <div>
-            <h4>{{ $test->title }}</h4>
+            <h4>@if(!empty($test->course->test_title)){{ $test->course->test_title }}@else{{ $test->title }}@endif</h4>
             <div class="desc">
                  по курсу {{ $test->course->code }}. {{ $test->course->title }}
             </div>
