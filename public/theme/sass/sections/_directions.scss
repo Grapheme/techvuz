@@ -9,6 +9,7 @@
 		height: 18rem;
 		padding: 24rem / $hfs 33rem / $hfs 0 33rem / $hfs;
 		color: $clr-white;
+		-webkit-print-color-adjust: exact;
 
 		@media screen and ($laptop) {
 			width: 50%;

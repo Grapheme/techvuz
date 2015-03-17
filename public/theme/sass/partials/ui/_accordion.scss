@@ -10,6 +10,7 @@
 		position: relative;
 		outline: none;
 		background: $clr-gray;
+		-webkit-print-color-adjust: exact;
 
 		&:hover {
 			box-shadow: 0 0 20rem 10rem rgba(0, 0, 0, 0.1) inset;
@@ -46,6 +47,28 @@
 			height: 100%;
 
 			background: no-repeat 33rem / $hfs center;
+		}
+
+		.accordion-img-print {
+			display: none;
+
+			@media print {
+				display: block;
+				float: left;
+				height: 100%;
+				margin-right: 15rem / $hfs;
+
+				img {
+					display: inline-block;
+					vertical-align: middle;
+				}
+
+				span {
+					display: inline-block;
+					vertical-align: middle;
+					height: 100%;
+				}
+			}
 		}
 
 		h3 {

@@ -10,9 +10,14 @@
     		display: none;
     	}
         .contact {
-            display: none;
             position: relative;
             padding: 0 0 0 2.75rem;
+
+            .phone-links {
+                a:not(.active) {
+                    display: none;
+                }
+            }
         }
     }
     .catalog .desc {
