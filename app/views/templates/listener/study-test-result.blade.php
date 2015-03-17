@@ -17,6 +17,9 @@
             <div>
                 {{ Session::get('message.text') }}
             </div>
+            <div>
+                Требуемый результат: {{ Config::get('site.success_test_percent') }}%
+            </div>
             @if(Session::has('message.show_repeat'))
             <a class="btn btn--bordered btn--blue" href="{{ URL::route('listener-study-testing',array('study_course_id'=>$study_course->id.'-'.BaseController::stringTranslite($study_test->test->course->title,100),'study_test_id'=>$study_test->test->id)) }}">Новая попытка</a>
             @endif
