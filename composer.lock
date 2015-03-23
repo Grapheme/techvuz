@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "cafaee2a680a421996a3e5aef29ad920",
+    "hash": "660c7c56ebb2849ca66a303fdd4437df",
     "packages": [
         {
             "name": "barryvdh/laravel-ide-helper",
@@ -1619,6 +1619,58 @@
                 "psr-3"
             ],
             "time": "2014-01-18 15:33:09"
+        },
+        {
+            "name": "roumen/sitemap",
+            "version": "v2.4.15",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/RoumenDamianoff/laravel-sitemap.git",
+                "reference": "29d6ee0e75bd89a01b2d01146b254cac840d4cec"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/RoumenDamianoff/laravel-sitemap/zipball/29d6ee0e75bd89a01b2d01146b254cac840d4cec",
+                "reference": "29d6ee0e75bd89a01b2d01146b254cac840d4cec",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/support": "~4|~5",
+                "php": ">=5.4.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "3.7.*"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "2.4-dev"
+                }
+            },
+            "autoload": {
+                "psr-0": {
+                    "Roumen\\Sitemap": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Roumen Damianoff",
+                    "email": "roumen@dawebs.com",
+                    "homepage": "http://roumen.it",
+                    "role": "Developer"
+                }
+            ],
+            "description": "A simple sitemap generator for Laravel.",
+            "homepage": "http://roumen.it/projects/laravel-sitemap",
+            "keywords": [
+                "Sitemap",
+                "laravel"
+            ],
+            "time": "2014-12-23 23:58:56"
         },
         {
             "name": "scalia/sphinxsearch",

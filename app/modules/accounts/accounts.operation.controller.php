@@ -94,5 +94,22 @@ class AccountsOperationController extends BaseController {
         endif;
     }
     /**************************************************************************/
+    public function createSiteMap(){
 
+        $sitemap = App::make("sitemap");
+        if($pages = Page::where('publication',1)->where('version_of',null)->select(array('name','slug','updated_at'))->get()):
+            foreach($pages as $page):
+                $sitemap->add(URL::route('page', $page->slug),$page->updated_at->toW3cString(),'1.0','monthly');
+                if($page->slug == 'catalog'):
+                    foreach(Courses::where('active',true)->with('seo')->get() as $course):
+                        $sitemap->add(URL::route('course-page',$course->seo->url),$course->seo->updated_at->toW3cString(),'0.8','weekly');
+                    endforeach;
+                endif;
+            endforeach;
+            $sitemap->add(URL::route('page','news'),Carbon\Carbon::now()->toW3cString(),'1.0','weekly');
+            $sitemap->add(URL::route('page','reviews'),Carbon\Carbon::now()->toW3cString(),'1.0','weekly');
+        endif;
+        $sitemap->store('xml','sitemap');
+        return $sitemap->render('xml');
+    }
 }

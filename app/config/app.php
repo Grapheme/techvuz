@@ -62,7 +62,8 @@ return array(
         'Flynsarmy\DbBladeCompiler\DbBladeCompilerServiceProvider',
         'Scalia\SphinxSearch\SphinxSearchServiceProvider',
         'Chumper\Zipper\ZipperServiceProvider',
-        'Lowerends\Mpdf\ServiceProvider'
+        'Lowerends\Mpdf\ServiceProvider',
+        'Roumen\Sitemap\SitemapServiceProvider'
 
     ),
 	'aliases' => array(

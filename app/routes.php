@@ -7,6 +7,7 @@ Route::post('redactor/upload', 'DownloadsController@redactorUploadImage');
 
 Route::get('sitemap',function(){
 
+    (new AccountsOperationController())->createSiteMap();
     $xml = File::get(public_path('sitemap.xml'));
     $response = Response::make($xml, 200);
     $response->header('Content-Type', 'text/xml');

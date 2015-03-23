@@ -1,6 +1,6 @@
 <?
 /**
- * TITLE: Стандартная страница
+ * TITLE: Site Map
  */
     $pages = Page::where('publication',1)->where('version_of',null)->lists('name','slug');
     $pages['news'] = 'Новости';

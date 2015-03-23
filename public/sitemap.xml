@@ -1,329 +1,434 @@
-﻿<?xml version="1.0" encoding="UTF-8"?>
-		<!--	created with www.mysitemapgenerator.com	-->
-		<urlset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
-<url>
-	<loc>http://tehvuz.ru/</loc>
-	<lastmod>2015-01-29T10:54:08+01:00</lastmod>
-	<priority>1.0</priority>
-</url>
-<url>
-	<loc>http://tehvuz.ru/registration</loc>
-	<lastmod>2015-01-29T10:54:11+01:00</lastmod>
-	<priority>1.0</priority>
-</url>
-<url>
-	<loc>http://tehvuz.ru/about</loc>
-	<lastmod>2015-01-29T10:54:13+01:00</lastmod>
-	<priority>1.0</priority>
-</url>
-<url>
-	<loc>http://tehvuz.ru/catalog</loc>
-	<lastmod>2015-01-29T10:54:16+01:00</lastmod>
-	<priority>1.0</priority>
-</url>
-<url>
-	<loc>http://tehvuz.ru/how-it-works</loc>
-	<lastmod>2015-01-29T10:54:18+01:00</lastmod>
-	<priority>1.0</priority>
-</url>
-<url>
-	<loc>http://tehvuz.ru/contacts</loc>
-	<lastmod>2015-01-29T10:54:21+01:00</lastmod>
-	<priority>1.0</priority>
-</url>
-<url>
-	<loc>http://tehvuz.ru/catalog/stroitelstvo-rekonstrukciya-kapitalnyiy-remont-obektov-kapitalnogo-stroitelstva-obshestroitelnye-raboty</loc>
-	<lastmod>2015-01-29T10:54:36+01:00</lastmod>
-	<priority>0.8</priority>
-</url>
-<url>
-	<loc>http://tehvuz.ru/catalog/stroitelstvo-rekonstrukciya-kapitalnyiy-remont-obektov-kapitalnogo-stroitelstva-vypolnenie-geodezicheskih-podgotovitelnyh-i-zemlyanyh-rabot-ustroiystva-osnovaniiy-i-fundamentov</loc>
-	<lastmod>2015-01-29T10:54:38+01:00</lastmod>
-	<priority>0.8</priority>
-</url>
-<url>
-	<loc>http://tehvuz.ru/catalog/stroitelstvo-rekonstrukciya-kapitalnyiy-remont-obektov-kapitalnogo-stroitelstva-vozvedenie-betonnyh-i-jelezobetonnyh-konstrukciiy</loc>
-	<lastmod>2015-01-29T10:54:39+01:00</lastmod>
-	<priority>0.8</priority>
-</url>
-<url>
-	<loc>http://tehvuz.ru/catalog/stroitelstvo-rekonstrukciya-kapitalnyiy-remont-obektov-kapitalnogo-stroitelstva-vozvedenie-kamennyh-metallicheskih-i-derevyannyh-stroitelnyh-konstrukciiy</loc>
-	<lastmod>2015-01-29T10:54:41+01:00</lastmod>
-	<priority>0.8</priority>
-</url>
-<url>
-	<loc>http://tehvuz.ru/catalog/stroitelstvo-rekonstrukciya-kapitalnyiy-remont-obektov-kapitalnogo-stroitelstva-vypolnenie-fasadnyh-rabot-ustroiystvo-krovel-zashita-stroitelnyh-konstrukciiy-truboprovodov-i-oborudovaniya</loc>
-	<lastmod>2015-01-29T10:54:41+01:00</lastmod>
-	<priority>0.8</priority>
-</url>
-<url>
-	<loc>http://tehvuz.ru/catalog/stroitelstvo-rekonstrukciya-kapitalnyiy-remont-obektov-kapitalnogo-stroitelstva-ustroiystvo-injenernyh-sistem-i-seteiy</loc>
-	<lastmod>2015-01-29T10:54:43+01:00</lastmod>
-	<priority>0.8</priority>
-</url>
-<url>
-	<loc>http://tehvuz.ru/catalog/stroitelstvo-rekonstrukciya-kapitalnyiy-remont-obektov-kapitalnogo-stroitelstva-ustroiystvo-lektricheskih-seteiy-i-liniiy-svyazi</loc>
-	<lastmod>2015-01-29T10:54:44+01:00</lastmod>
-	<priority>0.8</priority>
-</url>
-<url>
-	<loc>http://tehvuz.ru/catalog/stroitelstvo-rekonstrukciya-kapitalnyiy-remont-obektov-kapitalnogo-stroitelstva-ustroiystvo-obektov-neftyanoiy-i-gazovoiy-promyshlennosti-ustroiystvo-skvajin</loc>
-	<lastmod>2015-01-29T10:54:46+01:00</lastmod>
-	<priority>0.8</priority>
-</url>
-<url>
-	<loc>http://tehvuz.ru/catalog/stroitelstvo-rekonstrukciya-kapitalnyiy-remont-obektov-kapitalnogo-stroitelstva-vypolnenie-montajnyh-i-puskonaladochnyh-rabot</loc>
-	<lastmod>2015-01-29T10:54:46+01:00</lastmod>
-	<priority>0.8</priority>
-</url>
-<url>
-	<loc>http://tehvuz.ru/catalog/stroitelstvo-rekonstrukciya-kapitalnyiy-remont-obektov-kapitalnogo-stroitelstva-ustroiystvo-avtomobilnyh-dorog-i-arodromov</loc>
-	<lastmod>2015-01-29T10:54:48+01:00</lastmod>
-	<priority>0.8</priority>
-</url>
-<url>
-	<loc>http://tehvuz.ru/catalog/stroitelstvo-rekonstrukciya-kapitalnyiy-remont-obektov-kapitalnogo-stroitelstva-ustroiystvo-jeleznodorojnyh-i-tramvaiynyh-puteiy</loc>
-	<lastmod>2015-01-29T10:54:49+01:00</lastmod>
-	<priority>0.8</priority>
-</url>
-<url>
-	<loc>http://tehvuz.ru/catalog/stroitelstvo-rekonstrukciya-kapitalnyiy-remont-obektov-kapitalnogo-stroitelstva-ustroiystvo-podzemnyh-soorujeniiy-osushestvlenie-specialnyh-zemlyanyh-i-burovzryvnyh-rabot-pri-stroitelstve</loc>
-	<lastmod>2015-01-29T10:54:51+01:00</lastmod>
-	<priority>0.8</priority>
-</url>
-<url>
-	<loc>http://tehvuz.ru/catalog/stroitelstvo-rekonstrukciya-kapitalnyiy-remont-obektov-kapitalnogo-stroitelstva-ustroiystvo-mostov-stakad-i-puteprovodov</loc>
-	<lastmod>2015-01-29T10:54:51+01:00</lastmod>
-	<priority>0.8</priority>
-</url>
-<url>
-	<loc>http://tehvuz.ru/catalog/stroitelstvo-rekonstrukciya-kapitalnyiy-remont-obektov-kapitalnogo-stroitelstva-vypolnenie-gidrotehnicheskih-vodolaznyh-rabot</loc>
-	<lastmod>2015-01-29T10:54:53+01:00</lastmod>
-	<priority>0.8</priority>
-</url>
-<url>
-	<loc>http://tehvuz.ru/catalog/stroitelstvo-rekonstrukciya-kapitalnyiy-remont-obektov-kapitalnogo-stroitelstva-ustroiystvo-promyshlennyh-pecheiy-i-dymovyh-trub</loc>
-	<lastmod>2015-01-29T10:54:53+01:00</lastmod>
-	<priority>0.8</priority>
-</url>
-<url>
-	<loc>http://tehvuz.ru/catalog/stroitelstvo-rekonstrukciya-kapitalnyiy-remont-obektov-kapitalnogo-stroitelstva-osushestvlenie-stroitelnogo-kontrolya</loc>
-	<lastmod>2015-01-29T10:54:55+01:00</lastmod>
-	<priority>0.8</priority>
-</url>
-<url>
-	<loc>http://tehvuz.ru/catalog/stroitelstvo-rekonstrukciya-kapitalnyiy-remont-obektov-kapitalnogo-stroitelstva-organizaciya-stroitelstva</loc>
-	<lastmod>2015-01-29T10:54:56+01:00</lastmod>
-	<priority>0.8</priority>
-</url>
-<url>
-	<loc>http://tehvuz.ru/catalog/proektirovanie-obektov-kapitalnogo-stroitelstva</loc>
-	<lastmod>2015-01-29T10:54:58+01:00</lastmod>
-	<priority>0.8</priority>
-</url>
-<url>
-	<loc>http://tehvuz.ru/catalog/proektirovanie-obektov-kapitalnogo-stroitelstva-shemy-planirovochnoiy-organizacii-zemelnogo-uchastka</loc>
-	<lastmod>2015-01-29T10:54:58+01:00</lastmod>
-	<priority>0.8</priority>
-</url>
-<url>
-	<loc>http://tehvuz.ru/catalog/proektirovanie-obektov-kapitalnogo-stroitelstva-obemno-planirovochnye-resheniya</loc>
-	<lastmod>2015-01-29T10:55:00+01:00</lastmod>
-	<priority>0.8</priority>
-</url>
-<url>
-	<loc>http://tehvuz.ru/catalog/proektirovanie-obektov-kapitalnogo-stroitelstva-konstruktivnye-resheniya</loc>
-	<lastmod>2015-01-29T10:55:01+01:00</lastmod>
-	<priority>0.8</priority>
-</url>
-<url>
-	<loc>http://tehvuz.ru/catalog/proektirovanie-obektov-kapitalnogo-stroitelstva-vnutrennie-injenernye-sistemy-otopleniya-ventilyacii-teplogazosnabjeniya-vodosnabjeniya-i-vodootvedeniya</loc>
-	<lastmod>2015-01-29T10:55:03+01:00</lastmod>
-	<priority>0.8</priority>
-</url>
-<url>
-	<loc>http://tehvuz.ru/catalog/proektirovanie-obektov-kapitalnogo-stroitelstva-vnutrennie-sistemy-i-seti-lektrosnabjeniya-slabotochnye-sistemy-dispetcherizaciya-avtomatizaciya-upravlenie-injenernymi-sistemami</loc>
-	<lastmod>2015-01-29T10:55:03+01:00</lastmod>
-	<priority>0.8</priority>
-</url>
-<url>
-	<loc>http://tehvuz.ru/catalog/proektirovanie-obektov-kapitalnogo-stroitelstva-narujnye-injenernye-sistemy-otopleniya-ventilyacii-teplogazosnabjeniya-vodosnabjeniya-i-vodootvedeniya</loc>
-	<lastmod>2015-01-29T10:55:05+01:00</lastmod>
-	<priority>0.8</priority>
-</url>
-<url>
-	<loc>http://tehvuz.ru/catalog/proektirovanie-obektov-kapitalnogo-stroitelstva-narujnye-sistemy-i-seti-lektrosnabjeniya-slabotochnye-sistemy-dispetcherizaciya-avtomatizaciya-upravlenie-injenernymi-sistemami</loc>
-	<lastmod>2015-01-29T10:55:06+01:00</lastmod>
-	<priority>0.8</priority>
-</url>
-<url>
-	<loc>http://tehvuz.ru/catalog/proektirovanie-obektov-kapitalnogo-stroitelstva-tehnologicheskie-resheniya</loc>
-	<lastmod>2015-01-29T10:55:07+01:00</lastmod>
-	<priority>0.8</priority>
-</url>
-<url>
-	<loc>http://tehvuz.ru/catalog/proektirovanie-obektov-kapitalnogo-stroitelstva-injenerno-tehnicheskie-meropriyatiya-po-grajdanskoiy-oborone-preduprejdeniyu-chrezvychaiynyh-situaciiy-prirodnogo-i-tehnogennogo-haraktera</loc>
-	<lastmod>2015-01-29T10:55:08+01:00</lastmod>
-	<priority>0.8</priority>
-</url>
-<url>
-	<loc>http://tehvuz.ru/catalog/proektirovanie-obektov-kapitalnogo-stroitelstva-deklaraciya-promyshlennoiy-bezopasnosti-opasnyh-proizvodstvennyh-obektov</loc>
-	<lastmod>2015-01-29T10:55:10+01:00</lastmod>
-	<priority>0.8</priority>
-</url>
-<url>
-	<loc>http://tehvuz.ru/catalog/proektirovanie-obektov-kapitalnogo-stroitelstva-deklaraciya-bezopasnosti-gidrotehnicheskih-soorujeniiy</loc>
-	<lastmod>2015-01-29T10:55:10+01:00</lastmod>
-	<priority>0.8</priority>
-</url>
-<url>
-	<loc>http://tehvuz.ru/catalog/proektirovanie-obektov-kapitalnogo-stroitelstva-obosnovanie-radiacionnoiy-i-yadernoiy-zashity</loc>
-	<lastmod>2015-01-29T10:55:11+01:00</lastmod>
-	<priority>0.8</priority>
-</url>
-<url>
-	<loc>http://tehvuz.ru/catalog/proektirovanie-obektov-kapitalnogo-stroitelstva-proekty-organizacii-stroitelstva-snosa-i-demontaja-zdaniiy-i-soorujeniiy-prodleniya-sroka-kspluatacii-i-konservacii</loc>
-	<lastmod>2015-01-29T10:55:12+01:00</lastmod>
-	<priority>0.8</priority>
-</url>
-<url>
-	<loc>http://tehvuz.ru/catalog/proektirovanie-obektov-kapitalnogo-stroitelstva-proekty-meropriyatiiy-po-ohrane-okrujayusheiy-sredy</loc>
-	<lastmod>2015-01-29T10:55:12+01:00</lastmod>
-	<priority>0.8</priority>
-</url>
-<url>
-	<loc>http://tehvuz.ru/catalog/proektirovanie-obektov-kapitalnogo-stroitelstva-proekty-meropriyatiiy-po-obespecheniyu-pojarnoiy-bezopasnosti</loc>
-	<lastmod>2015-01-29T10:55:13+01:00</lastmod>
-	<priority>0.8</priority>
-</url>
-<url>
-	<loc>http://tehvuz.ru/catalog/proektirovanie-obektov-kapitalnogo-stroitelstva-podgotovka-proektov-meropriyatiiy-po-obespecheniyu-dostupa-malomobilnyh-grupp-naseleniya</loc>
-	<lastmod>2015-01-29T10:55:15+01:00</lastmod>
-	<priority>0.8</priority>
-</url>
-<url>
-	<loc>http://tehvuz.ru/catalog/obsledovanie-stroitelnyh-konstrukciiy-zdaniiy-i-soorujeniiy</loc>
-	<lastmod>2015-01-29T10:55:15+01:00</lastmod>
-	<priority>0.8</priority>
-</url>
-<url>
-	<loc>http://tehvuz.ru/catalog/organizaciya-podgotovki-proektnoiy-dokumentacii</loc>
-	<lastmod>2015-01-29T10:55:15+01:00</lastmod>
-	<priority>0.8</priority>
-</url>
-<url>
-	<loc>http://tehvuz.ru/catalog/injenernye-izyskaniya-dlya-stroitelstva-zdaniiy-i-soorujeniiy</loc>
-	<lastmod>2015-01-29T10:55:17+01:00</lastmod>
-	<priority>0.8</priority>
-</url>
-<url>
-	<loc>http://tehvuz.ru/catalog/organizaciya-i-upravlenie-injenernymi-izyskaniyami</loc>
-	<lastmod>2015-01-29T10:55:17+01:00</lastmod>
-	<priority>0.8</priority>
-</url>
-<url>
-	<loc>http://tehvuz.ru/catalog/injenerno-geodezicheskie-izyskaniya</loc>
-	<lastmod>2015-01-29T10:55:18+01:00</lastmod>
-	<priority>0.8</priority>
-</url>
-<url>
-	<loc>http://tehvuz.ru/catalog/injenerno-geologicheskie-izyskaniya-i-injenerno-geotehnicheskie-izyskaniya</loc>
-	<lastmod>2015-01-29T10:55:19+01:00</lastmod>
-	<priority>0.8</priority>
-</url>
-<url>
-	<loc>http://tehvuz.ru/catalog/injenerno-gidrometeorologicheskie-izyskaniya</loc>
-	<lastmod>2015-01-29T10:55:20+01:00</lastmod>
-	<priority>0.8</priority>
-</url>
-<url>
-	<loc>http://tehvuz.ru/catalog/injenerno-kologicheskie-izyskaniya</loc>
-	<lastmod>2015-01-29T10:55:20+01:00</lastmod>
-	<priority>0.8</priority>
-</url>
-<url>
-	<loc>http://tehvuz.ru/catalog/pojarno-tehnicheskiiy-minimum-dlya-rukovoditeleiy-i-otvetstvennyh-za-pojarnuyu-bezopasnost-v-uchrejdeniyah-ofisah</loc>
-	<lastmod>2015-01-29T10:55:22+01:00</lastmod>
-	<priority>0.8</priority>
-</url>
-<url>
-	<loc>http://tehvuz.ru/catalog/pojarno-tehnicheskiiy-minimum-dlya-rukovoditeleiy-i-otvetstvennyh-za-pojarnuyu-bezopasnost-jilyh-domov</loc>
-	<lastmod>2015-01-29T10:55:22+01:00</lastmod>
-	<priority>0.8</priority>
-</url>
-<url>
-	<loc>http://tehvuz.ru/catalog/pojarno-tehnicheskiiy-minimum-dlya-rukovoditeleiy-i-otvetstvennyh-za-pojarnuyu-bezopasnost-organizaciiy-torgovli-obshestvennogo-pitaniya-baz-i-skladov</loc>
-	<lastmod>2015-01-29T10:55:23+01:00</lastmod>
-	<priority>0.8</priority>
-</url>
-<url>
-	<loc>http://tehvuz.ru/catalog/pojarno-tehnicheskiiy-minimum-dlya-rukovoditeleiy-i-otvetstvennyh-za-pojarnuyu-bezopasnost-doshkolnyh-uchrejdeniiy-i-obsheobrazovatelnyh-shkol</loc>
-	<lastmod>2015-01-29T10:55:24+01:00</lastmod>
-	<priority>0.8</priority>
-</url>
-<url>
-	<loc>http://tehvuz.ru/catalog/pojarno-tehnicheskiiy-minimum-dlya-rukovoditeleiy-i-otvetstvennyh-za-pojarnuyu-bezopasnost-organizaciiy-bytovogo-obslujivaniya</loc>
-	<lastmod>2015-01-29T10:55:24+01:00</lastmod>
-	<priority>0.8</priority>
-</url>
-<url>
-	<loc>http://tehvuz.ru/catalog/pojarno-tehnicheskiiy-minimum-dlya-sotrudnikov-osushestvlyayushih-kruglosutochnuyu-ohranu-organizaciiy-i-rukovoditeleiy-podrazdeleniiy-organizaciiy</loc>
-	<lastmod>2015-01-29T10:55:25+01:00</lastmod>
-	<priority>0.8</priority>
-</url>
-<url>
-	<loc>http://tehvuz.ru/catalog/pojarno-tehnicheskiiy-minimum-dlya-otvetstvennyh-za-pojarnuyu-bezopasnost-vnov-stroyashihsya-i-rekonstruiruemyh-obektov</loc>
-	<lastmod>2015-01-29T10:55:27+01:00</lastmod>
-	<priority>0.8</priority>
-</url>
-<url>
-	<loc>http://tehvuz.ru/catalog/pojarno-tehnicheskiiy-minimum-dlya-rukovoditeleiy-lic-otvetstvennyh-za-pojarnuyu-bezopasnost-pojaroopasnyh-proizvodstv</loc>
-	<lastmod>2015-01-29T10:55:27+01:00</lastmod>
-	<priority>0.8</priority>
-</url>
-<url>
-	<loc>http://tehvuz.ru/catalog/pojarno-tehnicheskiiy-minimum-dlya-rukovoditeleiy-podrazdeleniiy-pojaroopasnyh-proizvodstv</loc>
-	<lastmod>2015-01-29T10:55:28+01:00</lastmod>
-	<priority>0.8</priority>
-</url>
-<url>
-	<loc>http://tehvuz.ru/catalog/pojarno-tehnicheskiiy-minimum-dlya-gazolektrosvarshikov</loc>
-	<lastmod>2015-01-29T10:55:29+01:00</lastmod>
-	<priority>0.8</priority>
-</url>
-<url>
-	<loc>http://tehvuz.ru/catalog/pojarno-tehnicheskiiy-minimum-dlya-kinomehanikov</loc>
-	<lastmod>2015-01-29T10:55:29+01:00</lastmod>
-	<priority>0.8</priority>
-</url>
-<url>
-	<loc>http://tehvuz.ru/catalog/pojarno-tehnicheskiiy-minimum-dlya-rabochih-osushestvlyayushih-pojaroopasnye-raboty</loc>
-	<lastmod>2015-01-29T10:55:30+01:00</lastmod>
-	<priority>0.8</priority>
-</url>
-<url>
-	<loc>http://tehvuz.ru/catalog/pojarno-tehnicheskiiy-minimum-dlya-rukovoditeleiy-selskohozyaiystvennyh-organizaciiy-i-otvetstvennyh-za-pojarnuyu-bezopasnost</loc>
-	<lastmod>2015-01-29T10:55:32+01:00</lastmod>
-	<priority>0.8</priority>
-</url>
-<url>
-	<loc>http://tehvuz.ru/catalog/pojarno-tehnicheskiiy-minimum-dlya-mehanizatorov-rabochih-i-slujashih-selskohozyaiystvennyh-obektov</loc>
-	<lastmod>2015-01-29T10:55:32+01:00</lastmod>
-	<priority>0.8</priority>
-</url>
-<url>
-	<loc>http://tehvuz.ru/catalog/pojarno-tehnicheskiiy-minimum-dlya-vospitateleiy-doshkolnyh-uchrejdeniiy</loc>
-	<lastmod>2015-01-29T10:55:32+01:00</lastmod>
-	<priority>0.8</priority>
-</url>
-<url>
-	<loc>http://tehvuz.ru/catalog/pojarno-tehnicheskiiy-minimum-dlya-rukovoditeleiy-i-otvetstvennyh-za-pojarnuyu-bezopasnost-lechebnyh-uchrejdeniiy</loc>
-	<lastmod>2015-01-29T10:55:34+01:00</lastmod>
-	<priority>0.8</priority>
-</url>
-<url>
-	<loc>http://tehvuz.ru/catalog/pojarno-tehnicheskiiy-minimum-dlya-rukovoditeleiy-i-otvetstvennyh-za-pojarnuyu-bezopasnost-teatralno-zrelishnyh-i-kulturno-prosvetitelskih-uchrejdeniiy</loc>
-	<lastmod>2015-01-29T10:55:34+01:00</lastmod>
-	<priority>0.8</priority>
-</url>
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset
+  xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+  xmlns:image="http://www.google.com/schemas/sitemap-image/1.1"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns:xhtml="http://www.w3.org/1999/xhtml"
+  xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
+  <url>
+    <loc>http://techvuz/glavnaya-stranica</loc>
+		<priority>1.0</priority>
+		<lastmod>2015-03-16T12:43:02+00:00</lastmod>
+		<changefreq>monthly</changefreq>
+  </url>
+  <url>
+    <loc>http://techvuz/registration</loc>
+		<priority>1.0</priority>
+		<lastmod>2014-09-25T09:46:20+00:00</lastmod>
+		<changefreq>monthly</changefreq>
+  </url>
+  <url>
+    <loc>http://techvuz/catalog</loc>
+		<priority>1.0</priority>
+		<lastmod>2014-10-01T14:39:57+00:00</lastmod>
+		<changefreq>monthly</changefreq>
+  </url>
+  <url>
+    <loc>http://techvuz/catalog/stroitelstvo-rekonstrukciya-kapitalnyiy-remont-obektov-kapitalnogo-stroitelstva-obshestroitelnye-raboty</loc>
+		<priority>1.0</priority>
+		<lastmod>2015-01-28T14:00:53+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+  </url>
+  <url>
+    <loc>http://techvuz/catalog/stroitelstvo-rekonstrukciya-kapitalnyiy-remont-obektov-kapitalnogo-stroitelstva-vypolnenie-geodezicheskih-podgotovitelnyh-i-zemlyanyh-rabot-ustroiystva-osnovaniiy-i-fundamentov</loc>
+		<priority>1.0</priority>
+		<lastmod>2014-10-31T15:17:10+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+  </url>
+  <url>
+    <loc>http://techvuz/catalog/stroitelstvo-rekonstrukciya-kapitalnyiy-remont-obektov-kapitalnogo-stroitelstva-vozvedenie-betonnyh-i-jelezobetonnyh-konstrukciiy</loc>
+		<priority>1.0</priority>
+		<lastmod>2014-10-31T18:00:45+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+  </url>
+  <url>
+    <loc>http://techvuz/catalog/stroitelstvo-rekonstrukciya-kapitalnyiy-remont-obektov-kapitalnogo-stroitelstva-vozvedenie-kamennyh-metallicheskih-i-derevyannyh-stroitelnyh-konstrukciiy</loc>
+		<priority>1.0</priority>
+		<lastmod>2014-10-31T18:02:54+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+  </url>
+  <url>
+    <loc>http://techvuz/catalog/stroitelstvo-rekonstrukciya-kapitalnyiy-remont-obektov-kapitalnogo-stroitelstva-vypolnenie-fasadnyh-rabot-ustroiystvo-krovel-zashita-stroitelnyh-konstrukciiy-truboprovodov-i-oborudovaniya</loc>
+		<priority>1.0</priority>
+		<lastmod>2014-10-31T18:12:20+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+  </url>
+  <url>
+    <loc>http://techvuz/catalog/stroitelstvo-rekonstrukciya-kapitalnyiy-remont-obektov-kapitalnogo-stroitelstva-ustroiystvo-injenernyh-sistem-i-seteiy</loc>
+		<priority>1.0</priority>
+		<lastmod>2014-10-31T18:14:06+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+  </url>
+  <url>
+    <loc>http://techvuz/catalog/stroitelstvo-rekonstrukciya-kapitalnyiy-remont-obektov-kapitalnogo-stroitelstva-ustroiystvo-lektricheskih-seteiy-i-liniiy-svyazi</loc>
+		<priority>1.0</priority>
+		<lastmod>2014-10-31T18:15:43+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+  </url>
+  <url>
+    <loc>http://techvuz/catalog/stroitelstvo-rekonstrukciya-kapitalnyiy-remont-obektov-kapitalnogo-stroitelstva-ustroiystvo-obektov-neftyanoiy-i-gazovoiy-promyshlennosti-ustroiystvo-skvajin</loc>
+		<priority>1.0</priority>
+		<lastmod>2014-10-31T18:17:27+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+  </url>
+  <url>
+    <loc>http://techvuz/catalog/stroitelstvo-rekonstrukciya-kapitalnyiy-remont-obektov-kapitalnogo-stroitelstva-vypolnenie-montajnyh-i-puskonaladochnyh-rabot</loc>
+		<priority>1.0</priority>
+		<lastmod>2014-10-31T18:19:05+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+  </url>
+  <url>
+    <loc>http://techvuz/catalog/stroitelstvo-rekonstrukciya-kapitalnyiy-remont-obektov-kapitalnogo-stroitelstva-ustroiystvo-avtomobilnyh-dorog-i-arodromov</loc>
+		<priority>1.0</priority>
+		<lastmod>2014-10-31T18:24:31+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+  </url>
+  <url>
+    <loc>http://techvuz/catalog/stroitelstvo-rekonstrukciya-kapitalnyiy-remont-obektov-kapitalnogo-stroitelstva-ustroiystvo-jeleznodorojnyh-i-tramvaiynyh-puteiy</loc>
+		<priority>1.0</priority>
+		<lastmod>2014-10-31T18:26:10+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+  </url>
+  <url>
+    <loc>http://techvuz/catalog/stroitelstvo-rekonstrukciya-kapitalnyiy-remont-obektov-kapitalnogo-stroitelstva-ustroiystvo-podzemnyh-soorujeniiy-osushestvlenie-specialnyh-zemlyanyh-i-burovzryvnyh-rabot-pri-stroitelstve</loc>
+		<priority>1.0</priority>
+		<lastmod>2014-10-31T18:35:59+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+  </url>
+  <url>
+    <loc>http://techvuz/catalog/stroitelstvo-rekonstrukciya-kapitalnyiy-remont-obektov-kapitalnogo-stroitelstva-ustroiystvo-mostov-stakad-i-puteprovodov</loc>
+		<priority>1.0</priority>
+		<lastmod>2014-10-31T18:37:20+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+  </url>
+  <url>
+    <loc>http://techvuz/catalog/stroitelstvo-rekonstrukciya-kapitalnyiy-remont-obektov-kapitalnogo-stroitelstva-vypolnenie-gidrotehnicheskih-vodolaznyh-rabot</loc>
+		<priority>1.0</priority>
+		<lastmod>2014-10-31T18:39:09+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+  </url>
+  <url>
+    <loc>http://techvuz/catalog/stroitelstvo-rekonstrukciya-kapitalnyiy-remont-obektov-kapitalnogo-stroitelstva-ustroiystvo-promyshlennyh-pecheiy-i-dymovyh-trub</loc>
+		<priority>1.0</priority>
+		<lastmod>2014-10-31T18:46:56+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+  </url>
+  <url>
+    <loc>http://techvuz/catalog/stroitelstvo-rekonstrukciya-kapitalnyiy-remont-obektov-kapitalnogo-stroitelstva-osushestvlenie-stroitelnogo-kontrolya</loc>
+		<priority>1.0</priority>
+		<lastmod>2014-10-31T19:30:00+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+  </url>
+  <url>
+    <loc>http://techvuz/catalog/stroitelstvo-rekonstrukciya-kapitalnyiy-remont-obektov-kapitalnogo-stroitelstva-organizaciya-stroitelstva</loc>
+		<priority>1.0</priority>
+		<lastmod>2014-10-31T19:33:50+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+  </url>
+  <url>
+    <loc>http://techvuz/catalog/proektirovanie-obektov-kapitalnogo-stroitelstva</loc>
+		<priority>1.0</priority>
+		<lastmod>2015-01-23T03:36:08+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+  </url>
+  <url>
+    <loc>http://techvuz/catalog/proektirovanie-obektov-kapitalnogo-stroitelstva-shemy-planirovochnoiy-organizacii-zemelnogo-uchastka</loc>
+		<priority>1.0</priority>
+		<lastmod>2015-01-23T03:48:45+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+  </url>
+  <url>
+    <loc>http://techvuz/catalog/proektirovanie-obektov-kapitalnogo-stroitelstva-obemno-planirovochnye-resheniya</loc>
+		<priority>1.0</priority>
+		<lastmod>2015-01-23T03:48:59+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+  </url>
+  <url>
+    <loc>http://techvuz/catalog/proektirovanie-obektov-kapitalnogo-stroitelstva-konstruktivnye-resheniya</loc>
+		<priority>1.0</priority>
+		<lastmod>2015-01-23T03:49:19+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+  </url>
+  <url>
+    <loc>http://techvuz/catalog/proektirovanie-obektov-kapitalnogo-stroitelstva-vnutrennie-injenernye-sistemy-otopleniya-ventilyacii-teplogazosnabjeniya-vodosnabjeniya-i-vodootvedeniya</loc>
+		<priority>1.0</priority>
+		<lastmod>2015-01-23T03:50:42+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+  </url>
+  <url>
+    <loc>http://techvuz/catalog/proektirovanie-obektov-kapitalnogo-stroitelstva-vnutrennie-sistemy-i-seti-lektrosnabjeniya-slabotochnye-sistemy-dispetcherizaciya-avtomatizaciya-upravlenie-injenernymi-sistemami</loc>
+		<priority>1.0</priority>
+		<lastmod>2015-01-23T03:51:50+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+  </url>
+  <url>
+    <loc>http://techvuz/catalog/injenernye-izyskaniya-dlya-stroitelstva-zdaniiy-i-soorujeniiy</loc>
+		<priority>1.0</priority>
+		<lastmod>2015-01-26T15:03:55+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+  </url>
+  <url>
+    <loc>http://techvuz/catalog/organizaciya-i-upravlenie-injenernymi-izyskaniyami</loc>
+		<priority>1.0</priority>
+		<lastmod>2015-01-26T15:09:50+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+  </url>
+  <url>
+    <loc>http://techvuz/catalog/injenerno-geodezicheskie-izyskaniya</loc>
+		<priority>1.0</priority>
+		<lastmod>2015-01-26T16:29:28+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+  </url>
+  <url>
+    <loc>http://techvuz/catalog/injenerno-geologicheskie-izyskaniya-i-injenerno-geotehnicheskie-izyskaniya</loc>
+		<priority>1.0</priority>
+		<lastmod>2015-01-26T16:39:03+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+  </url>
+  <url>
+    <loc>http://techvuz/catalog/injenerno-gidrometeorologicheskie-izyskaniya</loc>
+		<priority>1.0</priority>
+		<lastmod>2015-01-26T16:39:36+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+  </url>
+  <url>
+    <loc>http://techvuz/catalog/injenerno-kologicheskie-izyskaniya</loc>
+		<priority>1.0</priority>
+		<lastmod>2015-01-26T16:40:05+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+  </url>
+  <url>
+    <loc>http://techvuz/catalog/pojarno-tehnicheskiiy-minimum-dlya-rukovoditeleiy-i-otvetstvennyh-za-pojarnuyu-bezopasnost-v-uchrejdeniyah-ofisah</loc>
+		<priority>1.0</priority>
+		<lastmod>2015-01-26T22:44:19+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+  </url>
+  <url>
+    <loc>http://techvuz/catalog/pojarno-tehnicheskiiy-minimum-dlya-rukovoditeleiy-i-otvetstvennyh-za-pojarnuyu-bezopasnost-jilyh-domov</loc>
+		<priority>1.0</priority>
+		<lastmod>2015-01-26T23:08:22+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+  </url>
+  <url>
+    <loc>http://techvuz/catalog/pojarno-tehnicheskiiy-minimum-dlya-rukovoditeleiy-i-otvetstvennyh-za-pojarnuyu-bezopasnost-organizaciiy-torgovli-obshestvennogo-pitaniya-baz-i-skladov</loc>
+		<priority>1.0</priority>
+		<lastmod>2015-01-26T23:09:15+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+  </url>
+  <url>
+    <loc>http://techvuz/catalog/pojarno-tehnicheskiiy-minimum-dlya-rukovoditeleiy-i-otvetstvennyh-za-pojarnuyu-bezopasnost-doshkolnyh-uchrejdeniiy-i-obsheobrazovatelnyh-shkol</loc>
+		<priority>1.0</priority>
+		<lastmod>2015-01-26T23:10:20+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+  </url>
+  <url>
+    <loc>http://techvuz/catalog/pojarno-tehnicheskiiy-minimum-dlya-rukovoditeleiy-i-otvetstvennyh-za-pojarnuyu-bezopasnost-organizaciiy-bytovogo-obslujivaniya</loc>
+		<priority>1.0</priority>
+		<lastmod>2015-01-26T23:10:53+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+  </url>
+  <url>
+    <loc>http://techvuz/catalog/pojarno-tehnicheskiiy-minimum-dlya-sotrudnikov-osushestvlyayushih-kruglosutochnuyu-ohranu-organizaciiy-i-rukovoditeleiy-podrazdeleniiy-organizaciiy</loc>
+		<priority>1.0</priority>
+		<lastmod>2015-01-26T23:11:41+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+  </url>
+  <url>
+    <loc>http://techvuz/catalog/pojarno-tehnicheskiiy-minimum-dlya-otvetstvennyh-za-pojarnuyu-bezopasnost-vnov-stroyashihsya-i-rekonstruiruemyh-obektov</loc>
+		<priority>1.0</priority>
+		<lastmod>2015-01-26T23:12:10+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+  </url>
+  <url>
+    <loc>http://techvuz/catalog/proektirovanie-obektov-kapitalnogo-stroitelstva-narujnye-injenernye-sistemy-otopleniya-ventilyacii-teplogazosnabjeniya-vodosnabjeniya-i-vodootvedeniya</loc>
+		<priority>1.0</priority>
+		<lastmod>2015-01-27T00:42:20+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+  </url>
+  <url>
+    <loc>http://techvuz/catalog/proektirovanie-obektov-kapitalnogo-stroitelstva-narujnye-sistemy-i-seti-lektrosnabjeniya-slabotochnye-sistemy-dispetcherizaciya-avtomatizaciya-upravlenie-injenernymi-sistemami</loc>
+		<priority>1.0</priority>
+		<lastmod>2015-01-27T00:42:30+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+  </url>
+  <url>
+    <loc>http://techvuz/catalog/proektirovanie-obektov-kapitalnogo-stroitelstva-tehnologicheskie-resheniya</loc>
+		<priority>1.0</priority>
+		<lastmod>2015-01-27T00:42:42+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+  </url>
+  <url>
+    <loc>http://techvuz/catalog/proektirovanie-obektov-kapitalnogo-stroitelstva-injenerno-tehnicheskie-meropriyatiya-po-grajdanskoiy-oborone-preduprejdeniyu-chrezvychaiynyh-situaciiy-prirodnogo-i-tehnogennogo-haraktera</loc>
+		<priority>1.0</priority>
+		<lastmod>2015-01-27T00:42:52+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+  </url>
+  <url>
+    <loc>http://techvuz/catalog/proektirovanie-obektov-kapitalnogo-stroitelstva-deklaraciya-promyshlennoiy-bezopasnosti-opasnyh-proizvodstvennyh-obektov</loc>
+		<priority>1.0</priority>
+		<lastmod>2015-01-27T00:43:01+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+  </url>
+  <url>
+    <loc>http://techvuz/catalog/proektirovanie-obektov-kapitalnogo-stroitelstva-deklaraciya-bezopasnosti-gidrotehnicheskih-soorujeniiy</loc>
+		<priority>1.0</priority>
+		<lastmod>2015-01-27T00:42:08+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+  </url>
+  <url>
+    <loc>http://techvuz/catalog/proektirovanie-obektov-kapitalnogo-stroitelstva-obosnovanie-radiacionnoiy-i-yadernoiy-zashity</loc>
+		<priority>1.0</priority>
+		<lastmod>2015-01-27T00:43:30+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+  </url>
+  <url>
+    <loc>http://techvuz/catalog/proektirovanie-obektov-kapitalnogo-stroitelstva-proekty-organizacii-stroitelstva-snosa-i-demontaja-zdaniiy-i-soorujeniiy-prodleniya-sroka-kspluatacii-i-konservacii</loc>
+		<priority>1.0</priority>
+		<lastmod>2015-01-27T00:44:00+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+  </url>
+  <url>
+    <loc>http://techvuz/catalog/proektirovanie-obektov-kapitalnogo-stroitelstva-proekty-meropriyatiiy-po-ohrane-okrujayusheiy-sredy</loc>
+		<priority>1.0</priority>
+		<lastmod>2015-01-27T00:44:25+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+  </url>
+  <url>
+    <loc>http://techvuz/catalog/proektirovanie-obektov-kapitalnogo-stroitelstva-proekty-meropriyatiiy-po-obespecheniyu-pojarnoiy-bezopasnosti</loc>
+		<priority>1.0</priority>
+		<lastmod>2015-01-27T00:44:50+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+  </url>
+  <url>
+    <loc>http://techvuz/catalog/proektirovanie-obektov-kapitalnogo-stroitelstva-podgotovka-proektov-meropriyatiiy-po-obespecheniyu-dostupa-malomobilnyh-grupp-naseleniya</loc>
+		<priority>1.0</priority>
+		<lastmod>2015-01-27T00:45:23+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+  </url>
+  <url>
+    <loc>http://techvuz/catalog/obsledovanie-stroitelnyh-konstrukciiy-zdaniiy-i-soorujeniiy</loc>
+		<priority>1.0</priority>
+		<lastmod>2015-01-27T00:48:14+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+  </url>
+  <url>
+    <loc>http://techvuz/catalog/organizaciya-podgotovki-proektnoiy-dokumentacii</loc>
+		<priority>1.0</priority>
+		<lastmod>2015-01-27T00:48:37+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+  </url>
+  <url>
+    <loc>http://techvuz/catalog/pojarno-tehnicheskiiy-minimum-dlya-rukovoditeleiy-lic-otvetstvennyh-za-pojarnuyu-bezopasnost-pojaroopasnyh-proizvodstv</loc>
+		<priority>1.0</priority>
+		<lastmod>2015-01-27T14:20:25+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+  </url>
+  <url>
+    <loc>http://techvuz/catalog/pojarno-tehnicheskiiy-minimum-dlya-rukovoditeleiy-podrazdeleniiy-pojaroopasnyh-proizvodstv</loc>
+		<priority>1.0</priority>
+		<lastmod>2015-01-27T14:23:06+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+  </url>
+  <url>
+    <loc>http://techvuz/catalog/pojarno-tehnicheskiiy-minimum-dlya-gazolektrosvarshikov</loc>
+		<priority>1.0</priority>
+		<lastmod>2015-01-27T14:23:38+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+  </url>
+  <url>
+    <loc>http://techvuz/catalog/pojarno-tehnicheskiiy-minimum-dlya-kinomehanikov</loc>
+		<priority>1.0</priority>
+		<lastmod>2015-01-27T14:24:13+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+  </url>
+  <url>
+    <loc>http://techvuz/catalog/pojarno-tehnicheskiiy-minimum-dlya-rabochih-osushestvlyayushih-pojaroopasnye-raboty</loc>
+		<priority>1.0</priority>
+		<lastmod>2015-01-27T14:26:29+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+  </url>
+  <url>
+    <loc>http://techvuz/catalog/pojarno-tehnicheskiiy-minimum-dlya-rukovoditeleiy-selskohozyaiystvennyh-organizaciiy-i-otvetstvennyh-za-pojarnuyu-bezopasnost</loc>
+		<priority>1.0</priority>
+		<lastmod>2015-01-27T14:27:15+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+  </url>
+  <url>
+    <loc>http://techvuz/catalog/pojarno-tehnicheskiiy-minimum-dlya-mehanizatorov-rabochih-i-slujashih-selskohozyaiystvennyh-obektov</loc>
+		<priority>1.0</priority>
+		<lastmod>2015-01-27T14:27:42+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+  </url>
+  <url>
+    <loc>http://techvuz/catalog/pojarno-tehnicheskiiy-minimum-dlya-vospitateleiy-doshkolnyh-uchrejdeniiy</loc>
+		<priority>1.0</priority>
+		<lastmod>2015-01-27T14:28:19+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+  </url>
+  <url>
+    <loc>http://techvuz/catalog/pojarno-tehnicheskiiy-minimum-dlya-rukovoditeleiy-i-otvetstvennyh-za-pojarnuyu-bezopasnost-lechebnyh-uchrejdeniiy</loc>
+		<priority>1.0</priority>
+		<lastmod>2015-01-27T14:28:53+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+  </url>
+  <url>
+    <loc>http://techvuz/catalog/pojarno-tehnicheskiiy-minimum-dlya-rukovoditeleiy-i-otvetstvennyh-za-pojarnuyu-bezopasnost-teatralno-zrelishnyh-i-kulturno-prosvetitelskih-uchrejdeniiy</loc>
+		<priority>1.0</priority>
+		<lastmod>2015-01-27T14:29:26+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+  </url>
+  <url>
+    <loc>http://techvuz/catalog/testovyiy-kurs</loc>
+		<priority>1.0</priority>
+		<lastmod>2015-02-18T09:15:35+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+  </url>
+  <url>
+    <loc>http://techvuz/how-it-works</loc>
+		<priority>1.0</priority>
+		<lastmod>2014-10-07T09:48:57+00:00</lastmod>
+		<changefreq>monthly</changefreq>
+  </url>
+  <url>
+    <loc>http://techvuz/contacts</loc>
+		<priority>1.0</priority>
+		<lastmod>2014-10-08T14:41:11+00:00</lastmod>
+		<changefreq>monthly</changefreq>
+  </url>
+  <url>
+    <loc>http://techvuz/about</loc>
+		<priority>1.0</priority>
+		<lastmod>2014-10-09T06:59:01+00:00</lastmod>
+		<changefreq>monthly</changefreq>
+  </url>
+  <url>
+    <loc>http://techvuz/distancionnoe-obuchenie-pojarno-tehnicheskovu-minimumu</loc>
+		<priority>1.0</priority>
+		<lastmod>2015-02-19T11:39:07+00:00</lastmod>
+		<changefreq>monthly</changefreq>
+  </url>
+  <url>
+    <loc>http://techvuz/bs-direction</loc>
+		<priority>1.0</priority>
+		<lastmod>2015-02-24T09:10:28+00:00</lastmod>
+		<changefreq>monthly</changefreq>
+  </url>
+  <url>
+    <loc>http://techvuz/karta-sayta</loc>
+		<priority>1.0</priority>
+		<lastmod>2015-03-04T10:06:15+00:00</lastmod>
+		<changefreq>monthly</changefreq>
+  </url>
+  <url>
+    <loc>http://techvuz/news</loc>
+		<priority>1.0</priority>
+		<lastmod>2015-03-23T09:14:05+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+  </url>
+  <url>
+    <loc>http://techvuz/reviews</loc>
+		<priority>1.0</priority>
+		<lastmod>2015-03-23T09:14:05+00:00</lastmod>
+		<changefreq>weekly</changefreq>
+  </url>
 </urlset>
