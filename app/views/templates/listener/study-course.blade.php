@@ -92,7 +92,7 @@
                             <td>{{ $module->test_hours }}</td>
                             <td><a class="btn btn--bordered btn--blue" href="{{ URL::route('listener-study-testing',array('study_course_id'=>$study_course->id.'-'.BaseController::stringTranslite($module->title,100),'study_test_id'=>$module->test->id)) }}">Пройти</a></td>
                         @else
-                            <td colspan="4">
+                            <td colspan="4" class="tech-bottom-with-btn">
                                 Нажимая кнопку <a class="btn btn--bordered btn--blue" href="{{ URL::route('listener-start-study-testing',array('study_course_id'=>$study_course->id.'-'.BaseController::stringTranslite($module->title,100),'study_test_id'=>$module->test->id)) }}">Подтверждаю</a>, Вы подтвержаете, что освоили все учебные модули по соответствующей дополнительной профессиональной программе.
                             </td>
                         @endif

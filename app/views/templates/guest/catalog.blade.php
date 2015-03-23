@@ -49,6 +49,7 @@
         >
         @if(!empty($direction->photo->name))
             <div class="accordion-img" style="background-image: url('{{ Config::get('site.galleries_photo_public_dir').'/'.$direction->photo->name }}');"></div>
+            <div class="accordion-img-print"><span></span><img src="{{ Config::get('site.galleries_photo_public_dir').'/'.$direction->photo->name }}"></div>
         @endif
             <h3>{{ $direction->title }}<a href="#" class="js-print-part print-link" data-id="print-{{ $direction->id }}"><span class="icon icon-print"></span></a></h3>
             <div class="acc-courses">

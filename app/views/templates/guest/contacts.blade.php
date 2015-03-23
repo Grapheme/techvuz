@@ -30,7 +30,7 @@
                 <span class="icon icon--blue icon-mail"></span>
             </div>
             <div class=" col-xs-11 col-sm-11 col-md-11 col-lg-11">
-                <a href="mailto:{{ $page->block('email') }}">{{ $page->block('email') }}</a>
+                <a target="_blank" href="mailto:{{ $page->block('email') }}">{{ $page->block('email') }}</a>
             </div>
         </div>
     </div>

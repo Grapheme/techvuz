@@ -70,7 +70,7 @@
                     </span>
                     <span class="icon icon-angle-right js-notif-right">
                         <a href="{{ URL::route('individual-notifications') }}" class="all-notifications">
-                            Полный список
+                            Уведомления
                         </a>
                     </span>
                     <span>

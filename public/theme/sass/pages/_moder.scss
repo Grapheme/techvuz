@@ -368,7 +368,7 @@
 	}
 
 	[class^="col"] {
-		width: 100%;
+		//width: 100%;
 	}
 	
 	/* The MIT License */
@@ -1232,6 +1232,10 @@
 			}
 		}
 
+		p {
+			margin: 0;
+		}
+
 		.sort {
 			&.sort--asc {
 
@@ -1281,7 +1285,7 @@
 		td {
 			font-size: 14em / $hfs;
 			line-height: (20em / 14);
-			padding: 14rem / $hfs 1rem 14rem / $hfs 1rem;
+			padding: 10rem / $hfs 1rem 10rem / $hfs 1rem;
 			border-right: 2px solid $clr-white;
 
 			&.td-status-bar {

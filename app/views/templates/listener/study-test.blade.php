@@ -24,7 +24,7 @@
                 <ul class="questions-ul" data-questions-count="{{ $test->questions->count() }}">
             @foreach($test->questions as $question)
                 @if($question->answers->count())
-                    <li class="questions-li margin-bottom-30" data-question="{{ $question->id }}">
+                    <li class="js-question questions-li margin-bottom-30" data-question="{{ $question->id }}">
                         <h4>{{ $question->title }}{{ $question->order }}</h4>
                         <div>{{ $question->description }}</div>
                         <ul class="answers-ul" data-answers-count="{{ $question->answers->count() }}">
@@ -60,4 +60,7 @@
 @section('overlays')
 @stop
 @section('scripts')
+    <script>
+        questions_hide();
+    </script>
 @stop
