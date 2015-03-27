@@ -56,9 +56,9 @@
         {{ $page->block('benefits_title') }}
         {{ $page->block('benefits_list') }}
     </section>
+    <div class="desc">{{ $page->block('seo') }}</div>
     @include(Helper::layout('reviews-list'))
     @include(Helper::layout('news-list'))
-    <div class="desc">{{ $page->block('seo') }}</div>
 </main>
 @stop
 @section('overlays')
