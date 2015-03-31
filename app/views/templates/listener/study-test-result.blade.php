@@ -17,7 +17,7 @@
             <div class="margin-top-20 margin-bottom-20">
                 {{ Session::get('message.text') }}
             </div>
-            @if(!Session::has('message.show_result') && $study_test->test->chapter_id == 0)
+            @if(Session::has('message.show_result') && $study_test->test->chapter_id == 0)
             <div>
                 <a class="style-normal nowrap" href="{{ URL::route('listener-order-result-certification',array('order_id'=>$study_course->order_id,'course_id'=>$study_course->id,'format'=>'pdf')) }}">
                     <span class="icon icon-sertifikat"></span> Просмотреть результат (pdf)
