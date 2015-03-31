@@ -14,10 +14,17 @@
                  по курсу {{ $study_test->test->course->title }}
             </div>
         @if(Session::has('message.status') && Session::get('message.status') == 'test-result')
-            <div>
+            <div class="margin-top-20 margin-bottom-20">
                 {{ Session::get('message.text') }}
             </div>
+            @if(!Session::has('message.show_result') && $study_test->test->chapter_id == 0)
             <div>
+                <a class="style-normal nowrap" href="{{ URL::route('listener-order-result-certification',array('order_id'=>$study_course->order_id,'course_id'=>$study_course->id,'format'=>'pdf')) }}">
+                    <span class="icon icon-sertifikat"></span> Просмотреть результат (pdf)
+                </a>
+            </div>
+            @endif
+            <div class="margin-bottom-20">
                 Требуемый результат: {{ Config::get('site.success_test_percent') }}%
             </div>
             @if(Session::has('message.show_repeat'))

@@ -15,6 +15,16 @@
             <div>
                 {{ Session::get('message.text') }}
             </div>
+            @if(Session::has('message.show_result') && $study_test->test->chapter_id == 0)
+            <div class="margin-top-20 margin-bottom-20">
+                <a class="style-normal nowrap" href="{{ URL::route('individual-order-result-certification',array('order_id'=>$study_course->order_id,'course_id'=>$study_course->id,'format'=>'pdf')) }}">
+                    <span class="icon icon-sertifikat"></span> Просмотреть результат (pdf)
+                </a>
+            </div>
+            @endif
+            <div class="margin-bottom-20">
+                Требуемый результат: {{ Config::get('site.success_test_percent') }}%
+            </div>
             @if(Session::has('message.show_repeat'))
             <a class="btn btn--bordered btn--blue" href="{{ URL::route('listener-study-testing',array('study_course_id'=>$study_course->id.'-'.BaseController::stringTranslite($study_test->test->course->title,100),'study_test_id'=>$study_test->test->id)) }}">Новая попытка</a>
             @endif

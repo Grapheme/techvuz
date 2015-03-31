@@ -82,7 +82,7 @@
                             </tr>
                             @foreach($courses as $listener_course)
                                 @if($listener_course->access_status == 1 && $listener_course->over_status == 1)
-                                    @include(Helper::acclayout('assets.course-tr'))
+                                    @include(Helper::acclayout('assets.course-tr'),array('showResults'=>TRUE))
                                 @endif
                             @endforeach
                             </tbody>

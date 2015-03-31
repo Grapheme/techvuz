@@ -12,5 +12,10 @@
             <div class="bar-part bar-part-2"></div>
             <div class="bar-part bar-part-3"></div>
         </div>
+        @if(isset($showResults) && $showResults)
+            <a class="style-normal nowrap" href="{{ URL::route('individual-order-result-certification',array('order_id'=>$listener_course->order_id,'course_id'=>$listener_course->id,'format'=>'pdf')) }}">
+                <span class="icon icon-sertifikat"></span> Результат итоговой аттестации
+            </a>
+        @endif
     </td>
 </tr>
