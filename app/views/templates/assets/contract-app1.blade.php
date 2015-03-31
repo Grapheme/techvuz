@@ -17,47 +17,47 @@
             endforeach;
         ?>
         <?php ob_start();?>
-        <table>
+        <table border="1" cellpadding="0" cellspacing="0">
             <tbody>
                 <tr>
-                    <td><p align="center"><strong>№ п/п</strong></p></td>
-                    <td><p align="center"><strong>ФИО слушателя</strong></p></td>
-                    <td><p align="center"><strong>Должность </strong></p></td>
-                    <td><p align="center"><strong>Место жительства</strong></p></td>
-                    <td>
+                    <td style="padding: 4px 8px;"><p align="center"><strong>№ п/п</strong></p></td>
+                    <td style="padding: 4px 8px;"><p align="center"><strong>ФИО слушателя</strong></p></td>
+                    <td style="padding: 4px 8px;"><p align="center"><strong>Должность </strong></p></td>
+                    <td style="padding: 4px 8px;"><p align="center"><strong>Место жительства</strong></p></td>
+                    <td style="padding: 4px 8px;">
                         <p align="center"><strong>Телефон, </strong></p>
                         <p align="center"><strong>E-mail</strong></p>
                     </td>
-                    <td>
+                    <td style="padding: 4px 8px;">
                         <p align="center"><strong>Образование</strong></p>
                         <p align="center">
                             Номер и дата выдачи документа о высшем / среднем профессиональном, наименование специальности,
                             учебного заведения
                         </p>
                     </td>
-                    <td><p align="center"><strong>Наименование ДПП</strong></p></td>
+                    <td style="padding: 4px 8px;"><p align="center"><strong>Наименование ДПП</strong></p></td>
                 </tr>
                 <?php $index = 1;?>
             @foreach($spisok as $listener_id => $listener)
                 <tr>
-                    <td><p align="center">{{ $index }}</p></td>
-                    <td><p align="center">{{ !empty($listener['listener']) ? $listener['listener']['fio'] : $listener['individual']['fio'] }}</p></td>
-                    <td><p align="center">{{ !empty($listener['listener']) ? $listener['listener']['position'] : $listener['individual']['position'] }}</p></td>
-                    <td><p align="center">{{ !empty($listener['listener']) ? $listener['listener']['postaddress'] : $listener['individual']['postaddress'] }}</p></td>
-                    <td>
-                        <p align="center">{{ !empty($listener['listener']) ? $listener['listener']['phone'] : $listener['individual']['phone'] }}</p>
-                        <p align="center">{{ !empty($listener['listener']) ? $listener['listener']['email'] : $listener['individual']['email'] }}</p>
+                    <td style="padding: 4px 8px;"><p style="text-align: center">{{ $index }}</p></td>
+                    <td style="padding: 4px 8px;"><p style="text-align: center">{{ !empty($listener['listener']) ? $listener['listener']['fio'] : $listener['individual']['fio'] }}</p></td>
+                    <td style="padding: 4px 8px;"><p style="text-align: center">{{ !empty($listener['listener']) ? $listener['listener']['position'] : $listener['individual']['position'] }}</p></td>
+                    <td style="padding: 4px 8px;"><p style="text-align: center">{{ !empty($listener['listener']) ? $listener['listener']['postaddress'] : $listener['individual']['postaddress'] }}</p></td>
+                    <td style="padding: 4px 8px;">
+                        <p style="text-align: center">{{ !empty($listener['listener']) ? $listener['listener']['phone'] : $listener['individual']['phone'] }}</p>
+                        <p style="text-align: center">{{ !empty($listener['listener']) ? $listener['listener']['email'] : $listener['individual']['email'] }}</p>
                     </td>
-                    <td>
-                        <p align="center">{{ !empty($listener['listener']) ? $listener['listener']['education'] : $listener['individual']['education'] }}</p>
-                        <p align="center">{{ !empty($listener['listener']) ? $listener['listener']['education_document_data'] : $listener['individual']['education_document'] }}</p>
-                        <p align="center">{{ !empty($listener['listener']) ? $listener['listener']['specialty'] : $listener['individual']['specialty'] }}</p>
-                        <p align="center">{{ !empty($listener['listener']) ? $listener['listener']['educational_institution'] : $listener['individual']['educational_institution'] }}</p>
+                    <td style="padding: 4px 8px;">
+                        <p style="text-align: center">{{ !empty($listener['listener']) ? $listener['listener']['education'] : $listener['individual']['education'] }}</p>
+                        <p style="text-align: center">{{ !empty($listener['listener']) ? $listener['listener']['education_document_data'] : $listener['individual']['document_education'] }}</p>
+                        <p style="text-align: center">{{ !empty($listener['listener']) ? $listener['listener']['specialty'] : $listener['individual']['specialty'] }}</p>
+                        <p style="text-align: center">{{ !empty($listener['listener']) ? $listener['listener']['educational_institution'] : $listener['individual']['educational_institution'] }}</p>
                     </td>
-                    <td>
+                    <td style="padding: 4px 8px;">
                     @if(count($listener['course']))
-                        <p align="center">{{ $listener['course'][0]['code'] }}</p>
-                        <p align="center">{{ $listener['course'][0]['title'] }}</p>
+                        <p style="text-align: center">{{ $listener['course'][0]['code'] }}</p>
+                        <p style="text-align: center">{{ $listener['course'][0]['title'] }}</p>
                     @endif
                     </td>
                 </tr>
@@ -66,17 +66,17 @@
                 @if($course_index > 0)
                 <tr>
                     <td colspan="6"></td>
-                    <td>
-                        <p align="center">{{ $course['code'] }}</p>
-                        <p align="center">{{ $course['title'] }}</p>
+                    <td style="padding: 4px 8px;">
+                        <p style="text-align: center">{{ $course['code'] }}</p>
+                        <p style="text-align: center">{{ $course['title'] }}</p>
                     </td>
                 </tr>
                 @endif
             @endforeach
         @endif
                 <tr>
-                    <td colspan="7">
-                        <p align="center">Я, {{ !empty($listener['listener']) ? $listener['listener']['fio'] : $listener['individual']['fio'] }}, подтверждаю достоверность вышеуказанной информации,
+                    <td colspan="7" style="padding: 4px 8px;">
+                        <p style="text-align: center">Я, {{ !empty($listener['listener']) ? $listener['listener']['fio'] : $listener['individual']['fio'] }}, подтверждаю достоверность вышеуказанной информации,
                         с договором ознакомлен(а) (подпись, дата)</p>
                     </td>
                 </tr>
