@@ -8,6 +8,38 @@
         @include(Helper::acclayout('forms.statistic'))
     </div>
 </div>
+<h3 class="margin-bottom-40">Сводная статистика за период</h3>
+
+<div class="row">
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+        <table class="table table-striped table-bordered">
+            <thead>
+            <tr>
+                <th>Количество заказов</th>
+                <th>Сумма заказов</th>
+                <th>Количество платежных поручений</th>
+                <th>Сумма платежных поручений</th>
+            </tr>
+            </thead>
+            <tbody>
+                <tr class="vertical-middle">
+                    <td>{{ $orders_extended_counts['orders']; }}</td>
+                    <td>{{ number_format($orders_extended_counts['price'],0,'.',' ') }} руб.</td>
+                    <td>{{ $payments_extended_counts['payments']; }}</td>
+                    <td>{{ number_format($payments_extended_counts['price'],0,'.',' ') }} руб.</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+
+
+
+
+
+
+
 <h3 class="margin-bottom-40">Статистика заказов</h3>
 <div id="orderschart" style="width:848px;height: 300px;" class="chart"></div>
 @if(count($orders_extended))

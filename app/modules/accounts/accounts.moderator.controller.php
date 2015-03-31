@@ -786,6 +786,8 @@ class AccountsModeratorController extends BaseController {
         $orders = $payments = array($index_start=>0); $payments_list = array();
         $orders_extended = $payments_extended = array();
         $tmp_orders = array();
+        $orders_extended_counts = array('orders'=>0,'price'=>0);
+        $payments_extended_counts = array('payments'=>0,'price'=>0);
         foreach($all_orders as $order_index => $order):
             $tmp_orders[$order_index] = $order->toArray();
             $tmp_orders[$order_index]['created_at_origin'] = $tmp_orders[$order_index]['created_at'];
@@ -813,11 +815,21 @@ class AccountsModeratorController extends BaseController {
             endforeach;
             if (count($tmp_order_extended)):
                 foreach($tmp_order_extended as $index => $order_extended):
+                    $orders_extended_counts['orders'] += count($order_extended);
+                    foreach($order_extended as $orderExtended):
+                        $orders_extended_counts['price'] += $orderExtended['price'];
+                    endforeach;
                     $orders_extended[$index] = View::make(Helper::acclayout('assets.statistic.orders-table'),array('orders'=>$order_extended,'date'=>$index))->render();
                 endforeach;
             endif;
             if (count($temp_payments_extended)):
                 foreach($temp_payments_extended as $index => $payment_extended):
+                    foreach($payment_extended as $paymentExtended):
+                        $payments_extended_counts['payments'] += count($paymentExtended['payment_numbers']);
+                        foreach($paymentExtended['payment_numbers'] as $paymentNumbers):
+                            $payments_extended_counts['price'] += $paymentNumbers['price'];
+                        endforeach;
+                    endforeach;
                     $payments_extended[$index] = View::make(Helper::acclayout('assets.statistic.payments-table'),array('orders'=>$payment_extended,'date'=>$index))->render();
                 endforeach;
             endif;
@@ -840,9 +852,13 @@ class AccountsModeratorController extends BaseController {
             'payments_chart' => $payments,
             'payments_list' => $payments_list,
             'diffMonths' => $diffMonths,
+            'orders_extended_counts' => $orders_extended_counts,
             'orders_extended' => $orders_extended,
-            'payments_extended' => $payments_extended
+            'payments_extended' => $payments_extended,
+            'payments_extended_counts' => $payments_extended_counts
         );
+//        Helper::ta($page_data['orders_extended_counts']);
+//        Helper::tad($page_data['payments_extended_counts']);
         return View::make(Helper::acclayout('statistic'),$page_data);
     }
 
