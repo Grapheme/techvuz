@@ -40,14 +40,14 @@
                     {{ $profile->fio_manager }}
                 </div>
             </div>
-            <div class="row margin-bottom-10">
+            <!--<div class="row margin-bottom-10">
                 <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
                     <span class="font-sm">ФИО подписанта договора в род. падеже</span>
                 </div>
                 <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9">
                     {{ $profile->fio_manager_rod }}
                 </div>
-            </div>
+            </div>-->
             <div class="row margin-bottom-10">
                 <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
                     <span class="font-sm">Должность подписанта договора</span>
