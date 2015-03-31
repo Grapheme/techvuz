@@ -71,6 +71,7 @@ class AccountsIndividualController extends BaseController {
     }
 
     public function IndividualProfile(){
+
         $page_data = array(
             'page_title'=> Lang::get('seo.INDIVIDUAL_PROFILE.title'),
             'page_description'=> Lang::get('seo.INDIVIDUAL_PROFILE.description'),

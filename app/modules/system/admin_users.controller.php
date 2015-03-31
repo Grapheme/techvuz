@@ -76,6 +76,11 @@ class AdminUsersController extends BaseController {
 		foreach($groups as $grp) {
 			$groups_ids[] = $grp->id;
 		}
+        if ($group_id == 4):
+            if($usersID = User::where('group_id', $group->id)->lists('id')):
+                $users = User_organization::whereIn('id',$usersID)->get();
+            endif;
+        endif;
 		return View::make($this->module['tpl'].'index', compact('group', 'users', 'groups', 'groups_ids'));
 	}
 

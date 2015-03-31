@@ -31,7 +31,11 @@
     					@endif
     					</td>
     					<td>
+                        @if(Input::has('group_id') && Input::get('group_id') == 4)
+                            {{ $user->title }}<br>{{ $user->fio_manager }}
+                        @else
     						{{ $user->name }} {{ $user->surname }}
+                        @endif
                             @if ($user->email)
                             <br/>
     						<i class="fa fa-envelope-o"></i> {{ HTML::mailto($user->email, $user->email) }}
