@@ -36,7 +36,6 @@
         @endif
         </div>
 
-    @if($profile->group_id == 5)
         @if($orderListeners = OrderListeners::where('user_id',$profile->id)->get())
         <table class="tech-table sortable purchase-table">
             <thead>
@@ -100,7 +99,6 @@
             </tbody>
         </table>
         @endif
-    @endif
     @if($profile->group_id == 6)
         @if($orders = Orders::where('user_id',$profile->id)->with('payment')->with('listeners')->get())
         <h3>Заказы</h3>

@@ -731,7 +731,7 @@ class AccountsDocumentsController extends BaseController {
             $FIO_listener_dat = User_listener::where('id',$listener_id)->pluck('fio_dat');
         else:
             $FIO_listener = User_individual::where('id',$listener_id)->pluck('fio');
-            $FIO_listener_dat = User_listener::where('id',$listener_id)->pluck('fio_rod');
+            $FIO_listener_dat = User_individual::where('id',$listener_id)->pluck('fio_rod');
         endif;
         if($document = DicVal::where('id',$course->certificate)->first()->allfields):
             $fields = modifyKeys($document,'key');
