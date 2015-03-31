@@ -250,9 +250,9 @@ class AccountsIndividualController extends BaseController {
     public function ListenerStudyList(){
 
         $page_data = array(
-            'page_title'=> Lang::get('seo.COMPANY_STUDY_PROGRESS_LIST.title'),
-            'page_description'=> Lang::get('seo.COMPANY_STUDY_PROGRESS_LIST.description'),
-            'page_keywords'=> Lang::get('seo.COMPANY_STUDY_PROGRESS_LIST.keywords'),
+            'page_title'=> Lang::get('seo.INDIVIDUAL_DASHBOARD.title'),
+            'page_description'=> Lang::get('seo.INDIVIDUAL_DASHBOARD.description'),
+            'page_keywords'=> Lang::get('seo.INDIVIDUAL_DASHBOARD.keywords'),
         );
         return View::make(Helper::acclayout('study-list'),$page_data);
     }
@@ -286,9 +286,9 @@ class AccountsIndividualController extends BaseController {
             $query->with('document');
         }))->first();
         $page_data = array(
-            'page_title'=> Lang::get('seo.COMPANY_LISTENER_STUDY_COURSE.title'),
-            'page_description'=> Lang::get('seo.COMPANY_LISTENER_STUDY_COURSE.description'),
-            'page_keywords'=> Lang::get('seo.COMPANY_LISTENER_STUDY_COURSE.keywords'),
+            'page_title'=> Lang::get('seo.INDIVIDUAL_DASHBOARD.title'),
+            'page_description'=> Lang::get('seo.INDIVIDUAL_DASHBOARD.description'),
+            'page_keywords'=> Lang::get('seo.INDIVIDUAL_DASHBOARD.keywords'),
             'study_course' => $listenerCourse,
             'module' => $module
         );
@@ -396,9 +396,9 @@ class AccountsIndividualController extends BaseController {
             ->with('questions.answers')
             ->first();
         $page_data = array(
-            'page_title'=> Lang::get('seo.COMPANY_LISTENER_STUDY_COURSE.title'),
-            'page_description'=> Lang::get('seo.COMPANY_LISTENER_STUDY_COURSE.description'),
-            'page_keywords'=> Lang::get('seo.COMPANY_LISTENER_STUDY_COURSE.keywords'),
+            'page_title'=> Lang::get('seo.INDIVIDUAL_DASHBOARD.title'),
+            'page_description'=> Lang::get('seo.INDIVIDUAL_DASHBOARD.description'),
+            'page_keywords'=> Lang::get('seo.INDIVIDUAL_DASHBOARD.keywords'),
             'study_course' => $listenerCourse,
             'test' => $test
         );
