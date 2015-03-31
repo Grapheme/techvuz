@@ -472,7 +472,8 @@ class AccountsModeratorController extends BaseController {
                                 Event::fire('listener.study-access', array(array('accountID'=>$orderListener->user_id,'link'=>URL::to('individual-listener/study/course/'.$orderListener->id.'-'.BaseController::stringTranslite($orderListener->course->title,100)),'course'=>$orderListener->course->code,'date'=>(new myDateTime())->setDateString($now)->addDays($studyDays)->format('d.m.Y'))));
                             endif;
                             if ($order->study_status == 0):
-                                Orders::where('id',$order_id)->update(array('study_status'=>1,'study_date'=>$now,'updated_at'=>$now));
+                                $lastOrderEnrollmentNumber = (new Orders)->getLastOrderEnrollmentNumber(true);
+                                Orders::where('id',$order_id)->update(array('number_enrollment'=>$lastOrderEnrollmentNumber,'study_status'=>1,'study_date'=>$now,'updated_at'=>$now));
                             endif;
                         endif;
                         OrderListeners::where('order_id',$order_id)->where('id',$orderListener->id)->update(array('access_status'=>$ListenersStatuses[$orderListener->id],'updated_at'=>$now));

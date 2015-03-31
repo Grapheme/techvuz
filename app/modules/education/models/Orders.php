@@ -71,11 +71,37 @@ class Orders extends BaseModel {
 
     public function getLastOrderNumber($next = FALSE){
 
+        #->where(DB::raw('YEAR(created_at)'),'=',date('Y'))
         $lastNumber = (int) $this->where('completed',1)
-            ->where(DB::raw('YEAR(created_at)'),'=',date('Y'))
             ->orderBy('number','DESC')
             ->where('archived',0)
             ->pluck('number');
+        if ($next):
+            return $lastNumber+1;
+        else:
+            return $lastNumber;
+        endif;
+    }
+
+    public function getLastOrderCompletionNumber($next = FALSE){
+
+        $lastNumber = (int) $this->where('completed',1)
+            ->orderBy('number_completion','DESC')
+            ->where('archived',0)
+            ->pluck('number_completion');
+        if ($next):
+            return $lastNumber+1;
+        else:
+            return $lastNumber;
+        endif;
+    }
+
+    public function getLastOrderEnrollmentNumber($next = FALSE){
+
+        $lastNumber = (int) $this->where('completed',1)
+            ->orderBy('number_enrollment','DESC')
+            ->where('archived',0)
+            ->pluck('number_enrollment');
         if ($next):
             return $lastNumber+1;
         else:

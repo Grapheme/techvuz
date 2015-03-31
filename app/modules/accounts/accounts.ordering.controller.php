@@ -113,9 +113,9 @@ class AccountsOrderingController extends BaseController {
                     return Redirect::route('ordering-select-listeners')->with('message','Сотрудники выбраны не для всех курсов в списке');
                 endif;
             endforeach;
-//            $lastOrderNumber = (new Orders)->getLastOrderNumber(true);
-            $lastFreeOrderNumber = (new Orders)->getLastFreeOrderNumber();
-            if($order = Orders::create(array('user_id'=>Auth::user()->id,'number'=>$lastFreeOrderNumber,'completed'=>Input::get('completed')))):
+            $lastOrderNumber = (new Orders)->getLastOrderNumber(true);
+//            $lastFreeOrderNumber = (new Orders)->getLastFreeOrderNumber();
+            if($order = Orders::create(array('user_id'=>Auth::user()->id,'number'=>$lastOrderNumber,'completed'=>Input::get('completed')))):
                 $accountDiscount = getAccountDiscount();
                 $globalDiscount = getGlobalDiscount();
                 $coursesCountDiscount = coursesCountDiscount(Input::get('listeners'));
@@ -182,7 +182,8 @@ class AccountsOrderingController extends BaseController {
                     $certificate_number = (new OrderListeners)->getLastCertificateNumber(true);
                     OrderListeners::where('id',$listener->id)->where('certificate_number',0)->update(array('certificate_number'=>$certificate_number,'certificate_date'=>date('Y-m-d H:i:s'),'updated_at'=>date('Y-m-d H:i:s')));
                 endforeach;
-                Orders::where('id',$order->id)->update(array('close_status'=>1,'close_date'=>date('Y-m-d H:i:s'),'updated_at'=>date('Y-m-d H:i:s')));
+                $lastOrderCompletionNumber = (new Orders)->getLastOrderCompletionNumber(true);
+                Orders::where('id',$order->id)->update(array('number_completion'=>$lastOrderCompletionNumber,'close_status'=>1,'close_date'=>date('Y-m-d H:i:s'),'updated_at'=>date('Y-m-d H:i:s')));
                 (new AccountsDocumentsController)->generateAllDocuments($order->id);
                 if(isCompanyListener()):
                     Event::fire('organization.order.closed-join',array(array('accountID'=>User_listener::where('id',Auth::user()->id)->first()->organization()->pluck('id'),'order'=>getOrderNumber($order),'link'=>URL::to('company/order/'.$order_id))));

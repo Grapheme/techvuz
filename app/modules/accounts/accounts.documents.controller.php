@@ -1467,6 +1467,8 @@ class AccountsDocumentsController extends BaseController {
             'page_title' => '',
             'NomerZakaza' => getOrderNumber($order),
             'NomerZakazaKorotkiy' => getShortOrderNumber($order),
+            'NomerPrikazaOZachislinii' => getShortOrderNumberEnrollment($order),
+            'NomerPrikazaObOkonchanii' => getShortOrderNumberCompletion($order),
             'SummaZakaza' => number_format($SummaZakaza,0,'.',' '),
             'SummaZakazaSlovami' => price2str($SummaZakaza),
             'KolichestvoSluschateley' => $order->listeners->count(),

@@ -158,6 +158,24 @@ function getShortOrderNumber($order){
     endif;
 }
 
+function getShortOrderNumberCompletion($order){
+
+    if(is_object($order)):
+        return str_pad($order->number_completion,3,'0',STR_PAD_LEFT);
+    elseif(is_array($order)):
+        return str_pad($order['number_completion'],3,'0',STR_PAD_LEFT);
+    endif;
+}
+
+function getShortOrderNumberEnrollment($order){
+
+    if(is_object($order)):
+        return str_pad($order->number_enrollment,3,'0',STR_PAD_LEFT);
+    elseif(is_array($order)):
+        return str_pad($order['number_enrollment'],3,'0',STR_PAD_LEFT);
+    endif;
+}
+
 function count2str($num) {
     $nul='ноль';
     $ten=array(

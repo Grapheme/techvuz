@@ -11,6 +11,8 @@ class CreateOrdersTable extends Migration {
                 $table->increments('id');
                 $table->integer('user_id')->default(0)->nullable()->unsigned()->index();
                 $table->integer('number')->default(0)->nullable()->unsigned();
+                $table->integer('number_enrollment')->default(0)->nullable()->unsigned();
+                $table->integer('number_completion')->default(0)->nullable()->unsigned();
                 $table->boolean('completed')->default(0)->nullable();
                 $table->tinyInteger('payment_status')->default(1)->nullable()->unsigned()->index();
                 $table->timestamp('payment_date');
