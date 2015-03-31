@@ -7,15 +7,16 @@
     @endif
     </td>
     <td class="td-status-bar">
+        @if(isset($showResults) && $showResults)
+        <a class="style-normal nowrap" href="{{ URL::route('listener-order-result-certification',array('order_id'=>$listener_course->order_id,'$listener_course'=>$listener_course->id,'format'=>'pdf')) }}">
+            <span class="icon icon-sertifikat"></span> Результат итоговой аттестации
+        </a>
+            @else
         <div title="{{ Lang::get('interface.STUDY_PROGRESS_LISTENER.'.getCourseStudyProgress($listener_course)) }}" class="ui-progress-bar bar-1 completed-{{ getCourseStudyProgress($listener_course) }} clearfix">
             <div class="bar-part bar-part-1"></div>
             <div class="bar-part bar-part-2"></div>
             <div class="bar-part bar-part-3"></div>
         </div>
-        @if(isset($showResults) && $showResults)
-        <a class="style-normal nowrap" href="{{ URL::route('listener-order-result-certification',array('order_id'=>$listener_course->order_id,'$listener_course'=>$listener_course->id,'format'=>'pdf')) }}">
-            <span class="icon icon-sertifikat"></span> Результат итоговой аттестации
-        </a>
         @endif
     </td>
 </tr>
