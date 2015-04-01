@@ -81,6 +81,9 @@ class AdminUsersController extends BaseController {
                 $users = User_organization::whereIn('id',$usersID)->get();
             endif;
         endif;
+        if ($group_id == 5):
+            $users = User_listener::with('organization')->get();
+        endif;
 		return View::make($this->module['tpl'].'index', compact('group', 'users', 'groups', 'groups_ids'));
 	}
 

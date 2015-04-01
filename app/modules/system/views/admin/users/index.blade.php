@@ -33,6 +33,9 @@
     					<td>
                         @if(Input::has('group_id') && Input::get('group_id') == 4)
                             {{ $user->title }}<br>{{ $user->fio_manager }}
+                        @elseif(Input::has('group_id') && Input::get('group_id') == 5)
+                            {{ $user->fio }}<br>
+                            <span class="text-info">{{ $user->organization->title }}</span>
                         @else
     						{{ $user->name }} {{ $user->surname }}
                         @endif
