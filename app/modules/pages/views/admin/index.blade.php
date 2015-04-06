@@ -70,13 +70,12 @@
 
 
 @section('scripts')
-	<script src="{{ link::to('private/js/modules/pages.js') }}"></script>
 	<script type="text/javascript">
 		if(typeof pageSetUp === 'function'){pageSetUp();}
 		if(typeof runFormValidation === 'function'){
-			loadScript("{{asset('private/js/vendor/jquery-form.min.js');}}",runFormValidation);
+			loadScript("{{asset('js/vendor/jquery-form.min.js');}}",runFormValidation);
 		}else{
-			loadScript("{{asset('private/js/vendor/jquery-form.min.js');}}");
+			loadScript("{{asset('js/vendor/jquery-form.min.js');}}");
 		}
 	</script>
 @stop
