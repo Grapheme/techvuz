@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "660c7c56ebb2849ca66a303fdd4437df",
+    "hash": "56484bff3345fb9020df07341723034d",
     "packages": [
         {
             "name": "barryvdh/laravel-ide-helper",
@@ -1718,6 +1718,49 @@
             "time": "2015-01-01 18:25:21"
         },
         {
+            "name": "sngrl/string-blade-compiler",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/sngrl/string-blade-compiler.git",
+                "reference": "4a8659b07164e6296057c6f6bccae00d8c977a78"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/sngrl/string-blade-compiler/zipball/4a8659b07164e6296057c6f6bccae00d8c977a78",
+                "reference": "4a8659b07164e6296057c6f6bccae00d8c977a78",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "sngrl\\StringBladeCompiler\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "sngrl",
+                    "email": "sangrealrnd@gmail.com"
+                }
+            ],
+            "description": "Render Blade templates from string variable",
+            "keywords": [
+                "blade",
+                "compiler",
+                "laravel",
+                "string",
+                "variable"
+            ],
+            "time": "2014-10-07 15:16:59"
+        },
+        {
             "name": "stack/builder",
             "version": "dev-master",
             "source": {
@@ -2743,7 +2786,8 @@
     "aliases": [],
     "minimum-stability": "dev",
     "stability-flags": {
-        "vkharseev/laravel-phpword": 20
+        "vkharseev/laravel-phpword": 20,
+        "sngrl/string-blade-compiler": 20
     },
     "prefer-stable": false,
     "platform": [],

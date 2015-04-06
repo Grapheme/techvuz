@@ -10,31 +10,23 @@ class AdminPagesPageController extends BaseController {
     /****************************************************************************/
 
     ## Routing rules of module
-    public static function returnRoutes($prefix = null) {
+    public static function returnRoutes($prefix = NULL) {
         $class = __CLASS__;
-        Route::group(array('before' => 'auth', 'prefix' => $prefix), function() use ($class) {
+        Route::group(array('before' => 'auth', 'prefix' => $prefix), function () use ($class) {
             $entity = $class::$entity;
 
-            Route::get($class::$group . '/{id}/restore', array('as' => $entity.'.restore', 'uses' => $class."@restore"));
-            Route::resource($class::$group /* . "/" . $entity */, $class,
-                array(
-                    'except' => array('show'),
-                    'names' => array(
-                        'index'   => $entity.'.index',
-                        'create'  => $entity.'.create',
-                        'store'   => $entity.'.store',
-                        'edit'    => $entity.'.edit',
-                        'update'  => $entity.'.update',
-                        'destroy' => $entity.'.destroy',
-                    )
+            Route::get($class::$group . '/{id}/restore', array('as' => $entity . '.restore', 'uses' => $class . "@restore"));
+            Route::resource($class::$group /* . "/" . $entity */, $class, array(
+                'except' => array('show'), 'names' => array(
+                    'index' => $entity . '.index', 'create' => $entity . '.create', 'store' => $entity . '.store', 'edit' => $entity . '.edit', 'update' => $entity . '.update', 'destroy' => $entity . '.destroy',
                 )
-            );
+            ));
         });
 
-        Route::post('ajax-pages-get-page-blocks', $class.'@postAjaxPagesGetPageBlocks');
-        Route::post('ajax-pages-get-block', $class.'@postAjaxPagesGetBlock');
-        Route::post('ajax-pages-delete-block', $class.'@postAjaxPagesDeleteBlock');
-        Route::post('ajax-pages-save-block', $class.'@postAjaxPagesSaveBlock');
+        Route::post('ajax-pages-get-page-blocks', $class . '@postAjaxPagesGetPageBlocks');
+        Route::post('ajax-pages-get-block', $class . '@postAjaxPagesGetBlock');
+        Route::post('ajax-pages-delete-block', $class . '@postAjaxPagesDeleteBlock');
+        Route::post('ajax-pages-save-block', $class . '@postAjaxPagesSaveBlock');
     }
 
     ## Shortcodes of module
@@ -55,7 +47,7 @@ class AdminPagesPageController extends BaseController {
 
     /****************************************************************************/
 
-	public function __construct(Page $essence, PageMeta $pages_meta, PageBlock $pages_blocks, PageBlockMeta $pages_blocks_meta) {
+    public function __construct(Page $essence, PageMeta $pages_meta, PageBlock $pages_blocks, PageBlockMeta $pages_blocks_meta) {
 
         $this->essence = $essence;
         $this->pages_meta = $pages_meta;
@@ -65,40 +57,29 @@ class AdminPagesPageController extends BaseController {
         $this->locales = Config::get('app.locales');
 
         $this->module = array(
-            'name' => self::$name,
-            'group' => self::$group,
-            'rest' => self::$group,
-            'tpl' => static::returnTpl('admin'),
-            'gtpl' => static::returnTpl(),
-            'class' => __CLASS__,
+            'name' => self::$name, 'group' => self::$group, 'rest' => self::$group, 'tpl' => static::returnTpl('admin'), 'gtpl' => static::returnTpl(), 'class' => __CLASS__,
 
-            'entity' => self::$entity,
-            'entity_name' => self::$entity_name,
+            'entity' => self::$entity, 'entity_name' => self::$entity_name,
         );
         View::share('module', $this->module);
-	}
+    }
 
 
-	public function index(){
+    public function index() {
 
         Allow::permission($this->module['group'], 'view');
 
-		$pages = $this->essence
-            ->where('version_of', NULL)
-            ->orderBy('start_page', 'DESC')
-            ->orderBy('order', 'ASC')
-            ->with('blocks')
-            ->get();
+        $pages = $this->essence->where('version_of', NULL)->orderBy('start_page', 'DESC')->orderBy('name', 'ASC')->with('blocks')->get();
 
         #Helper::tad($pages);
 
         $locales = $this->locales;
 
-		return View::make($this->module['tpl'].'index', compact('pages', 'locales'));
-	}
+        return View::make($this->module['tpl'] . 'index', compact('pages', 'locales'));
+    }
 
 
-    public function create(){
+    public function create() {
 
         Allow::permission($this->module['group'], 'create');
 
@@ -107,39 +88,62 @@ class AdminPagesPageController extends BaseController {
         $locales = $this->locales;
         #Helper::dd($locales);
 
-        foreach ($this->templates(__DIR__) as $template)
-            @$templates_module[$template] = $template;
+        $templates = array();
+
+        $template_exists = FALSE;
 
         foreach ($this->templates(Helper::theme_dir(), '') as $key => $template)
             @$templates_theme[$key] = $template;
-
-        $templates = array();
         if (@count($templates_theme)) {
+
+            if (@$templates_theme[$element->template])
+                $template_exists = TRUE;
+
             natsort($templates_theme);
             $templates['Тема оформления'] = $templates_theme;
         }
-        if (@count($templates_module)) {
-            natsort($templates_module);
-            $templates['Модуль'] = $templates_module;
+
+        if (Allow::action('pages', 'advanced')) {
+            foreach ($this->templates(__DIR__) as $template)
+                @$templates_module[$template] = $template;
+            if (@count($templates_module)) {
+
+                if (@$templates_theme[$element->template])
+                    $template_exists = TRUE;
+
+                natsort($templates_module);
+                $templates['Модуль'] = $templates_module;
+            }
         }
         #Helper::dd($templates);
 
-        return View::make($this->module['tpl'].'edit', compact('element', 'locales', 'templates'));
+        $show_template_select = FALSE;
+        if (Allow::action('pages', 'advanced')
+            || !isset($element->template)
+            || $template_exists
+        ) {
+            $show_template_select = TRUE;
+        }
+
+        return View::make($this->module['tpl'] . 'edit', compact('element', 'locales', 'templates', 'show_template_select'));
     }
 
 
-    public function edit($id){
+    public function edit($id) {
 
         Allow::permission($this->module['group'], 'edit');
 
-        $element = $this->essence->where('id', $id)
-            #->with('metas.seo')
-            ->with('metas', 'seos')
-            ->with('blocks')
-            ->with('versions', 'original_version.versions')
-            ->first();
+        $element = $this->essence->where('id', $id)#->with('metas.seo')
+        ->with(['metas', 'seos'])->with('blocks')->with(['versions', 'original_version.versions'])->first();
 
-        $element->extract(false);
+        if (!isset($element) || !is_object($element) || !$element->id) {
+            #App::abort(404);
+            $class = __CLASS__;
+
+            return Redirect::route($class::$entity . '.index');
+        }
+
+        $element->extract(FALSE);
 
         ##
         ## Получение страницы, с языковой МЕТА, и блоками (с языковой МЕТА) со SLUG-ключами
@@ -154,49 +158,75 @@ class AdminPagesPageController extends BaseController {
         $locales = $this->locales;
         #Helper::dd($locales);
 
-        foreach ($this->templates(__DIR__) as $template)
-            @$templates_module[$template] = $template;
+        $templates = array();
+
+        $template_exists = FALSE;
 
         foreach ($this->templates(Helper::theme_dir(), '') as $key => $template)
-            @$templates_theme[$template] = $template;
-
-        $templates = array();
+            @$templates_theme[$key] = $template;
         if (@count($templates_theme)) {
+
+            if (@$templates_theme[$element->template])
+                $template_exists = TRUE;
+
+            #die;
+            #Helper::dd($templates_theme);
+
             natsort($templates_theme);
             $templates['Тема оформления'] = $templates_theme;
         }
-        if (@count($templates_module)) {
-            natsort($templates_module);
-            $templates['Модуль'] = $templates_module;
+
+        if (Allow::action('pages', 'advanced')) {
+            foreach ($this->templates(__DIR__) as $template)
+                @$templates_module[$template] = $template;
+            if (@count($templates_module)) {
+
+                if (@$templates_theme[$element->template])
+                    $template_exists = TRUE;
+
+                natsort($templates_module);
+                $templates['Модуль'] = $templates_module;
+            }
         }
         #Helper::dd($templates);
 
-        return View::make($this->module['tpl'].'edit', compact('element', 'locales', 'templates'));
+        $show_template_select = FALSE;
+        if (Allow::action('pages', 'advanced')
+            || !isset($element->template)
+            || $template_exists
+        ) {
+            $show_template_select = TRUE;
+        }
+
+        return View::make($this->module['tpl'] . 'edit', compact('element', 'locales', 'templates', 'show_template_select'));
     }
 
 
-	public function store(){
+    public function store() {
 
         return $this->postSave();
     }
 
 
-    public function update($id){
+    public function update($id) {
 
         return $this->postSave($id);
     }
 
 
-    public function postSave($id = false){
+    public function postSave($id = FALSE) {
 
         Allow::permission($this->module['group'], 'create');
 
-        if(!Request::ajax())
+        if (!Request::ajax())
             App::abort(404);
 
-        $json_request = array('status'=>FALSE,'responseText'=>'','responseErrorText'=>'','redirect'=>FALSE);
+        $json_request = array('status' => FALSE, 'responseText' => '', 'responseErrorText' => '', 'redirect' => FALSE);
 
         $input = Input::all();
+
+        #Helper::tad($input);
+
         $locales = Helper::withdraw($input, 'locales');
         $blocks = Helper::withdraw($input, 'blocks');
         $blocks_new = Helper::withdraw($input, 'blocks_new');
@@ -207,25 +237,33 @@ class AdminPagesPageController extends BaseController {
         $input['slug'] = @$input['slug'] ? $input['slug'] : $input['name'];
         $input['slug'] = Helper::translit($input['slug']);
 
-        #$input['start_page'] = @$input['start_page'] ? 1 : NULL;
+        $input['sysname'] = @$input['sysname'] ? $input['sysname'] : $input['name'];
+        $input['sysname'] = Helper::translit($input['sysname']);
 
-        #$json_request['responseText'] = "<pre>" . print_r(Input::all(), 1) . "</pre>";
-        $json_request['responseText'] = "<pre>" . print_r($input, 1) . print_r($locales, 1) . print_r($blocks, 1) . print_r($blocks_new, 1) . "</pre>";
-        #return Response::json($json_request,200);
+        $input['start_page'] = @$input['start_page'] ? 1 : NULL;
 
-        $json_request = array('status'=>FALSE, 'responseText'=>'', 'responseErrorText'=>'', 'redirect'=>FALSE);
+        #Helper::tad($input);
+
+        $json_request = array('status' => FALSE, 'responseText' => '', 'responseErrorText' => '', 'redirect' => FALSE);
         $validator = Validator::make($input, $this->essence->rules());
-        if($validator->passes()) {
+        if ($validator->passes()) {
 
-            $redirect = false;
+            $redirect = FALSE;
+
+            if (Allow::action('pages', 'advanced', true, false)) {
+                $input['settings']['new_block'] = isset($input['settings']['new_block']) ? 1 : 0;
+            }
 
             ## PAGES
-            if ($id != false && $id > 0 && NULL != ($element = $this->essence->find($id))) {
+            if ($id != FALSE && $id > 0 && NULL != ($element = $this->essence->find($id))) {
 
                 /**
                  * Создаем резервную копию страницы со всеми данными
                  */
                 $this->create_backup($id);
+
+                if (@$input['settings'])
+                    $input['settings'] = json_encode(array_merge(@(array)json_decode($element['settings']), $input['settings']));
 
                 #$element = $this->essence->find($id);
                 $element->update($input);
@@ -235,6 +273,7 @@ class AdminPagesPageController extends BaseController {
                     foreach ($blocks as $block_id => $block_data) {
                         $block_data['slug'] = @$block_data['slug'] ? $block_data['slug'] : $block_data['name'];
                         $block_data['slug'] = Helper::translit($block_data['slug']);
+                        #$block_data['settings'] = json_encode($block_data['settings']);
                         $block = $this->pages_blocks->find($block_id);
                         if (is_object($block)) {
                             $block->update($block_data);
@@ -244,10 +283,13 @@ class AdminPagesPageController extends BaseController {
 
             } else {
 
+                if (@$input['settings'])
+                    $input['settings'] = json_encode($input['settings']);
+
                 $element = $this->essence->create($input);
                 $id = $element->id;
 
-                $redirect = URL::route($this->module['entity'].'.edit', array('page_id' => $id));
+                $redirect = URL::route($this->module['entity'] . '.edit', array('page_id' => $id));
             }
 
             if (!is_null($element->start_page))
@@ -276,10 +318,7 @@ class AdminPagesPageController extends BaseController {
                         ## Process SEO
                         ###############################
                         $seo_result = ExtForm::process('seo', array(
-                            'module'  => 'Page',
-                            'unit_id' => $element->id,
-                            'locale'  => $locale_sign,
-                            'data'    => $seo,
+                            'module' => 'Page', 'unit_id' => $element->id, 'locale' => $locale_sign, 'data' => $seo,
                         ));
                         #Helper::tad($seo_result);
                         ###############################
@@ -300,26 +339,33 @@ class AdminPagesPageController extends BaseController {
             #$json_request['responseText'] = Helper::d($redirect);
             #return Response::json($json_request,200);
 
+            ## Clear & reload pages cache
+            Page::drop_cache();
+            Page::preload();
+
             $json_request['responseText'] = 'Сохранено';
             if ($redirect)
                 $json_request['redirect'] = $redirect;
             $json_request['status'] = TRUE;
+
         } else {
+
             $json_request['responseText'] = 'Неверно заполнены поля';
             $json_request['responseErrorText'] = $validator->messages()->all();
         }
+
         return Response::json($json_request, 200);
-	}
+    }
 
 
-	public function destroy($id){
+    public function destroy($id) {
 
-        if(!Request::ajax())
+        if (!Request::ajax())
             App::abort(404);
 
         Allow::permission($this->module['group'], 'delete');
 
-        $json_request = array('status'=>FALSE, 'responseText'=>'');
+        $json_request = array('status' => FALSE, 'responseText' => '');
 
         $page = $this->essence->find($id);
         if (is_object($page)) {
@@ -361,16 +407,20 @@ class AdminPagesPageController extends BaseController {
         }
         $page->delete();
 
+        ## Clear & reload pages cache
+        Page::drop_cache();
+        Page::preload();
+
         $json_request['responseText'] = 'Страница удалена';
         $json_request['status'] = TRUE;
 
-		return Response::json($json_request,200);
-	}
+        return Response::json($json_request, 200);
+    }
 
 
     public function postAjaxPagesDeleteBlock() {
 
-        if(!Request::ajax())
+        if (!Request::ajax())
             App::abort(404);
 
         $id = Input::get('id');
@@ -384,15 +434,17 @@ class AdminPagesPageController extends BaseController {
                 }
             }
             $block->delete();
+
             return 1;
         }
+
         return 0;
     }
 
 
     public function postAjaxPagesGetPageBlocks() {
 
-        if(!Request::ajax())
+        if (!Request::ajax())
             App::abort(404);
 
         $id = Input::get('id');
@@ -402,24 +454,25 @@ class AdminPagesPageController extends BaseController {
         $return = '';
         if (count($blocks)) {
             foreach ($blocks as $block) {
-                $return .= View::make($this->module['tpl'].'_block', compact('block'));
+                $return .= View::make($this->module['tpl'] . '_block', compact('block'));
             }
         }
+
         return $return;
     }
 
 
     public function postAjaxPagesBlocksOrderSave() {
 
-        if(!Request::ajax())
+        if (!Request::ajax())
             App::abort(404);
 
         $poss = Input::get('poss');
 
         $pls = PageBlock::whereIn('id', $poss)->get();
 
-        if ( $pls ) {
-            foreach ( $pls as $pl ) {
+        if ($pls) {
+            foreach ($pls as $pl) {
                 $pl->order = array_search($pl->id, $poss);
                 $pl->save();
             }
@@ -431,7 +484,7 @@ class AdminPagesPageController extends BaseController {
 
     public function postAjaxPagesGetBlock() {
 
-        if(!Request::ajax())
+        if (!Request::ajax())
             App::abort(404);
 
         $element = PageBlock::where('id', Input::get('id'))->with('metas')->orderBy('order')->first()->metasByLang();
@@ -441,11 +494,12 @@ class AdminPagesPageController extends BaseController {
 
         #Helper::dd($this->templates(__DIR__, '/views/tpl_block'));
 
+        $templates = array();
         foreach ($this->templates(__DIR__, '/views/tpl_block') as $template)
             @$templates[$template] = $template;
 
 
-        return View::make($this->module['tpl'].'_block_edit', compact('element', 'locales', 'templates'));
+        return View::make($this->module['tpl'] . '_block_edit', compact('element', 'locales', 'templates'));
 
     }
 
@@ -463,19 +517,30 @@ class AdminPagesPageController extends BaseController {
         */
 
         $id = Input::get('id');
+
+        $block = $id != FALSE && $id > 0 && $this->pages_blocks->find($id)->exists() ? $this->pages_blocks->find($id) : new PageBlock;
+
         $input = Input::all();
         $locales = Helper::withdraw($input, 'locales');
         $input['template'] = @$input['template'] ? $input['template'] : NULL;
         $input['slug'] = @$input['slug'] ? $input['slug'] : $input['name'];
         $input['slug'] = Helper::translit($input['slug']);
 
-        $validator = Validator::make($input, $this->pages_blocks->rules());
-        if($validator->passes()) {
+        if (Allow::action('pages', 'advanced', true, false)) {
+            $input['settings']['system_block'] = isset($input['settings']['system_block']) ? 1 : 0;
+        }
 
-            $redirect = false;
+        if (@$input['settings'])
+            $input['settings'] = json_encode(array_merge(@(array)json_decode($block['settings']), $input['settings']));
+
+        $validator = Validator::make($input, $this->pages_blocks->rules());
+        if ($validator->passes()) {
+
+            $redirect = FALSE;
 
             ## BLOCK
-            if ($id != false && $id > 0 && $this->pages_blocks->find($id)->exists()) {
+            /*
+            if ($id != FALSE && $id > 0 && $this->pages_blocks->find($id)->exists()) {
 
                 $element = $this->pages_blocks->find($id);
                 $element->update($input);
@@ -485,12 +550,15 @@ class AdminPagesPageController extends BaseController {
                 $element = $this->pages_blocks->create($input);
                 $id = $element->id;
             }
+            */
+            $block->save();
+            $block->update($input);
 
             ## BLOCK_META
             if (count($locales)) {
                 foreach ($locales as $locale_sign => $locale_settings) {
                     $locale_settings['template'] = @$locale_settings['template'] ? $locale_settings['template'] : NULL;
-                    $block_meta = $this->pages_blocks_meta->where('block_id', $element->id)->where('language', $locale_sign)->first();
+                    $block_meta = $this->pages_blocks_meta->where('block_id', $block->id)->where('language', $locale_sign)->first();
                     if (is_object($block_meta)) {
                         $block_meta->update($locale_settings);
                     } else {
@@ -522,6 +590,7 @@ class AdminPagesPageController extends BaseController {
      * и удаляет все резервные копии, превысившие лимит
      *
      * @param $id
+     *
      * @return string
      * @throws Exception
      */
@@ -530,9 +599,7 @@ class AdminPagesPageController extends BaseController {
         /**
          * Находим запись резервной копии для восстановления
          */
-        $version = $this->essence->where('id', $id)
-            ->with('metas', 'blocks.metas', 'seos')
-            ->first();
+        $version = $this->essence->where('id', $id)->with(['metas', 'blocks.metas', 'seos'])->first();
 
         if (!isset($version) || !is_object($version) || $version->version_of == NULL)
             return Redirect::to(URL::previous());
@@ -542,9 +609,7 @@ class AdminPagesPageController extends BaseController {
         /**
          * Находим запись оригинала
          */
-        $element = $this->essence->where('id', $version->version_of)
-            ->with('metas', 'blocks.metas', 'seos', 'versions')
-            ->first();
+        $element = $this->essence->where('id', $version->version_of)->with(['metas', 'blocks.metas', 'seos', 'versions'])->first();
 
         if (!isset($element) || !is_object($element) || $element->version_of != NULL)
             return Redirect::to(URL::previous());
@@ -558,7 +623,7 @@ class AdminPagesPageController extends BaseController {
         /**
          * Создаем резервную копию оригинальной записи
          */
-        $create_backup_result = $this->create_backup($version->version_of, false);
+        $create_backup_result = $this->create_backup($version->version_of, FALSE);
 
         if (!$create_backup_result) {
             throw new Exception("Can't create backup of original record");
@@ -591,8 +656,13 @@ class AdminPagesPageController extends BaseController {
         #Helper::d($element);
         #Helper::dd($url);
 
+        ## Clear & reload pages cache
+        Page::drop_cache();
+        Page::preload();
+
         #return Redirect::to($url);
         Redirect($url);
+
         return '';
     }
 
@@ -600,21 +670,20 @@ class AdminPagesPageController extends BaseController {
     /**
      * Функция создания бэкапа из текущей версии, с возможностью удаления превысивших лимит резервных копий
      *
-     * @param int $page_id
+     * @param int  $page_id
      * @param bool $delete_over_backups
+     *
      * @return bool
      */
-    private function create_backup($page_id = 0, $delete_over_backups = true) {
+    private function create_backup($page_id = 0, $delete_over_backups = TRUE) {
 
         /**
          * Находим запись для создания ее бэкапа
          * Запись должна быть оригиналом, т.е. иметь version_of = NULL
          */
-        $element = $this->essence->where('id', $page_id)
-            ->with('metas', 'blocks.metas', 'seos', 'versions')
-            ->first();
+        $element = $this->essence->where('id', $page_id)->with(['metas', 'blocks.metas', 'seos', 'versions'])->first();
         if (!isset($element) || !is_object($element) || $element->version_of != NULL)
-            return false;
+            return FALSE;
 
         #Helper::tad($element);
         #Helper::tad($element->seos);
@@ -710,7 +779,7 @@ class AdminPagesPageController extends BaseController {
             $this->delete_backups($element->id);
         }
 
-        return true;
+        return TRUE;
     }
 
 
@@ -718,6 +787,7 @@ class AdminPagesPageController extends BaseController {
      * Функция восстанавливает состояние записи из резервной копии
      *
      * @param int $page_id
+     *
      * @return bool
      */
     private function restore_backup($page_id = 0) {
@@ -726,22 +796,18 @@ class AdminPagesPageController extends BaseController {
          * Находим резервную копию записи для восстановления
          * Она должна быть резервной копией, т.е. иметь version_of != NULL
          */
-        $version = $this->essence->where('id', $page_id)
-            ->with('metas', 'blocks.meta', 'seos')
-            ->first();
+        $version = $this->essence->where('id', $page_id)->with(['metas', 'blocks.meta', 'seos'])->first();
         if (!isset($version) || !is_object($version)) {
-            return false;
+            return FALSE;
         }
         #Helper::tad($version);
 
         /**
          * Находим запись оригинала
          */
-        $element = $this->essence->where('id', $version->version_of)
-            ->with('metas', 'blocks.meta', 'seos')
-            ->first();
+        $element = $this->essence->where('id', $version->version_of)->with(['metas', 'blocks.meta', 'seos'])->first();
         if (!isset($element) || !is_object($element)) {
-            return false;
+            return FALSE;
         }
 
         /**
@@ -824,6 +890,7 @@ class AdminPagesPageController extends BaseController {
         /**
          * Проверяем, успешно ли выполнились все запросы внутри транзакции, и возвращаем результат
          */
+
         return ($version->id == $original_id);
     }
 
@@ -832,6 +899,7 @@ class AdminPagesPageController extends BaseController {
      * Функция удаляет резервные копии, превысившие лимит
      *
      * @param int $page_id
+     *
      * @return bool
      */
     private function delete_backups($page_id = 0) {
@@ -840,16 +908,16 @@ class AdminPagesPageController extends BaseController {
          * Находим запись для удаления ее бэкапов
          * Запись должна быть оригиналом, т.е. иметь version_of = NULL
          */
-        $element = $this->essence->where('id', $page_id)->with('metas', 'blocks.metas', 'seos', 'versions')->first();
+        $element = $this->essence->where('id', $page_id)->with(['metas', 'blocks.metas', 'seos', 'versions'])->first();
         if (!isset($element) || !is_object($element) || $element->version_of != NULL)
-            return false;
+            return FALSE;
 
         #Helper::tad($element);
 
         $versions = Config::get('pages.versions');
         $element_versions = $element->versions;
 
-        $result = true;
+        $result = TRUE;
 
         if (count($element_versions) > 0 && count($element_versions) >= $versions) {
             /**
@@ -857,11 +925,11 @@ class AdminPagesPageController extends BaseController {
              */
             $for_delete = $element_versions->lists('id');
             krsort($for_delete);
-            $for_delete = array_slice($for_delete, 0, count($element_versions)-$versions);
+            $for_delete = array_slice($for_delete, 0, count($element_versions) - $versions);
             #Helper::dd($for_delete);
 
             if (count($for_delete)) {
-                $result = false;
+                $result = FALSE;
                 /**
                  * Открываем транзакцию
                  */
@@ -883,7 +951,7 @@ class AdminPagesPageController extends BaseController {
                     #Helper::d($deleted);
                     #Helper::dd($for_delete);
                     if ($deleted)
-                        $result = true;
+                        $result = TRUE;
                 });
             }
         }

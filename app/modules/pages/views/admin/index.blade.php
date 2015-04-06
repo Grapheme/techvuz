@@ -32,14 +32,19 @@
 
 						<td class="text-center" style="white-space:nowrap;">
 	    					@if(Allow::action('pages','edit'))
-							<a class="btn btn-success margin-right-10" href="{{ URL::route($module['entity'].'.edit', array('page_id' => $page->id)) }}">
-								Изменить
+							<a class="btn btn-warning margin-right-5" href="{{ pageurl($page->sysname) }}" target="_blank" title="Просмотр страницы">
+								<i class="fa fa-external-link"></i>
+							</a>
+                            @endif
+	    					@if(Allow::action('pages','edit'))
+							<a class="btn btn-success margin-right-5" href="{{ URL::route($module['entity'].'.edit', array('page_id' => $page->id)) }}" title="Изменить">
+                                <i class="fa fa-pencil"></i>
 							</a>
                             @endif
                             @if(Allow::action('pages','delete'))
-							<form method="POST" action="{{ URL::route($module['entity'].'.destroy', array('page_id' => $page->id)) }}" style="display:inline-block">
+							<form method="POST" action="{{ URL::route($module['entity'].'.destroy', array('page_id' => $page->id)) }}" style="display:inline-block" title="Удалить">
 								<button type="button" class="btn btn-danger remove-page">
-									Удалить
+                                    <i class="fa fa-trash-o"></i>
 								</button>
 							</form>
     						@endif
@@ -65,13 +70,13 @@
 
 
 @section('scripts')
-	<script src="{{ link::to('js/modules/pages.js') }}"></script>
+	<script src="{{ link::to('private/js/modules/pages.js') }}"></script>
 	<script type="text/javascript">
 		if(typeof pageSetUp === 'function'){pageSetUp();}
 		if(typeof runFormValidation === 'function'){
-			loadScript("{{asset('js/vendor/jquery-form.min.js');}}",runFormValidation);
+			loadScript("{{asset('private/js/vendor/jquery-form.min.js');}}",runFormValidation);
 		}else{
-			loadScript("{{asset('js/vendor/jquery-form.min.js');}}");
+			loadScript("{{asset('private/js/vendor/jquery-form.min.js');}}");
 		}
 	</script>
 @stop

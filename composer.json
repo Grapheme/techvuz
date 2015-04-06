@@ -14,7 +14,8 @@
 		"chumper/zipper": "*",
 		"lowerends/l4-mpdf": "*",
         "vkharseev/laravel-phpword": "dev-master",
-		"roumen/sitemap": "v2.4.15"
+		"roumen/sitemap": "v2.4.15",
+		"sngrl/string-blade-compiler": "dev-master"
 	},
 	"autoload": {
 		"classmap": [

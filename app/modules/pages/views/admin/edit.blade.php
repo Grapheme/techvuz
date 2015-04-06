@@ -1,8 +1,11 @@
 @extends(Helper::acclayout())
+<?
+$element->settings = json_decode($element->settings, 1);
+#Helper::ta($element->settings);
+?>
 
 
 @section('style')
-    {{ HTML::style('css/redactor.css') }}
 @stop
 
 
@@ -59,42 +62,63 @@
                 <header>{{ $form_title }}</header>
 
                 <?
-                $_types = Dictionary::whereSlugValues('page_type');
+                $_types = null; #Dic::valuesByslug('page_type');
                 ?>
 
-                <fieldset>
+                <fieldset></fieldset>
 
-                    <section>
+                <div class="col-sm-12 col-md-12 col-lg-12 clearfix">
+
+                    <section class="col col-sm-12 @if (Allow::action('pages', 'advanced', true, false)) col-lg-6 @else col-lg-12 @endif">
                         <label class="label">Название</label>
                         <label class="input">
                             {{ Form::text('name') }}
                         </label>
                     </section>
 
-                </fieldset>
-
-                <div class="clearfix">
-
-                    <section class="col col-lg-6 col-sm-12">
-                        <label class="label">Идентификатор страницы</label>
-                        <label class="input">
-                            {{ Form::text('slug', NULL, array('placeholder' => '')) }}
-                        </label>
-                        <label class="note">
-                            Только символы английского алфавита без пробелов, цифры, знаки _ и -
-                        </label>
-                    </section>
-
-                    <section class="col col-lg-6 col-sm-12">
-                        <label class="label">Шаблон</label>
-                        <label class="input select input-select2">
-                            {{ Form::select('template', array('Выберите...')+$templates) }}
-                        </label>
-                    </section>
+                    @if (Allow::action('pages', 'advanced', true, false))
+                        <section class="col col-lg-6 col-sm-12">
+                            <label class="label">Системное имя</label>
+                            <label class="input">
+                                {{ Form::text('sysname') }}
+                            </label>
+                        </section>
+                    @endif
 
                 </div>
 
-                @if ($_types->count())
+
+                <div class="clearfix">
+
+
+                <section class="col col-sm-12 @if($show_template_select) col-lg-6 @else col-lg-12 @endif">
+                    <label class="label">URL страницы</label>
+                    <label class="input">
+                        {{ Form::text('slug', NULL, array('placeholder' => '')) }}
+                    </label>
+                    <label class="note">
+                        Только символы английского алфавита без пробелов, цифры, знаки _ и -
+                    </label>
+                </section>
+
+                @if ($show_template_select)
+                    <section class="col col-lg-6 col-sm-12">
+                        <label class="label">Шаблон</label>
+                        <label class="input select input-select2">
+                            {{-- Form::select('template', array('Выберите...')+$templates) --}}
+                            {{ Form::select('template', $templates) }}
+                        </label>
+                        <label class="note">
+                            При добавлении новой страницы выбирайте шаблон "Простая страница"
+                        </label>
+                    </section>
+                @else
+                    {{ Form::hidden('template') }}
+                @endif
+
+                </div>
+
+                @if (0 && $_types->count())
                 <div class="col col-sm-12 col-md-12 col-lg-12 clearfix">
 
                     <section class="">
@@ -107,7 +131,7 @@
                 </div>
                 @endif
 
-                @if (Allow::action('page', 'advanced'))
+                @if (Allow::action('pages', 'advanced', true, false))
                 <fieldset class="clearfix">
 
                     <section class="col col-lg-6 col-sm-12 col-xs-12">
@@ -136,7 +160,19 @@
                         </label>
                     </section>
 
+                    <section class="col col-lg-6 col-sm-12 col-xs-12">
+                        <label class="checkbox">
+                            {{ Form::checkbox('settings[new_block]', 1, (!$element->settings['new_block'] ? null : true)) }}
+                            <i></i>
+                            Запрет на создание блоков
+                        </label>
+                    </section>
+
                 </fieldset>
+                @else
+
+                    {{ Form::hidden('start_page') }}
+
                 @endif
 
                 <fieldset class="clearfix">
@@ -203,7 +239,7 @@
 
                 <header>Блоки на странице:</header>
 
-                <fieldset class="page-blocks">
+                <fieldset class="page-blocks margin-bottom-0 padding-bottom-10">
 
                     <div id="blocks" class="sortable">
                         @if (count($element->blocks))
@@ -213,10 +249,12 @@
                         @endif
                     </div>
 
-                    <div>
-                        <a href="javascript:void(0)" class="new_block">Добавить блок</a>
-                        {{--<a href="javascript:void(0)" class="new_blocks_test">Тестировать</a>--}}
-                    </div>
+                    @if (Allow::action('pages', 'advanced', true, false) || !@$element->settings['new_block'])
+                        <div>
+                            <a href="javascript:void(0)" class="new_block">Добавить блок</a>
+                            {{--<a href="javascript:void(0)" class="new_blocks_test">Тестировать</a>--}}
+                        </div>
+                    @endif
 
                 </fieldset>
 
@@ -354,7 +392,7 @@
 
     {{ HTML::script('js/modules/standard.js') }}
 
-    {{ HTML::script('js/vendor/redactor.js') }}
+    {{ HTML::script('js/vendor/redactor.min.js') }}
     {{ HTML::script('js/system/redactor-config.js') }}
 
     <script type="text/javascript">
@@ -549,7 +587,7 @@
         }
 
 
-        @if (!$element->id)
+        @if (!$element->id && FALSE)
         $('.new_block').trigger('click');
         @endif
 

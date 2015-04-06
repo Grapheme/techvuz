@@ -63,8 +63,8 @@ return array(
         'Scalia\SphinxSearch\SphinxSearchServiceProvider',
         'Chumper\Zipper\ZipperServiceProvider',
         'Lowerends\Mpdf\ServiceProvider',
-        'Roumen\Sitemap\SitemapServiceProvider'
-
+        'Roumen\Sitemap\SitemapServiceProvider',
+        'sngrl\StringBladeCompiler\StringBladeCompilerServiceProvider'
     ),
 	'aliases' => array(
 		'App'             => 'Illuminate\Support\Facades\App',
@@ -72,6 +72,7 @@ return array(
 		'Auth'            => 'Illuminate\Support\Facades\Auth',
 		'Blade'           => 'Illuminate\Support\Facades\Blade',
 		'Cache'           => 'Illuminate\Support\Facades\Cache',
+        'Carbon'          => 'Carbon\Carbon',
 		'ClassLoader'     => 'Illuminate\Support\ClassLoader',
 		'Config'          => 'Illuminate\Support\Facades\Config',
 		'Controller'      => 'Illuminate\Routing\Controller',

@@ -832,6 +832,9 @@ var city_phone = function() {
             .siblings().removeClass('active');
     }
     var autoSelect = function() {
+
+        return false;
+
         var geolocation = ymaps.geolocation;
         var city = geolocation.city;
         var city_link = $('.js-phone-link[data-name="' + city + '"]');
