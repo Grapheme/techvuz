@@ -62,7 +62,7 @@ $element->settings = json_decode($element->settings, 1);
                 <header>{{ $form_title }}</header>
 
                 <?
-                $_types = null; #Dic::valuesByslug('page_type');
+                #$_types = Dic::valuesByslug('page_type');
                 ?>
 
                 <fieldset></fieldset>
@@ -118,7 +118,7 @@ $element->settings = json_decode($element->settings, 1);
 
                 </div>
 
-                @if (0 && $_types->count())
+                @if (NULL && $_types->count())
                 <div class="col col-sm-12 col-md-12 col-lg-12 clearfix">
 
                     <section class="">
@@ -390,21 +390,21 @@ $element->settings = json_decode($element->settings, 1);
         });
     </script>
 
-    {{ HTML::script('js/modules/standard.js') }}
+    {{ HTML::script('private/js/modules/standard.js') }}
 
-    {{ HTML::script('js/vendor/redactor.min.js') }}
-    {{ HTML::script('js/system/redactor-config.js') }}
+    {{ HTML::script('private/js/vendor/redactor.min.js') }}
+    {{ HTML::script('private/js/system/redactor-config.js') }}
 
     <script type="text/javascript">
         if(typeof pageSetUp === 'function'){pageSetUp();}
         if(typeof runFormValidation === 'function') {
-            loadScript("{{ asset('js/vendor/jquery-form.min.js'); }}", runFormValidation);
+            loadScript("{{ asset('private/js/vendor/jquery-form.min.js'); }}", runFormValidation);
         } else {
-            loadScript("{{ asset('js/vendor/jquery-form.min.js'); }}");
+            loadScript("{{ asset('private/js/vendor/jquery-form.min.js'); }}");
         }
     </script>
 
-    {{ HTML::script('js/plugin/select2/select2.min.js') }}
+    {{ HTML::script('private/js/plugin/select2/select2.min.js') }}
 
     <script>
 

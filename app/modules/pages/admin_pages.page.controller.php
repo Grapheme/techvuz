@@ -233,14 +233,13 @@ class AdminPagesPageController extends BaseController {
         #$seo = Helper::withdraw($input, 'seo');
 
         $input['template'] = @$input['template'] ? $input['template'] : NULL;
+        $input['start_page'] = @$input['start_page'] ? 1 : NULL;
 
-        $input['slug'] = @$input['slug'] ? $input['slug'] : $input['name'];
+        $input['slug'] = @$input['slug'] ? $input['slug'] : ($input['start_page'] ? '' : $input['name']);
         $input['slug'] = Helper::translit($input['slug']);
 
-        $input['sysname'] = @$input['sysname'] ? $input['sysname'] : $input['name'];
+        $input['sysname'] = @$input['sysname'] ? $input['sysname'] : ($input['start_page'] ? '' : $input['name']);
         $input['sysname'] = Helper::translit($input['sysname']);
-
-        $input['start_page'] = @$input['start_page'] ? 1 : NULL;
 
         #Helper::tad($input);
 
@@ -435,6 +434,10 @@ class AdminPagesPageController extends BaseController {
             }
             $block->delete();
 
+            ## Clear & reload pages cache
+            Page::drop_cache();
+            Page::preload();
+
             return 1;
         }
 
@@ -476,6 +479,10 @@ class AdminPagesPageController extends BaseController {
                 $pl->order = array_search($pl->id, $poss);
                 $pl->save();
             }
+
+            ## Clear & reload pages cache
+            Page::drop_cache();
+            Page::preload();
         }
 
         return Response::make('1');
@@ -568,6 +575,10 @@ class AdminPagesPageController extends BaseController {
                     }
                 }
             }
+
+            ## Clear & reload pages cache
+            Page::drop_cache();
+            Page::preload();
 
             $json_request['responseText'] = 'Сохранено';
             if (@$redirect)

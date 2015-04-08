@@ -1,1 +1,0 @@
-@extends(Helper::layout('index'))

@@ -169,6 +169,7 @@ class PublicPagesController extends BaseController {
     ## Функция для просмотра мультиязычной страницы
     public function showPage($slug = false){
 
+
         ## Если страниц нет в кеше - показываем 404
         if (!count(Page::all_by_slug()))
             App::abort(404);
