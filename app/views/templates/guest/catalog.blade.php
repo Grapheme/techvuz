@@ -82,7 +82,7 @@
                 >
                     <td>
                     @if(!empty($course->seo))
-                        <a href="{{ pageurl('catalog',array($course->seo->url)) }}">{{ $course->title }}</a>
+                        <a href="{{ URL::route('course-page',$course->seo->url) }}">{{ $course->title }}</a>
                     @else
                         {{ $course->title }}
                     @endif

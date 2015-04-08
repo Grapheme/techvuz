@@ -12,7 +12,7 @@ class PublicEducationCoursesController extends BaseController {
     ## Routing rules of module
     public static function returnRoutes($prefix = null) {
         $class = __CLASS__;
-        Route::get('/catalog/{url}',array('as'=>'course-page','uses'=>$class.'@index'));
+        Route::get('/katalog-kursov-dlya-sro/{url}',array('as'=>'course-page','uses'=>$class.'@index'));
     }
 
     public static function returnShortCodes() {
