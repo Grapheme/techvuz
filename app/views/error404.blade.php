@@ -33,7 +33,7 @@
 	html, body {
     	margin: 0;
     	padding: 0;
-   		height: 100%; 
+   		height: 100%;
     }
   	body {
     	background: #33ace4;
@@ -50,7 +50,7 @@
    		position: absolute;
     	top: 0;
     	left: 0;
-    
+
     	width: 250px;
     	height: 100%;
     }
@@ -76,10 +76,10 @@
 		line-height: (14.4em / 12);
   	}
   	.logo {
-		position: relative;
-		width: 187px;
+		#position: relative;
+        margin-top: 100px;
+        width: 187px;
 		height: 11.6875rem;
-		margin: 0 0 2.95rem;
 
 		background: url( {{ Config::get('site.theme_path').'/img/logo.svg' }} );
 		background-size: 100% 100%;
@@ -95,53 +95,44 @@
 </head>
 <body>
 	<div class="main-wrapper">
-		<div class="top-dec">
-	        <div class="top-dec-part part-1"></div>
-	        <div class="top-dec-part part-2"></div>
-	        <div class="top-dec-part part-3"></div>
-	        <div class="top-dec-part part-4"></div>
-	        <div class="top-dec-part part-5"></div>
-	        <div class="top-dec-part part-6"></div>
-	    </div>
-
-		<aside class="aside-404">
-
-			<div class="contact">
-		        <div class="phone">
-		            <a href="tel:+78004400000">8 (800) 440 00 00</a>
-		        </div>
-		        <div class="phone-desc">
-		            Звонок бесплатный
-		        </div>
-		    </div>
-
-			<div class="logo"><a href="/"></a></div>
-
-			<footer class="main-footer">
-			    <div class="copy">
-			        © АНО ДПО «ЦКС», 2012 - {{ date("Y") }}
-			    </div>
-			    <div class="dev">
-			        Сделано в <a href="http://grapheme.ru" target="_blank">ГРАФЕМА</a>
-			    </div>
-			</footer>
-		</aside>
-
+        <header class="main-header  clearfix">
+            <div class="top-dec">
+                <div class="top-dec-part part-1"></div>
+                <div class="top-dec-part part-2"></div>
+                <div class="top-dec-part part-3"></div>
+                <div class="top-dec-part part-4"></div>
+                <div class="top-dec-part part-5"></div>
+                <div class="top-dec-part part-6"></div>
+            </div>
+            <aside class="aside-404">
+                <div class="contact">
+                    <div class="phone phone-stack">
+                        <a href="tel:+74997058688" data-type="moscow" data-name="Москва" class="js-phone">8 (499) 705-86-88</a>
+                        <a href="tel:+78632990714" data-type="rostov" data-name="Ростов-на-Дону" class="js-phone">8 (863) 299-07-14</a>
+                        <a href="tel:+78003338654" data-type="other" class="js-phone active">8 (800) 333-86-54</a>
+                    </div>
+                    <div class="phone-desc phone-links">
+                        <a href="#" data-type="moscow" data-name="Москва" class="js-phone-link">Москва</a>
+                        <a href="#" data-type="rostov" data-name="Ростов-на-Дону" class="js-phone-link">Ростов-на-Дону</a>
+                        <a href="#" data-type="other" class="js-phone-link active">Другие регионы</a>
+                    </div>
+                </div>
+                <div class="logo"><a class="moder-logo-link" href="{{ URL::route('mainpage') }}"></a></div>
+                @include(Helper::layout('footer'))
+            </aside>
+        </header>
 		<div class="container-404">
-
 			<div class="container-404-cell">
-
-				<h1>
-					404 Ошибка
-				</h1>
-
+				<h1>404 Ошибка</h1>
 				<div class="desc-404">
 					Запрашиваемая вами страница не найдена. Ознакомиться<br>
-					с нашими курсами вы можете в разделе «Каталог курсов»
+					с нашими курсами вы можете в разделе <a href="{{ pageurl('catalog') }}">«Каталог курсов»</a>
 				</div>
-			</div>			
+			</div>
 		</div>
 	</div>
-	
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <script>window.jQuery || document.write('<script src="{{asset('js/vendor/jquery.min.js');}}"><\/script>')</script>
+    {{ HTML::script(Config::get('site.theme_path').'/js/index.js') }}
 </body>
 </html>
