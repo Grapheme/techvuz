@@ -198,12 +198,17 @@ class Page extends BaseModel {
         $cache_key = self::$cache_key;
         $cache_pages_limit = Config::get('pages.preload_pages_limit');
 
+        if ($cache_pages_limit === NULL) {
+            Config::set('pages.not_cached', TRUE);
+            return;
+        }
+
         if (Cache::has($cache_key) && !Input::get('drop_pages_cache')) {
 
             ## From cache
             $pages = Cache::get($cache_key);
 
-        } elseif ($cache_pages_limit === 0 || Page::count() <= $cache_pages_limit) {
+        } elseif ($cache_pages_limit === 0 || ($cache_pages_limit > 0 && Page::count() <= $cache_pages_limit)) {
 
             #echo "LOAD PAGES FROM DB!";
 

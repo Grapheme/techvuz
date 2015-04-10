@@ -174,8 +174,28 @@ class PublicPagesController extends BaseController {
         if (!count(Page::all_by_slug()))
             App::abort(404);
 
-        ##Ищем страницу в кеше
-        $page = Page::by_slug($slug ?: '/');
+        ## Как будем искать страницы - в кеше или в БД?
+        if (Config::get('pages.not_cached')) {
+
+            ## Кеширование отключено (или не найдено ни одной страницы) - ищем в БД
+            $page = (new Page())
+                ->where('publication', 1)
+                ->where('version_of', NULL)
+            ;
+
+            if ($slug) {
+                $page = $page->where('slug', $slug);
+            } else {
+                $page = $page->where('start_page', 1);
+            }
+
+            $page->first();
+
+        } else {
+
+            ## Кеширование включено - ищем страницу в кеше
+            $page = Page::by_slug($slug ?: '/');
+        }
 
         #Helper::smartQueries(1); #die;
         #Helper::ta($page);
