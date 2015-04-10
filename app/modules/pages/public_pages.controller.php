@@ -166,22 +166,15 @@ class PublicPagesController extends BaseController {
         View::share('module', $this->module);
 	}
 
+
     ## Функция для просмотра мультиязычной страницы
     public function showPage($slug = false){
-
-
-        ## Если страниц нет в кеше - показываем 404
-        if (!count(Page::all_by_slug()))
-            App::abort(404);
 
         ## Как будем искать страницы - в кеше или в БД?
         if (Config::get('pages.not_cached')) {
 
             ## Кеширование отключено (или не найдено ни одной страницы) - ищем в БД
-            $page = (new Page())
-                ->where('publication', 1)
-                ->where('version_of', NULL)
-            ;
+            $page = (new Page())->where('publication', 1)->where('version_of', NULL);
 
             if ($slug) {
                 $page = $page->where('slug', $slug);
@@ -189,9 +182,13 @@ class PublicPagesController extends BaseController {
                 $page = $page->where('start_page', 1);
             }
 
-            $page->first();
+            $page = $page->first();
 
         } else {
+
+            ## Если страниц нет в кеше - показываем 404
+            if (!count(Page::all_by_slug()))
+                App::abort(404);
 
             ## Кеширование включено - ищем страницу в кеше
             $page = Page::by_slug($slug ?: '/');
