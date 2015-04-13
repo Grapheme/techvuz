@@ -43,7 +43,7 @@ class OrderListeners extends BaseModel {
     }
 
     public function course() {
-        return $this->belongsTo('Courses', 'course_id')->orderBy('code');
+        return $this->belongsTo('Courses', 'course_id');
     }
 
     public function listener() {
