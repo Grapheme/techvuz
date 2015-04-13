@@ -66,7 +66,7 @@
             </div>
             <div class="row margin-bottom-10">
                 <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
-                    <span class="font-sm">Юридический адрес</span>
+                    <span class="font-sm">Адрес регистрации</span>
                 </div>
                 <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9">
                     {{ $profile->uraddress }}

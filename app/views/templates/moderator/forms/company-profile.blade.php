@@ -26,7 +26,7 @@
         <label>Документ, на основании которого действует подписант</label>{{ Form::text('statutory') }}
     </div>
     <div class="form-element">
-        <label>Юридический адрес</label>{{ Form::text('uraddress') }}
+        <label>Адрес регистрации</label>{{ Form::text('uraddress') }}
     </div>
     <div class="form-element">
         <label>Почтовый адрес</label>{{ Form::text('postaddress') }}
