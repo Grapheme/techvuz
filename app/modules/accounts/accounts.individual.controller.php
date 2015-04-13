@@ -345,7 +345,7 @@ class AccountsIndividualController extends BaseController {
                 endif;
                 $lecture = $lecture->toArray();
                 if (isset($lecture['document']['path']) && File::exists(public_path($lecture['document']['path']))):
-                    $documents[$index]['original_name'] = BaseController::stringTranslite($lecture['document']['original_name'],NULL,'/[^a-z0-9-\.]/');
+                    $documents[$index]['original_name'] = BaseController::stringTransliteFile($lecture['document']['original_name'],NULL,'/[^a-z0-9-\.]/');
                     $documents[$index]['module_title'] = $lecture['title'];
                     $documents[$index]['path'] = preg_replace('|([/]+)|s', '/', public_path($lecture['document']['path']));
                 endif;
