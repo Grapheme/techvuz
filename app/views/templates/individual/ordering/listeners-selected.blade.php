@@ -24,7 +24,7 @@
         $globalDiscount = getGlobalDiscount();
         $coursesCountDiscount = coursesCountDiscount();
         ?>
-        @foreach(Courses::whereIn('id',getJsonCookieData('ordering'))->with('direction')->get() as $key => $course)
+        @foreach(Courses::whereIn('id',getJsonCookieData('ordering'))->orderBy('code')->with('direction')->get() as $key => $course)
             {{ Form::hidden('courses[]',$course->id) }}
             <?php
             $discountPrice = FALSE;
