@@ -171,6 +171,10 @@ class AccountsListenerController extends BaseController {
         endif;
     }
 
+    /**************************************************************************/
+    /******************************* STUDY ************************************/
+    /**************************************************************************/
+
     public function ListenerStudyList(){
 
         $page_data = array(
@@ -301,6 +305,8 @@ class AccountsListenerController extends BaseController {
         endif;
         return Redirect::back();
     }
+
+    /**************************************************************************/
 
     public function ListenersNotificationsList(){
 
