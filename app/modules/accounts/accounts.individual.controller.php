@@ -102,7 +102,7 @@ class AccountsIndividualController extends BaseController {
             $validator = Validator::make(Input::all(),Individual::$update_rules);
             if($validator->passes()):
                 if (self::IndividualAccountUpdate(Input::all())):
-                    Event::fire('moderator.update-profile-individual',array(array('accountID'=>0,'listener'=>User_individual::where('id',Auth::user()->id)->pluck('fio'))));
+                    Event::fire('moderator.update-profile-individual',array(array('accountID'=>0,'link'=>URL::to('moderator/listeners/profile/'.Auth::user()->id),'listener'=>User_individual::where('id',Auth::user()->id)->pluck('fio'))));
                     $json_request['responseText'] = Lang::get('interface.UPDATE_PROFILE_INDIVIDUAl.success');
                     $json_request['redirect'] = URL::route('individual-profile');
                     $json_request['status'] = TRUE;

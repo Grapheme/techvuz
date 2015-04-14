@@ -152,7 +152,7 @@ class AccountsRegisterController extends BaseController {
                         if (hasCookieData('ordering')):
                             $json_request['responseText'] .= '<a class="btn btn--bordered btn--blue margin-right-20 margin-bottom-10" href="'.URL::route('ordering-select-listeners').'">'.Lang::get('interface.SIGNUP_LISTENER.next_operation_2').'</a>';
                         endif;
-                        Event::fire('moderator.register-listener',array(array('accountID'=>0,'organization'=>User_organization::where('id',Auth::user()->id)->pluck('title'),'listener'=>Input::get('fio'))));
+                        Event::fire('moderator.register-listener',array(array('accountID'=>0,'organization_link'=>URL::to('moderator/companies/profile/'.Auth::user()->id),'listener_link'=>URL::to('moderator/listeners/profile/'.$account->id),'organization'=>User_organization::where('id',Auth::user()->id)->pluck('title'),'listener'=>Input::get('fio'))));
                         $json_request['status'] = TRUE;
                     endif;
                 else:

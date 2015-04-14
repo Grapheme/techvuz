@@ -156,7 +156,7 @@ class AccountsOrderingController extends BaseController {
                         Event::fire('individual.order-puy',array(array('accountID'=>Auth::user()->id,'order'=>getOrderNumber($order),'order_link'=>URL::route('individual-order',$order->id),'document_link'=>URL::route('individual-listener-order-invoice',array('order_id'=>$order->id,'format'=>'pdf')))));
                     endif;
                 endif;
-                Event::fire('moderator.order.new',array(array('accountID'=>0,'order'=>getOrderNumber($order))));
+                Event::fire('moderator.order.new',array(array('accountID'=>0,'link'=>URL::to('moderator/order/'.$order->id.'/extended'),'order'=>getOrderNumber($order))));
                 return Redirect::to(AuthAccount::getStartPage().'/#orgNotifications');
             endif;
         else:
@@ -192,7 +192,7 @@ class AccountsOrderingController extends BaseController {
                 elseif(isIndividual()):
                     Event::fire('individual.order.closed-join',array(array('accountID'=>Auth::user()->id,'order'=>getOrderNumber($order),'link'=>URL::route('individual-order',$order_id))));
                 endif;
-                Event::fire('moderator.order.closed',array(array('accountID'=>0,'order'=>getOrderNumber($order))));
+                Event::fire('moderator.order.closed',array(array('accountID'=>0,'link'=>URL::to('moderator/order/'.$order->id.'/extended'),'order'=>getOrderNumber($order))));
             endif;
             return TRUE;
         endif;
