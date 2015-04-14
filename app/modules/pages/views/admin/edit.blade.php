@@ -6,6 +6,7 @@ $element->settings = json_decode($element->settings, 1);
 
 
 @section('style')
+    {{ HTML::style('css/redactor.css') }}
 @stop
 
 
