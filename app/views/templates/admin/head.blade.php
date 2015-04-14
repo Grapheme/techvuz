@@ -12,6 +12,7 @@
 @endif
 	{{ HTML::style('css/font-awesome.min.css') }}
 	{{ HTML::style('css/production_unminified.css') }}
+    {{ HTML::style('css/redactor.css') }}
 	{{ HTML::style('css/smartadmin-skins.min.css') }}
 	{{ HTML::style('css/your_style.css') }}
 

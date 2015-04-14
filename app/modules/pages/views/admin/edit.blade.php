@@ -6,13 +6,12 @@ $element->settings = json_decode($element->settings, 1);
 
 
 @section('style')
-    {{ HTML::style('css/redactor.css') }}
 @stop
 
 
 @section('content')
 
-    <?
+<?
     #$create_title = "Редактировать " . $module['entity_name'] . ":";
     #$edit_title   = "Добавить " . $module['entity_name'] . ":";
     $create_title = "Изменить страницу:";
@@ -21,7 +20,7 @@ $element->settings = json_decode($element->settings, 1);
     $url        = @$element->id ? URL::route($module['entity'].'.update', array('id' => $element->id)) : URL::route($module['entity'].'.store', array());
     $method     = @$element->id ? 'PUT' : 'POST';
     $form_title = @$element->id ? $create_title : $edit_title;
-    ?>
+?>
 
     @include($module['tpl'].'/menu')
 
