@@ -7,7 +7,7 @@ $(function(){
     $(".remove-user").click(function() {
 		var $this = this;
 		$.SmartMessageBox({
-			title : "Удалить пользователя?",
+			title : "Удалить пользователя "+$($this).data('user-name')+"?",
 			content : "",
 			buttons : '[Нет][Да]'
 		},function(ButtonPressed) {
