@@ -94,14 +94,14 @@
         @endforeach
     </div>
     <div class="desc margin-top-20">
-            @if (count($page->blocks))
-                @foreach ($page->blocks as $block)
-                    @if($block->slug != 'seo')
-                        {{ $page->block($block->slug) }}
-                    @endif
-                @endforeach
-            @endif
-        </div>
+@if (count($page->blocks))
+    @foreach ($page->blocks as $block)
+        @if($block->slug != 'seo')
+            {{ $page->block($block->slug) }}
+        @endif
+    @endforeach
+@endif
+    </div>
 </main>
 @stop
 @section('scripts')
