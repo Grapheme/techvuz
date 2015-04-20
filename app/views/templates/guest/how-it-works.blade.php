@@ -3,7 +3,7 @@
 @stop
 @section('content')
 <main class="how-it-works">
-    {{ $page->block('top_h2') }}
+    @if(!empty($page->seo->h1))<h1>{{ $page->seo->h1 }}</h1>@endif
     <div class="desc">
     {{ $page->block('top_desc') }}
     </div>
