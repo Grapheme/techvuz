@@ -72,7 +72,7 @@
 
     <div class="auth">
     @if(Auth::guest())
-        <a class="btn btn--bordered" href="{{ URL::route('page', 'registration') }}">Оформить заявку</a>
+        <a class="btn btn--bordered" href="{{ pageurl('registration') }}">Оформить заявку</a>
         <span class="or-span">или</span>
         <a class="login-link js-login" href="javascript:void(0);">Войти</a>
     @else        
