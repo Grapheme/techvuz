@@ -4,7 +4,7 @@
 @stop
 @section('content')
 <main class="registration">
-    <h1>{{ $page->block('top_h2') }}</h1>
+    @if(!empty($page->seo->h1)) <h1>{{ $page->seo->h1 }}</h1> @endif
     <div class="desc">
     {{ $page->block('top_desc') }}
     </div>
