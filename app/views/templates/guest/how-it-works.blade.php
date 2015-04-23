@@ -4,9 +4,6 @@
 @section('content')
 <main class="how-it-works">
     @if(!empty($page->seo->h1))<h1>{{ $page->seo->h1 }}</h1>@endif
-    <div class="desc">
-    {{ $page->block('top_desc') }}
-    </div>
     <section class="htw">
     {{ $page->block('content') }}
     </section>
