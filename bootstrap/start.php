@@ -17,6 +17,7 @@ $env = $app->detectEnvironment(array(
 	'server1.grapheme.ru' => array('www.grapheme.ru'),
 	'server2.grapheme.ru' => array('grapheme'),
 	'tehvuz' => array('tehvuz'),
+	'kirill' => array('Mac-mini-Admin.local')
 ));
 $app->bindInstallPaths(require __DIR__.'/paths.php');
 $framework = $app['path.base'].'/vendor/laravel/framework/src';
