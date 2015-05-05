@@ -1,0 +1,7 @@
+.default-table {
+	border-collapse: collapse;
+}
+
+td {
+	font-size: 16px;
+}

@@ -17,7 +17,7 @@
             endforeach;
         ?>
         <?php ob_start();?>
-        <table>
+        <table class="default-table" style="border-collapse: collapse;">
             <tbody>
                 <tr>
                     <td><p align="center"><strong>№ п/п</strong></p></td>
@@ -29,7 +29,7 @@
                 <?php $course_index = 0 ;?>
                 @foreach($listener['courses'] as $course_id => $course_info)
                 <tr>
-                    <td>@if($course_index == 0)<p align="center">{{ ++$listener_index }}</p>@endif</td>
+                    <td>@if($course_index == 0){{ ++$listener_index }}@endif</td>
                     <td>@if($course_index == 0){{ $listener['fio'] }}@endif</td>
                     <td>{{ $course_info['course_code'] }} {{ $course_info['course_title'] }}</td>
                 </tr>
