@@ -368,7 +368,7 @@ class AccountsIndividualController extends BaseController {
                     endforeach;
                     Event::fire('listener.start.course.study', array(array('listener_course_id'=>$study_course_id)));
                     $headers = returnZipDownloadHeaders($zipFilePath);
-                    return Response::download($zipFilePath, 'all-lectures.zip.', $headers);
+                    return Response::download($zipFilePath, 'all-lectures.zip', $headers);
                 endif;
             endif;
         endif;
