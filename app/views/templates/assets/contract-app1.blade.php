@@ -16,6 +16,7 @@
                 $spisok[$listener->user_id]['course'][] = !empty($listener->course) ? $listener->course->toArray() : array();
             endforeach;
         ?>
+        <?php $ObchiyObemDPP = 0; ?>
         <?php ob_start();?>
         <table border="1" cellpadding="0" cellspacing="0">
             <tbody>
@@ -58,6 +59,7 @@
                     @if(count($listener['course']))
                         <p style="text-align: center; font-size: 16px;">{{ $listener['course'][0]['code'] }}</p>
                         <p style="text-align: center; font-size: 16px;">{{ $listener['course'][0]['title'] }}</p>
+                        <?php $ObchiyObemDPP += (int)$listener['course'][0]['hours']; ?>
                     @endif
                     </td>
                 </tr>
@@ -71,6 +73,7 @@
                         <p style="text-align: center; font-size: 16px;">{{ $course['title'] }}</p>
                     </td>
                 </tr>
+                <?php $ObchiyObemDPP += (int)$course['hours']; ?>
                 @endif
             @endforeach
         @endif
@@ -85,6 +88,7 @@
             </tbody>
         </table>
         <?php $TablicaSluschateleyDlyaDogovora = ob_get_clean(); ?>
+        <?php $SrokOsvoeniyaPDD = round($ObchiyObemDPP/8); ?>
         @endif
         @if(isset($template) && File::exists($template))
             <?php require_once($template);?>

@@ -140,8 +140,10 @@ class AccountsOrderingController extends BaseController {
                 $approve = 0;
                 if (isOrganization()):
                     $approve = User_organization::where('id',Auth::user()->id)->pluck('moderator_approve');
+                    $name = 'ЮЛ '.User_organization::where('id',Auth::user()->id)->pluck('title');
                 elseif(isIndividual()):
                     $approve = User_individual::where('id',Auth::user()->id)->pluck('moderator_approve');
+                    $name = 'ФЛ '.User_individual::where('id',Auth::user()->id)->pluck('fio');
                 endif;
                 if (!$approve):
                     if (isOrganization()):
@@ -156,7 +158,7 @@ class AccountsOrderingController extends BaseController {
                         Event::fire('individual.order-puy',array(array('accountID'=>Auth::user()->id,'order'=>getOrderNumber($order),'order_link'=>URL::route('individual-order',$order->id),'document_link'=>URL::route('individual-listener-order-invoice',array('order_id'=>$order->id,'format'=>'pdf')))));
                     endif;
                 endif;
-                Event::fire('moderator.order.new',array(array('accountID'=>0,'link'=>URL::to('moderator/order/'.$order->id.'/extended'),'order'=>getOrderNumber($order))));
+                Event::fire('moderator.order.new',array(array('accountID'=>0,'link'=>URL::to('moderator/order/'.$order->id.'/extended'),'order'=>getOrderNumber($order),'organization'=>@$name)));
                 return Redirect::to(AuthAccount::getStartPage().'/#orgNotifications');
             endif;
         else:

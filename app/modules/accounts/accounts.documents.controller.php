@@ -1545,6 +1545,9 @@ class AccountsDocumentsController extends BaseController {
             'KolichestvoVoprosiv' => 0,
             'KolichestvoPravilnuhOtvetov' => 0,
 
+            'ObchiyObemDPP' => 0,
+            'SrokOsvoeniyaPDD' => 0,
+
             'VsegoNaimenovaliy' => 0,'KolichestvoNaimenovaliy' => 0, 'NomerUdostovereniya' => ''
         );
         if ($extract):
