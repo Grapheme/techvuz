@@ -467,6 +467,7 @@ class AccountsIndividualController extends BaseController {
                 if ($test->chapter_id == 0):
                     Event::fire('listener.over.course.study', array(array('listener_course_id'=>$study_course_id)));
                     Event::fire('listener.study-finish',array(array('accountID'=>Auth::user()->id,'course'=>OrderListeners::where('id',$study_course_id)->first()->course()->pluck('code'))));
+                    Event::fire('moderator.study.finish',array(array('accountID'=>0,'course'=>OrderListeners::where('id',$study_course_id)->first()->course()->pluck('code'),'listener'=>User_individual::where('id',Auth::user()->id)->pluck('fio'),'percent'=>$listenerTest->result_attempt,'link'=>URL::to('moderator/listeners/profile/'.Auth::user()->id))));
                     AccountsOrderingController::closeOrder($listenerCourse->order_id);
                     return Redirect::route('listener-study-test-result',array('course_translite_title'=>$course_translite_title,'study_test_id'=>$listenerTest->id))->with('message.text',Lang::get('interface.COMPANY_LISTENER_STUDY_TEST_FINISH.success_course_test').' '.round($listenerTest->result_attempt,0) .'%</h4>')->with('message.status','test-result')->with('message.show_result',TRUE);
                 else:
