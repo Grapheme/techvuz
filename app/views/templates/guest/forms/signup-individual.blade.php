@@ -8,7 +8,7 @@
             <label>Ф.И.О.</label>{{ Form::text('fio', '',array('placeholder'=>'Иванов Иван Иванович')) }}
         </div>
         <div class="form-element">
-            <label>Ф.И.О. в род. падеже</label>{{ Form::text('fio_rod', '',array('placeholder'=>'Иванов Иван Иванович')) }}
+            <label>Ф.И.О. в дат. падеже</label>{{ Form::text('fio_rod', '',array('placeholder'=>'Иванов Иван Иванович')) }}
         </div>
         <div class="form-element">
             <label>Серия паспорта</label>{{ Form::text('passport_seria', '',array('placeholder'=>'')) }}

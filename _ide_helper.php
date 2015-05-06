@@ -1,7 +1,7 @@
 <?php
 /**
  * An helper file for Laravel 4, to provide autocomplete information to your IDE
- * Generated for Laravel 4.2.16 on 2015-04-06.
+ * Generated for Laravel 4.2.16 on 2015-05-06.
  *
  * @author Barry vd. Heuvel <barryvdh@gmail.com>
  * @see https://github.com/barryvdh/laravel-ide-helper
@@ -12750,89 +12750,6 @@ namespace {
 
 
     class Collection extends \Illuminate\Database\Eloquent\Collection{
-        
-    }
-
-
-    class PDF extends \Lowerends\Mpdf\Facades\Pdf{
-        
-        /**
-         * Load a HTML string
-         *
-         * @param string $string
-         * @return static 
-         * @static 
-         */
-        public static function loadHTML($string){
-            return \Lowerends\Mpdf\PdfWrapper::loadHTML($string);
-        }
-        
-        /**
-         * Load a HTML file
-         *
-         * @param string $file
-         * @return static 
-         * @static 
-         */
-        public static function loadFile($file){
-            return \Lowerends\Mpdf\PdfWrapper::loadFile($file);
-        }
-        
-        /**
-         * Load a View and convert to HTML
-         *
-         * @param string $view
-         * @param array $data
-         * @param array $mergeData
-         * @return static 
-         * @static 
-         */
-        public static function loadView($view, $data = array(), $mergeData = array()){
-            return \Lowerends\Mpdf\PdfWrapper::loadView($view, $data, $mergeData);
-        }
-        
-        /**
-         * Output the PDF as a string.
-         *
-         * @return string The rendered PDF as string
-         * @static 
-         */
-        public static function output(){
-            return \Lowerends\Mpdf\PdfWrapper::output();
-        }
-        
-        /**
-         * Save the PDF to a file
-         *
-         * @param $filename
-         * @return static 
-         * @static 
-         */
-        public static function save($filename){
-            return \Lowerends\Mpdf\PdfWrapper::save($filename);
-        }
-        
-        /**
-         * Make the PDF downloadable by the user
-         *
-         * @param string $filename
-         * @return \Symfony\Component\HttpFoundation\Response 
-         * @static 
-         */
-        public static function download($filename = 'document.pdf'){
-            return \Lowerends\Mpdf\PdfWrapper::download($filename);
-        }
-        
-        /**
-         * Return a response with the PDF to show in the browser
-         *
-         * @param string $filename
-         * @return \Symfony\Component\HttpFoundation\Response 
-         * @static 
-         */
-        public static function stream($filename = 'document.pdf'){
-            return \Lowerends\Mpdf\PdfWrapper::stream($filename);
-        }
         
     }
 
