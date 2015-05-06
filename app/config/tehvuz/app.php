@@ -2,5 +2,5 @@
 
 return array(
 
-	'debug' => true
+	'debug' => FALSE
 );
