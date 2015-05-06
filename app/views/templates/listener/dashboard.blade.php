@@ -15,7 +15,7 @@
             $lastMonth = \Carbon\Carbon::now()->subMonth();
             $query->orderBy('dictionary_values.updated_at','DESC');
             $query->where('dictionary_values.updated_at','>=',$lastMonth);
-            $query->filter_by_field('user_id',Auth::user()->id);
+            $query->filter_by_field('user_id','=',Auth::user()->id);
        });
     ?>
     <?php $account = User_listener::where('id',Auth::user()->id)->with('organization')->first(); ?>

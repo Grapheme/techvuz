@@ -3,14 +3,14 @@
 @stop
 @section('content')
 <main class="cabinet">
-    <?php
-    $messages = Dictionary::valuesBySlug('system-messages',function($query){
-        $query->orderBy('dictionary_values.updated_at','DESC');
-        $query->orderBy('dictionary_values.id','DESC');
-        $query->filter_by_field('user_id',Auth::user()->id);
-    });
-    $account = User_listener::where('id',Auth::user()->id)->with('organization')->first();
-    ?>
+<?php
+$messages = Dictionary::valuesBySlug('system-messages',function($query){
+    $query->orderBy('dictionary_values.updated_at','DESC');
+    $query->orderBy('dictionary_values.id','DESC');
+    $query->filter_by_field('user_id','=',Auth::user()->id);
+}, ['fields', 'textfields'], true, true, true, 30);
+$account = User_listener::where('id',Auth::user()->id)->with('organization')->first();
+?>
     <h1>{{ $account->fio }}</h1>
     <p class="style-light style-italic">{{ $account->organization->title }}</p>
     <div class="cabinet-tabs">
@@ -43,6 +43,7 @@
             </tbody>
         </table>
         {{ Form::close() }}
+        {{ $messages->links() }}
         @else
             <p>Уведомления отсутствуют</p>
         @endif

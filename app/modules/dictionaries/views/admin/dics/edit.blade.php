@@ -76,9 +76,9 @@
                     </section>
 
                     <section>
-                        <label class="label">Класс иконки <a href="http://fontawesome.io/icons/" target="_blank">FontAwesome</a></label>
+                        <label class="label">Класс иконки <a href="http://fontawesome.io/icons/" target="_blank">FontAwesome</a>:</label>
                         <label class="input">
-                            {{ Form::text('icon_class', null, array('placeholder' => 'Например: fa-circle-o')) }}
+                            {{ Form::text('icon_class', $element->icon_class ?: 'fa-circle-o', array('placeholder' => 'Например: fa-circle-o')) }}
                         </label>
                     </section>
 
@@ -182,14 +182,29 @@
                     </section>
 
                     <section>
-                        <label class="note">
-                            Следующая возможность будет работать только если отключена пагинация и сортировка осуществляется по умолчанию (по полю order)
-                        </label>
-                        <label class="checkbox">
-                            {{ Form::checkbox('sortable', 1, $element->id ? NULL : true) }}
-                            <i></i>
+                        <label class="label">
                             Возможность менять порядок элементов перетаскиванием
                         </label>
+                        <label class="note">
+                             Данная возможность будет работать только если отключена пагинация и сортировка осуществляется по умолчанию (по полям left/right)
+                         </label>
+                         <label class="select">
+                            {{ Form::select('sortable', array(
+                                '0' => 'Запрещено',
+                                '1' => 'Разрешено, без вложенности',
+                                'Максимальное количество уровней вложенности' => array(
+                                    '2' => '2 уровня',
+                                    '3' => '3 уровня',
+                                    '4' => '4 уровня',
+                                    '5' => '5 уровней',
+                                    '6' => '6 уровней',
+                                    '7' => '7 уровней',
+                                    '8' => '8 уровней',
+                                    '9' => '9 уровней',
+                                ),
+                            )) }}
+                        </label>
+
                     </section>
 
                 </fieldset>
@@ -224,14 +239,14 @@
 	};
     </script>
 
-	{{ HTML::script('js/modules/standard.js') }}
+	{{ HTML::script('private/js/modules/standard.js') }}
 
 	<script type="text/javascript">
 		if(typeof pageSetUp === 'function'){pageSetUp();}
 		if(typeof runFormValidation === 'function') {
-			loadScript("{{ asset('js/vendor/jquery-form.min.js'); }}", runFormValidation);
+			loadScript("{{ asset('private/js/vendor/jquery-form.min.js'); }}", runFormValidation);
 		} else {
-			loadScript("{{ asset('js/vendor/jquery-form.min.js'); }}");
+			loadScript("{{ asset('private/js/vendor/jquery-form.min.js'); }}");
 		}        
 	</script>
 

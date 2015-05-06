@@ -3,13 +3,13 @@
 @stop
 @section('content')
 <main class="cabinet">
-    <?php
+<?php
     $messages = Dictionary::valuesBySlug('system-messages',function($query){
         $query->orderBy('dictionary_values.updated_at','DESC');
         $query->orderBy('dictionary_values.id','DESC');
-        $query->filter_by_field('user_id',Auth::user()->id);
-    });
-    ?>
+        $query->filter_by_field('user_id','=',Auth::user()->id);
+    }, ['fields', 'textfields'], true, true, true, 30);
+?>
     <h2>{{ User_organization::where('id',Auth::user()->id)->pluck('title') }}</h2>
     <div class="cabinet-tabs">
         @include(Helper::acclayout('menu'))
@@ -41,6 +41,7 @@
             </tbody>
         </table>
         {{ Form::close() }}
+        {{ $messages->links() }}
         @else
             <p>Уведомления отсутствуют</p>
         @endif
