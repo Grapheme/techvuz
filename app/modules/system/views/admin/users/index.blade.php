@@ -60,7 +60,7 @@
                                 @elseif(Input::has('group_id') && Input::get('group_id') == 6)
                                     <?php $user_name =  ' инд.слушателя '.$user->name .' '.$user->surname ;?>
                                 @else
-                                    <?php $user_name =  $user->name .' '.$user->surname; ;?>
+                                    <?php $user_name = 'пользователя '.  $user->name .' '.$user->surname; ;?>
                                 @endif
     						<form method="POST" action="{{ action($module['class'].'@deleteDestroy', array('user_id' => $user->id)) }}" style="display:inline-block">
     							<button data-user-name="{{{ $user_name }}}" type="submit" class="btn btn-danger remove-user"<? if($user->id == 1){ echo " disabled='disabled'"; }?>>
