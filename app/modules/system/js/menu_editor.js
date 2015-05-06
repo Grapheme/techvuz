@@ -267,7 +267,7 @@ var updateOutput = function(e) {
 
 //init_sortable(false, '.menu_items');
 if ($('.dd').length) {
-    loadScript(base_url + '/private/js/plugin/jquery-nestable/jquery.nestable.js', function() {
+    loadScript(base_url + '/js/plugin/jquery-nestable/jquery.nestable.js', function() {
 
         //alert(nesting_level);
 

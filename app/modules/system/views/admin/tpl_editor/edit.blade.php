@@ -82,13 +82,13 @@ $tpl_content = @file_get_contents($full_file);
 
     @if (0)
     <!-- Create a simple CodeMirror instance -->
-    {{ HTML::style('private/js/codemirror/lib/codemirror.css') }}
-    {{ HTML::script('private/js/codemirror/lib/codemirror.js') }}
-    {{ HTML::script('private/js/codemirror/addon/edit/matchbrackets.js') }}
-    {{ HTML::script('private/js/codemirror/mode/htmlmixed/htmlmixed.js') }}
-    {{ HTML::script('private/js/codemirror/mode/xml/xml.js') }}
-    {{ HTML::script('private/js/codemirror/mode/clike/clike.js') }}
-    {{ HTML::script('private/js/codemirror/mode/php/php.js') }}
+    {{ HTML::style('js/codemirror/lib/codemirror.css') }}
+    {{ HTML::script('js/codemirror/lib/codemirror.js') }}
+    {{ HTML::script('js/codemirror/addon/edit/matchbrackets.js') }}
+    {{ HTML::script('js/codemirror/mode/htmlmixed/htmlmixed.js') }}
+    {{ HTML::script('js/codemirror/mode/xml/xml.js') }}
+    {{ HTML::script('js/codemirror/mode/clike/clike.js') }}
+    {{ HTML::script('js/codemirror/mode/php/php.js') }}
     <script>
         var myTextarea = document.getElementById("tpl_content");
         var editor = CodeMirror.fromTextArea(myTextarea, {
@@ -105,7 +105,7 @@ $tpl_content = @file_get_contents($full_file);
 
     @if (1)
     <!-- ACE minify -->
-    {{ HTML::script('private/js/ace-builds/src-min-noconflict/ace.js') }}
+    {{ HTML::script('js/ace-builds/src-min-noconflict/ace.js') }}
     <script>
         var editor = ace.edit("tpl_content");
         editor.setTheme("ace/theme/monokai");
@@ -119,10 +119,10 @@ $tpl_content = @file_get_contents($full_file);
 
     @if (0)
     <!-- ACE full -->
-    {{ HTML::script('private/js/ace/demo/kitchen-sink/require.js') }}
+    {{ HTML::script('js/ace/demo/kitchen-sink/require.js') }}
     <script>
         // setup paths
-        require.config({paths: { "ace" : "{{ asset('private/js/ace/lib/ace') }}" } });
+        require.config({paths: { "ace" : "{{ asset('js/ace/lib/ace') }}" } });
         // load ace and extensions
         require(["ace/ace", "ace/mode/blade-template"], function(ace) {
             var editor = ace.edit("tpl_content");
