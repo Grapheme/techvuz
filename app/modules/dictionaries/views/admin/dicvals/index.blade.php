@@ -39,7 +39,7 @@ function write_level($hierarchy, $elements, $dic_id, $dic, $dic_settings, $modul
                         <div class="pull-right dicval-actions dicval-main-actions dicval-actions-margin-left">
                             @if(Allow::action($module['group'], 'dicval_edit'))
                             <a href="{{ action(is_numeric($dic_id) ? 'dicval.edit' : 'entity.edit', array('dic_id' => $dic_id, 'id' => $element->id)) . (Request::getQueryString() ? '?' . Request::getQueryString() : '') }}" class="btn btn-success dicval-action dicval-actions-edit" title="Изменить">
-                                <!--Изменить-->
+                                Изменить
                             </a>
                             @endif
 
@@ -52,7 +52,7 @@ function write_level($hierarchy, $elements, $dic_id, $dic, $dic_settings, $modul
                             )
                             <form method="POST" action="{{ action(is_numeric($dic_id) ? 'dicval.destroy' : 'entity.destroy', array('dic_id' => $dic_id, 'id' => $element->id)) }}" style="display:inline-block" class="dicval-action dicval-actions-delete">
                                 <button type="button" class="btn btn-danger remove-dicval-list" title="Удалить">
-                                    <!--Удалить-->
+                                    Удалить
                                 </button>
                             </form>
                             @endif

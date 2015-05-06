@@ -273,7 +273,7 @@ if ($('.dd').length) {
 
         $('.dd').nestable({
             //group : 1
-            maxDepth: nesting_level || 5,
+            maxDepth: 1,
             expandBtnHTML: '',
             collapseBtnHTML: ''
         }).on('change', updateOutput);
