@@ -1,16 +1,13 @@
-
 <?
 #Helper::tad($element->metas->where('language', $locale_sign)->first());
 #Helper::ta($element);
 #Helper::dd($dic_settings);
-/*{{--
-if (@is_callable($dic_settings['fields_i18n']))
-    $fields_i18n = $dic_settings['fields_i18n']();
-#--}}*/
 
+## Search meta for current locale
 $element_meta = new DicValMeta;
-if (@is_object($element->metas) && $element->metas->count())
+if (isset($element->metas) && is_object($element->metas) && $element->metas->count())
     foreach ($element->metas as $tmp) {
+        #Helper::ta($tmp);
         if ($tmp->language == $locale_sign) {
             $element_meta = $tmp;
             break;
@@ -18,65 +15,69 @@ if (@is_object($element->metas) && $element->metas->count())
     }
 ?>
 
-@if (count($locales) > 1)
-{{-- @if (count($fields_i18n)) --}}
-    <section>
-        <label class="label">Название</label>
-        <label class="input select input-select2">
-            {{ Form::text('locales[' . $locale_sign . '][name]', $element_meta->name, array()) }}
-        </label>
-    </section>
-@endif
 
-{{-- @if (count($locales) > 1) --}}
+{{-- If parent dictionary have the fields --}}
 @if (count($fields_i18n))
 
-<?
-    $element_fields = array();
-    if (isset($element->allfields) && is_object($element->allfields) && count($element->allfields)) {
-        $element_fields = $element->allfields;
-        foreach ($element_fields as $f => $field) {
-            if (!$field->language)
-                unset($element_fields[$f]);
-        }
-        #$element_fields = $element_fields->lists('value', 'key');
-        #Helper::ta($element_fields);
-    }
-?>
+    <?
+    #Helper::ta($fields_i18n);
+
+    ## Get element fields
+    $element_fields = (isset($element->allfields) && is_array($element->allfields)
+                       && isset($element->allfields[$locale_sign])
+                       && is_array($element->allfields[$locale_sign])) ? $element->allfields[$locale_sign] : [];
+    #Helper::ta($element_fields);
+
+    ## Get element text fields
+    $element_textfields = (isset($element->alltextfields) && is_array($element->alltextfields)
+                       && isset($element->alltextfields[$locale_sign])
+                       && is_array($element->alltextfields[$locale_sign])) ? $element->alltextfields[$locale_sign] : [];
+    #Helper::tad($element_textfields);
+
+    ## All element fields
+    $element_fields_all = $element_fields + $element_textfields;
+    #Helper::tad($element_fields_all);
+    ?>
 
     @foreach ($fields_i18n as $field_name => $field)
-<?
-        $field_meta = new DicFieldVal();
-        foreach ($element_fields as $tmp) {
-            #Helper::ta($tmp);
-            if ($tmp->key == @$field_name && $tmp->language == $locale_sign) {
-                $field_meta = $tmp;
-                break;
-            }
-        }
-        $form_field = Helper::formField('fields_i18n[' . $locale_sign . '][' . $field_name . ']', $field, @$field_meta->value, $element);
-        if (!$form_field)
+        <?
+        $field_meta_value = isset($element_fields_all[$field_name]) ? $element_fields_all[$field_name] : NULL;
+        #Helper::ta($field_meta_value);
+
+        $form_field = Helper::formField('fields_i18n[' . $locale_sign . '][' . $field_name . ']', $field, $field_meta_value, $element);
+        #var_dump($form_field);
+
+        if (!isset($form_field) || !$form_field)
             continue;
 
-        #$form_field = false;
-?>
+        ######################################################################
+        ## Experimental, not tested! Conflicts are possible!
+        ######################################################################
+        if (isset($field['scripts'])) {
+            #var_dump($field['scripts']);
+            global $dicval_edit_scripts;
+            #var_dump($dicval_edit_scripts);
+            $dicval_edit_scripts[] = $field['scripts'];
+            #var_dump($dicval_edit_scripts);
+        }
+        ######################################################################
+        ?>
 
         <section>
-            @if (!@$field['no_label'])
-            <label class="label">{{ $field['title'] }}</label>
+            @if (!@$field['no_label'] && isset($field['title']))
+                <label class="label">{{ $field['title'] }}</label>
             @endif
             @if (@$field['first_note'])
-            <label class="note">{{ @$field['first_note'] }}</label>
+                <label class="note">{{ @$field['first_note'] }}</label>
             @endif
-            <div class="input {{ $field['type'] }}">
+            <div class="input {{ $field['type'] }} {{ @$field['label_class'] }}">
                 {{ $form_field }}
             </div>
             @if (@$field['second_note'])
-            <label class="note">{{ @$field['second_note'] }}</label>
+                <label class="note">{{ @$field['second_note'] }}</label>
             @endif
         </section>
 
     @endforeach
-
 
 @endif

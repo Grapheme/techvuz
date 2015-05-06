@@ -11,7 +11,7 @@
         $query->orderBy('dictionary_values.updated_at','DESC');
         $query->orderBy('dictionary_values.id','DESC');
         $query->where('dictionary_values.updated_at','>=',$setDate);
-        $query->filter_by_field('user_id',Auth::user()->id);
+        $query->filter_by_field('user_id','=',Auth::user()->id);
     });
     if($messages->count()):
         (new AccountsOperationController())->saveUserSetting('dashboard-target-notification-block',0,FALSE);

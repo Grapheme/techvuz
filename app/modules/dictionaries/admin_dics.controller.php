@@ -214,8 +214,8 @@ class AdminDicsController extends BaseController {
             $input['hide_slug'] = Input::get('hide_slug') ? 1 : NULL;
             $input['make_slug_from_name'] = Input::get('make_slug_from_name') > 0 ? (int)Input::get('make_slug_from_name') : NULL;
             $input['name_title'] = Input::get('name_title') ?: NULL;
-            $input['view_access'] = Input::get('view_access') ?: NULL;
-            $input['sortable'] = Input::get('sortable') ? 1 : 0;
+            $input['view_access'] = is_numeric(Input::get('view_access')) ? (int)Input::get('view_access') : NULL;
+            $input['sortable'] = Input::get('sortable') ? (int)Input::get('sortable') : 0;
             $input['sort_by'] = Input::get('sort_by') != 'order' ? Input::get('sort_by') : NULL;
         }
 
@@ -245,7 +245,11 @@ class AdminDicsController extends BaseController {
                 $redirect = action('dicval.index', array('dic_id' => $dic_id));
             }
 
-			$json_request['responseText'] = 'Сохранено';
+            ## Clear & reload dics cache
+            Dic::drop_cache();
+            Dic::preload();
+
+            $json_request['responseText'] = 'Сохранено';
             if ($redirect)
 			    $json_request['redirect'] = $redirect;
 			$json_request['status'] = TRUE;
@@ -271,7 +275,11 @@ class AdminDicsController extends BaseController {
         if (NULL !== Dictionary::find($id))
             Dictionary::find($id)->delete();
 
-		$json_request['responseText'] = 'Удалено';
+        ## Clear & reload dics cache
+        Dic::drop_cache();
+        Dic::preload();
+
+        $json_request['responseText'] = 'Удалено';
 		$json_request['status'] = TRUE;
 		return Response::json($json_request,200);
 	}
@@ -466,11 +474,13 @@ class AdminDicsController extends BaseController {
         #Helper::d('Мультиязычные доп. поля словаря (fields_i18n):') . Helper::d($fields_i18n);
 
         $tbl_dic_field_val = (new DicFieldVal)->getTable();
+        $tbl_dic_textfield_val = (new DicTextFieldVal)->getTable();
 
         /**
          * Будут индексироваться только поля следующих типов
          */
         $indexed_types = array('textarea', 'textarea_redactor', 'text');
+        $fulltext_types = array('textarea', 'textarea_redactor');
 
         $selects = array(
             "dicval.id AS id",
@@ -488,14 +498,16 @@ class AdminDicsController extends BaseController {
         if (isset($fields) && is_array($fields) && count($fields)) {
             foreach ($fields as $field_key => $field) {
 
-                if (!in_array($field['type'], $indexed_types))
+                if (!isset($field['type']) || !in_array($field['type'], $indexed_types))
                     continue;
+
+                $tbl_field = in_array($field['type'], $fulltext_types) ? $tbl_dic_textfield_val : $tbl_dic_field_val;
 
                 ++$j;
                 $tbl =  "tbl" . $j;
                 ##$selects[] = $tbl . '.language AS language';
                 $selects[] = $tbl . '.value AS ' . $field_key;
-                $sql[] = "LEFT JOIN " . $tbl_dic_field_val . " AS " . $tbl . " ON " . $tbl . ".dicval_id = dicval.id AND " . $tbl . ".key = '" . $field_key . "' AND " . $tbl . ".language IS NULL";
+                $sql[] = "LEFT JOIN " . $tbl_field . " AS " . $tbl . " ON " . $tbl . ".dicval_id = dicval.id AND " . $tbl . ".key = '" . $field_key . "' AND " . $tbl . ".language IS NULL";
             }
         }
         /**
@@ -507,11 +519,13 @@ class AdminDicsController extends BaseController {
                 if (!in_array($field['type'], $indexed_types))
                     continue;
 
+                $tbl_field = in_array($field['type'], $fulltext_types) ? $tbl_dic_textfield_val : $tbl_dic_field_val;
+
                 ++$j;
                 $tbl =  "tbl" . $j;
                 ##$selects[] = $tbl . '.language AS language';
                 $selects[] = $tbl . '.value AS ' . $field_key;
-                $sql[] = "LEFT JOIN " . $tbl_dic_field_val . " AS " . $tbl . " ON " . $tbl . ".dicval_id = dicval.id AND " . $tbl . ".key = '" . $field_key . "' AND " . $tbl . ".language IS NOT NULL";
+                $sql[] = "LEFT JOIN " . $tbl_field . " AS " . $tbl . " ON " . $tbl . ".dicval_id = dicval.id AND " . $tbl . ".key = '" . $field_key . "' AND " . $tbl . ".language IS NOT NULL";
             }
         }
 

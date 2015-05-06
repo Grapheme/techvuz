@@ -1,6 +1,8 @@
 <?php
-$dic_reviews = Dictionary::where('slug','reviews')->with('random_values')->first();
-$reviews = $dic_reviews->random_values;
+$reviews = Dic::valuesBySlug('reviews', function($query){
+    $query->orderByRaw("RAND()");
+    $query->limit(3);
+});
 $images_ids = array();
 if(count($reviews)):
     foreach($reviews as $index => $review):

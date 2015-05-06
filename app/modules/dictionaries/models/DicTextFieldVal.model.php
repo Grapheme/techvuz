@@ -4,7 +4,7 @@ class DicTextFieldVal extends BaseModel {
 
 	protected $guarded = array();
 
-	public $table = 'dictionary_fields_values';
+	public $table = 'dictionary_textfields_values';
     #public $timestamps = false;
 
 	#public static $order_by = "name ASC";
@@ -17,11 +17,8 @@ class DicTextFieldVal extends BaseModel {
     );
 
 	public static $rules = array(
-		'value_id' => 'required',
+        'dicval_id' => 'required',
+        'key' => 'required',
 	);
-
-    #public static function rules() {
-    #    return self::$rules;
-    #}
 
 }

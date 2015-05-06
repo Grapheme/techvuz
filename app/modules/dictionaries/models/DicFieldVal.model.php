@@ -17,11 +17,17 @@ class DicFieldVal extends BaseModel {
     );
 
 	public static $rules = array(
-		'value_id' => 'required',
+        'dicval_id' => 'required',
+        'key' => 'required',
 	);
 
-    #public static function rules() {
-    #    return self::$rules;
-    #}
+    /**
+     * Связь возвращает родительскую запись DicVal
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function dicval() {
+        return $this->belongsTo('DicVal', 'dicval_id');
+    }
 
 }

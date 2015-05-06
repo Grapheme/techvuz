@@ -6,8 +6,8 @@
 $messages = Dictionary::valuesBySlug('system-messages',function($query){
     $query->orderBy('dictionary_values.updated_at','DESC');
     $query->orderBy('dictionary_values.id','DESC');
-    $query->filter_by_field('user_id',0);
-});
+    $query->filter_by_field('user_id', '=', 0);
+}, ['fields', 'textfields'], true, true, true, 30);
 ?>
 <h2 class="margin-bottom-40">Уведомления</h2>
 <div class="row">
@@ -44,6 +44,7 @@ $messages = Dictionary::valuesBySlug('system-messages',function($query){
             </tbody>
         </table>
         {{ Form::close() }}
+        {{ $messages->links() }}
     @else
         <p>Уведомления отсутствуют</p>
     @endif

@@ -96,7 +96,7 @@ class AccountsModeratorController extends BaseController {
 
         if ($notification_id == 'all'):
             $messages = Dictionary::valuesBySlug('system-messages',function($query){
-                $query->filter_by_field('user_id',0);
+                $query->filter_by_field('user_id','=',0);
             });
             foreach($messages as $message):
                 if($IDs = array_keys(modifyKeys($message->fields,'id'))):
@@ -110,7 +110,7 @@ class AccountsModeratorController extends BaseController {
             $notificationIDs = Input::get('messages');
             $messages = Dictionary::valuesBySlug('system-messages',function($query) use ($notificationIDs) {
                 $query->whereIn('dictionary_values.id',$notificationIDs);
-                $query->filter_by_field('user_id',0);
+                $query->filter_by_field('user_id','=',0);
             });
             foreach($messages as $message):
                 if($IDs = array_keys(modifyKeys($message->fields,'id'))):
