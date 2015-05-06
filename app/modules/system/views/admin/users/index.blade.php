@@ -54,14 +54,16 @@
 
         					@if(Allow::action('system', 'users'))
                                 @if(Input::has('group_id') && Input::get('group_id') == 4)
-                                    <?php $user_name =  $user->title ;?>
+                                    <?php $user_name = ' организацию: "'.$user->title.'"' ;?>
                                 @elseif(Input::has('group_id') && Input::get('group_id') == 5)
-                                    <?php $user_name =  $user->organization->title ;?>
+                                    <?php $user_name =  ' сотрудника "'.$user->organization->title.'" - '.$user->fio ;?>
+                                @elseif(Input::has('group_id') && Input::get('group_id') == 6)
+                                    <?php $user_name =  ' инд.слушателя '.$user->name .' '.$user->surname ;?>
                                 @else
                                     <?php $user_name =  $user->name .' '.$user->surname; ;?>
                                 @endif
     						<form method="POST" action="{{ action($module['class'].'@deleteDestroy', array('user_id' => $user->id)) }}" style="display:inline-block">
-    							<button data-user-name="{{{ '"'.$user_name.'"' }}}" type="submit" class="btn btn-danger remove-user"<? if($user->id == 1){ echo " disabled='disabled'"; }?>>
+    							<button data-user-name="{{{ $user_name }}}" type="submit" class="btn btn-danger remove-user"<? if($user->id == 1){ echo " disabled='disabled'"; }?>>
     								Удалить
     							</button>
     						</form>
