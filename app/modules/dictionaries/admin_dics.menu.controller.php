@@ -7,22 +7,15 @@ class AdminDicsMenuController extends BaseController {
 
     /****************************************************************************/
 
-
     ## Routing rules of module
     public static function returnRoutes($prefix = null) {
-
-        ## Предзагружаем все словари (с кешированием)
-        Dic::preload();
-        #Helper::tad(Cache::get('app.dics'));
-
+        ##
     }
-
 
     ## Shortcodes of module
     public static function returnShortCodes() {
         ##
     }
-
     
     ## Actions of module (for distribution rights of users)
     public static function returnActions() {
@@ -45,10 +38,8 @@ class AdminDicsMenuController extends BaseController {
         );
     }
 
-
     ## Info about module (now only for admin dashboard & menu)
     public static function returnInfo() {
-
         return array(
         	'name' => self::$name,
         	'group' => self::$group,

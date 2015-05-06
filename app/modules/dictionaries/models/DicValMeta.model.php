@@ -16,15 +16,13 @@ class DicValMeta extends BaseModel {
     );
 
 	public static $rules = array(
-		'dicval_id' => 'required',
-		'language' => 'required',
+		#'name' => 'required',
 	);
 
-    /**
-     * Связь возвращает запись для текущей META
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
-     */
+    #public static function rules() {
+    #    return self::$rules;
+    #}
+
     public function dicval() {
         return $this->belongsTo('DicVal', 'dicval_id');
     }
