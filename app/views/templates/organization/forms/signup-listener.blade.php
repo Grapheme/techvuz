@@ -14,7 +14,7 @@
         <label>Должность</label>{{ Form::text('position', '',array('placeholder'=>'Начальник ПТО, ведущий инженер')) }}
     </div>
      <div class="form-element">
-        <label>Адрес</label>{{ Form::text('postaddress', '',array('placeholder'=>'121354, г. Москва, ул. Кутузова, 57, кв. 9')) }}
+        <label>Адрес регистрации</label>{{ Form::text('postaddress', '',array('placeholder'=>'121354, г. Москва, ул. Кутузова, 57, кв. 9')) }}
     </div>
     <div class="form-element">
         <label>Номер телефона</label>{{ Form::text('phone', '',array('class'=>'phone')) }}
