@@ -8,7 +8,7 @@
         $query->orderBy('dictionary_values.updated_at','DESC');
         $query->orderBy('dictionary_values.id','DESC');
         $query->filter_by_field('user_id','=',Auth::user()->id);
-    }, ['fields', 'textfields'], true, true, true, 30);
+    });
 ?>
     <h2>{{ User_individual::where('id',Auth::user()->id)->pluck('fio') }}</h2>
     <div class="cabinet-tabs">
@@ -41,7 +41,6 @@
             </tbody>
         </table>
         {{ Form::close() }}
-        {{ $messages->links() }}
         @else
             <p>Уведомления отсутствуют</p>
         @endif

@@ -8,7 +8,7 @@ $messages = Dictionary::valuesBySlug('system-messages',function($query){
     $query->orderBy('dictionary_values.updated_at','DESC');
     $query->orderBy('dictionary_values.id','DESC');
     $query->filter_by_field('user_id','=',Auth::user()->id);
-}, ['fields', 'textfields'], true, true, true, 30);
+});
 $account = User_listener::where('id',Auth::user()->id)->with('organization')->first();
 ?>
     <h1>{{ $account->fio }}</h1>
@@ -43,7 +43,6 @@ $account = User_listener::where('id',Auth::user()->id)->with('organization')->fi
             </tbody>
         </table>
         {{ Form::close() }}
-        {{ $messages->links() }}
         @else
             <p>Уведомления отсутствуют</p>
         @endif
