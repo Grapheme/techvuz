@@ -26,7 +26,7 @@ class AccountsModeratorController extends BaseController {
                 Route::get('order/{order_id}/edit', array('as' => 'moderator-order-edit', 'uses' => $class . '@OrderEdit'));
                 Route::patch('order/{order_id}/update', array('as' => 'moderator-order-update', 'uses' => $class . '@OrderUpdate'));
 
-                Route::delete('order/{order_id}/arhived', array('as' => 'moderator-order-arhived', 'uses' => $class . '@arhivedOrder'));
+                Route::post('order/{order_id}/arhived', array('as' => 'moderator-order-arhived', 'uses' => $class . '@arhivedOrder'));
                 Route::delete('order/{order_id}/delete', array('as' => 'moderator-order-delete', 'uses' => $class . '@deleteOrder'));
 
                 Route::post('order/{order_id}/payment-number/store', array('before' => 'csrf', 'as' => 'payment-order-number-store', 'uses' => $class . '@OrderPaymentNumberStore'));
@@ -360,7 +360,7 @@ class AccountsModeratorController extends BaseController {
         if(!Request::ajax()) return App::abort(404);
         $json_request = array('status'=>FALSE, 'responseText'=>'');
         $order = Orders::findOrFail($order_id);
-        $order->archived = 1;
+        $order->archived = Input::get('archived');
         $order->save();
         $order->touch();
         Event::fire(Route::currentRouteName(), array(array('title'=>'№'.getOrderNumber($order))));
@@ -757,7 +757,7 @@ class AccountsModeratorController extends BaseController {
                 endif;
             endif;
         endif;
-        $all_orders_query = Orders::where('completed',1)->where('created_at','>=',$period_begin)->where('created_at','<=',$period_end);
+        $all_orders_query = Orders::where('completed',1)->where('archived',FALSE)->where('no_statistic', FALSE)->where('created_at','>=',$period_begin)->where('created_at','<=',$period_end);
         if($account_id):
             $all_orders_query = $all_orders_query->where('user_id',$account_id);
         endif;

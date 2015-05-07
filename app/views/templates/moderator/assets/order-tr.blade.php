@@ -5,12 +5,15 @@
         {{ Form::open(array('url'=>URL::route('moderator-order-delete',array('order_id'=>$order->id)), 'style'=>'display:inline-block', 'method'=>'delete')) }}
         <button type="submit" autocomplete="off" title="Удалить заказ" data-order-number="{{ getOrderNumber($order) }}" class="icon-bag-btn js-delete-order"></button>
         {{ Form::close() }}
-    @elseif(Input::has('delete') && Input::get('delete') == 1)
-        {{ Form::open(array('url'=>URL::route('moderator-order-arhived',array('order_id'=>$order->id)), 'style'=>'display:inline-block', 'method'=>'delete')) }}
-        <button type="submit" autocomplete="off" title="Удалить заказ" data-order-number="{{ getOrderNumber($order) }}" class="icon-bag-btn js-delete-order"></button>
-        {{ Form::close() }}
+    {{--@elseif(Input::has('delete') && Input::get('delete') == 1)--}}
     @endif
-
+        {{ Form::open(array('url'=>URL::route('moderator-order-arhived',array('order_id'=>$order->id)), 'style'=>'display:inline-block', 'method'=>'delete')) }}
+        @if($order->archived == 0)
+        <button type="submit" autocomplete="off" title="Заброшенный заказ" data-archived="{{ abs($order->archived - 1) }}" data-order-number="{{ getOrderNumber($order) }}" class="icon-blue-bag-btn js-archived-order"></button>
+        @elseif($order->archived == 1)
+            <button type="submit" autocomplete="off" title="Заброшенный заказ" data-archived="{{ abs($order->archived - 1) }}" data-order-number="{{ getOrderNumber($order) }}" class="icon-blue-bag-btn js-not-archived-order"></button>
+        @endif
+        {{ Form::close() }}
     </td>
     <td class="vertical-top">
         <a class="nowrap" href="{{ URL::route('moderator-order-extended',$order->id) }}">Заказ №{{ getOrderNumber($order) }}</a>

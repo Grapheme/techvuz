@@ -200,13 +200,95 @@ $(function(){
                             $(".js-delete-order[data-order-number='"+$order+"']").parents('.js-orders-line').fadeOut(500,function(){$(this).remove();});
                         } else {
                             $($this).elementDisabled(false);
-                            showMessage.constructor('Удалить ' + essence_name, 'Возникла ошибка. Обновите страницу и повторите снова.');
+                            showMessage.constructor('Удалить заказ.', 'Возникла ошибка. Обновите страницу и повторите снова.');
                             showMessage.smallError();
                         }
                     },
                     error: function(xhr, textStatus, errorThrown){
                         $($this).elementDisabled(false);
-                        showMessage.constructor('Удалить ' + essence_name, 'Возникла ошибка. Повторите снова.');
+                        showMessage.constructor('Удалить заказ.', 'Возникла ошибка. Повторите снова.');
+                        showMessage.smallError();
+                    }
+                });
+            }
+        });
+        return false;
+    });
+    $(".js-archived-order").click(function() {
+        var $this = this;
+        var $order = $($this).data('order-number');
+        var currentTabCountOrder = 0;
+        $.SmartMessageBox({
+            title : "Отправить заказ №"+$($this).data('order-number')+" в заброшенные?",
+            content : "",
+            buttons : '[Нет][Да]'
+        },function(ButtonPressed) {
+            if(ButtonPressed == "Да") {
+                $.ajax({
+                    url: $($this).parent('form').attr('action'),
+                    data : { archived : $($this).data('archived')},
+                    type: 'POST',
+                    dataType: 'json',
+                    beforeSend: function(){$($this).elementDisabled(true);},
+                    success: function(response, textStatus, xhr){
+                        if(response.status == true){
+                            showMessage.constructor('Заброшенные закзы', response.responseText);
+                            showMessage.smallSuccess();
+                            $(".js-archived-order[data-order-number='"+$order+"']").parents('.js-tab-current').each(function(){
+                                currentTabCountOrder = $("a[href='#"+$(this).attr('id')+"']").find('.filter-count').html();
+                                $("a[href='#"+$(this).attr('id')+"']").find('.filter-count').html(currentTabCountOrder-1);
+                            });
+                            $(".js-archived-order[data-order-number='"+$order+"']").parents('.js-orders-line').fadeOut(500,function(){$(this).remove();});
+                        } else {
+                            $($this).elementDisabled(false);
+                            showMessage.constructor('Заброшенные закзы', 'Возникла ошибка. Обновите страницу и повторите снова.');
+                            showMessage.smallError();
+                        }
+                    },
+                    error: function(xhr, textStatus, errorThrown){
+                        $($this).elementDisabled(false);
+                        showMessage.constructor('Заброшенные закзы', 'Возникла ошибка. Повторите снова.');
+                        showMessage.smallError();
+                    }
+                });
+            }
+        });
+        return false;
+    });
+    $(".js-not-archived-order").click(function() {
+        var $this = this;
+        var $order = $($this).data('order-number');
+        var currentTabCountOrder = 0;
+        $.SmartMessageBox({
+            title : "Вернуть заказ №"+$($this).data('order-number')+" из заброшенных?",
+            content : "",
+            buttons : '[Нет][Да]'
+        },function(ButtonPressed) {
+            if(ButtonPressed == "Да") {
+                $.ajax({
+                    url: $($this).parent('form').attr('action'),
+                    data : { archived : $($this).data('archived')},
+                    type: 'POST',
+                    dataType: 'json',
+                    beforeSend: function(){$($this).elementDisabled(true);},
+                    success: function(response, textStatus, xhr){
+                        if(response.status == true){
+                            showMessage.constructor('Заброшенные закзы', response.responseText);
+                            showMessage.smallSuccess();
+                            $(".js-archived-order[data-order-number='"+$order+"']").parents('.js-tab-current').each(function(){
+                                currentTabCountOrder = $("a[href='#"+$(this).attr('id')+"']").find('.filter-count').html();
+                                $("a[href='#"+$(this).attr('id')+"']").find('.filter-count').html(currentTabCountOrder-1);
+                            });
+                            $(".js-archived-order[data-order-number='"+$order+"']").parents('.js-orders-line').fadeOut(500,function(){$(this).remove();});
+                        } else {
+                            $($this).elementDisabled(false);
+                            showMessage.constructor('Заброшенные закзы', 'Возникла ошибка. Обновите страницу и повторите снова.');
+                            showMessage.smallError();
+                        }
+                    },
+                    error: function(xhr, textStatus, errorThrown){
+                        $($this).elementDisabled(false);
+                        showMessage.constructor('Заброшенные закзы', 'Возникла ошибка. Повторите снова.');
                         showMessage.smallError();
                     }
                 });

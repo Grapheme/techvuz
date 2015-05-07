@@ -32,14 +32,6 @@
         </table>
     </div>
 </div>
-
-
-
-
-
-
-
-
 <h3 class="margin-bottom-40">Статистика заказов</h3>
 <div id="orderschart" style="width:848px;height: 300px;" class="chart"></div>
 @if(count($orders_extended))
