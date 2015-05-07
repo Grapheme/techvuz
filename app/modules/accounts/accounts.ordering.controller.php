@@ -140,10 +140,10 @@ class AccountsOrderingController extends BaseController {
                 $approve = 0;
                 if (isOrganization()):
                     $approve = User_organization::where('id',Auth::user()->id)->pluck('moderator_approve');
-                    $name = 'ЮЛ '.User_organization::where('id',Auth::user()->id)->pluck('title');
+                    $name = User_organization::where('id',Auth::user()->id)->pluck('title');
                 elseif(isIndividual()):
                     $approve = User_individual::where('id',Auth::user()->id)->pluck('moderator_approve');
-                    $name = 'ФЛ '.User_individual::where('id',Auth::user()->id)->pluck('fio');
+                    $name = User_individual::where('id',Auth::user()->id)->pluck('fio');
                 endif;
                 if (!$approve):
                     if (isOrganization()):
