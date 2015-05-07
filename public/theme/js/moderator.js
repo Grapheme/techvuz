@@ -275,11 +275,11 @@ $(function(){
                         if(response.status == true){
                             showMessage.constructor('Заброшенные закзы', response.responseText);
                             showMessage.smallSuccess();
-                            $(".js-archived-order[data-order-number='"+$order+"']").parents('.js-tab-current').each(function(){
+                            $(".js-not-archived-order[data-order-number='"+$order+"']").parents('.js-tab-current').each(function(){
                                 currentTabCountOrder = $("a[href='#"+$(this).attr('id')+"']").find('.filter-count').html();
                                 $("a[href='#"+$(this).attr('id')+"']").find('.filter-count').html(currentTabCountOrder-1);
                             });
-                            $(".js-archived-order[data-order-number='"+$order+"']").parents('.js-orders-line').fadeOut(500,function(){$(this).remove();});
+                            $(".js-not-archived-order[data-order-number='"+$order+"']").parents('.js-orders-line').fadeOut(500,function(){$(this).remove();});
                         } else {
                             $($this).elementDisabled(false);
                             showMessage.constructor('Заброшенные закзы', 'Возникла ошибка. Обновите страницу и повторите снова.');
