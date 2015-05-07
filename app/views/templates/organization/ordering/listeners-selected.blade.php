@@ -26,8 +26,24 @@
             $accountDiscount = getAccountDiscount();
             $globalDiscount = getGlobalDiscount();
             $coursesCountDiscount = coursesCountDiscount();
+
+            $directions = Directions::whereActive(TRUE)->where('in_progress',0)->orderBy('order')
+                    ->with(array('courses'=>function($query){
+                        $query->whereIn('id',getJsonCookieData('ordering'));
+                        $query->orderBy('code');
+                        $query->with('direction');
+                    }))->get();
+            $courses = array();
+            foreach($directions as $direction):
+                if(!empty($direction->courses)):
+                    foreach($direction->courses as $course):
+                        $courses[] = $course;
+                    endforeach;
+                endif;
+            endforeach;
+            #Courses::whereIn('id',getJsonCookieData('ordering'))->orderBy('code')->with('direction')->get()
         ?>
-        @foreach(Courses::whereIn('id',getJsonCookieData('ordering'))->orderBy('code')->with('direction')->get() as $course)
+        @foreach($courses as $course)
             {{ Form::hidden('courses[]',$course->id) }}
             <?php
                 $discountPrice = FALSE;

@@ -19,12 +19,28 @@
     </div>
     {{ Form::open(array('route'=>'ordering-listeners-store','class'=>'purchase-form clearfix')) }}
     <dl class="purchase-course-dl js-individual individual" data-count-discount = "{{ Dictionary::valueBySlugs('properties-site','count-by-course-discount',TRUE)->property }}" data-value-discount = "{{ Dictionary::valueBySlugs('properties-site','count-by-course-discount-percent',TRUE)->property }}">
-        <?php
+    <?php
         $accountDiscount = getAccountDiscount();
         $globalDiscount = getGlobalDiscount();
         $coursesCountDiscount = coursesCountDiscount();
-        ?>
-        @foreach(Courses::whereIn('id',getJsonCookieData('ordering'))->orderBy('code')->with('direction')->get() as $key => $course)
+
+        $directions = Directions::whereActive(TRUE)->where('in_progress',0)->orderBy('order')
+            ->with(array('courses'=>function($query){
+                $query->whereIn('id',getJsonCookieData('ordering'));
+                $query->orderBy('code');
+                $query->with('direction');
+            }))->get();
+        $courses = array();
+        foreach($directions as $direction):
+            if(!empty($direction->courses)):
+                foreach($direction->courses as $course):
+                    $courses[] = $course;
+                endforeach;
+            endif;
+        endforeach;
+        #$courses = Courses::whereIn('id',getJsonCookieData('ordering'))->orderBy('code')->with('direction')->get();
+    ?>
+        @foreach($courses as $key => $course)
             {{ Form::hidden('courses[]',$course->id) }}
             <?php
             $discountPrice = FALSE;
