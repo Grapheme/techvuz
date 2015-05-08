@@ -68,6 +68,9 @@
         <label>Статус аккаунта</label>{{ Form::select('moderator_approve',array('Модератором не подтвержден','Модератором подтвержден'),$profile->moderator_approve,array('class'=>'select')) }}
     </div>
     <div class="form-element">
+        <label>Статистика</label>{{ Form::select('statistic',array('Не учитывать в статистике','Учитывать в статистике'),$profile->statistic,array('class'=>'select')) }}
+    </div>
+    <div class="form-element">
         <button type="submit" autocomplete="off" class="btn btn--bordered btn--blue btn-form-submit">
             <i class="fa fa-spinner fa-spin hidden"></i> <span class="btn-response-text">Готово</span>
         </button>

@@ -26,6 +26,9 @@
             <div class="style-light style-italic">
                 Аккаунт:  Модератором {{ $profile->moderator_approve ? 'подтвержден' : 'не подтвержден' }}
             </div>
+            <div class="style-light style-italic">
+                Статистика:  {{ $profile->statistic ? 'Учитывается в статистике' : 'Не учитывается в статистике' }}
+            </div>
         @endif
     @endif
         <div class="employer-anket margin-top-30 margin-bottom-40">

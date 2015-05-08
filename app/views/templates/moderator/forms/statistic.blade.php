@@ -1,10 +1,10 @@
 <?php
     $accounts = array('0'=>'Все заказчики');
     $directions = array('0'=>'Все направления');
-    foreach(User_organization::orderBy('title')->lists('title','id') as $account_id => $name):
+    foreach(User_organization::where('statistic',TRUE)->orderBy('title')->lists('title','id') as $account_id => $name):
         $accounts[$account_id] = $name;
     endforeach;
-    foreach(User_individual::orderBy('fio')->lists('fio','id') as $account_id => $name):
+    foreach(User_individual::where('statistic',TRUE)->orderBy('fio')->lists('fio','id') as $account_id => $name):
         $accounts[$account_id] = $name;
     endforeach;
     foreach(Directions::lists('title','id') as $direction_id => $title):

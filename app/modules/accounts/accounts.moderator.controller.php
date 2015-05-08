@@ -270,6 +270,8 @@ class AccountsModeratorController extends BaseController {
                 Event::fire('account.approved-profile',array(array('accountID'=>$user->id)));
             endif;
             $organization->moderator_approve = $post['moderator_approve'];
+            $organization->statistic = $post['statistic'];
+            Orders::where('user_id',$user->id)->update(array('statistic'=>$post['statistic']));
             $organization->save();
             $organization->touch();
 
@@ -710,7 +712,8 @@ class AccountsModeratorController extends BaseController {
                 Event::fire('account.approved-profile',array(array('accountID'=>$user->id)));
             endif;
             $individual->moderator_approve = $post['moderator_approve'];
-
+            $individual->statistic = $post['statistic'];
+            Orders::where('user_id',$user->id)->update(array('statistic'=>$post['statistic']));
             $individual->save();
             $individual->touch();
 
@@ -757,7 +760,7 @@ class AccountsModeratorController extends BaseController {
                 endif;
             endif;
         endif;
-        $all_orders_query = Orders::where('completed',1)->where('archived',FALSE)->where('no_statistic', FALSE)->where('created_at','>=',$period_begin)->where('created_at','<=',$period_end);
+        $all_orders_query = Orders::where('completed',1)->where('archived',FALSE)->where('statistic', TRUE)->where('created_at','>=',$period_begin)->where('created_at','<=',$period_end);
         if($account_id):
             $all_orders_query = $all_orders_query->where('user_id',$account_id);
         endif;

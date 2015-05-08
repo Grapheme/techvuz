@@ -19,7 +19,8 @@ class CreateOrdersTable extends Migration {
                 $table->tinyInteger('discount')->default(0)->nullable();
                 $table->boolean('close_status')->default(0)->nullable();
                 $table->timestamp('close_date');
-                $table->boolean('archived')->default(0)->nullable();
+                $table->boolean('archived')->default(0)->unsigned()->nullable();
+                $table->boolean('statistic')->default(1)->unsigned()->nullable();
 
                 $table->boolean('study_status')->default(0)->nullable();
                 $table->timestamp('study_date');
