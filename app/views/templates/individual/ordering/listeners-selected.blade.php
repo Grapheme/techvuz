@@ -59,10 +59,10 @@
                 <tr class="hidden">    
                 @endif
                 
-                    <th>Название</th>
-                    <th>Код</th>
-                    <th>Цена</th>
-                    <th>Сотрудники</th>
+                    <th><div style="width: 358px;">Название</div></th>
+                    <th><div style="width: 46px;">Код</div></th>
+                    <th><div style="width: 53px;">Цена</div></th>
+                    <th style="padding: 0;"><div>Сотрудники</div></th>
                     <th>Сумма</th>
                 </tr>
                 

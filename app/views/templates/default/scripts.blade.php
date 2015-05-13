@@ -8,6 +8,7 @@
 	{{HTML::script('js/vendor/SmartNotification.min.js');}}
 	{{HTML::script('js/vendor/jquery.validate.min.js');}}
 	{{HTML::script('js/system/app.js');}}
+	{{HTML::script('theme/js/simplePagination.js');}}
 	{{HTML::script('theme/js/main.js');}}
 	<script src="//api-maps.yandex.ru/2.0/?load=package.standard&lang=ru-RU" type="text/javascript"></script>
 	<script type="text/javascript">
