@@ -11804,3 +11804,24 @@ main.order-page a:hover {
     background: #fff !important;
   }
 }
+
+/* ACORDION HEAD COLORS */
+.ptm-head-color {
+  background-color: #5e52ac !important;
+}
+
+.bs-head-color {
+  background-color: #bb252d !important;
+}
+
+.i-head-color {
+  background-color: #e4b51e !important;
+}
+
+.p-head-color {
+  background-color: #78a725 !important;
+}
+
+.eb-head-color {
+  background-color: #db7336 !important;
+}
