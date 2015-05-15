@@ -44,7 +44,9 @@ $messages = Dictionary::valuesBySlug('system-messages',function($query){
             </tbody>
         </table>
         {{ Form::close() }}
-        <div class="pagination"></div>
+        <div class="pagination-holder">
+            <div class="pagination"></div>
+        </div>
     @else
         <p>Уведомления отсутствуют</p>
     @endif
