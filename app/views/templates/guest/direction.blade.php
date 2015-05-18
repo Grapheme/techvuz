@@ -28,12 +28,12 @@
     <div class="accordion none-js">
         <div
         @if($direction->in_progress)
-            class="accordion-header direction-in-progress"
+            class="accordion-header {{ BaseController::stringTranslite($direction->code) }}-head-color direction-in-progress"
             data-toggle="tooltip"
             data-placement="top"
             title="Направление находится в разработке"
         @else
-            class="accordion-header"
+            class="accordion-header {{ BaseController::stringTranslite($direction->code) }}-head-color"
         @endif
         >
             @if(!empty($direction->photo->name))
