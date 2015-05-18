@@ -8,11 +8,13 @@
     {{--@elseif(Input::has('delete') && Input::get('delete') == 1)--}}
     @endif
         {{ Form::open(array('url'=>URL::route('moderator-order-arhived',array('order_id'=>$order->id)), 'style'=>'display:inline-block', 'method'=>'delete')) }}
+    @if($order->close_status == 0)
         @if($order->archived == 0)
         <button type="submit" autocomplete="off" title="Заброшенный заказ" data-archived="{{ abs($order->archived - 1) }}" data-order-number="{{ getOrderNumber($order) }}" class="icon-blue-bag-btn js-archived-order"></button>
         @elseif($order->archived == 1)
             <button type="submit" autocomplete="off" title="Заброшенный заказ" data-archived="{{ abs($order->archived - 1) }}" data-order-number="{{ getOrderNumber($order) }}" class="icon-blue-bag-btn js-not-archived-order"></button>
         @endif
+    @endif
         {{ Form::close() }}
     </td>
     <td class="vertical-top">

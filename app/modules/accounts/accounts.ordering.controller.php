@@ -171,7 +171,7 @@ class AccountsOrderingController extends BaseController {
         if (is_null($listener_id)):
             $listener_id = Auth::user()->id;
         endif;
-        if($order = Orders::where('id',$order_id)->where('completed',1)->where('archived',0)->where('close_status',0)->with('listeners')->first()):
+        if($order = Orders::where('id',$order_id)->where('completed',1)->where('close_status',0)->with('listeners')->first()):
             $close_allowed = TRUE;
             foreach($order->listeners as $listener):
                 if ($listener->over_status == 0):

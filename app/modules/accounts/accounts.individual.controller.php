@@ -166,11 +166,10 @@ class AccountsIndividualController extends BaseController {
         $order = Orders::where('id',$order_id)
             ->where('user_id',Auth::user()->id)
             ->where('completed',1)
-            ->where('archived',0)
             ->with('listeners.course','listeners.course.seo','listeners.user_listener','payment','payment_numbers')
             ->first();
         if (!$order):
-            return Redirect::route('organization-orders');
+            return Redirect::route('individual-orders');
         endif;
 
         $page_data = array(

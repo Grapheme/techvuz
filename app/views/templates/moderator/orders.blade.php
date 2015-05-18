@@ -133,7 +133,6 @@ $orders = Orders::orderBy('payment_status')->orderBy('created_at','DESC')->with(
             </tbody>
         </table>
     </div>
-
     <div id="tabs-15" class="js-tab-current">
         <form class="orders-search margin-bottom-20">
             <fieldset>
@@ -161,7 +160,6 @@ $orders = Orders::orderBy('payment_status')->orderBy('created_at','DESC')->with(
             </tbody>
         </table>
     </div>
-
     <div id="tabs-14" class="js-tab-current">
         <form class="orders-search margin-bottom-20">            
             <fieldset>

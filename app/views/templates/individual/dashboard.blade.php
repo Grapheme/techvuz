@@ -4,7 +4,7 @@
 @section('content')
 <main class="cabinet">
     <?php
-    $orders = Orders::where('user_id',Auth::user()->id)->where('archived',FALSE)->orderBy('created_at','DESC')->with('payment','payment_numbers')->get();
+    $orders = Orders::where('user_id',Auth::user()->id)->orderBy('created_at','DESC')->with('payment','payment_numbers')->get();
     $dashboardNotificationBlockTargetValue = Config::get('site.user_setting.dashboard-target-notification-block') ? Config::get('site.user_setting.dashboard-target-notification-block') : 0;
     $messages = Dictionary::valuesBySlug('system-messages',function($query) use ($dashboardNotificationBlockTargetValue){
         $setDate = Config::get('site.user_setting.dashboard-target-notification-block-date') ? Config::get('site.user_setting.dashboard-target-notification-block-date') : \Carbon\Carbon::now()->subMonth() ;

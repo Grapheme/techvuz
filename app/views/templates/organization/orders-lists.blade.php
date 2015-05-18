@@ -2,10 +2,9 @@
 @section('style')
 @stop
 @section('content')
-
 <main class="cabinet">
     <?php
-    $orders = Orders::where('user_id',Auth::user()->id)->where('archived',FALSE)->orderBy('payment_status')->orderBy('created_at','DESC')->with('payment','payment_numbers')->with(array('listeners'=>function($query){
+    $orders = Orders::where('user_id',Auth::user()->id)->orderBy('payment_status')->orderBy('created_at','DESC')->with('payment','payment_numbers')->with(array('listeners'=>function($query){
         $query->with('listener');
         $query->with('course');
     }))->get();

@@ -74,7 +74,6 @@ class Orders extends BaseModel {
         #->where(DB::raw('YEAR(created_at)'),'=',date('Y'))
         $lastNumber = (int) $this->where('completed',1)
             ->orderBy('number','DESC')
-            ->where('archived',0)
             ->pluck('number');
         if ($next):
             return $lastNumber+1;
@@ -100,7 +99,6 @@ class Orders extends BaseModel {
 
         $lastNumber = (int) $this->where('completed',1)
             ->orderBy('number_enrollment','DESC')
-            ->where('archived',0)
             ->pluck('number_enrollment');
         if ($next):
             return $lastNumber+1;

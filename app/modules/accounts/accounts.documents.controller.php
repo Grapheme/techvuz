@@ -102,7 +102,7 @@ class AccountsDocumentsController extends BaseController {
         if (!User_organization::where('id',Auth::user()->id)->pluck('moderator_approve')):
             return Redirect::route('organization-orders');
         endif;
-        if (!$order = Orders::where('id',$order_id)->where('user_id',Auth::user()->id)->where('completed',1)->where('archived',0)->with('contract')->first()):
+        if (!$order = Orders::where('id',$order_id)->where('user_id',Auth::user()->id)->where('completed',1)->with('contract')->first()):
             return Redirect::route('organization-orders');
         endif;
         $document = Dictionary::valueBySlugs('order-documents','order-documents-contract');
@@ -227,7 +227,7 @@ class AccountsDocumentsController extends BaseController {
         if (!User_organization::where('id',Auth::user()->id)->pluck('moderator_approve')):
             return Redirect::route('organization-orders');
         endif;
-        if (!$order = Orders::where('id',$order_id)->where('user_id',Auth::user()->id)->where('completed',1)->where('archived',0)->first()):
+        if (!$order = Orders::where('id',$order_id)->where('user_id',Auth::user()->id)->where('completed',1)->first()):
             return Redirect::route('organization-orders');
         endif;
         if (!$order->close_status && $document_type == 'act'):
@@ -442,7 +442,7 @@ class AccountsDocumentsController extends BaseController {
         if (!$OrderListener = OrderListeners::where('id',$course_id)->where('order_id',$order_id)->where('user_id',$listener_id)->where('over_status',1)->first()):
             return Redirect::route('individual-orders');
         endif;
-        if (!$order = Orders::where('id',$order_id)->where('user_id',Auth::user()->id)->where('completed',1)->where('archived',0)->first()):
+        if (!$order = Orders::where('id',$order_id)->where('user_id',Auth::user()->id)->where('completed',1)->first()):
             return Redirect::route('individual-orders');
         endif;
         if (!$course = OrderListeners::where('id',$course_id)->first()->course):
