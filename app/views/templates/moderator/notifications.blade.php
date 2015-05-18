@@ -33,7 +33,7 @@ $messages = Dictionary::valuesBySlug('system-messages',function($query){
                     </th>
                 </tr>
             @foreach($messages as $message)
-                <tr>
+                <tr class="content">
                     <td>{{ $message->name }}</td>
                     <td>{{ $message->updated_at->timezone(Config::get('site.time_zone'))->format('d.m.Y в H:i') }}</td>
                     <td>
@@ -44,6 +44,9 @@ $messages = Dictionary::valuesBySlug('system-messages',function($query){
             </tbody>
         </table>
         {{ Form::close() }}
+        <div class="pagination-holder">
+            <div class="pagination"></div>
+        </div>
     @else
         <p>Уведомления отсутствуют</p>
     @endif

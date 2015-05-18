@@ -71,8 +71,9 @@
 
                         <section class="clearfix">
                             <label class="label">Дата публикации:</label>
-                            <label class="input">
-                                {{ Form::text('published_at', ($element->published_at ? date("d.m.Y", strtotime($element->published_at)) : date("d.m.Y", time())), array('class' => 'datepicker text-center')) }}
+                            <label class="input calendar-holder">
+                            <i class="fa fa-calendar"></i>
+                                {{ Form::text('published_at', ($element->published_at ? date("d.m.Y", strtotime($element->published_at)) : date("d.m.Y", time())), array('class' => 'datepicker text-center', 'readonly' => 'readonly')) }}
                             </label>
                         </section>
 

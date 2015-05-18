@@ -1,7 +1,7 @@
 /*  Author: Grapheme Group
  *  http://grapheme.ru/
  */
- 
+
 var BASIC = BASIC || {};
 
 BASIC.baseURL = window.location.protocol+'//'+window.location.hostname+'/';
@@ -68,6 +68,22 @@ $(function(){
 	$(".btn-spinner").mouseout(function(){$(this).find('i').eq(0).addClass('hidden');})
 });
 
+function cloneValue(){
+	var value = $('.reg-adress-consilience input').val();
+    $('.post-adress-consilience input').val(value);
+}
+
+$('#adress-check').change(function() {
+    if(this.checked) {
+        cloneValue();
+        $('.reg-adress-consilience input')
+		  .keyup(function() {
+		  cloneValue();
+	  	});
+    } else {
+    	$('.reg-adress-consilience input').off('keyup');
+    }
+});
 
 // http://www.mrclay.org/2010/11/14/using-jquery-before-its-loaded/
 //defer$();

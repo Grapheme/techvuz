@@ -25,7 +25,7 @@
         endif;
     ?>
 @if($direction)
-    <div class="accordion">
+    <div class="accordion none-js">
         <div
         @if($direction->in_progress)
             class="accordion-header direction-in-progress"

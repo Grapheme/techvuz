@@ -21,6 +21,7 @@
 {{ HTML::script('js/vendor/additional-methods.min.js') }}
 {{ HTML::script('js/vendor/jquery.mask.js') }}
 {{ HTML::script('js/system/app.js') }}
+{{ HTML::script('js/system/simplePagination.js') }}
 {{ HTML::script('js/system/messages.js') }}
 
 {{ HTML::script('js/vendor/dropzone.min.js') }}

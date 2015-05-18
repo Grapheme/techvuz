@@ -198,7 +198,7 @@ $(function(){
 	$('table.sortable').tablesorter();
 });
 
-$('.accordion').accordion({
+$('.accordion').not('.none-js').accordion({
     header: '.accordion-header',
     heightStyle: 'content',
     collapsible: true,
