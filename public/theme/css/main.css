@@ -11806,22 +11806,22 @@ main.order-page a:hover {
 }
 
 /* ACORDION HEAD COLORS */
-.ptm-head-color {
+.accordion .accordion-header.ui-accordion-header.ui-state-default.ui-corner-all.ui-accordion-icons.ptm-head-color {
   background-color: #5e52ac !important;
 }
 
-.bs-head-color {
+.accordion .accordion-header.ui-accordion-header.ui-state-default.ui-corner-all.ui-accordion-icons.bs-head-color {
   background-color: #bb252d !important;
 }
 
-.i-head-color {
+.accordion .accordion-header.ui-accordion-header.ui-state-default.ui-corner-all.ui-accordion-icons.i-head-color {
   background-color: #e4b51e !important;
 }
 
-.p-head-color {
+.accordion .accordion-header.ui-accordion-header.ui-state-default.ui-corner-all.ui-accordion-icons.p-head-color {
   background-color: #78a725 !important;
 }
 
-.eb-head-color {
+.accordion .accordion-header.ui-accordion-header.ui-state-default.ui-corner-all.ui-accordion-icons.eb-head-color {
   background-color: #db7336 !important;
 }
