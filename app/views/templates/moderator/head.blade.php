@@ -25,9 +25,9 @@
 {{ HTML::style(Config::get('site.theme_path').'/css/vendor.css') }}
 @endif
 {{ HTML::style(Config::get('site.theme_path').'/css/main.css') }}
-{{ HTML::style('css/font-awesome.min.css') }}
+{{ HTML::style('css/redactor.css') }}
 {{ HTML::style('css/your_style.css') }}
-
+{{ HTML::style('css/font-awesome.min.css') }}
 {{ HTML::script(Config::get('site.theme_path').'/js/vendor/modernizr-2.6.2.min.js') }}
 
 <script>
