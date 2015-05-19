@@ -11806,22 +11806,22 @@ main.order-page a:hover {
 }
 
 /* ACORDION HEAD COLORS */
-.ptm-head-color {
+.accordion .accordion-header.ptm-head-color {
   background-color: #5e52ac !important;
 }
 
-.bs-head-color {
+.accordion .accordion-header.bs-head-color {
   background-color: #bb252d !important;
 }
 
-.i-head-color {
+.accordion .accordion-header.i-head-color {
   background-color: #e4b51e !important;
 }
 
-.p-head-color {
+.accordion .accordion-header.p-head-color {
   background-color: #78a725 !important;
 }
 
-.eb-head-color {
+.accordion .accordion-header.eb-head-color {
   background-color: #db7336 !important;
 }
