@@ -18,7 +18,7 @@
         <a {{ in_array(Request::segment(2),array('companies')) ? 'class="active"' : '' }} href="{{ URL::route('moderator-companies-list') }}"><i class="fa fa-lg fa-fw fa-building"></i> Компании</a>
     </li>
     <li class="cabinet-menu-li">
-        <a {{ in_array(Request::segment(2),array('education')) ? 'class="active"' : '' }} href="{{ link::auth('education/directions') }}"><span class="fa fa-lg fa-fw fa-book"></span> Обучение</a>
+        <a {{ in_array(Request::segment(2),array('education')) ? 'class="active"' : '' }} href="{{ link::auth('education/directions') }}"><i class="fa fa-lg fa-fw fa-book"></i> Обучение</a>
     </li>
     <li class="cabinet-menu-li">
         <a {{ in_array(Request::segment(2),array('news')) ? 'class="active"' : '' }} href="{{ link::auth('news') }}"><span class="fa fa-lg fa-fw fa-calendar"></span> Новости</a>
