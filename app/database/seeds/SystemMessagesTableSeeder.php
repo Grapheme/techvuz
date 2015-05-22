@@ -29,7 +29,7 @@ class SystemMessagesTableSeeder extends Seeder {
         DicVal::create(array('dic_id'=>$dic_id,'slug'=>'moderator.register-listener','name'=> '<a href="[listener_link]">[listener]</a> добавлен(-а) к слушателям – сотрудникам <a href="[organization_link]">[organization]</a>','order'=>21));
         DicVal::create(array('dic_id'=>$dic_id,'slug'=>'moderator.update-profile-listener','name'=> 'Сотрудник организации <a href="[listener_link]">[organization]</a>, <a href="[organization_link]">[listener]</a>, обновил(-а) регистрационные данные','order'=>22));
         DicVal::create(array('dic_id'=>$dic_id,'slug'=>'moderator.order.new','name'=> 'Оформлен заказ <a href="[link]">№[order]</a> ([organization])','order'=>23));
-        DicVal::create(array('dic_id'=>$dic_id,'slug'=>'moderator.order.closed','name'=> 'Заказ <a href="[link]">№[order]</a> закрылся','order'=>24));
+        DicVal::create(array('dic_id'=>$dic_id,'slug'=>'moderator.order.closed','name'=> 'Заказ <a href="[link]">№[order]</a> закрыт (<a href="[organization_link]">[organization]</a>)','order'=>24));
 
         DicVal::create(array('dic_id'=>$dic_id,'slug'=>'organization.order.closed','name'=> 'Заказ <a href="[link]">№[order]</a> закрыт. Все сотрудники Вашей организации успешно прошли итоговые тестирование по заданным курсам.','order'=>25));
         DicVal::create(array('dic_id'=>$dic_id,'slug'=>'organization.order-puy-no-approve','name'=> 'Ваш заказ <a href="[link]">№[order]</a> оформлен. Для получения договора на обучение и счета на оплату платных образовательных услуг необходимо дождаться окончания проверки администратором сайта. Проверка занимает не более 12 часов с момента активации личного кабинета','order'=>26));

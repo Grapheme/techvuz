@@ -191,10 +191,14 @@ class AccountsOrderingController extends BaseController {
                     Event::fire('organization.order.closed-join',array(array('accountID'=>User_listener::where('id',Auth::user()->id)->first()->organization()->pluck('id'),'order'=>getOrderNumber($order),'link'=>URL::to('company/order/'.$order_id))));
                     #Event::fire('organization.order.closed',array(array('accountID'=>User_listener::where('id',Auth::user()->id)->first()->organization()->pluck('id'),'order'=>getOrderNumber($order),'link'=>URL::to('organization/order/'.$order_id))));
                     #Event::fire('organization.order.closed-documents',array(array('accountID'=>User_listener::where('id',Auth::user()->id)->first()->organization()->pluck('id'),'order'=>getOrderNumber($order),'link'=>URL::to('organization/order/'.$order_id))));
+                    $name = User_organization::where('id',Auth::user()->id)->pluck('title');
+                    $organization_link = URL::to('moderator/companies/profile/'.Auth::user()->id);
                 elseif(isIndividual()):
                     Event::fire('individual.order.closed-join',array(array('accountID'=>Auth::user()->id,'order'=>getOrderNumber($order),'link'=>URL::route('individual-order',$order_id))));
+                    $name = User_individual::where('id',Auth::user()->id)->pluck('fio');
+                    $organization_link = URL::to('moderator/listeners/profile/'.Auth::user()->id);;
                 endif;
-                Event::fire('moderator.order.closed',array(array('accountID'=>0,'link'=>URL::to('moderator/order/'.$order->id.'/extended'),'order'=>getOrderNumber($order))));
+                Event::fire('moderator.order.closed',array(array('accountID'=>0,'link'=>URL::to('moderator/order/'.$order->id.'/extended'),'order'=>getOrderNumber($order),'organization'=>@$name,'organization_link'=>@$organization_link)));
             endif;
             return TRUE;
         endif;
