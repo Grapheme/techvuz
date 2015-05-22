@@ -20,7 +20,7 @@
             <label>Подписант действует на основании</label>{{ Form::text('statutory', '',array('placeholder'=>'Устав, доверенность №… от …')) }}
         </div>
          <div class="form-element reg-adress-consilience">
-            <label>Адрес регистрации</label>{{ Form::text('uraddress', '',array('placeholder'=>'123022, г. Москва, ул. Красная Пресня, 46')) }}
+            <label>>Юридический адрес</label>{{ Form::text('uraddress', '',array('placeholder'=>'123022, г. Москва, ул. Красная Пресня, 46')) }}
         </div>
         <div class="form-element post-adress-consilience">
             <label>Почтовый адрес</label>{{ Form::text('postaddress', '',array('placeholder'=>'123022, г. Москва, ул. Красная Пресня, 46')) }}

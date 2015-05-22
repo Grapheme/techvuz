@@ -40,6 +40,15 @@
         endforeach;
         #$courses = Courses::whereIn('id',getJsonCookieData('ordering'))->orderBy('code')->with('direction')->get();
     ?>
+    <table class="tech-table purchase-table">
+        <tr>    
+            <th><div style="width: 358px;">Название</div></th>
+            <th><div style="width: 46px;">Код</div></th>
+            <th><div style="width: 53px;">Цена</div></th>
+            <th style="padding: 0;"><div>Сотрудники</div></th>
+            <th>Сумма</th>
+        </tr>
+    </table>
         @foreach($courses as $key => $course)
             {{ Form::hidden('courses[]',$course->id) }}
             <?php
@@ -53,6 +62,7 @@
             @endif
             <dt class="purchase-course-dt">
             <table class="tech-table purchase-table table-{{ $key }}" data-use-discount="{{ $useCourseDiscount }}" data-static-discount="{{ $discountStatic }}" data-courseid="{{ $course->id }}">
+                {{--
                 @if($key == 0)
                 <tr>
                 @else 
@@ -65,7 +75,8 @@
                     <th style="padding: 0;"><div>Сотрудники</div></th>
                     <th>Сумма</th>
                 </tr>
-                
+                --}}
+
                 <tr>
                     <td>
                         <div class="icon-blue-bag-btn js-delete-course" title="Удалить курс"></div>

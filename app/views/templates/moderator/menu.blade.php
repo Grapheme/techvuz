@@ -3,7 +3,7 @@
         <a {{ in_array(Request::segment(2),array('orders','order')) ? 'class="active"' : '' }} href="{{ URL::route('moderator-orders-list') }}"><i class="fa fa-lg fa-fw fa-bookmark"></i> Заказы</a>
     </li>
     <li class="cabinet-menu-li">
-        <a {{ in_array(Request::segment(2),array('notifications')) ? 'class="active"' : '' }} href="{{ URL::route('moderator-notifications') }}"><span class="icon icon-yved"></span> Уведомления</a>
+        <a {{ in_array(Request::segment(2),array('notifications')) ? 'class="active"' : '' }} href="{{ URL::route('moderator-notifications') }}"><i class="fa fa-lg fa-fw fa-envelope-o"></i> Уведомления</a>
     </li>
     <li class="cabinet-menu-li">
         <a {{ in_array(Request::segment(3),array('information-baners')) ? 'class="active"' : '' }} href="{{ link::auth('entity/information-baners') }}"><span class="fa fa-lg fa-fw fa-info"></span> Инф.банеры</a>
