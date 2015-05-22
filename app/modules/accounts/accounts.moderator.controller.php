@@ -775,6 +775,14 @@ class AccountsModeratorController extends BaseController {
         if (!$direction_id):
             $all_orders = $all_orders_query->get();
         endif;
+        foreach($all_orders as $order):
+            if(!empty($order->organization) && $order->organization->statistic == 1):
+                $tmp_orders[] = $order;
+            elseif(!empty($order->individual) && $order->individual->statistic == 1):
+                $tmp_orders[] = $order;
+            endif;
+        endforeach;
+        $all_orders = $tmp_orders;
         $diffMonthsData = myDateTime::getDiffDate($period_end,$period_begin,NULL);
         if ($diffMonthsData['y'] > 0):
             $diffMonths = ($diffMonthsData['y']*12) + $diffMonthsData['m'];
@@ -792,57 +800,59 @@ class AccountsModeratorController extends BaseController {
         $tmp_orders = array();
         $orders_extended_counts = array('orders'=>0,'price'=>0);
         $payments_extended_counts = array('payments'=>0,'price'=>0);
-        foreach($all_orders as $order_index => $order):
-            $tmp_orders[$order_index] = $order->toArray();
-            $tmp_orders[$order_index]['created_at_origin'] = $tmp_orders[$order_index]['created_at'];
-            $tmp_orders[$order_index]['created_at'] = $order->created_at->format($format);
-            if ($order->payment_numbers->count()):
-                foreach($order->payment_numbers as $payment_number_index => $payment_number):
-                    $tmp_orders[$order_index]['payment_numbers'][$payment_number_index]['payment_date'] = (new myDateTime())->setDateString($payment_number->payment_date)->format($format);
-                    $payments_list[getOrderNumber($order)][$payment_number_index] = $payment_number->toArray();
-                endforeach;
-            endif;
-        endforeach;
-        if (!empty($tmp_orders)):
-            $tmp_order_extended = $temp_payments_extended = array();
-            foreach($tmp_orders as $order):
-                $orders[$order['created_at']] += 1;
-                $tmp_order_extended[$order['created_at']][] = self::getStatisticOrdersExtended($order);
-                if (count($order['payment_numbers'])):
-                    foreach($order['payment_numbers'] as $payment_number):
-                        $payments[$payment_number['payment_date']] += $payment_number['price'];
-                    endforeach;
-                    foreach($order['payment_numbers'] as $payment_number):
-                        $temp_payments_extended[$payment_number['payment_date']][] = self::getStatisticPaymentsExtended($order);
+        if (!empty($all_orders)):
+            foreach($all_orders as $order_index => $order):
+                $tmp_orders[$order_index] = $order->toArray();
+                $tmp_orders[$order_index]['created_at_origin'] = $tmp_orders[$order_index]['created_at'];
+                $tmp_orders[$order_index]['created_at'] = $order->created_at->format($format);
+                if ($order->payment_numbers->count()):
+                    foreach($order->payment_numbers as $payment_number_index => $payment_number):
+                        $tmp_orders[$order_index]['payment_numbers'][$payment_number_index]['payment_date'] = (new myDateTime())->setDateString($payment_number->payment_date)->format($format);
+                        $payments_list[getOrderNumber($order)][$payment_number_index] = $payment_number->toArray();
                     endforeach;
                 endif;
             endforeach;
-            if (count($tmp_order_extended)):
-                foreach($tmp_order_extended as $index => $order_extended):
-                    $orders_extended_counts['orders'] += count($order_extended);
-                    foreach($order_extended as $orderExtended):
-                        $orders_extended_counts['price'] += $orderExtended['price'];
-                    endforeach;
-                    $orders_extended[$index] = View::make(Helper::acclayout('assets.statistic.orders-table'),array('orders'=>$order_extended,'date'=>$index))->render();
-                endforeach;
-            endif;
-            if (count($temp_payments_extended)):
-                foreach($temp_payments_extended as $index => $payment_extended):
-                    foreach($payment_extended as $paymentExtended):
-                        $payments_extended_counts['payments'] += count($paymentExtended['payment_numbers']);
-                        foreach($paymentExtended['payment_numbers'] as $paymentNumbers):
-                            $payments_extended_counts['price'] += $paymentNumbers['price'];
+            if (!empty($tmp_orders)):
+                $tmp_order_extended = $temp_payments_extended = array();
+                foreach($tmp_orders as $order):
+                    $orders[$order['created_at']] += 1;
+                    $tmp_order_extended[$order['created_at']][] = self::getStatisticOrdersExtended($order);
+                    if (count($order['payment_numbers'])):
+                        foreach($order['payment_numbers'] as $payment_number):
+                            $payments[$payment_number['payment_date']] += $payment_number['price'];
                         endforeach;
-                    endforeach;
-                    $payments_extended[$index] = View::make(Helper::acclayout('assets.statistic.payments-table'),array('orders'=>$payment_extended,'date'=>$index))->render();
+                        foreach($order['payment_numbers'] as $payment_number):
+                            $temp_payments_extended[$payment_number['payment_date']][] = self::getStatisticPaymentsExtended($order);
+                        endforeach;
+                    endif;
                 endforeach;
+                if (count($tmp_order_extended)):
+                    foreach($tmp_order_extended as $index => $order_extended):
+                        $orders_extended_counts['orders'] += count($order_extended);
+                        foreach($order_extended as $orderExtended):
+                            $orders_extended_counts['price'] += $orderExtended['price'];
+                        endforeach;
+                        $orders_extended[$index] = View::make(Helper::acclayout('assets.statistic.orders-table'),array('orders'=>$order_extended,'date'=>$index))->render();
+                    endforeach;
+                endif;
+                if (count($temp_payments_extended)):
+                    foreach($temp_payments_extended as $index => $payment_extended):
+                        foreach($payment_extended as $paymentExtended):
+                            $payments_extended_counts['payments'] += count($paymentExtended['payment_numbers']);
+                            foreach($paymentExtended['payment_numbers'] as $paymentNumbers):
+                                $payments_extended_counts['price'] += $paymentNumbers['price'];
+                            endforeach;
+                        endforeach;
+                        $payments_extended[$index] = View::make(Helper::acclayout('assets.statistic.payments-table'),array('orders'=>$payment_extended,'date'=>$index))->render();
+                    endforeach;
+                endif;
             endif;
-        endif;
-        if (!isset($orders[$index_end])):
-            $orders[$index_end] = 0;
-        endif;
-        if (!isset($payments[$index_end])):
-            $payments[$index_end] = 0;
+            if (!isset($orders[$index_end])):
+                $orders[$index_end] = 0;
+            endif;
+            if (!isset($payments[$index_end])):
+                $payments[$index_end] = 0;
+            endif;
         endif;
         $page_data = array(
             'page_title'=> 'Статистика',
