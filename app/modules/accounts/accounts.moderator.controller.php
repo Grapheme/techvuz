@@ -336,7 +336,7 @@ class AccountsModeratorController extends BaseController {
         if($order = Orders::where('id',$order_id)->first()):
             $date = new myDateTime();
             $order->number = (int)Input::get('number');
-            $order->created_at = $date->setDateString(Input::get('created_at'))->format('Y-m-d H:i:s');;
+            $order->created_at = $date->setDateString(Input::get('created_at'))->format('Y-m-d H:i:s');
             #$order->payment_date = $date->setDateString(Input::get('payment_date'))->format('Y-m-d H:i:s');
             $order->study_date = $date->setDateString(Input::get('study_date'))->format('Y-m-d H:i:s');
             if (Input::get('study_date') == ''):

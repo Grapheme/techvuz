@@ -141,9 +141,11 @@ class AccountsOrderingController extends BaseController {
                 if (isOrganization()):
                     $approve = User_organization::where('id',Auth::user()->id)->pluck('moderator_approve');
                     $name = User_organization::where('id',Auth::user()->id)->pluck('title');
+                    $organization_link = URL::to('moderator/companies/profile/'.Auth::user()->id);
                 elseif(isIndividual()):
                     $approve = User_individual::where('id',Auth::user()->id)->pluck('moderator_approve');
                     $name = User_individual::where('id',Auth::user()->id)->pluck('fio');
+                    $organization_link = URL::to('moderator/listeners/profile/'.Auth::user()->id);
                 endif;
                 if (!$approve):
                     if (isOrganization()):
@@ -158,7 +160,7 @@ class AccountsOrderingController extends BaseController {
                         Event::fire('individual.order-puy',array(array('accountID'=>Auth::user()->id,'order'=>getOrderNumber($order),'order_link'=>URL::route('individual-order',$order->id),'document_link'=>URL::route('individual-listener-order-invoice',array('order_id'=>$order->id,'format'=>'pdf')))));
                     endif;
                 endif;
-                Event::fire('moderator.order.new',array(array('accountID'=>0,'link'=>URL::to('moderator/order/'.$order->id.'/extended'),'order'=>getOrderNumber($order),'organization'=>@$name)));
+                Event::fire('moderator.order.new',array(array('accountID'=>0,'link'=>URL::to('moderator/order/'.$order->id.'/extended'),'order'=>getOrderNumber($order),'organization'=>@$name,'organization_link'=>@$organization_link)));
                 return Redirect::to(AuthAccount::getStartPage().'/#orgNotifications');
             endif;
         else:
@@ -196,7 +198,7 @@ class AccountsOrderingController extends BaseController {
                 elseif(isIndividual()):
                     Event::fire('individual.order.closed-join',array(array('accountID'=>Auth::user()->id,'order'=>getOrderNumber($order),'link'=>URL::route('individual-order',$order_id))));
                     $name = User_individual::where('id',Auth::user()->id)->pluck('fio');
-                    $organization_link = URL::to('moderator/listeners/profile/'.Auth::user()->id);;
+                    $organization_link = URL::to('moderator/listeners/profile/'.Auth::user()->id);
                 endif;
                 Event::fire('moderator.order.closed',array(array('accountID'=>0,'link'=>URL::to('moderator/order/'.$order->id.'/extended'),'order'=>getOrderNumber($order),'organization'=>@$name,'organization_link'=>@$organization_link)));
             endif;
