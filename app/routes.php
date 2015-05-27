@@ -21,10 +21,10 @@ Route::get('sitemap',function(){
 
 Route::group(array('before' => 'auth.status', 'prefix' => $prefix), function() use ($prefix){
 
-    Route::get('/', function() use ($prefix){
+    Route::get('/', array('as' => 'dashboard', function() use ($prefix){
         $controller = new BaseController;
         return $controller->dashboard($prefix);
-    });
+    }));
 });
 
 /*
