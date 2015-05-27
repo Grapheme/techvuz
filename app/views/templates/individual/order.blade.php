@@ -5,7 +5,7 @@
 
 <main class="cabinet order-page">
     <?php $account = User_individual::where('id',Auth::user()->id)->first(); ?>
-    <h2>{{ $account->fio }}</h2>
+    <a class="name-dashboard" href="{{ URL::route('dashboard') }}"><h2>{{ $account->fio }}</h2></a>
     <div class="cabinet-tabs">
         @include(Helper::acclayout('menu'))
         <div>

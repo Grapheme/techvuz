@@ -3,7 +3,7 @@
 @stop
 @section('content')
 <main class="cabinet">
-    <h2>{{ User_individual::where('id',Auth::user()->id)->pluck('fio') }}</h2>
+    <a class="name-dashboard" href="{{ URL::route('dashboard') }}"><h2>{{ User_individual::where('id',Auth::user()->id)->pluck('fio') }}</h2></a>
     <div class="cabinet-tabs">
         @include(Helper::acclayout('menu'))
         <div class="employer-anket margin-bottom-40">

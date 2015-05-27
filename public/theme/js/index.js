@@ -18,6 +18,8 @@ return e.ui.ddmanager&&(e.ui.ddmanager.current=this),e.ui.ddmanager&&!o.dropBeha
  * Copyright 2006, 2014 Klaus Hartl
  * Released under the MIT license
  */
+
+
 (function (factory) {
 	if (typeof define === 'function' && define.amd) {
 		// AMD
@@ -266,8 +268,8 @@ $('.accordion').not('.none-js').accordion({
 	function initializeMap(coords){
 		var mapOptions = {
 			zoom: coords.zoom,
-			zoomControl: false,
-			draggable: false,
+			//zoomControl: false,
+			//draggable: false,
 			scrollwheel: false,
 			center: new google.maps.LatLng(coords.x, coords.y),
 			mapTypeId: google.maps.MapTypeId.ROADMAP
@@ -662,7 +664,7 @@ var Popup = (function(){
 			var $price;
 			var $usesDiscount = $(this).data('use-discount');
 
-			var $listeners = $(this).find('.purchase-listeners').text();
+			var $listeners = parseInt($(this).find('.purchase-listeners').text());
 
 			if( $usesDiscount == '0' ) {
 				$price = $(this).find('.purchase-price').data('price');
@@ -670,7 +672,13 @@ var Popup = (function(){
 			if( $usesDiscount == '1') {
 				$price = parseFloat( $(this).find('.discount-price').text().replace(' ','') ) ? parseFloat( $(this).find('.discount-price').text().replace(' ','') ) : $(this).find('.purchase-price').data('price');
 			}
-			$sum += $listeners * $price;
+			if(!$price) {
+				$price = 0;
+			}
+			if(isNaN($listeners)) {
+				$listeners = 0;
+			}
+			$sum = $sum + (parseInt($listeners) * parseInt($price));
         });
 
         $purchaseTable.each( function(index){

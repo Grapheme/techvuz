@@ -10,7 +10,7 @@
         $query->filter_by_field('user_id','=',Auth::user()->id);
     });
 ?>
-    <h2>{{ User_organization::where('id',Auth::user()->id)->pluck('title') }}</h2>
+    <a class="name-dashboard" href="{{ URL::route('dashboard') }}"><h2>{{ User_organization::where('id',Auth::user()->id)->pluck('title') }}</h2></a>
     <div class="cabinet-tabs">
         @include(Helper::acclayout('menu'))
         <div class="employees">
