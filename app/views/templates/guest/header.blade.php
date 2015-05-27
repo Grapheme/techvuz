@@ -76,7 +76,7 @@
         <span class="or-span">или</span>
         <a class="login-link js-login" href="javascript:void(0);">Войти</a>
     @else        
-        <a class="btn btn--bordered" href="{{ URL::route('dashboard') }}">-Личный кабинет-</a>
+        <a class="btn btn--bordered" href="{{ URL::route('dashboard') }}">Личный кабинет</a>
         <span class="or-span">или</span>
         <a class="login-link" href="{{ URL::route('logout') }}">Выйти</a>
     @endif
