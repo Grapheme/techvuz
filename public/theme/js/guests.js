@@ -141,6 +141,10 @@ var validation_signup_fl = {
         //    }
         //}
     },
+    education: { required: true },
+    document_education: { required: true },
+    specialty: { required: true },
+    educational_institution: { required: true },
     phone: { required: true },
     consent: { required: true }
 };
@@ -156,7 +160,11 @@ var validation_signup_messages_fl = {
     postaddress: { required: 'Укажите почтовый адрес' },
     email: { required: 'Укажите контактный E-mail','email': 'Некорректный E-mail','remote': 'Email уже зарегистрирован' },
     phone: { required: 'Укажите контактный номер' },
-    consent: { required: '' }
+    consent: { required: '' },
+    education: { required: 'Укажите тип образования' },
+    document_education: { required: 'Укажите данные' },
+    specialty: { required: 'Укажите специальность' },
+    educational_institution: { required: 'Укажите название учебного заведения' }
 };
 
 var validation_reset_password = {

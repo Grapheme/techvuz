@@ -50,6 +50,8 @@
                 @if(count($listener['course']))
                     <p align="center">{{ $listener['course'][0]['code'] }}</p>
                     <p align="center">{{ $listener['course'][0]['title'] }}</p>
+                    <p align="left">{{ @$ObchiyObemDPP }}</p>
+                    <p align="left">{{ @$SrokOsvoeniyaPDD }}</p>
                 @endif
                 </td>
             </tr>
