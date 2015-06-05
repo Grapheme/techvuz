@@ -60,8 +60,8 @@
                         <p style="text-align: center; font-size: 16px;">{{ $listener['course'][0]['code'] }}</p>
                         <p style="text-align: center; font-size: 16px;">{{ $listener['course'][0]['title'] }}</p>
                         <?php $ObchiyObemDPP += (int)$listener['course'][0]['hours']; ?>
-                        <p style="text-align: center; font-size: 16px;">Общий объём ДПП - {{ @$ObchiyObemDPP }}</p>
-                        <p style="text-align: center; font-size: 16px;">Срок освоения ДПП - {{ @$SrokOsvoeniyaPDD }}</p>
+                        <p style="text-align: center; font-size: 16px;">Общий объём ДПП - {{ @$ObchiyObemDPP }} часов</p>
+                        <!-- <p style="text-align: center; font-size: 16px;">Срок освоения ДПП - {{ @$SrokOsvoeniyaPDD }} дней</p> -->
                     @endif
                     </td>
                 </tr>
