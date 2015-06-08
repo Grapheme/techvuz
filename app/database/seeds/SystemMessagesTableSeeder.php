@@ -68,5 +68,8 @@ class SystemMessagesTableSeeder extends Seeder {
         DicVal::create(array('dic_id'=>$dic_id,'slug'=>'moderator.delete.company','name'=> 'Компания [organization] удалена.','order'=>44));
         DicVal::create(array('dic_id'=>$dic_id,'slug'=>'moderator.delete.company-listener','name'=> '[listener] удален(а) из слушателей <a href="[organization_link]">[organization]</a>','order'=>45));
         DicVal::create(array('dic_id'=>$dic_id,'slug'=>'moderator.delete.individual-listener','name'=> 'Индивидуальный слушатель [listener] удален','order'=>46));
+
+        DicVal::create(array('dic_id'=>$dic_id,'slug'=>'moderator.delete.order','name'=> 'Заказ №[order] удален. <a href="[organization_link]">[organization]</a>','order'=>47));
+
     }
 }

@@ -376,6 +376,22 @@ class AccountsModeratorController extends BaseController {
         if(!Request::ajax()) return App::abort(404);
         $json_request = array('status'=>FALSE, 'responseText'=>'');
         $order = Orders::findOrFail($order_id);
+
+        $group_id = User::where('id', $order->user_id)->pluck('group_id');
+        $zak_link = $zak_name = '';
+        if($group_id == 4):
+            $zak_link = URL::to('moderator/companies/profile/'. $order->user_id);
+            $zak_name = User_organization::where('id', $order->user_id)->pluck('title');
+        elseif($group_id == 6):
+            $zak_link = URL::to('moderator/listeners/profile/'. $order->user_id);
+            $zak_name = User_individual::where('id', $order->user_id)->pluck('fio');
+        endif;
+
+        Event::fire('moderator.delete.order', array(array('accountID' => 0,
+            'order' => getOrderNumber($order),
+            'organization_link' => $zak_link,
+            'organization' => $zak_name)));
+
         Orders::findOrFail($order_id)->payment_numbers()->delete();
         if($orderListenersIDs = Orders::findOrFail($order_id)->listeners()->lists('id')):
             OrdersListenersTests::whereIn('order_listeners_id',$orderListenersIDs)->delete();
