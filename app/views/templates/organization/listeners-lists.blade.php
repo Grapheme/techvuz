@@ -14,7 +14,7 @@
         $query->with('final_test');
     }))->get();
     ?>
-    <h2>{{ User_organization::where('id',Auth::user()->id)->pluck('title') }}</h2>
+    <a class="name-dashboard" href="{{ URL::route('dashboard') }}"><h2>{{ User_organization::where('id',Auth::user()->id)->pluck('title') }}</h2></a>
     <div class="cabinet-tabs">
         @include(Helper::acclayout('menu'))
         <a href="{{ URL::route('signup-listener') }}" class="btn btn--bordered btn--blue pull-right js-btn-add-emp margin-top-20">

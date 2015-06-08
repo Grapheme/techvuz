@@ -4,7 +4,7 @@
 @section('content')
 <main class="cabinet">
     <?php $account = User_listener::where('id',Auth::user()->id)->with('organization')->first(); ?>
-    <h1>{{ $account->fio }}</h1>
+    <a class="name-dashboard" href="{{ URL::route('dashboard') }}"><h1>{{ $account->fio }}</h1></a>
     <p class="style-light style-italic">{{ $account->organization->title }}</p>
     <div class="edit-employee-anket">
     @if(Listener::where('user_id',Auth::user()->id)->pluck('approved'))

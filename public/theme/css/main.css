@@ -11825,3 +11825,17 @@ main.order-page a:hover {
 .accordion .accordion-header.eb-head-color {
   background-color: #db7336 !important;
 }
+
+.none-js .accordion-header:hover {
+  box-shadow: none;
+  cursor: default;
+}
+
+.name-dashboard {
+  color: #000 !important;
+  text-decoration: none;
+}
+
+.name-dashboard:hover {
+  text-decoration: underline;
+}

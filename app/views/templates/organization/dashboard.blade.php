@@ -19,7 +19,7 @@
         $dashboardNotificationBlockTargetValue = 1;
     endif;
     ?>
-    <h2>{{ User_organization::where('id',Auth::user()->id)->pluck('title') }}</h2>
+    <a class="name-dashboard" href="{{ URL::route('dashboard') }}"><h2>{{ User_organization::where('id',Auth::user()->id)->pluck('title') }}</h2></a>
     <div class="margin-bottom-20">
         <a class="icon--blue" href="{{ URL::route('organization-profile') }}">Профиль компании</a>
     </div>    

@@ -18,7 +18,7 @@
         $dashboardNotificationBlockTargetValue = 1;
     endif;
     ?>
-    <h2>{{ User_individual::where('id',Auth::user()->id)->pluck('fio') }}</h2>
+    <a class="name-dashboard" href="{{ URL::route('dashboard') }}"><h2>{{ User_individual::where('id',Auth::user()->id)->pluck('fio') }}</h2></a>
     <div class="margin-bottom-20">
         <a class="icon--blue" href="{{ URL::route('individual-profile') }}">Профиль</a>
     </div> 

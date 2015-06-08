@@ -19,10 +19,10 @@
         <label style="display: block;">Направления</label>{{ Form::select('direction_id',$directions,$direction_selected,array('autocomplete'=>'off')) }}
     </div>
     <div class="form-element">
-        <label>От</label>{{ Form::text('period_begin',$period_begin, array('id'=>'select-period-begin','class' => 'datepicker text-center','autocomplete'=>'off','data-mask'=>'99.99.9999','readonly' => 'readonly')) }}
+        <label>От</label>{{ Form::text('period_begin',$period_begin, array('id'=>'select-period-begin','class' => 'datepicker text-center','autocomplete'=>'off','data-mask'=>'99.99.9999')) }}
     </div>
     <div class="form-element">
-        <label>До</label>{{ Form::text('period_end', $period_end, array('id'=>'select-period-end','class' => 'datepicker text-center','autocomplete'=>'off','data-mask'=>'99.99.9999','readonly' => 'readonly')) }}
+        <label>До</label>{{ Form::text('period_end', $period_end, array('id'=>'select-period-end','class' => 'datepicker text-center','autocomplete'=>'off','data-mask'=>'99.99.9999')) }}
     </div>
     <footer>
         <button type="submit" autocomplete="off" class="btn btn-success no-margin regular-10 uppercase btn-form-submit">

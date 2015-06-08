@@ -11,7 +11,7 @@ $messages = Dictionary::valuesBySlug('system-messages',function($query){
 });
 $account = User_listener::where('id',Auth::user()->id)->with('organization')->first();
 ?>
-    <h1>{{ $account->fio }}</h1>
+    <a class="name-dashboard" href="{{ URL::route('dashboard') }}"><h1>{{ $account->fio }}</h1></a>
     <p class="style-light style-italic">{{ $account->organization->title }}</p>
     <div class="cabinet-tabs">
         @include(Helper::acclayout('menu'))

@@ -19,7 +19,7 @@
        });
     ?>
     <?php $account = User_listener::where('id',Auth::user()->id)->with('organization')->first(); ?>
-    <h1>{{ $account->fio }}</h1>
+    <a class="name-dashboard" href="{{ URL::route('dashboard') }}"><h1>{{ $account->fio }}</h1></a>
     <div class="margin-bottom-20">
         <a class="icon--blue" href="{{ URL::route('listener-profile') }}">Профиль</a>
     </div>  
