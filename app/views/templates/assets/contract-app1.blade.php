@@ -59,9 +59,8 @@
                     @if(count($listener['course']))
                         <p style="text-align: center; font-size: 16px;">{{ $listener['course'][0]['code'] }}</p>
                         <p style="text-align: center; font-size: 16px;">{{ $listener['course'][0]['title'] }}</p>
-                        <?php $ObchiyObemDPP += (int)$listener['course'][0]['hours']; ?>
-                        <p style="text-align: center; font-size: 16px;">Общий объём ДПП - {{ @$ObchiyObemDPP }} часов</p>
-                        <!-- <p style="text-align: center; font-size: 16px;">Срок освоения ДПП - {{ @$SrokOsvoeniyaPDD }} дней</p> -->
+                        <p style="text-align: center; font-size: 16px;">Общий объём ДПП - {{ $listener['course'][0]['hours'] }} {{ Lang::choice('час|часов|часов', $listener['course'][0]['hours']) }}</p>
+                        <p style="text-align: center; font-size: 16px;">Срок освоения ДПП - {{ round($listener['course'][0]['hours']/8) }} {{ Lang::choice('день|дня|дней', round($listener['course'][0]['hours']/8)) }}</p>
                     @endif
                     </td>
                 </tr>
@@ -73,6 +72,8 @@
                     <td style="border-width: 1px;border-color: #000;border-style: solid; padding: 5px;">
                         <p style="text-align: center; font-size: 16px;">{{ $course['code'] }}</p>
                         <p style="text-align: center; font-size: 16px;">{{ $course['title'] }}</p>
+                        <p style="text-align: center; font-size: 16px;">Общий объём ДПП - {{ $course['hours'] }} {{ Lang::choice('час|часа|часов', $course['hours']) }}</p>
+                        <p style="text-align: center; font-size: 16px;">Срок освоения ДПП - {{ round($course['hours']/8) }} {{ Lang::choice('день|дня|дней', round($course['hours']/8)) }}</p>
                     </td>
                 </tr>
                 <?php $ObchiyObemDPP += (int)$course['hours']; ?>

@@ -198,7 +198,7 @@ class AccountsDocumentsController extends BaseController {
                     $page_data['FIO_listener_dat'] = $listener->fio_dat;
                     $page_data['NomerUdostovereniya'] = str_pad($OrderListener->certificate_number,4,'0',STR_PAD_LEFT);
                     $page_data['Nazvanie_kursa'] = $course->title;
-                    $page_data['KolichestvoChasovObucheniyaPoKursu'] = $course->hours.' '.Lang::choice('час|часов|часов',$course->hours);
+                    $page_data['KolichestvoChasovObucheniyaPoKursu'] = $course->hours.' '.Lang::choice('час|часа|часов',$course->hours);
                     switch($format):
                         case 'html':
                             return View::make($template,$page_data);
@@ -468,7 +468,7 @@ class AccountsDocumentsController extends BaseController {
                     $page_data['FIO_listener_dat'] = $listener->fio_rod;
                     $page_data['NomerUdostovereniya'] = str_pad($OrderListener->certificate_number,4,'0',STR_PAD_LEFT);
                     $page_data['Nazvanie_kursa'] = $course->title;
-                    $page_data['KolichestvoChasovObucheniyaPoKursu'] = $course->hours.' '.Lang::choice('час|часов|часов',$course->hours);
+                    $page_data['KolichestvoChasovObucheniyaPoKursu'] = $course->hours.' '.Lang::choice('час|часа|часов',$course->hours);
                     switch($format):
                         case 'html':
                             return View::make($template,$page_data);
@@ -743,7 +743,7 @@ class AccountsDocumentsController extends BaseController {
                     $page_data['FIO_listener_dat'] = @$FIO_listener_dat;
                     $page_data['NomerUdostovereniya'] = str_pad($OrderListener->certificate_number,4,'0',STR_PAD_LEFT);
                     $page_data['Nazvanie_kursa'] = $course->title;
-                    $page_data['KolichestvoChasovObucheniyaPoKursu'] = $course->hours.' '.Lang::choice('час|часов|часов',$course->hours);
+                    $page_data['KolichestvoChasovObucheniyaPoKursu'] = $course->hours.' '.Lang::choice('час|часа|часов',$course->hours);
                     switch($format):
                         case 'html':
                             return View::make($template,$page_data);
