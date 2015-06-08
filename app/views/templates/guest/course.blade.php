@@ -7,7 +7,6 @@
 @section('style')
 @stop
 @section('content')
-{{ Helper::ta($course_seo) }}
 <main class="catalog-study-plan">
     <p class="study-plan-desc">Учебный план<br>дополнительной профессиональной программы</p>
     <h1>{{ $course->seo->h1 }}</h1>
