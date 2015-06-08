@@ -300,6 +300,15 @@ class AccountsOrganizationController extends BaseController {
         if(!Request::ajax()) return App::abort(404);
         $json_request = array('status'=>FALSE, 'responseText'=>'');
         if($order = Orders::where('payment_status',1)->findOrFail($order_id)):
+
+            $zak_link = URL::to('moderator/companies/profile/'. $order->user_id);
+            $zak_name = User_organization::where('id', $order->user_id)->pluck('title');
+
+            Event::fire('moderator.delete.order', array(array('accountID' => 0,
+                'order' => getOrderNumber($order),
+                'organization_link' => $zak_link,
+                'organization' => $zak_name)));
+
             Orders::where('payment_status',1)->findOrFail($order_id)->payment_numbers()->delete();
             if($orderListenersIDs = Orders::where('payment_status',1)->findOrFail($order_id)->listeners()->lists('id')):
                 OrdersListenersTests::whereIn('order_listeners_id',$orderListenersIDs)->delete();
