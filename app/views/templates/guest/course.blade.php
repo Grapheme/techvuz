@@ -2,6 +2,7 @@
 
 @section('title'){{{ $course_seo->title }}}@stop
 @section('description'){{{ $course_seo->description }}}@stop
+@section('keywords'){{{ $course_seo->keywords }}}@stop
 
 @section('style')
 @stop
