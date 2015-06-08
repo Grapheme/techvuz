@@ -225,12 +225,10 @@ class AccountsOrganizationController extends BaseController {
         endif;
         if(Request::ajax() && isOrganization()):
             if(Listener::where('organization_id',Auth::user()->id)->where('user_id',$listener_id)->exists()):
-
                 Event::fire('moderator.delete.company-listener', array(array('accountID' => 0,
                     'organization_link' => URL::to('moderator/companies/profile/' . Auth::user()->id),
                     'organization' => User_organization::where('id', Auth::user()->id)->pluck('title'),
                     'listener' => User_listener::where('id', $listener_id)->pluck('fio'))));
-
                 Listener::where('user_id',$listener_id)->delete();
                 User::where('id',$listener_id)->delete();
                 $json_request['redirect'] = URL::route('organization-listeners');
