@@ -259,9 +259,6 @@ class AdminUsersController extends BaseController {
             Event::fire('moderator.delete.individual-listener', array(array('accountID' => 0,
                 'listener' => User_individual::where('id', $id)->pluck('fio'))));
         endif;
-
-        Helper::tad(99999);
-
 		$json_request = array('status'=>FALSE, 'responseText'=>'');
 	    $deleted = User::find($id)->delete();
 		$json_request['responseText'] = 'Пользователь удален';
