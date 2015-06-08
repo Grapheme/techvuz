@@ -245,6 +245,21 @@ class AdminUsersController extends BaseController {
 		if(!Request::ajax())
             App::abort(404);
 
+        $user_group_id = User::where('id',$id)->pluck('group_id');
+        if($user_group_id == 4):
+            Event::fire('moderator.delete.company', array(array('accountID' => 0,
+                'organization' => User_organization::where('id', $id)->pluck('title'))));
+        elseif($user_group_id == 5):
+            $organization_id = User_listener::where('id', $id)->pluck('organization_id');
+            Event::fire('moderator.delete.company-listener', array(array('accountID' => 0,
+                'organization_link' => URL::to('moderator/companies/profile/' . $organization_id),
+                'organization' => User_organization::where('id', $organization_id)->pluck('title'),
+                'listener' => User_listener::where('id', $id)->pluck('fio'))));
+        elseif($user_group_id == 6):
+            Event::fire('moderator.delete.individual-listener', array(array('accountID' => 0,
+                'listener' => User_individual::where('id', $id)->pluck('fio'))));
+        endif;
+
 		$json_request = array('status'=>FALSE, 'responseText'=>'');
 	    $deleted = User::find($id)->delete();
 		$json_request['responseText'] = 'Пользователь удален';

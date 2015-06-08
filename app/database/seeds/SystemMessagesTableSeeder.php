@@ -63,5 +63,10 @@ class SystemMessagesTableSeeder extends Seeder {
 
         DicVal::create(array('dic_id'=>$dic_id,'slug'=>'organization.study-access','name'=> '<a href="[link]">[listener]</a> может приступить к обучению по программе [course].','order'=>42));
 
-        DicVal::create(array('dic_id'=>$dic_id,'slug'=>'moderator.study.finish','name'=> '<a href="[link]">[listener]</a> прошел(а) итоговое тестирование по программе [course] с результатом [percent]%.','order'=>43));   }
+        DicVal::create(array('dic_id'=>$dic_id,'slug'=>'moderator.study.finish','name'=> '<a href="[link]">[listener]</a> прошел(а) итоговое тестирование по программе [course] с результатом [percent]%.','order'=>43));
+
+        DicVal::create(array('dic_id'=>$dic_id,'slug'=>'moderator.delete.company','name'=> 'Компания [organization] удалена.','order'=>44));
+        DicVal::create(array('dic_id'=>$dic_id,'slug'=>'moderator.delete.company-listener','name'=> '[listener] удален(а) из слушателей <a href="[organization_link]">[organization]</a>','order'=>45));
+        DicVal::create(array('dic_id'=>$dic_id,'slug'=>'moderator.delete.individual-listener','name'=> 'Индивидуальный слушатель [listener] удален','order'=>46));
+    }
 }
