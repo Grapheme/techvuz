@@ -59,7 +59,7 @@ class PublicEducationCoursesController extends BaseController {
             $course = $this->course->whereActive(TRUE)->where('id', $course_seo->unit_id)
                 ->with('direction','seo')->first();
             if ($course):
-                return View::make('templates.'.Config::get('app.template').'.course', compact('course'));
+                return View::make('templates.'.Config::get('app.template').'.course', compact('course','course_seo'));
             endif;
         endif;
         App::abort(404);
