@@ -153,7 +153,7 @@ var validation_signup_messages_fl = {
     fio: { required: 'Укажите Ф.И.О.' },
     fio_rod: { required: 'Укажите Ф.И.О. в дат. падеже' },
     passport_seria: { required: 'Укажите серию паспорта' },
-    passport_number: { required: 'Укажите Номер паспорта' },
+    passport_number: { required: 'Укажите номер паспорта' },
     passport_data: { required: 'Укажите кем выдан паспорт' },
     passport_date: { required: 'Укажите дату выдачи паспорта' },
     code: { required: 'Укажите код подразделения' },
