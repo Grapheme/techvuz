@@ -13,7 +13,7 @@
         <label>Ф.И.О.</label>{{ Form::text('fio') }}
     </div>
     <div class="form-element">
-        <label>Ф.И.О. в род. падеже</label>{{ Form::text('fio_rod') }}
+        <label>Ф.И.О. в дат. падеже</label>{{ Form::text('fio_rod') }}
     </div>
     <div class="form-element">
         <label>Серия паспорта</label>{{ Form::text('passport_seria') }}
