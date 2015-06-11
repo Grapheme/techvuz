@@ -10442,7 +10442,7 @@ main.order-page a:hover {
   /* The MIT License */
 }
 
-.moderator-cabinet h4 {
+.moderator-cabinet h4.bigger-register {
   text-transform: uppercase;
 } 
 
