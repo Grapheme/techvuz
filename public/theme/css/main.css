@@ -10441,6 +10441,11 @@ main.order-page a:hover {
   /* The MIT License */
   /* The MIT License */
 }
+
+.moderator-cabinet h4 {
+  text-transform: uppercase;
+} 
+
 .moderator-cabinet .smart-form .btn {
   padding-top: 0;
   padding-bottom: 0;

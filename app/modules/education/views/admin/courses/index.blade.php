@@ -1,6 +1,6 @@
 @extends(Helper::acclayout())
 @section('content')
-    <h1>Направления и курсы: Курсы. </h1>
+    <!-- <h1>Направления и курсы: Курсы. </h1> -->
     <h4>Направление обучения &laquo;{{ $direction->title }}&raquo;</h4>
     <div class="row">
     	<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 margin-bottom-25 margin-top-10">
