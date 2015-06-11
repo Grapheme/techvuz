@@ -58,7 +58,7 @@
             <label>Даю согласие на обработку персональных данных</label>{{ Form::checkbox('consent',1,FALSE,array('autocomplete'=>'off','id'=>'input-consent-fz')) }}
         </div>
         <div class="form-element">
-            <button type="submit" autocomplete="off" class="btn btn--bordered btn--blue btn-form-submit">
+            <button type="submit" autocomplete="off" onclick="yaCounter28373826.reachGoal('finish_register'); return true;" class="btn btn--bordered btn--blue btn-form-submit">
                 <i class="fa fa-spinner fa-spin hidden"></i> <span class="btn-response-text">Готово</span>
             </button>
         </div>
