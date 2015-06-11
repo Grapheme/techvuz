@@ -4,18 +4,19 @@
     <h4>Направление обучения &laquo;{{ $direction->title }}&raquo;</h4>
     <div class="row">
     	<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 margin-bottom-25 margin-top-10">
-    		<div class="pull-left margin-right-10">
-    		    <a class="btn btn-default" href="{{ URL::route('directions.index') }}">Направления обучения</a>
-    		</div>
+    		<!-- <div class="pull-left margin-right-10">
+    		    
+    		</div> -->
     		<div class="pull-left margin-right-10">
     		@if(Allow::action($module['group'],'create'))
     			<a class="btn btn-primary" href="{{ URL::route('courses.create',array('directions'=>$direction->id)) }}">Добавить курс</a>
     		@endif
     		</div>
             <div class="btn-group pull-right margin-right-10">
-                <a class="btn btn-default" href="{{ URL::route('courses.index',array('directions'=>$direction->id)) }}">
+                <a class="btn btn-default button-hack" href="{{ URL::route('directions.index') }}">Направления обучения</a>
+                <!-- <a class="btn btn-default" href="{{ URL::route('courses.index',array('directions'=>$direction->id)) }}">
                     {{ $direction->title }} ({{ $direction->courses->count() }})
-                </a>
+                </a> -->
                 <a class="btn btn-default dropdown-toggle" data-toggle="dropdown" href="javascript:void(0);">
                     <span class="caret"></span>
                 </a>
@@ -66,7 +67,7 @@
     					<td class="text-center">{{ $course->hours }}</td>
     					<td>
     					    <a href="{{ URL::route('modules.index',array('direction'=>$direction->id,'course'=>$course->id)) }}" class="btn btn-link margin-right-10">Модули ({{ $course->lectures->count() }})</a><br>
-    					    <a href="{{ URL::route('metodical.index',array('direction'=>$direction->id,'course'=>$course->id)) }}" class="btn btn-link margin-right-10">Документация ({{ $course->metodicals->count() }})</a>
+    					    <a href="{{ URL::route('metodical.index',array('direction'=>$direction->id,'course'=>$course->id)) }}" class="btn btn-link margin-right-10">Приложения ({{ $course->metodicals->count() }})</a>
                         </td>
     					<td class="text-center" style="white-space:nowrap;">
         					@if(Allow::action($module['group'], 'edit'))

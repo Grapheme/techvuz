@@ -1,6 +1,6 @@
 @extends(Helper::acclayout())
 @section('content')
-<h1>Направления и курсы: Модули. </h1>
+<!-- <h1>Направления и курсы: Модули. </h1> -->
 <h4>Направление обучения &laquo;{{ $direction->title }}&raquo;</h4>
 <h4>Курс {{ $course->code }}. &laquo;{{ $course->title }}&raquo;</h4>
 <div class="row">
@@ -13,8 +13,8 @@
         </div>
         <div class="btn-group pull-right margin-right-10">
             {{ Form::open(array('url'=>URL::route('modules.dublicate',array('directions'=>$direction->id,'course_id'=>$course->id)), 'role'=>'form', 'class'=>'smart-form', 'method'=>'post')) }}
+                <button type="submit" autocomplete="off" class="btn btn-success create-dublicate-module">Создать копию в</button>
                 {{ Form::select('course_id',Courses::where('id','!=',$course->id)->orderBy('code')->lists('code','id')) }}
-                <button type="submit" autocomplete="off" class="btn btn-success create-dublicate-module">Создать копию</button>
             {{ Form::close() }}
         @if(Session::has('message'))
             <?php $message = Session::get('message'); ?>

@@ -10496,7 +10496,7 @@ main.order-page a:hover {
   padding: 0;
 }
 .moderator-cabinet .photo-preview-container {
-  background: #efefef;
+  background: #00AEE6;
 }
 .moderator-cabinet .photo-preview-container .photo-preview-single {
   background-repeat: no-repeat;
@@ -11838,4 +11838,8 @@ main.order-page a:hover {
 
 .name-dashboard:hover {
   text-decoration: underline;
+}
+
+.button-hack {
+  margin-right: -9px !important;
 }
