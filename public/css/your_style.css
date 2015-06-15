@@ -178,7 +178,7 @@ margin-left: 0;
 }
 
 .photo-preview a.photo-delete, .photo-preview a.photo-delete-single {
-    position:absolute; left:0; bottom:0; text-align:center; width:100%; color:#f00; background:#000;
+    position:absolute; left:0; bottom:0; text-align:center; width:100%; color:#f00; background:#fff;
     display:none;
 }
 
