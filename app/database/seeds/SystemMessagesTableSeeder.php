@@ -19,7 +19,7 @@ class SystemMessagesTableSeeder extends Seeder {
         DicVal::create(array('dic_id'=>$dic_id,'slug'=>'organization.study.control','name'=> '[listener] успешно завершил(а) промежуточное тестирование по программе [course] с результатом [percent]%.','order'=>8));
         DicVal::create(array('dic_id'=>$dic_id,'slug'=>'organization.study.fail-control','name'=> '[listener] неудачно завершил(а) промежуточное тестирование по программе [course] с результатом [percent]%.','order'=>9));
         DicVal::create(array('dic_id'=>$dic_id,'slug'=>'organization.study.fail-finish','name'=> '[listener] неудачно завершил(а) итоговое тестирование по программе [course] с результатом [percent]%.','order'=>9));
-        DicVal::create(array('dic_id'=>$dic_id,'slug'=>'organization.study.finish','name'=> '[listener] прошел(а) итоговое тестирование по программе [course] с результатом [percent]%.','order'=>10));
+        DicVal::create(array('dic_id'=>$dic_id,'slug'=>'organization.study.finish','name'=> '<a href="[listener_link]">[listener]</a> прошел(а) итоговое тестирование по программе [course] с результатом [percent]% (<a href="[organization_link]">[organization]</a>).','order'=>10));
 
         DicVal::create(array('dic_id'=>$dic_id,'slug'=>'organization.order.part-puy-not-access','name'=> 'Заказ <a href="[link]">№[order]</a> оплачен частично.','order'=>15));
         DicVal::create(array('dic_id'=>$dic_id,'slug'=>'organization.order.yes-puy-yes-access','name'=> 'Заказ <a href="[link]">№[order]</a> оплачен.','order'=>17));
