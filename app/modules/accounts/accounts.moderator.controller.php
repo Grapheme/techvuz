@@ -583,7 +583,6 @@ class AccountsModeratorController extends BaseController {
             'page_keywords'=> '',
             'profile' => array()
         );
-
         if($account = User::where('id',$listener_id)->first()):
             if ($account->group_id == 5):
                 $page_data['profile'] = User_listener::where('id',$listener_id)->with('organization')->first();
@@ -592,8 +591,10 @@ class AccountsModeratorController extends BaseController {
                 $page_data['profile'] = User_individual::where('id',$listener_id)->first();
                 $page_data['profile']['group_id'] = 6;
             endif;
+            return View::make(Helper::acclayout('listener-profile'),$page_data);
+        else:
+            App::abort(404);
         endif;
-        return View::make(Helper::acclayout('listener-profile'),$page_data);
     }
 
     public function ListenerProfileEdit($listener_id){
@@ -614,8 +615,10 @@ class AccountsModeratorController extends BaseController {
                 $page_data['profile'] = User_individual::where('id',$listener_id)->first();
                 $page_data['profile_group_id'] = 6;
             endif;
+            return View::make(Helper::acclayout('listener-profile-edit'),$page_data);
+        else:
+            App::abort(404);
         endif;
-        return View::make(Helper::acclayout('listener-profile-edit'),$page_data);
     }
 
     public function ListenerProfileUpdate($listener_id){
