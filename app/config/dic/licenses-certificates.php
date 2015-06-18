@@ -14,6 +14,11 @@ return array(
                 'title' => 'Описание',
                 'type' => 'textarea_redactor',
             ),
+
+            'slider_group' => array(
+                'title' => 'Номер группы',
+                'type' => 'text',
+            ),
         );
 
     },
