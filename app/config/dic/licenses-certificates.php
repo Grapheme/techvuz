@@ -19,6 +19,12 @@ return array(
                 'title' => 'Номер группы',
                 'type' => 'text',
             ),
+            'slider_main' => array(
+                'no_label' => true,
+                'title' => 'Главный слайд',
+                'type' => 'checkbox',
+                'label_class' => 'normal_checkbox',
+            ),
         );
 
     },
