@@ -10432,6 +10432,11 @@ main.order-page a:hover {
   border-width: 2px;
   margin-bottom: 15px;
 }
+
+.moderator-cabinet  h1.uppercase {
+  text-transform: uppercase;
+}
+
 .cabinet .btn-danger:hover, .moderator-cabinet .btn-danger:hover {
   color: white;
   background: #bb252d;
@@ -10442,7 +10447,7 @@ main.order-page a:hover {
   /* The MIT License */
 }
 
-.moderator-cabinet h4 {
+.moderator-cabinet h4.bigger-register {
   text-transform: uppercase;
 } 
 
@@ -11847,4 +11852,9 @@ main.order-page a:hover {
 
 .button-hack {
   margin-right: -9px !important;
+}
+
+.tech-table.table.table-striped.table-bordered th {
+  font-size: 0.9em;
+  padding: 8px;
 }

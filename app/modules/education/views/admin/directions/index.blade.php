@@ -1,6 +1,6 @@
 @extends(Helper::acclayout())
 @section('content')
-    <h1><!-- Направления и курсы:  -->Направления обучения</h1>
+    <h1 class="uppercase"><!-- Направления и курсы:  -->Направления обучения</h1>
     <div class="row">
     	<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 margin-bottom-25 margin-top-10">
     		<div class="pull-left margin-right-10">
