@@ -200,7 +200,9 @@ class AccountsOrderingController extends BaseController {
                     $name = User_individual::where('id',Auth::user()->id)->pluck('fio');
                     $organization_link = URL::to('moderator/listeners/profile/'.Auth::user()->id);
                 endif;
-                Event::fire('moderator.order.closed',array(array('accountID'=>0,'link'=>URL::to('moderator/order/'.$order->id.'/extended'),'order'=>getOrderNumber($order),'organization'=>@$name,'organization_link'=>@$organization_link)));
+                Event::fire('moderator.order.closed', array(array('accountID' => 0,
+                    'link' => URL::to('moderator/order/' . $order->id . '/extended'), 'order' => getOrderNumber($order),
+                    'organization' => @$name, 'organization_link' => @$organization_link)));
             endif;
             return TRUE;
         endif;
