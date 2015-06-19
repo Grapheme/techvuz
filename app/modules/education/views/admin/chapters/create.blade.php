@@ -3,9 +3,9 @@
 {{ HTML::style('css/redactor.css') }}
 @stop
 @section('content')
-    <h1>Направления и курсы: Добавление главы</h1>
-    <h4>Направление обучения &laquo;{{ $direction->title }}&raquo;</h4>
-    <h4>Курс &laquo;{{ $course->title }}&raquo;</h4>
+    <h4 class="bigger-register">Направление обучения &laquo;{{ $direction->title }}&raquo;</h4>
+    <h4 class="bigger-register">Курс {{ $course->code }}. &laquo;{{ $course->title }}&raquo;</h4>
+    <h4 class="bigger-register">Добавление главы</h4>
 {{ Form::open(array('url'=>URL::route('chapters.store',array('directions'=>$direction->id,'course'=>$course->id)), 'role'=>'form', 'class'=>'smart-form', 'id'=>'chapter-form', 'method'=>'post')) }}
 	{{ Form::hidden('course_id',$course->id) }}
 	{{ Form::hidden('order',(int) DB::table('chapters')->where('course_id',$course->id)->max('order')+1) }}

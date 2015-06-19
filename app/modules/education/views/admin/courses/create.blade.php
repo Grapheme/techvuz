@@ -3,8 +3,8 @@
 {{ HTML::style('css/redactor.css') }}
 @stop
 @section('content')
-    <h1>Направления и курсы: Добавление курса</h1>
-    <h4>Направление обучения &laquo;{{ $direction->title }}&raquo;</h4>
+    <h4 class="bigger-register">Направление обучения &laquo;{{ $direction->title }}&raquo;</h4>
+    <h4 class="bigger-register">Добавление курса</h4>
 {{ Form::open(array('url'=>URL::route('courses.store',array('directions'=>$direction->id)), 'role'=>'form', 'class'=>'smart-form', 'id'=>'course-form', 'method'=>'post','files'=>TRUE)) }}
 	{{ Form::hidden('direction_id',$direction->id) }}
 	{{ Form::hidden('order',(int) DB::table('courses')->where('direction_id',$direction->id)->max('order')+1) }}

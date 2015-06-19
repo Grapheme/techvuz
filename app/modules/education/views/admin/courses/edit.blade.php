@@ -3,8 +3,8 @@
 {{ HTML::style('css/redactor.css') }}
 @stop
 @section('content')
-    <h1><!-- Направления и курсы: -->Редактирование курса</h1>
-    <h4>Направление обучения &laquo;{{ $direction->title }}&raquo;</h4>
+    <h4 class="bigger-register">Направление обучения &laquo;{{ $direction->title }}&raquo;</h4>
+    <h4 class="bigger-register">Редактирование курса</h4>
 {{ Form::model($course, array('url'=>URL::route('courses.update',array('directions'=>$direction->id,'course'=>$course->id)), 'class'=>'smart-form', 'id'=>'course-form', 'role'=>'form', 'method'=>'PUT','files'=>true)) }}
 	{{ Form::hidden('direction_id',$direction->id) }}
 	{{ Form::hidden('order') }}

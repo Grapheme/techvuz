@@ -3,7 +3,7 @@
 {{ HTML::style('css/redactor.css') }}
 @stop
 @section('content')
-    <h1>Направления и курсы: Редактирование направления обучения</h1>
+    <h4 class="bigger-register">Редактирование направления обучения</h4>
 {{ Form::model($direction, array('url'=>URL::route('directions.update',array('directions'=>$direction->id)), 'class'=>'smart-form', 'id'=>'direction-form', 'role'=>'form', 'method'=>'PUT')) }}
 	{{ Form::hidden('order') }}
 	<div class="row margin-top-10">

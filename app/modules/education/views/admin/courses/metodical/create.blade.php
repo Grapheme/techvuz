@@ -3,9 +3,9 @@
 {{ HTML::style('css/redactor.css') }}
 @stop
 @section('content')
-    <h1>Направления и курсы: Добавление специализированного документа</h1>
-    <h4>Направление обучения &laquo;{{ $direction->title }}&raquo;</h4>
-    <h4>Курс {{ $course->code }}. &laquo;{{ $course->title }}&raquo;</h4>
+    <h4 class="bigger-register">Направление обучения &laquo;{{ $direction->title }}&raquo;</h4>
+    <h4 class="bigger-register">Специализированная документация.<br> Курс {{ $course->code }}. &laquo;{{ $course->title }}&raquo;</h4>
+    <h4 class="bigger-register">Добавление документа</h4>
 {{ Form::open(array('url'=>URL::route('metodical.store',array('direction'=>$direction->id,'course'=>$course->id)), 'role'=>'form', 'class'=>'smart-form', 'id'=>'course-metodical-form', 'method'=>'post','files'=>TRUE)) }}
 	{{ Form::hidden('course_id',$course->id) }}
 	{{ Form::hidden('order',(int) DB::table('course_metodical')->where('course_id',$course->id)->max('order')+1) }}

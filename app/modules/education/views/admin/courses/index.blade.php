@@ -1,12 +1,8 @@
 @extends(Helper::acclayout())
 @section('content')
-    <!-- <h1>Направления и курсы: Курсы. </h1> -->
     <h4 class="bigger-register">Направление обучения &laquo;{{ $direction->title }}&raquo;</h4>
     <div class="row">
     	<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 margin-bottom-25 margin-top-10">
-    		<!-- <div class="pull-left margin-right-10">
-    		    
-    		</div> -->
     		<div class="pull-left margin-right-10">
     		@if(Allow::action($module['group'],'create'))
     			<a class="btn btn-primary" href="{{ URL::route('courses.create',array('directions'=>$direction->id)) }}">Добавить курс</a>
@@ -14,9 +10,6 @@
     		</div>
             <div class="btn-group pull-right margin-right-10">
                 <a class="btn btn-default button-hack" href="{{ URL::route('directions.index') }}">Направления обучения</a>
-                <!-- <a class="btn btn-default" href="{{ URL::route('courses.index',array('directions'=>$direction->id)) }}">
-                    {{ $direction->title }} ({{ $direction->courses->count() }})
-                </a> -->
                 <a class="btn btn-default dropdown-toggle" data-toggle="dropdown" href="javascript:void(0);">
                     <span class="caret"></span>
                 </a>

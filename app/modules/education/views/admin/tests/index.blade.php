@@ -1,18 +1,17 @@
 @extends(Helper::acclayout())
 @section('content')
-<h1>Направления и курсы: Курсы. </h1>
-<h4>Направление обучения &laquo;{{ $direction->title }}&raquo;</h4>
-<h4>Курс {{ $course->code }}. &laquo;{{ $course->title }}&raquo;</h4>
-@if(!is_null($chapter))
-<h4>
-    Глава &laquo;{{ $chapter->title }}&raquo;
-    @if(!empty($chapter->test_title)){{ $chapter->test_title }}@else{{ $test->title }}@endif
-</h4>
-<?php $chapter_id = $chapter->id?>
-@else
-<h4>@if(!empty($course->test_title)){{ $course->test_title }}@else{{ $test->title }}@endif</h4>
-<?php $chapter_id = 0; ?>
-@endif
+    <h4 class="bigger-register">Направление обучения &laquo;{{ $direction->title }}&raquo;</h4>
+    <h4 class="bigger-register">Курс {{ $course->code }}. &laquo;{{ $course->title }}&raquo;</h4>
+    @if(!is_null($chapter))
+        <h4 class="bigger-register">
+            Глава &laquo;{{ $chapter->title }}&raquo;<br>
+            @if(!empty($chapter->test_title)){{ $chapter->test_title }}@else{{ $test->title }}@endif
+        </h4>
+        <?php $chapter_id = $chapter->id?>
+    @else
+        <h4 class="bigger-register">@if(!empty($course->test_title)){{ $course->test_title }}@else{{ $test->title }}@endif</h4>
+        <?php $chapter_id = 0; ?>
+    @endif
 <div class="row">
     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 margin-bottom-25 margin-top-10">
         <div class="pull-left margin-right-10">

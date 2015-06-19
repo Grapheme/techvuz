@@ -3,10 +3,10 @@
 {{ HTML::style('css/redactor.css') }}
  @stop
 @section('content')
-    <h1>Направления и курсы: Добавление лекции</h1>
-    <h4>Направление обучения &laquo;{{ $direction->title }}&raquo;</h4>
-    <h4>Курс &laquo;{{ $course->title }}&raquo;</h4>
-    <h4>Глава &laquo;{{ $chapter->title }}&raquo;</h4>
+    <h4 class="bigger-register">Направление обучения &laquo;{{ $direction->title }}&raquo;</h4>
+    <h4 class="bigger-register">Курс {{ $course->code }}. &laquo;{{ $course->title }}&raquo;</h4>
+    <h4 class="bigger-register">Глава &laquo;{{ $chapter->title }}&raquo;</h4>
+    <h4 class="bigger-register">Добавление лекции</h4>
 {{ Form::open(array('url'=>URL::route('lectures.store',array('directions'=>$direction->id,'course'=>$course->id,'chapter'=>$chapter->id)), 'role'=>'form', 'class'=>'smart-form', 'id'=>'lecture-form', 'method'=>'post','files'=>TRUE)) }}
 	{{ Form::hidden('course_id',$course->id) }}
 	{{ Form::hidden('chapter_id',$chapter->id) }}
