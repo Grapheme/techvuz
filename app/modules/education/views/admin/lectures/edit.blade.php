@@ -6,7 +6,7 @@
     <h4 class="bigger-register">Направление обучения &laquo;{{ $direction->title }}&raquo;</h4>
     <h4 class="bigger-register">Курс {{ $course->code }} &laquo;{{ $course->title }}&raquo;</h4>
     <h4 class="bigger-register">Глава &laquo;{{ $chapter->title }}&raquo;</h4>
-    <h4 class="bigger-register">Редактирование лекции</h4>
+    <h4 class="bigger-register">Редактирование модуля</h4>
 {{ Form::model($lecture, array('url'=>URL::route('lectures.update',array('directions'=>$direction->id,'course'=>$course->id,'chapter'=>$chapter->id,'lecture'=>$lecture->id)), 'class'=>'smart-form', 'id'=>'lecture-form', 'role'=>'form', 'method'=>'PUT', 'files'=>true)) }}
 	{{ Form::hidden('course_id',$course->id) }}
 	{{ Form::hidden('chapter_id',$chapter->id) }}
