@@ -377,7 +377,7 @@ class AdminGalleriesController extends BaseController {
         }
 
         $rules = array(
-        	#'file' => 'image'
+        	'file' => 'image'
 	    );	 
 	    $validation = Validator::make(array('file' => $file), $rules);
 	    if ($validation->fails()){
