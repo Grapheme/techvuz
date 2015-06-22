@@ -12,7 +12,6 @@
 	<div class="row margin-top-10">
 		<section class="col col-6">
 			<div class="well">
-				<header>Для добавление новой главы заполните форму:</header>
 				<fieldset>
 					<section>
 						<label class="label">Название</label>

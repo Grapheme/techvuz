@@ -1,7 +1,8 @@
 @extends(Helper::acclayout())
 @section('content')
     <h4 class="bigger-register">Направление обучения &laquo;{{ $direction->title }}&raquo;</h4>
-    <h4 class="bigger-register">Специализированная документация.<br> Курс {{ $course->code }}. &laquo;{{ $course->title }}&raquo;</h4>
+    <h4 class="bigger-register">Курс {{ $course->code }}. &laquo;{{ $course->title }}&raquo;</h4>
+    <h4 class="bigger-register">Специализированная документация</h4>
     <div class="row">
     	<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 margin-bottom-25 margin-top-10">
     		<div class="pull-left margin-right-10">

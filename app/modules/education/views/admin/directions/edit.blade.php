@@ -3,13 +3,13 @@
 {{ HTML::style('css/redactor.css') }}
 @stop
 @section('content')
+    <h4 class="bigger-register">Направления обучения</h4>
     <h4 class="bigger-register">Редактирование направления обучения</h4>
 {{ Form::model($direction, array('url'=>URL::route('directions.update',array('directions'=>$direction->id)), 'class'=>'smart-form', 'id'=>'direction-form', 'role'=>'form', 'method'=>'PUT')) }}
 	{{ Form::hidden('order') }}
 	<div class="row margin-top-10">
 		<section class="col col-6">
 			<div class="well">
-				<header>Для изменения направления отредактируйте форму:</header>
 				<fieldset>
                     <section>
 						<label class="label">Код</label>

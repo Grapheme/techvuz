@@ -3,13 +3,13 @@
 {{ HTML::style('css/redactor.css') }}
 @stop
 @section('content')
-    <h4 class="bigger-register">Новое направление обучения</h4>
+    <h4 class="bigger-register">Направления обучения</h4>
+    <h4 class="bigger-register">Добавление направления обучения</h4>
 {{ Form::open(array('url'=>URL::route('directions.store'), 'role'=>'form', 'class'=>'smart-form', 'id'=>'direction-form', 'method'=>'post')) }}
 	{{ Form::hidden('order',(int) DB::table('directions')->max('order')+1) }}
 	<div class="row margin-top-10">
 		<section class="col col-6">
 			<div class="well">
-				<header>Для добавление нового направления заполните форму:</header>
 				<fieldset>
 					<section>
 						<label class="label">Код</label>

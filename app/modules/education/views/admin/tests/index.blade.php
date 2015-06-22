@@ -3,10 +3,8 @@
     <h4 class="bigger-register">Направление обучения &laquo;{{ $direction->title }}&raquo;</h4>
     <h4 class="bigger-register">Курс {{ $course->code }}. &laquo;{{ $course->title }}&raquo;</h4>
     @if(!is_null($chapter))
-        <h4 class="bigger-register">
-            Глава &laquo;{{ $chapter->title }}&raquo;<br>
-            @if(!empty($chapter->test_title)){{ $chapter->test_title }}@else{{ $test->title }}@endif
-        </h4>
+        <h4 class="bigger-register">Глава &laquo;{{ $chapter->title }}&raquo;</h4>
+        <h4 class="bigger-register">@if(!empty($chapter->test_title)){{ $chapter->test_title }}@else{{ $test->title }}@endif</h4>
         <?php $chapter_id = $chapter->id?>
     @else
         <h4 class="bigger-register">@if(!empty($course->test_title)){{ $course->test_title }}@else{{ $test->title }}@endif</h4>

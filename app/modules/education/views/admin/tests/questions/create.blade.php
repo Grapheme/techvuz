@@ -3,15 +3,17 @@
 {{ HTML::style('css/redactor.css') }}
 @stop
 @section('content')
-<h1>Направления и курсы: Добавление курса</h1>
-<h4>Направление обучения &laquo;{{ $direction->title }}&raquo;</h4>
-@if(!is_null($chapter))
-<h4>Глава &laquo;{{ $chapter->title }}&raquo;. {{ $test->title }}</h4>
-<?php $chapter_id = $chapter->id?>
-@else
-<h4>{{ $test->title }}</h4>
-<?php $chapter_id = 0; ?>
-@endif
+    <h4 class="bigger-register">Направление обучения &laquo;{{ $direction->title }}&raquo;</h4>
+    <h4 class="bigger-register">Курс {{ $course->code }}. &laquo;{{ $course->title }}&raquo;</h4>
+    @if(!is_null($chapter))
+        <h4 class="bigger-register">Глава &laquo;{{ $chapter->title }}&raquo;</h4>
+        <h4 class="bigger-register">@if(!empty($chapter->test_title)){{ $chapter->test_title }}@else{{ $test->title }}@endif</h4>
+        <?php $chapter_id = $chapter->id?>
+    @else
+        <h4 class="bigger-register">@if(!empty($course->test_title)){{ $course->test_title }}@else{{ $test->title }}@endif</h4>
+        <?php $chapter_id = 0; ?>
+    @endif
+    <h4 class="bigger-register">Добавление вопроса</h4>
 {{ Form::open(array('url'=>URL::route('questions.store',array('directions'=>$direction->id,'course'=>$course->id,'chapter'=>$chapter_id,'test'=>$test->id)), 'role'=>'form', 'class'=>'smart-form', 'id'=>'question-form', 'method'=>'post')) }}
 	{{ Form::hidden('test_id',$test->id) }}
 	{{ Form::hidden('order',(int) DB::table('tests_questions')->where('test_id',$test->id)->max('order')+1) }}
@@ -19,7 +21,6 @@
 	<div class="row margin-top-10">
 		<section class="col col-6">
 			<div class="well">
-				<header>Для добавление нового вопроса заполните форму:</header>
 				<fieldset>
                     <section>
 						<label class="label">Вопрос</label>

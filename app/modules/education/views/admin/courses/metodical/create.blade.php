@@ -4,7 +4,8 @@
 @stop
 @section('content')
     <h4 class="bigger-register">Направление обучения &laquo;{{ $direction->title }}&raquo;</h4>
-    <h4 class="bigger-register">Специализированная документация.<br> Курс {{ $course->code }}. &laquo;{{ $course->title }}&raquo;</h4>
+    <h4 class="bigger-register">Курс {{ $course->code }}. &laquo;{{ $course->title }}&raquo;</h4>
+    <h4 class="bigger-register">Специализированная документация</h4>
     <h4 class="bigger-register">Добавление документа</h4>
 {{ Form::open(array('url'=>URL::route('metodical.store',array('direction'=>$direction->id,'course'=>$course->id)), 'role'=>'form', 'class'=>'smart-form', 'id'=>'course-metodical-form', 'method'=>'post','files'=>TRUE)) }}
 	{{ Form::hidden('course_id',$course->id) }}
@@ -12,7 +13,6 @@
 	<div class="row margin-top-10">
 		<section class="col col-6">
 			<div class="well">
-				<header>Для добавление нового документа заполните форму:</header>
 				<fieldset>
 					<section>
 						<label class="label">Название</label>

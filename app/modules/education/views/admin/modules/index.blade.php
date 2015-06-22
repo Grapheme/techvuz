@@ -77,7 +77,7 @@
                     <td class="col-lg-10">
                     @if(Allow::action($module['group'], 'edit'))
                         <a class="btn btn-success" href="{{ URL::route('lectures.create',array('directions'=>$direction->id,'course'=>$course->id,'chapter'=>$chapter->id)) }}">Добавить лекцию</a>
-                        <a class="btn btn-success{{ empty($chapter->test) ? ' create-intermediate-test' : '' }}" {{ $chapter->lectures->count() ? '' : 'disabled' }} href="{{ URL::route('testing.index',array('directions'=>$direction->id,'course'=>$course->id,'chapter'=>$chapter->id)) }}">{{ empty($chapter->test) ? 'Добавить промежуточный тест' : 'Редактировать промежуточный тест' }}</a>
+                        <a class="btn btn-success{{ empty($chapter->test) ? ' create-intermediate-test' : '' }}" {{ $chapter->lectures->count() ? '' : 'disabled' }} href="{{ URL::route('testing.index',array('directions'=>$direction->id,'course'=>$course->id,'chapter'=>$chapter->id)) }}">{{ empty($chapter->test) ? 'Добавить промежуточный тест' : 'Изменить промежуточный тест' }}</a>
                     @endif
                     </td>
                     <td class="col-lg-2 text-center"> </td>
@@ -90,7 +90,7 @@
     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 margin-bottom-25 margin-top-10">
         <div class="pull-left margin-right-10">
             <a class="btn btn-success" href="{{ URL::route('chapters.create',array('directions'=>$direction->id,'course'=>$course->id)) }}">Новая глава</a>
-            <a class="btn btn-success{{ empty($course->test) ? ' create-final-test btn-info' : '' }}" {{ $course->chapters->count() ? '' : 'disabled' }} href="{{ URL::route('testing.index',array('directions'=>$direction->id,'course'=>$course->id,'chapter'=>0)) }}">{{ empty($course->test) ? 'Добавить итоговый тест' : 'Редактировать итоговый тест' }}</a>
+            <a class="btn btn-success{{ empty($course->test) ? ' create-final-test btn-info' : '' }}" {{ $course->chapters->count() ? '' : 'disabled' }} href="{{ URL::route('testing.index',array('directions'=>$direction->id,'course'=>$course->id,'chapter'=>0)) }}">{{ empty($course->test) ? 'Добавить итоговый тест' : 'Изменить итоговый тест' }}</a>
         </div>
     </div>
 </div>

@@ -11,7 +11,6 @@
 	<div class="row margin-top-10">
 		<section class="col col-6">
 			<div class="well">
-				<header>Для изменения элемента отредактируйте форму:</header>
 				<fieldset>
                     <section>
                         <label class="label">Код</label>
