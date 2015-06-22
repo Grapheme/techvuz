@@ -1,7 +1,7 @@
 @extends(Helper::acclayout())
 @section('content')
     <h4 class="bigger-register">Направление обучения &laquo;{{ $direction->title }}&raquo;</h4>
-    <h4 class="bigger-register">Курс {{ $course->code }}. &laquo;{{ $course->title }}&raquo;</h4>
+    <h4 class="bigger-register">Курс {{ $course->code }} &laquo;{{ $course->title }}&raquo;</h4>
     @if(!is_null($chapter))
         <h4 class="bigger-register">Глава &laquo;{{ $chapter->title }}&raquo;</h4>
         <h4 class="bigger-register">@if(!empty($chapter->test_title)){{ $chapter->test_title }}@else{{ $test->title }}@endif</h4>

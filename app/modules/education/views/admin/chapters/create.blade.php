@@ -4,7 +4,7 @@
 @stop
 @section('content')
     <h4 class="bigger-register">Направление обучения &laquo;{{ $direction->title }}&raquo;</h4>
-    <h4 class="bigger-register">Курс {{ $course->code }}. &laquo;{{ $course->title }}&raquo;</h4>
+    <h4 class="bigger-register">Курс {{ $course->code }} &laquo;{{ $course->title }}&raquo;</h4>
     <h4 class="bigger-register">Добавление главы</h4>
 {{ Form::open(array('url'=>URL::route('chapters.store',array('directions'=>$direction->id,'course'=>$course->id)), 'role'=>'form', 'class'=>'smart-form', 'id'=>'chapter-form', 'method'=>'post')) }}
 	{{ Form::hidden('course_id',$course->id) }}
