@@ -833,9 +833,10 @@ class AccountsModeratorController extends BaseController {
             endforeach;
             if (!empty($tmp_orders)):
                 $tmp_order_extended = $temp_payments_extended = array();
+                $orders_extended_total = array();
                 foreach($tmp_orders as $order):
                     $orders[$order['created_at']] += 1;
-                    $tmp_order_extended[$order['created_at']][] = self::getStatisticOrdersExtended($order);
+                    $tmp_order_extended[$order['created_at']][] = $orders_extended_total[] = self::getStatisticOrdersExtended($order);
                     if (count($order['payment_numbers'])):
                         foreach($order['payment_numbers'] as $payment_number):
                             $payments[$payment_number['payment_date']] += $payment_number['price'];
@@ -853,6 +854,9 @@ class AccountsModeratorController extends BaseController {
                         endforeach;
                         $orders_extended[$index] = View::make(Helper::acclayout('assets.statistic.orders-table'),array('orders'=>$order_extended,'date'=>$index))->render();
                     endforeach;
+                    if(count($orders_extended)):
+                        $orders_extended['total'] = View::make(Helper::acclayout('assets.statistic.payments-table'),array('orders'=>$orders_extended_total,'date'=>'период'))->render();
+                    endif;
                 endif;
                 if (count($temp_payments_extended)):
                     foreach($temp_payments_extended as $index => $payment_extended):
@@ -890,8 +894,6 @@ class AccountsModeratorController extends BaseController {
             'payments_extended' => $payments_extended,
             'payments_extended_counts' => $payments_extended_counts
         );
-//        Helper::ta($page_data['orders_extended_counts']);
-//        Helper::tad($page_data['payments_extended_counts']);
         return View::make(Helper::acclayout('statistic'),$page_data);
     }
 

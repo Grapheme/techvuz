@@ -37,7 +37,11 @@
 @if(count($orders_extended))
 <div id="orderschartextended" class="margin-top-20 margin-bottom-20">
 @foreach($orders_extended as $index => $order_extended)
+    @if($index == 'total')
+    <div data-order-date="{{ $index }}" class="order-extended">{{ $order_extended }}</div>
+    @else
     <div data-order-date="{{ $index }}" class="order-extended hidden">{{ $order_extended }}</div>
+    @endif
 @endforeach
 </div>
 @endif
