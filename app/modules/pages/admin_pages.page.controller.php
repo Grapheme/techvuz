@@ -69,7 +69,7 @@ class AdminPagesPageController extends BaseController {
 
         Allow::permission($this->module['group'], 'view');
 
-        $pages = $this->essence->where('version_of', NULL)->orderBy('start_page', 'DESC')->orderBy('name', 'ASC')->with('blocks')->get();
+        $pages = $this->essence->where('version_of', NULL)->orderBy('created_at', 'ASC')->orderBy('start_page', 'DESC')->orderBy('name', 'ASC')->with('blocks')->get();
 
         #Helper::tad($pages);
 
