@@ -3,7 +3,7 @@
 @stop
 @section('content')
 <?php
-$orders = Orders::where('payment_status',1)->orderBy('created_at','DESC')->limit(3)->with('payment','listeners','payment_numbers','organization','individual')->get();
+$orders = Orders::where('archived', 0)->where('payment_status',1)->orderBy('created_at','DESC')->limit(3)->with('payment','listeners','payment_numbers','organization','individual')->get();
 $dashboardNotificationBlockTargetValue = Config::get('site.user_setting.dashboard-target-notification-block') ? Config::get('site.user_setting.dashboard-target-notification-block') : 0;
 $messages = Dictionary::valuesBySlug('system-messages',function($query){
     $setDate = Config::get('site.user_setting.dashboard-target-notification-block-date') ? Config::get('site.user_setting.dashboard-target-notification-block-date') : \Carbon\Carbon::now()->subDays(14);
