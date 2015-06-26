@@ -30,4 +30,9 @@
 @section('overlays')
 @stop
 @section('scripts')
+    @if(Auth::check() && Auth::user()->group_id > 3)
+    <script type="text/javascript">
+        windows.location = '{{ URL::route('ordering-select-courses') }}';
+    </script>
+    @endif
 @stop
