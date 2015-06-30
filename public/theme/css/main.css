@@ -11340,6 +11340,10 @@ main.order-page a:hover {
   background: none;
 }
 
+.table-striped.strange-striped > tbody > tr:nth-child(odd) > td {
+  background: none;
+}
+
 .moderator-cabinet .table.strange-striped .strange-stripe {
   background: #f9f9f9;
 }
