@@ -11335,6 +11335,15 @@ main.order-page a:hover {
 .moderator-cabinet .table tr:nth-child(2n+1) {
   background: #f9f9f9;
 }
+
+.moderator-cabinet .table.strange-striped tr:nth-child(2n+1) {
+  background: none;
+}
+
+.moderator-cabinet .table.strange-striped .strange-stripe {
+  background: #f9f9f9;
+}
+
 .moderator-cabinet .table tr:nth-child(2n+2) {
   background: white;
 }
