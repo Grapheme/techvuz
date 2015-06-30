@@ -11345,7 +11345,7 @@ main.order-page a:hover {
 }
 
 .moderator-cabinet .table.strange-striped .strange-stripe {
-  background: #f9f9f9;
+  background: #f9f9f9 !important;
 }
 
 .moderator-cabinet .table tr:nth-child(2n+2) {
