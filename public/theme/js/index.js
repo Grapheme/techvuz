@@ -1078,3 +1078,13 @@ var Payments = (function(){
 		$('.fancybox').fancybox();
 	});
 })();
+
+
+$(document).ready(function(){
+    var course_id = window.location.hash.substr(1);
+    var active_input = $('input[value="' + course_id + '"]');
+    var active_parent = active_input.parents('.accordion-body');
+    active_parent.prev().trigger('click');
+	active_input.attr('checked', true);
+
+}); 

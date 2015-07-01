@@ -11875,3 +11875,15 @@ main.order-page a:hover {
 .ui-accordion .accordion-header.ui-accordion-header#ui-id-7 {
   background-color: #bb252d !important;
 }
+
+.new-order-holder {
+  overflow: hidden;
+  width: 100%;
+  padding: 20px 0px 0px 0px;
+}
+
+.new-order-holder a {
+  margin: 0 auto;
+  display: inline-block;
+  float: none !important;
+}
