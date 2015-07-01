@@ -7700,6 +7700,10 @@ a[href^="tel"] {
 .accordion .accordion-header.ui-accordion-header-active {
   color: white;
 }
+
+.accordion .accordion-header {
+  color: white;
+}
 /*.accordion .accordion-header:nth-child(6n+1) {
   background-color: #bb252d !important;
   color: white;
