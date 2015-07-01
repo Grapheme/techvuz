@@ -7748,28 +7748,27 @@ a[href^="tel"] {
 }
 */
 
-
 .accordion>.accordion-header:nth-of-type(12n+1) {
   background-color: #bb252d;
 }
 
-.accordion>.accordion-header:nth-of-type(13n+2) {
+.accordion>.accordion-header:nth-of-type(12n+3) {
   background-color: #78a725;
 }
 
-.accordion>.accordion-header:nth-of-type(14n+3) {
+.accordion>.accordion-header:nth-of-type(12n+5) {
   background-color: #e4b51e;
 }
 
-.accordion>.accordion-header:nth-of-type(15n+4) {
+.accordion>.accordion-header:nth-of-type(12n+7) {
   background-color: #5e52ac;
 }
 
-.accordion>.accordion-header:nth-of-type(16n+5) {
+.accordion>.accordion-header:nth-of-type(12n+9) {
   background-color: #db7336;
 }
 
-.accordion>.accordion-header:nth-of-type(17n+6) {
+.accordion>.accordion-header:nth-of-type(12n+11) {
   background-color: #4bc8bb;
 }
 
