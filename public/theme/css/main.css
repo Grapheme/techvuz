@@ -7700,7 +7700,7 @@ a[href^="tel"] {
 .accordion .accordion-header.ui-accordion-header-active {
   color: white;
 }
-.accordion .accordion-header:nth-child(6n+1) {
+/*.accordion .accordion-header:nth-child(6n+1) {
   background-color: #bb252d !important;
   color: white;
 }
@@ -7742,6 +7742,32 @@ a[href^="tel"] {
 .accordion .accordion-header:nth-child(6n+11).ui-accordion-header-active {
   background-color: #4bc8bb !important;
 }
+*/
+
+.accordion>.accordion-header:nth-of-type(6n+1) {
+  background-color: #bb252d;
+}
+
+.accordion>.accordion-header:nth-of-type(6n+3) {
+  background-color: #78a725;
+}
+
+.accordion>.accordion-header:nth-of-type(6n+5) {
+  background-color: #e4b51e;
+}
+
+.accordion>.accordion-header:nth-of-type(6n+7) {
+  background-color: #5e52ac;
+}
+
+.accordion>.accordion-header:nth-of-type(6n+9) {
+  background-color: #db7336;
+}
+
+.accordion>.accordion-header:nth-of-type(6n+11) {
+  background-color: #4bc8bb;
+}
+
 .accordion .accordion-body table {
   font-family: 'Open Sans', sans-serif;
   background: #f9f9f9;
@@ -11872,9 +11898,9 @@ main.order-page a:hover {
   padding: 8px;
 }
 
-.ui-accordion .accordion-header.ui-accordion-header#ui-id-7 {
+/*.ui-accordion .accordion-header.ui-accordion-header#ui-id-7 {
   background-color: #bb252d !important;
-}
+}*/
 
 .new-order-holder {
   overflow: hidden;
