@@ -7749,7 +7749,6 @@ a[href^="tel"] {
 */
 
 
-/////=
 .accordion>.accordion-header:nth-of-type(6n+1) {
   background-color: #bb252d;
 }
