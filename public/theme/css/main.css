@@ -11871,3 +11871,7 @@ main.order-page a:hover {
   font-size: 0.9em;
   padding: 8px;
 }
+
+.ui-accordion .accordion-header.ui-accordion-header#ui-id-7 {
+  background-color: #bb252d !important;
+}
