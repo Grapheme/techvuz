@@ -108,7 +108,7 @@
             onClose: function(selectedDate){
                 $("#select-period-end").datepicker("option","minDate",selectedDate);
             }
-        });
+        }).mask('99.99.9999');
         $("#select-period-end").datepicker({
             constrainInput: true,
             autoSize: true,
@@ -121,7 +121,7 @@
             onClose: function(selectedDate){
                 $("#select-period-begin").datepicker("option","maxDate",selectedDate);
             }
-        });
+        }).mask('99.99.9999');
     });
 
     var $chrt_border_color  = "#efefef";

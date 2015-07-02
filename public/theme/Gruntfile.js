@@ -10,6 +10,7 @@ module.exports = function(grunt) {
           'js/vendor/bootstrap.min.js',
           'js/vendor/jquery.fancybox.pack.js',
           'js/vendor/jquery.tablesorter.min.js',
+          'js/vendor/jquery.mask.js',
           'js/main.js',
           'js/plugins.js',
           'js/vendor/app/courses.js',

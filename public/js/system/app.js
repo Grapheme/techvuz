@@ -548,7 +548,7 @@ jQuery.fn.doesExist = function() {
  */
 
 function runAllForms() {
-
+	 console.log('mask');
 	/*
 	 * BOOTSTRAP SLIDER PLUGIN
 	 * Usage:
@@ -640,6 +640,8 @@ function runAllForms() {
 	});
 
 }
+
+runAllForms();
 
 /* ~ END: INITIALIZE FORMS */
 
