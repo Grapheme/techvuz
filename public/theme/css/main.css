@@ -9880,6 +9880,10 @@ section h3, section .h3 {
   content: ";";
 }
 
+.htw-ul .htw-text ol li:last-child:after {
+  content: "." !important;
+}
+
 .print-link {
   position: absolute;
   top: 56px;
@@ -11916,4 +11920,8 @@ main.order-page a:hover {
   margin: 0 auto;
   display: inline-block;
   float: none !important;
+}
+
+.ot-head-color {
+    background-color: #4bc8bb !important;
 }
