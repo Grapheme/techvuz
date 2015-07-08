@@ -108,14 +108,82 @@
         </div>
     @endforeach
     </div>
+    <!-- <form style="margin-top: 20px;" method="POST" action="" accept-charset="UTF-8" class="registration-form" id="course-search-form" >
+        <header class="margin-bottom-20">Не нашли интересующий курс? Напишите нам!</header>
+        <div class="form-element">
+            <label>E-mail</label><input placeholder="" name="email" type="text">
+        </div>
+        <div class="form-element">
+            <label>Вас зовут</label><input placeholder="Иванов Иван Иванович" name="name" type="text">
+        </div>
+        <div class="form-element">
+            <label>Какой курс вы ищите</label><input class="searching-course" name="course" type="text">
+        </div>
+        <div class="form-element">
+            <button style="margin-top: -5px;" type="submit" autocomplete="off" class="btn btn--bordered btn--blue btn-form-submit">
+                <i class="fa fa-spinner fa-spin hidden"></i> <span class="btn-response-text">Готово</span>
+            </button>
+        </div>
+        <span class="js-quick-message" style="display: none;">Сообщение успешно отправлено!</span>
+        <span class="js-quick-message-error" style="display: none;">Системная ошибка! Попробуйте снова.</span>
+    </form> -->
     <div class="desc">{{ $page->block('seo') }}</div>
 </main>
 @stop
 @section('overlays')
 @stop
 @section('scripts')
+    <script src="{{URL::to('js/vendor/jquery.validate.min.js')}}"></script>
     <script src="{{URL::to('js/vendor/fotorama.js')}}"></script>
     <script>
+        var course_validation = {
+            'name': {
+                required: true
+            },
+            'course': {
+                required: true
+            },
+            'email': {
+                required: true,
+                email: true
+            }
+        }
+        var course_validation_messages = {
+            'name': {
+                required: 'Укажите ваше имя'
+            },
+            'course': {
+                required: 'Укажите курс'
+            },
+            'email': {
+                required: 'Укажите Email',
+                email: 'Неверный адрес Email'
+            }
+        }
+        var course_validation_function = $('#course-search-form').validate({
+            rules: course_validation,
+            messages: course_validation_messages,
+            submitHandler: function(form){
+                var options = {target:null, dataType:'json', type:'post'};
+                options.beforeSubmit = function(formData,jqForm,options){
+                    $(form).find('[type="submit"]').elementDisabled(true);
+                    $(form).find('.js-quick-message').hide();
+                    $(form).find('.js-quick-message-error').hide();
+                },
+                options.success = function(response, status, xhr, jqForm){
+                    $(form).find('[type="submit"]]').elementDisabled(false);
+                    if(response.status) {
+                    $(form).find('.js-quick-message').show();
+                    } else {
+                        $(form).find('.js-quick-message-error').show();
+                    }
+                }
+                options.error = function(xhr, textStatus, errorThrown){
+                    $(form).find('[type="submit"]]').elementDisabled(false);
+                }
+                $(form).ajaxSubmit(options);
+            }
+        });
         var banner_fotorama = function() {
             var mheight = 0;
             var $fotoramaDiv;

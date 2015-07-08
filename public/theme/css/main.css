@@ -12047,3 +12047,11 @@ form.fast button {
   margin-bottom: 30px;
   margin-right: 7px;  
 }
+
+div.counter-string {
+  width: 40% !important;
+}
+
+div.counter-string a:hover .count-add-sign {
+  text-decoration: underline;
+}

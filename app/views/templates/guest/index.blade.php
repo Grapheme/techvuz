@@ -42,10 +42,15 @@
             <div class="count-add">
                 <div class="container-fluid">
                     <div class="row no-gutter margin-top-20">
-                        <div class="col-xs-offset-6 col-sm-offset-6 col-md-offset-6 col-lg-offset-6 col-xs-6 col-sm-6 col-md-6 col-lg-6">
-                            <div class="count-add-sign">Всего курсов</div>
+                        <div style="float: right; margin-right: -15px;" class="col-xs-offset-6 col-sm-offset-6 col-md-offset-6 col-lg-offset-6 col-xs-6 col-sm-6 col-md-6 col-lg-6 counter-string">
+                            <a href="/katalog-kursov-dlya-sro"><div class="count-add-sign">Всего направлений</div>
+                            <div class="count-add-num">7</div>
+                            <div class="count-add-dots"></div></a>
+                        </div>
+                        <div style="float: left; margin-left: -15px; margin-top: -17px;" class="col-xs-offset-6 col-sm-offset-6 col-md-offset-6 col-lg-offset-6 col-xs-6 col-sm-6 col-md-6 col-lg-6 counter-string">
+                            <a href="/katalog-kursov-dlya-sro"><div class="count-add-sign">Всего курсов</div>
                             <div class="count-add-num">{{ $totalCourses }}</div>
-                            <div class="count-add-dots"></div>
+                            <div class="count-add-dots"></div></a>
                         </div>
                     </div>                                
                 </div>

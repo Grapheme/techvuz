@@ -31,8 +31,8 @@
     <p class="fast-form-title">Быстрая запись на курсы для СРО</p>
     <p>Мы обрабатываем онлайн заявки в первую очередь. Вы можете быть уверены, что станете нашим приоритетным клиентом и получите профессиональную консультацию в течение 20 минут.</p>
     <div class="form-element">
-        <label>Представьтесь</label>
-        <input for="fast" name="name">
+        <label>Ваше имя</label>
+        <input for="fast" name="fast-form-name">
     </div>
     <div class="form-element">
         <label>Телефон</label>
@@ -45,6 +45,7 @@
     <button type="submit" autocomplete="off" class="btn btn--bordered btn--blue pull-right btn-form-submit">
                 <i class="fa fa-spinner fa-spin hidden"></i> <span class="btn-response-text">Отправить</span>
             </button>
-    <span class="js-quick-message"></span>
+    <span class="js-quick-message" style="display: none;">Сообщение успешно отправлено!</span>
+    <span class="js-quick-message-error" style="display: none;">Системная ошибка! Попробуйте снова.</span>
   </form>
 </div>
