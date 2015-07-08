@@ -261,7 +261,7 @@ function guestFormValidation() {
                 $(form).find('[type="submit"]').elementDisabled(false);
                 if(response.status) {
                     $('.js-quick-message').show();
-                    $('#quick-form').slideDown();
+                    $('#quick-form').slideUp();
                 } else {
                     $('.js-quick-message-error').show();
                 }

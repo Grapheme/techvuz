@@ -173,6 +173,7 @@
                 options.success = function(response, status, xhr, jqForm){
                     $(form).find('[type="submit"]').elementDisabled(false);
                     if(response.status) {
+                    $('#quick-form').slideUp();
                     $('.js-quick-message').show();
                     } else {
                         $('.js-quick-message-error').show();
