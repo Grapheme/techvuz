@@ -18,4 +18,13 @@ return array(
     'sendmail' => '/usr/sbin/sendmail -bs',
     'encryption' => 'tls',
     'pretend' => FALSE,
+
+    'forms' => [
+        'quick_record' => [
+            'subject' => 'Быстрая запись на курсы',
+        ],
+        'course_request' => [
+            'subject' => 'Запрос курса',
+        ],
+    ],
 );

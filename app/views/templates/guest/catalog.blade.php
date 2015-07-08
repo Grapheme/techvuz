@@ -108,7 +108,7 @@
         </div>
     @endforeach
     </div>
-    <!-- <form style="margin-top: 20px;" method="POST" action="" accept-charset="UTF-8" class="registration-form" id="course-search-form" >
+    <form style="margin-top: 20px;" action="{{ URL::route('app.form.course_request') }}" method="POST" action="" accept-charset="UTF-8" class="registration-form" id="course-search-form" >
         <header class="margin-bottom-20">Не нашли интересующий курс? Напишите нам!</header>
         <div class="form-element">
             <label>E-mail</label><input placeholder="" name="email" type="text">
@@ -126,7 +126,7 @@
         </div>
         <span class="js-quick-message" style="display: none;">Сообщение успешно отправлено!</span>
         <span class="js-quick-message-error" style="display: none;">Системная ошибка! Попробуйте снова.</span>
-    </form> -->
+    </form>
     <div class="desc">{{ $page->block('seo') }}</div>
 </main>
 @stop

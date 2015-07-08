@@ -36,7 +36,7 @@ class ApplicationController extends BaseController {
         $json_request = ['status' => true, 'responseText' => ''];
 
         $data = Input::all();
-        Helper::tad($data);
+        #Helper::tad($data);
 
         Mail::send('emails.quick_record', $data, function ($message) use ($data) {
 
