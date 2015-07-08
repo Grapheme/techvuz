@@ -11925,3 +11925,125 @@ main.order-page a:hover {
 .ot-head-color {
     background-color: #4bc8bb !important;
 }
+
+/* RAINBOW BUTTON */
+@-webkit-keyframes gradAnimation {
+  0% {
+    background-position: 0 50%;
+  }
+
+  50% {
+    background-position: 100% 50%;
+  }
+
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+@keyframes gradAnimation {
+  0% {
+    background-position: 0 50%;
+  }
+
+  50% {
+    background-position: 100% 50%;
+  }
+
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.btn-colored {
+  position: relative;
+  display: inline-block;
+  padding: 2px;
+  color: #fff;
+  font: 400 13px "Geometria", "Open Sans", sans-serif;
+  text-transform: uppercase;
+  border:none !important;
+}
+.btn-colored span {
+  position: relative;
+  z-index: 2;
+  display: inline-block;
+  height: 35px;
+  line-height: 35px;
+  padding: 0 15px;
+  background: #33ACE4;
+  -webkit-transition: all .5s ease;
+          transition: all .5s ease;
+}
+.btn-colored:before {
+  content: "";
+  position: absolute;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #bb252d;
+  background-image: -webkit-linear-gradient(0deg, #bb252d, #78a725, #e4b51e, #5e52ac, #db7336, #4bc8bb);
+  background-image: linear-gradient(90deg, #bb252d, #78a725, #e4b51e, #5e52ac, #db7336, #4bc8bb);
+  background-size: auto 1600%;
+  -webkit-animation: gradAnimation 15s linear infinite;
+  animation: gradAnimation 15s linear infinite;
+}
+.btn-colored:hover span {
+  background: transparent;
+  color: #fff;
+}
+
+.popup-fast {
+  padding-bottom: 4rem;
+}
+
+.popup-fast .form-element {
+  font-size: 0;
+}
+
+.popup-fast .form-element * {
+  font-size: 1rem;
+}
+
+form.fast p {
+  font-size: 14px;
+}
+
+form.fast p.fast-form-title {
+  font-size: 18px;
+  margin-bottom: 30px;
+}
+
+form.fast span.label {
+  color: #000;
+  display: block;
+  float: left;
+  width: 70px;
+  text-align: left;
+  padding: 11rem 0px;
+  white-space: normal;
+}
+
+form.fast span.label.company-name {
+  padding: 7px 0px;
+}
+
+/*form.fast input {
+  margin-bottom: 10px;
+  width: 19.813rem;
+  border-color: #a8a8a8;
+  height: 2.6875rem;
+  padding: 0 0.625rem;
+  border: 1px solid #333333;
+  font-size: 0.875em;
+}*/
+/*form.fast input[name="fast-form-email"] {
+  margin-bottom: 30px;
+}*/
+
+form.fast button {
+  margin-bottom: 30px;
+  margin-right: 7px;  
+}

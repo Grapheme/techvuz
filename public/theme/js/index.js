@@ -1000,6 +1000,7 @@ var Popup = (function(){
 	var $close = $('.js-popup-close');
 	var $forgot = $('.js-forgot-pass');
 	var $login = $('.js-login');
+	var $fastReg = $('.js-login');
 
 	$close.click( function(){
 		Popup.close();
@@ -1568,6 +1569,9 @@ var Payments = (function(){
 	});
 })();
 
+// $('.btn-colored').click(function(){
+// 	$('.overlay-fast').addClass('active');
+// });
 
 $(document).ready(function(){
     var course_id = window.location.hash.substr(1);

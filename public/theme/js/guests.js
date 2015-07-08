@@ -12,6 +12,31 @@ var validation_restore_pass = {
 var validation_restore_pass_messages = {
     email: { required: 'Укажите Email', email: 'Неверный адрес Email' }
 };
+var quick_validation = {
+    'fast-form-name': {
+        required: true
+    },
+    'fast-form-phone': {
+        required: true
+    },
+    'fast-form-email': {
+        required: true,
+        email: true
+    }
+}
+var quick_validation_messages = {
+    'fast-form-name': {
+        required: 'Укажите ваше имя'
+    },
+    'fast-form-phone': {
+        required: 'Укажите телефон'
+    },
+    'fast-form-email': {
+        required: 'Укажите Email',
+        email: 'Неверный адрес Email'
+    }
+}
+
 
 var validation_signup_ul = {
     group_id: { required: true },
@@ -217,6 +242,25 @@ function guestFormValidation() {
                     var msg_title = textStatus;
                     var msg_body = xhr.responseText;
                 }
+                $(form).find('.btn-form-submit').elementDisabled(false);
+            }
+            $(form).ajaxSubmit(options);
+        }
+    });
+    var quick_validation_function = $('#quick-form').validate({
+        rules: quick_validation,
+        messages: quick_validation_messages,
+        submitHandler: function(form){
+            var options = {target:null, dataType:'json', type:'post'};
+            options.beforeSubmit = function(formData,jqForm,options){
+                $(form).find('[type="submit"]').elementDisabled(true);
+                $(form).find('.js-quick-message').html('');
+            },
+            options.success = function(response, status, xhr, jqForm){
+                $(form).find('.btn-form-submit').elementDisabled(false);
+                $(form).find('.js-quick-message').html(response.responseText);
+            }
+            options.error = function(xhr, textStatus, errorThrown){
                 $(form).find('.btn-form-submit').elementDisabled(false);
             }
             $(form).ajaxSubmit(options);

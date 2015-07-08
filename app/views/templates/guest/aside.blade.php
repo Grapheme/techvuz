@@ -41,6 +41,11 @@
            </li>
        </ul>
     </nav>
+    @if(!Auth::check())
+      <a href="#" class="btn-colored" onclick="Popup.show('quick'); return false;">
+        <span>Быстрая запись</span>
+      </a>
+    @endif
     @include('sphinxsearch/views/search-form')
     @include(Helper::layout('footer'))
 </aside>
