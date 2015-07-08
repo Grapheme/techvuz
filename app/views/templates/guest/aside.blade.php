@@ -42,9 +42,9 @@
        </ul>
     </nav>
     @if(!Auth::check())
-      <a href="#" class="btn-colored" onclick="Popup.show('quick'); return false;">
+      <!-- <a href="#" class="btn-colored" onclick="Popup.show('quick'); return false;">
         <span>Быстрая запись</span>
-      </a>
+      </a> -->
     @endif
     @include('sphinxsearch/views/search-form')
     @include(Helper::layout('footer'))
