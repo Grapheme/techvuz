@@ -45,6 +45,7 @@
     <button type="submit" autocomplete="off" class="btn btn--bordered btn--blue pull-right btn-form-submit">
                 <i class="fa fa-spinner fa-spin hidden"></i> <span class="btn-response-text">Отправить</span>
             </button>
-    <span class="js-quick-message"></span>
+    <span class="js-quick-message" style="display: none;">Сообщение успешно отправлено!</span>
+    <span class="js-quick-message-error" style="display: none;">Системная ошибка! Попробуйте снова.</span>
   </form>
 </div>

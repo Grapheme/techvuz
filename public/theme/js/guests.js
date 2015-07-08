@@ -254,11 +254,16 @@ function guestFormValidation() {
             var options = {target:null, dataType:'json', type:'post'};
             options.beforeSubmit = function(formData,jqForm,options){
                 $(form).find('[type="submit"]').elementDisabled(true);
-                $(form).find('.js-quick-message').html('');
+                $(form).find('.js-quick-message').hide();
+                $(form).find('.js-quick-message-error').hide();
             },
             options.success = function(response, status, xhr, jqForm){
                 $(form).find('[type="submit"]]').elementDisabled(false);
-                $(form).find('.js-quick-message').html(response.responseText);
+                if(response.status) {
+                    $(form).find('.js-quick-message').show();
+                } else {
+                    $(form).find('.js-quick-message-error').show();
+                }
             }
             options.error = function(xhr, textStatus, errorThrown){
                 $(form).find('[type="submit"]]').elementDisabled(false);
