@@ -257,11 +257,11 @@ function guestFormValidation() {
                 $(form).find('.js-quick-message').html('');
             },
             options.success = function(response, status, xhr, jqForm){
-                $(form).find('.btn-form-submit').elementDisabled(false);
+                $(form).find('[type="submit"]]').elementDisabled(false);
                 $(form).find('.js-quick-message').html(response.responseText);
             }
             options.error = function(xhr, textStatus, errorThrown){
-                $(form).find('.btn-form-submit').elementDisabled(false);
+                $(form).find('[type="submit"]]').elementDisabled(false);
             }
             $(form).ajaxSubmit(options);
         }
