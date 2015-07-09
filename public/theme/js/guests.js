@@ -13,8 +13,9 @@ var validation_restore_pass_messages = {
     email: { required: 'Укажите Email', email: 'Неверный адрес Email' }
 };
 var quick_validation = {
-    'name': {
-        required: true
+    'username': {
+        required: true,
+        minlength: 1
     },
     'phone': {
         required: true
@@ -25,7 +26,7 @@ var quick_validation = {
     }
 }
 var quick_validation_messages = {
-    'name': {
+    'username': {
         required: 'Укажите ваше имя'
     },
     'phone': {

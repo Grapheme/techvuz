@@ -32,7 +32,7 @@
     <p>Мы обрабатываем онлайн заявки в первую очередь. Вы можете быть уверены, что станете нашим приоритетным клиентом и получите профессиональную консультацию в течение 20 минут.</p>
     <div class="form-element">
         <label>Ваше имя</label>
-        <input for="fast" name="name">
+        <input for="fast" name="username">
     </div>
     <div class="form-element">
         <label>Телефон</label>
