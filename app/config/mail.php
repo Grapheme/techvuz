@@ -3,7 +3,7 @@
 return array(
 
     'feedback' => array(
-        'address' => 'support@grapheme.ru',
+        'address' => 'info@tehvuz.ru',
     ),
 
     'driver' => 'smtp',
