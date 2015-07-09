@@ -13,13 +13,13 @@ var validation_restore_pass_messages = {
     email: { required: 'Укажите Email', email: 'Неверный адрес Email' }
 };
 var quick_validation = {
-    'fast-form-name': {
+    'name': {
         required: true
     },
-    'fast-form-phone': {
+    'phone': {
         required: true
     },
-    'fast-form-email': {
+    'email': {
         required: true,
         email: true
     }
