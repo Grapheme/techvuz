@@ -13,25 +13,26 @@ var validation_restore_pass_messages = {
     email: { required: 'Укажите Email', email: 'Неверный адрес Email' }
 };
 var quick_validation = {
-    'fast-form-name': {
+    'username': {
+        required: true,
+        minlength: 1
+    },
+    'phone': {
         required: true
     },
-    'fast-form-phone': {
-        required: true
-    },
-    'fast-form-email': {
+    'email': {
         required: true,
         email: true
     }
 }
 var quick_validation_messages = {
-    'fast-form-name': {
+    'username': {
         required: 'Укажите ваше имя'
     },
-    'fast-form-phone': {
+    'phone': {
         required: 'Укажите телефон'
     },
-    'fast-form-email': {
+    'email': {
         required: 'Укажите Email',
         email: 'Неверный адрес Email'
     }
