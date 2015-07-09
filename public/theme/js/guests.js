@@ -25,13 +25,13 @@ var quick_validation = {
     }
 }
 var quick_validation_messages = {
-    'fast-form-name': {
+    'name': {
         required: 'Укажите ваше имя'
     },
-    'fast-form-phone': {
+    'phone': {
         required: 'Укажите телефон'
     },
-    'fast-form-email': {
+    'email': {
         required: 'Укажите Email',
         email: 'Неверный адрес Email'
     }
