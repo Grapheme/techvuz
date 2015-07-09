@@ -3,7 +3,8 @@
 return array(
 
     'feedback' => array(
-        'address' => 'info@tehvuz.ru',
+        #'address' => 'info@tehvuz.ru',
+        'address' => 'az@grapheme.ru',
     ),
 
     'driver' => 'smtp',
