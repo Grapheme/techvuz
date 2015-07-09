@@ -9,8 +9,8 @@
     <h3>{{ Config::get('mail.forms.quick_record.subject') }}</h3>
 
     <p>
-        @if (isset($name) && $name)
-            Имя: {{ $name }}<br />
+        @if (isset($username) && $username)
+            Имя: {{ $username }}<br />
         @endif
         @if (isset($phone) && $phone)
             Телефон: {{ $phone }}<br />
