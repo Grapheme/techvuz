@@ -7,8 +7,8 @@
 {{ HTML::style(Config::get('site.theme_path').'/js/vendor.js') }}
 @endif
 {{ HTML::script(Config::get('site.theme_path').'/js/index.js') }}
-@if(Auth::guest())
 {{ HTML::script('js/vendor/jquery-form.min.js') }}
+@if(Auth::guest())
 {{ HTML::script('js/vendor/jquery.validate.min.js') }}
 {{ HTML::script('js/vendor/jquery.mask.js') }}
 {{ HTML::script('js/system/main.js') }}

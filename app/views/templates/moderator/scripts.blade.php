@@ -14,7 +14,6 @@
 @endif
 {{ HTML::script(Config::get('site.theme_path').'/js/index.js') }}
 
-{{ HTML::script('js/vendor/jquery-form.min.js') }}
 {{ HTML::script('js/system/main.js') }}
 {{ HTML::script('js/vendor/jquery-form.min.js') }}
 {{ HTML::script('js/vendor/SmartNotification.min.js') }}
