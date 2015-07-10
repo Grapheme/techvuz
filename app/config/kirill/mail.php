@@ -9,7 +9,7 @@ return array(
     'driver' => 'smtp',
     'host' => 'smtp.yandex.ru',
     'port' => 465,
-    'from' => array('address' => 'dah-sl@yandex.ru', 'name' => 'ТехВуз.рф'),
+    'from' => array('address' => 'feedback@grapheme.ru', 'name' => 'ТехВуз.рф'),
     'username' => 'dah-sl@yandex.ru',
     'password' => '534msd8HHS',
 

@@ -166,12 +166,12 @@
             submitHandler: function(form){
                 var options = {target:null, dataType:'json', type:'post'};
                 options.beforeSubmit = function(formData,jqForm,options){
-                    $(form).find('[type="submit"]').elementDisabled(true);
+                    $(form).find('[type="submit"]').attr('disabled', 'disabled');
                     $('.js-quick-message').hide();
                     $('.js-quick-message-error').hide();
                 },
                 options.success = function(response, status, xhr, jqForm){
-                    $(form).find('[type="submit"]').elementDisabled(false);
+                    $(form).find('[type="submit"]').attr('disabled', false);
                     if(response.status) {
                     $('#course-search-form').slideUp();
                     $('.js-quick-message').show();
@@ -180,7 +180,7 @@
                     }
                 }
                 options.error = function(xhr, textStatus, errorThrown){
-                    $(form).find('[type="submit"]').elementDisabled(false);
+                    $(form).find('[type="submit"]').attr('disabled', false);
                 }
                 $(form).ajaxSubmit(options);
             }
