@@ -6908,6 +6908,10 @@ textarea {
   content: '\e819';
 }
 
+.icon-time:before {
+  content: '\f017';
+}
+
 /* '' */
 .icon-mail:before {
   content: '\e81a';
@@ -12054,4 +12058,8 @@ div.counter-string {
 
 div.counter-string a:hover .count-add-sign {
   text-decoration: underline;
+}
+
+#quick-form .form-element em {
+  font-size: 0.75rem;
 }
