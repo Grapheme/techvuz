@@ -6910,6 +6910,7 @@ textarea {
 
 .icon-time:before {
   content: '\f017';
+  font-family: "fontawesome" !important;
 }
 
 /* '' */
