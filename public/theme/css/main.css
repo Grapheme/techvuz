@@ -12069,3 +12069,7 @@ div.counter-string a:hover .count-add-sign {
 #quick-form .form-element em {
   font-size: 0.75rem;
 }
+
+.btn-quick {
+  margin-bottom: 30px;
+}
