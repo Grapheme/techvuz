@@ -39,7 +39,7 @@
     </ul>
     @endif
     <div class="desc">
-        {{ $page->block('top_desc') }}
+        {{ $page->block('bot_desc') }}
     </div>
     <div class="desc">{{ $page->block('seo') }}</div>
 </main>
