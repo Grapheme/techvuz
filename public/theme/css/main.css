@@ -12072,4 +12072,12 @@ div.counter-string a:hover .count-add-sign {
 
 .btn-quick {
   margin-bottom: 35px;
+  border: 2px solid #fff !important;
+  color: #33ace4;
+  background-color: #fff;
+}
+
+.btn-quick:hover {
+  color: #fff;
+  background-color: #33ace4;
 }
