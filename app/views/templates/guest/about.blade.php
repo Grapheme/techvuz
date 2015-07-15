@@ -3,9 +3,7 @@
 @section('content')
 <main class="contacts">
     <h1>{{ $page->block('top_h2') }}</h1>
-    <div class="desc">
-    {{ $page->block('top_desc') }}
-    </div>
+
     <?php
         $licenses = Dictionary::whereSlugValues('licenses-certificates');
         $images = array();
@@ -38,6 +36,11 @@
         @endforeach
     </ul>
     @endif
+
+    <div class="desc">
+        {{ $page->block('top_desc') }}
+    </div>
+
     <div class="desc">{{ $page->block('seo') }}</div>
 </main>
 @stop
