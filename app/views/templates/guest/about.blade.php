@@ -38,6 +38,9 @@
         @endforeach
     </ul>
     @endif
+    <div class="desc">
+        {{ $page->block('top_desc') }}
+    </div>
     <div class="desc">{{ $page->block('seo') }}</div>
 </main>
 @stop
