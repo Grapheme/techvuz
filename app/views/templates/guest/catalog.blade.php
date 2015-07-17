@@ -111,7 +111,7 @@
     <form style="margin-top: 20px;" action="{{ URL::route('app.form.course_request') }}" method="POST" action="" accept-charset="UTF-8" class="registration-form" id="course-search-form" >
         <header class="margin-bottom-20">Не нашли интересующий курс? Напишите нам!</header>
         <div class="form-element">
-            <label>E-mail</label><input placeholder="" name="email" type="text">
+            <label>E-mail/телефон</label><input placeholder="" name="email" type="text">
         </div>
         <div class="form-element">
             <label>Вас зовут</label><input placeholder="Иванов Иван Иванович" name="name" type="text">
@@ -145,7 +145,6 @@
             },
             'email': {
                 required: true,
-                email: true
             }
         }
         var course_validation_messages = {
@@ -157,7 +156,6 @@
             },
             'email': {
                 required: 'Укажите Email',
-                email: 'Неверный адрес Email'
             }
         }
         var course_validation_function = $('#course-search-form').validate({
