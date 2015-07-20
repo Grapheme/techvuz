@@ -50,43 +50,14 @@
 @if(count($payments_extended))
 <div id="paymentschartextended" class="margin-top-20 margin-bottom-20">
 @foreach($payments_extended as $index => $payment_extended)
+@if($index == 'total')
+    <div data-order-date="{{ $index }}" class="payment-extended">{{ $payment_extended }}</div>
+@else
     <div data-order-date="{{ $index }}" class="payment-extended hidden">{{ $payment_extended }}</div>
+@endif
 @endforeach
 </div>
 @endif
-@if($account_selected)
-<h3 class="margin-bottom-40">Список платежных поручением</h3>
-<div class="row">
-    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-        <table class="table table-striped table-bordered">
-            <thead>
-            <tr>
-                <th>№ п.п</th>
-                <th>Заказ</th>
-                <th>Номер поручения</th>
-                <th>Сумма</th>
-                <th>Дата</th>
-            </tr>
-            </thead>
-            <tbody>
-            <?php $index = 0; ?>
-            @foreach($payments_list as $order_number => $payments)
-                @foreach($payments as $payment)
-                <tr class="vertical-middle">
-                    <td>{{ ++$index; }}</td>
-                    <td><a class="nowrap" href="{{ URL::route('moderator-order-extended',$payment['order_id']) }}">{{ $order_number }}</a></td>
-                    <td>{{ $payment['payment_number'] }}</td>
-                    <td>{{ $payment['price'] }}</td>
-                    <td>{{ myDateTime::SwapDotDateWithOutTime($payment['payment_date']) }}</td>
-                </tr>
-                @endforeach
-            @endforeach
-            </tbody>
-        </table>
-    </div>
-</div>
-@endif
-
 @section('overlays')
 @stop
 @section('scripts')

@@ -10,8 +10,8 @@
         <h3><a href="{{ pageurl('catalog') }}">Направления</a></h3>
         <ul class="directions-ul clearfix">
         <?php $totalCourses = 0; ?>
-        <?php $totalDirections = 0; ?>
-        @foreach(Directions::whereActive(TRUE)->orderBy('order')->with('photo')->with('courses')->get() as $key => $direction)
+        <?php $totalDirections = Directions::whereActive(TRUE)->count(); ?>
+        @foreach(Directions::whereActive(TRUE)->orderBy('order')->with('photo')->with('courses')->take(6)->get() as $key => $direction)
             <li
                 @if($direction->in_progress) 
                     class="directions-li direction-in-progress"
@@ -32,7 +32,6 @@
                 <div class="courses-count">
                     {{ $direction->courses->count() }} {{ Lang::choice('курс|курса|курсов',$direction->courses->count()); }}
                 </div>
-                <?php $totalDirections++; ?>
                 <?php $totalCourses += $direction->courses->count(); ?>
             </li>
         @endforeach

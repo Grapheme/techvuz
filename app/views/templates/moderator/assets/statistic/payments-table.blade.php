@@ -1,37 +1,28 @@
-@if(count($orders))
+@if(count($payments))
 <div class="row">
     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-        <h3>Заказы за {{ $date }}</h3>
+        <h3>Платежи за {{ $date }}</h3>
         <table class="table table-striped table-bordered">
             <thead>
             <tr>
                 <th>№ п.п</th>
                 <th>Заказ</th>
                 <th>Заказчик</th>
-                <th>Платежи</th>
-                <th>Сумма заказа</th>
-                <th>Дата заказа</th>
+                <th>№ плат.пор.</th>
+                <th>Сумма платежа</th>
+                <th>Дата платежа</th>
             </tr>
             </thead>
             <tbody>
-            @foreach($orders as $index => $order)
+            <?php $index = 1;?>
+            @foreach($payments as $payment_id => $payment)
                 <tr class="vertical-middle">
-                    <td>{{ $index+1; }}</td>
-                    <td><a class="nowrap" href="{{ $order['link'] }}" target="_blank">№{{ $order['number'] }}</a></td>
-                    <td><a href="{{ $order['purchaser']['link'] }}" target="_blank">{{ $order['purchaser']['name'] }}</a></td>
-                    <td>
-                @if(count($order['payment_numbers']))
-                    @foreach($order['payment_numbers'] as $payment)
-                        @if($date == $payment['payment_date'] )
-                        <nobr>пп. {{ $payment['payment_number'] }} от {{ (new myDateTime())->setDateString($payment['created_at'])->format('d.m.Y') }}</nobr><br>
-                        <nobr>на сумму {{ number_format($payment['price'],0,'.',' ') }} руб.</nobr><br>
-                        @endif
-                    @endforeach
-                @endif
-                    </td>
-                    <td>{{ number_format($order['price'],0,'.',' ') }} руб.</td>
-                    <td>{{ $order['created'] }}</td>
-                    <td>
+                    <td>{{ $index++; }}</td>
+                    <td><a class="nowrap" href="{{ $payment['order']['link'] }}" target="_blank">№{{ $payment['order']['number'] }}</a></td>
+                    <td><a href="{{ $payment['order']['purchaser']['link'] }}" target="_blank">{{ $payment['order']['purchaser']['name'] }}</a></td>
+                    <td>{{ $payment['payment_number'] }}</td>
+                    <td>{{ number_format($payment['price'],0,'.',' ') }} руб.</td>
+                    <td>{{ (new myDateTime())->setDateString($payment['payment_date_origin'])->format('d.m.Y') }}</td>
                 </tr>
             @endforeach
             </tbody>
