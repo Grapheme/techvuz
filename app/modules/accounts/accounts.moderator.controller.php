@@ -832,7 +832,7 @@ class AccountsModeratorController extends BaseController {
             $diffMonths = $diffMonthsData['m'];
         endif;
         $format = 'd.m.y';
-        if ($diffMonths >= 3):
+        if ($diffMonths >= 2):
             $format = 'm.y';
         endif;
         $index_start = (new myDateTime())->setDateString($period_begin)->format($format);
@@ -906,15 +906,24 @@ class AccountsModeratorController extends BaseController {
         $payments_list = array();
         $payments_extended = array();
         $payments_extended_counts = array('payments' => 0, 'price' => 0);
-
         $all_payments = array();
         foreach (OrderPayments::where('payment_date', '>=', $period_begin)->where('payment_date', '<=', $period_end)->orderBy('payment_date', 'ASC')->with('order.listeners', 'order.organization', 'order.individual')->get() as $payment):
             if ($payment->order->statistic):
-                $all_payments[$payment->id]['price'] = $payment->price;
-                $all_payments[$payment->id]['payment_number'] = $payment->payment_number;
-                $all_payments[$payment->id]['payment_date_origin'] = $payment->payment_date;
-                $all_payments[$payment->id]['payment_date'] = Carbon::createFromTimestamp(strtotime($payment->payment_date))->format($format);
-                $all_payments[$payment->id]['order'] = self::getStatisticPaymentsExtended($payment->order);
+                if($account_id):
+                    if($payment->order->user_id == $account_id):
+                        $all_payments[$payment->id]['price'] = $payment->price;
+                        $all_payments[$payment->id]['payment_number'] = $payment->payment_number;
+                        $all_payments[$payment->id]['payment_date_origin'] = $payment->payment_date;
+                        $all_payments[$payment->id]['payment_date'] = Carbon::createFromTimestamp(strtotime($payment->payment_date))->format($format);
+                        $all_payments[$payment->id]['order'] = self::getStatisticPaymentsExtended($payment->order);
+                    endif;
+                else:
+                    $all_payments[$payment->id]['price'] = $payment->price;
+                    $all_payments[$payment->id]['payment_number'] = $payment->payment_number;
+                    $all_payments[$payment->id]['payment_date_origin'] = $payment->payment_date;
+                    $all_payments[$payment->id]['payment_date'] = Carbon::createFromTimestamp(strtotime($payment->payment_date))->format($format);
+                    $all_payments[$payment->id]['order'] = self::getStatisticPaymentsExtended($payment->order);
+                endif;
             endif;
         endforeach;
         $payments_extended_total = $all_payments;

@@ -2,144 +2,156 @@
 @section('style')
 @stop
 @section('content')
-<h2>Статистика</h2>
-<div class="row">
-    <div class="input">
-        @include(Helper::acclayout('forms.statistic'))
+    <h2>Статистика</h2>
+    <div class="row">
+        <div class="input">
+            @include(Helper::acclayout('forms.statistic'))
+        </div>
     </div>
-</div>
-<h3 class="margin-bottom-40">Сводная статистика за период</h3>
+    <h3 class="margin-bottom-40">Сводная статистика за период</h3>
 
-<div class="row">
-    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-        <table class="table table-striped table-bordered">
-            <thead>
-            <tr>
-                <th>Количество заказов</th>
-                <th>Сумма заказов</th>
-                <th>Количество платежных поручений</th>
-                <th>Сумма платежных поручений</th>
-            </tr>
-            </thead>
-            <tbody>
+    <div class="row">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+            <table class="table table-striped table-bordered">
+                <thead>
+                <tr>
+                    <th>Количество заказов</th>
+                    <th>Сумма заказов</th>
+                    <th>Количество платежных поручений</th>
+                    <th>Сумма платежных поручений</th>
+                </tr>
+                </thead>
+                <tbody>
                 <tr class="vertical-middle">
                     <td>{{ $orders_extended_counts['orders']; }}</td>
                     <td>{{ number_format($orders_extended_counts['price'],0,'.',' ') }} руб.</td>
                     <td>{{ $payments_extended_counts['payments']; }}</td>
                     <td>{{ number_format($payments_extended_counts['price'],0,'.',' ') }} руб.</td>
                 </tr>
-            </tbody>
-        </table>
+                </tbody>
+            </table>
+        </div>
     </div>
-</div>
-<h3 class="margin-bottom-40">Статистика заказов</h3>
-<div id="orderschart" style="width:848px;height: 300px;" class="chart"></div>
-@if(count($orders_extended))
-<div id="orderschartextended" class="margin-top-20 margin-bottom-20">
-@foreach($orders_extended as $index => $order_extended)
-    @if($index == 'total')
-    <div data-order-date="{{ $index }}" class="order-extended">{{ $order_extended }}</div>
-    @else
-    <div data-order-date="{{ $index }}" class="order-extended hidden">{{ $order_extended }}</div>
+    <h3 class="margin-bottom-40">Статистика заказов</h3>
+    <div id="orderschart" style="width:848px;height: 300px;" class="chart"></div>
+    @if(count($orders_extended))
+        <div id="orderschartextended" class="margin-top-20 margin-bottom-20">
+            @foreach($orders_extended as $index => $order_extended)
+                @if($index == 'total')
+                    <div data-order-date="{{ $index }}" class="order-extended">{{ $order_extended }}</div>
+                @else
+                    <div data-order-date="{{ $index }}" class="order-extended hidden">{{ $order_extended }}</div>
+                @endif
+            @endforeach
+        </div>
     @endif
-@endforeach
-</div>
-@endif
-<h3 class="margin-bottom-40 margin-top-40">Статистика платежей</h3>
-<div id="paymentschart" style="width:848px;height: 300px;" class="chart"></div>
-@if(count($payments_extended))
-<div id="paymentschartextended" class="margin-top-20 margin-bottom-20">
-@foreach($payments_extended as $index => $payment_extended)
-@if($index == 'total')
-    <div data-order-date="{{ $index }}" class="payment-extended">{{ $payment_extended }}</div>
-@else
-    <div data-order-date="{{ $index }}" class="payment-extended hidden">{{ $payment_extended }}</div>
-@endif
-@endforeach
-</div>
-@endif
+    @if(!$direction_selected)
+        <h3 class="margin-bottom-40 margin-top-40">Статистика платежей</h3>
+        <div id="paymentschart" style="width:848px;height: 300px;" class="chart"></div>
+        @if(count($payments_extended))
+            <div id="paymentschartextended" class="margin-top-20 margin-bottom-20">
+                @foreach($payments_extended as $index => $payment_extended)
+                    @if($index == 'total')
+                        <div data-order-date="{{ $index }}" class="payment-extended">{{ $payment_extended }}</div>
+                    @else
+                        <div data-order-date="{{ $index }}"
+                             class="payment-extended hidden">{{ $payment_extended }}</div>
+                    @endif
+                @endforeach
+            </div>
+        @endif
+    @else
+        <p>Невозможно построить статистику платежей по направлениям</p>
+    @endif
 @section('overlays')
 @stop
 @section('scripts')
-{{ HTML::script('js/vendor/jquery.ui.datepicker-ru.js') }}
-{{ HTML::script('js/flot/jquery.flot.js') }}
-{{ HTML::script('js/flot/jquery.flot.categories.js') }}
-{{ HTML::script('js/flot/jquery.flot.tooltip.js') }}
-<script>
-    $(function(){
-        $("#select-period-begin").datepicker({
-            constrainInput: true,
-            autoSize: true,
-            firstDay: 1,
-            minDate: "01.10.2014",
-            maxDate: '0D',
-            defaultDate: "-2w",
-            prevText: '<i class="fa fa-chevron-left"></i>',
-            nextText: '<i class="fa fa-chevron-right"></i>',
-            onClose: function(selectedDate){
-                $("#select-period-end").datepicker("option","minDate",selectedDate);
+    {{ HTML::script('js/vendor/jquery.ui.datepicker-ru.js') }}
+    {{ HTML::script('js/flot/jquery.flot.js') }}
+    {{ HTML::script('js/flot/jquery.flot.categories.js') }}
+    {{ HTML::script('js/flot/jquery.flot.tooltip.js') }}
+    <script>
+        $(function () {
+            $("#select-period-begin").datepicker({
+                constrainInput: true,
+                autoSize: true,
+                firstDay: 1,
+                minDate: "01.10.2014",
+                maxDate: '0D',
+                defaultDate: "-2w",
+                prevText: '<i class="fa fa-chevron-left"></i>',
+                nextText: '<i class="fa fa-chevron-right"></i>',
+                onClose: function (selectedDate) {
+                    $("#select-period-end").datepicker("option", "minDate", selectedDate);
+                }
+            }).mask('99.99.9999');
+            $("#select-period-end").datepicker({
+                constrainInput: true,
+                autoSize: true,
+                firstDay: 1,
+                defaultDate: "0D",
+                minDate: "01.10.2014",
+                maxDate: '0D',
+                prevText: '<i class="fa fa-chevron-left"></i>',
+                nextText: '<i class="fa fa-chevron-right"></i>',
+                onClose: function (selectedDate) {
+                    $("#select-period-begin").datepicker("option", "maxDate", selectedDate);
+                }
+            }).mask('99.99.9999');
+        });
+
+        var $chrt_border_color = "#efefef";
+        var $color_orders = "#FFCC00";
+        var $color_paymetns = "#ff0000";
+
+        var $orders = [];
+        var $payments = [];
+        @foreach($orders_chart as $date => $count)
+        $orders.push(["{{ $date }}", {{ $count }} ])
+        @endforeach
+        @foreach($payments_chart as $date => $summa)
+        $payments.push(["{{ $date }}", {{ $summa }} ])
+                @endforeach
+
+                var $options = {
+            xaxis: {mode: "categories", tickLength: 0},
+            yaxis: {show: true},
+            series: {
+                bars: {show: true, barWidth: 0.3, align: "center"},
+                lines: {show: true, barWidth: 0.6, align: "center"},
+                points: {show: false},
+                shadowSize: 0
+            },
+            selection: {mode: "x"},
+            grid: {
+                hoverable: true,
+                clickable: true,
+                tickColor: $chrt_border_color,
+                borderWidth: 0,
+                borderColor: $chrt_border_color
+            },
+            tooltip: true,
+            tooltipOpts: {content: "Заказов - %y"},
+            colors: [$color_orders, $color_paymetns]
+        };
+        var $orders_plot = $.plot($("#orderschart"), [{data: $orders, label: "Количество заказов"}], $options);
+        $options['tooltipOpts']['content'] = "%y руб.";
+        var $payments_plot = $.plot($("#paymentschart"), [{data: $payments, label: "Сумма платежей"}], $options);
+
+        $("#orderschart").on("plotclick", function (event, pos, item) {
+            if (item) {
+                var $dataIndex = item.dataIndex;
+                $(".order-extended").addClass('hidden');
+                $(".order-extended[data-order-date='" + $orders[$dataIndex][0] + "']").removeClass('hidden');
             }
-        }).mask('99.99.9999');
-        $("#select-period-end").datepicker({
-            constrainInput: true,
-            autoSize: true,
-            firstDay: 1,
-            defaultDate: "0D",
-            minDate: "01.10.2014",
-            maxDate: '0D',
-            prevText: '<i class="fa fa-chevron-left"></i>',
-            nextText: '<i class="fa fa-chevron-right"></i>',
-            onClose: function(selectedDate){
-                $("#select-period-begin").datepicker("option","maxDate",selectedDate);
+        });
+        $("#paymentschart").on("plotclick", function (event, pos, item) {
+            if (item) {
+                var $dataIndex = item.dataIndex;
+                $(".payment-extended").addClass('hidden');
+                $(".payment-extended[data-order-date='" + $payments[$dataIndex][0] + "']").removeClass('hidden');
             }
-        }).mask('99.99.9999');
-    });
-
-    var $chrt_border_color  = "#efefef";
-    var $color_orders        = "#FFCC00";
-    var $color_paymetns        = "#ff0000";
-
-    var $orders = []; var $payments = [];
-    @foreach($orders_chart as $date => $count)
-    $orders.push([ "{{ $date }}" , {{ $count }} ])
-    @endforeach
-    @foreach($payments_chart as $date => $summa)
-    $payments.push([ "{{ $date }}" , {{ $summa }} ])
-    @endforeach
-
-    var $options = {
-        xaxis : {mode: "categories",tickLength: 0},
-        yaxis : {show : true},
-        series : {
-            bars : {show : true,barWidth: 0.3,align: "center"},
-            lines : {show : true,barWidth: 0.6,align: "center"},
-            points: {show: false},
-            shadowSize : 0
-        },
-        selection : {mode : "x"},
-        grid : {hoverable : true,clickable : true,tickColor : $chrt_border_color,borderWidth : 0,borderColor : $chrt_border_color},
-        tooltip : true,
-        tooltipOpts : {content : "Заказов - %y"},
-        colors : [$color_orders,$color_paymetns]
-    };
-    var $orders_plot = $.plot($("#orderschart"),[{data : $orders,label : "Количество заказов"}] , $options);
-    $options['tooltipOpts']['content'] = "%y руб.";
-    var $payments_plot = $.plot($("#paymentschart"),[{data : $payments,label : "Сумма платежей"}] , $options);
-
-    $("#orderschart").on("plotclick", function (event, pos, item){
-        if(item){
-            var $dataIndex = item.dataIndex;
-            $(".order-extended").addClass('hidden');
-            $(".order-extended[data-order-date='"+$orders[$dataIndex][0]+"']").removeClass('hidden');
-        }
-    });
-    $("#paymentschart").on("plotclick", function (event, pos, item){
-        if(item){
-            var $dataIndex = item.dataIndex;
-            $(".payment-extended").addClass('hidden');
-            $(".payment-extended[data-order-date='"+$payments[$dataIndex][0]+"']").removeClass('hidden');
-        }
-    });
-</script>
+        });
+    </script>
 @stop
 @stop
