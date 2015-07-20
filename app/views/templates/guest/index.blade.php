@@ -10,7 +10,8 @@
         <h3><a href="{{ pageurl('catalog') }}">Направления</a></h3>
         <ul class="directions-ul clearfix">
         <?php $totalCourses = 0; ?>
-        @foreach(Directions::whereActive(TRUE)->orderBy('order')->with('photo')->with('courses')->limit(6)->get() as $key => $direction)
+        <?php $totalDirections = 0; ?>
+        @foreach(Directions::whereActive(TRUE)->orderBy('order')->with('photo')->with('courses')->get() as $key => $direction)
             <li
                 @if($direction->in_progress) 
                     class="directions-li direction-in-progress"
@@ -28,12 +29,10 @@
                 <div class="direction-name">
                     {{ $direction->title }}
                 </div>
-                @if($direction->in_progress)
-                    <!-- это условие говорит о том что направление находится в разработке! -->
-                @endif
                 <div class="courses-count">
                     {{ $direction->courses->count() }} {{ Lang::choice('курс|курса|курсов',$direction->courses->count()); }}
                 </div>
+                <?php $totalDirections++; ?>
                 <?php $totalCourses += $direction->courses->count(); ?>
             </li>
         @endforeach
@@ -43,12 +42,12 @@
                 <div class="container-fluid">
                     <div class="row no-gutter margin-top-20">
                         <div style="float: right; margin-right: -15px;" class="col-xs-offset-6 col-sm-offset-6 col-md-offset-6 col-lg-offset-6 col-xs-6 col-sm-6 col-md-6 col-lg-6 counter-string">
-                            <a href="/katalog-kursov-dlya-sro"><div class="count-add-sign">Всего направлений</div>
-                            <div class="count-add-num">7</div>
+                            <a href="{{ pageurl('catalog') }}"><div class="count-add-sign">Всего направлений</div>
+                            <div class="count-add-num">{{ $totalDirections }}</div>
                             <div class="count-add-dots"></div></a>
                         </div>
                         <div style="float: left; margin-left: -15px; margin-top: -17px;" class="col-xs-offset-6 col-sm-offset-6 col-md-offset-6 col-lg-offset-6 col-xs-6 col-sm-6 col-md-6 col-lg-6 counter-string">
-                            <a href="/katalog-kursov-dlya-sro"><div class="count-add-sign">Всего курсов</div>
+                            <a href="{{ pageurl('catalog') }}"><div class="count-add-sign">Всего курсов</div>
                             <div class="count-add-num">{{ $totalCourses }}</div>
                             <div class="count-add-dots"></div></a>
                         </div>
