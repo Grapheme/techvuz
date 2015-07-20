@@ -792,6 +792,7 @@ class AccountsModeratorController extends BaseController {
 
         $period_begin = date("Y-m-d 00:00:00", (strtotime('first day of this month', time())));
         $period_end = date("Y-m-d 23:59:59");
+        $period_index_end = date("Y-m-d 00:00:00");
         $month = array();
         $account_id = 0;
         $direction_id = 0;
@@ -806,6 +807,7 @@ class AccountsModeratorController extends BaseController {
         endif;
         if (Session::has('period_begin')):
             $period_end = date('Y-m-d 23:59:59', strtotime(Session::get('period_end')));
+            $period_index_end = date('Y-m-d 00:00:00', strtotime(Session::get('period_end')));
         endif;
         $ordersIDs = array();
         if ($direction_id):
@@ -836,11 +838,7 @@ class AccountsModeratorController extends BaseController {
             $format = 'm.y';
         endif;
         $index_start = (new myDateTime())->setDateString($period_begin)->format($format);
-        $index_end = (new myDateTime())->setDateString($period_end)->format($format);
-        $now = date("Y-m-d H:i:s");
-        if (strtotime($index_end) > strtotime($now)):
-            $index_end = (new myDateTime())->setDateString($now)->format($format);
-        endif;
+        $index_end = (new myDateTime())->setDateString($period_index_end)->format($format);
         /****************************************************************************/
         $all_orders_query = Orders::where('completed', 1)->where('statistic', TRUE)->where('created_at', '>=', $period_begin)->where('created_at', '<=', $period_end);
         if ($account_id):
