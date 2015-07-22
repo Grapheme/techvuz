@@ -12,12 +12,13 @@
                 <button type="submit"><span class="icon icon-search"></span></button>
             </fieldset>
         </form>
-        <table class="table table-striped table-bordered">
+        <table class="tech-table table table-striped table-bordered sortable">
             <thead>
                 <tr>
-                    <th>Название</th>
+                    <th class="sort listeners-row sort--asc">Название <span class="sort--icon"></span> </th>
+                    <th class="sort sort--asc">Дата регистр. <span class="sort--icon"></span></th>
                     <th>Руководитель</th>
-                    <th>Заказы</th>
+                    <th class="sort sort--asc">Заказы <span class="sort--icon"></span></th>
                     <th>Доход</th>
                 </tr>
             </thead>
@@ -26,7 +27,9 @@
                 <tr class="vertical-middle">
                     <td>
                         <a href="{{ URL::route('moderator-company-profile',$company['id']) }}">{{ $company['title'] }}</a><br>
-                        рег.: {{ (new myDateTime())->setDateString($company['created_at'])->format('d.m.Y в H:i') }}
+                    </td>
+                    <td>
+                        {{ (new myDateTime())->setDateString($company['created_at'])->format('d.m.Y в H:i') }}
                     </td>
                     <td>
                         {{ $company['manager'] }}<br>
