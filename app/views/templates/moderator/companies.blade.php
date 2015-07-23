@@ -29,7 +29,7 @@
                         <a href="{{ URL::route('moderator-company-profile',$company['id']) }}">{{ $company['title'] }}</a><br>
                     </td>
                     <td>
-                        {{ (new myDateTime())->setDateString($company['created_at'])->format('d.m.Y в H:i') }}
+                        {{ (new myDateTime())->setDateString($company['created_at'])->format('Y.m.d в H:i') }}
                     </td>
                     <td>
                         {{ $company['manager'] }}<br>
