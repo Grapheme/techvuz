@@ -111,13 +111,13 @@
     <form style="margin-top: 20px;" action="{{ URL::route('app.form.course_request') }}" method="POST" action="" accept-charset="UTF-8" class="registration-form" id="course-search-form" >
         <header class="margin-bottom-20">Не нашли интересующий курс? Напишите нам!</header>
         <div class="form-element">
-            <label>E-mail / телефон</label><input placeholder="" name="email" type="text">
+            <label>E-mail / телефон</label><input placeholder="Как с вами связаться?" name="email" type="text">
         </div>
         <div class="form-element">
             <label>Вас зовут</label><input placeholder="Иванов Иван Иванович" name="name" type="text">
         </div>
         <div class="form-element">
-            <label>Какой курс вы ищите</label><input class="searching-course" name="course" type="text">
+            <label>Какой курс вы ищите</label><input placeholder="Название курса" class="searching-course" name="course" type="text">
         </div>
         <div class="form-element">
             <button style="margin-top: -5px;" type="submit" autocomplete="off" class="btn btn--bordered btn--blue btn-form-submit">
