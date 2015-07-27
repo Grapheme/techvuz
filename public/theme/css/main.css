@@ -12108,7 +12108,7 @@ div.counter-string a:hover .count-add-sign {
 }
 
 .dynamic-banner {
-  box-sizing: border-box;
+  box-sizing: border-box !important;
   padding: 28px;
   position: relative;
 }

@@ -15,6 +15,7 @@
 {{ HTML::style('theme/css/normalize.css') }}
 {{ HTML::style('theme/css/main.css') }}
 {{ HTML::style('css/font-awesome.min.css') }}
+{{ HTML::style('css/fotorama.css') }}
 @if(Config::get('app.use_googlefonts'))
 	<link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,800,400italic&subset=latin,cyrillic' rel='stylesheet' type='text/css'>
 @endif

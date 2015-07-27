@@ -6,9 +6,22 @@
 @if(File::exists(public_path('js/vendor.js')))
 {{ HTML::style(Config::get('site.theme_path').'/js/vendor.js') }}
 @endif
-{{ HTML::script(Config::get('site.theme_path').'/js//vendor/fotorama.js') }}
+{{ HTML::script(Config::get('site.theme_path').'/js/vendor/fotorama.js') }}
 {{ HTML::script(Config::get('site.theme_path').'/js/index.js') }}
 {{ HTML::script('js/vendor/jquery-form.min.js') }}
+
+<script>
+    $('.dynamic-banners').fotorama({
+        width: 670,
+        height: 193,
+        nav: false,
+        autoplay: 3000,
+        arrows: false,
+        swipe: false,
+        loop: true
+    });
+</script>
+
 @if(Auth::guest())
 {{ HTML::script('js/vendor/jquery.validate.min.js') }}
 {{ HTML::script('js/vendor/jquery.mask.js') }}

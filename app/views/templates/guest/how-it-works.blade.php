@@ -3,6 +3,8 @@
 @stop
 @section('content')
 <main class="how-it-works">
+
+
 <!-- 
 	<div class="dynamic-banners fotorama">
 
@@ -50,6 +52,7 @@
 		</div>
 
 	</div>
+
 -->
     @if(!empty($page->seo->h1))<h1>{{ $page->seo->h1 }}</h1>@endif
     <section class="htw">
