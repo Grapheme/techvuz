@@ -6,6 +6,7 @@
 @if(File::exists(public_path('js/vendor.js')))
 {{ HTML::style(Config::get('site.theme_path').'/js/vendor.js') }}
 @endif
+{{ HTML::script(Config::get('site.theme_path').'/js//vendor/fotorama.js') }}
 {{ HTML::script(Config::get('site.theme_path').'/js/index.js') }}
 {{ HTML::script('js/vendor/jquery-form.min.js') }}
 @if(Auth::guest())
