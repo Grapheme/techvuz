@@ -1579,10 +1579,4 @@ $(document).ready(function(){
     var active_parent = active_input.parents('.accordion-body');
     active_parent.prev().trigger('click');
 	active_input.attr('checked', true);
-
-	$(function () {
-	    $('.dynamic-banners').fotorama({
-	      	nav: false,
-	    });
-	});
 }); 
