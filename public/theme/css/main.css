@@ -12081,3 +12081,12 @@ div.counter-string a:hover .count-add-sign {
   color: #fff;
   background-color: #33ace4;
 }
+
+.work-tipes-link {
+  text-decoration: underline;
+  font-family: 'Open Sans', sans-serif;
+}
+
+.work-tipes-link:hover {
+  text-decoration: none;
+}

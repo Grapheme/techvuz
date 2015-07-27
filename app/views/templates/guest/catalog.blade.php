@@ -55,6 +55,7 @@
             <div class="acc-courses">
                 {{ $direction->courses->count() }} {{ Lang::choice('курс|курса|курсов',$direction->courses->count()); }}
             </div>
+            <!--<a traget=_blank class="work-tipes-link" href="#">Таблица видов работ</a>-->
         </div>
         <div class="accordion-body" id="print-{{ $direction->id }}">
         @if($direction->courses->count())
