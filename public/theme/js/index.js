@@ -1382,6 +1382,13 @@ var banners = function() {
     init();
 }
 var print_part = function() {
+	$('.js-accordion-hack').on('click', function(){
+		if(!$('.js-link-cont').length) $('html').append('<div class="js-link-cont" style="position: fixed; top: -999em; left: -999em; visibility: hidden;"></div>');
+		$('.js-link-cont').html($(this).clone());
+		$('.js-link-cont a').removeClass('js-accordion-hack');
+		$('.js-link-cont a').get(0).click();
+		return false;
+	});
     $('.js-print-part').on('click', function(){
         print_it($(this).attr('data-id'));
         return false;

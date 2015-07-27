@@ -6,7 +6,8 @@
 <main class="catalog">
     @if(!empty($page->seo->h1))<h1>{{ $page->seo->h1 }}</h1>@endif
     <div class="print-link">
-        <a href="#" onclick="window.print();return false;">Распечатать каталог</a> <span class="icon icon-print"></span>
+        
+
     </div>
     <div class="desc">
     {{ $page->block('top_desc') }}
@@ -52,7 +53,7 @@
             <div class="acc-courses">
                 {{ $direction->courses->count() }} {{ Lang::choice('курс|курса|курсов',$direction->courses->count()); }}
             </div>
-            <a traget=_blank data-slug="{{ BaseController::stringTranslite($direction->code).'-table-types-work' }}" class="work-tipes-link" href="{{ pageurl(BaseController::stringTranslite($direction->code).'-table-types-work') }}">Таблица видов работ</a>
+            <a target="_blank" data-slug="{{ BaseController::stringTranslite($direction->code).'-table-types-work' }}" class="work-tipes-link js-accordion-hack" href="{{ pageurl(BaseController::stringTranslite($direction->code).'-table-types-work') }}">Таблица видов работ</a>
         </div>
         <div class="accordion-body" id="print-{{ $direction->id }}">
         @if($direction->courses->count())
