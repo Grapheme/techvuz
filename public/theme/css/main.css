@@ -12072,7 +12072,7 @@ div.counter-string a:hover .count-add-sign {
 
 .btn-quick {
   margin-bottom: 35px;
-  border: 2px solid #fff !important;
+  /*border: 2px solid #fff !important;*/
   color: #33ace4;
   background-color: #fff;
 }
@@ -12089,4 +12089,175 @@ div.counter-string a:hover .count-add-sign {
 
 .work-tipes-link:hover {
   text-decoration: none;
+}
+
+.dynamic-banners {
+  margin: 20px 0;
+}
+
+.dynamic-banners {
+  width: 670px;
+  height: 193px;
+}
+
+.dynamic-banner {
+  width: 664px;
+  height: 189px;
+  margin-top: 2px;
+  margin-left: 2px;
+}
+
+.dynamic-banner {
+  box-sizing: border-box;
+  padding: 28px;
+  position: relative;
+}
+
+.dynamic-banner:after {
+  display: block;
+  content: '';
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: 33px 0 0 33px;
+  background: #fff;
+  position: absolute;
+  right: -2px;
+  top: -2px;
+}
+
+.dynamic-banner .logo-holder {
+  width: 130px;
+  height: 130px;
+  /*margin-top: 28px;
+  margin-left: 28px;*/
+  margin-right: 43px;*/
+  background: #666;
+  background-size: 60px;
+  background-repeat: no-repeat;
+  background-position: center;
+  float: left;
+}
+
+.dynamic-banner h3 {
+  margin-bottom: 10px;
+  font-size: 24px;
+  font-weight: normal;
+  text-transform: uppercase;
+  font-family: "Geometria", "Open Sans", sans-serif;
+}
+
+.dynamic-banner p {
+  font-family: "Geometria", "Open Sans", sans-serif;
+  font-size: 18px;
+}
+
+.dynamic-banner-str .logo-holder {
+  background-image: url('http://tehvuz.ru/uploads/galleries/1421669061_1991.png');
+  background-color: #bb252d;
+}
+
+.dynamic-banner-str {
+  box-shadow: 0px 0px 0px 2px #bb252d;
+}
+
+.dynamic-banner-str:after {
+  border-color: transparent transparent transparent #bb252d;
+}
+
+.dynamic-banner-str h3 {
+  color: #bb252d;
+}
+
+.dynamic-banner-nop .logo-holder {
+  background-image: url('http://tehvuz.ru/uploads/galleries/1421669106_1299.png');
+  background-color: #78a725;
+}
+
+.dynamic-banner-nop {
+  box-shadow: 0px 0px 0px 2px #78a725;
+}
+
+.dynamic-banner-nop h3 {
+  color: #78a725;
+}
+
+.dynamic-banner-nop:after {
+  border-color: transparent transparent transparent #78a725;
+}
+
+/**/
+
+.dynamic-banner-noiz .logo-holder {
+  background-image: url('http://tehvuz.ru/uploads/galleries/1421669138_1693.png');
+  background-color: #e4b51e;
+}
+
+.dynamic-banner-noiz {
+  box-shadow: 0px 0px 0px 2px #e4b51e;
+}
+
+.dynamic-banner-noiz h3 {
+  color: #e4b51e;
+}
+
+.dynamic-banner-noiz:after {
+  border-color: transparent transparent transparent #e4b51e;
+}
+
+/**/
+
+.dynamic-banner-ptm .logo-holder {
+  background-image: url('http://tehvuz.ru/uploads/galleries/1422434308_1066.png');
+  background-color: #5e52ac;
+}
+
+.dynamic-banner-ptm {
+  box-shadow: 0px 0px 0px 2px #5e52ac;
+}
+
+.dynamic-banner-ptm h3 {
+  color: #5e52ac;
+}
+
+.dynamic-banner-ptm:after {
+  border-color: transparent transparent transparent #5e52ac;
+}
+
+/**/
+
+.dynamic-banner-eb .logo-holder {
+  background-image: url('http://tehvuz.ru/uploads/galleries/1431943515_1562.png');
+  background-color: #db7336;
+}
+
+.dynamic-banner-eb {
+  box-shadow: 0px 0px 0px 2px #db7336;
+}
+
+.dynamic-banner-eb h3 {
+  color: #db7336;
+}
+
+.dynamic-banner-eb:after {
+  border-color: transparent transparent transparent #db7336;
+}
+
+/**/
+
+.dynamic-banner-ot .logo-holder {
+  background-image: url('http://tehvuz.ru/uploads/galleries/1435320574_1177.png');
+  background-color: #4bc8bb;
+}
+
+.dynamic-banner-ot {
+  box-shadow: 0px 0px 0px 2px #4bc8bb;
+}
+
+.dynamic-banner-ot h3 {
+  color: #4bc8bb;
+}
+
+.dynamic-banner-ot:after {
+  border-color: transparent transparent transparent #4bc8bb;
 }

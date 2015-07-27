@@ -1580,4 +1580,9 @@ $(document).ready(function(){
     active_parent.prev().trigger('click');
 	active_input.attr('checked', true);
 
+	$(function () {
+	    $('.dynamic-banners').fotorama({
+	      	nav: false,
+	    });
+	});
 }); 
