@@ -20,9 +20,6 @@
                 }))->get();
         ?>
         @foreach($directions as $direction)
-            @if($direction->in_progress)
-                <!-- это условие говорит о том что направление находится в разработке! -->
-            @endif
             <div
             @if($direction->in_progress)
                 class="accordion-header direction-in-progress"

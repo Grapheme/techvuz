@@ -34,9 +34,6 @@
             }))->get();
     ?>
     @foreach($directions as $direction)
-        @if($direction->in_progress)
-            <!-- это условие говорит о том что направление находится в разработке! -->
-        @endif
         <div
             @if($direction->in_progress)
                 class="accordion-header direction-in-progress"
@@ -55,7 +52,7 @@
             <div class="acc-courses">
                 {{ $direction->courses->count() }} {{ Lang::choice('курс|курса|курсов',$direction->courses->count()); }}
             </div>
-            <!--<a traget=_blank class="work-tipes-link" href="#">Таблица видов работ</a>-->
+            <a traget=_blank data-slug="{{ BaseController::stringTranslite($direction->code).'-table-types-work' }}" class="work-tipes-link" href="{{ pageurl(BaseController::stringTranslite($direction->code).'-table-types-work') }}">Таблица видов работ</a>
         </div>
         <div class="accordion-body" id="print-{{ $direction->id }}">
         @if($direction->courses->count())
