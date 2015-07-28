@@ -54,7 +54,7 @@
                 {{ $direction->courses->count() }} {{ Lang::choice('курс|курса|курсов',$direction->courses->count()); }}
             </div>
             <?php $slug = BaseController::stringTranslite($direction->code).'-table-types-work';?>
-            @if(pageurl($slag) != 'http://tehvuz.ru')
+            @if(pageurl($slug) != 'http://tehvuz.ru')
                 <a target="_blank" data-slug="{{ BaseController::stringTranslite($direction->code).'-table-types-work' }}" class="work-tipes-link js-accordion-hack" href="{{ pageurl(BaseController::stringTranslite($direction->code).'-table-types-work') }}">Таблица видов работ</a>
             @endif
         </div>
