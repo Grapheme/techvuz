@@ -12257,3 +12257,22 @@ div.counter-string a:hover .count-add-sign {
 .dynamic-banner-ot:after {
   border-color: transparent transparent transparent #4bc8bb;
 }
+
+/**/
+
+.dynamic-banner-eb .logo-holder {
+  background-image: url('/uploads/galleries/1436527069_1357.png');
+  background-color: #bb252d;
+}
+
+.dynamic-banner-eb {
+  box-shadow: 0px 0px 0px 2px #bb252d;
+}
+
+.dynamic-banner-eb h3 {
+  color: #bb252d;
+}
+
+.dynamic-banner-eb:after {
+  border-color: transparent transparent transparent #bb252d;
+}
