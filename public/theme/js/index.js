@@ -1587,3 +1587,7 @@ $(document).ready(function(){
     active_parent.prev().trigger('click');
 	active_input.attr('checked', true);
 }); 
+
+$('.accordion-header').click( function (){
+	$(this).find('.work-tipes-link').fadeToggle();
+});
