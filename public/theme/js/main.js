@@ -687,7 +687,3 @@ $(function(){
     banners();
     print_part();
 });
-
-$('.accordion-header').click( function (){
-$(this).find('.work-tipes-link').fadeToggle();
-});
