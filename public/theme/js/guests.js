@@ -430,5 +430,3 @@ function guestFormValidation() {
         }
     });
 }
-
-$(window).on('load', function(){setTimeout(function(){ Popup.show('quick'); return false; }, 15000)});

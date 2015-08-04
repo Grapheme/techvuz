@@ -25,6 +25,9 @@
       <a href="#" class="btn btn--bordered btn-quick" onclick="Popup.show('quick'); return false;">
         <span>Онлайн заявка</span>
       </a>
+      <script>
+        $(window).on('load', function(){setTimeout(function(){ Popup.show('quick'); return false; }, 15000)});
+      </script>
     @endif
     <nav>
        <ul class="nav-ul">
