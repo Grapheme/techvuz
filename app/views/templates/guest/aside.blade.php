@@ -23,7 +23,7 @@
     </div>
     @if(!Auth::check())
       <a href="#" class="btn btn--bordered btn-quick" onclick="Popup.show('quick'); return false;">
-        <span>Быстрая запись</span>
+        <span>Онлайн заявка</span>
       </a>
     @endif
     <nav>
