@@ -437,5 +437,5 @@ $(window).on('load', function(){
             $.cookie('QuickPopup', 'shown', {path: '/', expires: 7});
             Popup.show('quick');
         }
-    }, 5000)};
-);
+    }, 5000)
+});
