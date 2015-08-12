@@ -431,4 +431,11 @@ function guestFormValidation() {
     });
 }
 
-$(window).on('load', function(){setTimeout(function(){ Popup.show('quick'); return false; }, 5000)});
+$(window).on('load', function(){
+    setTimeout(function(){
+        if($.cookie('QuickPopup') != 'shown') {
+            $.cookie('QuickPopup', 'shown', {path: '/', expires: 7});
+            Popup.show('quick');
+        }
+    }, 5000)};
+);
