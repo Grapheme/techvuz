@@ -27,7 +27,7 @@
                 'link' => mb_substr(action($module['class'] . '@getIndex'), 0, -6) . "?group_id=" . $grp->id,
                 'title' => $grp->desc . ' (' . $grp->count_users() . ')',
             );
-            if (@is_object($group) && $group->name == $grp->name)
+            if (is_object($group) && $group->name == $grp->name)
                 $def_arr = $arr;
             $temp[] = $arr;
         }

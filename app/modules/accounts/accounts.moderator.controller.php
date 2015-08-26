@@ -14,6 +14,8 @@ class AccountsModeratorController extends BaseController {
 
         if (Auth::check()):
             Route::group(array('before' => 'auth.status', 'prefix' => self::$name), function () use ($class) {
+                Route::get('without-statistic', array('as' => 'moderator-account-without-statistic', 'uses' => $class . '@withoutStatisticList'));
+
                 Route::get('companies', array('as' => 'moderator-companies-list', 'uses' => $class . '@CompaniesList'));
                 Route::get('companies/profile/{company_id}', array('as' => 'moderator-company-profile',
                     'uses' => $class . '@CompanyProfile'));
@@ -590,6 +592,22 @@ class AccountsModeratorController extends BaseController {
                     'payment_date' => '0000-00-00 00:00:00', 'updated_at' => $now));
             endif;
         endif;
+    }
+
+    /****************************************************************************/
+
+    public function withoutStatisticList(){
+
+        $page_data = array(
+            'page_title' => 'Список тестовых аккаунтов',
+            'page_description' => '',
+            'page_keywords' => '',
+            'companies' => array(),
+            'listeners' => array()
+        );
+        $page_data['companies'] = User_organization::where('statistic', 0)->get();
+        $page_data['listeners'] = User_individual::where('statistic', 0)->get();
+        return View::make(Helper::acclayout('without-statistic'), $page_data);
     }
 
     /****************************************************************************/

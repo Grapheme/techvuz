@@ -33,24 +33,9 @@
         <a {{ in_array(Request::segment(2),array('listeners')) ? 'class="active"' : '' }} href="{{ URL::route('moderator-listeners-list') }}"><i class="fa fa-lg fa-fw fa-group"></i> Слушатели</a>
     </li>
     <li class="cabinet-menu-li">
+        <a {{ in_array(Request::segment(2),array('without-statistic')) ? 'class="active"' : '' }} href="{{ URL::route('moderator-account-without-statistic') }}"><i class="fa fa-lg fa-fw fa-wheelchair"></i> Тестовые</a>
+    </li>
+    <li class="cabinet-menu-li">
         <a {{ in_array(Request::segment(2),array('statistic')) ? 'class="active"' : '' }} href="{{ URL::route('moderator-statistic') }}"><i class="fa fa-lg fa-fw fa-bar-chart"></i> Статистика</a>
     </li>
 </ul>
-
-{{--@foreach(SystemModules::getSidebarModules() as $name => $module)--}}
-    <?php #$modules_menu[] = $module;?>
-    <?php #$menu_active = false; ?>
-    {{--@if ($module['link'] == (string)Request::segment(2) || $module['link'] == (string)Request::segment(2)."/".(string)Request::segment(3))--}}
-        <?php #$menu_active = TRUE; ?>
-    {{--@endif--}}
-    {{--<li class="cabinet-menu-li">--}}
-        {{--<a href="{{ URL::to(link::auth($module['link'])) }}" {{ $menu_active ? 'class="active"' : '' }}>--}}
-            {{--<i class="fa fa-lg fa-fw {{ $module['class'] }}">--}}
-                {{--@if (@is_callable($module['icon_badge']))--}}
-                    {{--{{ $module['icon_badge']() }}--}}
-                {{--@endif--}}
-            {{--</i>--}}
-            {{--<span class="menu-item-parent">{{{ $module['title'] }}}</span>--}}
-        {{--</a>--}}
-    {{--</li>--}}
-{{--@endforeach--}}
