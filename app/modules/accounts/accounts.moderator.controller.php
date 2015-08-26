@@ -629,6 +629,7 @@ class AccountsModeratorController extends BaseController {
         if ($individual_listeners_list = User_individual::orderBy('created_at', 'DESC')->with('orders.payment_numbers')->get()):
             foreach($individual_listeners_list as $index => $listener):
                 $individual_listeners[$index]['id'] = $listener->id;
+                $individual_listeners[$index]['fio'] = $listener->fio;
                 $individual_listeners[$index]['email'] = $listener->email;
                 $individual_listeners[$index]['created_at'] = $listener->created_at->timezone(Config::get('site.time_zone'));
                 $individual_listeners[$index]['phone'] = $listener->phone;
