@@ -33,7 +33,7 @@
         <a {{ in_array(Request::segment(2),array('listeners')) ? 'class="active"' : '' }} href="{{ URL::route('moderator-listeners-list') }}"><i class="fa fa-lg fa-fw fa-group"></i> Слушатели</a>
     </li>
     <li class="cabinet-menu-li">
-        <a {{ in_array(Request::segment(2),array('without-statistic')) ? 'class="active"' : '' }} href="{{ URL::route('moderator-account-without-statistic') }}"><i class="fa fa-lg fa-fw fa-wheelchair"></i> Тестовые</a>
+        <a {{ in_array(Request::segment(2),array('without-statistic')) ? 'class="active"' : '' }} href="{{ URL::route('moderator-account-without-statistic') }}"><i class="fa fa-lg fa-fw fa-user"></i> Тестовые</a>
     </li>
     <li class="cabinet-menu-li">
         <a {{ in_array(Request::segment(2),array('statistic')) ? 'class="active"' : '' }} href="{{ URL::route('moderator-statistic') }}"><i class="fa fa-lg fa-fw fa-bar-chart"></i> Статистика</a>
