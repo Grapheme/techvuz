@@ -15,11 +15,11 @@
     */
 
     $temp = array();
-    $def_arr = array(
-        'link' => mb_substr(action($module['class'] . '@getIndex'), 0, -6),
-        'title' => 'Все пользователи (' . User::count() . ')',
-    );
-    $temp[] = $def_arr;
+    //$def_arr = array(
+    //    'link' => mb_substr(action($module['class'] . '@getIndex'), 0, -6),
+    //    'title' => 'Все пользователи (' . User::count() . ')',
+    //);
+    //$temp[] = $def_arr;
 
     if(isset($groups) && $groups->count()) {
         foreach ($groups as $grp) {

@@ -65,7 +65,7 @@ class AdminSystemController extends BaseController {
         if (Allow::action('system', 'users', false, true))
             $menu_child[] = array(
                 'title' => 'Пользователи',
-                'link' => 'system/users',
+                'link' => 'system/users?group_id=4',
                 'class' => 'fa-user',
             );
 
