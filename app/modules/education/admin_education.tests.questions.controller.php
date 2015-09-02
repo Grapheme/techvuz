@@ -11,16 +11,16 @@ class AdminEducationTestsQuestionsController extends BaseController {
 
     public static function returnRoutes($prefix = null) {
         $class = __CLASS__;
-        Route::group(array('before' => 'auth', 'prefix' => $prefix), function() use ($class) {
-            Route::resource(AdminEducationDirectionsController::$group.'/'.AdminEducationDirectionsController::$name.'/{direction}/'.AdminEducationCoursesController::$name.'/{course}/'.AdminEducationChaptersController::$name.'/{chapter}/'.AdminEducationTestingController::$name.'/{tests}/'.$class::$name, $class,
+        Route::group(array('before' => 'auth', 'prefix' => $prefix), function () use ($class) {
+            Route::resource(AdminEducationDirectionsController::$group . '/' . AdminEducationDirectionsController::$name . '/{direction}/' . AdminEducationCoursesController::$name . '/{course}/' . AdminEducationChaptersController::$name . '/{chapter}/' . AdminEducationTestingController::$name . '/{tests}/' . $class::$name, $class,
                 array(
-                    'except' => array('show','index'),
+                    'except' => array('show', 'index'),
                     'names' => array(
-                        'create'  => self::$entity.'.create',
-                        'store'   => self::$entity.'.store',
-                        'edit'    => self::$entity.'.edit',
-                        'update'  => self::$entity.'.update',
-                        'destroy' => self::$entity.'.destroy',
+                        'create' => self::$entity . '.create',
+                        'store' => self::$entity . '.store',
+                        'edit' => self::$entity . '.edit',
+                        'update' => self::$entity . '.update',
+                        'destroy' => self::$entity . '.destroy',
                     )
                 )
             );
@@ -51,7 +51,7 @@ class AdminEducationTestsQuestionsController extends BaseController {
     protected $test;
     protected $question;
 
-    public function __construct(CoursesTestsQuestions $question){
+    public function __construct(CoursesTestsQuestions $question) {
 
         $this->direction = Directions::findOrFail(Request::segment(4));
         $this->course = Courses::findOrFail(Request::segment(6));
@@ -73,88 +73,100 @@ class AdminEducationTestsQuestionsController extends BaseController {
         View::share('module', $this->module);
     }
 
-    public function create($direction_id,$course_id,$chapter_id,$test_id) {
+    public function create($direction_id, $course_id, $chapter_id, $test_id) {
 
         Allow::permission($this->module['group'], 'create');
         $direction = $this->direction;
         $course = $this->course;
         $chapter = $this->chapter;
         $test = $this->test;
-        return View::make($this->module['tpl'].'create',compact('direction','course','chapter','test'));
+        return View::make($this->module['tpl'] . 'create', compact('direction', 'course', 'chapter', 'test'));
     }
 
-    public function store($direction_id,$course_id,$chapter_id,$test_id){
+    public function store($direction_id, $course_id, $chapter_id, $test_id) {
 
-        if(!Request::ajax()) return App::abort(404);
+        if (!Request::ajax()) return App::abort(404);
         Allow::permission($this->module['group'], 'create');
-        $json_request = array('status'=>FALSE, 'responseText'=>'', 'responseErrorText'=>'', 'redirect'=>FALSE, 'gallery'=>0);
+        $json_request = array('status' => FALSE, 'responseText' => '', 'responseErrorText' => '', 'redirect' => FALSE,
+            'gallery' => 0);
         $validation = Validator::make(Input::all(), CoursesTestsQuestions::$rules);
-        if($validation->passes()):
+        if ($validation->passes()):
             $question = $this->question->create(Input::all());
-            $json_request['responseText'] = self::$entity_name." добавлен";
-            if(is_null($this->chapter)):
+            $json_request['responseText'] = self::$entity_name . " добавлен";
+            if (is_null($this->chapter)):
                 $chapter_id = 0;
             else:
                 $chapter_id = $this->chapter->id;
             endif;
-            $json_request['redirect'] = URL::route('testing.index',array('directions'=>$this->direction->id,'course'=>$this->course->id,'chapter'=>$chapter_id));
-            $json_request['redirect'] = URL::to($json_request['redirect'].'#question_'.$question->id);
+            if (CoursesTests::where('id', $test_id)->where('trial_test', 0)->exists()):
+                $json_request['redirect'] = URL::route('testing.index', array('directions' => $this->direction->id,
+                        'course' => $this->course->id, 'chapter' => $chapter_id)) . '#question_' . $question->id;
+            else:
+                $json_request['redirect'] = URL::route('trial_testing.index', array('directions' => $this->direction->id,
+                        'course' => $this->course->id, 'chapter' => $chapter_id)) . '#question_' . $question->id;
+            endif;
             $json_request['status'] = TRUE;
         else:
             $json_request['responseText'] = 'Неверно заполнены поля';
-            $json_request['responseErrorText'] = implode($validation->messages()->all(),'<br />');
+            $json_request['responseErrorText'] = implode($validation->messages()->all(), '<br />');
         endif;
         return Response::json($json_request, 200);
     }
 
-    public function edit($direction_id,$course_id,$chapter_id,$test_id,$question_id){
+    public function edit($direction_id, $course_id, $chapter_id, $test_id, $question_id) {
 
         Allow::permission($this->module['group'], 'edit');
-        if($question = $this->question->findOrFail($question_id)):
+        if ($question = $this->question->findOrFail($question_id)):
             $direction = $this->direction;
             $course = $this->course;
             $chapter = $this->chapter;
             $test = $this->test;
-            return View::make($this->module['tpl'].'edit', compact('direction','course','chapter','test','question'));
+            return View::make($this->module['tpl'] . 'edit', compact('direction', 'course', 'chapter', 'test', 'question'));
         else:
             App::abort(404);
         endif;
     }
 
-    public function update($direction_id,$course_id,$chapter_id,$test_id,$question_id){
+    public function update($direction_id, $course_id, $chapter_id, $test_id, $question_id) {
 
-        if(!Request::ajax()) return App::abort(404);
+        if (!Request::ajax()) return App::abort(404);
         Allow::permission($this->module['group'], 'edit');
-        $json_request = array('status'=>FALSE, 'responseText'=>'', 'responseErrorText'=>'', 'redirect'=>FALSE, 'gallery'=>0);
+        $json_request = array('status' => FALSE, 'responseText' => '', 'responseErrorText' => '', 'redirect' => FALSE,
+            'gallery' => 0);
         $validation = Validator::make(Input::all(), CoursesTestsQuestions::$rules);
-        if($validation->passes()):
-            if($question = $this->question->where('id',$question_id)->first()):
+        if ($validation->passes()):
+            if ($question = $this->question->where('id', $question_id)->first()):
                 $question->update(Input::all());
-                $json_request['responseText'] = self::$entity_name." сохранен";
-                if(is_null($this->chapter)):
+                $json_request['responseText'] = self::$entity_name . " сохранен";
+                if (is_null($this->chapter)):
                     $chapter_id = 0;
                 else:
                     $chapter_id = $this->chapter->id;
                 endif;
-                $json_request['redirect'] = URL::route('testing.index',array('directions'=>$this->direction->id,'course'=>$this->course->id,'chapter'=>$chapter_id));
-                $json_request['redirect'] = URL::to($json_request['redirect'].'#question_'.$question_id);
+                if (CoursesTests::where('id', $test_id)->where('trial_test', 0)->exists()):
+                    $json_request['redirect'] = URL::route('testing.index', array('directions' => $this->direction->id,
+                            'course' => $this->course->id, 'chapter' => $chapter_id)) . '#question_' . $question->id;
+                else:
+                    $json_request['redirect'] = URL::route('trial_testing.index', array('directions' => $this->direction->id,
+                            'course' => $this->course->id, 'chapter' => $chapter_id)) . '#question_' . $question->id;
+                endif;
                 $json_request['status'] = TRUE;
             endif;
         else:
             $json_request['responseText'] = 'Неверно заполнены поля';
-            $json_request['responseErrorText'] = implode($validation->messages()->all(),'<br />');
+            $json_request['responseErrorText'] = implode($validation->messages()->all(), '<br />');
         endif;
         return Response::json($json_request, 200);
     }
 
-    public function destroy($direction_id,$course_id,$chapter_id,$test_id,$question_id){
+    public function destroy($direction_id, $course_id, $chapter_id, $test_id, $question_id) {
 
         Allow::permission($this->module['group'], 'delete');
-        if(!Request::ajax()) return App::abort(404);
-        $json_request = array('status'=>FALSE, 'responseText'=>'');
+        if (!Request::ajax()) return App::abort(404);
+        $json_request = array('status' => FALSE, 'responseText' => '');
         $this->question->find($question_id)->answers()->delete();
         $this->question->find($question_id)->delete();
-        $json_request['responseText'] = self::$entity_name.' удален';
+        $json_request['responseText'] = self::$entity_name . ' удален';
         $json_request['status'] = TRUE;
         return Response::json($json_request, 200);
     }

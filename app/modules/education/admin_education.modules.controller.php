@@ -47,9 +47,6 @@ class AdminEducationModulesController extends BaseController {
     protected $direction;
     protected $course;
 
-    /**
-     *
-     */
     public function __construct(){
 
         $this->direction = Directions::where('id',Request::segment(4))->with('courses')->first();
@@ -59,7 +56,7 @@ class AdminEducationModulesController extends BaseController {
                 $query_lecture->orderBy('order');
             }));
             $query->with('test');
-        }))->with('test')->first();
+        }))->with('test', 'trial_test')->first();
 
         $this->module = array(
             'name' => self::$name,

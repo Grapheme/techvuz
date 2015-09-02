@@ -112,6 +112,20 @@ $(function(){
 		return false;
 	});
 
+	$(".create-trial-test").click(function() {
+        var $this = this;
+        $.SmartMessageBox({
+			title : "Добавить пробный тест?",
+			content : "",
+			buttons : '[Нет][Да]'
+		},function(ButtonPressed) {
+			if(ButtonPressed == "Да") {
+                window.location = $($this).attr('href');
+			}
+		});
+		return false;
+	});
+
     $(".dont-remove-" + essence).click(function() {
         var $this = this;
         $.SmartMessageBox({

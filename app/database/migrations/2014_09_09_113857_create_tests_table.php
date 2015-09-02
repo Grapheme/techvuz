@@ -15,6 +15,7 @@ class CreateTestsTable extends Migration {
                 $table->string('title',255)->nullable();
                 $table->text('description')->nullable();
                 $table->boolean('active')->default(0)->unsigned()->nullable();
+                $table->boolean('trial_test')->default(0)->unsigned()->nullable();
                 $table->timestamps();
             });
             echo(' + ' . 'tests' . PHP_EOL);

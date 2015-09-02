@@ -57,14 +57,14 @@ return array(
 
 		'Way\Generators\GeneratorsServiceProvider',
 		'Intervention\Image\ImageServiceProvider',
-        'Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider',
         'Illuminate\Custom\CustomUrlServiceProvider',
         'Flynsarmy\DbBladeCompiler\DbBladeCompilerServiceProvider',
         'Scalia\SphinxSearch\SphinxSearchServiceProvider',
         'Chumper\Zipper\ZipperServiceProvider',
         'Lowerends\Mpdf\ServiceProvider',
         'Roumen\Sitemap\SitemapServiceProvider',
-        'sngrl\StringBladeCompiler\StringBladeCompilerServiceProvider'
+        'sngrl\StringBladeCompiler\StringBladeCompilerServiceProvider',
+		'Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider'
     ),
 	'aliases' => array(
 		'App'             => 'Illuminate\Support\Facades\App',
