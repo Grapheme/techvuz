@@ -10,7 +10,6 @@
 	{{HTML::script('js/system/app.js');}}
 	{{HTML::script('theme/js/simplePagination.js');}}
 	{{HTML::script('theme/js/main.js');}}
-	<script src="//api-maps.yandex.ru/2.0/?load=package.standard&lang=ru-RU" type="text/javascript"></script>
 	<script type="text/javascript">
 		if(typeof runFormValidation === 'function'){
 			loadScript("{{asset('js/vendor/jquery-form.min.js');}}",runFormValidation);
