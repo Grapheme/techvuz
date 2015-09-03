@@ -122,7 +122,7 @@
                     $(".questions-li:visible input:checkbox[data-current='1']").parent('label').addClass('state-success');
                     $(".questions-li:visible input:checkbox:checked[data-current='0']").parent('label').addClass('state-error');
                     $(".questions-li:visible input:checkbox").addClass('disabled').attr('disabled', 'disabled');
-                    if($(".questions-li:visible input:checkbox:checked[data-current='0']").length > 0){
+                    if($(".questions-li:visible input:checkbox:checked[data-current='0']").length == 0){
                         Test[current_question]['user_right_answers'] = $(".questions-li:visible input:checkbox:checked[data-current='1']").length;
                     }else{
                         Test[current_question]['user_right_answers'] = 0;
