@@ -31,7 +31,7 @@
                     <section>
                         <label class="label">Комментарий</label>
                         <label class="textarea">
-                            {{ Form::textarea('description', '',array('class'=>'redactor')) }}
+                            {{ Form::textarea('comment', '',array('class'=>'redactor')) }}
                         </label>
                     </section>
                 </fieldset>
