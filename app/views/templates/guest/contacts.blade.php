@@ -129,4 +129,5 @@
 @section('overlays')
 @stop
 @section('scripts')
+    <script src="//api-maps.yandex.ru/2.0/?load=package.standard&lang=ru-RU" type="text/javascript"></script>
 @stop

@@ -28,6 +28,12 @@
                             {{ Form::textarea('description',NULL,array('class'=>'redactor')) }}
                         </label>
                     </section>
+                    <section>
+                        <label class="label">Комментарий</label>
+                        <label class="textarea">
+                            {{ Form::textarea('comment', NULL,array('class'=>'redactor')) }}
+                        </label>
+                    </section>
                 </fieldset>
 				<footer>
 					<a class="btn btn-default no-margin regular-10 uppercase pull-left btn-spinner" href="{{ URL::previous() }}">

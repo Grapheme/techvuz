@@ -85,6 +85,9 @@ class AdminEducationTestsAnswersController extends BaseController {
         $test = $this->test;
         $question = $this->question;
         $hasCurrentAnswer = CoursesTestsQuestions::find($this->question->id)->answers()->where('correct', 1)->exists();
+        if($test->trial_test == 1):
+            $hasCurrentAnswer = FALSE;
+        endif;
         return View::make($this->module['tpl'] . 'create', compact('direction', 'course', 'chapter', 'test', 'question', 'hasCurrentAnswer'));
     }
 

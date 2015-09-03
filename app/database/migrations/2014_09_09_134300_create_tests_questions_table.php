@@ -13,6 +13,7 @@ class CreateTestsQuestionsTable extends Migration {
                 $table->integer('order')->unsigned()->nullable();
                 $table->string('title',255)->nullable();
                 $table->text('description')->nullable();
+                $table->text('comment')->nullable();
                 $table->timestamps();
             });
             echo(' + ' . 'tests_questions' . PHP_EOL);
