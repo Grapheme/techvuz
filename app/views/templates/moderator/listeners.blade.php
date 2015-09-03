@@ -3,8 +3,8 @@
 @stop
 @section('content')
 <h2 class="margin-bottom-40">Список слушателей</h2>
-<div class="row">
 @if(count($listeners))
+<div class="row">
     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
         <form class="employee-search margin-bottom-20">
             <fieldset>
@@ -18,6 +18,8 @@
                     <th class="sort listeners-row sort--asc">Ф.И.О. <span class="sort--icon"></span></th>
                     <th class="sort sort--asc">Контактные данные <span class="sort--icon"></span></th>
                     <th class="sort sort--asc">Компания <span class="sort--icon"></span></th>
+                    <th class="sort sort--asc">Заказы <span class="sort--icon"></span></th>
+                    <th class="sort sort--asc">Доход <span class="sort--icon"></span></th>
                 </tr>
             </thead>
             <tbody>
@@ -37,6 +39,21 @@
                     @else
                         Индивидуальный слушатель
                     @endif
+                    </td>
+                    <td>
+                    @if(isset($listener['organization']))
+                    @else
+                        {{ $listener['orders_count'] }}
+                    @endif
+                    </td>
+                    <td>
+                    @if(isset($listener['organization']))
+                    @else
+                        <nobr>реал.: {{ number_format($listener['orders_earnings']['real_earnings'], 0, ',', ' ') }} руб.<br></nobr>
+                        <nobr>всего: {{ number_format($listener['orders_earnings']['total_earnings'], 0, ',', ' ') }} руб.<br></nobr>
+                        <nobr>скидка: {{ $listener['discount'] }}%.</nobr>
+                    @endif
+                    </td>
                     </td>
                 </tr>
             @endforeach

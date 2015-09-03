@@ -8,14 +8,14 @@
 		"way/generators": "~2.0",
 		"intervention/image": "2.*",
         "doctrine/dbal": "2.*",
-		"barryvdh/laravel-ide-helper": "1.*",
 		"scalia/sphinxsearch": "*",
 		"flynsarmy/db-blade-compiler": "1.*",
 		"chumper/zipper": "*",
 		"lowerends/l4-mpdf": "*",
         "vkharseev/laravel-phpword": "dev-master",
 		"roumen/sitemap": "v2.4.15",
-		"sngrl/string-blade-compiler": "dev-master"
+		"sngrl/string-blade-compiler": "dev-master",
+		"barryvdh/laravel-ide-helper": "1.11.x-dev"
 	},
 	"autoload": {
 		"classmap": [
@@ -39,7 +39,6 @@
 		],
 		"post-update-cmd": [
 			"php artisan clear-compiled",
-            "php artisan ide-helper:generate",
 			"php artisan optimize"
 		],
 		"post-create-project-cmd": [

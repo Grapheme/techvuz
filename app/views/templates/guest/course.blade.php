@@ -22,7 +22,9 @@
             <a href="{{ URL::route('ordering-select-courses') }}#{{ $course->id }}" class="btn btn-top-margin btn--bordered btn--blue pull-right">Новый заказ</a>
         </div>
     @endif
-
+    @if(!empty($course->trial_test))
+        <a class="btn-request" href="{{ URL::route('course-page-trial-test', $course->seo->url) }}">{{ $course->trial_test->title }}</a>
+    @endif
     </div>
 </main>
 @stop

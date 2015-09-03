@@ -31,7 +31,8 @@ class Courses extends BaseModel {
 
     protected $table = 'courses';
 
-    protected $fillable = array('direction_id','order','code','title','test_title','test_hours','description','price','discount','use_discount','hours','certificate','curriculum','active','in_progress');
+    protected $fillable = array('direction_id', 'order', 'code', 'title', 'test_title', 'test_hours', 'description',
+        'price', 'discount', 'use_discount', 'hours', 'certificate', 'curriculum', 'active', 'in_progress');
 
     public static $order_by = "order";
 
@@ -42,29 +43,34 @@ class Courses extends BaseModel {
     );
 
     public function direction() {
-        return $this->belongsTo('Directions','direction_id');
+        return $this->belongsTo('Directions', 'direction_id');
     }
 
-    public function metodicals(){
-        return $this->hasMany('CourseMetodical','course_id');
+    public function metodicals() {
+        return $this->hasMany('CourseMetodical', 'course_id');
     }
 
-    public function chapters(){
-        return $this->hasMany('Chapter','course_id');
+    public function chapters() {
+        return $this->hasMany('Chapter', 'course_id');
     }
 
-    public function lectures(){
-        return $this->hasMany('Lectures','course_id');
+    public function lectures() {
+        return $this->hasMany('Lectures', 'course_id');
     }
-    public function test(){
-        return $this->hasOne('CoursesTests','course_id')->where('chapter_id',0);
+
+    public function test() {
+        return $this->hasOne('CoursesTests', 'course_id')->where('chapter_id', 0)->where('trial_test', 0);
+    }
+
+    public function trial_test() {
+        return $this->hasOne('CoursesTests', 'course_id')->where('chapter_id', 0)->where('trial_test', 1);
     }
 
     public function seo() {
         return $this->hasOne('Seo', 'unit_id', 'id')->where('module', 'education-courses');
     }
 
-    public function certificate(){
-        return $this->hasOne('DicVal','id');
+    public function certificate() {
+        return $this->hasOne('DicVal', 'id');
     }
 }

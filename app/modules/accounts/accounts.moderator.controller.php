@@ -14,6 +14,8 @@ class AccountsModeratorController extends BaseController {
 
         if (Auth::check()):
             Route::group(array('before' => 'auth.status', 'prefix' => self::$name), function () use ($class) {
+                Route::get('without-statistic', array('as' => 'moderator-account-without-statistic', 'uses' => $class . '@withoutStatisticList'));
+
                 Route::get('companies', array('as' => 'moderator-companies-list', 'uses' => $class . '@CompaniesList'));
                 Route::get('companies/profile/{company_id}', array('as' => 'moderator-company-profile',
                     'uses' => $class . '@CompanyProfile'));
@@ -593,6 +595,22 @@ class AccountsModeratorController extends BaseController {
     }
 
     /****************************************************************************/
+
+    public function withoutStatisticList(){
+
+        $page_data = array(
+            'page_title' => 'Список тестовых аккаунтов',
+            'page_description' => '',
+            'page_keywords' => '',
+            'companies' => array(),
+            'listeners' => array()
+        );
+        $page_data['companies'] = User_organization::where('statistic', 0)->get();
+        $page_data['listeners'] = User_individual::where('statistic', 0)->get();
+        return View::make(Helper::acclayout('without-statistic'), $page_data);
+    }
+
+    /****************************************************************************/
     /****************************** СЛУШАТЕЛИ ***********************************/
     /****************************************************************************/
     public function ListenersList() {
@@ -607,8 +625,33 @@ class AccountsModeratorController extends BaseController {
         if ($companies_listeners = User_listener::orderBy('created_at', 'DESC')->with('organization')->get()):
             $listeners = array_merge($listeners, $companies_listeners->toArray());
         endif;
-        if ($individual_listeners = User_individual::orderBy('created_at', 'DESC')->get()):
-            $listeners = array_merge($listeners, $individual_listeners->toArray());
+        $individual_listeners = array();
+        if ($individual_listeners_list = User_individual::orderBy('created_at', 'DESC')->with('orders.payment_numbers')->get()):
+            foreach($individual_listeners_list as $index => $listener):
+                $individual_listeners[$index]['id'] = $listener->id;
+                $individual_listeners[$index]['fio'] = $listener->fio;
+                $individual_listeners[$index]['email'] = $listener->email;
+                $individual_listeners[$index]['created_at'] = $listener->created_at->timezone(Config::get('site.time_zone'));
+                $individual_listeners[$index]['phone'] = $listener->phone;
+                $individual_listeners[$index]['orders_count'] = count($listener->orders);
+                $individual_listeners[$index]['discount'] = $listener->discount;
+                $individual_listeners[$index]['orders_earnings'] = array('total_earnings' => 0, 'real_earnings' => 0);
+                if ($listener->orders->count()):
+                    foreach ($listener->orders as $order):
+                        if ($order->listeners->count()):
+                            foreach ($order->listeners as $listener):
+                                $individual_listeners[$index]['orders_earnings']['total_earnings'] += $listener->price;
+                            endforeach;
+                        endif;
+                        if ($order->payment_numbers->count()):
+                            foreach ($order->payment_numbers as $payment_number):
+                                $individual_listeners[$index]['orders_earnings']['real_earnings'] += $payment_number->price;
+                            endforeach;
+                        endif;
+                    endforeach;
+                endif;
+            endforeach;
+            $listeners = array_merge($listeners, $individual_listeners);
         endif;
         if (count($listeners)):
             foreach ($listeners as $key => $row):

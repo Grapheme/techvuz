@@ -3,8 +3,8 @@
 @stop
 @section('content')
 <h2 class="margin-bottom-40">Список компаний</h2>
+@if(count($companies))
 <div class="row">
-@if(count($companies))    
     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
         <form class="company-search margin-bottom-20">
             <fieldset>
@@ -39,9 +39,10 @@
                     </td>
                     <td>{{ $company['orders_count'] }}</td>
                     <td>
-                        реал.: <span class="real-income">{{ number_format($company['orders_earnings']['real_earnings'], 0, ',', ' ') }}</span> руб.<br>
-                        всего: {{ number_format($company['orders_earnings']['total_earnings'], 0, ',', ' ') }} руб.<br>
-                        скидка: {{ $company['discount'] }}%.
+                        <nobr>реал.: <span class="real-income">{{ number_format($company['orders_earnings']['real_earnings'], 0, ',', ' ') }}</span> руб.<br></nobr>
+                        <nobr>всего: {{ number_format($company['orders_earnings']['total_earnings'], 0, ',', ' ') }} руб.<br></nobr>
+                        <nobr>скидка: {{ $company['discount'] }}%.</nobr>
+
                     </td>
                 </tr>
             @endforeach

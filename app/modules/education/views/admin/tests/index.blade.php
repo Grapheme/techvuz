@@ -7,7 +7,11 @@
         <h4 class="bigger-register">@if(!empty($chapter->test_title)){{ $chapter->test_title }}@else{{ $test->title }}@endif</h4>
         <?php $chapter_id = $chapter->id?>
     @else
+        @if(Request::segment(9) == 'trial')
+        <h4 class="bigger-register">{{ $test->title }}</h4>
+        @else
         <h4 class="bigger-register">@if(!empty($course->test_title)){{ $course->test_title }}@else{{ $test->title }}@endif</h4>
+        @endif
         <?php $chapter_id = 0; ?>
     @endif
 <div class="row">

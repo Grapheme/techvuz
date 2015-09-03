@@ -6,7 +6,6 @@
 <script>window.jQuery || document.write('<script src="{{asset('js/vendor/jquery.min.js');}}"><\/script>')</script>
 <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/jquery-ui.min.js"></script>
 <script>if(!window.jQuery.ui){document.write('<script src="{{asset('js/vendor/jquery-ui.min.js')}}"><\/script>');}</script>
-<script src="//api-maps.yandex.ru/2.0/?load=package.standard&lang=ru-RU" type="text/javascript"></script>
 @endif
 {{ HTML::script('js/plugin/pace/pace.min.js') }}
 {{HTML::script('js/vendor/bootstrap.min.js');}}

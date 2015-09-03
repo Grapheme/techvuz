@@ -141,7 +141,5 @@
     })(document, window, "yandex_metrika_callbacks");
 </script>
 <script src="//api-maps.yandex.ru/2.0/?load=package.standard&lang=ru-RU" type="text/javascript"></script>
-<script src="http://api-maps.yandex.ru/2.0/?load=package.standard&lang=ru-RU" type="text/javascript"></script>
 <noscript><div><img src="//mc.yandex.ru/watch/28373826" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
-<!-- /Yandex.Metrika counter -->
 @endif

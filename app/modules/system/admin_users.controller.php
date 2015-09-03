@@ -84,6 +84,9 @@ class AdminUsersController extends BaseController {
         if ($group_id == 5):
             $users = User_listener::with('organization')->get();
         endif;
+		if ($group_id == 6):
+            $users = User_individual::all();
+        endif;
 		return View::make($this->module['tpl'].'index', compact('group', 'users', 'groups', 'groups_ids'));
 	}
 

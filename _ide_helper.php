@@ -1,7 +1,7 @@
 <?php
 /**
  * An helper file for Laravel 4, to provide autocomplete information to your IDE
- * Generated for Laravel 4.2.16 on 2015-05-06.
+ * Generated for Laravel 4.2.17 on 2015-09-02.
  *
  * @author Barry vd. Heuvel <barryvdh@gmail.com>
  * @see https://github.com/barryvdh/laravel-ide-helper
@@ -5748,6 +5748,7 @@ namespace {
          * Create a number input field.
          *
          * @param string $name
+         * @param string|null $value
          * @param array $options
          * @return string 
          * @static 
@@ -6508,7 +6509,7 @@ namespace {
          *
          * @param string $key
          * @param mixed $default
-         * @return string 
+         * @return string|array 
          * @static 
          */
         public static function query($key = null, $default = null){
@@ -7978,7 +7979,7 @@ namespace {
          * Register an error_log handler.
          *
          * @param string $level
-         * @param integer $messageType
+         * @param int $messageType
          * @return void 
          * @static 
          */
@@ -9143,7 +9144,7 @@ namespace {
          *
          * @param string $key
          * @param mixed $default
-         * @return string 
+         * @return string|array 
          * @static 
          */
         public static function query($key = null, $default = null){
@@ -12661,6 +12662,15 @@ namespace {
          *
          * @static 
          */
+        public static function setGroupBy($attribute, $func, $groupsort = '@group desc'){
+            return \Scalia\SphinxSearch\SphinxSearch::setGroupBy($attribute, $func, $groupsort);
+        }
+        
+        /**
+         * 
+         *
+         * @static 
+         */
         public static function setSelect($select){
             return \Scalia\SphinxSearch\SphinxSearch::setSelect($select);
         }
@@ -12699,6 +12709,24 @@ namespace {
          */
         public static function query(){
             return \Scalia\SphinxSearch\SphinxSearch::query();
+        }
+        
+        /**
+         * 
+         *
+         * @static 
+         */
+        public static function excerpt($content, $opts = array()){
+            return \Scalia\SphinxSearch\SphinxSearch::excerpt($content, $opts);
+        }
+        
+        /**
+         * 
+         *
+         * @static 
+         */
+        public static function excerpts($contents, $opts = array()){
+            return \Scalia\SphinxSearch\SphinxSearch::excerpts($contents, $opts);
         }
         
         /**
@@ -12750,6 +12778,89 @@ namespace {
 
 
     class Collection extends \Illuminate\Database\Eloquent\Collection{
+        
+    }
+
+
+    class PDF extends \Lowerends\Mpdf\Facades\Pdf{
+        
+        /**
+         * Load a HTML string
+         *
+         * @param string $string
+         * @return static 
+         * @static 
+         */
+        public static function loadHTML($string){
+            return \Lowerends\Mpdf\PdfWrapper::loadHTML($string);
+        }
+        
+        /**
+         * Load a HTML file
+         *
+         * @param string $file
+         * @return static 
+         * @static 
+         */
+        public static function loadFile($file){
+            return \Lowerends\Mpdf\PdfWrapper::loadFile($file);
+        }
+        
+        /**
+         * Load a View and convert to HTML
+         *
+         * @param string $view
+         * @param array $data
+         * @param array $mergeData
+         * @return static 
+         * @static 
+         */
+        public static function loadView($view, $data = array(), $mergeData = array()){
+            return \Lowerends\Mpdf\PdfWrapper::loadView($view, $data, $mergeData);
+        }
+        
+        /**
+         * Output the PDF as a string.
+         *
+         * @return string The rendered PDF as string
+         * @static 
+         */
+        public static function output(){
+            return \Lowerends\Mpdf\PdfWrapper::output();
+        }
+        
+        /**
+         * Save the PDF to a file
+         *
+         * @param $filename
+         * @return static 
+         * @static 
+         */
+        public static function save($filename){
+            return \Lowerends\Mpdf\PdfWrapper::save($filename);
+        }
+        
+        /**
+         * Make the PDF downloadable by the user
+         *
+         * @param string $filename
+         * @return \Symfony\Component\HttpFoundation\Response 
+         * @static 
+         */
+        public static function download($filename = 'document.pdf'){
+            return \Lowerends\Mpdf\PdfWrapper::download($filename);
+        }
+        
+        /**
+         * Return a response with the PDF to show in the browser
+         *
+         * @param string $filename
+         * @return \Symfony\Component\HttpFoundation\Response 
+         * @static 
+         */
+        public static function stream($filename = 'document.pdf'){
+            return \Lowerends\Mpdf\PdfWrapper::stream($filename);
+        }
         
     }
 
