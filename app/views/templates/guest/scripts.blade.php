@@ -30,6 +30,9 @@
 <script type="text/javascript">guestFormValidation();</script>
 <script>
     $(document).ready(function(){
+
+        setTimeout(function(){ Popup.show('quick'); return false; }, 15000);
+
         $(".phone").inputmask("mask", {"mask": "[+7] (999) 999 99 99","placeholder": "_"});
         // $('.registration-form input[name="ogrn"]').inputmask("mask", {"mask": "9999999999999","placeholder": "_"});
         // $('.registration-form input[name="kpp"]').inputmask("mask", {"mask": "999999999","placeholder": "_"});

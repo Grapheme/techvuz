@@ -11914,6 +11914,21 @@ main.order-page a:hover {
 .tech-table.table.table-striped.table-bordered th {
   font-size: 0.9em;
   padding: 8px;
+  position: relative;
+}
+
+.amount_sorting_cell {
+  pointer-events: none;
+  z-index: 1;
+}
+
+.table-sorting-hack {
+  width: 146px;
+  height: 54px;
+  position: absolute;
+  top: 54px;
+  right: 16px;
+  z-index: 1000;
 }
 
 /*.ui-accordion .accordion-header.ui-accordion-header#ui-id-7 {

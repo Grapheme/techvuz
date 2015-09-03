@@ -684,6 +684,89 @@ $('.tabs').tabs({
 	}
 });
 
+var realIncome = function(type) {
+	var incomeAmountAll = [];
+
+	$('.js-sortable-body td .real-income').each(function() {
+        var incomeAmountContent = $(this).parents('tr');
+        var incomeAmountDigits = parseInt($(this).html().replace(' ', ''));
+        
+        if(incomeAmountDigits >= 0) {
+        	incomeAmountAll.push({digits: incomeAmountDigits, html: incomeAmountContent});
+        }
+    });
+
+	incomeAmountAll.sort(function(a, b){
+		if(type == 'ASC') {
+			return a.digits-b.digits;
+		} else {
+			return b.digits-a.digits;
+		}
+	});
+
+	var newHtml = '';
+	$.each(incomeAmountAll, function(index, value) {
+		newHtml += value.html[0].outerHTML;
+	});
+	$('.js-sortable-body').html(newHtml);
+};
+
+$('.table-sorting-hack').on('click', function(e){
+	if($(this).attr('data-sort-type') == 'ASC') {
+		$(this).attr('data-sort-type', 'DESC');
+	} else {
+		$(this).attr('data-sort-type', 'ASC');
+	}
+	console.log($(this).attr('data-sort-type'));
+	realIncome($(this).attr('data-sort-type'));
+	return false;
+});
+
+	// LAST BROKEN VERSION
+	//
+	// var realIncome = function(type, index) {
+	// 	var incomeAmountAll = [];
+
+	// 	$('.js-sortable-body tr').each(function() {
+	// 		var thisTd = $(this).find('td').eq(index);
+	//         var incomeAmountContent = $(this);
+	//         if(thisTd.find('.real-income').length) {
+	//         	var incomeAmountDigits = parseInt(thisTd.find('.real-income').html().replace(' ', ''));
+	//         } else {
+	//         	var incomeAmountDigits = thisTd.html();
+	//         }
+
+	//     	incomeAmountAll.push({digits: incomeAmountDigits, html: incomeAmountContent});
+	//     });
+
+	// 	incomeAmountAll.sort(function(a, b){
+	// 		var aD = a.digits.toLowerCase();
+	// 		var bD = b.digits.toLowerCase();
+	// 		if(type == 'ASC') {
+	// 			return aD.localeCompare(bD);
+	// 		} else {
+	// 			return bD.localeCompare(aD);
+	// 		}
+	// 	});
+
+	// 	var newHtml = '';
+	// 	$.each(incomeAmountAll, function(index, value) {
+	// 		newHtml += value.html[0].outerHTML;
+	// 	});
+	// 	$('.js-sortable-body').html(newHtml);
+	// };
+
+	// $('.js-table-sorting').on('click', function(e){
+	// 	var index = $(this).index();
+	// 	if($(this).attr('data-sort-type') == 'ASC') {
+	// 		$(this).attr('data-sort-type', 'DESC');
+	// 	} else {
+	// 		$(this).attr('data-sort-type', 'ASC');
+	// 	}
+	// 	realIncome($(this).attr('data-sort-type'), index);
+	// 	return false;
+	// });
+
 //$('.select').selectmenu();
 $(function(){
 	$('table.sortable').tablesorter();

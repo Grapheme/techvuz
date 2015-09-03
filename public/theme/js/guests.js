@@ -434,7 +434,7 @@ function guestFormValidation() {
 $(window).on('load', function(){
     setTimeout(function(){
         if($.cookie('QuickPopup') != 'shown') {
-            $.cookie('QuickPopup', 'shown', {path: '/', expires: 7});
+            $.cookie('QuickPopup', 'shown', {path: '/', expires: 3});
             Popup.show('quick');
         }
     }, 5000)

@@ -12,17 +12,18 @@
                 <button type="submit"><span class="icon icon-search"></span></button>
             </fieldset>
         </form>
-        <table class="tech-table table table-striped table-bordered sortable">
+        <div class="table-sorting-hack"></div>
+        <table class="tech-table table table-striped table-bordered sortable js-sort-parent">
             <thead>
                 <tr>
-                    <th class="sort listeners-row sort--asc">Название <span class="sort--icon"></span> </th>
-                    <th class="sort sort--asc">Дата регистр. <span class="sort--icon"></span></th>
-                    <th>Руководитель</th>
-                    <th class="sort sort--asc">Заказы <span class="sort--icon"></span></th>
-                    <th>Доход</th>
+                    <th class="js-table-sorting sort listeners-row sort--asc">Название <span class="sort--icon"></span> </th>
+                    <th class="js-table-sorting sort sort--asc">Дата регистр. <span class="sort--icon"></span></th>
+                    <th class="js-table-sorting sort sort--asc">Руководитель <span class="sort--icon"></th>
+                    <th class="js-table-sorting sort sort--asc">Заказы <span class="sort--icon"></span></th>
+                    <th class="js-table-sorting amount_sorting_cell">Доход <span class="sort--icon"></th>
                 </tr>
             </thead>
-            <tbody>
+            <tbody class="js-sortable-body">
             @foreach($companies as $company)
                 <tr class="vertical-middle">
                     <td>
@@ -38,9 +39,10 @@
                     </td>
                     <td>{{ $company['orders_count'] }}</td>
                     <td>
-                        <nobr>реал.: {{ number_format($company['orders_earnings']['real_earnings'], 0, ',', ' ') }} руб.<br></nobr>
+                        <nobr>реал.: <span class="real-income">{{ number_format($company['orders_earnings']['real_earnings'], 0, ',', ' ') }}</span> руб.<br></nobr>
                         <nobr>всего: {{ number_format($company['orders_earnings']['total_earnings'], 0, ',', ' ') }} руб.<br></nobr>
                         <nobr>скидка: {{ $company['discount'] }}%.</nobr>
+
                     </td>
                 </tr>
             @endforeach
