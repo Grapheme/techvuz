@@ -10,10 +10,10 @@
 <main class="catalog-study-plan">
     <p class="study-plan-desc">Учебный план<br>дополнительной профессиональной программы</p>
     <h1>{{ $course->seo->h1 }}</h1>
-    <div class="desc">
-    {{ $course->description }}
-    </div>
     {{ $course->curriculum }}
+    <div class="desc">
+        {{ $course->description }}
+    </div>
     <div class="btn-request-holder">
     @if(Auth::guest())
         <a class="btn-request" href="{{ pageurl('registration') }}">Оформить заявку</a>
