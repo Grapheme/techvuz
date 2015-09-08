@@ -12,9 +12,7 @@
 
         <h1>{{ $course->seo->h1 }}</h1>
 
-        <div class="desc">
-            {{ $course->curriculum }}
-        </div>
+        {{ $course->curriculum }}
         <div class="desc">
             {{ $course->description }}
         </div>
