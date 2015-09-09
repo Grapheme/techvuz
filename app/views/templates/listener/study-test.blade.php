@@ -38,15 +38,15 @@ $isChapterTest = $test->chapter_id ? TRUE : FALSE;
                         <p>{{ Session::get('message') }}</p>
                     </div>
                 @endif
-                @if($test->questions->count())
+                @if(count($questions))
                     {{ Form::open(array('url'=>URL::route('listener-study-test-finish',array('course_id'=>$study_course->id,'test_id'=>$test->id)), 'method'=>'POST')) }}
                     {{ Form::hidden('time_attempt',0) }}
                     <ul class="questions-ul" data-questions-count="{{ $test->questions->count() }}">
-                        @foreach($test->questions as $index => $question)
+                        @foreach($questions as $index => $question)
                             @if($question->answers->count())
                                 <li class="js-question questions-li margin-bottom-30{{ $isChapterTest && $index > 0 ? ' hidden' : '' }}"
                                     data-question="{{ $question->id }}">
-                                    <h4>{{ $question->title }}{{ $question->order }}</h4>
+                                    <h4>{{ $question->title }}{{ $index + 1 }}</h4>
 
                                     <div>{{ $question->description }}</div>
                                     <ul class="answers-ul" data-answers-count="{{ $question->answers->count() }}">

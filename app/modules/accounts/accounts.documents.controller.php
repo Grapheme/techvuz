@@ -307,7 +307,6 @@ class AccountsDocumentsController extends BaseController {
                                 $order_listeners_id = $listener['id'];
                                 $test = CoursesTests::where('id',$listener['final_test']['test_id'])
                                     ->where('active',1)
-                                    ->with('questions.answers')
                                     ->with(array('user_final_test_success'=>function($query) use ($order_listeners_id){
                                         $query->where('order_listeners_id',$order_listeners_id);
                                     }))->first();
@@ -323,8 +322,18 @@ class AccountsDocumentsController extends BaseController {
                                             $listeners[$index]['VremyaProhojdeniyaAttestacii'] = $testSuccess->time_attempt;
                                         endif;
                                     endforeach;
-                                    foreach($test->questions as $question):
-                                        $listeners[$index]['DannueResultatovAttestacii'][$question->id]['title'] = $question->title.$question->order;
+                                    $questions = array();
+                                    if(!empty($maxValueTest['data_results'])):
+                                        $questions_ids = array();
+                                        foreach($maxValueTest['data_results'] as $question_id => $answer_id):
+                                            $questions_ids[] = $question_id;
+                                        endforeach;
+                                        if(!$questions = CoursesTestsQuestions::whereIn('id', $questions_ids)->where('test_id', $test->id)->with('answers')->get()):
+                                            return Redirect::route('listener-study');
+                                        endif;
+                                    endif;
+                                    foreach($questions as $questions_index => $question):
+                                        $listeners[$index]['DannueResultatovAttestacii'][$question->id]['title'] = $question->title.($questions_index + 1);
                                         $listeners[$index]['DannueResultatovAttestacii'][$question->id]['description'] = $question->description;
                                         foreach($question->answers as $answer):
                                             $listeners[$index]['DannueResultatovAttestacii'][$question->id]['answers'][$answer->id]['title'] = $answer->title.$answer->order;
@@ -534,7 +543,6 @@ class AccountsDocumentsController extends BaseController {
                                 $order_listeners_id = $listener['id'];
                                 $test = CoursesTests::where('id',$listener['final_test']['test_id'])
                                     ->where('active',1)
-                                    ->with('questions.answers')
                                     ->with(array('user_final_test_success'=>function($query) use ($order_listeners_id){
                                         $query->where('order_listeners_id',$order_listeners_id);
                                     }))->first();
@@ -550,8 +558,18 @@ class AccountsDocumentsController extends BaseController {
                                             $listeners[$index]['VremyaProhojdeniyaAttestacii'] = $testSuccess->time_attempt;
                                         endif;
                                     endforeach;
-                                    foreach($test->questions as $question):
-                                        $listeners[$index]['DannueResultatovAttestacii'][$question->id]['title'] = $question->title.$question->order;
+                                    $questions = array();
+                                    if(!empty($maxValueTest['data_results'])):
+                                        $questions_ids = array();
+                                        foreach($maxValueTest['data_results'] as $question_id => $answer_id):
+                                            $questions_ids[] = $question_id;
+                                        endforeach;
+                                        if(!$questions = CoursesTestsQuestions::whereIn('id', $questions_ids)->where('test_id', $test->id)->with('answers')->get()):
+                                            return Redirect::route('listener-study');
+                                        endif;
+                                    endif;
+                                    foreach($questions as $questions_index => $question):
+                                        $listeners[$index]['DannueResultatovAttestacii'][$question->id]['title'] = $question->title.($questions_index + 1);
                                         $listeners[$index]['DannueResultatovAttestacii'][$question->id]['description'] = $question->description;
                                         foreach($question->answers as $answer):
                                             $listeners[$index]['DannueResultatovAttestacii'][$question->id]['answers'][$answer->id]['title'] = $answer->title.$answer->order;

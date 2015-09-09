@@ -160,13 +160,13 @@ class AdminEducationCoursesController extends BaseController {
         else:
             $input['use_discount'] = Input::get('use_discount');
         endif;
-
         $input['direction_id'] = Input::get('direction_id');
         $input['order'] = Input::get('order');
         $input['code'] = Input::get('code');
         $input['title'] = Input::get('title');
         $input['test_title'] = Input::get('test_title');
-        $input['test_hours'] = Input::get('test_hours');
+        $input['test_hours'] = (int) Input::get('test_hours');
+        $input['test_questions_count'] = (int) Input::get('test_questions_count');
         $input['description'] = Input::get('description');
         $input['price'] = Input::get('price');
         $input['discount'] = Input::get('discount');

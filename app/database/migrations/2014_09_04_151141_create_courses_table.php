@@ -14,6 +14,7 @@ class CreateCoursesTable extends Migration {
                 $table->string('code',10)->nullable();
                 $table->string('title',255)->nullable();
                 $table->string('test_title',255)->nullable();
+                $table->integer('test_questions_count')->default(0)->unsigned()->nullable();
                 $table->integer('test_hours')->default(0)->unsigned()->nullable();
                 $table->text('description')->nullable();
                 $table->text('curriculum')->nullable();

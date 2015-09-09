@@ -37,6 +37,15 @@
                         </label>
                     </section>
                     <section>
+                        <label class="label">Количество вопросов в итоговой аттестации</label>
+                        <label class="input">
+                            {{ Form::text('test_questions_count', $course->test_questions_count == 0 ? '' : $course->test_questions_count) }}
+                        </label>
+                        <div class="note">
+                            0 или пусто - выводятся все вопросы.
+                        </div>
+                    </section>
+                    <section>
                         <label class="label">Описание</label>
                         <label class="textarea">
                             {{ Form::textarea('description',NULL,array('class'=>'redactor')) }}
