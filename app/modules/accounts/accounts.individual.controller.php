@@ -427,7 +427,7 @@ class AccountsIndividualController extends BaseController {
             endif;
             $questions = CoursesTestsQuestions::where('test_id', $test->id)->orderByRaw("RAND()")->take($test_questions_count)->with('answers')->get();
         else:
-            $questions = CoursesTestsQuestions::where('test_id', $test->id)->with('answers')->get();
+            $questions = CoursesTestsQuestions::where('test_id', $test->id)->orderByRaw("RAND()")->with('answers')->get();
         endif;
         $page_data = array(
             'page_title' => Lang::get('seo.INDIVIDUAL_DASHBOARD.title'),
