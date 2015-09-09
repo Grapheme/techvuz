@@ -89,7 +89,7 @@ class AdminEducationTestingController extends BaseController {
         $course = $this->course;
         $chapter = $this->chapter;
 
-        if(Request::segment(9) == 'trial'):
+        if (Request::segment(9) == 'trial'):
             if (!$test = $this->course->trial_test()->first()):
                 $input = array('course_id' => $course_id, 'chapter_id' => $chapter_id, 'order' => 0,
                     'title' => 'Пробное тестирование', 'description' => '', 'active' => 1, 'trial_test' => 1);
@@ -155,9 +155,11 @@ class AdminEducationTestingController extends BaseController {
                 $test = Courses::where('id', $course_id)->first()->test()->with('questions.answers')->first();
             endif;
             if ($valid && !empty($test)):
-                $test_new = CoursesTests::create(array('course_id' => Input::get('course_id'),
-                    'chapter_id' => Input::get('chapter_id'), 'order' => $test->order, 'title' => $test->title,
-                    'active' => $test->active));
+                if (!$test_new = CoursesTests::where('course_id', Input::get('course_id'))->where('chapter_id', Input::get('chapter_id'))->first()):
+                    $test_new = CoursesTests::create(array('course_id' => Input::get('course_id'),
+                        'chapter_id' => Input::get('chapter_id'), 'order' => $test->order, 'title' => $test->title,
+                        'active' => $test->active));
+                endif;
                 foreach ($test->questions as $question):
                     $testQuestion_new = CoursesTestsQuestions::create(array('test_id' => $test_new->id,
                         'order' => $question->order, 'title' => $question->title,
