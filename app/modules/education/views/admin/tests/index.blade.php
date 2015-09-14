@@ -214,6 +214,7 @@
         function chapters_hidden(){
             var course_id = $("select[name='course_id'] option:selected").val();
             $("select[name='chapter_id'] option").addClass('hidden').removeAttr('selected');
+            $("select[name='chapter_id'] option[value='0']").removeClass('hidden');
             $("select[name='chapter_id'] option[data-course='" + course_id + "']").removeClass('hidden');
             $("select[name='chapter_id'] option:visible").eq(0).attr('selected','selected');
         };
