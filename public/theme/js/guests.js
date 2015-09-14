@@ -432,10 +432,13 @@ function guestFormValidation() {
 }
 
 $(window).on('load', function(){
-    setTimeout(function(){
-        if($.cookie('QuickPopup') != 'shown') {
-            $.cookie('QuickPopup', 'shown', {path: '/', expires: 3});
-            Popup.show('quick');
-        }
-    }, 5000)
+    if (window.location.pathname !== '/elektronnie-kursi-povisheniya-kvalifikacii') {
+        console.log(1);
+        setTimeout(function(){
+            if($.cookie('QuickPopup') != 'shown') {
+                $.cookie('QuickPopup', 'shown', {path: '/', expires: 3});
+                Popup.show('quick');
+            }
+        }, 5000)
+    }
 });

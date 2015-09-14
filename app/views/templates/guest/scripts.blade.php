@@ -31,10 +31,11 @@
     <script>
         $(document).ready(function () {
 
-            setTimeout(function () {
-                Popup.show('quick');
-                return false;
-            }, 15000);
+            // setTimeout(function () {
+            //     Popup.show('quick');
+            //     return false;
+            //     console.log(5)
+            // }, 5000);
 
             $(".phone").inputmask("mask", {"mask": "[+7] (999) 999 99 99", "placeholder": "_"});
             // $('.registration-form input[name="ogrn"]').inputmask("mask", {"mask": "9999999999999","placeholder": "_"});
