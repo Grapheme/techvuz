@@ -32,11 +32,13 @@
                     <td valign="top" style="border-width: 1px;border-color: #000;border-style: solid; padding: 5px;">
                         <p style="font-size: 16px;" align="center"><strong>Образование</strong></p>
                         <p style="font-size: 16px;" align="center">
-                            Номер и дата выдачи документа о высшем / среднем профессиональном, наименование специальности,
-                            учебного заведения
+                            (номер и дата выдачи документа о высшем / среднем профессиональном образовании, специальность, наименование учебного заведения)
                         </p>
                     </td>
-                    <td valign="top" style="border-width: 1px;border-color: #000;border-style: solid; padding: 5px;"><p style="font-size: 16px;" align="center"><strong>Наименование ДПП</strong></p></td>
+                    <td valign="top" style="border-width: 1px;border-color: #000;border-style: solid; padding: 5px;">
+                        <p style="font-size: 16px;" align="center"><strong>Наименование ДПП</strong></p>
+                        <p style="font-size: 16px;" align="center">(наименование ДПП, срок освоения, стоимость обучения)</p>
+                    </td>
                 </tr>
                 <?php $index = 1;?>
             @foreach($spisok as $listener_id => $listener)
@@ -72,8 +74,8 @@
                     <td style="border-width: 1px;border-color: #000;border-style: solid; padding: 5px;">
                         <p style="text-align: center; font-size: 16px;">{{ $course['code'] }}</p>
                         <p style="text-align: center; font-size: 16px;">{{ $course['title'] }}</p>
-                        <p style="text-align: center; font-size: 16px;">Общий объём ДПП - {{ $course['hours'] }} {{ Lang::choice('час|часа|часов', $course['hours']) }}</p>
-                        <p style="text-align: center; font-size: 16px;">Срок освоения ДПП - {{ round($course['hours']/8) }} {{ Lang::choice('день|дня|дней', round($course['hours']/8)) }}</p>
+                        <p style="text-align: center; font-size: 16px;">Срок освоения ДПП - {{ $course['hours'] }} {{ Lang::choice('час|часа|часов', $course['hours']) }}</p>
+                        <!--<p style="text-align: center; font-size: 16px;">Стоимость обучения — [сюда выводить сумму] рублей</p>-->
                     </td>
                 </tr>
                 <?php $ObchiyObemDPP += (int)$course['hours']; ?>
