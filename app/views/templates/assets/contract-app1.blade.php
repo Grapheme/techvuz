@@ -13,9 +13,11 @@
             foreach($SpisokSluschateley->listeners as $listener):
                 $spisok[$listener->user_id]['listener'] = !empty($listener->user_listener) ? $listener->user_listener->toArray() : array();
                 $spisok[$listener->user_id]['individual'] = !empty($listener->user_individual) ? $listener->user_individual->toArray() : array();
+                $listener->course['course_price'] = $listener->price;
                 $spisok[$listener->user_id]['course'][] = !empty($listener->course) ? $listener->course->toArray() : array();
             endforeach;
         ?>
+
         <?php $ObchiyObemDPP = 0; ?>
         <?php ob_start();?>
         <table border="1" cellpadding="0" cellspacing="0">
@@ -63,6 +65,7 @@
                         <p style="text-align: center; font-size: 16px;">{{ $listener['course'][0]['title'] }}</p>
                         <p style="text-align: center; font-size: 16px;">Общий объём ДПП - {{ $listener['course'][0]['hours'] }} {{ Lang::choice('час|часов|часов', $listener['course'][0]['hours']) }}</p>
                         <p style="text-align: center; font-size: 16px;">Срок освоения ДПП - {{ round($listener['course'][0]['hours']/8) }} {{ Lang::choice('день|дня|дней', round($listener['course'][0]['hours']/8)) }}</p>
+                        <p style="text-align: center; font-size: 16px;">Стоимость обучения — {{ number_format($listener['course'][0]['course_price'], 2, ',' ,' ') }} {{ Lang::choice('рубль|рубля|рублей', $listener['course'][0]['course_price']) }}</p>
                     @endif
                     </td>
                 </tr>
@@ -75,7 +78,7 @@
                         <p style="text-align: center; font-size: 16px;">{{ $course['code'] }}</p>
                         <p style="text-align: center; font-size: 16px;">{{ $course['title'] }}</p>
                         <p style="text-align: center; font-size: 16px;">Срок освоения ДПП - {{ $course['hours'] }} {{ Lang::choice('час|часа|часов', $course['hours']) }}</p>
-                        <!--<p style="text-align: center; font-size: 16px;">Стоимость обучения — [сюда выводить сумму] рублей</p>-->
+                        <p style="text-align: center; font-size: 16px;">Стоимость обучения — {{ number_format($course['course_price'], 2, ',' ,' ') }} {{ Lang::choice('рубль|рубля|рублей', $course['course_price']) }}</p>
                     </td>
                 </tr>
                 <?php $ObchiyObemDPP += (int)$course['hours']; ?>
