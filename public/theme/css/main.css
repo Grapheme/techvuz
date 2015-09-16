@@ -7785,6 +7785,7 @@ a[href^="tel"] {
 .accordion .accordion-body table {
   font-family: 'Open Sans', sans-serif;
   background: #f9f9f9;
+  width: 100%;
 }
 @media screen and (max-width: 480px) {
   .accordion .accordion-body table {
