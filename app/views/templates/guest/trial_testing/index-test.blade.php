@@ -109,21 +109,21 @@
             $(".questions-li").each(function (index) {
                 Test[index] = {
                     question: $(this).data('question'),
-                    right_answers: $(this).find(".answers-ul input:checkbox[data-current='1']").length,
+                    right_answers: $(this).find(".answers-ul input:radio[data-current='1']").length,
                     user_right_answers: 0
                 };
             });
             $(".js-submit-question button").click(function () {
                 var question_id = $(".questions-li:visible").data('question');
-                $(".questions-li:visible input:checkbox").removeClass('disabled').removeAttr('disabled').parent('label').removeClass('state-success state-error');
-                if ($(".questions-li:visible input:checkbox:checked").length == 0) {
+                $(".questions-li:visible input:radio").removeClass('disabled').removeAttr('disabled').parent('label').removeClass('state-success state-error');
+                if ($(".questions-li:visible input:radio:checked").length == 0) {
                     $(this).after('<p style="margin: 20px 0 0 15px; position: absolute;  display:inline-block;">Отметьте правильные варианты ответов.</p>').next().fadeOut(1500);
                 } else {
-                    $(".questions-li:visible input:checkbox[data-current='1']").parent('label').addClass('state-success');
-                    $(".questions-li:visible input:checkbox:checked[data-current='0']").parent('label').addClass('state-error');
-                    $(".questions-li:visible input:checkbox").addClass('disabled').attr('disabled', 'disabled');
-                    if($(".questions-li:visible input:checkbox:checked[data-current='0']").length == 0){
-                        Test[current_question]['user_right_answers'] = $(".questions-li:visible input:checkbox:checked[data-current='1']").length;
+                    $(".questions-li:visible input:radio[data-current='1']").parent('label').addClass('state-success');
+                    $(".questions-li:visible input:radio:checked[data-current='0']").parent('label').addClass('state-error');
+                    $(".questions-li:visible input:radio").addClass('disabled').attr('disabled', 'disabled');
+                    if($(".questions-li:visible input:radio:checked[data-current='0']").length == 0){
+                        Test[current_question]['user_right_answers'] = $(".questions-li:visible input:radio:checked[data-current='1']").length;
                     }else{
                         Test[current_question]['user_right_answers'] = 0;
                     }
