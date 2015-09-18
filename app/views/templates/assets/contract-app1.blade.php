@@ -23,23 +23,23 @@
         <table border="1" cellpadding="0" cellspacing="0">
             <tbody>
                 <tr>
-                    <td valign="top" style="border-width: 1px;border-color: #000;border-style: solid; padding: 5px;"><p style="font-size: 16px;" align="center"><strong>№ п/п</strong></p></td>
-                    <td valign="top" style="border-width: 1px;border-color: #000;border-style: solid; padding: 5px;"><p style="font-size: 16px;" align="center"><strong>ФИО слушателя</strong></p></td>
-                    <td valign="top" style="border-width: 1px;border-color: #000;border-style: solid; padding: 5px;"><p style="font-size: 16px;" align="center"><strong>Должность </strong></p></td>
-                    <td valign="top" style="border-width: 1px;border-color: #000;border-style: solid; padding: 5px;"><p style="font-size: 16px;" align="center"><strong>Место жительства</strong></p></td>
-                    <td valign="top" style="border-width: 1px;border-color: #000;border-style: solid; padding: 5px;">
+                    <td align="center" valign="top" style="border-width: 1px;border-color: #000;border-style: solid; padding: 5px;"><p style="font-size: 16px;" align="center"><strong>№ п/п</strong></p></td>
+                    <td align="center" valign="top" style="border-width: 1px;border-color: #000;border-style: solid; padding: 5px;"><p style="font-size: 16px;" align="center"><strong>ФИО слушателя</strong></p></td>
+                    <td align="center" valign="top" style="border-width: 1px;border-color: #000;border-style: solid; padding: 5px;"><p style="font-size: 16px;" align="center"><strong>Должность </strong></p></td>
+                    <td align="center" valign="top" style="border-width: 1px;border-color: #000;border-style: solid; padding: 5px;"><p style="font-size: 16px;" align="center"><strong>Место жительства</strong></p></td>
+                    <td align="center" valign="top" style="border-width: 1px;border-color: #000;border-style: solid; padding: 5px;">
                         <p style="font-size: 16px;" align="center"><strong>Телефон, </strong></p>
                         <p style="font-size: 16px;" align="center"><strong>E-mail</strong></p>
                     </td>
-                    <td valign="top" style="border-width: 1px;border-color: #000;border-style: solid; padding: 5px;">
+                    <td align="center" valign="top" style="border-width: 1px;border-color: #000;border-style: solid; padding: 5px;">
                         <p style="font-size: 16px;" align="center"><strong>Образование</strong></p>
                         <p style="font-size: 16px;" align="center">
                             (номер и дата выдачи документа о высшем / среднем профессиональном образовании, специальность, наименование учебного заведения)
                         </p>
                     </td>
-                    <td valign="top" style="border-width: 1px;border-color: #000;border-style: solid; padding: 5px;">
+                    <td align="center" valign="top" style="border-width: 1px;border-color: #000;border-style: solid; padding: 5px;">
                         <p style="font-size: 16px;" align="center"><strong>Наименование ДПП</strong></p>
-                        <p style="font-size: 16px;" align="center">(наименование ДПП, срок освоения, стоимость обучения)</p>
+                        <p style="font-size: 16px;" align="center">(наименование ДПП,<br>срок освоения,<br>стоимость обучения)</p>
                     </td>
                 </tr>
                 <?php $index = 1;?>
