@@ -64,7 +64,7 @@
                         <p style="text-align: center; font-size: 16px;">{{ $listener['course'][0]['code'] }}</p>
                         <p style="text-align: center; font-size: 16px;">{{ $listener['course'][0]['title'] }}</p>
                         <p style="text-align: center; font-size: 16px;">Срок освоения ДПП – {{ $listener['course'][0]['hours'] }} {{ Lang::choice('час|часов|часов', $listener['course'][0]['hours']) }}</p>
-                        <p style="text-align: center; font-size: 16px;">Стоимость обучения — {{ number_format($listener['course'][0]['course_price'], 2, ',' ,' ') }} {{ Lang::choice('рубль|рубля|рублей', $listener['course'][0]['course_price']) }}</p>
+                        <p style="text-align: center; font-size: 16px;">Стоимость обучения – {{ number_format($listener['course'][0]['course_price'], 2, ',' ,' ') }} {{ Lang::choice('рубль|рубля|рублей', $listener['course'][0]['course_price']) }}</p>
                     @endif
                     </td>
                 </tr>
@@ -76,8 +76,8 @@
                     <td style="border-width: 1px;border-color: #000;border-style: solid; padding: 5px;">
                         <p style="text-align: center; font-size: 16px;">{{ $course['code'] }}</p>
                         <p style="text-align: center; font-size: 16px;">{{ $course['title'] }}</p>
-                        <p style="text-align: center; font-size: 16px;">Срок освоения ДПП – {{ $course['hours'] }} {{ Lang::choice('час|часа|часов', $course['hours']) }}</p>
-                        <p style="text-align: center; font-size: 16px;">Стоимость обучения — {{ number_format($course['course_price'], 2, ',' ,' ') }} {{ Lang::choice('рубль|рубля|рублей', $course['course_price']) }}</p>
+                        <p style="text-align: center; font-size: 16px;">Срок освоения ДПП – {{ $course['hours'] [0]['hours'] }} {{ Lang::choice('час|часа|часов', $course['hours']) }}</p>
+                        <p style="text-align: center; font-size: 16px;">Стоимость обучения – {{ number_format($course['course_price'], 2, ',' ,' ') }} {{ Lang::choice('рубль|рубля|рублей', $course['course_price']) }}</p>
                     </td>
                 </tr>
                 <?php $ObchiyObemDPP += (int)$course['hours']; ?>
